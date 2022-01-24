@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="67.656" height="52.519" viewBox="0 0 67.656 52.519">
+  <g id="Group_19" data-name="Group 19" transform="translate(-198.844 -1887.481)">
+    <g id="Group_16" data-name="Group 16" transform="translate(-129 70)">
+      <rect id="Rectangle_32" data-name="Rectangle 32" width="34" height="33" rx="7" transform="translate(331.5 1821)" fill="#b8c0f0"/>
+      <g id="Group_14" data-name="Group 14">
+        <rect id="Rectangle_33" data-name="Rectangle 33" width="23" height="4" rx="2" transform="translate(336.5 1831)" fill="#9193c1"/>
+        <rect id="Rectangle_34" data-name="Rectangle 34" width="23" height="4" rx="2" transform="translate(336.5 1840)" fill="#9193c1"/>
+      </g>
+      <g id="Group_15" data-name="Group 15" transform="translate(2185 1490) rotate(90)">
+        <rect id="Rectangle_33-2" data-name="Rectangle 33" width="23" height="4" rx="2" transform="translate(336 1831)" fill="#9193c1"/>
+        <rect id="Rectangle_34-2" data-name="Rectangle 34" width="23" height="4" rx="2" transform="translate(336 1840)" fill="#9193c1"/>
+      </g>
+    </g>
+    <g id="Group_17" data-name="Group 17" transform="translate(-99 86)">
+      <rect id="Rectangle_32-2" data-name="Rectangle 32" width="34" height="33" rx="7" transform="translate(331.5 1821)" fill="#b8c0f0"/>
+      <g id="Group_14-2" data-name="Group 14">
+        <rect id="Rectangle_33-3" data-name="Rectangle 33" width="23" height="4" rx="2" transform="translate(336.5 1831)" fill="#9193c1"/>
+        <rect id="Rectangle_34-3" data-name="Rectangle 34" width="23" height="4" rx="2" transform="translate(336.5 1840)" fill="#9193c1"/>
+      </g>
+      <g id="Group_15-2" data-name="Group 15" transform="translate(2185 1490) rotate(90)">
+        <rect id="Rectangle_33-4" data-name="Rectangle 33" width="23" height="4" rx="2" transform="translate(336 1831)" fill="#9193c1"/>
+        <rect id="Rectangle_34-4" data-name="Rectangle 34" width="23" height="4" rx="2" transform="translate(336 1840)" fill="#9193c1"/>
+      </g>
+    </g>
+    <path id="Path_17" data-name="Path 17" d="M225,1521.5s-.605-19.773,1-22,27-2,27-2" transform="translate(-25 391)" fill="none" stroke="#000" stroke-width="2"/>
+    <path id="Path_18" data-name="Path 18" d="M225,1521.5s-.605-19.773,1-22,27-2,27-2" transform="translate(4 406)" fill="none" stroke="#000" stroke-width="2"/>
+    <path id="Path_19" data-name="Path 19" d="M224.774,1510.361s-.224-10.875.777-12.051,16.777-.742,16.777-.742" transform="translate(488.678 3434.357) rotate(180)" fill="none" stroke="#000" stroke-width="2"/>
+    <circle id="Ellipse_6" data-name="Ellipse 6" cx="2" cy="2" r="2" transform="translate(237.5 1911)" fill="#fff"/>
+    <circle id="Ellipse_7" data-name="Ellipse 7" cx="2" cy="2" r="2" transform="translate(207.5 1895)" fill="#fff"/>
+  </g>
+</svg>
