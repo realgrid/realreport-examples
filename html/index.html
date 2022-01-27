@@ -6,22 +6,30 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title data-react-helmet="true">Real Report | Demo</title>
     <link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.ico">
-    <link rel="stylesheet" href="/css/prism.css">
-    <link rel="stylesheet" href="/css/styles.css">
+
+    <link href='js/realreport/realreport.css' rel='stylesheet' />
+    <link href='js/highchart/highcharts.css' rel='stylesheet' />
+    <link href="css/prism.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="js/highchart/highcharts.js" type="text/javascript" ></script>
+    <script src="js/highchart/highcharts-more.js" type="text/javascript" ></script>
+    <script src="js/pdfkit.js" type="text/javascript" ></script>
+    <script src='js/realreport/realreport.js' type="text/javascript"></script>
+    <script src="js/prism.js" type="text/javascript"></script>
+    <script src="js/theme.js" type="text/javascript"></script>
+    <script src="js/app.js" type="text/javascript"></script>
 </head>
 
 <body>
-    <div><a href="#" class="skipToContent_1oUP">Skip to main content</a></div>
+    <div><a href="#" class="skip-to-content">Skip to main content</a></div>
     <div id="webroot">
         <!-- <nav class="navbar navbar--fixed-top navbar-sidebar--show"> -->
             <nav class="navbar navbar--fixed-top">
             <div class="navbar__inner">
                 <div class="navbar__items">
-                    <button aria-label="Navigation bar toggle" class="navbar__toggle clean-btn" type="button"
-                        tabindex="0">
+                    <button aria-label="Navigation bar toggle" class="navbar__toggle clean-btn" type="button" tabindex="0">
                         <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"
-                                d="M4 7h22M4 15h22M4 23h22"></path>
+                            <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path>
                         </svg>
                     </button>
                     <a class="navbar__brand" href="https://real-report.com">
@@ -130,11 +138,6 @@
         </nav>
         <div class="main-wrapper docs-wrapper docs-doc-page">
             <div class="docPage_31aa">
-                <button class="clean-btn backToTopButton_35hR" type="button">
-                    <svg viewBox="0 0 24 24" width="28">
-                        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" fill="currentColor"></path>
-                    </svg>
-                </button>
                 <aside class="sidebar-container">
                     <div class="sidebar">
                         <nav class="menu thin-scrollbar menu menu-with-announcement-bar">
@@ -143,10 +146,10 @@
                                     <span class="menu-head menu-link-sublist">데모 리포트</span>
                                     <ul class="menu-list menu-list-block">
                                         <li class="menu-list-item">
-                                            <a class="menu-link menu-link-active" tabindex="0" href="">마스터/디테일 양식</a>
+                                            <a class="menu-link menu-link-active" tabindex="0">마스터/디테일 양식</a>
                                         </li>
                                         <li class="menu-list-item">
-                                            <a class="menu-link" tabindex="0" href="">급여명세서 양식</a>
+                                            <a class="menu-link" tabindex="0" href="javascript:previewReport(500);">급여명세서 양식</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -162,17 +165,22 @@
                                     <div class="tabs-container">
                                         <ul role="tablist" aria-orientation="horizontal" class="tabs">
                                             <li role="tab" tabindex="0" aria-selected="true"
-                                                class="tabs__item tabItem_Ocg6 tabs__item--active">Data View</li>
+                                                class="tabs-item tabItem_Ocg6 tabs-item--active">Preview</li>
                                             <li role="tab" tabindex="-1" aria-selected="false"
-                                                class="tabs__item tabItem_Ocg6">Report</li>
+                                                class="tabs-item tabItem_Ocg6">Report</li>
                                             <li role="tab" tabindex="-1" aria-selected="false"
-                                                class="tabs__item tabItem_Ocg6">Preview</li>
+                                                class="tabs-item tabItem_Ocg6">Data</li>
                                         </ul>
-                                        <div class="margin-vert--md">
+                                        <!-- <div class="margin-vert--md">
                                             <div role="tabpanel">
                                                 <div class="codeBlockContainer_RIuc language-bash theme-code-block">
                                                     <pre tabindex="0" class="prism-code language-css thin-scrollbar"><code>p { color: red }</code></pre>
                                                 </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="reportmain">
+                                            <div class="report-container container-fluid overflow-scroll">
+                                                <div id="realreport"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -191,10 +199,6 @@
             </div>
         </footer>
     </div>
-    <script src="/js/prism.js"></script>
-    <script src="/js/261.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/theme.js"></script>
 </body>
 
 
