@@ -1,2 +1,9 @@
 # etc
 .DS_Store
+
+# 작업중 제거
+java-spring
+vue-nuxt
+vue-cli
+react-jsx
+php

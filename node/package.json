@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "realreport": "^1.0.3"
+    "realreport": "^1.1.1"
   }
 }

@@ -1,8 +1,7 @@
 /// <reference types="node" />
 /** 
-* RealReport v1.0.7
-* commit --
-HEAD
+* RealReport v1.1.1
+* commit e547363
 
 * Copyright (C) 2013-2022 WooriTech Inc.
 	https://real-report.com
@@ -2305,6 +2304,7 @@ declare abstract class DataBand extends ReportGroupItem {
     static readonly PROP_DATA_BAND_END_ROW_COUNT = "endRowCount";
     static readonly PROP_DATA_BAND_MAX_END_ROW_COUNT = "maxEndRowCount";
     static readonly PROP_DATA_BAND_END_ROW_MESSAGE = "endRowMessage";
+    static readonly PROP_DATA_BAND_ALWAYS_HEADER = "alwaysHeader";
     static readonly PROPINFOS: IPropInfo[];
     private _sectionCount;
     private _sectionLayout;
@@ -2321,6 +2321,7 @@ declare abstract class DataBand extends ReportGroupItem {
     private _repeatMastreRow;
     private _repeatDetailHeader;
     private _repeatDetailFooter;
+    private _alwaysHeader;
     private _detail;
     private _master;
     private _keyFlds;
@@ -2466,6 +2467,11 @@ declare abstract class DataBand extends ReportGroupItem {
      */
     get repeatDetailFooter(): boolean;
     set repeatDetailFooter(value: boolean);
+    /**
+     * true면 데이터행 없이 footer만 표시되는 경우에도 header를 표시한다.
+     */
+    get alwaysHeader(): boolean;
+    set alwaysHeader(value: boolean);
     /**
      * summary runtime
      */
