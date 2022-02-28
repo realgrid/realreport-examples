@@ -1040,49 +1040,6 @@ declare class LayerElement extends VisualElement {
     protected _doDraw(element: HTMLElement): void;
 }
 
-interface IPropertySource {
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    getSubStyleProps(prop: string): IPropInfo[];
-    isDominantProp(prop: IPropInfo): boolean;
-    getPlaceHolder(prop: IPropInfo): string;
-    getPropDomain(prop: IPropInfo): any[];
-    getProperty(prop: string): any;
-    setProperty(prop: string, value: any): void;
-    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getStyleProperty(prop: string): any;
-    setStyleProperty(prop: string, value: any): void;
-    setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getSubStyleProperty(prop: string, style: string): any;
-    setSubStyleProperty(prop: string, style: string, value: any): void;
-    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
-    isReadOnlyProperty(prop: IPropInfo): boolean;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    isCollectionProp(): boolean;
-    getPropertySources(): IPropertySource[];
-    getCollectionLabel(): string;
-}
-interface IPropInfo {
-    name: string;
-    category: string;
-    type: any;
-    typeProps?: any;
-    parent?: string;
-    indented?: boolean;
-    visible?: (source: IPropertySource) => boolean;
-    multiple: boolean;
-    default: any;
-    readonly?: boolean;
-    domain?: any[] | any;
-    label?: string;
-    tag?: string;
-    params?: any;
-    signature?: string;
-    validate?: (source: IPropertySource, inputValue: any) => void;
-    description?: string;
-}
-
 /**
  */
 declare class PageItemContainer extends BoundedContainer {
@@ -1104,10 +1061,12 @@ declare enum BoxItemsAlign {
 declare abstract class BoxContainer extends ReportGroupItem {
     static readonly PROP_ITEMS_ALIGN = "itemsAlign";
     static readonly PROP_ITEM_GAP = "itemGap";
+    static readonly PROP_OVERFLOW = "overflow";
     static readonly PROPINFOS: IPropInfo[];
     static readonly STYLE_PROPS: string[];
     private _itemsAlign;
     private _itemGap;
+    private _overflow;
     private _itemGapDim;
     constructor(name: string);
     /**
@@ -1118,6 +1077,12 @@ declare abstract class BoxContainer extends ReportGroupItem {
      */
     get itemGap(): string | number;
     set itemGap(value: string | number);
+    /**
+     * true로 설정되면 자식이 넘칠 수 있다.
+     * 특히, table을 자식으로 갖는 경우 true로 설정해야 우측 끝이 표시되는 경우가 있을 수 있다.
+     */
+    get overflow(): boolean;
+    set overflow(value: boolean);
     getItemGap(domain: number): number;
     /**
      * @internal
@@ -1622,7 +1587,7 @@ interface IBandData extends IReportData {
     equalRows(row1: number, row2: number, fields?: string[]): boolean;
     groupBy(fields: string[], rowCount: number): (number | IBandRowGroup | IBandRowGroupFooter)[];
 }
-declare abstract class BandData extends ReportData {
+declare abstract class BandData extends ReportData$1 {
     protected _fields: IBandDataField[];
     protected _fieldMap: any;
     protected _calcFieldRuntime: FieldValueRuntime;
@@ -1862,6 +1827,7 @@ declare class TableCell extends ReportItemCollectionItem {
     /** styleCallback */
     get styleCallback(): TableCellStyleCallback;
     set styleCallback(value: TableCellStyleCallback);
+    /** onGetStyles */
     get onGetStyles(): string;
     set onGetStyles(value: string);
     adoptDragSource(source: any): IDropResult;
@@ -1987,6 +1953,7 @@ declare class TableCellCollection extends ReportItemCollection<TableCell> {
     get level(): number;
     get marqueeParent(): ReportItem;
     isAncestor(group: ReportGroupItem): boolean;
+    protected _createCell(row: number, col: number): TableCell;
 }
 declare type TableBounds = {
     r1: number;
@@ -2032,6 +1999,7 @@ declare abstract class TableBase extends CellContainer {
     private _spanDirty;
     private _itemDirty;
     constructor(name: string);
+    protected _createCells(): TableCellCollection;
     getSubStyleProps(prop: string): IPropInfo[];
     protected _getSubStyle(prop: string, style: string): any;
     protected _setSubStyle(prop: string, style: string, value: any): void;
@@ -2478,7 +2446,7 @@ declare abstract class DataBand extends ReportGroupItem {
     get summaryRuntime(): DataBandSummaryRuntime;
     prepareIndices(ctx: PrintContext): void;
     protected abstract _doPrepareIndices(ctx: PrintContext): void;
-    getColPoints(w: number): number[];
+    getColPoints(w: number, x?: number): number[];
     getColWidth(w: number): number;
     getValues(ctx: PrintContext, row: number, fields: string[]): any[];
     protected _selectRow(data: IBandData, row: number, idx: number): boolean;
@@ -2560,7 +2528,6 @@ declare class TableBandColumnCollection extends TableColumnCollectionBase<TableB
 }
 /**
  * TableBand의 셀 모델.
- * data field 하나의 값을 표시한다.
  * span할 수 있다.
  * 자식 하나만 가질 수 있다.
  */
@@ -2642,10 +2609,12 @@ declare class TableBandDataRow extends TableBandSection {
     get blankItems(): ReportItem[];
     canBlank(item: ReportItem, row: number): boolean;
     getMergedColumns(): number[];
+    getMergedCells(): TableCell[];
     get outlineLabel(): string;
     get pathLabel(): string;
     get dataDominant(): boolean;
     get isDataRowContainer(): boolean;
+    protected _createCells(): TableCellCollection;
     protected _getChildPropInfos(item: ReportItem): IPropInfo[];
     protected _doLoadChild(child: ReportItem, src: any): void;
     protected _doPreparePrint(ctx: PrintContext): void;
@@ -4088,6 +4057,7 @@ declare abstract class ReportItem extends ReportPageItem {
     static readonly PROP_RIGHT = "right";
     static readonly PROP_TOP = "top";
     static readonly PROP_BOTTOM = "bottom";
+    static readonly PROP_DESIGN_BORDER = "designBorder";
     static readonly PROP_ON_GET_VALUE = "onGetValue";
     static readonly PROP_STYLES = "styles";
     static readonly PROP_ON_GET_STYLES = "onGetStyles";
@@ -4123,6 +4093,7 @@ declare abstract class ReportItem extends ReportPageItem {
     private _onGetStyles;
     private _pageBreak;
     private _designOrder;
+    private _designBorder;
     private _parent;
     private _index;
     private _childPropInfos;
@@ -4286,6 +4257,8 @@ declare abstract class ReportItem extends ReportPageItem {
      */
     get designOrder(): number;
     set designOrder(value: number);
+    get designBorder(): boolean;
+    set designBorder(value: boolean);
     get isRelativeHeight(): boolean;
     /**
      * ColumnBoxContainer|BoundedContainer
@@ -4677,6 +4650,7 @@ declare abstract class CellGroup extends ReportGroupItem {
      * item
      */
     get item(): ReportItem;
+    get isEmpty(): boolean;
     get isChildPropContainer(): boolean;
     set childPropInfos(value: IPropInfo[]);
     get printable(): boolean;
@@ -4705,15 +4679,67 @@ declare enum BandSectionLayout {
     DOWN_ACROSS = "downAcross"
 }
 
+interface IPropertySource {
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    isDominantProp(prop: IPropInfo): boolean;
+    getPlaceHolder(prop: IPropInfo): string;
+    getPropDomain(prop: IPropInfo): any[];
+    getProperty(prop: string): any;
+    setProperty(prop: string, value: any): void;
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getStyleProperty(prop: string): any;
+    setStyleProperty(prop: string, value: any): void;
+    setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getSubStyleProperty(prop: string, style: string): any;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    isReadOnlyProperty(prop: IPropInfo): boolean;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    isCollectionProp(): boolean;
+    getPropertySources(): IPropertySource[];
+    getCollectionLabel(): string;
+}
+interface IPropInfo {
+    name: string;
+    category: string;
+    type: any;
+    typeProps?: any;
+    parent?: string;
+    indented?: boolean;
+    visible?: (source: IPropertySource) => boolean;
+    multiple: boolean;
+    default: any;
+    readonly?: boolean;
+    domain?: any[] | any;
+    label?: string;
+    tag?: string;
+    params?: any;
+    signature?: string;
+    validate?: (source: IPropertySource, inputValue: any) => void;
+    description?: string;
+}
+
 /**
  * 자식 item들을 순서대로 쌓아가며 배치한다.
  * 위치 설정이 안된 item은 중앙에 정렬 시킨다.
  */
 declare class StackContainer extends BoundedContainer {
+    static readonly PROP_OVERFLOW = "overflow";
+    static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     static readonly ITEM_TYPE = "Stack Container";
     static readonly STYLE_PROPS: string[];
+    private _overflow;
     constructor(name: string);
+    /**
+     * true로 설정되면 자식이 넘칠 수 있다.
+     * 특히, table을 자식으로 갖는 경우 true로 설정해야 우측 끝이 표시되는 경우가 있을 수 있다.
+     */
+    get overflow(): boolean;
+    set overflow(value: boolean);
     get outlineLabel(): string;
     getSaveType(): string;
     protected _datable(): boolean;
@@ -4825,8 +4851,8 @@ declare abstract class BoundedContainerElement<T extends BoundedContainer> exten
 /** @internal */
 declare abstract class StackContainerElement<T extends StackContainer> extends BoundedContainerElement<T> {
     constructor(doc: Document, model: T, name?: string);
-    protected _doDispose(): void;
     get debugLabel(): string;
+    protected _doSetStyles(model: ReportItem, dom: HTMLElement): void;
     protected _getPrev(item: ReportItemView): ReportItemView;
     protected _getNext(item: ReportItemView): ReportItemView;
     getUpper(item: ReportItemView): ReportItemView;
@@ -4891,6 +4917,7 @@ declare abstract class BoxContainerElement<T extends BoxContainer> extends Repor
     get debugLabel(): string;
     protected _needDesignBox(): boolean;
     protected _initDom(doc: Document, dom: HTMLElement): void;
+    protected _doSetStyles(model: ReportItem, dom: HTMLElement): void;
     protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size;
     protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size): void;
 }
@@ -5247,7 +5274,7 @@ interface IReportDataProvider {
     dataNameChanged?(data: IReportData, oldName: string): void;
     fieldNameChanged?(data: IReportData, newName: string, oldName: string): void;
 }
-declare abstract class ReportData extends Base {
+declare abstract class ReportData$1 extends Base {
     private _name;
     private _dp;
     constructor(name: string, dp: IReportDataProvider);
@@ -5262,7 +5289,7 @@ declare abstract class ReportData extends Base {
 /**
  * 단순형 값이나, json 객체를 값으로 지정한다.
  */
-declare class SimpleData extends ReportData implements IReportData {
+declare class SimpleData extends ReportData$1 implements IReportData {
     private _isObj;
     private _values;
     constructor(name: string, values: any);
@@ -5277,6 +5304,10 @@ declare class SimpleData extends ReportData implements IReportData {
     getSaveValues(): any;
 }
 
+interface IPrintReport {
+    report: Report;
+    data: IReportDataProvider;
+}
 /**
  */
 declare class PrintContainer extends VisualContainer {
@@ -5309,9 +5340,9 @@ declare class PrintContainer extends VisualContainer {
     get zoom(): number;
     set zoom(value: number);
     get pages(): PrintPage[];
-    print(report: Report | Report[], data: IReportDataProvider, preview: boolean, id?: string): void;
+    print(report: Report | (Report | IPrintReport)[], data: IReportDataProvider, preview: boolean, id?: string): void;
     printSingle(report: Report, data: IReportDataProvider, preview: boolean, id?: string): void;
-    printAll(reports: Report[], data: IReportDataProvider, preview: boolean, id?: string): void;
+    printAll(reports: (Report | IPrintReport)[], data: IReportDataProvider, preview: boolean, id?: string): void;
     isAllRendered(): boolean;
     getPrintHtml(): string;
     setStyles(styles: any): void;
@@ -5369,25 +5400,22 @@ interface DocExportOptions {
 /**
  * ReportViewer base class
  */
-declare class ReportViewBase {
-    protected cm: boolean;
+declare abstract class ReportViewBase {
+    protected _options: ReportOptions;
+    protected _cm: boolean;
     protected _container: PrintContainer | undefined;
-    /** ---------------------------------------------------------------------------------------- */
-    /** CONSTRUCTOR
-    /** ---------------------------------------------------------------------------------------- */
-    constructor(container: string | HTMLDivElement);
-    /** ---------------------------------------------------------------------------------------- */
-    /** PROPERTIES
-    /** ---------------------------------------------------------------------------------------- */
+    constructor(container: string | HTMLDivElement, options?: ReportOptions);
+    abstract preview(): void;
+    abstract exportPdf(fonts: PdfFont[]): void;
+    abstract exportImage(imageOptions: ImageExportOptions): void;
+    abstract exportDocument(documentOptions: DocExportOptions): void;
+    protected _checkPrintContainer(): void;
     get zoom(): number;
     set zoom(v: number);
     get pageCount(): number;
     get page(): number;
     set page(v: number);
     get reportHtml(): string;
-    /** ---------------------------------------------------------------------------------------- */
-    /** PUBLIC METHODS
-    /** ---------------------------------------------------------------------------------------- */
     getHtml(): string;
     first(): void;
     prev(): void;
@@ -5398,14 +5426,7 @@ declare class ReportViewBase {
     fitToHeight(): void;
     fitToPage(): void;
     fitToWidth(): void;
-    /** ---------------------------------------------------------------------------------------- */
-    /** PRIVATE METHODS
-    /** ---------------------------------------------------------------------------------------- */
     private $_checkL;
-    /** ---------------------------------------------------------------------------------------- */
-    /** PROTECTED METHODS
-    /** ---------------------------------------------------------------------------------------- */
-    protected _checkPrintContainer(): void;
 }
 
 /**
@@ -5416,20 +5437,11 @@ declare class ReportViewer extends ReportViewBase {
     private _dataSet?;
     private _report;
     private _reportDataProvider;
-    /** ---------------------------------------------------------------------------------------- */
-    /** CONSTRUCTOR
-    /** ---------------------------------------------------------------------------------------- */
-    constructor(container: string | HTMLDivElement, formSet?: ReportForm, dataSet?: ReportDataSet, options?: ReportOptions);
-    /** ---------------------------------------------------------------------------------------- */
-    /** PROPERTIES
-    /** ---------------------------------------------------------------------------------------- */
+    constructor(container: string | HTMLDivElement, reportForm?: ReportForm, dataSet?: ReportDataSet, options?: ReportOptions);
     get reportForm(): ReportForm;
     set reportForm(v: ReportForm);
     get dataSet(): ReportDataSet;
     set dataSet(v: any);
-    /** ---------------------------------------------------------------------------------------- */
-    /** PUBLIC METHODS
-    /** ---------------------------------------------------------------------------------------- */
     /**
      * container에 리포트를 preview로 렌더링 합니다.
      */
@@ -5449,16 +5461,37 @@ declare class ReportViewer extends ReportViewBase {
      * @param documentOptions
      */
     exportDocument(documentOptions?: DocExportOptions): void;
-    /** ---------------------------------------------------------------------------------------- */
-    /** PRIVATE METHODS
-    /** ---------------------------------------------------------------------------------------- */
     private _checkReport;
+}
+
+/**
+ * RealReport Composite Viewer
+ */
+declare class ReportCompositeViewer extends ReportViewBase {
+    private _reportFormSets?;
+    private _reports;
+    constructor(container: string | HTMLDivElement, formSets: ReportFormSet[], options?: ReportOptions);
+    /**
+     * container에 formsset을 preview로 렌더링 합니다.
+     * 매핑 정보
+     *   - form -> report
+     */
+    preview(): void;
+    exportPdf(fonts: PdfFont[]): void;
+    exportImage(imageOptions: ImageExportOptions): void;
+    exportDocument(documentOptions: DocExportOptions): void;
+    private _checkReportFormSet;
 }
 
 interface ReportOptions {
     zoom: number;
 }
 declare type ReportForm = Record<string, any>;
-declare type ReportDataSet = Record<string, any>;
+declare type ReportData = Record<string, any>;
+declare type ReportDataSet = Record<string, ReportData>;
+declare type ReportFormSet = {
+    form: ReportForm;
+    dataSet?: ReportDataSet;
+};
 
-export { ReportDataSet, ReportForm, ReportOptions, ReportViewer };
+export { ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportOptions, ReportViewer };

@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <link rel="shortcut icon" href="#">
+        <link href='/js/highcharts/highcharts.css' rel='stylesheet' />
+        <script src="/js/highcharts/highcharts.js"></script>
+        <script src="/js/highcharts/highcharts-more.js"></script>
+        
+        <script src="/js/pdffonts/malgun.js"></script>
+        <script src="/js/pdffonts/malgun-bold.js"></script>
+
+        <script src="/js/pdfkit.js"></script>
+
+        <link href='/js/realreport/realreport.css' rel='stylesheet' />
+        <script src='/js/realreport/realreport-lic.js'></script>
+        <script src='/js/realreport/realreport.js'></script>
+        <style>
+            #reportContainer {
+                position: relative;
+                overflow: auto;
+                height: 90vh;
+            }
+            .toolbar-container {
+                background-color: white;
+                position: sticky;
+                top: 0;
+                height: 24px;
+                width: 100%;
+                margin-bottom: 40px;
+                padding: 5px 0;
+                z-index: 2;
+            }
+            .toolbar {
+                background-color: silver;
+                border-radius: 5px;
+                padding: 10px;
+            }
+            .toolbar a {
+                margin: 0 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="toolbar-container">
+            <div class="toolbar">
+                <a href="javascript:viewer.zoomIn();">zoomIn</a>
+                <a href="javascript:viewer.zoomOut();">zoomOut</a>
+                <a href="javascript:viewer.fitToHeight();">fitToHeight</a>
+                <a href="javascript:viewer.fitToPage();">fitToPage</a>
+                <a href="javascript:viewer.fitToWidth();">fitToWidth</a>
+                <a href="javascript:viewer.exportPdf(pdfFonts)">exportPDF</a>
+                <a href="javascript:viewer.exportImage({ type: 'png' })">exportImage</a>
+                <a href="javascript:viewer.exportDocument({ type: 'docx' })">exportDocument</a>
+                <a href="javascript:print();">print</a>
+            </div>
+        </div>
+        <div id="reportContainer"></div>
+
+        <script>
+            var viewer;
+            var pdfFonts =[{
+                name: 'regular',
+                content: malgun,
+                style: 'normal',
+                weight: 'normal',
+            },
+            {
+                name: 'bold',
+                content: malgunBold,
+                style: 'normal',
+                weight: 'bold',
+            }];
+            document.addEventListener('DOMContentLoaded', function () {
+                viewer = new RealReport.ReportViewer('reportContainer', {
+                    name: 'Sample Report',
+                    page: {
+                        pageHeader: {
+                            items: [{
+                                type: 'text',
+                                text: '리포트 제목',
+                                height: '100px',
+                                width: '100%',
+                                styles: {
+                                    fontSize: '25px',
+                                    fontWeight: 'bold',
+                                    backgroundColor: '#ccc'
+                                }
+                            }],
+                        },
+                        body: {
+                            items: [{
+                                type: 'text',
+                                text: 'RealReport는 Javascript를 이용해 간단하게 리포트를 출력 할 수 있습니다.',
+                                height: '100px',
+                                styles: {
+                                    fontSize: '13px',
+                                }
+                            }, {
+                                type: 'text',
+                                data: 'myData',
+                                value: 'company',
+                                styles: {
+                                    color: 'blue'
+                                }
+                            }, {
+                                type: 'text',
+                                data: 'myData',
+                                value: 'age',
+                                styles: {
+                                    fontWeight: 'bold'
+                                }
+                            }],
+                        },
+                    },
+                });
+                
+                viewer.dataSet = {
+                    myData: {
+                        values: {
+                            company: '우리테크',
+                            age: 10,
+                        }
+                    }
+                };
+                
+                viewer.zoom = 0.5;
+                viewer.preview();
+            });
+
+            function print() {
+                var printWindow = window.open('./popup.html', 'printWindow', 'width=800px,height=1024px');
+                if (printWindow) {
+                    printWindow.addEventListener('DOMContentLoaded', function () {
+                        var container = printWindow.document.getElementById('realreport');
+                        container.innerHTML = viewer.getHtml();
+                        printWindow.print();
+                    });
+                    printWindow.document.body.addEventListener('onafterprint', function () {
+                        printWindow.close();
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>

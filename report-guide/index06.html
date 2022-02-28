@@ -2,19 +2,15 @@
     <head>
         <meta charset='utf-8' />
         <link rel="shortcut icon" href="#">
-        <link href='js/highchart/highcharts.css' rel='stylesheet' />
-        <script src="js/highchart/highcharts.js"></script>
-        <script src="js/highchart/highcharts-more.js"></script>
+        <link href='/js/highcharts/highcharts.css' rel='stylesheet' />
+        <script src="/js/highcharts/highcharts.js"></script>
+        <script src="/js/highcharts/highcharts-more.js"></script>
+        
+        <script src="/js/pdfkit.js"></script>
 
-        <script src="js/realreport/fonts/malgun.js"></script>
-        <script src="js/realreport/fonts/malgun-bold.js"></script>
-    
-        <script src="js/pdfkit.js"></script>
-
-        <link href='js/realreport/realreport.css' rel='stylesheet' />
-        <script src='js/realreport/realreport-lic.js'></script>
-        <script src='js/realreport/realreport.js'></script>
-        <script src='js/r2printer.js'></script>
+        <link href='/js/realreport/realreport.css' rel='stylesheet' />
+        <script src='/js/realreport/realreport-lic.js'></script>
+        <script src='/js/realreport/realreport.js'></script>
         <style>
             #reportContainer {
                 height: 90vh;
@@ -47,90 +43,117 @@
                 <a href="javascript:viewer.fitToHeight();">fitToHeight</a>
                 <a href="javascript:viewer.fitToPage();">fitToPage</a>
                 <a href="javascript:viewer.fitToWidth();">fitToWidth</a>
-                <a href="javascript:r2printer.popup(viewer.reportHtml, ['js/realreport/realreport.css'], true, true);">Print(popup)</a>
-                <a href="javascript:r2printer.popupTemplate('./popup.html', viewer.reportHtml, true, true);">Print(template)</a>
-                <a href="javascript:r2printer.hiddenFrame(viewer.reportHtml, ['js/realreport/realreport.css']);">Print(iframe)</a>
-                <a href="javascript:viewer.exportImage({ type: 'png' });">png</a>
-                <a href="javascript:viewer.exportImage({ type: 'jpeg' });">jpeg</a>
-                <a href="javascript:viewer.exportImage({ type: 'gif' });">gif</a>
-                <a href="javascript:viewer.exportImage({ type: 'tif' });">tif</a>
-                <a href="javascript:viewer.exportImage({ type: 'tiff' });">tiff</a>
-                <a href="javascript:viewer.exportPdf(pdfFonts);">pdf</a>
-                <a href="javascript:viewer.exportDocument({ type: 'hwp' });">hwp</a>
-                <a href="javascript:viewer.exportDocument({ type: 'docx' });">docx</a>
+                <a href="javascript:print();">print</a>
             </div>
         </div>
         <div id="reportContainer"></div>
 
         <script>
-            var pdfFonts =[{
-                name: 'regular',
-                content: malgun,
-                style: 'normal',
-                weight: 'normal',
-            },
-            {
-                name: 'bold',
-                content: malgunBold,
-                style: 'normal',
-                weight: 'bold',
-            }];
             var viewer;
             document.addEventListener('DOMContentLoaded', function () {
-                viewer = new RealReport.ReportViewer('reportContainer', {
-                    page: {
-                        pageHeader: {
-                            items: [{
-                                type: 'text',
-                                text: '리포트 제목',
-                                height: '100px',
-                                width: '100%',
-                                styles: {
-                                    fontSize: '25px',
-                                    fontWeight: 'bold',
-                                    backgroundColor: '#ccc'
-                                }
-                            }],
-                        },
-                        body: {
-                            items: [{
-                                type: 'text',
-                                text: 'RealReport는 Javascript를 이용해 간단하게 리포트를 출력 할 수 있습니다.',
-                                height: '100px',
-                                styles: {
-                                    fontSize: '13px',
-                                }
-                            }, {
-                                type: 'text',
-                                data: 'myData',
-                                value: 'company',
-                                styles: {
-                                    color: 'blue'
-                                }
-                            }, {
-                                type: 'text',
-                                data: 'myData',
-                                value: 'age',
-                                styles: {
-                                    fontWeight: 'bold'
-                                }
-                            }],
+                var formSets = [{
+                    form: {
+                        page: {
+                            pageHeader: {
+                                items: [{
+                                    type: 'text',
+                                    text: '리포트 제목',
+                                    height: '100px',
+                                    width: '100%',
+                                    styles: {
+                                        fontSize: '25px',
+                                        fontWeight: 'bold',
+                                        backgroundColor: '#ccc'
+                                    }
+                                }],
+                            },
+                            body: {
+                                items: [{
+                                    type: 'text',
+                                    text: 'RealReport는 Javascript를 이용해 간단하게 리포트를 출력 할 수 있습니다.',
+                                    height: '100px',
+                                    styles: {
+                                        fontSize: '13px',
+                                    }
+                                }, {
+                                    type: 'text',
+                                    data: 'myData',
+                                    value: 'company',
+                                    styles: {
+                                        color: 'blue'
+                                    }
+                                }, {
+                                    type: 'text',
+                                    data: 'myData',
+                                    value: 'age',
+                                    styles: {
+                                        fontWeight: 'bold'
+                                    }
+                                }],
+                            },
                         },
                     },
-                });
-                
-                viewer.dataSet = {
-                    myData: {
-                        values: {
-                            company: '우리테크',
-                            age: 10,
+                    dataSet: {
+                        myData: {
+                            values: {
+                                company: '우리테크',
+                                age: 10,
+                            }
                         }
                     }
-                };
+                },
+                {
+                    form: {
+                        report: {
+                            name: 'reportRoot',
+                            paperOrientation: 'landscape',
+                        },
+                        page: {
+                            name: 'reportPage',
+                            reportHeader: {
+                                name: 'reportHeader',
+                                items: [
+                                    {
+                                        type: 'text',
+                                        text: 'Report Header',
+                                        styles: {
+                                            fontSize: '30px',
+                                            fontWeight: 'bold',
+                                        }
+                                    }
+                                ]
+                            },
+                            body: {
+                                itemGap: 4,
+                                items: [
+                                    {
+                                    type: 'text',
+                                    text: '가로방향 리포트'
+                                    }
+                                ]
+                            }
+                        },
+                    },
+                }]
+                viewer = new RealReport.ReportCompositeViewer('reportContainer', formSets);
                 
                 viewer.zoom = 0.5;
                 viewer.preview();
             });
+
+            function print() {
+                var printWindow = window.open('./popup.html', 'printWindow', 'width=800px,height=1024px');
+                if (printWindow) {
+                    printWindow.addEventListener('DOMContentLoaded', function () {
+                        var container = printWindow.document.getElementById('realreport');
+                        container.innerHTML = viewer.getHtml();
+                        printWindow.print();
+                    });
+                    printWindow.document.body.addEventListener('onafterprint', function () {
+                        printWindow.close();
+                    });
+                }
+            }
         </script>
     </body>
 </html>
