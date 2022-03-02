@@ -3,6 +3,7 @@
     transition: transform 250ms cubic-bezier(.6, 0, 0, 1), visibility 250ms;
     visibility: visible;
     width: var(--viewer-pdf-sidenav-width);
+    border-right: 1px solid var(--border-color);
 }
 
 .sidebar-link,
@@ -18,26 +19,13 @@ a.sidebar-link {
 }
 
 .sidenav {
-    --sidenav-selected-tab-color: rgb(138, 180, 248);
-    background-color: var(--viewer-pdf-toolbar-background-color);
     display: flex;
+    flex-direction: column;
     height: 100%;
-    min-width: var(--viewer-pdf-sidenav-width);
-    overflow: hidden;
-    width: var(--viewer-pdf-sidenav-width);
-}
-
-.report-list {
-    color: white;
-    flex: 1;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-
-.list {
-    box-sizing: border-box;
-    height: 100%;
-    overflow: auto;
-    padding-bottom: 24px;
-    padding-inline-end: var(--viewer-thumbnail-bar-padding-inline-end);
+    max-height: 100vh;
+    padding-top: var(--ifm-navbar-height);
+    position: sticky;
+    top: 0;
+    transition: opacity 50ms;
+    width: var(--sidebar-width);
 }

@@ -3,143 +3,192 @@
 
 <head>
     <meta charset='utf-8' />
-    <link rel="shortcut icon" href="img/icons/favicon.ico">
-    <script src="js/r2printer.js"></script>
-    <script src="js/highchart/highcharts.js"></script>
-    <script src="js/highchart/highcharts-more.js"></script>
-    <script src="js/realreport/fonts/malgun.js"></script>
-    <script src="js/realreport/fonts/malgun-bold.js"></script>
-    <script type="text/javascript" src="js/pdfkit.js"></script>
-    <link href='js/realreport/realreport.css' rel='stylesheet' />
-    <link href='js/highchart/highcharts.css' rel='stylesheet' />
-    <script src='js/realreport/realreport.js'></script>
-    <link href="css/app.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/img/icons/favicon.ico">
 
-    <script src="report-files/report-301.js"></script>
+    <link href='/js/realreport/realreport.css' rel='stylesheet' />
+    <link href='/js/highchart/highcharts.css' rel='stylesheet' />
+    <link
+        data-name="vs/editor/editor.main"
+        rel="stylesheet"
+        href="/js/monaco-editor/min/vs/editor/editor.main.css"
+    />
+     <link href="css/index.css" rel="stylesheet">
+    
+    <script type="text/javascript" src="/js/r2printer.js"></script>
+    <script type="text/javascript" src="/js/highchart/highcharts.js"></script>
+    <script type="text/javascript" src="/js/highchart/highcharts-more.js"></script>
+    <script type="text/javascript" src="/js/realreport/fonts/malgun.js"></script>
+    <script type="text/javascript" src="/js/realreport/fonts/malgun-bold.js"></script>
+    <script type="text/javascript" src="/js/pdfkit.js"></script>
+    <script type="text/javascript" src='/js/realreport/realreport.js'></script>
+    <script type="text/javascript" src="/js/tree.js"></script>
 </head>
 
 <body>
-    <div class="wrapper">
-        <nav id="sidebar" class="sidebar js-sidebar">
-            <div class="sidebar-content js-simplebar" data-simplebar>
-                <a class="sidebar-brand" href="index.html">
-                    <span class="align-middle">Report Viewer for Browser</span>
-                </a>
-
-                <div class="container-fluid overflow-auto w-100 mb-auto">
-                    <div class="sidebar-item p-3 text-light">report samples</div>
-                    <ul class="sidebar-nav" id="sidebarUl">
-                        <!-- 이곳에 사이드바 버튼 생성 : 비워두세요. -->
-                        <li>
-                            <a href="javascript:previewReportFile('301');">ReportFile</a>
-                        </li>
-                        <li>
-                            <a href="#" onclick="previewCompositeReportFile();">Composite</a>
-                        </li>
-                    </ul>
+    <div class="root">
+        <div class="header">
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <h2>RealReport Viewer Test</h2>
                 </div>
-                <div class="sidebar-cta">
-                    <div class="sidebar-cta-content">
-                        <strong class="d-inline-block mb-2">RealReport ®</strong>
-                        <div class="mb-3 text-sm">
-                            서버가 필요없는 리포팅 도구
+                <div class="toolbar-center">
+                    <div class="toolbar-items">
+                        <a class="toolbar-icon-button" onclick="onClickFirstPage();">
+                            <div class="toolbar-icon icon preview-first-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickPrevPage();">
+                            <div class="toolbar-icon icon preview-prev-png"></div>
+                        </a>
+                        <div class="toolbar-item">
+                            <input part="input" type="text" value="1" id="inputPageNumber" aria-label="Page number" >
+                            <span style="margin: 0 4px;">/</span>
+                            <span style="margin: 0 4px;" id="totalpage">1</span>
                         </div>
-                        <div class="d-grid">
-                            <a href="https://real-report.com/licenses" target="_blank" class="btn btn-primary">Download</a>
+                        <a class="toolbar-icon-button" onclick="onClickNextPage();">
+                            <div class="toolbar-icon icon preview-next-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickLastPage();">
+                            <div class="toolbar-icon icon preview-last-png"></div>
+                        </a>
+                    </div>
+                    <span class="vertical-separator"></span>
+                    <div class="toolbar-items">
+                        <a class="toolbar-icon-button" onclick="onClickZoomOut10();">
+                            <div class="toolbar-icon icon preview-zoomout-png"></div>
+                        </a>
+                        <input part="input" type="text" value="100%" id="inputZoomScale" aria-label="Zoom Scale">
+                        <a class="toolbar-icon-button" onclick="onClickZoomIn10();">
+                            <div class="toolbar-icon icon preview-zoomin-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickFitToWidth();">
+                            <div class="toolbar-icon icon preview-fit-to-width-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickFitToHeight();">
+                            <div class="toolbar-icon icon preview-fit-to-height-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickFitToPage();">
+                            <div class="toolbar-icon icon preview-fit-to-page-png"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="toolbar-right">
+                    <div class="toolbar-items">
+                        <a class="toolbar-icon-button" onclick="onClickPrintPopup()">
+                            <div class="toolbar-icon icon preview-print-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickPrintPopupPreview()">
+                            <div class="toolbar-ion icon preview-popup-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickPrintPopupTemplate()">
+                            <div class="toolbar-ion icon preview-popup-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickPrintHiddenFrame()">
+                            <div class="toolbar-icon icon preview-print-png"></div>
+                        </a>
+                    </div>
+                    <span class="vertical-separator"></span>
+                    <div class="toolbar-items">
+                        <a class="toolbar-icon-button" onclick="onClickExportPdf();">
+                            <div class="toolbar-icon icon preview-pdf-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickExportDoc('docx');">
+                            <div class="toolbar-icon icon preview-docx-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickExportDoc('hwp');">
+                            <div class="toolbar-icon icon preview-hwp-png"></div>
+                        </a>
+                    </div>
+                    <span class="vertical-separator"></span>
+                    <div class="toolbar-items">
+                        <a class="toolbar-icon-button" onclick="onClickExportImage('png');">
+                            <div class="toolbar-icon icon preview-png-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickExportImage('jpeg');">
+                            <div class="toolbar-icon icon preview-jpeg-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickExportImage('gif');">
+                            <div class="toolbar-icon icon preview-gif-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickExportImage('tiff', 'g3');">
+                            <div class="toolbar-icon icon preview-tiffg3-png"></div>
+                        </a>
+                        <a class="toolbar-icon-button" onclick="onClickExportImage('tiff', 'g4');">
+                            <div class="toolbar-icon icon preview-tiffg4-png"></div>
+                        </a>
+                    </div>
+                    <span class="vertical-separator"></span>
+                    <div class="toolbar-items">
+                        <a class="toolbar-icon-button" onclick="onClickToggleEditor()">
+                            <div class="toolbar-icon icon toggle-editor-png"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="sidenav-container">
+                <div class="sidenav">
+                    <div class="nav-icons"></div>
+                    <div class="report-list">
+                        <div class="list">
+                            <ul id="tree">
+                                <li><span class="caret">Samles</span>
+                                    <ul class="nested active" id="sidebarUl">
+                                        <!-- 이곳에 사이드바 생성 -->
+                                    </ul>
+                                </li>
                         </div>
                     </div>
                 </div>
             </div>
-        </nav>
-
-        <div class="main">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownZoom" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Zoom
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" onclick="onClickZoom(1.5)">150%</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickZoom(1.2)">120%</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickZoom(1)">100%</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickZoom(0.8)">80%</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickZoom(0.5)">50%</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" onclick="onClickFitToHeight()">Fit to Height</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickFitToWidth()">Fit to Width</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickFitToPage()">Fit to Page</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" onclick="onClickZoomIn10()">Zoom In</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickZoomOut10()">Zoom Out</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Page
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" onclick="onClickFirstPage()">First</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickPrevPage()">Prev</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickNextPage()">Next</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickLastPage()">Last</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPrint" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Print
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" onclick="onClickPrintPopup()">Popup</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickPrintPopupTemplate()">PopupTemplate</a></li>
-                                    <li><a class="dropdown-item" onclick="onClickPrintHiddenFrame()">HiddenFrame</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" onclick="onClickClearContainer()">Clear</a>
-                            </li>
-                        </ul>
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="text" placeholder="Export File Name" aria-label="Search">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownExport" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Export
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" onclick="onClickExportPdf()">PDF</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" onclick="onClickExportDoc('hwp');">HWP</a></li>
-                                        <li><a class="dropdown-item" onclick="onClickExportDoc('docx');">DOCX</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item rrbtn-export-img" data-type="png">PNG</a></li>
-                                        <li><a class="dropdown-item rrbtn-export-img" data-type="jpeg">JPEG</a></li>
-                                        <li><a class="dropdown-item rrbtn-export-img" data-type="jpg">JPG</a></li>
-                                        <li><a class="dropdown-item rrbtn-export-img" data-type="gif">GIF</a></li>
-                                        <li><a class="dropdown-item rrbtn-export-img" data-type="tif">TIF</a></li>
-                                        <li><a class="dropdown-item rrbtn-export-img" data-type="tiff">TIFF</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </form>
+            <div class="main">
+                <div class="main-content">
+                    <div class="main-tabs">
+                        <div>Preview</div>
+                    </div>
+                    <div class="scroller">
+                        <div id="realreport"></div>
                     </div>
                 </div>
-            </nav>
-
-            <div class="report-container container-fluid overflow-scroll">
-                <div id="realreport"></div>
+                <div class="main-editor">
+                    <div class="main-tabs">
+                        <div>Form</div>
+                        <div>DataSet</div>    
+                    </div>
+                    <div id="editor-container"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="js/app.js"></script>
+    <script>
+        var require = { paths: { vs: '/js/monaco-editor/min/vs' } };
+    </script>
+    <script src="/js/monaco-editor/min/vs/loader.js"></script>
+    <script src="/js/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+    <script src="/js/monaco-editor/min/vs/editor/editor.main.js"></script>
+
+    <script src="/js/app.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // var editor = monaco.editor.create(document.getElementById('editor-container'), {
+            //     value: "// First line\nfunction hello() {\n\talert('Hello world!');\n}\n// Last line",
+            //     language: 'javascript',
+
+            //     lineNumbers: 'off',
+            //     roundedSelection: false,
+            //     scrollBeyondLastLine: false,
+            //     readOnly: false,
+            //     theme: 'vs-dark'
+            // });
+            // setTimeout(function () {
+            //     editor.updateOptions({
+            //         lineNumbers: 'on'
+            //     });
+            // }, 2000);
+        });
+    </script>
 </body>
 
 </html>
