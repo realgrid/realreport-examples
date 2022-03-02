@@ -3,5 +3,5 @@
 }
 
 .rr-print-indicator {
-    background-color: #f5f7fb;
+    background-color: var(--report-background-color);
 }
