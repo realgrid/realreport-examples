@@ -12,10 +12,20 @@ RealReport 사용하려면 반드시 제품 [라이선스](https://real-report.c
 
 ```sh title="realreport.latest.zip"  
   highcharts
+  pdffonts
   pdfkit.js
   realreport
-  ⎸⎯ realreport.js
-  ⎸⎯ realreport.css
+    ⎸⎯ check-checked.png
+    ⎸⎯ check-empty.png
+    ⎸⎯ check-unchecked.png
+    ⎸⎯ indicator.gif
+    ⎸⎯ LICENSE.md
+    ⎸⎯ README.md
+    ⎸⎯ realreport.css
+    ⎸⎯ realreport.d.ts
+    ⎸⎯ realreport.es.js
+    ⎸⎯ realreport.ie11.js
+    ⎸⎯ realreport.js
 ```
 
 :::tip

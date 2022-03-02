@@ -1,1 +1,0 @@
-(self.webpackChunkrealreport_www=self.webpackChunkrealreport_www||[]).push([[9700],{947:function(a){"use strict";a.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/hola","name":"hola","count":1,"permalink":"/blog/tags/hola"}')}}]);

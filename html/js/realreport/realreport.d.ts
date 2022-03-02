@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /** 
-* RealReport v1.1.1
-* commit e547363
+* RealReport v1.1.4
+* commit f6b7c10
 
 * Copyright (C) 2013-2022 WooriTech Inc.
 	https://real-report.com
@@ -5410,6 +5410,7 @@ declare abstract class ReportViewBase {
     abstract exportImage(imageOptions: ImageExportOptions): void;
     abstract exportDocument(documentOptions: DocExportOptions): void;
     protected _checkPrintContainer(): void;
+    get version(): string;
     get zoom(): number;
     set zoom(v: number);
     get pageCount(): number;
