@@ -167,11 +167,9 @@ const setupSidebar = function () {
     // sidebar에 item 만들기: onclick 이벤트에서 preview처리
     const sidebarLi = (id, name) => {
         const el = document.createElement('li')
-        el.setAttribute('class', 'sidebar-item');
-        el.innerHTML = '\n<a class="sidebar-link" onclick="javascript:showReport(\''
-            .concat(id, '\')">\n<span class="align-middle" data-reportid="')
-            .concat(id, '">')
-            .concat(name, '</span>\n</a>\n');
+        el.setAttribute('class', 'menu-list-item');
+        el.innerHTML = '\n<a class="menu-link" onclick="javascript:showReport(this, \''
+            .concat(id, '\')">', name, '\n</a>\n');
         return el;
     }
 
@@ -248,6 +246,16 @@ const clearContainer = function () {
     }
 }
 
+const clearActiveMenuLink = function () {
+    const menus = document.getElementById('sidebarUl').getElementsByClassName('menu-link-active');
+    for (i=0; i<menus.length; i++) {
+        const menu = menus[i];
+        if (menu) {
+            menu.setAttribute('class', 'menu-link');
+        }
+    }
+}
+
 //--------------------------------------------------------------------------------------------------
 // public methods
 //--------------------------------------------------------------------------------------------------
@@ -270,7 +278,7 @@ function setCodeEditor () {
  * report id of the RealReport-Service report samples
  * @param {string} id 
  */
-const showReport = (id) => {
+const showReport = (item, id) => {
     const SERVICE_URL = `${SERVICE_HOST}/api/report/${REPORT_CAT}/${id}`;
     fetch(SERVICE_URL, {
         method: 'POST',
@@ -297,6 +305,8 @@ const showReport = (id) => {
                 }, 100);
 
                 setCodeEditor();
+                clearActiveMenuLink();
+                item.setAttribute('class', 'menu-link menu-link-active');
             }
         }
     });
