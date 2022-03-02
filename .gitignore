@@ -1,6 +1,7 @@
 # etc
 .back
 .DS_Store
+.html
 
 # 작업중 제거
 java-spring
