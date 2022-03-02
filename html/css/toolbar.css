@@ -1,5 +1,8 @@
 input {
+    background: rgba(0, 0, 0, 0.5);
     max-height: 20px;
+    filter: var(--toolbar-invert);
+    border: 1px solid;
 }
 
 .header {
@@ -118,6 +121,16 @@ input {
     background: rgba(255, 255, 255, 0.3);
     height: 15px;
     width: 1px;
+    filter: var(--toolbar-invert);
+}
+
+.preview-toolbar {
+    display: flex;
+    height: 38px;
+    padding: 5px;
+    align-items: center;
+    background-color: var(--preview-toolbar-background-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 #inputZoomScale {

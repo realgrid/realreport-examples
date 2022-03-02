@@ -17,7 +17,6 @@ body {
 }
 
 input {
-    background: rgba(0, 0, 0, 0.5);
     border: none;
     color: white;
     font-family: inherit;
