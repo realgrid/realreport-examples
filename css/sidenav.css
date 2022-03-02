@@ -1,0 +1,43 @@
+.sidenav-container {
+    overflow: hidden;
+    transition: transform 250ms cubic-bezier(.6, 0, 0, 1), visibility 250ms;
+    visibility: visible;
+    width: var(--viewer-pdf-sidenav-width);
+}
+
+.sidebar-link,
+a.sidebar-link {
+    cursor: pointer;
+    display: block;
+}
+
+.nav-icons {
+    display: flex;
+    flex-direction: column;
+    min-width: 64px;
+}
+
+.sidenav {
+    --sidenav-selected-tab-color: rgb(138, 180, 248);
+    background-color: var(--viewer-pdf-toolbar-background-color);
+    display: flex;
+    height: 100%;
+    min-width: var(--viewer-pdf-sidenav-width);
+    overflow: hidden;
+    width: var(--viewer-pdf-sidenav-width);
+}
+
+.report-list {
+    color: white;
+    flex: 1;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.list {
+    box-sizing: border-box;
+    height: 100%;
+    overflow: auto;
+    padding-bottom: 24px;
+    padding-inline-end: var(--viewer-thumbnail-bar-padding-inline-end);
+}

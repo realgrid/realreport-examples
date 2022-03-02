@@ -1,0 +1,83 @@
+@import "common.css";
+@import "toolbar.css";
+@import "tree.css";
+@import "sidenav.css";
+@import "report-style.css";
+@import "icons.css";
+
+:root {
+  --viewer-toolbar-background-color: #323639;
+  --viewer-thumbnail-bar-padding-inline-end: 28px;
+
+  --icon-button-fill: rgba(0, 0, 0, 100);
+  --icon-button-size: 28px;
+  --icon-size: 20px;
+  --toolbar-item-min-size: 36px;
+}
+
+.root {
+    --viewer-sidenav-width: 300px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    /* position: relative; */
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+.main-editor {
+    flex:1;
+    display: flex;
+    height: 100%;
+    width: 50%;
+    z-index: 1;
+    flex-direction: column;
+    display: none;
+}
+
+.main-tabs {
+    display: flex;
+    padding: 5px;
+}
+
+.main-content {
+    flex:1;
+    height: 100%;
+    width: 50%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.scroller {
+    flex: 1;
+    direction: ltr;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    position: relative;
+}
+
+#realreport {
+    background-color: rgb(82, 86, 89);
+    width: 100%;
+    height: 100%;
+}
+
+#editor-container {
+    flex:1;
+    position: relative;
+}

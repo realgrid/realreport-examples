@@ -1,0 +1,24 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    font-size: 14px;
+    line-height: 154%;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    background-color: rgb(82, 86, 89);
+    color: var(--primary-text-color);
+    margin: 0;   
+}
+
+input {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-family: inherit;
+    line-height: inherit;
+    outline: none;
+    padding: 0 var(--page-selector-spacing);
+    text-align: center;
+}
