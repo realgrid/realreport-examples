@@ -1,11 +1,10 @@
 name: Deploy
+
 on:
   push:
-    branches:
-      - main
-    path:
-      - html/**
-
+    paths:
+      - .github/workflows/deploy.yml
+      - example-html/**
 
 jobs:
   deploy:
@@ -18,4 +17,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages
-          folder: html
+          folder: example-html
