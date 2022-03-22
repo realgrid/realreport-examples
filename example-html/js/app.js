@@ -91,24 +91,45 @@ const onClickNextPage = function () {
     }
 }
 
+async function base64convert (url, split) {
+    const data = await fetch(url);
+    const blob = await data.blob();
+    
+    return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          const base64data = reader.result;
+          resolve(split ? base64data.split(',')[1] : base64data);
+        }    
+    });
+}
+
 const onClickExportPdf = function () {
-    if (viewer) {
-        const fonts = [{
-            name: 'regular',
-            // dist/fonts/malgun.js
-            content: malgun,
-            style: 'normal',
-            weight: 'normal',
-        },
-        {
-            name: 'bold',
-            // dist/fonts/malgun-bold.js
-            content: malgunBold,
-            style: 'normal',
-            weight: 'bold',
-        }];
-        viewer.exportPdf(fonts);
-    }
+    base64convert('/js/pdffonts/malgun.ttf', true).then(regualrFont => {
+        base64convert('/js/pdffonts/malgunbd.ttf', true).then(boldFont => {
+    // base64convert('/js/pdffonts/NanumGothic-Regular.ttf', true).then(regualrFont => {
+    //     base64convert('/js/pdffonts/NanumGothic-Bold.ttf', true).then(boldFont => {
+            if (regualrFont && boldFont) {
+                const fonts = [{
+                    name: 'regular',
+                    content: regualrFont,
+                    style: 'normal',
+                    weight: 'normal',
+                },
+                {
+                    name: 'bold',
+                    content: boldFont,
+                    style: 'normal',
+                    weight: 'bold',
+                }];
+        
+                if (viewer) {
+                    viewer.exportPdf(fonts);
+                }
+            }
+        });
+    });
 }
 
 const onClickExportDoc = function (type) {
