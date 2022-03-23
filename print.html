@@ -4,11 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R2Printer</title>
+    <title>RealReport</title>
     <link href='/js/realreport/realreport.css' rel='stylesheet' />
     <link href='/js/highcharts/highcharts.css' rel='stylesheet' />
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+            overflow: scroll;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: scroll;
+        }
+        #container {
+            position: absolute;
+        }
+    </style>
+        
 </head>
-<body onafterprint="window.close();">
+<body>
     <div id="realreport"></div>
 </body>
 </html>

@@ -160,6 +160,14 @@
     background-image: url("../img/preview/preview-popup.png");
 }
 
+.icon.print-popup-png:hover {
+    background-image: url("../img/preview/print-popup-hover.png");
+}
+
+.icon.print-popup-png {
+    background-image: url("../img/preview/print-popup.png");
+}
+
 .icon.toggle-editor-png:hover {
     background-image: url("../img/preview/toggle-editor-hover.png");
 }
