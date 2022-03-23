@@ -147,31 +147,84 @@ const onClickExportImage = function (type, encoding, fileName) {
     }
 }
 
-// 별도의 프린트 창을 팝업해서 출력할 경우 사용
+// 별도의 미리보기용 팝업창
+const onClickPreviewPopup = function () {
+    if (viewer) {
+        const w = Math.min(screen.width, 1024);
+        const h = Math.min(screen.height, 768);
+        const x = (screen.width - w) / 2;
+        const y = (screen.height - h) / 2;
+        const win = window.open('./preview.html', 'print', "left=" + x + ",top=" + y + ",width=" + w + ",height=" + h);
+
+        win.addEventListener('DOMContentLoaded', function (e) {
+            const dom = win.document.getElementById('realreport');
+            dom.innerHTML = viewer.reportHtml;
+            win.print();
+        });
+
+        win.addEventListener('afterprint', function (e) {
+            win.close();
+        });
+    }
+}
+
+// 별도의 프린트 창을 팝업해서 출력
 const onClickPrintPopup = function () {
     if (viewer) {
-        r2printer.popupPrint(viewer.reportHtml, [ '/js/realreport/realreport.css' ], true, true);
-    }
-}
+        const w = Math.min(screen.width, 1024);
+        const h = Math.min(screen.height, 768);
+        const x = (screen.width - w) / 2;
+        const y = (screen.height - h) / 2;
+        const win = window.open('./print.html', 'print', "left=" + x + ",top=" + y + ",width=" + w + ",height=" + h);
 
-// 별도의 프린트 창을 html 팝업파일을 통해 출력할 경우 사용
-const onClickPrintPopupTemplate = function () {
-    if (viewer) {
-        r2printer.popupTemplate('./popup.html', viewer.reportHtml, true, true);
-    }
-}
+        // 페이지가 로드된 다음 즉시 프린트 실행
+        win.addEventListener('DOMContentLoaded', function (e) {
+            const dom = win.document.getElementById('realreport');
+            dom.innerHTML = viewer.reportHtml;
+            win.print();
+        });
 
-// 별도의 미리보기용 html 파일을 팝업
-const onClickPrintPopupPreview = function () {
-    if (viewer) {
-        r2printer.popupTemplate('./preview.html', viewer.reportHtml, false, false);
+        // 프린트한 다음 팝업창 닫기
+        win.addEventListener('afterprint', function (e) {
+            win.close();
+        });
     }
 }
 
 // iFrame을 통해 바로 출력
 const onClickPrintHiddenFrame = function () {
     if (viewer) {
-        r2printer.hiddenFrame(viewer.reportHtml, ['/js/realreport/realreport.css']);
+        function closePrint () {
+            document.body.removeChild(this.__container__);
+        }
+        
+        function setPrint () {
+            this.contentWindow.__container__ = this;
+            this.contentWindow.onbeforeunload = closePrint;
+            this.contentWindow.onafterprint = closePrint;
+            const dom = this.contentWindow.document.getElementById('realreport');
+            dom.innerHTML = viewer.reportHtml;
+
+            setTimeout(() => {
+                this.contentWindow.focus(); // Required for IE
+                this.contentWindow.print();                
+            }, 1);
+        }
+        
+        function printPage (sURL) {
+            var oHideFrame = document.createElement("iframe");
+            oHideFrame.onload = setPrint;
+            oHideFrame.style.position = "";
+            oHideFrame.style.right = "0";
+            oHideFrame.style.bottom = "0";
+            oHideFrame.style.width = "0";
+            oHideFrame.style.height = "0";
+            oHideFrame.style.border = "0";
+            oHideFrame.src = sURL;
+            document.body.appendChild(oHideFrame);
+        }
+
+        printPage('./print.html');   
     }
 }
 
