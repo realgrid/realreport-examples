@@ -12,7 +12,7 @@
         rel="stylesheet"
         href="/js/monaco-editor/min/vs/editor/editor.main.css"
     />
-     <link href="css/index.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
     
     <script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
     <script type="text/javascript" src="/js/highcharts/highcharts-more.js"></script>
@@ -37,6 +37,14 @@
                 </div>
                 <div class="toolbar-right">
                     <div class="toolbar-items">
+                        <a href="https://github.com/realgrid/realreport-examples" target="_blank" rel="noopener noreferrer" class="toolbar-item toolbar-link">
+                            <span>소스보기
+                                <svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="icon-external-link">
+                                    <path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z">
+                                    </path>
+                                </svg>
+                            </span>
+                        </a>
                         <a href="https://service.realgrid.com" target="_blank" rel="noopener noreferrer" class="toolbar-item toolbar-link">
                             <span>다운로드
                                 <svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="icon-external-link">
@@ -70,6 +78,11 @@
                 <div class="sidenav">
                     <div class="menu">
                         <ul class="menu-list">
+                            <li class="menu-list-item">
+                                <span class="menu-head">
+                                    <a href="/preview/">미리보기 데모</a>
+                                </span>
+                            </li>
                             <li class="menu-list-item">
                                 <span class="menu-head">데모 리포트</span>
                                 <ul class="menu-list menu-list-block" id="sidebarUl">
@@ -129,9 +142,6 @@
                         </div>
                         <div class="toolbar-right">
                             <div class="toolbar-items">
-                                <a class="toolbar-icon-button" onclick="onClickPreviewPopup()">
-                                    <div class="toolbar-ion icon preview-popup-png"></div>
-                                </a>
                                 <a class="toolbar-icon-button" onclick="onClickPrintPopup()">
                                     <div class="toolbar-icon icon print-popup-png"></div>
                                 </a>
@@ -200,26 +210,6 @@
     <script src="/js/monaco-editor/min/vs/editor/editor.main.js"></script>
 
     <script src="/js/app.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // var editor = monaco.editor.create(document.getElementById('editor-container'), {
-            //     value: "// First line\nfunction hello() {\n\talert('Hello world!');\n}\n// Last line",
-            //     language: 'javascript',
-
-            //     lineNumbers: 'off',
-            //     roundedSelection: false,
-            //     scrollBeyondLastLine: false,
-            //     readOnly: false,
-            //     theme: 'vs-dark'
-            // });
-            // setTimeout(function () {
-            //     editor.updateOptions({
-            //         lineNumbers: 'on'
-            //     });
-            // }, 2000);
-        });
-    </script>
 </body>
 
 </html>

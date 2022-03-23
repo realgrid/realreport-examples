@@ -147,27 +147,6 @@ const onClickExportImage = function (type, encoding, fileName) {
     }
 }
 
-// 별도의 미리보기용 팝업창
-const onClickPreviewPopup = function () {
-    if (viewer) {
-        const w = Math.min(screen.width, 1024);
-        const h = Math.min(screen.height, 768);
-        const x = (screen.width - w) / 2;
-        const y = (screen.height - h) / 2;
-        const win = window.open('./preview.html', 'print', "left=" + x + ",top=" + y + ",width=" + w + ",height=" + h);
-
-        win.addEventListener('DOMContentLoaded', function (e) {
-            const dom = win.document.getElementById('realreport');
-            dom.innerHTML = viewer.reportHtml;
-            win.print();
-        });
-
-        win.addEventListener('afterprint', function (e) {
-            win.close();
-        });
-    }
-}
-
 // 별도의 프린트 창을 팝업해서 출력
 const onClickPrintPopup = function () {
     if (viewer) {
@@ -371,6 +350,7 @@ const showReport = (item, id) => {
             if (reportItem) {
                 clearContainer();
                 currentId = reportItem.id;
+                console.log(reportItem);
                 viewer = new RealReport.ReportViewer('realreport', reportItem.report, reportItem.data);
                 viewer.preview();
 
