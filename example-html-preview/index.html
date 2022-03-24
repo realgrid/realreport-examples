@@ -1356,6 +1356,13 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var isIE = window.document.documentMode ? true : false;
+            if (isIE) {
+                document.write('죄송합니다. 이 샘플 코드는 IE브라우저를 지원하지 않습니다.');
+                document.close();
+            }
+        })
         // 미리보기 팝업창 객체
         var windowPreview = null;
         // 미리보기 팝업창으로 전달할 리포트 정보
@@ -1375,7 +1382,10 @@
             const y = (screen.height - h) / 2;
             const options = 'left=' + x + ',top=' + y + ',width=' + w + ',height=' + h;
             previewInfo = {
-            // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
+                darkmode: false,
+                icons: {
+                },
+                // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
                 reports: [{
                     form: JSON.parse(document.getElementById('report-form-editor').value),
                     dataSet: JSON.parse(document.getElementById('data-set-editor').value)
