@@ -15,6 +15,11 @@ const REPORT_CAT = 'demo';
 // onLoad
 //--------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
+    var isIE = window.document.documentMode ? true : false;
+    if (isIE) {
+        document.write('죄송합니다. 이 샘플 코드는 IE브라우저를 지원하지 않습니다.');
+        document.close();
+    }
     setupSidebar();
 });
 
