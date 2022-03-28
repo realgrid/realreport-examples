@@ -1,7 +1,20 @@
 // 아래 라이선스는 유효기간 만료된 라이선스
 // var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0adoq8hudFeXNTakk0yR9UevUdDFVwVRcNEHiG7csiBBkxValpjT3ck='
+
 // 아래 라이선스는 유효기간 2022년 4월 1일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
 var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUB5oxsrC+spwsWvPAQ1rit9+6ZGVxDxR7Q=';
+
+// 미리보기 팝업창 객체
+var windowPreview = null;
+// 미리보기 팝업창으로 전달할 리포트 정보
+var previewInfo = {
+    // 아래 형식으로 전달.
+    // reports: [
+    //     {form: {...}, dataSet: {...}},
+    //     {form: {...}, dataSet: {...}},
+    //     ...
+    // ]
+};
 
 var viewer;
 var currentId = '';
@@ -17,7 +30,7 @@ const REPORT_CAT = 'demo';
 document.addEventListener('DOMContentLoaded', function () {
     var isIE = window.document.documentMode ? true : false;
     if (isIE) {
-        document.write('죄송합니다. 이 샘플 코드는 IE브라우저를 지원하지 않습니다.');
+        document.write('죄송합니다. RealReport 데모 사이트는 IE브라우저를 지원하지 않습니다.');
         document.close();
     }
     setupSidebar();
@@ -216,19 +229,92 @@ const onClickToggleEditor = function () {
     const editorContainer = document.getElementById('editor-container');
 }
 
+const onClickPreviewEmbed = function (event) {
+    const id = event.target.dataset.id;
+    if (!id) console.error('리포트 ID가 없습니다.');
+    const w = Math.min(screen.width, 1024);
+    const h = Math.min(screen.height, 768);
+    const x = (screen.width - w) / 2;
+    const y = (screen.height - h) / 2;
+    const options = 'left=' + x + ',top=' + y + ',width=' + w + ',height=' + h;
+
+    getServiceReport(id, function (reportItem) {
+        clearContainer();
+        currentId = reportItem.id;
+        viewer = new RealReport.ReportViewer('realreport', reportItem.report, reportItem.data);
+        viewer.preview();
+
+        setTimeout(() => {
+            setTotalPage('totalpage');
+        }, 100);
+
+        setCodeEditor();
+        clearActiveMenuLink();
+    });
+}
+
+const onClickPreviewPopup = function (event) {
+    const id = event.target.dataset.id;
+    if (!id) console.error('리포트 ID가 없습니다.');
+    const w = Math.min(screen.width, 1024);
+    const h = Math.min(screen.height, 768);
+    const x = (screen.width - w) / 2;
+    const y = (screen.height - h) / 2;
+    const options = 'left=' + x + ',top=' + y + ',width=' + w + ',height=' + h;
+
+    getServiceReport(id, function (reportItem) {
+        // 전역 변수로 팝업창에 전달됨.
+        previewInfo = {
+            // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
+            reports: [{
+                form: reportItem.report,
+                dataSet: reportItem.data
+            }]
+        }
+    
+        // 미리보기 팝업창이 없는 경우 새 창을 생성합니다.
+        if (windowPreview === null || windowPreview.closed) {
+            windowPreview = window.open('../preview/preview.html', 'print', options);
+        } else {
+            // 미리보기 팝업창의 preview 함수 호출
+            const previewFn = windowPreview['previewReport'];
+            if (typeof previewFn === 'function') previewFn();
+            windowPreview.focus();
+        }        
+    });
+}
 
 //--------------------------------------------------------------------------------------------------
 // private methods
 //--------------------------------------------------------------------------------------------------
 
 const setupSidebar = function () {
+    const appendNode = function (parent, tag, classNames, onClick) {
+        const el = document.createElement(tag);
+        if (classNames) el.setAttribute('class', classNames);
+        if (onClick) el.onclick = onClick;
+        parent.appendChild(el)
+        return el;
+    }
+
     // sidebar에 item 만들기: onclick 이벤트에서 preview처리
     const sidebarLi = (id, name) => {
-        const el = document.createElement('li')
-        el.setAttribute('class', 'menu-list-item');
-        el.innerHTML = '\n<a class="menu-link" onclick="javascript:showReport(this, \''
-            .concat(id, '\')">', name, '\n</a>\n');
-        return el;
+        const li = document.createElement('li');
+        li.setAttribute('class', 'menu-list-item');
+
+        const a = appendNode(li, 'a', 'menu-link');
+
+        const spanPreview = appendNode(a, 'span', '', onClickPreviewEmbed);
+        spanPreview.innerText = name;
+        spanPreview.dataset['id'] = id;
+
+        const spanPopup = appendNode(a, 'span', 'toolbar-icon icon preview-popup-png', onClickPreviewPopup);
+        spanPopup.dataset['id'] = id;
+
+        // el.innerHTML = ''.concat('\n<a class="menu-link">'
+        //     , '<span data-id="', id, '" onclick="onClickPreview(this)">', name, '</span>'
+        //     , '<span class="toolbar-icon icon preview-popup-png" onclick="javascript:onClickPreviewPopup(\'', id, '\');"></span>\n</a>\n');
+        return li;
     }
 
     const SERVICE_URL = ''
@@ -332,11 +418,8 @@ function setCodeEditor () {
     }    
 }
 
-/**
- * report id of the RealReport-Service report samples
- * @param {string} id 
- */
-const showReport = (item, id) => {
+// 리포트 양식과 데이터를 리포트 서비스에서 가져온다.
+const getServiceReport = function (id, callback) {
     const SERVICE_URL = `${SERVICE_HOST}/api/report/${REPORT_CAT}/${id}`;
     fetch(SERVICE_URL, {
         method: 'POST',
@@ -353,19 +436,7 @@ const showReport = (item, id) => {
             const { status, message, report: reportItem } = ret;
             if (status && status !== 200) console.error('Report Server error: ', message);
             if (reportItem) {
-                clearContainer();
-                currentId = reportItem.id;
-                console.log(reportItem);
-                viewer = new RealReport.ReportViewer('realreport', reportItem.report, reportItem.data);
-                viewer.preview();
-
-                setTimeout(() => {
-                    setTotalPage('totalpage');
-                }, 100);
-
-                setCodeEditor();
-                clearActiveMenuLink();
-                item.setAttribute('class', 'menu-link menu-link-active');
+                if (typeof callback === 'function') callback(reportItem);
             }
         }
     });
