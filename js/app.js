@@ -229,14 +229,10 @@ const onClickToggleEditor = function () {
     const editorContainer = document.getElementById('editor-container');
 }
 
+// 페이지 내부 영역에 리포트를 미리보기 합니다.
 const onClickPreviewEmbed = function (event) {
     const id = event.target.dataset.id;
     if (!id) console.error('리포트 ID가 없습니다.');
-    const w = Math.min(screen.width, 1024);
-    const h = Math.min(screen.height, 768);
-    const x = (screen.width - w) / 2;
-    const y = (screen.height - h) / 2;
-    const options = 'left=' + x + ',top=' + y + ',width=' + w + ',height=' + h;
 
     getServiceReport(id, function (reportItem) {
         clearContainer();
@@ -250,9 +246,14 @@ const onClickPreviewEmbed = function (event) {
 
         setCodeEditor();
         clearActiveMenuLink();
+
+        if (event.target && event.target.parentElement && event.target.parentElement instanceof HTMLAnchorElement) {
+            event.target.parentElement.setAttribute('class', 'menu-link menu-link-active');
+        }
     });
 }
 
+// 팝업 창에 리포트를 미리보기 합니다.
 const onClickPreviewPopup = function (event) {
     const id = event.target.dataset.id;
     if (!id) console.error('리포트 ID가 없습니다.');
