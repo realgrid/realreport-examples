@@ -14,11 +14,15 @@ RealReport 및 realreport-examples에 대한 문의사항 및 요청사항은 [R
 
 이 디렉토리의 코드가 실행되는 모습은 [데모 사이트](https://demo.real-report.com)에서 확인 하실 수 있습니다. 이 코드는 [GitHub Pages](https://pages.github.com/)를 이용해서 호스팅되고 있으며 호스팅 방법은 예고 없이 변경 될 수 있습니다.
 
+<img width="1368" alt="image" src="https://user-images.githubusercontent.com/6207238/160506431-6a4ce0db-20e5-4693-96ba-fca356c2fca0.png">
+
 
 ### example-html-preview
 
 - 이 디렉토리에는 HTML, Javascript, CSS를 기반으로 만들어진 RealReport의 샘플 사이트 소스코드가 포함되어 있습니다. 
 - 상단 메뉴에서 `미리보기 팝업`을 클릭하면 화면에 주어진 리포트 양식과 리포트 데이터를 이용해 리포트 미리보기 화면이 팝업되는 예제입니다.
+
+<img width="1368" alt="image" src="https://user-images.githubusercontent.com/6207238/160506355-583f7784-d340-46cd-84da-20f964058d7a.png">
 
 ### example-npm
 
