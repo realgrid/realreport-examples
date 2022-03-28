@@ -312,9 +312,6 @@ const setupSidebar = function () {
         const spanPopup = appendNode(a, 'span', 'toolbar-icon icon preview-popup-png', onClickPreviewPopup);
         spanPopup.dataset['id'] = id;
 
-        // el.innerHTML = ''.concat('\n<a class="menu-link">'
-        //     , '<span data-id="', id, '" onclick="onClickPreview(this)">', name, '</span>'
-        //     , '<span class="toolbar-icon icon preview-popup-png" onclick="javascript:onClickPreviewPopup(\'', id, '\');"></span>\n</a>\n');
         return li;
     }
 
