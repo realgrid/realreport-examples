@@ -31,7 +31,7 @@ npm을 통해 RealReport를 설치한 예를 확인할 수 있습니다.
 
 ### realreport-guide
 
-[realreport-guide](tree/main/report-guide)에는 [RealReport 가이드](https://www.real-report.com/docs/guide/viewer/install)에 사용된 샘플 코드가 들어 있습니다.
+[realreport-guide](/report-guide/)에는 [RealReport 가이드](https://www.real-report.com/docs/guide/viewer/install)에 사용된 샘플 코드가 들어 있습니다.
 
 
 ## 라이선스
