@@ -122,7 +122,6 @@ export default {
   mounted() {
     this.reportContainer = this.$refs.realreport;
     this.viewer = new ReportViewer(this.reportContainer);
-    console.log(this.report3);
   }
 }
 </script>
