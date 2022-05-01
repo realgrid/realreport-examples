@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RealReport Print Preview</title>
     <link rel="shortcut icon" href="#">
+
     <link href="css/preview.css" rel="stylesheet">
-    <link href='/js/realreport/realreport.css' rel='stylesheet' />
-    <link href='/js/highcharts/highcharts.css' rel='stylesheet' />
-    <script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
-    <script type="text/javascript" src="/js/highcharts/highcharts-more.js"></script>
-    <script type="text/javascript" src="/js/pdfkit.js"></script>
+    <link href='js/realreport/realreport.css' rel='stylesheet' />
+    <link href='js/highcharts/highcharts.css' rel='stylesheet' />
+    <script type="text/javascript" src="js/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="js/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="js/pdfkit.js"></script>
+    <script type="text/javascript" src='js/realreport/realreport.js'></script>
 </head>
 <body>
     <div class="root">
@@ -107,9 +109,50 @@
     </div>
 
     <script type="text/javascript">
-        // 아래 라이선스는 유효기간 2022년 5월 1일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
-        var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUB5oxsrC+spwi8zdmpxDKOd+6ZGVxDxR7Q=';
+        // 아래 라이선스는 유효기간 2022년 6월 1일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
+        var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjdX/TRvH17asONaYpJP0FO3omxwgpdzq2ZpbS0uUeOfM1/Z20sDsGHv75qiwBaTr7';
+        var containerId = 'realreport';
         var viewer;
+
+        //--------------------------------------------------------------------------------------------------
+        // public methods
+        //--------------------------------------------------------------------------------------------------
+        var clearReport = function () {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            delete viewer;
+        }
+        
+        const setHtml = function (id, value, prefix, surfix) {
+            if (id) {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = `${prefix}${value}${surfix}`;
+            }
+        }
+
+        const setTotalPage = function (id) {
+            if (viewer) {
+                setHtml(id, viewer.pageCount, '', '');
+            }
+        }
+
+        
+
+        var previewReport = function (reports) {
+            clearReport();
+            // console.log(reports);
+            if (Array.isArray(reports)) {
+                viewer = new RealReport.ReportCompositeViewer(containerId, reports);
+            } else {
+                viewer = new RealReport.ReportViewer(containerId, reports.report, previewInfo.data);
+            }
+
+            if (viewer) viewer.preview();
+
+            setTimeout(() => {
+                setTotalPage('totalpage');
+            }, 100);
+        }
 
         //--------------------------------------------------------------------------------------------------
         // 이벤트 핸들링
@@ -280,6 +323,25 @@
         // private methods
         //--------------------------------------------------------------------------------------------------
 
+        const zoom = document.getElementById('inputZoomScale');
+        zoom.addEventListener('change', (e) => {
+            let zoom = e.target.value;
+            if (zoom.endsWith('%')) zoom = zoom.replace('%', '');
+            if (!isNaN(zoom)) {
+                viewer.zoom = zoom / 100;
+                setZoomScaleInputValue('inputZoomScale');
+            }
+        })
+
+        const page = document.getElementById('inputPageNumber');
+        page.addEventListener('change', (e) => {
+            const page = e.target.value;
+            if (!isNaN(page)) {
+                viewer.page = page;
+                setPageInputValue('inputPageNumber');
+            }
+        })
+
         const setInputValue = function (id, value, prefix, surfix) {
             if (id) {
                 const input = document.getElementById(id);
@@ -287,26 +349,14 @@
             }
         }
 
-        const setHtml = function (id, value, prefix, surfix) {
-            if (id) {
-                const el = document.getElementById(id);
-                if (el) el.innerHTML = `${prefix}${value}${surfix}`;
-            }
-        }
+
 
         const setZoomScaleInputValue = function (id) {
             setInputValue(id, Math.trunc(viewer.zoom * 100), '', '%');
         }
 
-        const setTotalPage = function (id) {
-            if (viewer) {
-                setHtml(id, viewer.pageCount, '', '');
-            }
-        }
-
         const setPageInputValue = function (id) {
             if (viewer) {
-                console.log(viewer.page);
                 setInputValue(id, viewer.page);
             }
         };

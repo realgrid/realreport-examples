@@ -8,7 +8,7 @@
 }
 
 .icon.preview-docx-png:hover {
-    background-image: url("../img/preview/preview-docx-hover.png");
+    background-image: url("../img/preview/cursor.svg");
 }
 
 .icon.preview-docx-png {
