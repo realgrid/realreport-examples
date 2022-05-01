@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /** 
 * RealReport v1.1.4
-* commit f6b7c10
+* commit 2468f17
 
 * Copyright (C) 2013-2022 WooriTech Inc.
 	https://real-report.com
@@ -5404,6 +5404,7 @@ declare abstract class ReportViewBase {
     protected _options: ReportOptions;
     protected _cm: boolean;
     protected _container: PrintContainer | undefined;
+    protected _currentPage: number;
     constructor(container: string | HTMLDivElement, options?: ReportOptions);
     abstract preview(): void;
     abstract exportPdf(fonts: PdfFont[]): void;
