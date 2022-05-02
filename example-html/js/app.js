@@ -184,10 +184,10 @@ const onClickGridViewMenu = function (event) {
         // grid = { id, name, category, columns, fields, description }
         const gridFrame = resetContentFrame('contentframe', '그리드 미리보기', 'grid.html');
         if (gridFrame && gridItem) {
-            // 렌더링에 약간의 시간이 소요된다. (iFrame 소소에 inline src 속성에 preview.html 지정시 문제없음)
+            // 렌더링에 약간의 시간이 소요된다. (iFrame 소소에 inline src 속성에 gird.html 지정시 문제없음)
             setTimeout(() => {
                 gridFrame.contentWindow.setGridLayout(gridItem);
-            }, 100);
+            }, 200);
         }
         clearActiveMenuLink();
 
