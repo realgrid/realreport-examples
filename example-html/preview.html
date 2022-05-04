@@ -141,10 +141,11 @@
         var previewReport = function (reports) {
             clearReport();
             // console.log(reports);
-            if (Array.isArray(reports)) {
+            if (Array.isArray(reports) && reports.length > 1) {
                 viewer = new RealReport.ReportCompositeViewer(containerId, reports);
             } else {
-                viewer = new RealReport.ReportViewer(containerId, reports.report, previewInfo.data);
+                const previewInfo = reports[0];
+                viewer = new RealReport.ReportViewer(containerId, previewInfo.form, previewInfo.dataSet);
             }
 
             if (viewer) viewer.preview();
