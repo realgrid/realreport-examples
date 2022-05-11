@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <RealReport />
+    <Main />
   </div>
 </template>
 
 <script>
-import RealReport from './components/RealReport.vue'
+import Main from './layouts/Main.vue'
 
 export default {
   name: 'App',
   components: {
-    RealReport
+    Main
   }
 }
 </script>
