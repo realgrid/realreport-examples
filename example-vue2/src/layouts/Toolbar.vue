@@ -109,7 +109,6 @@ export default {
   },
   mounted() {
     this.reportViewer = this.$parent.$refs.reportViewer;
-    console.log(this.reportViewer);
   }
 };
 </script>
