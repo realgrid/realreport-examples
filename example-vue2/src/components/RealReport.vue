@@ -5,6 +5,8 @@
 <script>
 import { ReportViewer } from "realreport";
 import { base64convert } from "../utils/convert";
+import malgun from "../assets/pdffonts/malgun.ttf";
+import malgunbd from "../assets/pdffonts/malgunbd.ttf";
 import "realreport/dist/realreport.css";
 
 export default {
@@ -85,30 +87,26 @@ export default {
       }
     },
     onClickExportPdf() {
-      base64convert("../pdffonts/malgun.ttf", true).then((regualrFont) => {
-        base64convert("../pdffonts/malgunbd.ttf", true).then((boldFont) => {
-          if (regualrFont && boldFont) {
-            const fonts = [
-              {
-                name: "regular",
-                content: regualrFont,
-                style: "normal",
-                weight: "normal",
-              },
-              {
-                name: "bold",
-                content: boldFont,
-                style: "normal",
-                weight: "bold",
-              },
-            ];
+      if (malgun && malgunbd) {
+        const fonts = [
+          {
+            name: "regular",
+            content: malgun.split(",")[1],
+            style: "normal",
+            weight: "normal",
+          },
+          {
+            name: "bold",
+            content: malgunbd.split(",")[1],
+            style: "normal",
+            weight: "bold",
+          },
+        ];
 
-            if (this.viewer) {
-              this.viewer.exportPdf(fonts);
-            }
-          }
-        });
-      });
+        if (this.viewer) {
+          this.viewer.exportPdf(fonts);
+        }
+      }
     },
     onClickExportDoc(type) {
       if (this.viewer) {
