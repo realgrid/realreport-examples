@@ -7,7 +7,8 @@ var windowPreview = null;
 
 const isDev = location.hostname === 'localhost';
 const SERVICE_HOST = isDev ? 'http://localhost:5500' : 'https://service.real-report.com';
-const REPORT_CAT = isDev ? 'sample' : 'demo';
+const REPORT_CAT = 'demo';
+const TEST_REPORT_CAT = 'sample';
 const GRID_CAT = 'griddemo';
 
 
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     setupReportSidebar();
     setupGridSidebar();
+    if (isDev) setupTestReportSidebar();
 });
 
 
@@ -69,13 +71,15 @@ const serviceFetch = async function (url, callback) {
 // 사이드바 데모용 리포트 목록 메뉴 구성
 const setupReportSidebar = function () {
     // sidebar에 item 만들기: onclick 이벤트에서 preview처리
-    const sidebarLi = function (id, name) {
+    // TODO: need to refactoring
+    const sidebarLi = function (id, name, category) {
         const li = document.createElement('li');
         li.classList.add('menu-list-item');
         const a = appendNode(li, 'a', 'menu-link');
         const spanPreview = appendNode(a, 'span', '', onClickReportPreviewMenu);
         spanPreview.innerText = name;
         spanPreview.dataset['id'] = id;
+        spanPreview.dataset['category'] = category;
         const spanPopup = appendNode(a, 'span', 'toolbar-icon icon preview-popup-png', onClickPreviewPopup);
         spanPopup.dataset['id'] = id;
         return li;
@@ -85,7 +89,38 @@ const setupReportSidebar = function () {
         const ul = document.getElementById('sidebarUl');
         if (ul) {
             ret.map(item => {
-                const li = sidebarLi(item.id, item.name);
+                const li = sidebarLi(item.id, item.name, REPORT_CAT);
+                ul.appendChild(li);
+            });
+        }
+    });
+}
+
+// 사이드바 데모용 리포트 목록 메뉴 구성
+const setupTestReportSidebar = function () {
+    // sidebar에 item 만들기: onclick 이벤트에서 preview처리
+    // TODO: need to refactoring
+    const sidebarLi = function (id, name, category) {
+        const li = document.createElement('li');
+        li.classList.add('menu-list-item');
+        const a = appendNode(li, 'a', 'menu-link');
+        const spanPreview = appendNode(a, 'span', '', onClickReportPreviewMenu);
+        spanPreview.innerText = name;
+        spanPreview.dataset['id'] = id;
+        spanPreview.dataset['category'] = category;
+        const spanPopup = appendNode(a, 'span', 'toolbar-icon icon preview-popup-png', onClickPreviewPopup);
+        spanPopup.dataset['id'] = id;
+        return li;
+    }
+
+    // TODL: need to refactoring
+    document.getElementsByClassName('test-report-menu-list')[0].classList.remove('hidden');
+
+    serviceFetch('/api/report/'.concat(TEST_REPORT_CAT, '/list'),  function (ret) {
+        const ul = document.getElementById('testReportUl');
+        if (ul) {
+            ret.map(item => {
+                const li = sidebarLi(item.id, item.name, TEST_REPORT_CAT);
                 ul.appendChild(li);
             });
         }
@@ -147,9 +182,10 @@ const resetContentFrame = function (id, title, src) {
 // 사이드바에서 리포트 미리보기 메뉴 클릭
 const onClickReportPreviewMenu = async function (event) {
     const id = event.target.dataset.id;
+    const category = event.target.dataset.category;
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
     
-    serviceFetch('/api/report/'.concat(REPORT_CAT, '/', id), function (serviceItem) {
+    serviceFetch('/api/report/'.concat(category, '/', id), function (serviceItem) {
         // ReportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
         // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
         // report = { id, name, report, data, description }
