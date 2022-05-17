@@ -7,94 +7,22 @@
   <script src="js/realgrid/realgrid.min.js"></script>
   <script src="js/realgrid/libs/jszip.min.js"></script>
   <style>
+    html {
+      height: 100%;
+    }
+
     body {
-      font-family: "맑은 고딕";
+      height: 100%;
+      margin: 0;
     }
 
     #realgrid {
-      height: 800px;
+      height: 100%;
       width: 100%;
     }
 
-    #toolbar {
-      /* height: 80px; */
-      display: flex;
-      justify-content: center;
-      /* 주 축의 정렬방법 : 중앙정렬 */
-      align-items: center;
-      /* 교차축의 정렬방법 : 중앙정렬 */
-      border: 1px solid #9a9aa3;
-      margin: 0 100px;
-      background-color: #e6e8eb;
-      padding: 15px 0;
-
-    }
-
-    button {
-      width: 70px;
-      height: 30px;
-      background-color: rgb(214, 214, 214);
-      border: 1px solid rgb(128, 128, 128);
-      border-radius: 3px;
-      color: rgb(77, 75, 75);
-
-    }
-
-    .title {
-      margin: 0 0 10px 7px;
-      color: #4e545f;
-      font-size: 14px;
-    }
-
-    .texts {
-      height: 20px;
-      width: 200px;
-    }
-
-    .button {
-      margin-left: 10px;
-    }
-
-    .buttonbox {
-      display: inline-flex;
-      align-items: flex-end;
-      margin-left: 40px;
-    }
-
-    .form {
-      display: inline-flex;
-      /*수평으로*/
-      /* margin: 30px 100px; */
-      width: 100%;
-      align-content: space-between;
-    }
-
-    .textselect {
-      height: 25px;
-      width: 204px;
-    }
-
-    #h1 {
-      margin-left: 110px;
-      color: #4e545f;
-    }
-
-    .inputdiv {
-      margin-right: 40px;
-      margin-left: 5px;
-
-    }
-
-    #basic_form {
-      display: inline-flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-
-    }
-
-    .box {
-      display: flex;
-      flex-direction: column;
+    .content {
+      height: 100%;
     }
   </style>
 
@@ -163,10 +91,8 @@
 </head>
 
 <body>
-  <div class="box">
-    <div id="grid">
-      <div id="realgrid"></div>
-    </div>
+  <div class="content">
+    <div id="realgrid"></div>
   </div>
 </body>
 

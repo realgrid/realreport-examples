@@ -3,7 +3,6 @@
 @import "menu.css";
 @import "sidenav.css";
 @import "report-style.css";
-@import "icons.css";
 
 :root {
     --color-white: #fff;
@@ -127,4 +126,24 @@
 #editor-container {
     flex:1;
     position: relative;
+}
+
+
+/* ICONS */
+
+.icon {
+    min-width: var(--icon-size);
+    min-height: var(--icon-size);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    filter: var(--toolbar-invert);
+}
+
+.icon.preview-popup-png {
+    background-image: url("../img/preview/preview-popup.png");
+}
+
+.icon.print-popup-png:hover {
+    background-image: url("../img/preview/print-popup-hover.png");
 }
