@@ -14,7 +14,7 @@ vue create example-vue2
 ### realgrid 패키지 설치
 
 ```bash
-npm install realgrid
+npm install realreport
 ```
 
 ### 로컬환경 실행
