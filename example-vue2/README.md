@@ -11,7 +11,7 @@ npm install -g @vue/cli
 vue create example-vue2
 ```
 
-### realgrid 패키지 설치
+### realreport 패키지 설치
 
 ```bash
 npm install realreport
