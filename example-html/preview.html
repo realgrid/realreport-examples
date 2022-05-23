@@ -8,11 +8,14 @@
     <link rel="shortcut icon" href="#">
 
     <link href="css/preview.css" rel="stylesheet">
+    <!-- 하이차트의 기본 스타일 변경하려면 아래 파일을 수정하면 됩니다. -->
+    <!-- <link href='js/highcharts/highcharts.css' rel='stylesheet' /> -->
     <link href='js/realreport/realreport.css' rel='stylesheet' />
-    <link href='js/highcharts/highcharts.css' rel='stylesheet' />
     <script type="text/javascript" src="js/highcharts/highcharts.js"></script>
     <script type="text/javascript" src="js/highcharts/highcharts-more.js"></script>
     <script type="text/javascript" src="js/pdfkit.js"></script>
+    <script type="text/javascript" src="datas/salary-data.js"></script>
+    <script type="text/javascript" src="forms/salary.js"></script>
     <script type="text/javascript" src='js/realreport/realreport.js'></script>
 </head>
 <body>
@@ -146,6 +149,7 @@
             } else {
                 const previewInfo = reports[0];
                 viewer = new RealReport.ReportViewer(containerId, previewInfo.form, previewInfo.dataSet);
+                // viewer = new RealReport.ReportViewer(containerId, reportForm, reportDataSet);
             }
 
             if (viewer) viewer.preview();
