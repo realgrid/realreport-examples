@@ -1,11 +1,13 @@
 # example-springboot
 
 이 샘플 코드는 스프링부트 프로젝트에서 RealReport 미리보기를 구현한 예제입니다.
-
+- java : 11
+- SpringBoot: 2.7.0
+- 사용한 의존성 : [`spring-boot-starter-web`]
 ### 스프링부트 의존성 설치
 
 ```bash
-gradlew build
+java -jar ./build/libs/demo-0.0.1-SNAPSHOT.jar 
 ```
 
 ### realreport 패키지 설치
