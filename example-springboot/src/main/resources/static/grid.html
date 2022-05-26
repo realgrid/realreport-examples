@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>그리드 리포트</title>
+  <link href="js/realgrid/realgrid-style.css" rel="stylesheet" />
+  <script src="js/realgrid/realgrid.min.js"></script>
+  <script src="js/realgrid/libs/jszip.min.js"></script>
+  <style>
+    html {
+      height: 100%;
+    }
+
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    #realgrid {
+      height: 100%;
+      width: 100%;
+    }
+
+    .content {
+      height: 100%;
+    }
+  </style>
+
+  <script>
+    // 아래 라이선스는 유효기간 2022년 6월 1일 까지 localhost,127.0.0.1,*.real-report.com,*.realgrid.com 도메인에서 사용할 수 있는 라이선스 입니다.
+    var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYm9cY8amGDkiMnVeQKUHJDjW2y71jtk+wv50juZqrKKzQ4npiZoGBKqiyNJFvlrikYx1/B3rwdT6DEb9aq2Rq6tyLGbX3dVkjka/e4w623FLQ==';    var container;
+    var dataProvider;
+    var gridView;
+    var data;
+
+    var setGridLayout = function (gridItem) {
+      container = document.getElementById('realgrid');
+      /* RealGrid Version 2.2.5 */
+      dataProvider = new RealGrid.LocalDataProvider();
+      gridView = new RealGrid.GridView(container);
+      gridView.setDataSource(dataProvider);
+
+      if (gridItem) {
+        console.log(gridItem);
+        dataProvider.setFields(gridItem.fields);
+        dataProvider.fillJsonData(gridItem.data, { fillMode: "set" });
+        gridView.setColumns(gridItem.columns);
+      }
+
+      //헤더높이
+      var headerHeight = gridView.header.height;
+      gridView.header.height = headerHeight + 32;
+
+      //행높이
+      var height = gridView.displayOptions.rowHeight;
+      gridView.displayOptions.rowHeight = height + 32;
+
+      //컬럼너비채우기
+      gridView.displayOptions.fitStyle = "evenFill";
+
+      //삭제 옵션 설정 
+      gridView.setEditOptions({
+        deletable: true
+      });
+
+      //편집가능 설정 
+      gridView.setEditOptions({
+        editable: true,
+        updatable: true
+      });
+    }
+
+    function serialize(rawData) {
+      let rtnData = {};
+      for (let [key, value] of rawData) {
+        let sel = document.querySelectorAll("[name=" + key + "]");
+        if (sel.length > 1) {
+          if (rtnData[key] === undefined) {
+            rtnData[key] = [];
+          }
+          rtnData[key].push(value);
+        }
+        else {
+          rtnData[key] = value;
+        }
+      }
+      return rtnData;
+    }
+  </script>
+
+</head>
+
+<body>
+  <div class="content">
+    <div id="realgrid"></div>
+  </div>
+</body>
+
+</html>

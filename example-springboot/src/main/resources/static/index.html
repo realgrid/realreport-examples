@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/icons/favicon.ico">
+
+    <link href='/js/realreport/realreport.css' rel='stylesheet' />
+    <link href='/js/highcharts/highcharts.css' rel='stylesheet' />
+    <link
+        data-name="vs/editor/editor.main"
+        rel="stylesheet"
+        href="/js/monaco-editor/min/vs/editor/editor.main.css"
+    />
+    <link href="css/index.css" rel="stylesheet">
+    
+    <script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/js/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="/js/pdfkit.js"></script>
+    <script type="text/javascript" src='/js/realreport/realreport.js?v=4'></script>
+</head>
+
+<body>
+    <div class="root">
+        <div class="header">
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <a class="toolbar-brand" href="https://real-report.com">
+                        <img src="/img/logo.svg" alt="RealReport Logo" class="toolbar-logo">
+                        <b class="toolbar-title">Real Report</b>
+                    </a>
+                    <a class="toolbar-item toolbar-link" href="https://real-report.com/pricing">가격</a>
+                    <a class="toolbar-item toolbar-link" href="https://real-report.com/docs/getting-started">문서</a>
+                    <a class="toolbar-item toolbar-link toolbar-link-active" href="https://demo.real-report.com">데모</a>
+                </div>
+                <div class="toolbar-center">
+                </div>
+                <div class="toolbar-right">
+                    <div class="toolbar-items">
+                        <a href="https://github.com/realgrid/realreport-examples" target="_blank" rel="noopener noreferrer" class="toolbar-item toolbar-link">
+                            <span>소스보기
+                                <svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="icon-external-link">
+                                    <path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z">
+                                    </path>
+                                </svg>
+                            </span>
+                        </a>
+                        <a href="https://service.realgrid.com" target="_blank" rel="noopener noreferrer" class="toolbar-item toolbar-link">
+                            <span>다운로드
+                                <svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="icon-external-link">
+                                    <path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z">
+                                    </path>
+                                </svg>
+                            </span>
+                        </a>
+                        <a href="https://forum.realgrid.com/categories/z6SA78vS9G6cgiYht" target="_blank" rel="noopener noreferrer" class="toolbar-item toolbar-link">
+                            <span>기술지원
+                                <svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="icon-external-link">
+                                    <path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z">
+                                    </path>
+                                </svg>
+                            </span>
+                        </a>
+                        <a href="https://realgrid.com" target="_blank" rel="noopener noreferrer" class="toolbar-item toolbar-link">
+                            <span>RealGrid
+                                <svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="icon-external-link">
+                                    <path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z">
+                                    </path>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="sidenav-container">
+                <div class="sidenav">
+                    <div class="menu">
+                        <ul class="menu-list">
+                            <li class="menu-list-item">
+                                <span class="menu-head">리포트 양식 데모</span>
+                                <ul class="menu-list menu-list-block" id="sidebarUl">
+                                    <!-- 이곳에 리포트 사이드바 생성 -->
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="menu-list">
+                            <li class="menu-list-item">
+                                <span class="menu-head">그리드 리포트</span>
+                                <ul class="menu-list menu-list-block" id="gridReportUl">
+                                    <!-- 이곳에 그리드 사이드바 생성 -->
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="main">
+                <div class="main-content">
+                    <div class="main-tabs">
+                        <div class="custom-cursor" id="frameTitle"></div>
+                    </div>
+                    <iframe id="contentframe" title="Demo View Frame" 
+                        src="about:blank" height="100%" 
+                        class="content-frame hidden"></iframe>
+
+                </div>
+                <div class="main-editor">
+                    <div class="main-tabs">
+                        <div>Form</div>
+                        <div>DataSet</div>    
+                    </div>
+                    <div id="editor-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var require = { paths: { vs: '/js/monaco-editor/min/vs' } };
+    </script>
+    <script src="/js/monaco-editor/min/vs/loader.js"></script>
+    <script src="/js/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+    <script src="/js/monaco-editor/min/vs/editor/editor.main.js"></script>
+
+    <script src="/js/app.js"></script>
+</body>
+
+</html>
