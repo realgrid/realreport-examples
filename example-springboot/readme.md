@@ -1,6 +1,8 @@
 # example-springboot
 
 이 샘플 코드는 스프링부트 프로젝트에서 RealReport 미리보기를 구현한 예제입니다.
+- java : 11
+- SpringBoot: 2.7.0
 
 ### 스프링부트 의존성 설치
 
