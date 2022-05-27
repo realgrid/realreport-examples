@@ -79,6 +79,7 @@
                 <div class="sidenav">
                     <div class="menu">
                         <ul class="menu-list">
+                        <ul class="menu-list">
                             <li class="menu-list-item">
                                 <span class="menu-head">리포트 양식 데모</span>
                                 <ul class="menu-list menu-list-block" id="sidebarUl">
@@ -86,7 +87,31 @@
                                 </ul>
                             </li>
                         </ul>
-                        <ul class="menu-list">
+                        <li class="menu-list-item">
+                            <span class="menu-head">복합출력 데모</span>
+                            <ul class="menu-list menu-list-block">
+                                <li class="menu-list-item">
+                                    <a class="menu-link" onclick="javascript:reportSample200();">
+                                        <span>양식 출력 샘플 200</span>
+                                        <span class="toolbar-icon icon preview-popup-png"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-list-item">
+                                    <a class="menu-link" onclick="javascript:reportSample205();">
+                                        <span>양식 출력 샘플 205</span>
+                                        <span class="toolbar-icon icon preview-popup-png"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-list-item">
+                                    <a class="menu-link" onclick="javascript:reportSampleComposit();">
+                                        <span>복합 출력 샘플</span>
+                                        <span class="toolbar-icon icon preview-popup-png"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="menu-list">
                             <li class="menu-list-item">
                                 <span class="menu-head">그리드 리포트</span>
                                 <ul class="menu-list menu-list-block" id="gridReportUl">
@@ -100,12 +125,15 @@
             <div class="main">
                 <div class="main-content">
                     <div class="main-tabs">
-                        <div class="custom-cursor" id="frameTitle"></div>
+                        <div class="custom-cursor" id="frameTitle">리포트 미리보기</div>
                     </div>
-                    <iframe id="contentframe" title="Demo View Frame" 
-                        src="about:blank" height="100%" 
-                        class="content-frame hidden"></iframe>
+                    <iframe id="reportFrame" title="Report Preview Frame"
+                        src="preview.html" 
+                        height="100%" class="content-frame"></iframe>
 
+                    <iframe id="gridFrame" title="Grid View Frame"
+                        src="grid.html" 
+                        height="100%" class="content-frame hidden"></iframe>
                 </div>
                 <div class="main-editor">
                     <div class="main-tabs">
@@ -125,7 +153,9 @@
     <script src="/js/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
     <script src="/js/monaco-editor/min/vs/editor/editor.main.js"></script>
 
-    <script src="/js/app.js"></script>
+    <script defer src="/js/report-samples.js"></script>
+    <script defer src="/js/preview.js"></script>
+    <script defer src="/js/app.js"></script>
 </body>
 
 </html>

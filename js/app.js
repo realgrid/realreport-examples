@@ -39,12 +39,6 @@ const appendNode = function (parent, tag, classNames, onClick) {
     return el;
 }
 
-// frame 타이틀 설정
-const setFrameTitle = function (title) {
-    const frameTitleEl = document.getElementById('frameTitle');
-    frameTitleEl.innerHTML = title;
-}
-
 // service 호출
 const serviceFetch = async function (url, callback) {
     return fetch(SERVICE_HOST.concat(url), {
@@ -129,6 +123,16 @@ const clearActiveMenuLink = function () {
     }
 }
 
+// 프레임 감추기 / 보이기
+const setFrames = function (showFrameId, hideFrameId, title) {
+    const showFrame = document.getElementById(showFrameId);
+    if (showFrame) showFrame.classList.remove('hidden');
+    const hideFrame = document.getElementById(hideFrameId);
+    if (hideFrame) hideFrame.classList.add('hidden');
+    const frameTitleEl = document.getElementById('frameTitle');
+    frameTitleEl.innerHTML = title;
+}
+
 const resetContentFrame = function (id, title, src) {
     const frame = document.getElementById(id);
     if (frame) {
@@ -149,6 +153,8 @@ const onClickReportPreviewMenu = async function (event) {
     const id = event.target.dataset.id;
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
     
+    setFrames('reportFrame', 'gridFrame', '리포트 미리보기');
+
     serviceFetch('/api/report/'.concat(REPORT_CAT, '/', id), function (serviceItem) {
         // ReportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
         // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
@@ -159,13 +165,10 @@ const onClickReportPreviewMenu = async function (event) {
             dataSet: reportItem.data
         }];
 
-        const reportFrame = resetContentFrame('contentframe', '리포트 미리보기', 'preview.html');
-        if (reportFrame) {
-            // ReportView 렌더링에 약간의 시간이 소요된다. (iFrame 소소에 inline src 속성에 preview.html 지정시 문제없음)
-            setTimeout(() => {
-                reportFrame.contentWindow.previewReport(reports);
-            }, 200);
-        }
+        console.log(reports);
+
+        // import from preview.js
+        previewFrame('reportFrame', reports);
         clearActiveMenuLink();
 
         if (event.target && event.target.parentElement && event.target.parentElement instanceof HTMLAnchorElement) {
@@ -179,16 +182,14 @@ const onClickGridViewMenu = function (event) {
     const id = event.target.dataset.id;
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
 
+    setFrames('gridFrame', 'reportFrame', '그리드 미리보기');
+
     serviceFetch('/api/grid/griddemo/'.concat(id), function (serviceItem) {
         const gridItem = serviceItem.grid;
         // grid = { id, name, category, columns, fields, description }
-        const gridFrame = resetContentFrame('contentframe', '그리드 미리보기', 'grid.html');
-        if (gridFrame && gridItem) {
-            // 렌더링에 약간의 시간이 소요된다. (iFrame 소소에 inline src 속성에 gird.html 지정시 문제없음)
-            setTimeout(() => {
-                gridFrame.contentWindow.setGridLayout(gridItem);
-            }, 200);
-        }
+        const gridFrame = document.getElementById('gridFrame');
+        gridFrame.contentWindow.setGridLayout(gridItem);
+
         clearActiveMenuLink();
 
         if (event.target && event.target.parentElement && event.target.parentElement instanceof HTMLAnchorElement) {
@@ -202,12 +203,6 @@ const onClickPreviewPopup = function (event) {
     const id = event.target.dataset.id;
     if (!id) console.error('리포트 ID가 없습니다.');
 
-    const w = Math.min(screen.width, 1024);
-    const h = Math.min(screen.height, 768);
-    const x = (screen.width - w) / 2;
-    const y = (screen.height - h) / 2;
-    const options = 'left=' + x + ',top=' + y + ',width=' + w + ',height=' + h;
-
     serviceFetch('/api/report/'.concat(REPORT_CAT, '/', id), function (serviceItem) {
         // ReportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
         // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
@@ -218,18 +213,8 @@ const onClickPreviewPopup = function (event) {
             dataSet: reportItem.data
         }];
 
-        // 미리보기 팝업창이 없는 경우 새 창을 생성합니다.
-        if (windowPreview === null || windowPreview.closed) {
-            windowPreview = window.open('preview.html', 'print', options);
-            setTimeout(() => {
-                const previewFn = windowPreview['previewReport'];
-                if (typeof previewFn === 'function') previewFn(reports);
-            }, 200);
-        } else {
-            const previewFn = windowPreview['previewReport'];
-            if (typeof previewFn === 'function') previewFn(reports);
-            windowPreview.focus();
-        }
+        // import from preview.js
+        previewPopup(reports);
     });
 }
 
@@ -240,4 +225,17 @@ const onClickGridPreviewPopup = function (event) {
         const gridItem = serviceItem.grid;
         console.log('POPUP GridItem: ', gridItem);
     });
+}
+
+
+function reportSample200() {
+    previewFrame('reportFrame', [sampleReport200]);
+}
+
+function reportSample205() {
+    previewFrame('reportFrame', [sampleReport205]);
+}
+
+function reportSampleComposit() {
+    previewFrame('reportFrame', [sampleReport200, sampleReport205]);
 }
