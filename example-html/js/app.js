@@ -113,13 +113,17 @@ const setupGridSidebar = function () {
 }
 
 // 메뉴 링크 활성화 스타일 지우기
-const clearActiveMenuLink = function () {
+const clearActiveMenuLink = function (activeMenuEl) {
     const menus = document.getElementsByClassName('menu-link-active');
     for (i=0; i<menus.length; i++) {
         const menu = menus[i];
         if (menu) {
             menu.setAttribute('class', 'menu-link');
         }
+    }
+
+    if (activeMenuEl && activeMenuEl instanceof HTMLAnchorElement) {
+        activeMenuEl.classList.add('menu-link-active');
     }
 }
 
@@ -169,11 +173,7 @@ const onClickReportPreviewMenu = async function (event) {
 
         // import from preview.js
         previewFrame('reportFrame', reports);
-        clearActiveMenuLink();
-
-        if (event.target && event.target.parentElement && event.target.parentElement instanceof HTMLAnchorElement) {
-            event.target.parentElement.classList.add('menu-link-active');
-        }
+        clearActiveMenuLink(event.target.parentElement);
     });
 }
 
@@ -190,11 +190,7 @@ const onClickGridViewMenu = function (event) {
         const gridFrame = document.getElementById('gridFrame');
         gridFrame.contentWindow.setGridLayout(gridItem);
 
-        clearActiveMenuLink();
-
-        if (event.target && event.target.parentElement && event.target.parentElement instanceof HTMLAnchorElement) {
-            event.target.parentElement.classList.add('menu-link-active');
-        }
+        clearActiveMenuLink(event.target.parentElement);
     })
 }
 
@@ -228,14 +224,20 @@ const onClickGridPreviewPopup = function (event) {
 }
 
 
-function reportSample200() {
+function reportSample1(el) {
+    setFrames('reportFrame', 'gridFrame', '리포트 미리보기');
     previewFrame('reportFrame', [sampleReport200]);
+    clearActiveMenuLink(el);
 }
 
-function reportSample205() {
+function reportSample2(el) {
+    setFrames('reportFrame', 'gridFrame', '리포트 미리보기');
     previewFrame('reportFrame', [sampleReport205]);
+    clearActiveMenuLink(el);
 }
 
-function reportSampleComposit() {
+function reportSampleComposit(el) {
+    setFrames('reportFrame', 'gridFrame', '리포트 미리보기');
     previewFrame('reportFrame', [sampleReport200, sampleReport205]);
+    clearActiveMenuLink(el);
 }
