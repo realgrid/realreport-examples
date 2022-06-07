@@ -117,39 +117,37 @@
         var containerId = 'realreport';
         var viewer;
 
+        
         //--------------------------------------------------------------------------------------------------
         // public methods
         //--------------------------------------------------------------------------------------------------
-        var clearReport = function () {
+
+        var clearReport = function() {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
             delete viewer;
         }
         
-        const setHtml = function (id, value, prefix, surfix) {
+        const setHtml = function(id, value, prefix, surfix) {
             if (id) {
                 const el = document.getElementById(id);
                 if (el) el.innerHTML = `${prefix}${value}${surfix}`;
             }
         }
 
-        const setTotalPage = function (id) {
+        const setTotalPage = function(id) {
             if (viewer) {
                 setHtml(id, viewer.pageCount, '', '');
             }
         }
 
-        
-
-        var previewReport = function (reports) {
+        var previewReport = function(reports) {
             clearReport();
-            // console.log(reports);
             if (Array.isArray(reports) && reports.length > 1) {
                 viewer = new RealReport.ReportCompositeViewer(containerId, reports);
             } else {
                 const previewInfo = reports[0];
                 viewer = new RealReport.ReportViewer(containerId, previewInfo.form, previewInfo.dataSet);
-                // viewer = new RealReport.ReportViewer(containerId, reportForm, reportDataSet);
             }
 
             if (viewer) viewer.preview();
@@ -158,6 +156,7 @@
                 setTotalPage('totalpage');
             }, 100);
         }
+
 
         //--------------------------------------------------------------------------------------------------
         // 이벤트 핸들링
@@ -169,63 +168,63 @@
             }
         }
 
-        const onClickZoomIn10 = function () {
+        const onClickZoomIn10 = function() {
             if (viewer) {
                 viewer.zoomIn();
                 setZoomScaleInputValue('inputZoomScale');
             }
         }
 
-        const onClickZoomOut10 = function () {
+        const onClickZoomOut10 = function() {
             if (viewer) {
                 viewer.zoomOut();
                 setZoomScaleInputValue('inputZoomScale');
             }
         }
 
-        const onClickFitToHeight = function () {
+        const onClickFitToHeight = function() {
             if (viewer) {
                 viewer.fitToHeight();
                 setZoomScaleInputValue('inputZoomScale');
             }
         }
 
-        const onClickFitToWidth = function () {
+        const onClickFitToWidth = function() {
             if (viewer) {
                 viewer.fitToWidth();
                 setZoomScaleInputValue('inputZoomScale');
             }
         }
 
-        const onClickFitToPage = function () {
+        const onClickFitToPage = function() {
             if (viewer) {
                 viewer.fitToPage();
                 setZoomScaleInputValue('inputZoomScale');
             }
         }
 
-        const onClickFirstPage = function () {
+        const onClickFirstPage = function() {
             if (viewer) {
                 viewer.first();
                 setPageInputValue('inputPageNumber');
             }
         }
 
-        const onClickLastPage = function () {
+        const onClickLastPage = function() {
             if (viewer) {
                 viewer.last();
                 setPageInputValue('inputPageNumber');
             }
         }
 
-        const onClickPrevPage = function () {
+        const onClickPrevPage = function() {
             if (viewer) {
                 viewer.prev();
                 setPageInputValue('inputPageNumber');
             }
         }
 
-        const onClickNextPage = function () {
+        const onClickNextPage = function() {
             if (viewer) {
                 viewer.next();
                 setPageInputValue('inputPageNumber');
@@ -246,38 +245,36 @@
             });
         }
 
-        const onClickExportPdf = function () {
-            base64convert('/js/pdffonts/malgun.ttf', true).then(regualrFont => {
-                base64convert('/js/pdffonts/malgunbd.ttf', true).then(boldFont => {
-                    if (regualrFont && boldFont) {
-                        const fonts = [{
-                            name: 'regular',
-                            content: regualrFont,
-                            style: 'normal',
-                            weight: 'normal',
-                        },
-                        {
-                            name: 'bold',
-                            content: boldFont,
-                            style: 'normal',
-                            weight: 'bold',
-                        }];
-                
-                        if (viewer) {
-                            viewer.exportPdf(fonts);
-                        }
-                    }
+        const onClickExportPdf = function() {
+            base64convert('/js/pdffonts/NanumGothic.otf', true).then(regualrFont => {
+                base64convert('/js/pdffonts/NanumGothicBold.otf', true).then(boldFont => {
+                            const fonts = [{
+                                name: 'regular',
+                                content: regualrFont,
+                                style: 'normal',
+                                weight: 'normal',
+                            },
+                            {
+                                name: 'bold',
+                                content: boldFont,
+                                style: 'normal',
+                                weight: 'bold',
+                            }];
+                    
+                            if (viewer) {
+                                viewer.exportPdf(fonts);
+                            }
                 });
             });
         }
 
-        const onClickExportDoc = function (type) {
+        const onClickExportDoc = function(type) {
             if (viewer) {
                 viewer.exportDocument({ type });
             }
         }
 
-        const onClickExportImage = function (type, encoding, fileName) {
+        const onClickExportImage = function(type, encoding, fileName) {
             if (viewer) {
                 var options = { type };
                 if (encoding) options.tiff = { encoding };
@@ -287,7 +284,7 @@
         }
 
         // iFrame을 통해 바로 출력
-        const onClickPrintHiddenFrame = function () {
+        const onClickPrintHiddenFrame = function() {
             if (viewer) {
                 function closePrint () {
                     document.body.removeChild(this.__container__);
@@ -347,20 +344,18 @@
             }
         })
 
-        const setInputValue = function (id, value, prefix, surfix) {
+        const setInputValue = function(id, value, prefix, surfix) {
             if (id) {
                 const input = document.getElementById(id);
                 if (input) input.value = `${prefix||''}${value}${surfix||''}`;
             }
         }
 
-
-
-        const setZoomScaleInputValue = function (id) {
+        const setZoomScaleInputValue = function(id) {
             setInputValue(id, Math.trunc(viewer.zoom * 100), '', '%');
         }
 
-        const setPageInputValue = function (id) {
+        const setPageInputValue = function(id) {
             if (viewer) {
                 setInputValue(id, viewer.page);
             }
