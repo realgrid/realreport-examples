@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isDev) setupReportSidebar('sample', REPORT_SAMPLE_URL, 'sidebarUl', onClickReportPreviewMenu, onClickPreviewPopup);
     setupReportSidebar('demo', REPORT_DEMO_URL, 'sidebarUl', onClickReportPreviewMenu, onClickPreviewPopup);
     if (isDev) setupReportSidebar('griddemo', GRID_DEMO_URL, 'gridReportUl', onClickGridViewMenu, onClickGridPreviewPopup);
+    if (isDev) document.getElementById('gridReportMenu').classList.remove('hidden');
 });
 
 
