@@ -104,7 +104,7 @@
 }
 
 .tab-button {
-    padding: 5px 15px;
+    padding: 10px 15px;
     cursor: pointer;
     display: flex;
 }
@@ -129,6 +129,20 @@
     color: var(--color-primary);
 }
 
+.tab-tool-button {
+    width: 22px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.tab-tool-button.active {
+    background-color: #7530aa40;
+}
+
+.tab-tool-button:hover {
+    background-color: #7530aa0f;
+}
+
 .tab-button .tab-header.tab-tool-button {
     display: none;
 }
@@ -136,7 +150,6 @@
 .tab-button.active .tab-header.tab-tool-button {
     display: block;
     color: var(--primary-text-color);
-    border-radius: 100%;
 }
 
 .tab-header .tool-icon {
