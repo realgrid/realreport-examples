@@ -1,6 +1,7 @@
 // 아래 라이선스는 유효기간 2022년 7월 1일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
 var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUB5oxsrC+spwo0oHsPcuPqH+6ZGVxDxR7Q=';
 var viewer;
+var editor;
 
 // 미리보기 팝업창 객체
 var windowPreview = null;
@@ -47,6 +48,92 @@ const appendNode = function(parent, tag, classNames, onClick) {
     if (onClick) el.onclick = onClick;
     parent.appendChild(el)
     return el;
+}
+
+// 프레임 탭 열기
+function openTab(tabId, hideTabId) {
+    const setClasses = function(select, add, remove) {
+        var i;
+        var x = document.getElementsByClassName(select);
+        for (i = 0; i < x.length; i++) {
+            if (add) x[i].classList.add(add);
+            if (remove) x[i].classList.remove(remove);
+        }    
+    }
+    setClasses('frame-tab', 'hidden', undefined);
+    setClasses('tab-button', undefined, 'active');
+
+    document.getElementById(tabId.concat('Btn')).classList.remove('hidden');
+    if (hideTabId) document.getElementById(hideTabId.concat('Btn')).classList.add('hidden');
+
+    document.getElementById(tabId).classList.remove('hidden');
+    document.getElementById(tabId.concat('Btn')).classList.add('active');
+}
+
+// 에디팅 상태를 토글 합니다.
+function openEditor(frameType) {
+    if (frameType === 'reportFrame' && !viewer) return;
+
+    if (!editor) {
+        showEditor('reportForm');
+        document.getElementById('editorFrame').classList.remove('hidden');
+    } else {
+        hideEditor();
+        document.getElementById('editorFrame').classList.add('hidden');    
+    }
+}
+
+// 에디터를 보여줍니다.
+function showEditor(sourceType) {
+    const options = {
+        minimap: { enabled: false },
+        automaticLayout: true,
+        autoIndent: true,
+        formatOnType: true,
+        readOnly: !isDev,
+    }
+
+    if (!editor) {
+        editor = monaco.editor.create(document.getElementById('editor-container'), options);
+    }
+
+    setEditorModel(sourceType);
+}
+
+// 에디터를 없앱니다.
+function hideEditor() {
+    monaco.editor.getModels().forEach(model => model.dispose());
+    editor.dispose();
+    editor = null;
+}
+
+// 에디터에 값을 입력합니다.
+function setEditorModel(sourceType) {
+    if (!editor) return;
+
+    let model = null;
+    resetActiveClass(undefined, 'tool-button', 'active', 0);
+    if (viewer && sourceType === 'reportForm') {
+        if (viewer._reportFormSets) {
+            // ES5
+            const value = JSON.stringify(viewer._reportFormSets.map( set => set.form ), null, ' ');
+            model = monaco.editor.createModel(value, 'json');
+        } else {
+            const value = JSON.stringify(viewer.reportForm, null, ' ');
+            model = monaco.editor.createModel(value, 'json');
+        }
+    }
+    if (viewer && sourceType === 'reportData') {
+        if (viewer._reportFormSets) {
+            // ES5
+            const value = JSON.stringify(viewer._reportFormSets.map( set => set.dataSet ), null, ' ');
+            model = monaco.editor.createModel(value, 'json');
+        } else {
+            const value = JSON.stringify(viewer.dataSet, null, ' ');
+            model = monaco.editor.createModel(value, 'json');
+            }
+    }
+    if (model) editor.setModel(model);
 }
 
 // service 호출
@@ -102,38 +189,24 @@ const setupReportSidebar = function(category, hostUrl, sidebarId, onClick, onCli
     });
 }
 
-// 메뉴 링크 활성화 스타일 지우기
-const clearActiveMenuLink = function(activeMenuEl) {
-    const menus = document.getElementsByClassName('menu-link-active');
-    for (i=0; i<menus.length; i++) {
-        const menu = menus[i];
-        if (menu) {
-            menu.setAttribute('class', 'menu-link');
+// 메뉴 링크 활성화 스타일 다시 지정하기
+const resetActiveClass = function(activeEl, selection, active, resetIndex) {
+    const elements = document.getElementsByClassName(selection);
+    console.log(elements);
+    for (i=0; i<elements.length; i++) {
+        const element = elements[i];
+        // active할 el을 넘기지 않고 resetIndex를 넘기면 해당 아이템을 active한다. 
+        if (element) {
+            element.classList.remove(active);
+        }
+        if (!activeEl && resetIndex > -1 && i === resetIndex) {
+            element.classList.add(active);
         }
     }
 
-    if (activeMenuEl && activeMenuEl instanceof HTMLAnchorElement) {
-        activeMenuEl.classList.add('menu-link-active');
-    }
-}
-
-// 프레임 감추기 / 보이기
-const setFrames = function(showFrameId, hideFrameId, title) {
-    const showFrame = document.getElementById(showFrameId);
-    if (showFrame) showFrame.classList.remove('hidden');
-    const hideFrame = document.getElementById(hideFrameId);
-    if (hideFrame) hideFrame.classList.add('hidden');
-    const frameTitleEl = document.getElementById('frameTitle');
-    frameTitleEl.innerHTML = title;
-}
-
-const resetContentFrame = function(id, title, src) {
-    const frame = document.getElementById(id);
-    if (frame) {
-        frame.src = src;
-        frame.classList.remove('hidden');
-        setFrameTitle(title);
-        return frame;
+    console.log(activeEl, activeEl instanceof HTMLElement);
+    if (activeEl && activeEl instanceof HTMLElement) {
+        activeEl.classList.add(active);
     }
 }
 
@@ -148,7 +221,8 @@ const onClickReportPreviewMenu = async function(event) {
     const hosturl = event.target.dataset.hosturl;
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
     
-    setFrames('reportFrame', 'gridFrame', '리포트 미리보기');
+    // setFrames('reportFrame', 'gridFrame', '리포트 미리보기');
+    openTab('reportTab', 'gridTab');
 
     serviceFetch(hosturl.concat('/', id), function(serviceItem) {
         // ReportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
@@ -161,8 +235,9 @@ const onClickReportPreviewMenu = async function(event) {
         }];
 
         // import from preview.js
-        previewFrame('reportFrame', reports);
-        clearActiveMenuLink(event.target.parentElement);
+        viewer = previewFrame('reportFrame', reports);
+        setEditorModel('reportForm');
+        resetActiveClass(event.target.parentElement, 'menu-link-active', 'menu-link-active');
     });
 }
 
@@ -172,7 +247,7 @@ const onClickGridViewMenu = function(event) {
     const hosturl = event.target.dataset.hosturl;
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
 
-    setFrames('gridFrame', 'reportFrame', '그리드 미리보기');
+    openTab('gridTab');
 
     serviceFetch(hosturl.concat('/', id), function(serviceItem) {
         const gridItem = serviceItem.grid;
@@ -180,7 +255,7 @@ const onClickGridViewMenu = function(event) {
         const gridFrame = document.getElementById('gridFrame');
         gridFrame.contentWindow.setGridLayout(gridItem);
 
-        clearActiveMenuLink(event.target.parentElement);
+        resetActiveClass(event.target.parentElement, 'menu-link-active', 'menu-link-active');
     })
 }
 
@@ -217,21 +292,35 @@ const onClickGridPreviewPopup = function(event) {
 
 // 복합 출력 샘플 1
 function reportSample1(el) {
-    setFrames('reportFrame', 'gridFrame', '리포트 미리보기');
-    previewFrame('reportFrame', [sampleReport200]);
-    clearActiveMenuLink(el);
+    openTab('reportTab', 'gridTab');
+    viewer = previewFrame('reportFrame', [sampleReport200]);
+    setEditorModel('reportForm');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
 }
 
 // 복합 출력 샘플 2
 function reportSample2(el) {
-    setFrames('reportFrame', 'gridFrame', '리포트 미리보기');
-    previewFrame('reportFrame', [sampleReport205]);
-    clearActiveMenuLink(el);
+    openTab('reportTab', 'gridTab');
+    viewer = previewFrame('reportFrame', [sampleReport205]);
+    setEditorModel('reportForm');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
 }
 
 // 복합 출력 샘플 1 + 2
 function reportSampleComposit(el) {
-    setFrames('reportFrame', 'gridFrame', '리포트 미리보기');
-    previewFrame('reportFrame', [sampleReport200, sampleReport205]);
-    clearActiveMenuLink(el);
+    openTab('reportTab', 'gridTab');
+    viewer = previewFrame('reportFrame', [sampleReport200, sampleReport205]);
+    setEditorModel('reportForm');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
+}
+
+// 에디터 툴버튼 클릭
+function clickEditorToolButton(target) {
+    const buttonData = target.dataset;
+
+    if (buttonData.btnType === 'set-editor-model') {
+        setEditorModel(buttonData.sourceType);
+    }
+
+    resetActiveClass(target, 'tool-button', 'active');
 }

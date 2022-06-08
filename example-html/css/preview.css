@@ -218,12 +218,18 @@ a {
 }
 
 .preview-toolbar {
-    display: flex;
+    /* display: flex; */
     height: 38px;
     padding: 5px;
     align-items: center;
+    overflow-x: auto;
     background-color: var(--preview-toolbar-background-color);
     border-bottom: 1px solid var(--border-color);
+}
+
+.toolbar-scrolller {
+    display: flex;
+    min-width: 700px;
 }
 
 #inputZoomScale {

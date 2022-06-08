@@ -24,84 +24,86 @@
             <div class="main">
                 <div class="main-content">
                     <div class="preview-toolbar">
-                        <div class="toolbar-left">
-                            <div class="toolbar-items">
-                                <a class="toolbar-icon-button" onclick="onClickZoomOut10();">
-                                    <div class="toolbar-icon icon preview-zoomout-png"></div>
-                                </a>
-                                <input part="input" type="text" value="100%" id="inputZoomScale" aria-label="Zoom Scale">
-                                <a class="toolbar-icon-button" onclick="onClickZoomIn10();">
-                                    <div class="toolbar-icon icon preview-zoomin-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickFitToWidth();">
-                                    <div class="toolbar-icon icon preview-fit-to-width-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickFitToHeight();">
-                                    <div class="toolbar-icon icon preview-fit-to-height-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickFitToPage();">
-                                    <div class="toolbar-icon icon preview-fit-to-page-png"></div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="toolbar-center">
-                            <div class="toolbar-items">
-                                <a class="toolbar-icon-button" onclick="onClickFirstPage();">
-                                    <div class="toolbar-icon icon preview-first-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickPrevPage();">
-                                    <div class="toolbar-icon icon preview-prev-png"></div>
-                                </a>
-                                <div class="toolbar-item">
-                                    <input part="input" type="text" value="1" id="inputPageNumber" aria-label="Page number" >
-                                    <span style="margin: 0 4px;">/</span>
-                                    <span style="margin: 0 4px;" id="totalpage">1</span>
+                        <div class="toolbar-scrolller">
+                            <div class="toolbar-left">
+                                <div class="toolbar-items">
+                                    <a class="toolbar-icon-button" onclick="onClickZoomOut10();">
+                                        <div class="toolbar-icon icon preview-zoomout-png"></div>
+                                    </a>
+                                    <input part="input" type="text" value="100%" id="inputZoomScale" aria-label="Zoom Scale">
+                                    <a class="toolbar-icon-button" onclick="onClickZoomIn10();">
+                                        <div class="toolbar-icon icon preview-zoomin-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickFitToWidth();">
+                                        <div class="toolbar-icon icon preview-fit-to-width-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickFitToHeight();">
+                                        <div class="toolbar-icon icon preview-fit-to-height-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickFitToPage();">
+                                        <div class="toolbar-icon icon preview-fit-to-page-png"></div>
+                                    </a>
                                 </div>
-                                <a class="toolbar-icon-button" onclick="onClickNextPage();">
-                                    <div class="toolbar-icon icon preview-next-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickLastPage();">
-                                    <div class="toolbar-icon icon preview-last-png"></div>
-                                </a>
+                            </div>
+                            <div class="toolbar-center">
+                                <div class="toolbar-items">
+                                    <a class="toolbar-icon-button" onclick="onClickFirstPage();">
+                                        <div class="toolbar-icon icon preview-first-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickPrevPage();">
+                                        <div class="toolbar-icon icon preview-prev-png"></div>
+                                    </a>
+                                    <div class="toolbar-item">
+                                        <input part="input" type="text" value="1" id="inputPageNumber" aria-label="Page number" >
+                                        <span style="margin: 0 4px;">/</span>
+                                        <span style="margin: 0 4px;" id="totalpage">1</span>
+                                    </div>
+                                    <a class="toolbar-icon-button" onclick="onClickNextPage();">
+                                        <div class="toolbar-icon icon preview-next-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickLastPage();">
+                                        <div class="toolbar-icon icon preview-last-png"></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="toolbar-right">
+                                <div class="toolbar-items">
+                                    <a class="toolbar-icon-button" onclick="onClickPrintHiddenFrame()">
+                                        <div class="toolbar-icon icon preview-print-png"></div>
+                                    </a>
+                                </div>
+                                <span class="vertical-separator"></span>
+                                <div class="toolbar-items">
+                                    <a class="toolbar-icon-button" onclick="onClickExportPdf();">
+                                        <div class="toolbar-icon icon preview-pdf-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickExportDoc('docx');">
+                                        <div class="toolbar-icon icon preview-docx-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickExportDoc('hwp');">
+                                        <div class="toolbar-icon icon preview-hwp-png"></div>
+                                    </a>
+                                </div>
+                                <span class="vertical-separator"></span>
+                                <div class="toolbar-items">
+                                    <a class="toolbar-icon-button" onclick="onClickExportImage('png');">
+                                        <div class="toolbar-icon icon preview-png-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickExportImage('jpeg');">
+                                        <div class="toolbar-icon icon preview-jpeg-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickExportImage('gif');">
+                                        <div class="toolbar-icon icon preview-gif-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickExportImage('tiff', 'g3');">
+                                        <div class="toolbar-icon icon preview-tiffg3-png"></div>
+                                    </a>
+                                    <a class="toolbar-icon-button" onclick="onClickExportImage('tiff', 'g4');">
+                                        <div class="toolbar-icon icon preview-tiffg4-png"></div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="toolbar-right">
-                            <div class="toolbar-items">
-                                <a class="toolbar-icon-button" onclick="onClickPrintHiddenFrame()">
-                                    <div class="toolbar-icon icon preview-print-png"></div>
-                                </a>
-                            </div>
-                            <span class="vertical-separator"></span>
-                            <div class="toolbar-items">
-                                <a class="toolbar-icon-button" onclick="onClickExportPdf();">
-                                    <div class="toolbar-icon icon preview-pdf-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickExportDoc('docx');">
-                                    <div class="toolbar-icon icon preview-docx-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickExportDoc('hwp');">
-                                    <div class="toolbar-icon icon preview-hwp-png"></div>
-                                </a>
-                            </div>
-                            <span class="vertical-separator"></span>
-                            <div class="toolbar-items">
-                                <a class="toolbar-icon-button" onclick="onClickExportImage('png');">
-                                    <div class="toolbar-icon icon preview-png-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickExportImage('jpeg');">
-                                    <div class="toolbar-icon icon preview-jpeg-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickExportImage('gif');">
-                                    <div class="toolbar-icon icon preview-gif-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickExportImage('tiff', 'g3');">
-                                    <div class="toolbar-icon icon preview-tiffg3-png"></div>
-                                </a>
-                                <a class="toolbar-icon-button" onclick="onClickExportImage('tiff', 'g4');">
-                                    <div class="toolbar-icon icon preview-tiffg4-png"></div>
-                                </a>
-                            </div>
-                        </div>                                        
                     </div>
                     <div class="scroller">
                         <div id="realreport"></div>
@@ -155,6 +157,8 @@
             setTimeout(() => {
                 setTotalPage('totalpage');
             }, 100);
+
+            return viewer;
         }
 
 
