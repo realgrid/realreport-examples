@@ -71,8 +71,9 @@ function openTab(tabId, hideTabId) {
 }
 
 // 에디팅 상태를 토글 합니다.
-function openEditor(frameType) {
+function openEditor(frameType, el) {
     if (frameType === 'reportFrame' && !viewer) return;
+    if (el && el instanceof HTMLElement) el.classList.toggle('active');
 
     if (!editor) {
         showEditor('reportForm');

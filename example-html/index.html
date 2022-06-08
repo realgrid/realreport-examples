@@ -126,7 +126,7 @@
                         <div class="tab-buttons">
                             <div class="tab-button active" id="reportTabBtn">
                                 <span class="tab-header tab-title" onclick="openTab('reportTab')">Report 미리보기</span>
-                                <span class="tab-header tab-tool-button" onclick="openEditor('reportFrame')">
+                                <span class="tab-header tab-tool-button" onclick="openEditor('reportFrame', this)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="tool-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                                     </svg>
@@ -134,7 +134,7 @@
                             </div>
                             <div class="tab-button hidden" id="gridTabBtn">
                                 <span class="tab-header tab-title" onclick="openTab('gridTab')">Grid 보기</span>
-                                <span class="tab-header tab-tool-button" onclick="openEditor('gridFrame')">
+                                <span class="tab-header tab-tool-button" onclick="openEditor('gridFrame', this)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="tool-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                                     </svg>                                      
