@@ -48,5 +48,5 @@ function previewPopup(reports) {
 function previewFrame(iFrameId, reports) {
     const reportFrame = document.getElementById(iFrameId);
     reportFrame.classList.remove('hidden');
-    reportFrame.contentWindow.previewReport(reports);
+    return reportFrame.contentWindow.previewReport(reports);
 }

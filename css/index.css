@@ -5,11 +5,16 @@
 @import "report-style.css";
 
 :root {
+    
     --color-white: #fff;
     --color-black: #000;
     --color-gray-300: #dadde1;
+    --color-gray-500: #939393;
     --color-gray-700: #606770;
     --color-gray-900: #1c1e21;
+
+    --color-primary: #7530aa;
+    --primary-text-color: var(--color-black);
 
     --background-color: var(--color-white);
     --border-color: var(--color-gray-300);
@@ -21,7 +26,7 @@
     --font-weight-bold: 700;
     --font-family-base: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
-    --link-color: #7530aa;
+    --link-color: var(--color-primary);
     --link-decoration: none;
     --transition-fast: 200ms;
     --transition-timing-default: cubic-bezier(0.08, 0.52, 0.52, 1);
@@ -51,6 +56,10 @@
     --report-background-color: #f5f7fb;
 }
 
+.primary {
+    color: var(--color-primary);
+}
+
 .root {
     --viewer-sidenav-width: 300px;
     display: flex;
@@ -73,19 +82,113 @@
     position: relative;
 }
 
-.main-editor {
-    flex:1;
+.main-tabs {
     display: flex;
-    height: 100%;
-    width: 50%;
-    z-index: 1;
+    flex: 1;
     flex-direction: column;
+}
+
+.tab {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-bg {
+    background-color: var(--preview-toolbar-background-color);
+}
+
+.tab-buttons {
+    display: flex;
+    padding: 0 10px;
+}
+
+.tab-button {
+    padding: 5px 15px;
+    cursor: pointer;
+    display: flex;
+}
+
+.tab-header {
+    margin: 0 10px;
+    padding: 4px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--color-gray-500);
+}
+
+.tab-title {
+    white-space: nowrap;
+}
+
+.tab-button.active {
+    background-color: var(--preview-toolbar-background-color);
+}
+
+.tab-button.active .tab-header {
+    color: var(--color-primary);
+}
+
+.tab-button .tab-header.tab-tool-button {
     display: none;
 }
 
-.main-tabs {
+.tab-button.active .tab-header.tab-tool-button {
+    display: block;
+    color: var(--primary-text-color);
+    border-radius: 100%;
+}
+
+.tab-header .tool-icon {
+    vertical-align: sub;
+}
+
+.tool-icon {
+    color: var(--color-gray-700);
+    height: 16px;
+}
+
+.editor-frame {
+    flex-grow: 1;
     display: flex;
-    padding: 5px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--preview-toolbar-background-color);
+}
+
+.editor-toolbar {
+    display: flex;
+    height: 38px;
+    align-items: center;
+}
+
+.tool-button {
+    margin: 0 10px;
+    padding: 9px 20px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.tool-button.active, .tool-button.active .tool-icon, .tool-button:hover {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.tool-button .tool-icon {
+    vertical-align: sub;
+}
+
+.tool-button.active {
+    background-color: var(--color-white);
+}
+
+.tool-button .tool-icon:hover {
+    color: var(--color-primary);
+}
+
+.main-editor {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .main-content {
@@ -94,18 +197,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 10px;
-}
-
-.scroller {
-    flex: 1;
-    direction: ltr;
     padding-top: 10px;
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-    position: relative;
-    background-color: var(--report-background-color);
 }
 
 .hidden {
@@ -113,9 +205,11 @@
 }
 
 .content-frame {
-    width: 100%;
-    height: 100%;
     border: none;
+    padding: 10px;
+    flex-grow: 1;
+    min-height: 450px;
+    background-color: var(--report-background-color);
 }
 
 #realreport {
@@ -124,8 +218,7 @@
 }
 
 #editor-container {
-    flex:1;
-    position: relative;
+    flex-grow:1;X
 }
 
 
