@@ -278,24 +278,24 @@
         }
 
         const onClickExportPdf = function() {
-            base64convert('/js/pdffonts/NanumGothic.otf', true).then(regualrFont => {
+            base64convert('/js/pdffonts/NanumGothic.otf', true).then(regularFont => {
                 base64convert('/js/pdffonts/NanumGothicBold.otf', true).then(boldFont => {
-                            const fonts = [{
-                                name: 'regular',
-                                content: regualrFont,
-                                style: 'normal',
-                                weight: 'normal',
-                            },
-                            {
-                                name: 'bold',
-                                content: boldFont,
-                                style: 'normal',
-                                weight: 'bold',
-                            }];
-                    
-                            if (viewer) {
-                                viewer.exportPdf(fonts);
-                            }
+                    const fonts = [{
+                        name: 'regular',
+                        content: regularFont,
+                        style: 'normal',
+                        weight: 'normal',
+                    },
+                    {
+                        name: 'bold',
+                        content: boldFont,
+                        style: 'normal',
+                        weight: 'bold',
+                    }];
+            
+                    if (viewer) {
+                        viewer.exportPdf(fonts);
+                    }
                 });
             });
         }
