@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/deploy.yml
-      - example-html/**
+      - report-viewer-html/**
 
 jobs:
   deploy:
@@ -17,4 +17,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages
-          folder: example-html
+          folder: report-viewer-html
