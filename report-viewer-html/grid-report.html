@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Grid Report Tester</title>
+    <link href="./css/report-style.css" rel="stylesheet">
+    <script defer src="./js/realreport/realreport.js"></script>
+    <script defer src="./datas/grid-item.js"></script>
+    <script defer type="application/json" src="./js/realreport/realreport.js.map"></script>
+    <style>
+        html{
+            -webkit-font-smoothing: antialiased;
+            height: 100%;
+            width: 100%;
+            color-scheme: light;
+        }
+        body {
+            height: 100%;
+            width: 100%;
+            font: 100%/1.65 "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            margin: 0;
+        }
+        iframe {
+            border: none;
+        }
+        header {
+            height: 48px;
+            display: flex;
+            font-size: 23px;
+            font-weight: 700;
+            align-items: center;
+            padding: 0 10px;        }
+        .root {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+        }
+        .main-content {
+            flex:1;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 10px;
+            background-color: #f5f7fb;
+        }
+
+        .hidden {
+            display: none;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            /* position: relative; */
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+        #gridFrame {
+            height: 600px;
+        }
+        #realgrid {
+            height: 100%;
+            width: 100%;
+        }
+        #gridReportFrame {
+            height: 100%;
+            width: 100%;
+        }
+        .scroller {
+            width: 100%;
+            height: 100%;
+            flex-grow: 1;
+            display: flex;
+        }
+        .content {
+            height: 100%;
+        }
+        .scroller {
+            flex: 1;
+            direction: ltr;
+            padding-top: 10px;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            position: relative;
+        }
+    </style>
+
+    <script defer>
+        var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUB5oxsrC+spwo0oHsPcuPqH+6ZGVxDxR7Q=';
+        var reportViewer, gridViewer;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const gridFrame = document.getElementById('gridFrame');
+            const reportFrame = document.getElementById('gridReportFrame');
+            setTimeout(() => {
+                gridViewer = gridFrame.contentWindow.setGridLayout(gridItem);
+                if (gridViewer) {
+
+                    const options = {
+                        title: {
+                            name: 'title',
+                            text: '그리드 리포트 타이틀',
+                            styles: [
+                                {fontSize: '20px'},
+                                {fontWeight: '500'},
+                                {borderBottom: '2px solid blue'},
+                            ]
+                        },
+                        subTitle: {
+                            name: 'sub-title',
+                            text: 'Sub Title',
+                            positions: [
+                                {top: '80px'},
+                            ],
+                            styles: [
+                                {fontSize: '14px'},
+                            ]
+                        },
+                        gridHeaders: [{
+                            name: 'header1',
+                            text: 'Sub Title',
+                            positions: [
+                                {top: '80px'},
+                            ],
+                            styles: [
+                                {fontSize: '14px'},
+                            ]
+                        }, {
+                            name: 'header2',
+                            text: 'Sub Title',
+                            positions: [
+                                {right: '8px'},
+                            ],
+                            styles: [
+                                {color: 'blue'},
+                            ]
+                        }],
+                    }
+
+                    reportViewer = reportFrame.contentWindow.previewGridReport(gridViewer, options);
+                }
+            }, (1000));
+        });
+    </script>
+</head>
+<body>
+    <div class="root">
+        <header>GridReportViewer Test</header>
+        <div class="main">
+            <div class="main-content">
+                <iframe id="gridFrame" title="Grid View Frame"
+                    src="grid.html" class="content-frame"></iframe>
+
+                <iframe id="gridReportFrame" title="Grid Report Preview Frame"
+                    src="preview.html" class="content-frame"></iframe>
+            </div>    
+        </div>
+    </div>
+</body>
+</html>
