@@ -147,6 +147,17 @@
                     printWindow.addEventListener('DOMContentLoaded', function () {
                         var container = printWindow.document.getElementById('realreport');
                         container.innerHTML = viewer.getHtml();
+                        var pages = printWindow.document.getElementsByClassName('rr-print-page');
+                        var landscapePages = [];
+                        for (let i = 0; i < pages.length; i++) {
+                            var w = Number(printWindow.getComputedStyle(pages[i]).getPropertyValue('width').replace('px', ''));
+                            var h = Number(printWindow.getComputedStyle(pages[i]).getPropertyValue('height').replace('px', ''));
+                            if (w > h) {
+                                landscapePages.push(pages[i]);
+                                pages[i].style.transformOrigin = '0 100% 0';
+                                pages[i].style.transform = `rotate(90deg) translate(-${h}px)`;
+                            }
+                        }
                         printWindow.print();
                     });
                     printWindow.document.body.addEventListener('onafterprint', function () {
