@@ -220,8 +220,11 @@
     border: none;
     padding: 10px;
     flex-grow: 1;
-    min-height: 450px;
     background-color: var(--report-background-color);
+}
+
+.h-450 {
+    min-height: 450px;
 }
 
 #realreport {
@@ -233,6 +236,9 @@
     flex-grow:1;X
 }
 
+#gridReportFrame {
+    border-top: 1px solid var(--border-color);
+}
 
 /* ICONS */
 

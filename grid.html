@@ -4,7 +4,7 @@
 <head>
     <title>그리드 리포트</title>
     <link href="js/realgrid/realgrid-style.css" rel="stylesheet" />
-    <script src="js/realgrid/realgrid.min.js"></script>
+    <script src="js/realgrid/realgrid.2.5.4.min.js"></script>
     <script src="js/realgrid/libs/jszip.min.js"></script>
     <style>
         html {
@@ -34,7 +34,14 @@
         var gridView;
         var data;
 
+        var clearGrid = function() {
+            delete container;
+            delete gridView;
+            delete dataProvider;
+        }
+
         var setGridLayout = function (gridItem) {
+            clearGrid();
             container = document.getElementById('realgrid');
             /* RealGrid Version 2.2.5 */
             if (!dataProvider) {
@@ -44,33 +51,13 @@
             }
 
             if (gridItem) {
-                // console.log(gridItem);
+                console.log(gridItem);
                 dataProvider.setFields(gridItem.fields);
                 dataProvider.fillJsonData(gridItem.data, { fillMode: "set" });
                 gridView.setColumns(gridItem.columns);
             }
 
-            //헤더높이
-            var headerHeight = gridView.header.height;
-            gridView.header.height = 52;
-
-            //행높이
-            var height = gridView.displayOptions.rowHeight;
-            gridView.displayOptions.rowHeight = 52;
-
-            //컬럼너비채우기
-            gridView.displayOptions.fitStyle = "evenFill";
-
-            //삭제 옵션 설정 
-            gridView.setEditOptions({
-                deletable: true
-            });
-
-            //편집가능 설정 
-            gridView.setEditOptions({
-                editable: true,
-                updatable: true
-            });
+            return gridView;
         }
 
         function serialize(rawData) {

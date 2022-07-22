@@ -50,3 +50,18 @@ function previewFrame(iFrameId, reports) {
     reportFrame.classList.remove('hidden');
     return reportFrame.contentWindow.previewReport(reports);
 }
+
+/**
+ * 
+ * iFrame에 그리드 리포트 미리보기를 표시합니다.
+ * iFrame src 속성에 preview html 파일이 지정되어 있어야 합니다.
+ * preview.html 파일에 previewGridReport() 호출합니다.
+ * @param {string} iFrameId 
+ * @param {ReportSource[]} reports 
+ * @param {GridReportOptions} options
+ */
+ function previewGridReportFrame(iFrameId, grid, options) {
+    const reportFrame = document.getElementById(iFrameId);
+    reportFrame.classList.remove('hidden');
+    return reportFrame.contentWindow.previewGridReport(grid, options);
+}

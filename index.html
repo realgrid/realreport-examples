@@ -134,16 +134,11 @@
                             </div>
                             <div class="tab-button hidden" id="gridTabBtn">
                                 <span class="tab-header tab-title" onclick="openTab('gridTab')">Grid 보기</span>
-                                <span class="tab-header tab-tool-button" onclick="openEditor('gridFrame', this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="tool-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                                    </svg>                                      
-                                </span>
                             </div>
                         </div>
                         <div class="tab frame-tab" id="reportTab">
                             <iframe id="reportFrame" title="Report Preview Frame"
-                                src="preview.html" class="content-frame"></iframe>
+                                src="preview.html" class="content-frame h-450"></iframe>
                             <div class="editor-frame hidden" id="editorFrame">
                                 <div class="main-editor">
                                     <div class="editor-toolbar">
@@ -167,6 +162,8 @@
                         <div class="tab frame-tab hidden" id="gridTab">
                             <iframe id="gridFrame" title="Grid View Frame"
                                 src="grid.html" class="content-frame"></iframe>
+                            <iframe id="gridReportFrame" title="Grid Report Preview Frame"
+                            src="preview.html" class="content-frame"></iframe>
                         </div>
                     </div>
                 </div>

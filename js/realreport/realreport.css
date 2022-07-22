@@ -635,15 +635,22 @@
     box-sizing: border-box !important;
     border-collapse: separate;
     border: 1px solid #aaa;
-    height: 0px;
     overflow: hidden;
     color: gray;
+    white-space: nowrap;
 }
 
 .rr-crosstab-field-container {
     background-color: #efefef;
     border: 1px solid lightgray;
-    max-width: 150px;
+}
+.rr-crosstab-field-container[data-empty='1']::before {
+    content: "[Fields]";
+    color: #040;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .rr-crosstab-field {
@@ -668,6 +675,21 @@
     color: black;
     border: 1px solid #555;
     border-radius: 3px;
+}
+
+.rr-crosstab-head {
+    padding: 2px 1px !important;
+    font-size: 10px;
+    text-align: center;
+    background-color: '#f0f0f0';
+}
+.rr-crosstab-value {
+    padding: 1px 1px !important;
+    font-size: 10px;
+    text-align: right;
+}
+.rr-crosstab-null {
+    background-color: #efefef;
 }
 
 .rr-select-feedback {
@@ -728,6 +750,49 @@
     text-align: center;
 }
 
+.rr-table-designer {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    border: 1px solid gray;
+}
+.rr-table-designer span[data-title="1"] {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 1px;
+    color: '#334';
+    background-color: #eeeef0;
+    margin-bottom: 10px;
+}
+.rr-table-designer button {
+    font-size: 14px;
+}
+
+.rr-band-designer {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    border: 1px solid gray;
+}
+.rr-band-designer span[data-title="1"] {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 1px;
+    color: '#334';
+    background-color: #eeeef0;
+    margin-bottom: 10px;
+}
+.rr-band-designer button {
+    font-size: 14px;
+}
+.rr-band-designer-field:hover {
+    background-color: #0088ff20;
+}
+.rr-band-designer-field[data-select='1'] {
+    background-color: #eee;
+    font-weight: bold;
+}
+
 .rr-edit-marquee {
     position: absolute;
     pointer-events: none;
@@ -739,7 +804,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #fff;
+    box-sizing: border-box;
+    border: 0.5px solid #fff;
     background-color: #555566cc;
     color: white;
     font-family: Arial, Helvetica, sans-serif;

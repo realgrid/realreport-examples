@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /** 
 * RealReport v1.2.0
-* commit c38e3d1
+* commit ad8af40
 
 * Copyright (C) 2013-2022 WooriTech Inc.
 	https://real-report.com
@@ -546,7 +546,7 @@ declare class VisualTool extends Base {
     private _mouseY;
     private _mouseEventTarget;
     protected _lastTouch: number;
-    constructor(owner: VisualToolOwner, name: string);
+    constructor(owner: VisualToolOwner, name?: string);
     protected _doDispose(): void;
     /** owner */
     get owner(): VisualToolOwner;
@@ -988,7 +988,9 @@ declare abstract class VisualElement extends EventAware {
     findChildAt(x: number, y: number, hitTesting: boolean, blockLayer: boolean): VisualElement;
     findChildOf(dom: Element): VisualElement;
     move(x: number, y: number, draw?: boolean): void;
+    moveBy(dx: number, dy: number, draw?: boolean): void;
     resize(width: number, height: number, draw?: boolean): void;
+    resizeBy(dw: number, dh: number, draw?: boolean): void;
     setBounds(x: number, y: number, width: number, height: number): VisualElement;
     setBoundsI(x: number, y: number, width: number, height: number): VisualElement;
     setRect(r: IRect): VisualElement;
@@ -3233,8 +3235,6 @@ declare class ReportElement extends VisualElement {
     private _measuredHeight;
     protected _printWidth: number;
     protected _printHeight: number;
-    constructor(doc: Document, name: string);
-    protected _doDispose(): void;
     /** debuggin */
     get debugging(): boolean;
     /** debugName */
@@ -3256,7 +3256,6 @@ declare class ReportElement extends VisualElement {
     print(doc: Document, ctx: PrintContext, w?: number): number;
     findElement(modelName: string): ReportItemElement<ReportItem>;
     applyMeasure(): void;
-    protected _doDraw(dom: HTMLElement): void;
     protected _debugBorder(): string;
     protected _debugColor(): string;
     protected _clearDesign(): void;
@@ -3414,13 +3413,33 @@ declare class CrosstabFieldHeader extends ReportItem {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
 }
+declare class CrosstabFieldSummaryHeader extends ReportItem {
+    static readonly PROP_TEXT = "text";
+    static readonly PROPINFOS: IPropInfo[];
+    private _text;
+    private _summary;
+    constructor(summary: CrosstabFieldSummary, source: any);
+    get summary(): CrosstabFieldSummary;
+    get field(): CrosstabField;
+    /** text */
+    get text(): string;
+    set text(value: string);
+    get page(): ReportPage;
+    get outlineSource(): IOutlineSource;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
 declare class CrosstabFieldSummary extends ReportItem {
     static readonly PROP_SUMMARY = "summary";
     static readonly PROPINFOS: IPropInfo[];
     private _summary;
     private _field;
+    private _header;
     constructor(field: CrosstabField, source: any);
     get field(): CrosstabField;
+    get header(): CrosstabFieldSummaryHeader;
     /** summary */
     get summary(): CrosstabSummary;
     set summary(value: CrosstabSummary);
@@ -3480,6 +3499,7 @@ declare abstract class CrosstabFieldCollection<T extends CrosstabField> extends 
     save(target: any): void;
     contains(field: string): boolean;
     getField(field: string): T;
+    slice(count: number): T[];
     indexOf(field: T): number;
     add(field: any, index?: number): T;
     removeAt(index: number): boolean;
@@ -3502,7 +3522,7 @@ declare abstract class CrosstabFieldCollection<T extends CrosstabField> extends 
     protected _resetFields(): void;
     protected _fieldChanged(field: CrosstabField): void;
 }
-declare type CrosstabFieldCell = CrosstabField | CrosstabFieldHeader | CrosstabFieldSummary;
+declare type CrosstabFieldCell = CrosstabField | CrosstabFieldHeader | CrosstabFieldSummary | CrosstabFieldSummaryHeader;
 declare class CrosstabRowField extends CrosstabField {
     get itemType(): string;
     getCollectionLabel(): string;
@@ -3534,6 +3554,10 @@ declare class CrosstabRec {
     private _keys;
     private _rows;
     private sum;
+    private count;
+    private min;
+    private max;
+    private avg;
     constructor(keys: any[], rows: number[]);
     get rowCount(): number;
     getKey(field: number): any;
@@ -3560,7 +3584,7 @@ declare class RecCollection {
 declare class CrosstabColumn {
     hash: number;
     parent: CrosstabColumn;
-    private _field;
+    protected _field: CrosstabColumnField;
     private _value;
     private _children;
     constructor(field: CrosstabColumnField, value: any);
@@ -3569,10 +3593,12 @@ declare class CrosstabColumn {
     get count(): number;
     get children(): CrosstabColumn[];
     get level(): number;
+    get isLeaf(): boolean;
     get leafCount(): number;
     getChild(index: number): CrosstabColumn;
     clear(): void;
     add(column: CrosstabColumn, force?: boolean): void;
+    addSummary(column: CrosstabSummaryColumn): void;
     sort(): void;
     getHeader(): string;
 }
@@ -3581,6 +3607,12 @@ declare class CrosstabLeafColumn extends CrosstabColumn {
     constructor(field: CrosstabColumnField, valueField: CrosstabValueField, value: any);
     get valueField(): CrosstabValueField;
     get leafCount(): number;
+    getHeader(): string;
+}
+declare class CrosstabSummaryColumn extends CrosstabColumn {
+    private _summary;
+    constructor(summary: CrosstabFieldSummary);
+    get summary(): CrosstabFieldSummary;
     getHeader(): string;
 }
 declare class ColumnCollection {
@@ -3598,27 +3630,20 @@ declare class ColumnCollection {
     build(recs: RecCollection): void;
     private $_collectColumns;
 }
-/**
- * rowField들이 동일한 행들.
- */
-declare class CrosstabRow {
-    private _values;
-    private _recs;
-    private _map;
-    constructor(band: CrosstabBand, values: any[], recs: CrosstabRec[]);
-    getValue(index: number): any;
-    getRec(index: number): CrosstabRec;
-    getColumnRec(column: CrosstabColumn): CrosstabRec;
-    getSummary(data: IBandData, column: CrosstabColumn, field: number, value: string): number;
+declare abstract class CrosstabRowBase {
+    abstract slice(count: number): any[];
+    abstract getValue(index: number): any;
+    abstract getColumnRec(column: CrosstabColumn): CrosstabRec;
 }
 declare class RowCollection {
     private _band;
     private _rows;
     constructor(band: CrosstabBand);
     get rowCount(): number;
-    getRow(index: number): CrosstabRow;
+    getRow(index: number): CrosstabRowBase;
     build(data: BandArrayData, recs: RecCollection): void;
     private $_collectRows;
+    private $_collectSummaryRows;
 }
 /**
  * Crosstab band topLeft 모서리 셀에 표시되는 내용에 대한 모델.
@@ -3638,24 +3663,43 @@ declare class CrosstabBandTitle extends ReportItem {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
 }
+declare class CrosstabNullValue extends ReportItem {
+    static readonly PROP_TEXT = "text";
+    static readonly PROPINFOS: IPropInfo[];
+    private static readonly styleProps;
+    private _text;
+    private _band;
+    constructor(band: CrosstabBand);
+    /** text */
+    get text(): string;
+    set text(value: string);
+    protected _getEditProps(): any[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
 /**
  * Crosstab band
  */
 declare class CrosstabBand extends ReportGroupItem {
     static readonly PROP_TITLE = "title";
+    static readonly PROP_NULL_VALUE = "nullValue";
     static readonly PROP_MAX_ROW_COUNT = "maxRowCount";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
+    static isFieldCell(item: ReportPageItem): boolean;
     static getFieldOf(cell: CrosstabFieldCell): CrosstabField;
     static getBandOf(cell: CrosstabFieldCell): CrosstabBand;
     private _maxRowCount;
     private _title;
+    private _nullValue;
     private _rowFields;
     private _columnFields;
     private _valueFields;
     private _recs;
     _columns: ColumnCollection;
     private _rows;
+    pageNo: number;
     constructor(name: string);
     /**
      * Cross table 생성시 사용될 원본 데이터 최대 행 수.
@@ -3666,6 +3710,10 @@ declare class CrosstabBand extends ReportGroupItem {
      * title
      */
     get title(): CrosstabBandTitle;
+    /**
+     * null value
+     */
+    get nullValue(): CrosstabNullValue;
     /** rowFields */
     get rowFields(): CrosstabRowFieldCollection;
     /** columnFields */
@@ -4604,7 +4652,7 @@ declare abstract class HichartAxis extends ChartObject<HichartItem> {
     set maxPadding(value: number);
     get plotLines(): HichartAxisPlotLineCollection;
     get plotBands(): HichartAxisPlotBandCollection;
-    getCategories(printing: boolean, dp: IReportDataProvider): any[];
+    getCategories(ctx: PrintContext, dp: IReportDataProvider): any[];
     abstract getPlotLineConfig(): object;
     abstract getPlotBandConfig(): object;
     get outlineParent(): IOutlineSource;
@@ -6172,6 +6220,7 @@ declare class PrintContext extends Base {
 interface IReportData {
     name: string;
     isBand: boolean;
+    getFieldNames(): string[];
     getSaveType(): string;
     getSaveValues(): any;
     getValue(path: string): any;
@@ -6353,7 +6402,7 @@ declare abstract class ReportViewBase {
 declare class ReportViewer extends ReportViewBase {
     private _reportForm?;
     private _dataSet?;
-    private _report;
+    protected _report: Report;
     private _reportDataProvider;
     constructor(container: string | HTMLDivElement, reportForm?: ReportForm, dataSet?: ReportDataSet, options?: ReportOptions);
     get reportForm(): ReportForm;
@@ -6388,7 +6437,7 @@ declare class ReportViewer extends ReportViewBase {
 declare class ReportCompositeViewer extends ReportViewBase {
     private _reportFormSets?;
     private _reports;
-    constructor(container: string | HTMLDivElement, formSets: ReportFormSet[], options?: ReportOptions);
+    constructor(container: string | HTMLDivElement, formSets: ReportFormSets, options?: ReportOptions);
     /**
      * container에 formsset을 preview로 렌더링 합니다.
      * 매핑 정보
@@ -6411,5 +6460,18 @@ declare type ReportFormSet = {
     form: ReportForm;
     dataSet?: ReportDataSet;
 };
+declare type ReportFormSets = ReportFormSet[];
 
-export { ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportOptions, ReportViewer };
+/**
+ * 컬럼 이름
+ */
+declare type ColumnName = string;
+/**
+* 그리드 리포트 레이아웃 정보
+*/
+declare type GridReportLayout = {
+    exclude?: ColumnName[];
+    autoWidth: boolean;
+};
+
+export { GridReportLayout, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer };

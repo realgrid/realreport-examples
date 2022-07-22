@@ -125,7 +125,6 @@
         var containerId = 'realreport';
         var viewer;
 
-        
         //--------------------------------------------------------------------------------------------------
         // public methods
         //--------------------------------------------------------------------------------------------------
@@ -147,6 +146,23 @@
             if (viewer) {
                 setHtml(id, viewer.pageCount, '', '');
             }
+        }
+
+        var previewGridReport = function(grid, options) {
+            clearReport();
+
+            if (grid) {
+                viewer = new RealReport.GridReportViewer(containerId, grid, options);
+            }
+
+            if (viewer) viewer.preview();
+            
+            setTimeout(() => {
+                setTotalPage('totalpage');
+                viewer.fitToWidth();
+            }, 100);
+
+            return viewer;
         }
 
         var previewReport = function(reports) {

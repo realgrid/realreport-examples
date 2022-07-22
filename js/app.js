@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isDev) setupReportSidebar('sample', REPORT_SAMPLE_URL, 'sidebarUl', onClickReportPreviewMenu, onClickPreviewPopup);
     setupReportSidebar('demo', REPORT_DEMO_URL, 'sidebarUl', onClickReportPreviewMenu, onClickPreviewPopup);
     if (isDev) setupReportSidebar('griddemo', GRID_DEMO_URL, 'gridReportUl', onClickGridViewMenu, onClickGridPreviewPopup);
+    // TODO: 2.5.4 버전 배포후 그리드 기능 오픈 가능
     if (isDev) document.getElementById('gridReportMenu').classList.remove('hidden');
 });
 
@@ -72,7 +73,7 @@ function openTab(tabId, hideTabId) {
 
 // 에디팅 상태를 토글 합니다.
 function openEditor(frameType, el) {
-    if (frameType === 'reportFrame' && !viewer) return;
+    if (frameType === 'reportFrame' && !reportViewer) return;
     if (el && el instanceof HTMLElement) el.classList.toggle('active');
 
     if (!editor) {
@@ -114,23 +115,23 @@ function setEditorModel(sourceType) {
 
     let model = null;
     resetActiveClass(undefined, 'tool-button', 'active', 0);
-    if (viewer && sourceType === 'reportForm') {
-        if (viewer._reportFormSets) {
+    if (reportViewer && sourceType === 'reportForm') {
+        if (reportViewer._reportFormSets) {
             // ES5
-            const value = JSON.stringify(viewer._reportFormSets.map( set => set.form ), null, ' ');
+            const value = JSON.stringify(reportViewer._reportFormSets.map( set => set.form ), null, ' ');
             model = monaco.editor.createModel(value, 'json');
         } else {
-            const value = JSON.stringify(viewer.reportForm, null, ' ');
+            const value = JSON.stringify(reportViewer.reportForm, null, ' ');
             model = monaco.editor.createModel(value, 'json');
         }
     }
-    if (viewer && sourceType === 'reportData') {
-        if (viewer._reportFormSets) {
+    if (reportViewer && sourceType === 'reportData') {
+        if (reportViewer._reportFormSets) {
             // ES5
-            const value = JSON.stringify(viewer._reportFormSets.map( set => set.dataSet ), null, ' ');
+            const value = JSON.stringify(reportViewer._reportFormSets.map( set => set.dataSet ), null, ' ');
             model = monaco.editor.createModel(value, 'json');
         } else {
-            const value = JSON.stringify(viewer.dataSet, null, ' ');
+            const value = JSON.stringify(reportViewer.dataSet, null, ' ');
             model = monaco.editor.createModel(value, 'json');
             }
     }
@@ -193,7 +194,7 @@ const setupReportSidebar = function(category, hostUrl, sidebarId, onClick, onCli
 // 메뉴 링크 활성화 스타일 다시 지정하기
 const resetActiveClass = function(activeEl, selection, active, resetIndex) {
     const elements = document.getElementsByClassName(selection);
-    console.log(elements);
+
     for (i=0; i<elements.length; i++) {
         const element = elements[i];
         // active할 el을 넘기지 않고 resetIndex를 넘기면 해당 아이템을 active한다. 
@@ -205,7 +206,6 @@ const resetActiveClass = function(activeEl, selection, active, resetIndex) {
         }
     }
 
-    console.log(activeEl, activeEl instanceof HTMLElement);
     if (activeEl && activeEl instanceof HTMLElement) {
         activeEl.classList.add(active);
     }
@@ -229,6 +229,7 @@ const onClickReportPreviewMenu = async function(event) {
         // ReportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
         // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
         // report = { id, name, report, data, description }
+        // console.log(serviceItem);
         const reportItem = serviceItem.report;
         const reports = [{
             form: reportItem.report,
@@ -236,7 +237,7 @@ const onClickReportPreviewMenu = async function(event) {
         }];
 
         // import from preview.js
-        viewer = previewFrame('reportFrame', reports);
+        reportViewer = previewFrame('reportFrame', reports);
         setEditorModel('reportForm');
         resetActiveClass(event.target.parentElement, 'menu-link-active', 'menu-link-active');
     });
@@ -248,13 +249,73 @@ const onClickGridViewMenu = function(event) {
     const hosturl = event.target.dataset.hosturl;
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
 
-    openTab('gridTab');
+    openTab('gridTab', 'reportTab');
 
     serviceFetch(hosturl.concat('/', id), function(serviceItem) {
         const gridItem = serviceItem.grid;
         // grid = { id, name, category, columns, fields, description }
         const gridFrame = document.getElementById('gridFrame');
-        gridFrame.contentWindow.setGridLayout(gridItem);
+        gridViewer = gridFrame.contentWindow.setGridLayout(gridItem);
+
+        if (gridViewer) {
+            // 실험중: 그리드 리포트는 노출되지 않음.
+            const options = {
+                title: {
+                    text: '직원 목록',
+                    top: '20px',
+                    styles: {
+                        fontFamily: 'Arial', 
+                        fontSize: '3em',
+                        fontWeight: '700',
+                        borderBottom: '2px solid blue',
+                    },
+                },
+                subTitle: {
+                    text: '2022년 직원 목록',
+                    top: '70px',
+                    // height: '90px',
+                    styles: {
+                        fontSize: '14px',
+                        fontStyle: 'italic',
+                        textDecoration: 'underline',
+                        paddingTop: '30px',
+                        paddingBottom: '30px',
+                    },
+                },
+                pageHeader: {
+                    items: [
+                        {
+                            prefix: '/',
+                            value: '${pages}',
+                            right: '0',
+                            top: '0',
+                        },
+                        {
+                            value: '${page}',
+                            top: '0',
+                            right: '14px',
+                        },
+                    ]                    
+                },
+                gridHeader: {
+                    items: [{
+                        text: '상반기',
+                        left: '0',
+                        styles: {
+                            fontSize: '14px'
+                        },
+                    }, {
+                        text: new Date().toDateString(220),
+                        right: '0px',
+                        styles: {
+                            color: 'blue'
+                        },
+                    }],
+                }
+            }
+            
+            reportViewer = previewGridReportFrame('gridReportFrame', gridViewer, options);
+        }
 
         resetActiveClass(event.target.parentElement, 'menu-link-active', 'menu-link-active');
     })
@@ -267,7 +328,7 @@ const onClickPreviewPopup = function(event) {
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
 
     serviceFetch(hosturl.concat('/', id), function(serviceItem) {
-        // ReportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
+        // ReportreportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
         // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
         // report = { id, name, report, data, description }
         const reportItem = serviceItem.report;
@@ -285,16 +346,16 @@ const onClickPreviewPopup = function(event) {
 const onClickGridPreviewPopup = function(event) {
     const id = event.target.dataset.id;
     if (!id) console.error('그리드 ID가 없습니다.');
-    serviceFetch('/api/grid/griddemo/'.concat(id), function(serviceItem) {
+    serviceFetch(GRID_DEMO_URL.concat('/', id), function(serviceItem) {
         const gridItem = serviceItem.grid;
-        console.log('POPUP GridItem: ', gridItem);
-    });
+        // console.log('POPUP GridItem: ', gridItem);
+    })
 }
 
 // 복합 출력 샘플 1
 function reportSample1(el) {
     openTab('reportTab', 'gridTab');
-    viewer = previewFrame('reportFrame', [sampleReport200]);
+    reportViewer = previewFrame('reportFrame', [sampleReport200]);
     setEditorModel('reportForm');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
 }
@@ -302,7 +363,7 @@ function reportSample1(el) {
 // 복합 출력 샘플 2
 function reportSample2(el) {
     openTab('reportTab', 'gridTab');
-    viewer = previewFrame('reportFrame', [sampleReport205]);
+    reportViewer = previewFrame('reportFrame', [sampleReport205]);
     setEditorModel('reportForm');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
 }
@@ -310,7 +371,7 @@ function reportSample2(el) {
 // 복합 출력 샘플 1 + 2
 function reportSampleComposit(el) {
     openTab('reportTab', 'gridTab');
-    viewer = previewFrame('reportFrame', [sampleReport200, sampleReport205]);
+    reportViewer = previewFrame('reportFrame', [sampleReport200, sampleReport205]);
     setEditorModel('reportForm');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
 }
