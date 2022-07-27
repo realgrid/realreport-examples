@@ -33,8 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isDev) setupReportSidebar('sample', REPORT_SAMPLE_URL, 'sidebarUl', onClickReportPreviewMenu, onClickPreviewPopup);
     setupReportSidebar('demo', REPORT_DEMO_URL, 'sidebarUl', onClickReportPreviewMenu, onClickPreviewPopup);
     if (isDev) setupReportSidebar('griddemo', GRID_DEMO_URL, 'gridReportUl', onClickGridViewMenu, onClickGridPreviewPopup);
-    // TODO: 2.5.4 버전 배포후 그리드 기능 오픈 가능
-    if (isDev) document.getElementById('gridReportMenu').classList.remove('hidden');
 });
 
 
