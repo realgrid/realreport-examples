@@ -12,10 +12,20 @@ RealReport 사용하려면 반드시 제품 [라이선스](https://real-report.c
 
 ```sh title="realreport.latest.zip"  
   highcharts
+  pdffonts
   pdfkit.js
   realreport
-  ⎸⎯ realreport.js
-  ⎸⎯ realreport.css
+    ⎸⎯ check-checked.png
+    ⎸⎯ check-empty.png
+    ⎸⎯ check-unchecked.png
+    ⎸⎯ indicator.gif
+    ⎸⎯ LICENSE.md
+    ⎸⎯ README.md
+    ⎸⎯ realreport.css
+    ⎸⎯ realreport.d.ts
+    ⎸⎯ realreport.es.js
+    ⎸⎯ realreport.ie11.js
+    ⎸⎯ realreport.js
 ```
 
 :::tip
@@ -67,9 +77,9 @@ RealReport는 [Highcharts](https://www.highcharts.com/)와 협의를 통해 Hich
 <html>
     <head>
         <!-- 하이차트 코드 포함 하기 -->
-        <link href='js/highcharts/highcharts.css' rel='stylesheet' />
-        <script src="js/highcharts/highcharts.js"></script>
-        <script src="js/highcharts/highcharts-more.js"></script>
+        <link href='js/highchart/highcharts.css' rel='stylesheet' />
+        <script src="js/highchart/highcharts.js"></script>
+        <script src="js/highchart/highcharts-more.js"></script>
 
         <link href='js/realreport.css' rel='stylesheet' />
         <script src='js/realreport-lic.js'></script>
@@ -85,9 +95,9 @@ RealReport의 강력한 내보내기 기능중 하나인 PDF 내보내기 기능
 ```html title="index.html"
 <html>
     <head>
-        <link href='js/highcharts/highcharts.css' rel='stylesheet' />
-        <script src="js/highcharts/highcharts.js"></script>
-        <script src="js/highcharts/highcharts-more.js"></script>
+        <link href='js/highchart/highcharts.css' rel='stylesheet' />
+        <script src="js/highchart/highcharts.js"></script>
+        <script src="js/highchart/highcharts-more.js"></script>
         
         <!-- PDF 라이브러리 포함 하기 -->
         <script src="js/pdfkit.js"></script>
