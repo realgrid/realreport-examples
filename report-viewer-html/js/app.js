@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (isDev) setupReportSidebar('sample', REPORT_SAMPLE_URL, 'sidebarUl', onClickReportPreviewMenu, onClickPreviewPopup);
     setupReportSidebar('demo', REPORT_DEMO_URL, 'sidebarUl', onClickReportPreviewMenu, onClickPreviewPopup);
-    if (isDev) setupReportSidebar('griddemo', GRID_DEMO_URL, 'gridReportUl', onClickGridViewMenu, onClickGridPreviewPopup);
+    setupReportSidebar('griddemo', GRID_DEMO_URL, 'gridReportUl', onClickGridViewMenu, onClickGridPreviewPopup);
 });
 
 
@@ -256,62 +256,7 @@ const onClickGridViewMenu = function(event) {
         gridViewer = gridFrame.contentWindow.setGridLayout(gridItem);
 
         if (gridViewer) {
-            // 실험중: 그리드 리포트는 노출되지 않음.
-            const options = {
-                title: {
-                    text: '직원 목록',
-                    top: '20px',
-                    styles: {
-                        fontFamily: 'Arial', 
-                        fontSize: '3em',
-                        fontWeight: '700',
-                        borderBottom: '2px solid blue',
-                    },
-                },
-                subTitle: {
-                    text: '2022년 직원 목록',
-                    top: '70px',
-                    // height: '90px',
-                    styles: {
-                        fontSize: '14px',
-                        fontStyle: 'italic',
-                        textDecoration: 'underline',
-                        paddingTop: '30px',
-                        paddingBottom: '30px',
-                    },
-                },
-                pageHeader: {
-                    items: [
-                        {
-                            prefix: '/',
-                            value: '${pages}',
-                            right: '0',
-                            top: '0',
-                        },
-                        {
-                            value: '${page}',
-                            top: '0',
-                            right: '14px',
-                        },
-                    ]                    
-                },
-                gridHeader: {
-                    items: [{
-                        text: '상반기',
-                        left: '0',
-                        styles: {
-                            fontSize: '14px'
-                        },
-                    }, {
-                        text: new Date().toDateString(220),
-                        right: '0px',
-                        styles: {
-                            color: 'blue'
-                        },
-                    }],
-                }
-            }
-            
+            const options = gridItem.reportOptions;
             reportViewer = previewGridReportFrame('gridReportFrame', gridViewer, options);
         }
 
