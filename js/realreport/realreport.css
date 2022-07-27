@@ -622,6 +622,10 @@
     border-bottom: 1px solid lightgray;
 }
 
+.rr-crosstab-field-cell {
+    text-align: center;;
+}
+
 .rr-crosstab-head {
     text-align: center;
     background-color: #f0f0f0;
