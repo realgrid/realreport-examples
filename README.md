@@ -29,7 +29,7 @@ RealReport 및 realreport-examples에 대한 문의사항 및 요청사항은 [R
 
 ### report-guide
 
-[report-guide](https://github.com/realgrid/realreport-examples/report-guide/)에는 [RealReport 가이드](https://www.real-report.com/docs/guide/viewer/install)에 사용된 샘플 코드가 들어 있습니다.
+[report-guide](https://github.com/realgrid/realreport-examples/tree/main/report-guide/)에는 [RealReport 가이드](https://www.real-report.com/docs/guide/viewer/install)에 사용된 샘플 코드가 들어 있습니다.
 
 
 ### report-viewer-html
