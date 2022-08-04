@@ -14,6 +14,9 @@
                   <a class="menu-link" @click="setReport(reportSample2, dataSample)">
                     <span>리포트 샘플2</span>
                   </a>
+                  <a class="menu-link" @click="setReport(reportSample3, dataSample3)">
+                    <span>리포트 샘플3</span>
+                  </a>
                 </li>
               </ul>
             </li>
@@ -36,8 +39,10 @@
 import Toolbar from "./Toolbar.vue";
 import RealReport from "../components/RealReport.vue";
 import dataSample from "../assets/data-sample.json";
+import dataSample3 from "../assets/data-sample-3.json";
 import reportSample1 from "../assets/report-sample-1.json";
 import reportSample2 from "../assets/report-sample-2.json";
+import reportSample3 from "../assets/report-sample-3.json";
 
 export default {
   name: "Container",
@@ -52,6 +57,8 @@ export default {
       reportSample1,
       reportSample2,
       dataSample,
+      reportSample3,
+      dataSample3,
       reportViewer: this.$refs.reportViewer
     };
   },
