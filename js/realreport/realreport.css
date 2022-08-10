@@ -338,6 +338,9 @@
         page-break-after: always;
         display: none;
     }
+    .rr-rendered {
+        display: none;
+    }
 }
 
 .rr-stack-container {
