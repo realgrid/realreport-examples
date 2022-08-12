@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /** 
-* RealReport v1.3.0
-* commit aa9700e
+* RealReport v1.3.1
+* commit fc62851
 
 * Copyright (C) 2013-2022 WooriTech Inc.
 	https://real-report.com
