@@ -58,7 +58,7 @@
          * 웹 페이지에 RealGrid와 RealReport 컴포넌트를 랜더링할 컨테이너가 필요합니다.
          * 아래 변수는 렌더링할 컨테이너의 Element를 보관할 변수 입니다.
          */
-        var girdContainer, reportContainer;
+        var gridContainer, reportContainer;
 
         /**
          * RealGrid의 데이터를 관리할 LocalDataProvider객체를 위한 변수를 선언합니다.
@@ -75,10 +75,10 @@
          * DOMContentLoaded 이벤트에서 작성합니다.
          */
         document.addEventListener('DOMContentLoaded', function () {
-            girdContainer = document.getElementById('realgrid');
+            gridContainer = document.getElementById('realgrid');
             if (!dataProvider) {
                 dataProvider = new RealGrid.LocalDataProvider();
-                gridView = new RealGrid.GridView(girdContainer);
+                gridView = new RealGrid.GridView(gridContainer);
                 gridView.setDataSource(dataProvider);
             }
 
