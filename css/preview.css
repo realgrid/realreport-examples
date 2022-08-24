@@ -40,6 +40,25 @@ a {
     height: 100%;
 }
 
+#realreport1 {
+    width: 100%;
+    height: 100%;
+}
+
+#realreport2 {
+    width: 100%;
+    height: 100%;
+}
+
+.realreport3 {
+    width: 100%;
+    height: 100%;
+}
+
+.scroller.hidden {
+    display: none;
+}
+
 .root {
     --viewer-sidenav-width: 300px;
     display: flex;
@@ -86,6 +105,7 @@ a {
 }
 
 .scroller {
+    display: flex;
     flex: 1;
     direction: ltr;
     padding-top: 10px;
