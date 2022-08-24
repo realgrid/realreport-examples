@@ -62,11 +62,19 @@ function openTab(tabId, hideTabId) {
     setClasses('frame-tab', 'hidden', undefined);
     setClasses('tab-button', undefined, 'active');
 
-    document.getElementById(tabId.concat('Btn')).classList.remove('hidden');
-    if (hideTabId) document.getElementById(hideTabId.concat('Btn')).classList.add('hidden');
+    const tabButton = document.getElementById(tabId.concat('Btn'));
+    if (tabButton) {
+        document.getElementById(tabId.concat('Btn')).classList.remove('hidden');
+        document.getElementById(tabId.concat('Btn')).classList.add('active');
+    }
+
+    if (hideTabId) {
+        let tabIds = hideTabId;
+        if (typeof hideTabId === 'string') tabIds = [hideTabId];
+        tabIds.map(id => document.getElementById(id.concat('Btn')).classList.add('hidden'))
+    }
 
     document.getElementById(tabId).classList.remove('hidden');
-    document.getElementById(tabId.concat('Btn')).classList.add('active');
 }
 
 // 에디팅 상태를 토글 합니다.
@@ -316,6 +324,20 @@ function reportSampleComposit(el) {
     openTab('reportTab', 'gridTab');
     reportViewer = previewFrame('reportFrame', [sampleReport200, sampleReport205]);
     setEditorModel('reportForm');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
+}
+
+// 듀얼 뷰어 리포트 샘플
+function dualReportView(el) {
+    openTab('multiReportTab', ['gridTab', 'reportTab']);
+    reportViewer = previewMultiFrame('multiReportFrame', [sampleReport200, sampleReport205], true);
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
+}
+
+// 듀얼 뷰어 리포트 샘플
+function tripleReportView(el) {
+    openTab('multiReportTab', ['gridTab', 'reportTab']);
+    reportViewer = previewMultiFrame('multiReportFrame', [sampleReport200, sampleReport205]);
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
 }
 

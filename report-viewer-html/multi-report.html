@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealReport Print Preview</title>
+    <link rel="shortcut icon" href="#">
+
+    <link href="css/preview.css" rel="stylesheet">
+    <!-- 하이차트의 기본 스타일 변경하려면 아래 파일을 수정하면 됩니다. -->
+    <!-- <link href='js/highcharts/highcharts.css' rel='stylesheet' /> -->
+    <link href='js/realreport/realreport.css' rel='stylesheet' />
+    <script type="text/javascript" src="js/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="js/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="js/pdfkit.js"></script>
+    <script type="text/javascript" src="datas/salary-data.js"></script>
+    <script type="text/javascript" src="forms/salary.js"></script>
+    <script type="text/javascript" src='js/realreport/realreport.js'></script>
+</head>
+<body>
+    <div class="root">
+        <div class="container">
+            <div class="main">
+                <div class="main-content">
+                    <div class="scroller">
+                        <div id="realreport1"></div>
+                    </div>
+                    <div class="scroller">
+                        <div id="realreport2"></div>
+                    </div>
+                    <div class="scroller hidden" id="triple-reporter">
+                        <div class="realreport3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // 아래 라이선스는 유효기간 2022년 9월 1일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
+        var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUB5oxsrC+spwm6yrS4VCjNU+6ZGVxDxR7Q=';
+        var containerId1 = 'realreport1';
+        var containerId2 = 'realreport2';
+        var viewer1, viewer2, viewer3;
+
+        //--------------------------------------------------------------------------------------------------
+        // public methods
+        //--------------------------------------------------------------------------------------------------
+
+        var clearReport = function() {
+            const container1 = document.getElementById(containerId1);
+            const container2 = document.getElementById(containerId2);
+            container1.innerHTML = '';
+            container2.innerHTML = '';
+            delete viewer1;
+            delete viewer2;
+        }
+        
+        var previewDualReport = function(reports) {
+            clearReport();
+
+            if (Array.isArray(reports) && reports.length === 2) {
+                const previewInfo1 = reports[0];
+                const previewInfo2 = reports[1];
+                const container2 = document.getElementById(containerId2);
+
+                // 세번째 리포트 컨테이너 감추기
+                document.getElementById('triple-reporter').classList.add('hidden');
+
+                viewer1 = new RealReport.ReportViewer(containerId1, previewInfo1.form, previewInfo1.dataSet);
+                viewer2 = new RealReport.ReportViewer(container2, previewInfo2.form, previewInfo2.dataSet);
+            }
+
+            if (viewer1) viewer1.preview();
+            if (viewer2) viewer2.preview();
+
+            return {viewer1, viewer2};
+        };
+
+        var previewTripleReport = function(reports) {
+            clearReport();
+
+            if (Array.isArray(reports) && reports.length === 2) {
+                const previewInfo1 = reports[0];
+                const previewInfo2 = reports[1];
+                const container2 = document.getElementById(containerId2);
+                const container3 = document.getElementsByClassName('realreport3')[0];
+
+                // 세번째 리포트 컨테이너 보이기
+                document.getElementById('triple-reporter').classList.remove('hidden');
+
+                viewer1 = new RealReport.ReportViewer(containerId1, previewInfo1.form, previewInfo1.dataSet);
+                viewer2 = new RealReport.ReportViewer(container2, previewInfo2.form, previewInfo2.dataSet);
+                // forms/salary.js, datas/salary-data.js 에서 가져온 양식과 데이터
+                viewer3 = new RealReport.ReportViewer(container3, reportForm, reportDataSet);
+                viewer3.containerId = 'realreport3';
+            }
+
+            if (viewer1) viewer1.preview();
+            if (viewer2) viewer2.preview();
+            if (viewer3) viewer3.preview();
+
+            return {viewer1, viewer2, viewer3};
+        };
+    </script>
+</body>
+</html>

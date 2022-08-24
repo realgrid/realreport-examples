@@ -52,6 +52,20 @@ function previewFrame(iFrameId, reports) {
 }
 
 /**
+ * 한 페이지에 두, 세 개의 리포트를 미리보기 합니다.
+ * @param {*} iFrameId 
+ * @param {*} reports 
+ * @returns 
+ */
+function previewMultiFrame(iFrameId, reports, isDual) {
+    const multiReportFrame = document.getElementById(iFrameId);
+    multiReportFrame.classList.remove('hidden');
+    if (isDual) return multiReportFrame.contentWindow.previewDualReport(reports);
+    else return multiReportFrame.contentWindow.previewTripleReport(reports);
+}
+
+
+/**
  * 
  * iFrame에 그리드 리포트 미리보기를 표시합니다.
  * iFrame src 속성에 preview html 파일이 지정되어 있어야 합니다.

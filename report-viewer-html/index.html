@@ -108,6 +108,23 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="menu-list-item">
+                            <span class="menu-head">멀티 뷰어 샘플</span>
+                            <ul class="menu-list menu-list-block">
+                                <li class="menu-list-item">
+                                    <a class="menu-link" onclick="javascript:dualReportView(this);">
+                                        <span>두 개의 ReportViewer</span>
+                                        <span class="toolbar-icon icon preview-popup-png"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-list-item">
+                                    <a class="menu-link" onclick="javascript:tripleReportView(this);">
+                                        <span>세 개의 ReportViewer</span>
+                                        <span class="toolbar-icon icon preview-popup-png"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                     <ul class="menu-list">
                             <li class="menu-list-item" id="gridReportMenu">
@@ -135,6 +152,10 @@
                             <div class="tab-button hidden" id="gridTabBtn">
                                 <span class="tab-header tab-title" onclick="openTab('gridTab')">Grid 보기</span>
                             </div>
+                        </div>
+                        <div class="tab frame-tab hidden" id="multiReportTab">
+                            <iframe id="multiReportFrame" title="Multi Report Preview Frame"
+                                src="multi-report.html" class="content-frame h-450 hidden"></iframe>
                         </div>
                         <div class="tab frame-tab" id="reportTab">
                             <iframe id="reportFrame" title="Report Preview Frame"
