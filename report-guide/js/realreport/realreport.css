@@ -327,6 +327,9 @@
     margin: 0;
 }
 @media print {
+    .rr-report-preview {
+        padding: 0 !important;
+    }
     .rr-page-break {
         page-break-after: always;
         page-break-inside: avoid;

@@ -1,12 +1,20 @@
 /// <reference types="node" />
 /** 
 * RealReport v1.3.1
-* commit fc62851
+* commit 8812366
 
 * Copyright (C) 2013-2022 WooriTech Inc.
 	https://real-report.com
 * All Rights Reserved.
 */
+
+/** 
+* RealReport Core v1.3.2
+* Copyright (C) 2013-2022 WooriTech Inc.
+* All Rights Reserved.
+* commit cbf0ca8d128f2128e9b9e6a82d9133d5efc364db
+*/
+
 
 declare const enum Cursor$1 {
     DEFAULT = "default",
@@ -5105,7 +5113,7 @@ declare abstract class ReportItem extends ReportPageItem {
      * 리포트에 지정된 data의 특정 값(들)을 지시하는 경로.
      * "::" 앞쪽에서 설정된 data 이름이 없는 경우,
      * 자신으로 시작해서 Report까지 가장 가까운 곳(dataParent)에 설정된 data에서 값을 가져온다.
-     * '${page}', '${pages}', '${date}' 등으로 print context 값을 지정할 수도 있다.
+     * '${page}', '%{page}', '${pages}', '%{pages}', '${date}', '%{date}' 등으로 print context 값을 지정할 수도 있다.
      */
     get value(): string;
     set value(value: string);

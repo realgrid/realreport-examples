@@ -8,6 +8,14 @@
 * All Rights Reserved.
 */
 
+/** 
+* RealReport Core v1.3.2
+* Copyright (C) 2013-2022 WooriTech Inc.
+* All Rights Reserved.
+* commit cbf0ca8d128f2128e9b9e6a82d9133d5efc364db
+*/
+
+
 declare const enum Cursor$1 {
     DEFAULT = "default",
     AUTO = "auto",
@@ -40389,15 +40397,12 @@ declare abstract class ReportViewBase {
     protected _cm: boolean;
     protected _container: PrintContainer | undefined;
     protected _currentPage: number;
-    protected _containerId: string;
     constructor(container: string | HTMLDivElement, options?: ReportOptions);
     abstract preview(): void;
     abstract exportPdf(fonts: PdfFont[]): void;
     abstract exportImage(imageOptions: ImageExportOptions): void;
     abstract exportDocument(documentOptions: DocExportOptions): void;
     protected _checkPrintContainer(): void;
-    get containerId(): string;
-    set containerId(container: string | HTMLDivElement);
     get version(): string;
     get zoom(): number;
     set zoom(v: number);
