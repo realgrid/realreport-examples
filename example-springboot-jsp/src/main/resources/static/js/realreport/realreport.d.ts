@@ -1,6 +1,6 @@
 /// <reference types="node" />
 /** 
-* RealReport v1.3.1
+* RealReport v1.3.2
 * commit 8812366
 
 * Copyright (C) 2013-2022 WooriTech Inc.
@@ -40397,12 +40397,15 @@ declare abstract class ReportViewBase {
     protected _cm: boolean;
     protected _container: PrintContainer | undefined;
     protected _currentPage: number;
+    protected _containerId: string;
     constructor(container: string | HTMLDivElement, options?: ReportOptions);
     abstract preview(): void;
     abstract exportPdf(fonts: PdfFont[]): void;
     abstract exportImage(imageOptions: ImageExportOptions): void;
     abstract exportDocument(documentOptions: DocExportOptions): void;
     protected _checkPrintContainer(): void;
+    get containerId(): string;
+    set containerId(container: string | HTMLDivElement);
     get version(): string;
     get zoom(): number;
     set zoom(v: number);
