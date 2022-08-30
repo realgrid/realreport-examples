@@ -1,4 +1,4 @@
-var gridFields = [
+var gridFields1 = [
   {
     fieldName: "KorName",
     dataType: "text"
@@ -79,5 +79,29 @@ var gridFields = [
   {
     fieldName: "CurrentSave",
     dataType: "number"
+  }
+]
+
+var gridFields2 = [
+  {
+      "fieldName": "KorName",
+      "dataType": "text"
+  },
+  {
+      "fieldName": "Se",
+      "dataType": "text"
+  },
+  {
+      "fieldName": "PhoneNumber",
+      "dataType": "text"
+  },
+  {
+      "fieldName": "Date",
+      "dataType": "datetime",
+      "datttimeFormat": "yyyy-MM-dd"
+  },
+  {
+      "fieldName": "Money",
+      "dataType": "number"
   }
 ]

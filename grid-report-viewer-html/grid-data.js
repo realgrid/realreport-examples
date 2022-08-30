@@ -1,4 +1,4 @@
-var gridData = [
+var gridData1 = [
   {
     "KorName": "박영호",
     "Gender": "남",
@@ -182,5 +182,71 @@ var gridData = [
     "Rating": "3",
     "BusinessProficiency": "100",
     "Address": "서울특별시 송파구 가락동 600"
+  }
+]
+
+var gridData2 = [
+  {
+      "KorName": "김철수",
+      "Se": "남",
+      "PhoneNumber": "01088882222",
+      "Date": "2000-02-01",
+      "Money": 24000000
+  },
+  {
+      "KorName": "이수영",
+      "Se": "여",
+      "PhoneNumber": "01029342638",
+      "Date": "2002-03-01",
+      "Money": 26000000
+  },
+  {
+      "KorName": "최민식",
+      "Se": "남",
+      "PhoneNumber": "01023453647",
+      "Date": "2010-04-01",
+      "Money": 27000000
+  },
+  {
+      "KorName": "김수현",
+      "Se": "남",
+      "PhoneNumber": "01022863436",
+      "Date": "2015-05-01",
+      "Money": 28000000
+  },
+  {
+      "KorName": "김혜수",
+      "Se": "여",
+      "PhoneNumber": "01092663477",
+      "Date": "2020-06-01",
+      "Money": 28000000
+  },
+  {
+      "KorName": "유혜진",
+      "Se": "남",
+      "PhoneNumber": "01066783232",
+      "Date": "2008-07-01",
+      "Money": 32000000
+  },
+  {
+      "KorName": "남주혁",
+      "Se": "남",
+      "PhoneNumber": "01099343488",
+      "Date": "2007-09-01",
+      "Money": 30000000
+  },
+  {
+      "KorName": "홍길동",
+      "Se": "남",
+      "PhoneNumber": "01029883366",
+      "Date": "2002-10-01",
+      "Money": 29000000
+  },
+  {
+      "KorName": "최수지",
+      "Se": "남",
+      "PhoneNumber": "01037495588",
+      "Date": "2003-11-01",
+      "Money": 23000000
   }
 ]

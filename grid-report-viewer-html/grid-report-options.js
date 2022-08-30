@@ -12,7 +12,7 @@ var gridReportOptions = {
     subTitle: {
         text: '2021년 ~ 2022년',
         top: '70px',
-        // height: '90px',
+        height: '90px',
         styles: {
             fontSize: '14px',
             fontStyle: 'italic',

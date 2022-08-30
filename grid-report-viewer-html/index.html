@@ -26,18 +26,33 @@
             height: 100%;
             margin: 0;
         }
-
+        main {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+        }
         #realgrid {
             flex-grow: 1;
         }
         #realreport {
             flex-grow: 1;
         }
+        .toolbar {
+            margin: 10px;
+            border-top: solic silver 1px;
+        }
         .content {
+            flex-grow: 1;
             height: 100%;
             display: flex;
             flex-direction: column;
             padding: 4px;
+        }
+        .hr {
+            display: inline;
+            border: 1px solid silver;
+            margin: 0 10px;
         }
     </style>
 
@@ -75,6 +90,21 @@
          * DOMContentLoaded 이벤트에서 작성합니다.
          */
         document.addEventListener('DOMContentLoaded', function () {
+            /**
+             * 버튼 1 ~ 15 클릭 핸들링
+             * document.getElementById(`button{1~15}`).onclick = clickButton_{1~15}() ;
+             */
+            for (let i = 1; i <= 15; i++) {
+                const button = document.getElementById(`button${i}`);
+                button.onclick = new Function(`clickButton_${i}();`);
+            }
+        });
+
+        /**
+         * 필드, 컬럼, 데이터를 이용해 그리드를 구성하고,
+         * 그리드의 데이터와 레이아웃으로 리포트를 출력합니다.
+         */
+        function setSample(fields, columns, data, options) {
             gridContainer = document.getElementById('realgrid');
             if (!dataProvider) {
                 dataProvider = new RealGrid.LocalDataProvider();
@@ -82,23 +112,169 @@
                 gridView.setDataSource(dataProvider);
             }
 
-            dataProvider.setFields(gridFields);
-            dataProvider.fillJsonData(gridData, { fillMode: "set" });
-            gridView.setColumns(gridColumns);
+            dataProvider.setFields(fields);
+            gridView.setColumns(columns);
+            dataProvider.fillJsonData(data, { fillMode: "set" });
 
             if (gridView) {
-                reportView = new RealReport.GridReportViewer('realreport', gridView, gridReportOptions);
+                reportContainer = document.getElementById('realreport');
+                reportView = new RealReport.GridReportViewer(reportContainer, gridView, options);
                 reportView.preview();
             }
-        });
+        }
 
-    </script>
+        // 샘플 1 데이터 불러오기
+        function clickButton_1() {
+            setSample(gridFields1, gridColumns1, gridData1, gridReportOptions);
+        }
+
+        // 샘플 2 데이터 불러오기
+        function clickButton_2() {
+            const options = {
+                ...gridReportOptions,
+            };
+            options.title.text = '리포트 제목';
+            setSample(gridFields2, gridColumns2, gridData2, options);
+        }
+
+        // zoomIn
+        function clickButton_3() {
+            reportView?.zoomIn();
+        }
+
+        // zoomOut
+        function clickButton_4() {
+            reportView?.zoomOut();
+        }
+
+        // fitToHeight
+        function clickButton_5() {
+            reportView?.fitToHeight();
+        }
+
+        // fitToPage
+        function clickButton_6() {
+            reportView?.fitToPage();
+        }
+
+        // fitToWidth
+        function clickButton_7() {
+            reportView?.fitToWidth();
+        }
+
+        // PDF
+        function clickButton_8() {
+            // 폰트 파일을 base64로 변환
+            async function base64convert (url, split) {
+                const data = await fetch(url);
+                const blob = await data.blob();
+                
+                return new Promise(resolve => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = () => {
+                    const base64data = reader.result;
+                    resolve(split ? base64data.split(',')[1] : base64data);
+                    }    
+                });
+            }
+
+            base64convert('/js/pdffonts/NanumGothic.otf', true).then(regularFont => {
+                base64convert('/js/pdffonts/NanumGothicBold.otf', true).then(boldFont => {
+                    const fonts = [{
+                        name: 'regular',
+                        content: regularFont,
+                        style: 'normal',
+                        weight: 'normal',
+                    },
+                    {
+                        name: 'bold',
+                        content: boldFont,
+                        style: 'normal',
+                        weight: 'bold',
+                    }];
+            
+                    if (reportView) {
+                        reportView?.exportPdf(fonts);
+                    }
+                });
+            });
+        }
+
+        // PNG
+        function clickButton_9() {
+            reportView?.exportImage({
+                type: 'png',
+                fileName: 'grid-report-png'
+            });
+        }
+
+        // JPEG
+        function clickButton_10() {
+            reportView?.exportImage({
+                type: 'jpeg',
+                fileName: 'grid-report-jpeg'
+            });
+        }
+
+        // GIF
+        function clickButton_11() {
+            reportView?.exportImage({
+                type: 'gif',
+                fileName: 'grid-report-gif'
+            });
+        }
+
+        // TIF
+        function clickButton_12() {
+            const options = { type: 'tif' };
+            options.fileName = 'grid-report-tif';
+            reportView?.exportImage(options);
+        }
+
+        // TIFF
+        function clickButton_13() {
+            const options = { type: 'tiff' };
+            options.tiff = { encoding: 'g4' }; // or 'g3'
+            options.fileName = 'grid-report-tiff';
+            reportView?.exportImage(options);
+        }
+
+        // HWP
+        function clickButton_14() {
+            reportView?.exportDocument({ type: 'hwp' });
+        }
+
+        // DOCX
+        function clickButton_15() {
+            reportView?.exportDocument({ type: 'docx' });
+        }
+</script>
 
 </head>
 
 <body>
     <div class="content">
         <div id="realgrid"></div>
+        <div class="toolbar">
+            <button id="button1">샘플1</button>
+            <button id="button2">샘플2</button>
+            <hr class="hr">
+            <button id="button3">ZoomIn</button>
+            <button id="button4">ZoomOut</button>
+            <button id="button5">FitToHeight</button>
+            <button id="button6">FitToPage</button>
+            <button id="button7">FitToWidth</button>
+            <hr class="hr">
+            <button id="button8">PDF</button>
+            <button id="button9">PNG</button>
+            <button id="button10">JPEG</button>
+            <button id="button11">GIF</button>
+            <button id="button12">TIF</button>
+            <button id="button13">TIFF</button>
+            <button id="button14">HWP</button>
+            <button id="button15">DOCX</button>
+        </div>
         <div id="realreport"></div>
     </div>
 </body>

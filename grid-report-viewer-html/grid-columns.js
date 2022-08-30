@@ -1,4 +1,4 @@
-var gridColumns = [
+var gridColumns1 = [
   {
     name: "KorName",
     fieldName: "KorName",
@@ -116,7 +116,7 @@ var gridColumns = [
     fieldName: "ToMonth",
     width: "40",
     header: {
-      text: "납입 횟수"
+      text: "납입"
     }
   },
   {
@@ -124,7 +124,7 @@ var gridColumns = [
     fieldName: "Month",
     width: "40",
     header: {
-      text: "남은 횟수"
+      text: "잔여"
     }
   },
   {
@@ -162,5 +162,65 @@ var gridColumns = [
     header: {
       text: "현재잔액"
     }
+  }
+]
+
+var gridColumns2 = [
+  {
+      "name": "KorNameColumn",
+      "fieldName": "KorName",
+      "type": "data",
+      "width": "150",
+      "header": {
+          "text": "이름"
+      },
+      "editor": {
+          "type": "line",
+          "inputCharacters": "ㄱ-힣"
+      }
+  },
+  {
+      "name": "SeColumn",
+      "fieldName": "Se",
+      "type": "data",
+      "width": "150",
+      "header": {
+          "text": "성별"
+      }
+  },
+  {
+      "name": "PhoneNumberColumn",
+      "fieldName": "PhoneNumber",
+      "type": "data",
+      "width": "150",
+      "header": {
+          "text": "전화번호"
+      },
+      "editor": {
+          "mask": {
+              "editMask": "000-0000-0000"
+          }
+      },
+      "textFormat": "([0-9]{3})([0-9]{4})([0-9]{4});$1-$2-$3"
+  },
+  {
+      "name": "DateColumn",
+      "fieldName": "Date",
+      "dataType": "datetime",
+      "datetimeFormat": "yyyy/MM/dd",
+      "width": "150",
+      "header": {
+          "text": "입사일"
+      }
+  },
+  {
+      "name": "MoneyColumn",
+      "fieldName": "Money",
+      "type": "data",
+      "numberFormat": "#,##0",
+      "width": "150",
+      "header": {
+          "text": "급여"
+      }
   }
 ]
