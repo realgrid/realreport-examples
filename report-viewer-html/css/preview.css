@@ -416,6 +416,14 @@ a {
     background-image: url("../img/preview/preview-zoomout.png");
 }
 
+.icon.preview-100-png:hover {
+    background-image: url("../img/preview/preview-100-hover.png");
+}
+
+.icon.preview-100-png {
+    background-image: url("../img/preview/preview-100.png");
+}
+
 .icon.preview-popup-png:hover {
     background-image: url("../img/preview/preview-popup-hover.png");
 }

@@ -34,6 +34,9 @@
                                     <a class="toolbar-icon-button" onclick="onClickZoomIn10();">
                                         <div class="toolbar-icon icon preview-zoomin-png"></div>
                                     </a>
+                                    <a class="toolbar-icon-button" onclick="onClickZoom100();">
+                                        <div class="toolbar-icon icon preview-100-png"></div>
+                                    </a>
                                     <a class="toolbar-icon-button" onclick="onClickFitToWidth();">
                                         <div class="toolbar-icon icon preview-fit-to-width-png"></div>
                                     </a>
@@ -226,6 +229,13 @@
         const onClickZoomOut10 = function() {
             if (viewer) {
                 viewer.zoomOut();
+                setZoomScaleInputValue('inputZoomScale');
+            }
+        }
+
+        const onClickZoom100 = function() {
+            if (viewer) {
+                viewer.zoom = 1;
                 setZoomScaleInputValue('inputZoomScale');
             }
         }
