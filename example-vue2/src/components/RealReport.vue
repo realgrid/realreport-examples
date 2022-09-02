@@ -3,29 +3,43 @@
 </template>
 
 <script>
-import { ReportViewer } from "realreport";
-import { base64convert } from "../utils/convert";
-import malgun from "../assets/pdffonts/malgun.ttf";
-import malgunbd from "../assets/pdffonts/malgunbd.ttf";
-import "realreport/dist/realreport.css";
+import { ReportViewer, ReportCompositeViewer } from 'realreport';
+import malgun from '../assets/pdffonts/malgun.ttf';
+import malgunbd from '../assets/pdffonts/malgunbd.ttf';
+import 'realreport/dist/realreport.css';
 
 export default {
-  name: "RealReport",
+  name: 'RealReport',
   data() {
     return {
       reportContainer: null,
       viewer: null,
+      compositeViewer: null,
     };
   },
   props: {
     report: Object,
     data: Object,
+    formsets: Array,
   },
   methods: {
     reportPreview() {
       this.viewer.reportForm = this.report;
       this.viewer.dataSet = this.data;
       this.viewer.preview();
+    },
+    compositeReportPreview(reportSamples, reportDatas) {
+      const formSets = [
+        {
+          form: reportSamples[0],
+        },
+        {
+          form: reportSamples[1],
+          dataSet: reportDatas[1]
+        },
+      ];
+      this.compositeViewer = new ReportCompositeViewer(this.reportContainer, formSets);
+      this.compositeViewer.preview();
     },
     onClickZoom(z) {
       if (this.viewer) {
@@ -35,71 +49,71 @@ export default {
     onClickZoomIn10() {
       if (this.viewer) {
         this.viewer.zoomIn();
-        this.setZoomScaleInputValue("inputZoomScale");
+        this.setZoomScaleInputValue('inputZoomScale');
       }
     },
     onClickZoomOut10() {
       if (this.viewer) {
         this.viewer.zoomOut();
-        this.setZoomScaleInputValue("inputZoomScale");
+        this.setZoomScaleInputValue('inputZoomScale');
       }
     },
     onClickFitToHeight() {
       if (this.viewer) {
         this.viewer.fitToHeight();
-        this.setZoomScaleInputValue("inputZoomScale");
+        this.setZoomScaleInputValue('inputZoomScale');
       }
     },
     onClickFitToWidth() {
       if (this.viewer) {
         this.viewer.fitToWidth();
-        this.setZoomScaleInputValue("inputZoomScale");
+        this.setZoomScaleInputValue('inputZoomScale');
       }
     },
     onClickFitToPage() {
       if (this.viewer) {
         this.viewer.fitToPage();
-        this.setZoomScaleInputValue("inputZoomScale");
+        this.setZoomScaleInputValue('inputZoomScale');
       }
     },
     onClickFirstPage() {
       if (this.viewer) {
         this.viewer.first();
-        this.setPageInputValue("inputPageNumber");
+        this.setPageInputValue('inputPageNumber');
       }
     },
     onClickLastPage() {
       if (this.viewer) {
         this.viewer.last();
-        this.setPageInputValue("inputPageNumber");
+        this.setPageInputValue('inputPageNumber');
       }
     },
     onClickPrevPage() {
       if (this.viewer) {
         this.viewer.prev();
-        this.setPageInputValue("inputPageNumber");
+        this.setPageInputValue('inputPageNumber');
       }
     },
     onClickNextPage() {
       if (this.viewer) {
         this.viewer.next();
-        this.setPageInputValue("inputPageNumber");
+        this.setPageInputValue('inputPageNumber');
       }
     },
     onClickExportPdf() {
       if (malgun && malgunbd) {
         const fonts = [
           {
-            name: "regular",
-            content: malgun.split(",")[1],
-            style: "normal",
-            weight: "normal",
+            name: 'regular',
+            content: malgun.split(',')[1],
+            style: 'normal',
+            weight: 'normal',
           },
           {
-            name: "bold",
-            content: malgunbd.split(",")[1],
-            style: "normal",
-            weight: "bold",
+            name: 'bold',
+            content: malgunbd.split(',')[1],
+            style: 'normal',
+            weight: 'bold',
           },
         ];
 
@@ -122,16 +136,16 @@ export default {
       }
     },
     onClickPrintHiddenFrame() {
-      alert("아직 준비중입니다.");
+      alert('아직 준비중입니다.');
     },
     setInputValue(id, value, prefix, surfix) {
       if (id) {
         const input = document.getElementById(id);
-        if (input) input.value = `${prefix || ""}${value}${surfix || ""}`;
+        if (input) input.value = `${prefix || ''}${value}${surfix || ''}`;
       }
     },
     setZoomScaleInputValue(id) {
-      this.setInputValue(id, Math.trunc(this.viewer.zoom * 100), "", "%");
+      this.setInputValue(id, Math.trunc(this.viewer.zoom * 100), '', '%');
     },
     setPageInputValue(id) {
       if (this.viewer) {

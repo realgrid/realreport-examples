@@ -17,6 +17,9 @@
                   <a class="menu-link" @click="setReport(reportSample3, dataSample3)">
                     <span>리포트 샘플3</span>
                   </a>
+                   <a class="menu-link" @click="printCompositeReport([reportSample1, reportSample2], ['', dataSample])">
+                    <span>복합 리포트</span>
+                  </a>
                 </li>
               </ul>
             </li>
@@ -67,6 +70,9 @@ export default {
       this.report = report;
       this.data = data;
     },
+    printCompositeReport(reports, datas) {
+      this.reportViewer.compositeReportPreview(reports, datas);
+    }
   },
   mounted() {
     this.reportViewer = this.$refs.reportViewer;
