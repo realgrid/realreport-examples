@@ -1,0 +1,260 @@
+@import "common.css";
+@import "toolbar.css";
+@import "menu.css";
+@import "sidenav.css";
+@import "report-style.css";
+
+:root {
+    --color-white: #fff;
+    --color-black: #000;
+    --color-gray-300: #dadde1;
+    --color-gray-500: #939393;
+    --color-gray-700: #606770;
+    --color-gray-900: #1c1e21;
+
+    --color-primary: #7530aa;
+    --primary-text-color: var(--color-black);
+
+    --background-color: var(--color-white);
+    --border-color: var(--color-gray-300);
+
+    --line-height-base: 1.65;
+    --font-size-base: 100%;
+    --font-weight-normal: 400;
+    --font-weight-semibold: 500;
+    --font-weight-bold: 700;
+    --font-family-base: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+    --link-color: var(--color-primary);
+    --link-decoration: none;
+    --transition-fast: 200ms;
+    --transition-timing-default: cubic-bezier(0.08, 0.52, 0.52, 1);
+
+    --icon-button-fill: rgba(0, 0, 0, 100);
+    --icon-button-size: 28px;
+    --icon-size: 20px;
+
+    --toolbar-invert: invert(1);
+    --toolbar-link-color: var(--color-gray-900);
+    --toolbar-link-hover-color: var(--link-color);
+    --toolbar-height: 60px;
+    --toolbar-background-color: #fff;
+    --toolbar-item-min-size: 36px;
+    --toolbar-item-padding-horizontal: 0.75rem;
+    --toolbar-item-padding-vertical: 0.25rem;
+
+    --sidebar-width: 300px;
+    --menu-color-active: var(--link-color);
+    --menu-color: var(--color-gray-700);
+    --menu-link-padding-horizontal: 1rem;
+    --menu-link-padding-vertical: 0.375rem;
+    --menu-hover-overlay: rgba(0, 0, 0, 0.05);
+
+    --viewer-thumbnail-bar-padding-inline-end: 28px;
+    --preview-toolbar-background-color: #f5f7fb;
+    --report-background-color: #f5f7fb;
+}
+
+.primary {
+    color: var(--color-primary);
+}
+
+.root {
+    --viewer-sidenav-width: 300px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    /* position: relative; */
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+.main-tabs {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.tab {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-bg {
+    background-color: var(--preview-toolbar-background-color);
+}
+
+.tab-buttons {
+    display: flex;
+    padding: 0 10px;
+}
+
+.tab-button {
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+}
+
+.tab-header {
+    margin: 0 10px;
+    padding: 4px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--color-gray-500);
+}
+
+.tab-title {
+    white-space: nowrap;
+}
+
+.tab-button.active {
+    background-color: var(--preview-toolbar-background-color);
+}
+
+.tab-button.active .tab-header {
+    color: var(--color-primary);
+}
+
+.tab-tool-button {
+    width: 22px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.tab-tool-button.active {
+    background-color: #7530aa40;
+}
+
+.tab-tool-button:hover {
+    background-color: #7530aa0f;
+}
+
+.tab-button .tab-header.tab-tool-button {
+    display: none;
+}
+
+.tab-button.active .tab-header.tab-tool-button {
+    display: block;
+    color: var(--primary-text-color);
+}
+
+.tab-header .tool-icon {
+    vertical-align: sub;
+}
+
+.tool-icon {
+    color: var(--color-gray-700);
+    height: 16px;
+}
+
+.editor-frame {
+    flex-grow: 1;
+    display: flex;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--preview-toolbar-background-color);
+}
+
+.editor-toolbar {
+    display: flex;
+    height: 38px;
+    align-items: center;
+}
+
+.tool-button {
+    margin: 0 10px;
+    padding: 9px 20px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.tool-button.active, .tool-button.active .tool-icon, .tool-button:hover {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.tool-button .tool-icon {
+    vertical-align: sub;
+}
+
+.tool-button.active {
+    background-color: var(--color-white);
+}
+
+.tool-button .tool-icon:hover {
+    color: var(--color-primary);
+}
+
+.main-editor {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex:1;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.content-frame {
+    border: none;
+    padding: 10px;
+    flex-grow: 1;
+    background-color: var(--report-background-color);
+}
+
+.h-450 {
+    min-height: 450px;
+}
+
+#realreport {
+    width: 100%;
+    height: 100%;
+}
+
+#editor-container {
+    flex-grow:1;
+}
+
+#gridReportFrame {
+    border-top: 1px solid var(--border-color);
+}
+
+/* ICONS */
+
+.icon {
+    min-width: var(--icon-size);
+    min-height: var(--icon-size);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    filter: var(--toolbar-invert);
+}
+
+.icon.preview-popup-png {
+    background-image: url("../img/preview/preview-popup.png");
+}
+
+.icon.print-popup-png:hover {
+    background-image: url("../img/preview/print-popup-hover.png");
+}

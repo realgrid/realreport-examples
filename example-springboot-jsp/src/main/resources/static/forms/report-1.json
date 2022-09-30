@@ -1,0 +1,563 @@
+{
+    "form": {
+        "report": {
+            "name": "reportRoot",
+            "paperSize": "A4",
+            "paperWidth": "210mm",
+            "paperHeight": "297mm",
+            "marginLeft": "12mm",
+            "marginRight": "12mm",
+            "marginTop": "15mm",
+            "marginBottom": "15mm"
+        },
+        "page": {
+            "name": "reportPage",
+            "pageHeader": {
+                "name": "pageHeader",
+                "items": [
+                    {
+                        "type": "text",
+                        "value": "${date}",
+                        "name": "",
+                        "right": 0,
+                        "dateFormat": "yyyy/MM/dd",
+                        "text": ""
+                    }
+                ]
+            },
+            "reportHeader": {
+                "name": "reportHeader"
+            },
+            "reportFooter": {
+                "name": "reportFooter"
+            },
+            "pageFooter": {
+                "name": "pageFooter",
+                "items": [
+                    {
+                        "type": "text",
+                        "value": "${pages}",
+                        "width": 37,
+                        "name": "",
+                        "right": 0,
+                        "text": "",
+                        "styles": {
+                            "textAlign": "left",
+                            "border": "",
+                            "__tag_": {}
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "",
+                        "right": "38px",
+                        "text": "/"
+                    },
+                    {
+                        "type": "text",
+                        "value": "${page}",
+                        "name": "",
+                        "right": "45px",
+                        "text": "Text",
+                        "styles": {
+                            "textAlign": "right",
+                            "__tag_": {}
+                        }
+                    }
+                ]
+            },
+            "body": {
+                "itemGap": 4,
+                "items": [
+                    {
+                        "type": "simpleband",
+                        "data": "customer",
+                        "width": "100%",
+                        "name": "",
+                        "sectionCount": 2,
+                        "sectionGap": 50,
+                        "rowsPerPage": 6,
+                        "detail": {
+                            "type": "detail",
+                            "width": "100%",
+                            "name": ""
+                        },
+                        "groups": [],
+                        "header": {
+                            "type": "stack",
+                            "name": "bandHeader",
+                            "width": 350.4960629921259
+                        },
+                        "footer": {
+                            "type": "stack",
+                            "name": "bandPageFooter",
+                            "width": "100%"
+                        },
+                        "dataRow": {
+                            "type": "stack",
+                            "name": "bandrow",
+                            "width": "100%",
+                            "onGetStyles": "",
+                            "styles": {
+                                "paddingRight": "px",
+                                "paddingBottom": "30px",
+                                "borderBottom": "",
+                                "__tag_": {}
+                            },
+                            "styleCallback": null,
+                            "items": [
+                                {
+                                    "type": "stack",
+                                    "width": "100%",
+                                    "height": 105,
+                                    "name": "",
+                                    "styles": {
+                                        "paddingLeft": "4px",
+                                        "paddingTop": "4px",
+                                        "paddingRight": "4px",
+                                        "paddingBottom": "4px",
+                                        "border": "1px solid",
+                                        "__tag_": {}
+                                    },
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "value": "PostalCode",
+                                            "name": "",
+                                            "left": "0px",
+                                            "top": 22,
+                                            "numberFormat": "",
+                                            "text": "Text",
+                                            "styles": {
+                                                "fontSize": "12px",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "Address1",
+                                            "name": "",
+                                            "left": "0px",
+                                            "top": 42,
+                                            "text": "Text",
+                                            "styles": {
+                                                "fontSize": "12px",
+                                                "__tag_": {},
+                                                "textAlign": "left"
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "ContactName",
+                                            "name": "",
+                                            "right": "50px",
+                                            "bottom": "0px",
+                                            "suffix": " 님 앞",
+                                            "text": "Text",
+                                            "styles": {
+                                                "fontSize": "14px",
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "Address2",
+                                            "name": "",
+                                            "left": "0px",
+                                            "top": 58,
+                                            "text": "Text",
+                                            "styles": {
+                                                "fontSize": "12px",
+                                                "textAlign": "left"
+                                            }
+                                        },
+                                        {
+                                            "type": "barcode",
+                                            "value": "PostalCode",
+                                            "width": 100,
+                                            "height": 17,
+                                            "name": "",
+                                            "left": "200px",
+                                            "top": "0px",
+                                            "format": "code39",
+                                            "text": "Cosmos"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "PrintDate",
+                                            "name": "",
+                                            "left": 12,
+                                            "top": "0px",
+                                            "prefix": "발송일자 ",
+                                            "suffix": "  ",
+                                            "text": "",
+                                            "styles": {
+                                                "fontSize": "12px",
+                                                "border": "1px solid black"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "styles": {
+                            "paddingRight": "px",
+                            "paddingBottom": "30px",
+                            "__tag_": {}
+                        }
+                    }
+                ]
+            }
+        },
+        "assets": {
+            "/": []
+        },
+        "data": {
+            "mail label": {
+                "type": "band",
+                "fields": [
+                    {
+                        "fieldName": "PostalCode",
+                        "dataType": "text",
+                        "sample": "742-170",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "Address",
+                        "dataType": "text",
+                        "sample": "가장동 78-3 상주시 대한민국",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ContactName",
+                        "dataType": "text",
+                        "sample": "한석규",
+                        "dateReader": null
+                    }
+                ]
+            },
+            "customer": {
+                "type": "band",
+                "fields": [
+                    {
+                        "fieldName": "PostalCode",
+                        "dataType": "number",
+                        "sample": "61881",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "Address1",
+                        "dataType": "text",
+                        "sample": "부산광역시 강서구 명지오션시티9로 36",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "Address2",
+                        "dataType": "text",
+                        "sample": "",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ContactName",
+                        "dataType": "text",
+                        "sample": "나수호",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "PrintDate",
+                        "dataType": "text",
+                        "sample": "2022-03-29",
+                        "description": "",
+                        "dateReader": null
+                    }
+                ]
+            }
+        },
+        "guid": "7eb76d42-9e71-4a76-b3c6-77ca1645d6d1"
+    },
+    "dataSet": {
+        "customer": {
+            "type": "band",
+            "values": [
+                {
+                    "PostalCode": 61881,
+                    "Address1": "부산광역시 강서구 명지오션시티9로 36",
+                    "Address2": "",
+                    "ContactName": "나수호",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 13207,
+                    "Address1": "경기도 성남시 중원구 사기막골로 124",
+                    "Address2": "(상대원동, SKn테크노파크) 테크센터동 1501, 1502호",
+                    "ContactName": "김상영",
+                    "PrintDate": "2022-03-30"
+                },
+                {
+                    "PostalCode": 13707,
+                    "Address1": "서울특별시 서초구 서초동",
+                    "Address2": "1489-3",
+                    "ContactName": "홍길도",
+                    "PrintDate": "2022-03-28"
+                },
+                {
+                    "PostalCode": 13786,
+                    "Address1": "서울특별시 서초구 서초동",
+                    "Address2": "1489-3 약사회관 지하1층",
+                    "ContactName": "조영훈",
+                    "PrintDate": "2022-03-24"
+                },
+                {
+                    "PostalCode": 18515,
+                    "Address1": "경기도 화성시 정남면 덕절리 218-1",
+                    "Address2": "",
+                    "ContactName": "임걱정",
+                    "PrintDate": "2022-03-21"
+                },
+                {
+                    "PostalCode": 13461,
+                    "Address1": "경기도 성남시 분당구 운중로 135",
+                    "Address2": "(운중동, 더원스퀘어) 304호",
+                    "ContactName": "강원도",
+                    "PrintDate": "2022-03-20"
+                },
+                {
+                    "PostalCode": 13130,
+                    "Address1": "서울특별시 종로구 창경궁로 120",
+                    "Address2": "(인의동, 종로플레이스) 14층",
+                    "ContactName": "김을로",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 15205,
+                    "Address1": "서울특별시 구로구 구로동",
+                    "Address2": "235 한신 IT타워1203,1204호",
+                    "ContactName": "이성준",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 15570,
+                    "Address1": "서울특별시 송파구 백제고분로 101",
+                    "Address2": "(잠실동, (주)서일빌딩) 8,9,10층",
+                    "ContactName": "박하영",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 22044,
+                    "Address1": "강원도 원주시 흥업면 흥업리",
+                    "Address2": "1420-11 (주)구들택",
+                    "ContactName": "구기성",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 64231,
+                    "Address1": "경상남도 창원시 성산구 중앙대로 56",
+                    "Address2": "양지빌딩(상남동 71-2)",
+                    "ContactName": "고기영",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 63003,
+                    "Address1": "경상남도 마산시 봉암동",
+                    "Address2": "541-9 경남지능형홈산업화센터 2동 205,506호",
+                    "ContactName": "권미호",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 46340,
+                    "Address1": "경기도 성남시 분당구 대왕판교로 660",
+                    "Address2": "유스페이스1 A-1003호",
+                    "ContactName": "이성호",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 48058,
+                    "Address1": "부산광역시 해운대구 센텀서로 30",
+                    "Address2": "(우동, 케이엔엔타워)1702호",
+                    "ContactName": "나혜수",
+                    "PrintDate": "2022-03-28"
+                },
+                {
+                    "PostalCode": 48058,
+                    "Address1": "부산광역시 해운대구 센텀서로 30",
+                    "Address2": "(우동, 케이엔엔타워)1702,1703호",
+                    "ContactName": "최욱",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 12989,
+                    "Address1": "경기도 하남시 초광산단로 126 3층",
+                    "Address2": "(광암동, 우일공장)",
+                    "ContactName": "최성호",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 51393,
+                    "Address1": "경상남도 창원시 의창구 사화로 372 동진빌딩 3층",
+                    "Address2": "(팔용동, 동진빌딩)",
+                    "ContactName": "박상엽",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 16101,
+                    "Address1": "서울특별시 강남구 언주로 620",
+                    "Address2": "(논현동, 현대인텔렉스) 7층",
+                    "ContactName": "김현호",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 14512,
+                    "Address1": "서울특별시 중구 칠패로 36",
+                    "Address2": "(봉래동1가, 연세봉래빌딩) 11,12층",
+                    "ContactName": "이혜영",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 13839,
+                    "Address1": "서울특별시 송파구 삼전동",
+                    "Address2": "101-2",
+                    "ContactName": "정해석",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 24465,
+                    "Address1": "강원도 춘천시 남산면 버들1길 130",
+                    "Address2": "(수동리)",
+                    "ContactName": "김태영",
+                    "PrintDate": "2020-03-30"
+                },
+                {
+                    "PostalCode": 13518,
+                    "Address1": "서울특별시 강남구 논현동",
+                    "Address2": "87-2 미래빌딩 5층",
+                    "ContactName": "이수정",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 13579,
+                    "Address1": "서울특별시 강남구 삼성로96길 23",
+                    "Address2": "동부삼성동빌딩",
+                    "ContactName": "임정수",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 51391,
+                    "Address1": "경상남도 창원시 의창구 차룡로48번길 54",
+                    "Address2": "경남창원산학융합원 기업연구관 405호",
+                    "ContactName": "임권호",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 30090,
+                    "Address1": "대전광역시 동구 홍도동",
+                    "Address2": "78-4 3층",
+                    "ContactName": "양희진",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 36025,
+                    "Address1": "충청북도 청주시 상당구 월평로 242",
+                    "Address2": ", 201(용암동)",
+                    "ContactName": "양유진",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 16775,
+                    "Address1": "서울특별시 서초구 마방로 68",
+                    "Address2": "(양재동, 동원산업빌딩) 1층",
+                    "ContactName": "김유진",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 64165,
+                    "Address1": "경상남도 창원시 팔용동",
+                    "Address2": "39-13번지",
+                    "ContactName": "이유진",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 13836,
+                    "Address1": "서울특별시 송파구 올림픽로43길 88",
+                    "Address2": "생명과학연구관 12층",
+                    "ContactName": "강동원",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 58121,
+                    "Address1": "전라남도 화순군 화순읍 칠충로 61-19",
+                    "Address2": "(대리)",
+                    "ContactName": "광동수",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 17299,
+                    "Address1": "서울특별시 영등포구 경인로 775",
+                    "Address2": "(문래동3가, 에이스하이테크시티) 2동 901호",
+                    "ContactName": "박기영",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 13510,
+                    "Address1": "서울특별시 강남구 논현동",
+                    "Address2": "751빌딩 5층",
+                    "ContactName": "최선호",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 13042,
+                    "Address1": "서울특별시 종로구 자하문로 68-14",
+                    "Address2": "(효자동)",
+                    "ContactName": "최무진",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 32542,
+                    "Address1": "충청남도 공주시 왕릉로 12",
+                    "Address2": "(웅진동) 동선빌딩 3층",
+                    "ContactName": "조종학",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 16827,
+                    "Address1": "경기도 용인시 수지구 손곡로 17",
+                    "Address2": "(동천동)",
+                    "ContactName": "진준희",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 17327,
+                    "Address1": "서울특별시 영등포구 여의나루로 67",
+                    "Address2": "(여의도동, 신송빌딩)1706호",
+                    "ContactName": "진공원",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 15625,
+                    "Address1": "서울특별시 송파구 백제고분로41길 21-24",
+                    "Address2": "(송파동) 501호",
+                    "ContactName": "공유진",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 13590,
+                    "Address1": "서울특별시 강남구 삼성동",
+                    "Address2": "159-1 아셈타워 1802",
+                    "ContactName": "김유진",
+                    "PrintDate": "2022-03-29"
+                },
+                {
+                    "PostalCode": 51711,
+                    "Address1": "전라남도  담양군 수북면 개동리",
+                    "Address2": "542-5",
+                    "ContactName": "박유진",
+                    "PrintDate": "2022-03-29"
+                }
+            ]
+        }
+    }
+}

@@ -6,7 +6,7 @@ var editor;
 // 미리보기 팝업창 객체
 var windowPreview = null;
 
-const url = 'http://localhost:8080/report/';
+const url = 'http://localhost:8080/';
 
 //--------------------------------------------------------------------------------------------------
 // onLoad
