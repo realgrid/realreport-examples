@@ -1,6 +1,6 @@
 /// <reference types="node" />
 /** 
-* RealReport v1.3.2
+* RealReport v1.3.3
 * commit 8812366
 
 * Copyright (C) 2013-2022 WooriTech Inc.
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.3.2
+* RealReport Core v1.3.3
 * Copyright (C) 2013-2022 WooriTech Inc.
 * All Rights Reserved.
-* commit cbf0ca8d128f2128e9b9e6a82d9133d5efc364db
+* commit c7adacc3090620f2ede420b145c393c55fa9e225
 */
 
 
@@ -6029,7 +6029,9 @@ declare class PageView extends LayerElement$1 {
     findElementOf(dom: HTMLElement): ReportElement;
     getElementOf(model: ReportPageItem): ReportElement;
     getAllElements(root: ReportElement, bounds: Rectangle$1): ReportItemView[];
-    print(doc: Document, ctx: PrintContext, y: number): PrintPage[];
+    preparePrint(doc: Document, ctx: PrintContext): PageBodyOutput;
+    print(ctx: PrintContext, pagebodyOutput: PageBodyOutput, currentPrintedPageCount?: number): PrintPage[];
+    refreshPageHeader(doc: Document, ctx: PrintContext): HTMLDivElement;
     getSections(): ReportElement[];
     /**
      * 페이지의 한 행을 전부 차지하는가?
@@ -6135,6 +6137,7 @@ declare class ReportView extends LayerElement$1 implements IImageContainer {
  */
 declare class PrintContext extends Base$1 {
     private _printing;
+    private _compositePrinting;
     private _dp;
     private _desingDp;
     private _assets;
@@ -6146,6 +6149,8 @@ declare class PrintContext extends Base$1 {
     private _page;
     private _detailPageCount;
     private _detailPage;
+    private _compositePageCount;
+    private _compositePage;
     detailRows: number[];
     noValueCallback: boolean;
     report: Report;
@@ -6168,11 +6173,15 @@ declare class PrintContext extends Base$1 {
     private _userData;
     private _tags;
     private _bandSave;
-    constructor(printing?: boolean);
+    constructor(printing?: boolean, compositePrinting?: boolean);
     /**
      * printing
      */
     get printing(): boolean;
+    /**
+     * compositePrinting 복합 출력 여부를 반환
+     */
+    get compositePrinting(): boolean;
     /**
      * data provider
      */
@@ -6223,10 +6232,20 @@ declare class PrintContext extends Base$1 {
      * detail page index.
      */
     get detailPage(): number;
+    /**
+     * compositePage count.
+     */
+    get compositePageCount(): number;
+    /**
+     * compositePage index.
+     */
+    get compositePage(): number;
     preparePrint(report?: Report): void;
     preparePage(page: number): void;
     setDetailPage(count: number, page: number): void;
     finishPrint(pageCount: number): void;
+    setCompositePage(printedPageCount?: number): void;
+    setCompositePageCount(compostePageCount: number): void;
     getUserData(): any;
     getCurrentValue(prop: string): any;
     setTag(tag: string, value: any): void;
