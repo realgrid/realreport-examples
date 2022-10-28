@@ -1,0 +1,1298 @@
+{
+  "id": 3,
+  "type": "single",
+  "name": "체크리스트",
+    "form": {
+        "report": {
+          "name": "reportRoot",
+          "paperOrientation": "landscape",
+          "paperSize": "A4",
+          "paperWidth": "210mm",
+          "paperHeight": "297mm",
+          "marginLeft": "12mm",
+          "marginRight": "12mm",
+          "marginTop": "15mm",
+          "marginBottom": "15mm"
+        },
+        "page": {
+          "name": "reportPage",
+          "pageHeader": {
+            "name": "pageHeader"
+          },
+          "reportHeader": {
+            "name": "reportHeader",
+            "height": 61,
+            "items": [
+              {
+                "type": "text",
+                "name": "",
+                "text": "화장실 위생 점검표",
+                "styles": {
+                  "fontWeight": "bold",
+                  "fontSize": "30px"
+                }
+              }
+            ]
+          },
+          "reportFooter": {
+            "name": "reportFooter"
+          },
+          "pageFooter": {
+            "name": "pageFooter"
+          },
+          "body": {
+            "itemGap": 4,
+            "items": [
+              {
+                "type": "stack",
+                "width": "100%",
+                "height": 87,
+                "name": "",
+                "left": 0,
+                "items": [
+                  {
+                    "type": "text",
+                    "name": "",
+                    "left": "0px",
+                    "bottom": "0px",
+                    "text": "점검일시 : ",
+                    "styles": {
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "",
+                    "left": "100px",
+                    "bottom": "0px",
+                    "text": "년",
+                    "styles": {
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "",
+                    "left": "150px",
+                    "bottom": "0px",
+                    "text": "월",
+                    "styles": {
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "",
+                    "left": "190px",
+                    "bottom": "0px",
+                    "text": "주",
+                    "styles": {
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "",
+                    "left": "220px",
+                    "bottom": "0px",
+                    "text": "점검자 : ",
+                    "styles": {
+                      "fontWeight": "bold"
+                    }
+                  },
+                  {
+                    "type": "table",
+                    "width": 149,
+                    "height": 65,
+                    "name": "",
+                    "right": "0px",
+                    "top": "0px",
+                    "rowCount": 2,
+                    "minRowHeight": "24px",
+                    "cellStyles": {
+                      "borderLeft": ""
+                    },
+                    "rows": [
+                      {
+                        "height": "2%"
+                      },
+                      {
+                        "height": "10%"
+                      }
+                    ],
+                    "cells": [
+                      {
+                        "r": 0,
+                        "c": 0,
+                        "rowspan": 2,
+                        "styles": {
+                          "borderTop": "2px solid black",
+                          "borderBottom": "2px solid black",
+                          "borderLeft": "2px solid black",
+                          "backgroundColor": "#4c4c4c"
+                        }
+                      },
+                      {
+                        "r": 0,
+                        "c": 1,
+                        "styles": {
+                          "borderTop": "2px solid black",
+                          "backgroundColor": "#e1e1e1"
+                        }
+                      },
+                      {
+                        "r": 0,
+                        "c": 2,
+                        "styles": {
+                          "borderRight": "2px solid black",
+                          "borderTop": "2px solid black",
+                          "backgroundColor": "#e1e1e1"
+                        }
+                      },
+                      {
+                        "r": 1,
+                        "c": 1,
+                        "styles": {
+                          "borderBottom": "2px solid black"
+                        }
+                      },
+                      {
+                        "r": 1,
+                        "c": 2,
+                        "styles": {
+                          "borderBottom": "2px solid black",
+                          "borderRight": "2px solid black"
+                        }
+                      }
+                    ],
+                    "colCount": 3,
+                    "columns": [
+                      {
+                        "width": "8%"
+                      },
+                      {
+                        "width": "25%"
+                      },
+                      {
+                        "width": "25%"
+                      }
+                    ],
+                    "items": [
+                      {
+                        "type": "text",
+                        "name": "",
+                        "col": 0,
+                        "row": 0,
+                        "wrap": true,
+                        "text": "결재",
+                        "styles": {
+                          "fontWeight": "bold",
+                          "color": "#f0f0f0"
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "name": "",
+                        "col": 1,
+                        "row": 0,
+                        "text": "담당",
+                        "styles": {
+                          "fontWeight": "bold"
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "name": "",
+                        "col": 2,
+                        "row": 0,
+                        "text": "시설장",
+                        "styles": {
+                          "fontWeight": "bold"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "name": "",
+                    "left": "65px",
+                    "bottom": "0px",
+                    "text": "20",
+                    "styles": {
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "tableband",
+                "data": "checkList",
+                "width": "100%",
+                "name": "",
+                "detail": {
+                  "type": "detail",
+                  "width": "100%",
+                  "name": "",
+                  "visible": false
+                },
+                "colCount": 26,
+                "columns": [
+                  {
+                    "width": "70%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  },
+                  {
+                    "width": "7%"
+                  }
+                ],
+                "header": {
+                  "width": "100%",
+                  "name": null,
+                  "rowCount": 2,
+                  "cellStyles": {},
+                  "rows": [
+                    {},
+                    {}
+                  ],
+                  "cells": [
+                    {
+                      "r": 0,
+                      "c": 0,
+                      "rowspan": 2,
+                      "styles": {
+                        "borderLeft": "2px solid black",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#4c4c4c",
+                        "borderBottom": "2px solid black",
+                        "borderRight": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 1,
+                      "colspan": 2,
+                      "styles": {
+                        "borderRight": "none",
+                        "cellAlign": "center",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 3,
+                      "styles": {
+                        "borderRight": "none",
+                        "borderLeft": "none",
+                        "cellAlign": "right",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 4,
+                      "styles": {
+                        "borderLeft": "none",
+                        "borderRight": "none",
+                        "cellAlign": "left",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 5,
+                      "styles": {
+                        "borderLeft": "none",
+                        "cellAlign": "center",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1",
+                        "borderRight": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 6,
+                      "colspan": 2,
+                      "styles": {
+                        "cellAlign": "center",
+                        "borderRight": "none",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 8,
+                      "styles": {
+                        "borderRight": "none",
+                        "cellAlign": "right",
+                        "borderLeft": "none",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 9,
+                      "styles": {
+                        "borderLeft": "none",
+                        "borderRight": "none",
+                        "cellAlign": "left",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 10,
+                      "styles": {
+                        "borderLeft": "none",
+                        "cellAlign": "center",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1",
+                        "borderRight": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 11,
+                      "colspan": 2,
+                      "styles": {
+                        "cellAlign": "center",
+                        "borderRight": "none",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 13,
+                      "styles": {
+                        "borderRight": "none",
+                        "cellAlign": "right",
+                        "borderLeft": "none",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 14,
+                      "styles": {
+                        "borderLeft": "none",
+                        "borderRight": "none",
+                        "cellAlign": "left",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 15,
+                      "styles": {
+                        "borderLeft": "none",
+                        "cellAlign": "center",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1",
+                        "borderRight": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 16,
+                      "colspan": 2,
+                      "styles": {
+                        "cellAlign": "center",
+                        "borderRight": "none",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 18,
+                      "styles": {
+                        "borderRight": "none",
+                        "cellAlign": "right",
+                        "borderLeft": "none",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 19,
+                      "styles": {
+                        "borderLeft": "none",
+                        "borderRight": "none",
+                        "cellAlign": "left",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 20,
+                      "styles": {
+                        "borderLeft": "none",
+                        "cellAlign": "center",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1",
+                        "borderRight": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 21,
+                      "colspan": 2,
+                      "styles": {
+                        "cellAlign": "center",
+                        "borderRight": "none",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 23,
+                      "styles": {
+                        "borderRight": "none",
+                        "cellAlign": "right",
+                        "borderLeft": "none",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 24,
+                      "styles": {
+                        "borderLeft": "none",
+                        "borderRight": "none",
+                        "cellAlign": "left",
+                        "borderTop": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 25,
+                      "styles": {
+                        "borderLeft": "none",
+                        "cellAlign": "center",
+                        "borderTop": "2px solid black",
+                        "borderRight": "2px solid black",
+                        "backgroundColor": "#e1e1e1"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 1,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 2,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 3,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 4,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 5,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderRight": "2px solid black",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 6,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 7,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 8,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 9,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 10,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderRight": "2px solid black",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 11,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 12,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 13,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 14,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 15,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderRight": "2px solid black",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 16,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 17,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 18,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 19,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 20,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderRight": "2px solid black",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 21,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 22,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 23,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 24,
+                      "styles": {
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 1,
+                      "c": 25,
+                      "styles": {
+                        "borderRight": "2px solid black",
+                        "backgroundColor": "#e1e1e1",
+                        "borderBottom": "2px solid black"
+                      }
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 0,
+                      "row": 0,
+                      "text": "점검내용",
+                      "styles": {
+                        "fontSize": "15px",
+                        "color": "#f0f0f0",
+                        "fontWeight": "bold"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 1,
+                      "row": 1,
+                      "text": "월"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 2,
+                      "row": 1,
+                      "text": "화"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 3,
+                      "row": 1,
+                      "text": "수"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 4,
+                      "row": 1,
+                      "text": "목"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 5,
+                      "row": 1,
+                      "text": "금"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 11,
+                      "row": 1,
+                      "text": "월"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 16,
+                      "row": 1,
+                      "text": "월"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 21,
+                      "row": 1,
+                      "text": "월"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 12,
+                      "row": 1,
+                      "text": "화"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 17,
+                      "row": 1,
+                      "text": "화"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 22,
+                      "row": 1,
+                      "text": "화"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 6,
+                      "row": 1,
+                      "text": "월"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 7,
+                      "row": 1,
+                      "text": "화"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 8,
+                      "row": 1,
+                      "text": "수"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 13,
+                      "row": 1,
+                      "text": "수"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 18,
+                      "row": 1,
+                      "text": "수"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 23,
+                      "row": 1,
+                      "text": "수"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 9,
+                      "row": 1,
+                      "text": "목"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 14,
+                      "row": 1,
+                      "text": "목"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 19,
+                      "row": 1,
+                      "text": "목"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 24,
+                      "row": 1,
+                      "text": "목"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 10,
+                      "row": 1,
+                      "text": "금"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 15,
+                      "row": 1,
+                      "text": "금"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 20,
+                      "row": 1,
+                      "text": "금"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 25,
+                      "row": 1,
+                      "text": "금"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 1,
+                      "row": 0,
+                      "suffix": "",
+                      "text": "1주 ("
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 4,
+                      "row": 0,
+                      "text": "~"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 3,
+                      "row": 0,
+                      "text": "일"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 5,
+                      "row": 0,
+                      "text": "일)"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 6,
+                      "row": 0,
+                      "suffix": "",
+                      "text": "2주 ("
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 11,
+                      "row": 0,
+                      "suffix": "",
+                      "text": "3주 ("
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 16,
+                      "row": 0,
+                      "suffix": "",
+                      "text": "4주 ("
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 21,
+                      "row": 0,
+                      "suffix": "",
+                      "text": "5주 ("
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 8,
+                      "row": 0,
+                      "text": "일"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 13,
+                      "row": 0,
+                      "text": "일"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 18,
+                      "row": 0,
+                      "text": "일"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 23,
+                      "row": 0,
+                      "text": "일"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 9,
+                      "row": 0,
+                      "text": "~"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 14,
+                      "row": 0,
+                      "text": "~"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 19,
+                      "row": 0,
+                      "text": "~"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 24,
+                      "row": 0,
+                      "text": "~"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 10,
+                      "row": 0,
+                      "text": "일)"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 15,
+                      "row": 0,
+                      "text": "일)"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 20,
+                      "row": 0,
+                      "text": "일)"
+                    },
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 25,
+                      "row": 0,
+                      "text": "일)"
+                    }
+                  ]
+                },
+                "footer": {
+                  "width": "100%",
+                  "height": "50px",
+                  "name": null,
+                  "rowCount": 1,
+                  "cellStyles": {},
+                  "rows": [
+                    {}
+                  ],
+                  "cells": [
+                    {
+                      "r": 0,
+                      "c": 0,
+                      "styles": {
+                        "borderBottom": "2px solid black",
+                        "borderLeft": "2px solid black",
+                        "backgroundColor": "#4c4c4c",
+                        "borderTop": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 1,
+                      "colspan": 25,
+                      "styles": {
+                        "borderBottom": "2px solid black",
+                        "borderRight": "2px solid black",
+                        "borderTop": "2px solid black"
+                      }
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "text",
+                      "name": "",
+                      "col": 0,
+                      "row": 0,
+                      "text": "비고",
+                      "styles": {
+                        "color": "#f0f0f0",
+                        "fontSize": "15px",
+                        "fontWeight": "bold"
+                      }
+                    }
+                  ]
+                },
+                "dataRow": {
+                  "width": "100%",
+                  "height": "25px",
+                  "name": null,
+                  "rowCount": 1,
+                  "cellStyles": {},
+                  "rows": [
+                    {}
+                  ],
+                  "cells": [
+                    {
+                      "r": 0,
+                      "c": 0,
+                      "styles": {
+                        "borderLeft": "2px solid black",
+                        "borderRight": "2px solid black",
+                        "cellAlign": "left"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 5,
+                      "styles": {
+                        "borderRight": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 10,
+                      "styles": {
+                        "borderRight": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 15,
+                      "styles": {
+                        "borderRight": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 20,
+                      "styles": {
+                        "borderRight": "2px solid black"
+                      }
+                    },
+                    {
+                      "r": 0,
+                      "c": 25,
+                      "styles": {
+                        "borderRight": "2px solid black"
+                      }
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "text",
+                      "value": "check",
+                      "name": "",
+                      "col": 0,
+                      "row": 0,
+                      "wrap": true,
+                      "prefix": " ",
+                      "text": "Text"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "text",
+                "name": "",
+                "right": "0px",
+                "text": "OOO 어린이집"
+              }
+            ]
+          }
+        },
+        "assets": {
+          "/": []
+        },
+        "data": {
+          "checkList": {
+            "type": "band",
+            "fields": [
+              {
+                "fieldName": "check",
+                "dataType": "text",
+                "description": "",
+                "sample": "",
+                "format": "",
+                "dateReader": null
+              }
+            ]
+          }
+        },
+        "guid": "ab471258-10d2-408d-8478-3257cd4b2c61"
+      },
+      "dataSet": {
+        "checkList": {
+            "type": "band",
+            "values": [
+                {
+                    "check": "세면대는 청결한가?"
+                },
+                {
+                    "check": "유아 변기는 청결한가?"
+                },
+                {
+                    "check": "화장실 바닥은 청결한가?"
+                },
+                {
+                    "check": "거울은 청결한가?"
+                },
+                {
+                    "check": "휴지는 있는가?"
+                },
+                {
+                    "check": "화장실 청소는 했는가?"
+                },
+                {
+                    "check": "변기물은 잘 내려가는가?"
+                },
+                {
+                    "check": "화장실 조명은 적당한가?"
+                },
+                {
+                    "check": "세면대 물은 잘 내려가는가?"
+                },
+                {
+                    "check": "쓰레기통은 자주 비워주는가?"
+                },
+                {
+                    "check": "환기는 자주 시켜주는가?"
+                },
+                {
+                    "check": "청소 도구가 잘 정리되어 있는가?"
+                },
+                {
+                    "check": "문고리, 수도꼭지가 이상이 없는가?"
+                },
+                {
+                    "check": "바닥, 벽, 타일, 콘크리트 등 내수성 자재로 되어 있는가?"
+                },
+                {
+                    "check": "바닥에 물기는 없는가?"
+                }
+            ]
+        }
+    }
+}
