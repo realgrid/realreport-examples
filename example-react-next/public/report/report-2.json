@@ -1,0 +1,1422 @@
+{
+    "id": 2,
+    "type": "single",
+    "name": "invoice",
+    "form": {
+        "report": {
+            "name": "reportRoot",
+            "paperSize": "A4",
+            "paperWidth": "210mm",
+            "paperHeight": "297mm",
+            "marginLeft": "12mm",
+            "marginRight": "12mm",
+            "marginTop": "15mm",
+            "marginBottom": "15mm"
+        },
+        "page": {
+            "name": "reportPage",
+            "pageHeader": {
+                "name": "pageHeader",
+                "items": [
+                    {
+                        "type": "rbox",
+                        "name": "",
+                        "right": 0,
+                        "itemGap": 4,
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "text": "Date:"
+                            },
+                            {
+                                "type": "text",
+                                "value": "${date}",
+                                "name": "",
+                                "dateFormat": "yyyy/MM/dd",
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "reportHeader": {
+                "name": "reportHeader",
+                "height": 19,
+                "visible": false
+            },
+            "reportFooter": {
+                "name": "reportFooter"
+            },
+            "pageFooter": {
+                "name": "pageFooter"
+            },
+            "body": {
+                "itemGap": 0,
+                "items": [
+                    {
+                        "type": "simpleband",
+                        "data": "master-detail-01",
+                        "width": "100%",
+                        "name": "",
+                        "rowsPerPage": 1,
+                        "repeatMasterRow": true,
+                        "alwaysHeader": false,
+                        "detail": {
+                            "type": "detail",
+                            "width": "100%",
+                            "name": "",
+                            "styles": {
+                                "paddingTop": "px",
+                                "__tag_": {}
+                            },
+                            "items": [
+                                {
+                                    "type": "tableband",
+                                    "data": "master-detail-02",
+                                    "width": "100%",
+                                    "name": "",
+                                    "pageBreak": "after",
+                                    "masterFields": "OrderID",
+                                    "keyFields": "OrderID",
+                                    "repeatDetailHeader": true,
+                                    "repeatDetailFooter": true,
+                                    "alwaysHeader": false,
+                                    "detail": {
+                                        "type": "detail",
+                                        "width": "100%",
+                                        "name": ""
+                                    },
+                                    "colCount": 6,
+                                    "columns": [
+                                        {
+                                            "width": "10%"
+                                        },
+                                        {
+                                            "width": "20%"
+                                        },
+                                        {
+                                            "width": "15%"
+                                        },
+                                        {
+                                            "width": "10%"
+                                        },
+                                        {
+                                            "width": "10%"
+                                        },
+                                        {
+                                            "width": "20%"
+                                        }
+                                    ],
+                                    "header": {
+                                        "name": "bandHeader",
+                                        "width": "100%",
+                                        "rowCount": 1,
+                                        "cellStyles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "none",
+                                            "borderBottom": "none"
+                                        },
+                                        "rows": [
+                                            {}
+                                        ],
+                                        "cells": [
+                                            {
+                                                "r": 0,
+                                                "c": 0,
+                                                "styles": {
+                                                    "backgroundColor": "#112d30"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 1,
+                                                "styles": {
+                                                    "backgroundColor": "#112d30ff"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 2,
+                                                "styles": {
+                                                    "backgroundColor": "#112d30ff"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 3,
+                                                "styles": {
+                                                    "backgroundColor": "#112d30ff"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 4,
+                                                "styles": {
+                                                    "backgroundColor": "#112d30ff"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 5,
+                                                "styles": {
+                                                    "backgroundColor": "#112d30ff"
+                                                }
+                                            }
+                                        ],
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 0,
+                                                "row": 0,
+                                                "text": "No.",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "color": "#ecfcfeff",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 1,
+                                                "row": 0,
+                                                "text": "Product",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "color": "#ecfcfeff",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 2,
+                                                "row": 0,
+                                                "text": "Unit price",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "color": "#ecfcfeff",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 3,
+                                                "row": 0,
+                                                "text": "Quantity",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "color": "#ecfcfeff",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 4,
+                                                "row": 0,
+                                                "text": "Discount",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "color": "#ecfcfeff",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 5,
+                                                "row": 0,
+                                                "text": "Extended price",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "color": "#ecfcfeff",
+                                                    "__tag_": {}
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "footer": {
+                                        "name": "bandFooter",
+                                        "width": "100%",
+                                        "rowCount": 1,
+                                        "cellStyles": {},
+                                        "rows": [
+                                            {}
+                                        ],
+                                        "cells": [
+                                            {
+                                                "r": 0,
+                                                "c": 0,
+                                                "colspan": 6,
+                                                "styles": {
+                                                    "cellAlign": "right",
+                                                    "paddingTop": "10px",
+                                                    "borderLeft": "none",
+                                                    "borderRight": "none",
+                                                    "borderTop": "none",
+                                                    "borderBottom": "none"
+                                                }
+                                            }
+                                        ],
+                                        "items": [
+                                            {
+                                                "type": "table",
+                                                "width": "240px",
+                                                "name": "",
+                                                "col": 0,
+                                                "row": 0,
+                                                "rowCount": 3,
+                                                "minRowHeight": "35px",
+                                                "cellStyles": {
+                                                    "paddingBottom": "",
+                                                    "borderLeft": "none",
+                                                    "borderRight": "none",
+                                                    "borderTop": "none",
+                                                    "borderBottom": "none"
+                                                },
+                                                "rows": [
+                                                    {},
+                                                    {},
+                                                    {}
+                                                ],
+                                                "cells": [
+                                                    {
+                                                        "r": 0,
+                                                        "c": 0,
+                                                        "styles": {
+                                                            "cellAlign": "right",
+                                                            "backgroundColor": "",
+                                                            "borderTop": "solid",
+                                                            "borderBottom": "solid"
+                                                        }
+                                                    },
+                                                    {
+                                                        "r": 0,
+                                                        "c": 1,
+                                                        "styles": {
+                                                            "cellAlign": "right",
+                                                            "borderTop": "solid",
+                                                            "borderBottom": "solid"
+                                                        }
+                                                    },
+                                                    {
+                                                        "r": 1,
+                                                        "c": 0,
+                                                        "styles": {
+                                                            "cellAlign": "right",
+                                                            "backgroundColor": "",
+                                                            "borderTop": "",
+                                                            "borderBottom": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "r": 1,
+                                                        "c": 1,
+                                                        "styles": {
+                                                            "cellAlign": "right",
+                                                            "borderTop": "",
+                                                            "borderBottom": ""
+                                                        }
+                                                    },
+                                                    {
+                                                        "r": 2,
+                                                        "c": 0,
+                                                        "styles": {
+                                                            "cellAlign": "right",
+                                                            "backgroundColor": "#d7f5faff"
+                                                        }
+                                                    },
+                                                    {
+                                                        "r": 2,
+                                                        "c": 1,
+                                                        "styles": {
+                                                            "cellAlign": "right",
+                                                            "backgroundColor": "#d7f5faff"
+                                                        }
+                                                    }
+                                                ],
+                                                "colCount": 2,
+                                                "columns": [
+                                                    {
+                                                        "width": "20%"
+                                                    },
+                                                    {
+                                                        "width": "20%"
+                                                    }
+                                                ],
+                                                "items": [
+                                                    {
+                                                        "type": "text",
+                                                        "name": "",
+                                                        "col": 0,
+                                                        "row": 0,
+                                                        "text": "Total :",
+                                                        "styles": {
+                                                            "fontWeight": "bold",
+                                                            "__tag_": {}
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "text",
+                                                        "name": "",
+                                                        "col": 0,
+                                                        "row": 1,
+                                                        "text": "Freight :",
+                                                        "styles": {
+                                                            "fontWeight": "bold",
+                                                            "__tag_": {}
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "text",
+                                                        "name": "",
+                                                        "col": 0,
+                                                        "row": 2,
+                                                        "text": "Total Amount :",
+                                                        "styles": {
+                                                            "fontWeight": "bold",
+                                                            "__tag_": {}
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "summary",
+                                                        "name": "",
+                                                        "col": 1,
+                                                        "row": 0,
+                                                        "prefix": "￦",
+                                                        "expression": "sum(ExtendedPrice)",
+                                                        "styles": {
+                                                            "fontFamily": "Arial",
+                                                            "__tag_": {}
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "summary",
+                                                        "name": "",
+                                                        "col": 1,
+                                                        "row": 1,
+                                                        "prefix": "￦",
+                                                        "expression": "master:Freight",
+                                                        "styles": {
+                                                            "fontFamily": "Arial",
+                                                            "__tag_": {}
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "summary",
+                                                        "name": "",
+                                                        "col": 1,
+                                                        "row": 2,
+                                                        "prefix": "￦",
+                                                        "expression": "sum(ExtendedPrice) + master:Freight",
+                                                        "styles": {
+                                                            "fontFamily": "Arial",
+                                                            "__tag_": {}
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "dataRow": {
+                                        "name": "bandRow",
+                                        "width": "100%",
+                                        "height": "25px",
+                                        "rowCount": 1,
+                                        "cellStyles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "none"
+                                        },
+                                        "rows": [
+                                            {}
+                                        ],
+                                        "cells": [
+                                            {
+                                                "r": 0,
+                                                "c": 0,
+                                                "styles": {
+                                                    "borderLeft": "none",
+                                                    "borderRight": "none",
+                                                    "borderTop": "none",
+                                                    "borderBottom": "none"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 1,
+                                                "styles": {
+                                                    "cellAlign": "center",
+                                                    "borderLeft": "none",
+                                                    "borderRight": "none",
+                                                    "borderTop": "none",
+                                                    "borderBottom": "none"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 2,
+                                                "styles": {
+                                                    "cellAlign": "center",
+                                                    "borderLeft": "none",
+                                                    "borderRight": "none",
+                                                    "borderTop": "none",
+                                                    "borderBottom": "none"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 3,
+                                                "styles": {
+                                                    "cellAlign": "center",
+                                                    "borderLeft": "none",
+                                                    "borderRight": "none",
+                                                    "borderTop": "none",
+                                                    "borderBottom": "none"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 4,
+                                                "styles": {
+                                                    "cellAlign": "center",
+                                                    "borderLeft": "none",
+                                                    "borderRight": "none",
+                                                    "borderTop": "none",
+                                                    "borderBottom": "none"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 5,
+                                                "styles": {
+                                                    "cellAlign": "center",
+                                                    "borderLeft": "none",
+                                                    "borderRight": "none",
+                                                    "borderTop": "none",
+                                                    "borderBottom": "none"
+                                                }
+                                            }
+                                        ],
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "data": "",
+                                                "value": "${ino}",
+                                                "name": "",
+                                                "col": 0,
+                                                "row": 0,
+                                                "text": "Text"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "data": "",
+                                                "value": "ProductName",
+                                                "name": "",
+                                                "col": 1,
+                                                "row": 0,
+                                                "text": "Text",
+                                                "styles": {
+                                                    "fontFamily": "Tahoma",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "data": "",
+                                                "value": "UnitPrice",
+                                                "name": "",
+                                                "col": 2,
+                                                "row": 0,
+                                                "prefix": "￦",
+                                                "text": "Text",
+                                                "styles": {
+                                                    "fontFamily": "Arial",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "data": "",
+                                                "value": "Quantity",
+                                                "name": "",
+                                                "col": 3,
+                                                "row": 0,
+                                                "text": "Text",
+                                                "styles": {
+                                                    "fontFamily": "Arial",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "data": "",
+                                                "value": "Discount",
+                                                "name": "",
+                                                "col": 4,
+                                                "row": 0,
+                                                "text": "Text",
+                                                "styles": {
+                                                    "fontFamily": "Arial",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "data": "",
+                                                "value": "ExtendedPrice",
+                                                "name": "",
+                                                "col": 5,
+                                                "row": 0,
+                                                "prefix": "￦",
+                                                "text": "Text",
+                                                "styles": {
+                                                    "fontFamily": "Arial",
+                                                    "__tag_": {}
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "styles": {
+                                        "paddingTop": "px",
+                                        "__tag_": {}
+                                    }
+                                }
+                            ]
+                        },
+                        "groups": [],
+                        "header": {
+                            "type": "stack",
+                            "width": "100%",
+                            "height": 104,
+                            "name": "",
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "width": "400px",
+                                    "text": "Invoice & Packing List",
+                                    "styles": {
+                                        "fontSize": "30px",
+                                        "textDecoration": "",
+                                        "fontWeight": "bold",
+                                        "paddingBottom": "5px",
+                                        "borderBottom": "2px solid",
+                                        "__tag_": {}
+                                    }
+                                }
+                            ]
+                        },
+                        "footer": {
+                            "type": "stack",
+                            "name": "bandPageFooter",
+                            "width": "100%",
+                            "visible": false
+                        },
+                        "dataRow": {
+                            "type": "stack",
+                            "width": "100%",
+                            "name": "",
+                            "styles": {
+                                "paddingBottom": "10px",
+                                "__tag_": {}
+                            },
+                            "items": [
+                                {
+                                    "type": "cbox",
+                                    "width": "100%",
+                                    "height": 218,
+                                    "name": "",
+                                    "itemGap": 0,
+                                    "items": [
+                                        {
+                                            "type": "stack",
+                                            "width": "100%",
+                                            "name": "",
+                                            "styles": {
+                                                "paddingBottom": "10px",
+                                                "__tag_": {}
+                                            },
+                                            "items": [
+                                                {
+                                                    "type": "table",
+                                                    "width": 703,
+                                                    "name": "",
+                                                    "rowCount": 5,
+                                                    "cellStyles": {
+                                                        "borderLeft": "none",
+                                                        "borderRight": "none",
+                                                        "borderTop": "none",
+                                                        "borderBottom": "1px solid"
+                                                    },
+                                                    "rows": [
+                                                        {},
+                                                        {},
+                                                        {},
+                                                        {},
+                                                        {}
+                                                    ],
+                                                    "cells": [
+                                                        {
+                                                            "r": 0,
+                                                            "c": 0,
+                                                            "styles": {
+                                                                "cellAlign": "right",
+                                                                "borderLeft": "",
+                                                                "borderRight": "",
+                                                                "borderTop": "2px solid"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 0,
+                                                            "c": 1,
+                                                            "styles": {
+                                                                "cellAlign": "left",
+                                                                "borderLeft": "",
+                                                                "borderRight": "",
+                                                                "borderTop": "2px solid"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 0,
+                                                            "c": 2,
+                                                            "styles": {
+                                                                "borderLeft": "",
+                                                                "borderRight": "",
+                                                                "borderTop": "2px solid"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 0,
+                                                            "c": 3,
+                                                            "styles": {
+                                                                "cellAlign": "left",
+                                                                "borderLeft": "",
+                                                                "borderRight": "",
+                                                                "borderTop": "2px solid"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 0,
+                                                            "c": 4,
+                                                            "styles": {
+                                                                "borderLeft": "",
+                                                                "borderRight": "",
+                                                                "borderTop": "2px solid"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 0,
+                                                            "c": 5,
+                                                            "styles": {
+                                                                "cellAlign": "left",
+                                                                "borderLeft": "",
+                                                                "borderRight": "",
+                                                                "borderTop": "2px solid"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 1,
+                                                            "c": 0,
+                                                            "styles": {
+                                                                "cellAlign": "right"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 1,
+                                                            "c": 1,
+                                                            "styles": {
+                                                                "cellAlign": "left"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 1,
+                                                            "c": 3,
+                                                            "styles": {
+                                                                "cellAlign": "left"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 1,
+                                                            "c": 4,
+                                                            "styles": {
+                                                                "cellAlign": "right",
+                                                                "borderLeft": "none",
+                                                                "borderRight": "none",
+                                                                "borderTop": "none"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 1,
+                                                            "c": 5,
+                                                            "styles": {
+                                                                "cellAlign": "left",
+                                                                "borderLeft": "none",
+                                                                "borderRight": "none",
+                                                                "borderTop": "none"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 2,
+                                                            "c": 1,
+                                                            "colspan": 3,
+                                                            "styles": {
+                                                                "cellAlign": "left"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 2,
+                                                            "c": 5,
+                                                            "styles": {
+                                                                "cellAlign": "left"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 3,
+                                                            "c": 0,
+                                                            "styles": {
+                                                                "cellAlign": "right"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 3,
+                                                            "c": 1,
+                                                            "styles": {
+                                                                "cellAlign": "left"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 3,
+                                                            "c": 3,
+                                                            "styles": {
+                                                                "cellAlign": "left"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 3,
+                                                            "c": 4,
+                                                            "styles": {
+                                                                "cellAlign": "right"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 3,
+                                                            "c": 5,
+                                                            "styles": {
+                                                                "cellAlign": "left"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 4,
+                                                            "c": 0,
+                                                            "styles": {
+                                                                "borderBottom": "2px solid"
+                                                            }
+                                                        },
+                                                        {
+                                                            "r": 4,
+                                                            "c": 1,
+                                                            "colspan": 5,
+                                                            "styles": {
+                                                                "cellAlign": "left",
+                                                                "borderBottom": "2px solid"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "colCount": 6,
+                                                    "columns": [
+                                                        {
+                                                            "width": "12%"
+                                                        },
+                                                        {
+                                                            "width": "28%"
+                                                        },
+                                                        {
+                                                            "width": "10%"
+                                                        },
+                                                        {
+                                                            "width": "20%"
+                                                        },
+                                                        {
+                                                            "width": "10%"
+                                                        },
+                                                        {
+                                                            "width": "20%"
+                                                        }
+                                                    ],
+                                                    "items": [
+                                                        {
+                                                            "type": "text",
+                                                            "height": "40px",
+                                                            "name": "",
+                                                            "col": 0,
+                                                            "row": 0,
+                                                            "text": "Invoice No.:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "height": "40px",
+                                                            "name": "",
+                                                            "col": 0,
+                                                            "row": 1,
+                                                            "text": "Ship Name:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "height": "40px",
+                                                            "name": "",
+                                                            "col": 0,
+                                                            "row": 2,
+                                                            "multiLine": true,
+                                                            "text": "Ship <br>Address:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "textAlign": "right",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "height": "40px",
+                                                            "name": "",
+                                                            "col": 0,
+                                                            "row": 3,
+                                                            "multiLine": true,
+                                                            "text": "Customer <br>Company:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "textAlign": "right",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "height": "40px",
+                                                            "name": "",
+                                                            "col": 0,
+                                                            "row": 4,
+                                                            "multiLine": true,
+                                                            "text": "Customer <br>Address:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "textAlign": "right",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "OrderID",
+                                                            "name": "",
+                                                            "col": 1,
+                                                            "row": 0,
+                                                            "numberFormat": "",
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "ShipName",
+                                                            "name": "",
+                                                            "col": 1,
+                                                            "row": 1,
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "ShipAddress",
+                                                            "name": "",
+                                                            "col": 1,
+                                                            "row": 2,
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "CompanyName",
+                                                            "name": "",
+                                                            "col": 1,
+                                                            "row": 3,
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "FullAddr",
+                                                            "name": "",
+                                                            "col": 1,
+                                                            "row": 4,
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "name": "",
+                                                            "col": 2,
+                                                            "row": 0,
+                                                            "multiLine": true,
+                                                            "text": "Invoice <br>Date:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "textAlign": "right",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "name": "",
+                                                            "col": 2,
+                                                            "row": 1,
+                                                            "multiLine": true,
+                                                            "text": "Shipped <br>Date:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "textAlign": "right",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "name": "",
+                                                            "col": 2,
+                                                            "row": 3,
+                                                            "multiLine": true,
+                                                            "text": "Contact <br>Name:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "textAlign": "right",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "height": "40px",
+                                                            "name": "",
+                                                            "col": 4,
+                                                            "row": 0,
+                                                            "multiLine": true,
+                                                            "text": "Required <br>Date:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "textAlign": "right",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "name": "",
+                                                            "col": 4,
+                                                            "row": 1,
+                                                            "wrap": true,
+                                                            "text": "Frieight:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "name": "",
+                                                            "col": 4,
+                                                            "row": 3,
+                                                            "text": "Phone:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "name": "",
+                                                            "col": 4,
+                                                            "row": 2,
+                                                            "multiLine": true,
+                                                            "text": "Shipper <br>Company:",
+                                                            "styles": {
+                                                                "fontWeight": "bold",
+                                                                "textAlign": "right",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "OrderDate",
+                                                            "name": "",
+                                                            "col": 3,
+                                                            "row": 0,
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "RequiredDate",
+                                                            "name": "",
+                                                            "col": 5,
+                                                            "row": 0,
+                                                            "dateFormat": "yyyy/MM/dd",
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "ShippedDate",
+                                                            "name": "",
+                                                            "col": 3,
+                                                            "row": 1,
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "Freight",
+                                                            "name": "",
+                                                            "col": 5,
+                                                            "row": 1,
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "ShipperCompany",
+                                                            "name": "",
+                                                            "col": 5,
+                                                            "row": 2,
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "ContactName",
+                                                            "name": "",
+                                                            "col": 3,
+                                                            "row": 3,
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "data": "",
+                                                            "value": "Phone",
+                                                            "name": "",
+                                                            "col": 5,
+                                                            "row": 3,
+                                                            "text": "Text"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "styles": {
+                "fontFamily": "Tahoma",
+                "__tag_": {}
+            }
+        },
+        "assets": {
+            "/": []
+        },
+        "data": {
+            "master-detail-01": {
+                "type": "band",
+                "fields": [
+                    {
+                        "fieldName": "OrderID",
+                        "dataType": "number",
+                        "sample": "10248",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "OrderDate",
+                        "dataType": "text",
+                        "sample": "1996-07-04",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "RequiredDate",
+                        "dataType": "text",
+                        "sample": "1996-08-01",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ShippedDate",
+                        "dataType": "text",
+                        "sample": "1996-07-16",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ShipVia",
+                        "dataType": "text",
+                        "sample": "3",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ShipName",
+                        "dataType": "text",
+                        "sample": "해바라기 백화점 ㈜",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ShipAddress",
+                        "dataType": "text",
+                        "sample": "도봉구 창 1동 218-16",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ShipCity",
+                        "dataType": "text",
+                        "sample": "서울특별시",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ShipRegion",
+                        "dataType": "text",
+                        "sample": "경기도",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ShipPostalCode",
+                        "dataType": "text",
+                        "sample": "032-041",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ShipCountry",
+                        "dataType": "text",
+                        "sample": "대한민국",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ShipFullAddr",
+                        "dataType": "text",
+                        "sample": "서울특별시 도봉구 창 1동 218-16",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "Freight",
+                        "dataType": "number",
+                        "sample": "32000",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "CustomerID",
+                        "dataType": "text",
+                        "sample": "VINET",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "CompanyName",
+                        "dataType": "text",
+                        "sample": "해바라기 백화점 ㈜",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ContactName",
+                        "dataType": "text",
+                        "sample": "채송아",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ContactTitle",
+                        "dataType": "text",
+                        "sample": "경리 과장",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "PostalCode",
+                        "dataType": "text",
+                        "sample": "032-041",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "Phone",
+                        "dataType": "text",
+                        "sample": "(02)222-2243",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "Fax",
+                        "dataType": "text",
+                        "sample": "(02)222-8243",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "FullAddr",
+                        "dataType": "text",
+                        "sample": "서울특별시 도봉구 창 1동 218-16",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "Country",
+                        "dataType": "text",
+                        "sample": "대한민국",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ShipperCompany",
+                        "dataType": "text",
+                        "sample": "국제 특송 ㈜",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "TotalPrice",
+                        "dataType": "number",
+                        "sample": "1851000",
+                        "description": "",
+                        "dateReader": null
+                    }
+                ]
+            },
+            "master-detail-02": {
+                "type": "band",
+                "fields": [
+                    {
+                        "fieldName": "OrderID",
+                        "dataType": "number",
+                        "sample": "10248",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ProductName",
+                        "dataType": "text",
+                        "sample": "현진 커피 밀크",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "UnitPrice",
+                        "dataType": "number",
+                        "sample": "14000",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "Quantity",
+                        "dataType": "number",
+                        "sample": "12",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "Discount",
+                        "dataType": "number",
+                        "sample": "0",
+                        "description": "",
+                        "dateReader": null
+                    },
+                    {
+                        "fieldName": "ExtendedPrice",
+                        "dataType": "number",
+                        "sample": "168000",
+                        "description": "",
+                        "dateReader": null
+                    }
+                ]
+            }
+        },
+        "guid": "db9bf60b-ecee-4c03-9df7-6040ad962e0d"
+    },
+    "dataSet": {
+        "master-detail-01": {
+            "type": "band",
+            "values": [
+                {
+                    "OrderID": 10248,
+                    "OrderDate": "1996-07-04",
+                    "RequiredDate": "1996-08-01",
+                    "ShippedDate": "1996-07-16",
+                    "ShipVia": 3,
+                    "ShipName": "해바라기 백화점 (주)",
+                    "ShipAddress": "도봉구 창 1동 218-16",
+                    "ShipCity": "서울특별시",
+                    "ShipRegion": "경기도",
+                    "ShipPostalCode": "032-041",
+                    "ShipCountry": "대한민국",
+                    "ShipFullAddr": "서울특별시 도봉구 창 1동 218-16",
+                    "Freight": 32000,
+                    "CustomerID": "VINET",
+                    "CompanyName": "해바바라기 백화점 (주)",
+                    "ContactName": "채송아",
+                    "ContactTitle": "경리 과장",
+                    "PostalCode": "032-041",
+                    "Phone": "(02)222-2243",
+                    "Fax": "(02)222-8243",
+                    "FullAddr": "서울특별시 도봉구 창 1동 218-16",
+                    "Country": "대한민국",
+                    "ShipperCompany": "국제 특송 (주)",
+                    "TotalPrice": "443000"
+                }
+            ]
+        },
+        "master-detail-02": {
+            "type": "band",
+            "values": [
+                {
+                    "OrderID": 10248,
+                    "ProductName": "현진 커피 밀크",
+                    "UnitPrice": 14000,
+                    "Quantity": 12,
+                    "Discount": 0,
+                    "ExtendedPrice": 168000
+                },
+                {
+                    "OrderID": 10248,
+                    "ProductName": "싱가폴 원산 옥수수",
+                    "UnitPrice": 10000,
+                    "Quantity": 10,
+                    "Discount": 0,
+                    "ExtendedPrice": 100000
+                },
+                {
+                    "OrderID": 10248,
+                    "ProductName": "대관령 특제 버터",
+                    "UnitPrice": 35000,
+                    "Quantity": 5,
+                    "Discount": 0,
+                    "ExtendedPrice": 175000
+                }
+            ]
+        }
+    }
+}

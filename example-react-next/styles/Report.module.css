@@ -1,0 +1,173 @@
+.container {
+    display: flex;
+    flex-direction: column;
+	height: 100vh;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    height: 60px;
+    background-color: #fbfbfb;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+}
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+}
+
+.headerTitle {
+    text-decoration: none;
+    color: #1c1e21;
+    font-size: 20px;
+    position: relative;
+    bottom: 5px;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.headerLink {
+    text-decoration: none;
+    color: #1c1e21;
+    margin: 10px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.headerIcon {
+    width: 35px;
+    position: relative;
+    top: 8px;
+}
+
+.viewContainer {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+}
+
+.side {
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    width: 250px;
+    height: 100%;
+    background-color: #fbfbfb;
+    align-items: center;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+}
+
+.sideItem {
+    width: 100%;
+    line-height: 2rem;
+    list-style:none;
+}
+
+.sideIcon {
+    width: 22px;
+    height: 22px;
+    position: relative;
+    top: 4px;
+    color: #1c1e21;
+}
+
+.sideText {
+    margin-left: 10px;
+    color: #1c1e21;
+    font-weight: 600;
+}
+
+.list {
+    margin: 5px;
+}
+
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.viewer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+    background-color: #f5f7fb;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    margin-top: 10px;
+}
+
+.reportViewer {
+    position: relative;
+    height: 100%;
+}
+
+.toolbar {
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    height: 55px;
+    width: calc(100% - 250px);
+    padding: 5px;
+    background-color: #fbfbfb;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+    justify-content: space-between;
+}
+
+.toolbarHeader {
+    width: 100%;
+    height: 55px;
+}
+
+.toolbarIcon {
+    font-size: 27px;
+    color: #2b2b2b;
+}
+
+.toolbarContainer {
+    display: flex;
+    align-items: center;
+}
+
+.toolbarButton {
+    display: flex;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.toolbarButtonImgIcon {
+    margin: 3px 4px 0 4px;
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.toolbarButtonText{
+    border: 1px solid #2b2b2b;
+    border-radius: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 12px;
+    width: 32px;
+    text-align: center;
+}
+
+.buttonInput {
+    width: 45px;
+    text-align: center;
+}
+
+.errorMsg {
+    padding-left: 20px;
+}
+
+.homeText {
+    color: gray;
+    margin-left: 10px;
+}

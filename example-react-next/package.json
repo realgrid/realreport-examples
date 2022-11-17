@@ -1,0 +1,25 @@
+{
+  "name": "yesjean-next-example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "eslint-config-next": "13.0.2",
+    "next": "13.0.2",
+    "react": "^18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.6.0",
+    "realreport": "^1.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.2",
+    "@babel/eslint-parser": "^7.19.1",
+    "eslint": "^8.27.0",
+    "eslint-plugin-react": "^7.31.10"
+  }
+}
