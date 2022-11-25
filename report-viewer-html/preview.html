@@ -320,7 +320,7 @@
                     }];
             
                     if (viewer) {
-                        viewer.exportPdf(fonts);
+                        viewer.exportPdf({fonts, filename: 'sample-pdf-filename.pdf', preview: false});
                     }
                 });
             });

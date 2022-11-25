@@ -195,7 +195,7 @@
                     }];
             
                     if (reportView) {
-                        reportView?.exportPdf(fonts);
+                        reportView?.exportPdf({fonts, filename: 'sample-pdf-filename.pdf', preview: false});
                     }
                 });
             });
