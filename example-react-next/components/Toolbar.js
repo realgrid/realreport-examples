@@ -211,8 +211,11 @@ function Toolbar({ viewer, compositeViewer }) {
                 }];
 
                 if (viewer) {
+                    const oldZoom = viewer.zoom;
                     viewer.zoom = 1;
-                    viewer.exportPdf(fonts);
+                    viewer.exportPdf({fonts, filename: 'sample-pdf-filename.pdf', preview: false}).then(() => {
+                        viewer.zoom = oldZoom;
+                    })
                 }
             });
         });

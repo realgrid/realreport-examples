@@ -213,8 +213,7 @@ function Toolbar({ viewer, compositeViewer }) {
                 }];
 
                 if (viewer) {
-                    viewer.zoom = 1;
-                    viewer.exportPdf(fonts);
+                    viewer.exportPdf({fonts, filename: 'sample-pdf-filename.pdf', preview: false});
                 }
             });
         });
