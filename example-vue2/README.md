@@ -17,8 +17,9 @@ vue create example-vue2
 npm install realreport
 ```
 
-### 로컬환경 실행
+### Vue 예제 로컬환경 실행
 
 ```bash
+npm i
 npm run serve
 ```

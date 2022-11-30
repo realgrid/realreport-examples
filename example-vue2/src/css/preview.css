@@ -1,6 +1,3 @@
-@import "icons.css";
-
-@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap);
 
 html{
     -webkit-font-smoothing: antialiased;
@@ -41,6 +38,25 @@ a {
 #realreport {
     width: 100%;
     height: 100%;
+}
+
+#realreport1 {
+    width: 100%;
+    height: 100%;
+}
+
+#realreport2 {
+    width: 100%;
+    height: 100%;
+}
+
+.realreport3 {
+    width: 100%;
+    height: 100%;
+}
+
+.scroller.hidden {
+    display: none;
 }
 
 .root {
@@ -89,6 +105,7 @@ a {
 }
 
 .scroller {
+    display: flex;
     flex: 1;
     direction: ltr;
     padding-top: 10px;
@@ -221,12 +238,18 @@ a {
 }
 
 .preview-toolbar {
-    display: flex;
+    /* display: flex; */
     height: 38px;
     padding: 5px;
     align-items: center;
+    overflow-x: auto;
     background-color: var(--preview-toolbar-background-color);
     border-bottom: 1px solid var(--border-color);
+}
+
+.toolbar-scrolller {
+    display: flex;
+    min-width: 700px;
 }
 
 #inputZoomScale {
@@ -391,6 +414,14 @@ a {
 
 .icon.preview-zoomout-png {
     background-image: url("../img/preview/preview-zoomout.png");
+}
+
+.icon.preview-100-png:hover {
+    background-image: url("../img/preview/preview-100-hover.png");
+}
+
+.icon.preview-100-png {
+    background-image: url("../img/preview/preview-100.png");
 }
 
 .icon.preview-popup-png:hover {

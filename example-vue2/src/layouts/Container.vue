@@ -1,81 +1,67 @@
 <template>
   <div class="container">
-    <div class="sidenav-container">
-      <div class="sidenav">
-        <div class="menu">
-          <ul class="menu-list">
-            <li class="menu-list-item">
-              <span class="menu-head">데모 리포트</span>
-              <ul class="menu-list menu-list-block" id="sidebarUl">
-                <li class="menu-list-item">
-                  <a class="menu-link" @click="setReport(reportSample1)">
-                    <span>리포트 샘플1</span>
-                  </a>
-                  <a class="menu-link" @click="setReport(reportSample2, dataSample)">
-                    <span>리포트 샘플2</span>
-                  </a>
-                  <a class="menu-link" @click="setReport(reportSample3, dataSample3)">
-                    <span>리포트 샘플3</span>
-                  </a>
-                   <a class="menu-link" @click="printCompositeReport([reportSample1, reportSample2], ['', dataSample])">
-                    <span>복합 리포트</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <Sidebar :report="report" :data="data" @setReportHandler="setReport" />
     <div class="main">
       <div class="main-content">
-        <Toolbar :reportViewer="reportViewer"/>
+        <Toolbar :viewer="reportViewer" :pageCount="pageCount" :report="report"/>
         <div class="scroller">
-          <RealReport :report="report" :data="data" ref="reportViewer"/>
+          <ReportViewer
+            v-if="type === 'viewer'"
+            @setViewerHandler="setViewer"
+            @setPageCountHandler="setPageCount"
+            :report="report"
+            :data="data"
+            ref="reportViewer"
+          />
+          <ReportCompositeViewer
+            v-if="type === 'compositeViewer'"
+            @setViewerHandler="setViewer"
+            @setPageCountHandler="setPageCount"
+            :reports="report"
+            :datas="data"
+            ref="reportViewer"
+          />
         </div>
       </div>
     </div>
   </div>
 </template>
-
+r
 <script>
-import Toolbar from "./Toolbar.vue";
-import RealReport from "../components/RealReport.vue";
-import dataSample from "../assets/data-sample.json";
-import dataSample3 from "../assets/data-sample-3.json";
-import reportSample1 from "../assets/report-sample-1.json";
-import reportSample2 from "../assets/report-sample-2.json";
-import reportSample3 from "../assets/report-sample-3.json";
+import Sidebar from './Sidebar.vue';
+import Toolbar from '../components/Toolbar.vue';
+import ReportViewer from '../components/ReportViewer.vue';
+import ReportCompositeViewer from '../components/ReportCompositeViewer.vue';
 
 export default {
-  name: "Container",
+  name: 'Container',
   components: {
+    Sidebar,
     Toolbar,
-    RealReport,
+    ReportViewer,
+    ReportCompositeViewer,
   },
   data() {
     return {
       report: null,
       data: null,
-      reportSample1,
-      reportSample2,
-      dataSample,
-      reportSample3,
-      dataSample3,
-      reportViewer: this.$refs.reportViewer
+      type: 'viewer',
+      reportViewer: null,
+      pageCount: 0,
     };
   },
   methods: {
-    setReport(report, data) {
+    setReport(report, data, type) {
       this.report = report;
       this.data = data;
+      this.type = type;
     },
-    printCompositeReport(reports, datas) {
-      this.reportViewer.compositeReportPreview(reports, datas);
+    setViewer(viewer) {
+      this.reportViewer = viewer;
+    },
+    setPageCount(pageCount) {
+      this.pageCount = pageCount;
     }
   },
-  mounted() {
-    this.reportViewer = this.$refs.reportViewer;
-  }
 };
 </script>

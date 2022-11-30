@@ -4,6 +4,7 @@
 @import "sidenav.css";
 @import "report-style.css";
 @import "icons.css";
+@import "preview.css";
 
 :root {
     --color-white: #fff;
@@ -116,7 +117,12 @@
     background-color: var(--report-background-color);
 }
 
-#realreport {
+#reportViewer {
+    width: 100%;
+    height: 100%;
+}
+
+#reportCompositeViewer {
     width: 100%;
     height: 100%;
 }
