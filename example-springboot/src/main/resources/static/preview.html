@@ -177,11 +177,23 @@
                 viewer = new RealReport.ReportViewer(containerId, previewInfo.form, previewInfo.dataSet);
             }
 
-            if (viewer) viewer.preview();
+            // if (viewer) viewer.preview({id: containerId, async: true, pageMark: false, noScroll: true});
+            const pageCallback = (ctx, page, pageNo) => {
+                console.log(`${pageNo} 페이지 미리보기 완료`);
+            }
 
-            setTimeout(() => {
+            const endCallback = (ctx, pages) => {
+                console.log('모든 페이지 미리보기 완료');
                 setTotalPage('totalpage');
-            }, 100);
+            }
+
+            if (viewer) viewer.preview({
+                async: true,
+                pageMark: false,
+                noScroll: true,
+                callback: pageCallback,
+                endCallback,
+            });
 
             return viewer;
         }

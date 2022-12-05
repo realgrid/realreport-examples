@@ -6,7 +6,7 @@ var editor;
 // 미리보기 팝업창 객체
 var windowPreview = null;
 
-const url = 'http://localhost:8080/';
+const url = 'http://localhost:8080/report/';
 
 //--------------------------------------------------------------------------------------------------
 // onLoad
@@ -63,6 +63,7 @@ function previewReport(id) {
     exampleFetch(url.concat(id), function (report) {
         if (Array.isArray(report)) {
             reportViewer = previewFrame('reportFrame', [...report]);
+
         }
         else {
             reportViewer = previewFrame('reportFrame', [report]);
