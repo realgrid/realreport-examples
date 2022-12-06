@@ -3,20 +3,20 @@
 
 <head>
     <title>그리드 리포트</title>
+    <!-- RealGrid -->
     <link href="/js/realgrid/realgrid-style.css" rel="stylesheet" />
     <script src="/js/realgrid/realgrid.2.5.4.min.js"></script>
     <script src="/js/realgrid/libs/jszip.min.js"></script>
 
+    <!-- RealGrid -->
     <link href='/js/realreport/realreport.css' rel='stylesheet' />
     <script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
     <script type="text/javascript" src="/js/highcharts/highcharts-more.js"></script>
     <script type="text/javascript" src="/js/pdfkit.js"></script>
     <script type="text/javascript" src='/js/realreport/realreport.js'></script>
     
-    <script defer src="./grid-fields.js"></script>
-    <script defer src="./grid-columns.js"></script>
-    <script defer src="./grid-data.js"></script>
-    <script defer src="./grid-report-options.js"></script>
+    <script defer src="./sample1.js"></script>
+    <script defer src="./sample2.js"></script>
     <style>
         html {
             height: 100%;
@@ -26,7 +26,7 @@
             height: 100%;
             margin: 0;
         }
-        main {
+        .main {
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -42,11 +42,10 @@
             margin: 10px;
             border-top: solic silver 1px;
         }
-        .content {
+        .contents {
             flex-grow: 1;
-            height: 100%;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             padding: 4px;
         }
         .hr {
@@ -91,12 +90,13 @@
          */
         document.addEventListener('DOMContentLoaded', function () {
             /**
-             * 버튼 1 ~ 15 클릭 핸들링
-             * document.getElementById(`button{1~15}`).onclick = clickButton_{1~15}() ;
+             * 버튼 1..n 클릭 핸들링
+             * document.getElementById(`button{1..n}`).onclick = clickButton_{1..n}() ;
              */
-            for (let i = 1; i <= 15; i++) {
+            for (let i = 1; i <= 16; i++) {
                 const button = document.getElementById(`button${i}`);
-                button.onclick = new Function(`clickButton_${i}();`);
+                const event = new Function(`clickButton_${i}();`);
+                if (button && event) button.onclick = event;
             }
         });
 
@@ -116,30 +116,41 @@
             gridView.setColumns(columns);
             dataProvider.fillJsonData(data, { fillMode: "set" });
 
+            const endCallback = (ctx, pages) => {
+                console.log('모든 페이지 미리보기 완료');
+                reportView.fitToWidth();
+            }
+
             if (gridView) {
                 reportContainer = document.getElementById('realreport');
                 reportView = new RealReport.GridReportViewer(reportContainer, gridView, options);
-                reportView.preview();
+                reportView.preview({
+                    async: true,
+                    pageMark: false,
+                    noScroll: true,
+                    endCallback,
+                });
             }
         }
 
         // 샘플 1 데이터 불러오기
         function clickButton_1() {
-            setSample(gridFields1, gridColumns1, gridData1, gridReportOptions);
+            setSample(fields1, columns1, data1, reportOptions1);
         }
 
         // 샘플 2 데이터 불러오기
         function clickButton_2() {
-            const options = {
-                ...gridReportOptions,
-            };
-            options.title.text = '리포트 제목';
-            setSample(gridFields2, gridColumns2, gridData2, options);
+            setSample(fields2, columns2, data2, reportOptions2);
         }
 
         // zoomIn
         function clickButton_3() {
             reportView?.zoomIn();
+        }
+
+        // zoom100%
+        function clickButton_16() {
+            reportView.zoom = 1;
         }
 
         // zoomOut
@@ -195,7 +206,11 @@
                     }];
             
                     if (reportView) {
-                        reportView?.exportPdf({fonts, filename: 'sample-pdf-filename.pdf', preview: false});
+                        const oldZoom = reportView.zoom;
+                        reportView.zoom = 1;
+                        reportView.exportPdf({fonts, filename: 'sample-pdf-filename.pdf', preview: false}).then(() => {
+                            reportView.zoom = oldZoom
+                        });
                     }
                 });
             });
@@ -242,40 +257,51 @@
 
         // HWP
         function clickButton_14() {
+            const oldZoom = reportView.zoom;
+            reportView.zoom = 1;
             reportView?.exportDocument({ type: 'hwp' });
+            reportView.zoom = oldZoom;
         }
 
         // DOCX
         function clickButton_15() {
+            const oldZoom = reportView.zoom;
+            reportView.zoom = 1;
             reportView?.exportDocument({ type: 'docx' });
+            reportView.zoom = oldZoom;
         }
 </script>
 
 </head>
 
 <body>
-    <div class="content">
-        <div id="realgrid"></div>
+    <div class="main">
         <div class="toolbar">
             <button id="button1">샘플1</button>
             <button id="button2">샘플2</button>
             <hr class="hr">
             <button id="button3">ZoomIn</button>
+            <button id="button16">Zoom100%</button>
             <button id="button4">ZoomOut</button>
+            <hr class="hr">
             <button id="button5">FitToHeight</button>
             <button id="button6">FitToPage</button>
             <button id="button7">FitToWidth</button>
             <hr class="hr">
             <button id="button8">PDF</button>
+            <button id="button14">HWP</button>
+            <button id="button15">DOCX</button>
+            <hr class="hr">
             <button id="button9">PNG</button>
             <button id="button10">JPEG</button>
             <button id="button11">GIF</button>
             <button id="button12">TIF</button>
             <button id="button13">TIFF</button>
-            <button id="button14">HWP</button>
-            <button id="button15">DOCX</button>
         </div>
-        <div id="realreport"></div>
+        <div class="contents">
+            <div id="realgrid"></div>
+            <div id="realreport"></div>
+        </div>
     </div>
 </body>
 
