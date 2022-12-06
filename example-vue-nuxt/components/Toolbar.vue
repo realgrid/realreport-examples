@@ -199,7 +199,7 @@ export default {
 
           if (this.viewer) {
             this.viewer.zoom = 1;
-            this.viewer.exportPdf({fonts: fonts, filename: 'sample-pdf-file.pdf', preview: false});
+            this.viewer.exportPdf({ fonts: fonts, filename: 'sample-pdf-file.pdf', preview: false });
           }
         });
       });

@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { ReportViewer } from 'realreport';
 import 'realreport/dist/realreport.css';
 
 export default {
@@ -48,7 +47,10 @@ export default {
       },
     },
   },
-  mounted() {
+  async mounted() {
+    // RealReport는 Dom이 필수이므로 렌더링 시점 이후에 Dynamic Import
+    const { ReportViewer } = await import('realreport');
+
     this.reportContainer = this.$refs.reportViewer;
     this.viewer = new ReportViewer(this.reportContainer);
     this.$emit('setViewerHandler', this.viewer);

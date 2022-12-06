@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { ReportCompositeViewer } from 'realreport';
 import 'realreport/dist/realreport.css';
 
 export default {
@@ -29,7 +28,10 @@ export default {
     },
   },
   methods: {},
-  mounted() {
+  async mounted() {
+    // RealReport는 Dom이 필수이므로 렌더링 시점 이후에 Dynamic Import
+    const { ReportCompositeViewer } = await import('realreport')
+
     /**
      * - ReportCompositeViewer 데이터 모양 만들기
      * {@link https://real-report.com/docs/guide/viewer/composite-report}
