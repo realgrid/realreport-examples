@@ -79,58 +79,67 @@
                 <div class="sidenav">
                     <div class="menu">
                         <ul class="menu-list">
-                        <li class="menu-list-item">
-                            <span class="menu-head">리포트 양식 데모</span>
-                            <ul class="menu-list menu-list-block" id="sidebarUl">
-                                <!-- 이곳에 리포트 사이드바 생성 -->
-                            </ul>
-                        </li>
-                        <li class="menu-list-item">
-                            <span class="menu-head">복합출력 데모</span>
-                            <ul class="menu-list menu-list-block">
-                                <li class="menu-list-item">
-                                    <a class="menu-link" onclick="javascript:reportSample1(this);">
-                                        <span>양식 출력 샘플 200</span>
-                                        <span class="toolbar-icon icon preview-popup-png"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-list-item">
-                                    <a class="menu-link" onclick="javascript:reportSample2(this);">
-                                        <span>양식 출력 샘플 205</span>
-                                        <span class="toolbar-icon icon preview-popup-png"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-list-item">
-                                    <a class="menu-link" onclick="javascript:reportSampleComposit(this);">
-                                        <span>복합 출력 샘플</span>
-                                        <span class="toolbar-icon icon preview-popup-png"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="menu-list-item">
-                            <span class="menu-head">멀티 뷰어 샘플</span>
-                            <ul class="menu-list menu-list-block">
-                                <li class="menu-list-item">
-                                    <a class="menu-link" onclick="javascript:dualReportView(this);">
-                                        <span>두 개의 ReportViewer</span>
-                                        <span class="toolbar-icon icon preview-popup-png"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-list-item">
-                                    <a class="menu-link" onclick="javascript:tripleReportView(this);">
-                                        <span>세 개의 ReportViewer</span>
-                                        <span class="toolbar-icon icon preview-popup-png"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="menu-list">
+                            <li class="menu-list-item">
+                                <span class="menu-head">리포트 양식 데모</span>
+                                <ul class="menu-list menu-list-block" id="sidebarUl">
+                                    <!-- 이곳에 리포트 사이드바 생성 -->
+                                </ul>
+                            </li>
+                            <li class="menu-list-item">
+                                <span class="menu-head">복합출력 데모</span>
+                                <ul class="menu-list menu-list-block">
+                                    <li class="menu-list-item">
+                                        <a class="menu-link" onclick="javascript:reportSample1(this);">
+                                            <span>양식 출력 샘플 200</span>
+                                            <span class="toolbar-icon icon preview-popup-png"></span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-list-item">
+                                        <a class="menu-link" onclick="javascript:reportSample2(this);">
+                                            <span>양식 출력 샘플 205</span>
+                                            <span class="toolbar-icon icon preview-popup-png"></span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-list-item">
+                                        <a class="menu-link" onclick="javascript:reportSampleComposit(this);">
+                                            <span>복합 출력 샘플</span>
+                                            <span class="toolbar-icon icon preview-popup-png"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-list-item">
+                                <span class="menu-head">멀티 뷰어 샘플</span>
+                                <ul class="menu-list menu-list-block">
+                                    <li class="menu-list-item">
+                                        <a class="menu-link" onclick="javascript:dualReportView(this);">
+                                            <span>두 개의 ReportViewer</span>
+                                            <span class="toolbar-icon icon preview-popup-png"></span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-list-item">
+                                        <a class="menu-link" onclick="javascript:tripleReportView(this);">
+                                            <span>세 개의 ReportViewer</span>
+                                            <span class="toolbar-icon icon preview-popup-png"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="menu-list">
                             <li class="menu-list-item" id="gridReportMenu">
                                 <span class="menu-head">그리드 리포트</span>
                                 <ul class="menu-list menu-list-block" id="gridReportUl">
-                                    <!-- 이곳에 그리드 사이드바 생성 -->
+                                    <li class="menu-list-item">
+                                        <a class="menu-link" data-id="100" onclick="javascript:onClickGridViewMenu(this);">
+                                            <span>직원 목록 그리드</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-list-item">
+                                        <a class="menu-link" data-id="101" onclick="javascript:onClickGridViewMenu(this);">
+                                            <span>그리드 기본 샘플</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -200,6 +209,7 @@
     <script src="/js/monaco-editor/min/vs/editor/editor.main.js"></script>
 
     <script defer src="/js/report-samples.js"></script>
+    <script defer src="/js/grid-report-samples.js"></script>
     <script defer src="/js/preview.js"></script>
     <script defer src="/js/app.js"></script>
 </body>

@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (isDev) setupReportSidebar('sample', REPORT_SAMPLE_URL, 'sidebarUl', onClickReportPreviewMenu, onClickPreviewPopup);
     setupReportSidebar('demo', REPORT_DEMO_URL, 'sidebarUl', onClickReportPreviewMenu, onClickPreviewPopup);
-    setupReportSidebar('griddemo', GRID_DEMO_URL, 'gridReportUl', onClickGridViewMenu, onClickGridPreviewPopup);
 });
 
 
@@ -251,25 +250,24 @@ const onClickReportPreviewMenu = async function(event) {
 
 // 사이드바에서 그리드 보기 메뉴 클릭
 const onClickGridViewMenu = function(event) {
-    const id = event.target.dataset.id;
-    const hosturl = event.target.dataset.hosturl;
+    const id = event.dataset.id;
+    // console.log('GridViewItem: ', id);
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
 
     openTab('gridTab', 'reportTab');
-
-    serviceFetch(hosturl.concat('/', id), function(serviceItem) {
-        const gridItem = serviceItem.grid;
-        // grid = { id, name, category, columns, fields, description }
+    /* grid-report-samples.js includes in index.html */
+    const gridItem = window[`gridItem${id}`];
+    if (gridItem) {
         const gridFrame = document.getElementById('gridFrame');
         gridViewer = gridFrame.contentWindow.setGridLayout(gridItem);
 
         if (gridViewer) {
-            const options = gridItem.reportOptions;
+            const options = gridItem.reportOptions || {};            
             reportViewer = previewGridReportFrame('gridReportFrame', gridViewer, options);
         }
 
         resetActiveClass(event.target.parentElement, 'menu-link-active', 'menu-link-active');
-    })
+    }
 }
 
 // 리포트 양식 미리보기 아이콘 클릭: 팝업 창에 리포트를 미리보기 합니다.
