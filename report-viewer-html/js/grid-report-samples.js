@@ -30,16 +30,20 @@ var gridItem100 = {
         "pageHeader": {
             "items": [
                 {
-                    "prefix": "/",
-                    "value": "${pages}",
-                    "right": "0",
-                    "top": "0"
-                },
-                {
                     "value": "${page}",
                     "top": "0",
-                    "right": "14px"
-                }
+                    "right": "20px"
+                },
+                {
+                    "top": "0",
+                    "text": "/",
+                    "right": "10px"
+                },
+                {
+                    "value": "${pages}",
+                    "right": "0",
+                    "top": "0",
+                },
             ]
         },
         "gridHeader": {
@@ -228,16 +232,20 @@ var gridItem101 = {
         "pageHeader": {
             "items": [
                 {
-                    "prefix": "/",
-                    "value": "${pages}",
-                    "right": "0",
-                    "top": "0"
-                },
-                {
                     "value": "${page}",
                     "top": "0",
-                    "right": "14px"
-                }
+                    "right": "20px"
+                },
+                {
+                    "top": "0",
+                    "text": "/",
+                    "right": "10px"
+                },
+                {
+                    "value": "${pages}",
+                    "right": "0",
+                    "top": "0",
+                },
             ]
         },
         "layout": {
