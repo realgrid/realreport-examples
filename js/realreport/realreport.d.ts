@@ -40660,6 +40660,12 @@ declare class GridReportViewer extends ReportViewer {
      */
     private _addPageHeader;
     /**
+     * 페이지 푸터 추가
+     * @param footer PageFooter 객체
+     * @returns
+     */
+    private _addPageFooter;
+    /**
      * Layout 정보
      *   - visibleCount: number
      *   - getDataColumns(): DataColumn[]
