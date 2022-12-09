@@ -25,48 +25,83 @@
         body {
             height: 100%;
             margin: 0;
-        }
-        .main {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
-        }
-        #realgrid {
-            flex-grow: 1;
-        }
-        #realreport {
-            flex-grow: 1;
-        }
-        .toolbar {
-            margin: 10px;
-            border-top: solic silver 1px;
+            overflow: hidden;
         }
         .contents {
             flex-grow: 1;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             padding: 4px;
+            height: 100%;
+            overflow: hidden;
+        }
+        .toolbar {
+            margin: 10px;
+            height: 22px;
+            border-top: solic silver 1px;
         }
         .hr {
             display: inline;
             border: 1px solid silver;
             margin: 0 10px;
         }
+        .gridViewer {
+            height: 300px;
+        }
+        #realgrid {
+            height: 100%;
+        }
+        .reportViewer {
+            flex-grow: 1;
+            overflow: auto;
+            position: relative;
+        }
+        #realreport {
+            height: 100%;
+        }
     </style>
 
-    <script>
-        /**
-         * RealReport를 사용하기 위해 라이선스가 필요합니다. https://service.realgrid.com 에서 무료 라이선스를 발급 받을 수 있습니다.
-         * - 아래 라이선스는 유효기간 2023년 1월 1일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
-         */
-         var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjdX/TRvH17asONaYpJP0FO3omxwgpdzq2WOF5T6PZ/A5qH7VKQ7lvNfumRlcQ8Ue0';
+</head>
 
-        /**
-         * RealGrid를 사용하기 위해 라이선스가 필요합니다. https://service.realgrid.com 에서 무료 라이선스를 발급 받을 수 있습니다.
-         * - 아래 라이선스는 유효기간 2023년 1월 1일 까지 localhost,127.0.0.1,*.real-report.com,*.realgrid.com 도메인에서 사용할 수 있는 라이선스 입니다.
-         */
-         var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYm9cY8amGDkiMnVeQKUHJDjW2y71jtk+wv50juZqrKKzQ4npiZoGBKqiyNJFvlrikYx1/B3rwdT6DEb9aq2Rq6t14cSaKokEsKcOLcHLybNHw==';
+<body>
+    <div class="contents">
+        <div class="toolbar">
+            <button id="button1">샘플1</button>
+            <button id="button2">샘플2</button>
+            <hr class="hr">
+            <button id="button3">ZoomIn</button>
+            <button id="button16">Zoom100%</button>
+            <button id="button4">ZoomOut</button>
+            <hr class="hr">
+            <button id="button5">FitToHeight</button>
+            <button id="button6">FitToPage</button>
+            <button id="button7">FitToWidth</button>
+            <hr class="hr">
+            <button id="button8">PDF</button>
+            <button id="button14">HWP</button>
+            <button id="button15">DOCX</button>
+            <hr class="hr">
+            <button id="button9">PNG</button>
+            <button id="button10">JPEG</button>
+            <button id="button11">GIF</button>
+            <button id="button12">TIF</button>
+            <button id="button13">TIFF</button>
+        </div>
+        <h2>RealGrid</h2>
+        <div class="gridViewer">
+            <div id="realgrid"></div>
+        </div>
+        <h2>GridReport</h2>
+        <div class="reportViewer">
+            <div id="realreport"></div>
+        </div>
+    </div>
+
+    <script>
+        // RealGrid 라이선스 ~ 2023. 06. 30
+        var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYm9cY8amGDkiMnVeQKUHJDjW2y71jtk+wv50juZqrKKzQ4npiZoGBKqiyNJFvlrikYx1/B3rwdT6DEb9aq2Rq6tWt+XJ2/1AIHtVXeJs7zREA==';
+        // RealReport 라이선스 ~ 2023. 06. 30
+        var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjdX/TRvH17asONaYpJP0FO3omxwgpdzq2fHVZKxxTS04WOYozEVwLQf75qiwBaTr7';
 
         /**
          * 웹 페이지에 RealGrid와 RealReport 컴포넌트를 랜더링할 컨테이너가 필요합니다.
@@ -105,31 +140,31 @@
          * 그리드의 데이터와 레이아웃으로 리포트를 출력합니다.
          */
         function setSample(fields, columns, data, options) {
+            // grid를 표시할 컨테이너를 변수에 담기
             gridContainer = document.getElementById('realgrid');
             if (!dataProvider) {
+                // DataProvider 생성
                 dataProvider = new RealGrid.LocalDataProvider();
+                // GridView 생성
                 gridView = new RealGrid.GridView(gridContainer);
+                // GridView와 DataProvider 연결
                 gridView.setDataSource(dataProvider);
             }
 
+            // DataProvider에 필드 추가
             dataProvider.setFields(fields);
+            // GridView에 컬럼 추가
             gridView.setColumns(columns);
+            // DataProvider에 데이터 추가
             dataProvider.fillJsonData(data, { fillMode: "set" });
 
-            const endCallback = (ctx, pages) => {
-                console.log('모든 페이지 미리보기 완료');
-                reportView.fitToWidth();
-            }
-
             if (gridView) {
+                // report를 표시할 컨테이너를 변수에 담기
                 reportContainer = document.getElementById('realreport');
+                // 구성된 GridView를 이용해 Report 생성하기
                 reportView = new RealReport.GridReportViewer(reportContainer, gridView, options);
-                reportView.preview({
-                    async: true,
-                    pageMark: false,
-                    noScroll: true,
-                    endCallback,
-                });
+                // Report 미리보기 실행
+                reportView.preview();
             }
         }
 
@@ -270,39 +305,8 @@
             reportView?.exportDocument({ type: 'docx' });
             reportView.zoom = oldZoom;
         }
-</script>
-
-</head>
-
-<body>
-    <div class="main">
-        <div class="toolbar">
-            <button id="button1">샘플1</button>
-            <button id="button2">샘플2</button>
-            <hr class="hr">
-            <button id="button3">ZoomIn</button>
-            <button id="button16">Zoom100%</button>
-            <button id="button4">ZoomOut</button>
-            <hr class="hr">
-            <button id="button5">FitToHeight</button>
-            <button id="button6">FitToPage</button>
-            <button id="button7">FitToWidth</button>
-            <hr class="hr">
-            <button id="button8">PDF</button>
-            <button id="button14">HWP</button>
-            <button id="button15">DOCX</button>
-            <hr class="hr">
-            <button id="button9">PNG</button>
-            <button id="button10">JPEG</button>
-            <button id="button11">GIF</button>
-            <button id="button12">TIF</button>
-            <button id="button13">TIFF</button>
-        </div>
-        <div class="contents">
-            <div id="realgrid"></div>
-            <div id="realreport"></div>
-        </div>
-    </div>
+    </script>
 </body>
+
 
 </html>
