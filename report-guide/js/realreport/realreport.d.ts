@@ -1,6 +1,6 @@
 /// <reference types="node" />
 /** 
-* RealReport v1.4.1
+* RealReport v1.4.2
 * commit 8812366
 
 * Copyright (C) 2013-2022 WooriTech Inc.
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.4.1
+* RealReport Core v1.4.2
 * Copyright (C) 2013-2022 WooriTech Inc.
 * All Rights Reserved.
-* commit e90b28d0b4dcc8900f90b18868af46c321368e38
+* commit c40fc49cbf656d9483a0fd72852cb2ba6efb8454
 */
 
 
@@ -1144,6 +1144,7 @@ declare class PageItemContainer extends BoundedContainer {
     get outlineLabel(): string;
     get isArray(): boolean;
     canResize(dir: ResizeDirection): boolean;
+    getMoveType(item: ReportItem): ItemMoveType;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
 }
@@ -3573,9 +3574,13 @@ declare class CrosstabRowFieldCollection extends CrosstabFieldCollection<Crossta
     protected _createField(src: any): CrosstabRowField;
 }
 declare class CrosstabColumnField extends CrosstabField {
+    static readonly PROPINFOS: IPropInfo[];
+    private _prefix;
+    private _suffix;
     constructor(collection: CrosstabColumnFieldCollection, source: any);
     get itemType(): string;
     getCollectionLabel(): string;
+    getEditProps(): IPropInfo[];
     protected _doLoad(src: any): void;
     protected _doSave(target: any): any;
 }
@@ -3584,13 +3589,35 @@ declare class CrosstabColumnFieldCollection extends CrosstabFieldCollection<Cros
     protected _createField(src: any): CrosstabColumnField;
 }
 declare class CrosstabValueField extends CrosstabField {
+    static readonly DEF_FORMAT = "#,##0";
     static readonly PROP_VALUE = "value";
+    static readonly PROP_PREFIX = "prefix";
+    static readonly PROP_SUFFIX = "suffix";
+    static readonly PROP_FORMAT = "format";
     static readonly PROPINFOS: IPropInfo[];
     private _value;
+    private _prefix;
+    private _suffix;
+    private _format;
     constructor(collection: CrosstabFieldCollection<any>, source: any);
     /** value */
     get value(): CrosstabSummary;
     set value(value: CrosstabSummary);
+    /**
+     * 접두어.
+     */
+    get prefix(): string;
+    set prefix(value: string);
+    /**
+     * 접미어.
+     */
+    get suffix(): string;
+    set suffix(value: string);
+    /**
+     * format
+     */
+    get format(): string;
+    set format(value: string);
     get itemType(): string;
     getCollectionLabel(): string;
     getEditProps(): IPropInfo[];
@@ -3601,7 +3628,7 @@ declare class CrosstabValueFieldCollection extends CrosstabFieldCollection<Cross
     constructor(owner: CrosstabBand);
     protected _createField(src: any): CrosstabValueField;
 }
-declare class CrosstabRec {
+declare class CrosstabCell {
     private _keys;
     private _rows;
     private sum;
@@ -3612,25 +3639,25 @@ declare class CrosstabRec {
     constructor(keys: any[], rows: number[]);
     get rowCount(): number;
     getKey(field: number): any;
-    getSummary(data: IBandData, field: number, exp: string): number;
+    getValue(data: IBandData, field: number, exp: string): number;
 }
 interface IFilter {
     select(data: IBandData, row: number): boolean;
 }
-declare class RecCollection {
+declare class CellCollection {
     private _band;
     private _filters;
-    private _recs;
+    private _cells;
     constructor(band: CrosstabBand);
     get count(): number;
-    getKey(rec: number, field: number): any;
-    getRec(index: number): CrosstabRec;
-    getRecs(start?: number, end?: number): CrosstabRec[];
+    getKey(index: number, field: number): any;
+    getCell(index: number): CrosstabCell;
+    getCells(start?: number, end?: number): CrosstabCell[];
     setFilters(filters: IFilter[]): void;
     build(data: BandArrayData): void;
     private $_collectRows;
     private $_sortRows;
-    private $_buildRecs;
+    private $_buildCells;
 }
 declare class CrosstabColumn {
     hash: number;
@@ -3658,6 +3685,8 @@ declare class CrosstabLeafColumn extends CrosstabColumn {
     constructor(field: CrosstabColumnField, valueField: CrosstabValueField, value: any);
     get valueField(): CrosstabValueField;
     get leafCount(): number;
+    contains(leaf: CrosstabLeafColumn): boolean;
+    includes(band: CrosstabBand, cell: CrosstabCell): boolean;
     getHeader(): string;
 }
 declare class CrosstabSummaryColumn extends CrosstabColumn {
@@ -3666,6 +3695,13 @@ declare class CrosstabSummaryColumn extends CrosstabColumn {
     get summary(): CrosstabFieldSummary;
     getHeader(): string;
 }
+/**
+ * @internal
+ *
+ * 컬럼 layer 셋을 구성한다.
+ * layer 마다 앞쪽에 summary 컬럼이 추가된다.
+ * row 컬럼들 + 마지막 leaf 목록을 기준으로 table 컬럼들이 구성된다.
+ */
 declare class ColumnCollection$1 {
     private _band;
     private _root;
@@ -3675,7 +3711,7 @@ declare class ColumnCollection$1 {
     get count(): number;
     get leafCount(): number;
     get levels(): number;
-    build(recs: RecCollection): void;
+    build(cells: CellCollection): void;
     get(index: number): CrosstabColumn;
     getLeaf(index: number): CrosstabLeafColumn;
     getColumns(parent: CrosstabColumn, columns: CrosstabColumn[][]): void;
@@ -3684,7 +3720,7 @@ declare class ColumnCollection$1 {
 declare abstract class CrosstabRowBase {
     abstract slice(count: number): any[];
     abstract getValue(index: number): any;
-    abstract getColumnRec(column: CrosstabColumn): CrosstabRec;
+    abstract getColumnCell(column: CrosstabColumn): CrosstabCell;
 }
 declare class RowCollection {
     private _band;
@@ -3692,7 +3728,7 @@ declare class RowCollection {
     constructor(band: CrosstabBand);
     get rowCount(): number;
     getRow(index: number): CrosstabRowBase;
-    build(data: BandArrayData, recs: RecCollection): void;
+    build(data: BandArrayData, cells: CellCollection): void;
     private $_collectRows;
     private $_collectSummaryRows;
 }
@@ -3730,7 +3766,9 @@ declare class CrosstabNullValue extends ReportItem {
     protected _doSave(target: object): void;
 }
 /**
- * Crosstab band
+ * Crosstab band.
+ *
+ * 1. rowFields + columnFields 로 정렬하고 그룹핑해서 cellCollection에 저장한다.
  */
 declare class CrosstabBand extends ReportGroupItem {
     static readonly PROP_TITLE = "title";
@@ -3747,8 +3785,8 @@ declare class CrosstabBand extends ReportGroupItem {
     private _rowFields;
     private _columnFields;
     private _valueFields;
-    private _recs;
-    _columns: ColumnCollection$1;
+    private _cells;
+    private _columns;
     private _rows;
     pageNo: number;
     rowIndex: number;
@@ -3768,13 +3806,14 @@ declare class CrosstabBand extends ReportGroupItem {
     get nullValue(): CrosstabNullValue;
     /** rowFields */
     get rowFields(): CrosstabRowFieldCollection;
+    get rowFieldCount(): number;
     /** columnFields */
     get columnFields(): CrosstabColumnFieldCollection;
     /** valueFields */
     get valueFields(): CrosstabValueFieldCollection;
     get rows(): RowCollection;
     get bandData(): BandArrayData;
-    get columnLevels(): number;
+    get columns(): ColumnCollection$1;
     containsField(field: string): boolean;
     getRowField(index: number): CrosstabField;
     getColumnField(index: number): CrosstabColumnField;
@@ -5484,6 +5523,7 @@ declare abstract class ReportItemCollectionItem extends ReportPageItem {
     private _collection;
     private _styles;
     constructor(collection: ReportItemCollection<any>, src?: any);
+    protected _doInitDefaults(): void;
     get outlineParent(): IOutlineSource;
     get outlineExpandable(): boolean;
     get outlineLabel(): string;
@@ -5760,6 +5800,7 @@ declare class StackContainer extends BoundedContainer {
     protected _datable(): boolean;
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     protected _getStyleProps(): string[];
+    protected _getEditProps(): IPropInfo[];
     canAlign(child: ReportItem): boolean;
     canAdoptDragSource(source: any): boolean;
     getMoveType(item: ReportItem): ItemMoveType;
@@ -5894,7 +5935,7 @@ declare class ReportHeaderElement extends SectionElement<ReportHeader> {
 }
 /** @internal */
 declare class ReportFooterElement extends SectionElement<ReportFooter> {
-    static readonly STYLE_NAME = "rr-page-header rr-group-element";
+    static readonly STYLE_NAME = "rr-report-footer rr-group-element";
     static isFooter: (div: HTMLElement) => boolean;
     constructor(doc: Document, model?: ReportFooter);
     protected _doDispose(): void;
@@ -5988,7 +6029,6 @@ declare class PageBodyElement extends ReportElement {
      */
     getLine(index: number): ReportItemView;
     getLines(): ReportItemView[];
-    printAll(doc: Document, ctx: PrintContext): PageBodyOutput;
     prepareAsync(doc: Document, ctx: PrintContext): PrintLine[];
     itemOfDom(dom: Element): ReportItem;
     protected _getCssSelector(): string;
@@ -6000,11 +6040,7 @@ declare class PageBodyElement extends ReportElement {
     protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
     protected _doLayoutContent(ctx: PrintContext): void;
     layoutFloating(ctx: PrintContext): void;
-    private $_buildPages;
     private $_prepareAsync;
-}
-interface PageBodyOutput {
-    pages: HTMLDivElement[][];
 }
 
 /** @internal */
@@ -6562,6 +6598,9 @@ declare class PrintContainer extends VisualContainer$1 {
     static readonly CLASS_NAME = "rr-report-container";
     static readonly PREVIEW_CLASS = "rr-report-preview";
     private static readonly CONFIRM_CLASS;
+    private static readonly MARKER_CLASS;
+    private static readonly PRINT_INDICATOR_CLASS;
+    private static readonly PRINT_BACK_CLASS;
     private _pageGap;
     private _zoom;
     private _align;
@@ -40659,6 +40698,12 @@ declare class GridReportViewer extends ReportViewer {
      * @returns
      */
     private _addPageHeader;
+    /**
+     * 페이지 푸터 추가
+     * @param footer PageFooter 객체
+     * @returns
+     */
+    private _addPageFooter;
     /**
      * Layout 정보
      *   - visibleCount: number
