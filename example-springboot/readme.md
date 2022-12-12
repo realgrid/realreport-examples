@@ -15,9 +15,15 @@
 - 이미 `src/main/resources/static/js/realreport`밑에 리얼리포트 패키지를 설치해놓은 상태이므로,    
   별도 설치가 필요하지 않습니다. 
 
+### gradlew 파일 빌드
+
+```bash
+./gradlew build     
+```
 ### 로컬환경 실행
 
 ```bash
 java -jar ./build/libs/demo-0.0.1-SNAPSHOT.jar 
 ```
+
 - 이후, 브라우저에서 `http://127.0.0.1:8080`로 이동하시면 예제 페이지를 확인하실 수 있습니다. 

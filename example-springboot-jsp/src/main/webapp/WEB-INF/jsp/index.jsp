@@ -17,6 +17,7 @@
     <script type="text/javascript" src="/js/highcharts/highcharts-more.js"></script>
     <script type="text/javascript" src="/js/pdfkit.js"></script>
     <script type="text/javascript" src='/js/realreport/realreport.js?v=4'></script>
+    <title>springboot-jsp</title>
 </head>
 
 <body>
