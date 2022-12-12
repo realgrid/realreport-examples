@@ -11,7 +11,7 @@ const DEV_SERVICE_HOST = 'http://localhost:5500';
 const REAL_SERVICE_HOST = 'https://service.real-report.com';
 
 // 개발모드에서 운영을 테스트 할 경우 false;
-const hasDevConnection = true;
+const hasDevConnection = false;
 
 // 개발서버 동작 여부에 따라 데이터 소스를 변경합니다.
 const SERVICE_HOST = isDev ? (hasDevConnection ? DEV_SERVICE_HOST : REAL_SERVICE_HOST) : REAL_SERVICE_HOST;
@@ -320,7 +320,7 @@ function reportSample2(el) {
 // 복합 출력 샘플 1 + 2
 function reportSampleComposit(el) {
     openTab('reportTab', 'gridTab');
-    reportViewer = previewFrame('reportFrame', [sampleReport200, sampleReport205]);
+    reportViewer = previewFrame('reportFrame', [sampleReport205, sampleReport200]);
     setEditorModel('reportForm');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
 }
