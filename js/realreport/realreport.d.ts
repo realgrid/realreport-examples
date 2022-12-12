@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /** 
-* RealReport v1.4.1
-* commit f43f03e
+* RealReport v1.4.2
+* commit 8812366
 
 * Copyright (C) 2013-2022 WooriTech Inc.
 	https://real-report.com
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.4.0
+* RealReport Core v1.4.2
 * Copyright (C) 2013-2022 WooriTech Inc.
 * All Rights Reserved.
-* commit a1ea4dcdbebfcc1820d0adab51e06ffe092f38a2
+* commit c40fc49cbf656d9483a0fd72852cb2ba6efb8454
 */
 
 
@@ -1144,6 +1144,7 @@ declare class PageItemContainer extends BoundedContainer {
     get outlineLabel(): string;
     get isArray(): boolean;
     canResize(dir: ResizeDirection): boolean;
+    getMoveType(item: ReportItem): ItemMoveType;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
 }
@@ -3684,6 +3685,8 @@ declare class CrosstabLeafColumn extends CrosstabColumn {
     constructor(field: CrosstabColumnField, valueField: CrosstabValueField, value: any);
     get valueField(): CrosstabValueField;
     get leafCount(): number;
+    contains(leaf: CrosstabLeafColumn): boolean;
+    includes(band: CrosstabBand, cell: CrosstabCell): boolean;
     getHeader(): string;
 }
 declare class CrosstabSummaryColumn extends CrosstabColumn {
@@ -3803,6 +3806,7 @@ declare class CrosstabBand extends ReportGroupItem {
     get nullValue(): CrosstabNullValue;
     /** rowFields */
     get rowFields(): CrosstabRowFieldCollection;
+    get rowFieldCount(): number;
     /** columnFields */
     get columnFields(): CrosstabColumnFieldCollection;
     /** valueFields */
@@ -5796,6 +5800,7 @@ declare class StackContainer extends BoundedContainer {
     protected _datable(): boolean;
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     protected _getStyleProps(): string[];
+    protected _getEditProps(): IPropInfo[];
     canAlign(child: ReportItem): boolean;
     canAdoptDragSource(source: any): boolean;
     getMoveType(item: ReportItem): ItemMoveType;
@@ -6593,6 +6598,9 @@ declare class PrintContainer extends VisualContainer$1 {
     static readonly CLASS_NAME = "rr-report-container";
     static readonly PREVIEW_CLASS = "rr-report-preview";
     private static readonly CONFIRM_CLASS;
+    private static readonly MARKER_CLASS;
+    private static readonly PRINT_INDICATOR_CLASS;
+    private static readonly PRINT_BACK_CLASS;
     private _pageGap;
     private _zoom;
     private _align;
