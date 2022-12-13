@@ -26,6 +26,9 @@ var reportOptions2 = {
             },
         ]
     },
+    "paper": {
+        "orientation": "landscape"
+    },
     "layout": {
         "autoWidth": true,
         "exclude": [
