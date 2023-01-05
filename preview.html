@@ -317,8 +317,8 @@
         }
 
         const onClickExportPdf = function() {
-            base64convert('/js/pdffonts/NanumGothic.otf', true).then(regularFont => {
-                base64convert('/js/pdffonts/NanumGothicBold.otf', true).then(boldFont => {
+            base64convert('/js/pdffonts/malgun.ttf', true).then(regularFont => {
+                base64convert('/js/pdffonts/malgunbd.ttf', true).then(async boldFont => {
                     const fonts = [{
                         name: 'regular',
                         content: regularFont,
