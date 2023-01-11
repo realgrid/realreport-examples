@@ -1,18 +1,18 @@
 /// <reference types="node" />
 /** 
-* RealReport v1.4.2
-* commit f43f03e
+* RealReport v1.5.0
+* commit 8812366
 
-* Copyright (C) 2013-2022 WooriTech Inc.
+* Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
 * All Rights Reserved.
 */
 
 /** 
-* RealReport Core v1.4.2
-* Copyright (C) 2013-2022 WooriTech Inc.
+* RealReport Core v1.5.0
+* Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit c40fc49cbf656d9483a0fd72852cb2ba6efb8454
+* commit 9802c70009edea5667022018ac986e31aa2bb359
 */
 
 
@@ -111,6 +111,12 @@ declare enum PageBreakMode {
     AFTER = "after",
     BOTH = "both"
 }
+declare enum LinkTarget {
+    SELF = "_self",
+    BLANK = "_blank",
+    PARENT = "_parent",
+    TOP = "_top"
+}
 declare enum ResizeDirection {
     LEFT = "left",
     RIGHT = "right",
@@ -135,6 +141,11 @@ interface FindOptions {
     wholeWord?: boolean;
     regularExpression?: boolean;
     inSelection?: boolean;
+}
+declare enum BoxItemsAlign {
+    START = "start",
+    MIDDLE = "middle",
+    END = "end"
 }
 
 declare type ConfigObject$1 = {
@@ -1149,11 +1160,6 @@ declare class PageItemContainer extends BoundedContainer {
     protected _doSave(target: object): void;
 }
 
-declare enum BoxItemsAlign {
-    START = "start",
-    MIDDLE = "middle",
-    END = "end"
-}
 declare abstract class BoxContainer extends ReportGroupItem {
     static readonly PROP_ITEMS_ALIGN = "itemsAlign";
     static readonly PROP_ITEM_GAP = "itemGap";
@@ -1777,7 +1783,8 @@ declare class DesignDataManager extends EventAware$1 implements IReportDataProvi
     removeData(data: string | IReportData): IReportData;
     dataNameChanged(data: IReportData, oldName: string): void;
     fieldNameChanged?(data: IReportData, newName: string, oldName: string): void;
-    load(source: any): DesignDataManager;
+    clear(): DesignDataManager;
+    load(source: any, clear?: boolean): DesignDataManager;
     save(target: object): void;
     getFieldIndex(data: string, field: string): number;
     updateField(data: BandData, index: number, field: IBandDataField): void;
@@ -2405,6 +2412,7 @@ declare abstract class DataBand extends ReportGroupItem {
     static readonly PROP_DATA_BAND_MAX_END_ROW_COUNT = "maxEndRowCount";
     static readonly PROP_DATA_BAND_END_ROW_MESSAGE = "endRowMessage";
     static readonly PROP_DATA_BAND_ALWAYS_HEADER = "alwaysHeader";
+    static readonly PROP_DATA_BAND_NO_SPLIT = "noSplit";
     static readonly PROPINFOS: IPropInfo[];
     private _sectionCount;
     private _sectionLayout;
@@ -2422,6 +2430,7 @@ declare abstract class DataBand extends ReportGroupItem {
     private _repeatDetailHeader;
     private _repeatDetailFooter;
     private _alwaysHeader;
+    private _noSplit;
     private _detail;
     private _master;
     private _keyFlds;
@@ -2578,6 +2587,11 @@ declare abstract class DataBand extends ReportGroupItem {
     get alwaysHeader(): boolean;
     set alwaysHeader(value: boolean);
     /**
+     * true면 밴드 아이템 전체 높이가 출력 페이지의 남은 높이 보다 클 경우 다음 페이지에 출력한다. #612
+     */
+    get noSplit(): boolean;
+    set noSplit(value: boolean);
+    /**
      * summary runtime
      */
     get summaryRuntime(): DataBandSummaryRuntime;
@@ -2599,6 +2613,7 @@ declare abstract class DataBand extends ReportGroupItem {
         endRowCount: number;
         stopEndRow: boolean;
     };
+    getEndRowMarker(): EndRowMarker;
     getCount(field: string, count: number, rows?: number[]): number;
     getVCount(field: string, count: number, rows?: number[]): number;
     getSum(field: string, count: number, rows?: number[]): number;
@@ -3249,6 +3264,8 @@ declare class SpaceItem extends ReportItem {
     set size(value: ValueString);
     getSize(domain: number): number;
     getSaveType(): string;
+    canAddToFrontContainer(): boolean;
+    canAddToBackContainer(): boolean;
     get outlineLabel(): string;
     protected _sizable(): boolean;
     protected _boundable(): boolean;
@@ -3319,6 +3336,7 @@ declare class ReportElement extends VisualElement$1 {
 declare abstract class ReportItemElement<T extends ReportItem> extends ReportElement {
     protected _designView: HTMLDivElement;
     protected _bindMarker: HTMLSpanElement;
+    private _a;
     private _model;
     protected _modelChanged: boolean;
     private _prevStyles;
@@ -3351,6 +3369,7 @@ declare abstract class ReportItemElement<T extends ReportItem> extends ReportEle
     findElement(modelName: string): ReportItemElement<ReportItem>;
     findElementOf(dom: HTMLElement): ReportItemElement<ReportItem>;
     getPrintValue(ctx: PrintContext, m: ReportItem, defaultValue?: any): any;
+    getPrintLinkValue(ctx: PrintContext, m: ReportItem): any;
     protected _doModelChanged(oldModel: T): void;
     protected _setX(dom: HTMLElement, x: number): void;
     protected _setY(dom: HTMLElement, y: number): void;
@@ -3662,6 +3681,7 @@ declare class CellCollection {
 declare class CrosstabColumn {
     hash: number;
     parent: CrosstabColumn;
+    vlevel: number;
     protected _field: CrosstabColumnField;
     private _value;
     private _children;
@@ -3679,6 +3699,8 @@ declare class CrosstabColumn {
     addSummary(column: CrosstabSummaryColumn): void;
     sort(): void;
     getHeader(): string;
+    ancestorByLevel(level: number): CrosstabColumn;
+    ancestorByVlevel(level: number): CrosstabColumn;
 }
 declare class CrosstabLeafColumn extends CrosstabColumn {
     protected _valueField: CrosstabValueField;
@@ -3774,12 +3796,14 @@ declare class CrosstabBand extends ReportGroupItem {
     static readonly PROP_TITLE = "title";
     static readonly PROP_NULL_VALUE = "nullValue";
     static readonly PROP_MAX_ROW_COUNT = "maxRowCount";
+    static readonly PROP_NO_SPLIT = "noSplit";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     static isFieldCell(item: ReportPageItem): boolean;
     static getFieldOf(cell: CrosstabFieldCell): CrosstabField;
     static getBandOf(cell: CrosstabFieldCell): CrosstabBand;
     private _maxRowCount;
+    private _noSplit;
     private _title;
     private _nullValue;
     private _rowFields;
@@ -3796,6 +3820,11 @@ declare class CrosstabBand extends ReportGroupItem {
      */
     get maxRowCount(): number;
     set maxRowCount(value: number);
+    /**
+     * true면 밴드 아이템 전체 높이가 출력 페이지의 남은 높이 보다 클 경우 다음 페이지에 출력한다. #612
+     */
+    get noSplit(): boolean;
+    set noSplit(value: boolean);
     /**
      * title
      */
@@ -5053,6 +5082,9 @@ declare abstract class ReportItem extends ReportPageItem {
     static readonly PROP_PAGE_BREAK = "pageBreak";
     static readonly PROP_STYLE_CALLBACK = "styleCallback";
     static readonly PROP_ROTATION = "rotation";
+    static readonly PROP_LINK_URL = "linkUrl";
+    static readonly PROP_LINK_TARGET = "linkTarget";
+    static readonly PROP_LINK_FIELD = "linkField";
     static readonly DATA_PROP: {
         name: string;
         category: PropCategory;
@@ -5070,8 +5102,19 @@ declare abstract class ReportItem extends ReportPageItem {
         domain: any;
         validate: (source: ReportItem, value: any) => void;
     };
+    static readonly LINK_FIELD_PROP: {
+        name: string;
+        category: PropCategory;
+        type: typeof ListableProperty;
+        multiple: boolean;
+        default: any;
+        domain: any;
+        validate: (source: ReportItem, value: any) => void;
+        visible: (source: IPropertySource) => boolean;
+    };
     static readonly PROPINFOS: IPropInfo[];
     static readonly SIZE_PROPINFOS: IPropInfo[];
+    static readonly LINK_PROPINFOS: IPropInfo[];
     static readonly VALUE_PROPINFOS: IPropInfo[];
     static findFloatingAnchor(item: ReportPageItem): ReportItem;
     private _name;
@@ -5087,6 +5130,9 @@ declare abstract class ReportItem extends ReportPageItem {
     private _minWidth;
     private _minHeight;
     private _rotation;
+    private _linkUrl;
+    private _linkTarget;
+    private _linkField;
     private _styles;
     private _styleCallback;
     private _onGetStyles;
@@ -5224,6 +5270,25 @@ declare abstract class ReportItem extends ReportPageItem {
     set rotation(value: number);
     get isRotated(): boolean;
     /**
+     * linkUrl
+     * linkValue의 값이 있을 경우 해당 속성은 무시된다.
+     */
+    get linkUrl(): string;
+    set linkUrl(value: string);
+    /**
+     * linkTarget
+     */
+    get linkTarget(): LinkTarget;
+    set linkTarget(value: LinkTarget);
+    /**
+     * 리포트에 지정된 data의 특정 값(들)을 지시하는 경로.
+     * 자신으로 시작해서 Report까지 가장 가까운 곳(dataParent)에 설정된 data에서 값을 가져온다.
+     * Link 기능을 사용할 수 있는 아이템에 Url로 사용이 된다.
+     * print 시 해당 속성의 값이 linkUrl보다 우선 적용된다.
+     */
+    get linkField(): string;
+    set linkField(value: string);
+    /**
      * onGetValue
      */
     get onGetValue(): string;
@@ -5335,6 +5400,8 @@ declare abstract class ReportItem extends ReportPageItem {
     isStyleProp(prop: string): boolean;
     canParentOf(itemType: string): boolean;
     canAddTo(group: ReportGroupItem): boolean;
+    canAddToFrontContainer(): boolean;
+    canAddToBackContainer(): boolean;
     prepareLayout(printing: boolean): void;
     preparePrint(ctx: PrintContext): void;
     getLeft(domain: number): number;
@@ -5355,6 +5422,7 @@ declare abstract class ReportItem extends ReportPageItem {
     canResizeHeight(): boolean;
     resize(width: number, height: number): ReportItem;
     canRotate(): boolean;
+    canLink(): boolean;
     hasStyle(style: string): boolean;
     getStyle(style: string): string;
     setStyle(style: string, value: string): void;
@@ -5374,6 +5442,7 @@ declare abstract class ReportItem extends ReportPageItem {
      * 출력 시 ReportItemElement에서 호출.
      */
     getPrintValue(dp: IReportDataProvider, row: number): any;
+    getLinkValue(dp: IReportDataProvider, row: number): any;
     protected _getParentData(): string;
     canRemoveFrom(): boolean;
     canAdoptDragSource(source: any): boolean;
@@ -5458,6 +5527,8 @@ declare abstract class ReportGroupItem extends ReportItem {
     get(index: number): ReportItem;
     canContainsBand(): boolean;
     canContainsBandGroup(): boolean;
+    canAddToFrontContainer(): boolean;
+    canAddToBackContainer(): boolean;
     contains(item: ReportPageItem, deep?: boolean): boolean;
     indexOf(item: ReportPageItem): number;
     getNames(list: string[], recursive?: boolean): string[];
@@ -5727,6 +5798,7 @@ declare enum PropCategory {
     TEXT = "text",
     DATA = "data",
     BOUND = "bound",
+    LINK = "link",
     EVENT = "event",
     EDITOR = "editor",
     REPORT = "report",
@@ -6284,6 +6356,7 @@ declare abstract class TextItemBase extends ReportItem {
     protected _doSave(target: object): void;
     protected _doApplyStyle(prop: string, value: string, target: CSSStyleDeclaration): boolean;
     canRotate(): boolean;
+    canLink(): boolean;
     canAdoptDragSource(source: any): boolean;
     adoptDragSource(source: any): IDropResult;
     canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
@@ -6491,6 +6564,13 @@ declare class PrintContext extends Base$1 {
 }
 declare class PageBreaker {
 }
+declare class ReportFooterPrintInfo {
+}
+declare class EndRowMarker {
+    count: number;
+    maxCount: number;
+    constructor(count: number, maxCount: number);
+}
 declare abstract class BandPrintInfo<T extends ReportItem> {
     band: T;
     xBand: number;
@@ -6514,6 +6594,7 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     abstract isEnded(): boolean;
     abstract getRows(): any[];
     abstract getNextPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
+    rollback(page: HTMLDivElement): void;
     setMaxCount(rows: any[], count: number): void;
     isRow(row: any): row is number;
     isBand(row: any): row is BandPrintInfo<any>;
@@ -6523,8 +6604,10 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     protected _setY(dom: HTMLElement, y: number): void;
     protected _setPos(dom: HTMLElement, x: number, y: number): void;
     protected _createPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
+    protected _buildEndRows(marker: EndRowMarker, rowCount: number, rows: any[]): void;
+    protected _unshiftEndRows(row: any, rows: any[]): void;
 }
-declare type PrintLine = HTMLElement | BandPrintInfo<any> | PageBreaker;
+declare type PrintLine = HTMLElement | BandPrintInfo<any> | ReportFooterPrintInfo | PageBreaker;
 interface IReportData {
     name: string;
     isBand: boolean;
@@ -6581,16 +6664,20 @@ interface IPrintReport {
     report: Report;
     data: IReportDataProvider;
 }
-interface IPrintOptions {
-    report: Report | (Report | IPrintReport)[];
-    data: IReportDataProvider;
-    preview?: boolean;
-    id?: string;
+interface IPreviewOptions {
+    pageGap?: number;
     async?: boolean;
     pageMark?: boolean;
     noScroll?: boolean;
     callback?: PrintPageCallback;
     endCallback?: PrintEndCallback;
+}
+interface IPrintOptions {
+    report: Report | (Report | IPrintReport)[];
+    data: IReportDataProvider;
+    preview?: boolean;
+    id?: string;
+    previewOptions?: IPreviewOptions;
 }
 /**
  */
@@ -6601,6 +6688,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private static readonly MARKER_CLASS;
     private static readonly PRINT_INDICATOR_CLASS;
     private static readonly PRINT_BACK_CLASS;
+    private static readonly PAGE_GAP_CLASS;
     private _pageGap;
     private _zoom;
     private _align;
@@ -6617,6 +6705,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private _preview;
     private _previewId;
     private _options;
+    private _pageGapEls;
     constructor(containerId: string | HTMLDivElement);
     protected _doDispose(): void;
     /** pageCount */
@@ -6628,6 +6717,9 @@ declare class PrintContainer extends VisualContainer$1 {
     get zoom(): number;
     set zoom(value: number);
     get pages(): PrintPage[];
+    /** pageGap */
+    get pageGap(): number;
+    set pageGap(value: number);
     print(options: IPrintOptions): void;
     printSingle(options: IPrintOptions): void;
     private $_printSingle2;
@@ -40604,6 +40696,8 @@ declare abstract class ReportViewBase {
     get page(): number;
     set page(v: number);
     get reportHtml(): string;
+    get pageGap(): number;
+    set pageGap(v: number);
     getHtml(): string;
     first(): void;
     prev(): void;
@@ -40674,6 +40768,7 @@ interface GridReportOptions extends ReportOptions {
 declare class GridReportViewer extends ReportViewer {
     private _grid;
     private _gridValues;
+    private _gridTable;
     protected _options: GridReportOptions;
     constructor(container: string | HTMLDivElement, grid: GridView, options?: GridReportOptions);
     /**
@@ -40712,6 +40807,7 @@ declare class GridReportViewer extends ReportViewer {
      */
     private _addGridTable;
     private _prepare;
+    exportImage(imageOptions?: ImageExportOptions): void;
 }
 
 /**
@@ -40760,6 +40856,10 @@ declare type GridReportLayout = {
  * 리포트 프리뷰 옵션
  */
 declare type PreviewOptions = {
+    /**
+     * 리포트간 간격 조절 옵션
+     */
+    pageGap?: number;
     /**
      * 비동기 출력 여부
      * default: false;

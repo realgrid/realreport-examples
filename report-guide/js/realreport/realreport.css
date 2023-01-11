@@ -2,6 +2,7 @@
 .rr-report-root {
     font-family: "Malgun Gothic", "맑은 고딕", AppleSDGothicNeo-Light, sans-serif;
     font-size: 13px;
+    line-height: normal;
     color: #000000;
     -webkit-appearance: none;
     outline: none;
