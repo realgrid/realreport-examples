@@ -180,7 +180,9 @@
     cursor: pointer;
 }
 
-.tool-button.active, .tool-button.active .tool-icon, .tool-button:hover {
+.tool-button.active,
+.tool-button.active .tool-icon,
+.tool-button:hover {
     color: var(--color-primary);
     font-weight: 600;
 }
@@ -204,7 +206,7 @@
 }
 
 .main-content {
-    flex:1;
+    flex: 1;
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -233,7 +235,7 @@
 }
 
 #editor-container {
-    flex-grow:1;X
+    flex-grow: 1;
 }
 
 #gridReportFrame {
@@ -257,4 +259,51 @@
 
 .icon.print-popup-png:hover {
     background-image: url("../img/preview/print-popup-hover.png");
+}
+
+@keyframes spinner-container {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+.spinner {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    top: 50%;
+    overflow: hidden;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+}
+
+.spinner-container div {
+    width: 24px;
+    height: 24px;
+    border: 4px solid #979797;
+    border-top-color: transparent;
+    border-radius: 50%;
+}
+
+.spinner-container div {
+    animation: spinner-container 1s linear infinite;
+}
+.spinner-container div {
+    box-sizing: content-box;
 }
