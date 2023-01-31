@@ -11,6 +11,14 @@
     padding-left: 0;
 }
 
+#menu-list-report {
+    visibility: hidden;
+}
+
+#menu-list-grid {
+    visibility: hidden;
+}
+
 .menu-list .menu-list {
     margin-left: 1rem;
 }
