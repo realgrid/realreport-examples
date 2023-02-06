@@ -1,15 +1,8 @@
 # RealReport
 
 [RealReport](https://real-report.com)는 Javascript 리포팅 라이브러리입니다.
-e
+
 RealReport 사용하려면 반드시 제품 [라이선스](https://real-report.com/license)가 필요합니다. 라이선스를 발급 받고 제품을 다운로드하는 더 자세한 방법은 [라이선스 발급](https://real-report.com/license) 페이지를 참조하세요.
-
-## 배포
-
-### examples 배포 구조
-
-<img width="871" alt="image" src="https://user-images.githubusercontent.com/6207238/181147115-33cc9432-2770-4514-9def-92e6d09390f6.png">
-
 
 ## JavaScript 설치
 
