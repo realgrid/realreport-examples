@@ -86,11 +86,14 @@
                                     <a class="toolbar-icon-button" onclick="onClickExportPdf();">
                                         <div class="toolbar-icon icon preview-pdf-png"></div>
                                     </a>
+                                    <a class="toolbar-icon-button" onclick="onClickExportDoc('hwp');">
+                                        <div class="toolbar-icon icon preview-hwp-png"></div>
+                                    </a>
                                     <a class="toolbar-icon-button" onclick="onClickExportDoc('docx');">
                                         <div class="toolbar-icon icon preview-docx-png"></div>
                                     </a>
-                                    <a class="toolbar-icon-button" onclick="onClickExportDoc('hwp');">
-                                        <div class="toolbar-icon icon preview-hwp-png"></div>
+                                    <a class="toolbar-icon-button" onclick="onClickExportDoc('pptx');">
+                                        <div class="toolbar-icon icon preview-pptx-png"></div>
                                     </a>
                                 </div>
                                 <span class="vertical-separator"></span>
@@ -333,7 +336,24 @@
                     }];
             
                     if (viewer) {
-                        viewer.exportPdf({fonts, filename: 'sample-pdf-filename.pdf', preview: false});
+                        const options = {
+                            fonts, 
+                            filename: 'sample-pdf-filename.pdf',
+                            preview: false,
+                            ownerPassword: '!QAZXSW2', // 소유자 암호
+                            userPassword: '1qazxsw2', // 사용자 암호
+                            permissions: {
+                                printing: 'highResolution', // 'lowResolution' | 'highResolution' 인쇄 허용 여부
+                                modifying:  true, // 파일 수정 허용 여부
+                                copying: true, // 텍스트 또는 그래픽 복사 허용 여부
+                                annotating: true, // 주석 및 양식 작성 허용 여부
+                                fillingForms: true, // 양식 작성 및 서명 허용 여부
+                                contentAccessibility: true, // 접근성을 위한 텍스트 복사 허용 여부
+                                documentAssembly: true, 
+                            },
+                            pdfVersion: '1.7ext3'  // '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3'
+                        }
+                        viewer.exportPdf(options)
                     }
                 });
             });
