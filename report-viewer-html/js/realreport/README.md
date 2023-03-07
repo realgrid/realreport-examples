@@ -15,16 +15,11 @@ RealReport 사용하려면 반드시 제품 [라이선스](https://real-report.c
   pdffonts
   pdfkit.js
   realreport
-    ⎸⎯ check-checked.png
-    ⎸⎯ check-empty.png
-    ⎸⎯ check-unchecked.png
-    ⎸⎯ indicator.gif
     ⎸⎯ LICENSE.md
     ⎸⎯ README.md
     ⎸⎯ realreport.css
     ⎸⎯ realreport.d.ts
     ⎸⎯ realreport.es.js
-    ⎸⎯ realreport.ie11.js
     ⎸⎯ realreport.js
 ```
 

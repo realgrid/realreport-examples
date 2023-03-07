@@ -59,6 +59,9 @@
         <a class="toolbar-icon-button" @click="onClickExportDoc('hwp')">
           <div class="toolbar-icon icon preview-hwp-png"></div>
         </a>
+        <a class="toolbar-icon-button" @click="onClickExportDoc('pptx')">
+          <div class="toolbar-icon icon preview-pptx-png"></div>
+        </a>
       </div>
       <span class="vertical-separator"></span>
       <div class="toolbar-items">

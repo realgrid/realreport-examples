@@ -145,6 +145,12 @@ function Toolbar({ viewer, compositeViewer }) {
         }
     }
 
+    const onClickExportDoc = function(type) {
+        if (viewer) {
+            viewer.exportDocument({ type });
+        }
+    }
+
     const onClickPrintHiddenFrame = function () {
         if (viewer || compositeViewer) {
             function closePrint() {
@@ -291,6 +297,15 @@ function Toolbar({ viewer, compositeViewer }) {
                     </div>
                     <div className={style.toolbarButton} onClick={() => onClickExportImg('jpeg')}>
                         <span className={style.toolbarButtonText}>jpeg</span>
+                    </div>
+                    <div className={style.toolbarButton} onClick={() => onClickExportDoc('hwp')}>
+                        <span className={style.toolbarButtonText}>hwp</span>
+                    </div>
+                    <div className={style.toolbarButton} onClick={() => onClickExportDoc('docx')}>
+                        <span className={style.toolbarButtonText}>docx</span>
+                    </div>
+                    <div className={style.toolbarButton} onClick={() => onClickExportDoc('pptx')}>
+                        <span className={style.toolbarButtonText}>pptx</span>
                     </div>
                     <div className={style.toolbarButton} onClick={() => onClickExportImg('gif')}>
                         <span className={style.toolbarButtonText}>gif</span>

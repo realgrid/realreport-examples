@@ -4,15 +4,15 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <script src='/realreport/realreport/realreport-lic.js'></script>
-        <link href='/realreport/highcharts/highcharts.css' rel='stylesheet' />
-        <script src="/realreport/highcharts/highcharts.js"></script>
-        <script src="/realreport/highcharts/highcharts-more.js"></script>
+        <script src='/realreport-lic.js'></script>
+        <link href='/js/highcharts/highcharts.css' rel='stylesheet' />
+        <script src="/js/highcharts/highcharts.js"></script>
+        <script src="/js/highcharts/highcharts-more.js"></script>
         
         {/* PDF 라이브러리 포함 하기 */}
-        <script src="/realreport/pdfkit.js"></script>
+        <script src="/js/pdfkit.js"></script>
 
-        <link href='/realreport/realreport/realreport.css' rel='stylesheet' />
+        <link href='/js/realreport/realreport.css' rel='stylesheet' />
       </Head>
       <body>
         <Main />

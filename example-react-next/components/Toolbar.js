@@ -142,6 +142,12 @@ function Toolbar({ viewer, compositeViewer }) {
         }
     }
 
+    const onClickExportDoc = function(type) {
+        if (viewer) {
+            viewer.exportDocument({ type });
+        }
+    }
+
     const onClickPrintHiddenFrame = function () {
         if (viewer || compositeViewer) {
             function closePrint() {
@@ -153,7 +159,6 @@ function Toolbar({ viewer, compositeViewer }) {
                 this.contentWindow.onbeforeunload = closePrint;
                 this.contentWindow.onafterprint = closePrint;
                 const dom = this.contentWindow.document.getElementById('realreport');
-                console.log(dom)
                 if (viewer) dom.innerHTML = viewer.reportHtml;
                 if (compositeViewer) dom.innerHTML = compositeViewer.reportHtml;
 
@@ -195,8 +200,8 @@ function Toolbar({ viewer, compositeViewer }) {
     }
     // pdf
     const onClickExportPdf = function () {
-        base64convert('/realreport/pdffonts/NanumGothic.otf', true).then(regularFont => {
-            base64convert('/realreport/pdffonts/NanumGothicBold.otf', true).then(boldFont => {
+        base64convert('/js/pdffonts/NanumGothic.otf', true).then(regularFont => {
+            base64convert('/js/pdffonts/NanumGothicBold.otf', true).then(boldFont => {
                 const fonts = [{
                     name: 'regular',
                     content: regularFont,
@@ -342,6 +347,30 @@ function Toolbar({ viewer, compositeViewer }) {
                             width={25}
                             height={25}
                             alt="jpeg"
+                        />
+                    </div>
+                    <div className={style.toolbarButtonImgIcon} onClick={() => onClickExportDoc('hwp')}>
+                        <Image 
+                            src="/img/preview-hwp.png"
+                            width={25}
+                            height={25}
+                            alt="hwp"
+                        />
+                    </div>
+                    <div className={style.toolbarButtonImgIcon} onClick={() => onClickExportDoc('docx')}>
+                        <Image 
+                            src="/img/preview-docx.png"
+                            width={25}
+                            height={25}
+                            alt="docx"
+                        />
+                    </div>
+                    <div className={style.toolbarButtonImgIcon} onClick={() => onClickExportDoc('pptx')}>
+                        <Image 
+                            src="/img/preview-pptx.png"
+                            width={25}
+                            height={25}
+                            alt="pptx"
                         />
                     </div>
                     <div className={style.toolbarButtonImgIcon} onClick={() => onClickExportImg('gif')}>

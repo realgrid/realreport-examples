@@ -92,6 +92,9 @@
                                     <a class="toolbar-icon-button" onclick="onClickExportDoc('hwp');">
                                         <div class="toolbar-icon icon preview-hwp-png"></div>
                                     </a>
+                                    <a class="toolbar-icon-button" onclick="onClickExportDoc('pptx');">
+                                        <div class="toolbar-icon icon preview-pptx-png"></div>
+                                    </a>
                                 </div>
                                 <span class="vertical-separator"></span>
                                 <div class="toolbar-items">
@@ -185,6 +188,8 @@
             const endCallback = (ctx, pages) => {
                 console.log('모든 페이지 미리보기 완료');
                 setTotalPage('totalpage');
+                setZoomScaleInputValue('inputZoomScale');
+                setPageInputValue('inputPageNumber');
             }
 
             if (viewer) viewer.preview({
