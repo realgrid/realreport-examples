@@ -320,7 +320,7 @@ function reportSample2(el) {
 // 복합 출력 샘플 1 + 2
 function reportSampleComposit(el) {
     openTab('reportTab', 'gridTab');
-    reportViewer = previewFrame('reportFrame', [sampleReport205, sampleReport200]);
+    reportViewer = previewFrame('reportFrame', [sampleReport200, sampleReport205]);
     setEditorModel('reportForm');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
 }

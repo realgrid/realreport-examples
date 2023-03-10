@@ -1,19 +1,18 @@
 /// <reference types="node" />
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.6.0
-* commit 5c25315
-
+* RealReport v1.6.1
+* commit unknown
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
 * All Rights Reserved.
 */
 
 /** 
-* RealReport Core v1.6.0
+* RealReport Core v1.6.1
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 60c355abf73e264b6f108ea3e25004a3296d930b
+* commit 816af8ff6034fc4c3e08a8e1e3b60a9aa76e1444
 */
 
 
@@ -6848,6 +6847,8 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_showError;
     private $_createIndicator;
     private $_refreshContextValues;
+    private $_replacePages;
+    private $_refreshHtmlItemValue;
     private $_printReport;
     private $_getContainer;
     private $_getPreviewer;
