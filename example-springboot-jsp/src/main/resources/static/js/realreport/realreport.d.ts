@@ -1,18 +1,19 @@
 /// <reference types="node" />
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.6.1
-* commit unknown
+* RealReport v1.6.2
+* commit f43f03e
+
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
 * All Rights Reserved.
 */
 
 /** 
-* RealReport Core v1.6.1
+* RealReport Core v1.6.2
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 816af8ff6034fc4c3e08a8e1e3b60a9aa76e1444
+* commit a206dc616f8fd555b2a7a2fe1a78a5b4d951aae1
 */
 
 
@@ -6514,6 +6515,7 @@ declare class HtmlItem extends ReportItem {
     canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
     adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
     getRowContextValue(value: string, ctx: PrintContext): string | number;
+    private $_getTokenValue;
     private $_parse;
     private $_parseValues;
 }
