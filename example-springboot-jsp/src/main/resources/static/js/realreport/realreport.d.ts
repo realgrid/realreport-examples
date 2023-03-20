@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.6.2
+* RealReport v1.6.3
 * commit f43f03e
 
 * Copyright (C) 2013-2023 WooriTech Inc.
@@ -10,10 +10,10 @@
 */
 
 /** 
-* RealReport Core v1.6.2
+* RealReport Core v1.6.3
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit a206dc616f8fd555b2a7a2fe1a78a5b4d951aae1
+* commit 43175979256e8a9718b16c74107a144ccd4e5e2e
 */
 
 
@@ -6788,6 +6788,7 @@ interface IPreviewOptions {
     pageDelay?: number;
     noScroll?: boolean;
     noIndicator?: boolean;
+    singlePage?: boolean;
     callback?: PrintPageCallback;
     endCallback?: PrintEndCallback;
 }
@@ -6798,8 +6799,6 @@ interface IPrintOptions {
     id?: string;
     previewOptions?: IPreviewOptions;
 }
-/**
- */
 declare class PrintContainer extends VisualContainer$1 {
     static readonly CLASS_NAME = "rr-report-container";
     static readonly PREVIEW_CLASS = "rr-report-preview";
@@ -6856,6 +6855,12 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_getPreviewer;
     private $_resetPreviewer;
     private $_buildOutput;
+    /**
+     * unitpost 한장 요약 HTML 요청으로 singlePage 별도 메서드로 분리
+     */
+    private $_prepareSinglePage;
+    private $_setSinglePage;
+    private $_isReportFooter;
     private $_layoutFloatings;
 }
 
