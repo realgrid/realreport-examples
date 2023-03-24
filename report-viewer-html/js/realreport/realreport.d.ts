@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.6.3
+* RealReport v1.6.4
 * commit f43f03e
 
 * Copyright (C) 2013-2023 WooriTech Inc.
@@ -10,10 +10,10 @@
 */
 
 /** 
-* RealReport Core v1.6.3
+* RealReport Core v1.6.4
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 43175979256e8a9718b16c74107a144ccd4e5e2e
+* commit 6c5a128aea75a18097fa79c42e5d8d8149ab312b
 */
 
 
@@ -5110,6 +5110,9 @@ declare abstract class ReportPageItem extends Base$1 implements ISelectionSource
     protected _saveObjects(items: ReportItem[], target: any): void;
     protected _arrangePaddingStyles(styles: Styles): void;
     protected _validateSize(v: ValueString): ValueString;
+    protected _validateStylesValue(styles: {
+        [key: string]: string;
+    }): void;
 }
 declare enum ItemMoveType {
     INNER = "inner",
