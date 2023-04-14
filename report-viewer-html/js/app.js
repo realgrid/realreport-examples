@@ -216,6 +216,26 @@ const resetActiveClass = function(activeEl, selection, active, resetIndex) {
     }
 }
 
+// composite report는 이 함수를 이용하지 않는다.
+const makeReport = (serviceReport) => {
+    if (!serviceReport || !serviceReport.report) return; // throw Error;
+    if (Array.isArray(serviceReport.report)) {
+        // serviceReport = [{report: [{report}, {report}], data}]
+        return serviceReport.report.map(report => {
+            return {
+                form: report,
+                dataSet: serviceReport.data
+            }
+        })
+    } else {
+        // serviceReport = [{report, data}]
+        return [{
+            form: serviceReport.report,
+            dataSet: serviceReport.data
+        }];
+    }
+}
+
 
 //--------------------------------------------------------------------------------------------------
 // event handlers
@@ -235,11 +255,7 @@ const onClickReportPreviewMenu = async function(event) {
         // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
         // report = { id, name, report, data, description }
         // console.log(serviceItem);
-        const reportItem = serviceItem.report;
-        const reports = [{
-            form: reportItem.report,
-            dataSet: reportItem.data
-        }];
+        const reports = makeReport(serviceItem.report);
 
         // import from preview.js
         reportViewer = previewFrame('reportFrame', reports);
@@ -280,11 +296,7 @@ const onClickPreviewPopup = function(event) {
         // ReportreportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
         // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
         // report = { id, name, report, data, description }
-        const reportItem = serviceItem.report;
-        const reports = [{
-            form: reportItem.report,
-            dataSet: reportItem.data
-        }];
+        const reports = makeReport(serviceItem.report);
 
         // import from preview.js
         previewPopup(reports);
@@ -320,7 +332,7 @@ function reportSample2(el) {
 // 복합 출력 샘플 1 + 2
 function reportSampleComposit(el) {
     openTab('reportTab', 'gridTab');
-    reportViewer = previewFrame('reportFrame', [sampleReport200, sampleReport205]);
+    reportViewer = previewFrame('reportFrame', [sampleReport200, sampleReport203]);
     setEditorModel('reportForm');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
 }
