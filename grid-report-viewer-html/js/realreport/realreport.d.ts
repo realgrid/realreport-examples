@@ -1,8 +1,8 @@
-/// <reference types="pdfkit" />
 /// <reference types="node" />
+/// <reference types="pdfkit" />
 /** 
-* RealReport v1.7.0
-* commit 8f4cff9
+* RealReport v1.6.4
+* commit f43f03e
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -10,11 +10,13 @@
 */
 
 /** 
-* RealReport Core v1.7.0
+* RealReport Core v1.6.4
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 099ae09381e32596552e482b4c04e01cf50bb0f1
+* commit 6c5a128aea75a18097fa79c42e5d8d8149ab312b
 */
+
+
 declare const enum Cursor$1 {
     DEFAULT = "default",
     AUTO = "auto",
@@ -48,8 +50,8 @@ declare enum PrintUnit {
     CENTCH = "cm",
     MILLI = "mm"
 }
-type ValueString = string | number;
-type Styles = {
+declare type ValueString = string | number;
+declare type Styles = {
     [key: string]: string;
 };
 /**
@@ -117,10 +119,6 @@ declare enum LinkTarget {
     BLANK = "_blank",
     PARENT = "_parent",
     TOP = "_top"
-}
-declare enum PaperOrientation {
-    PORTRAIT = "portrait",
-    LANDSCAPE = "landscape"
 }
 declare enum ResizeDirection {
     LEFT = "left",
@@ -197,13 +195,8 @@ declare enum CrosstabSummary {
     COUNT = "count",
     DISTINCT = "distinct"
 }
-declare enum SectionInherit {
-    NONE = "none",
-    HEAD = "head",
-    PREVIOUS = "previous"
-}
 
-type ConfigObject$1 = {
+declare type ConfigObject$1 = {
     [key: string]: any;
 };
 /** @internal */
@@ -833,7 +826,6 @@ declare abstract class VisualContainer$1 extends EventAware$1 implements VisualT
     private _saveDisplay;
     private $_testing;
     constructor(containerId: string | HTMLDivElement);
-    protected _initContainer(containerId: string | HTMLDivElement): void;
     protected _doDispose(): void;
     /** document */
     get doc(): Document;
@@ -957,7 +949,7 @@ declare abstract class VisualContainer$1 extends EventAware$1 implements VisualT
     private _focusHandlerFireFox;
 }
 
-type VisualElementCallback = (element: VisualElement$1, dom: HTMLElement) => void;
+declare type VisualElementCallback = (element: VisualElement$1, dom: HTMLElement) => void;
 /** @internal */
 declare abstract class VisualElement$1 extends EventAware$1 {
     private static readonly Testing;
@@ -1214,30 +1206,15 @@ declare class ListableProperty extends StringProperty {
 /**
  */
 declare class PageItemContainer extends BoundedContainer {
-    static readonly PROP_INHERIT = "inherit";
     static readonly $_ctor: string;
-    static readonly PROPINFOS: IPropInfo[];
-    private _inherit;
-    protected _inherited: boolean;
     private _label;
     constructor(name: string, label: string);
-    /**
-     * 이전 페이지 표시대로 출력한다.
-     */
-    get inherit(): SectionInherit;
-    set inherit(value: SectionInherit);
-    get inherited(): boolean;
     get outlineLabel(): string;
     get isArray(): boolean;
-    canNamed(): boolean;
-    canTagged(): boolean;
     canResize(dir: ResizeDirection): boolean;
-    canPageBreak(): boolean;
-    canHide(): boolean;
     getMoveType(item: ReportItem): ItemMoveType;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
-    protected _getEditProps(): IPropInfo[];
 }
 
 declare abstract class BoxContainer extends ReportGroupItem {
@@ -1393,7 +1370,6 @@ declare class EditCommandStack$1 extends EventAware$1 {
  * 1. band는 body의 최상위 항목으로만 추가될 수 있다. 즉, 다른 항목의 자식이 될 수 없다.
  */
 declare class ReportPage extends ReportGroupItem implements IEventAware {
-    static readonly PROP_ORIENTATION = "orientation";
     static readonly ITEM_ADDED = "onPageItemAdded";
     static readonly ITEMS_ADDED = "onPageItemsAdded";
     static readonly ITEM_REMOVED = "onPageItemRemoved";
@@ -1401,10 +1377,7 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
     static readonly ITEM_CHANGED = "onPageItemChanged";
     static readonly COLLECTION_CHANGED = "onPageCollectionChanged";
     static readonly $_ctor: string;
-    static readonly PROPINFOS: IPropInfo[];
-    private _orientation;
     private _report;
-    private _pageIndex;
     private _events;
     private _nameMap;
     private _reportHeader;
@@ -1459,18 +1432,12 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
      * loading
      */
     get loading(): boolean;
-    /**
-     * orientation
-     */
-    get orientation(): PaperOrientation;
-    set orientation(value: PaperOrientation);
     getItem(name: string): ReportItem;
     removeItems(commands: EditCommandStack$1, items: ReportPageItem[]): number;
-    search(page: number, key: string, options: FindOptions, results: FindResult[]): void;
+    search(key: string, options: FindOptions, results: FindResult[]): void;
     get outlineLabel(): string;
     get pathLabel(): string;
     get page(): ReportPage;
-    outlineVisible(child: IOutlineSource): boolean;
     canMove(): boolean;
     getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
@@ -1516,8 +1483,20 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
  */
 declare class PageBody extends PageSection {
     static readonly $_ctor: string;
+    private _backItems;
+    private _frontItems;
     private _bodyItems;
     constructor();
+    /**
+     * backItems
+     */
+    get backItems(): ReportItem[];
+    get backItemsContainer(): PageItemContainer;
+    /**
+     * frontItems
+     */
+    get frontItems(): ReportItem[];
+    get frontItemsContainer(): PageItemContainer;
     /**
      * items
      */
@@ -1989,7 +1968,7 @@ declare class TableRowCollection extends ReportItemCollection<TableRow> {
     private $_invalidateRows;
     private $_rowChanged;
 }
-type TableCellStyleCallback = (ctx: PrintContext, cell: TableCell$1, row: number) => {
+declare type TableCellStyleCallback = (ctx: PrintContext, cell: TableCell$1, row: number) => {
     [key: string]: string | undefined;
 };
 /**
@@ -2178,13 +2157,13 @@ declare class TableCellCollection extends ReportItemCollection<TableCell$1> {
     protected _doMoveItem(from: number, to: number): boolean;
     protected _createCell(row: number, col: number): TableCell$1;
 }
-type TableBounds = {
+declare type TableBounds = {
     r1: number;
     c1: number;
     r2: number;
     c2: number;
 };
-type TableCellSpan = {
+declare type TableCellSpan = {
     r: number;
     c: number;
     v: TableCell$1;
@@ -3394,7 +3373,6 @@ declare class ReportElement extends VisualElement$1 {
     get measuredWidth(): number;
     /** measuredHeight */
     get measuredHeight(): number;
-    get measuredSize(): Size$1;
     /**
      * true면 measure() 시점이 아니라
      * layout() 시점에 parent의 크기를 기준으로 measure + layout을 동시 진행한다.
@@ -3404,7 +3382,6 @@ declare class ReportElement extends VisualElement$1 {
     hasModelWidth(): boolean;
     hasModelHeight(): boolean;
     measure(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
-    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
     layoutContent(ctx: PrintContext): void;
     print(doc: Document, ctx: PrintContext, w?: number): number;
     findElement(modelName: string): ReportItemElement<ReportItem>;
@@ -3432,7 +3409,6 @@ declare class ReportElement extends VisualElement$1 {
 
 /** @internal */
 declare abstract class ReportItemElement<T extends ReportItem> extends ReportElement {
-    static readonly FOLDED_HEIGHT = 22;
     protected _designView: HTMLDivElement;
     protected _bindMarker: HTMLSpanElement;
     private _a;
@@ -3455,19 +3431,13 @@ declare abstract class ReportItemElement<T extends ReportItem> extends ReportEle
     get isSpace(): boolean;
     get rotation(): number;
     setRotation(value: number): void;
-    canFold(): boolean;
     _clearDesign(): void;
     getEditText(): string;
     setEditText(report: Report, text: string): void;
     refreshPrintValues(ctx: PrintContext): void;
     get printable(): boolean;
-    protected _getModel(): T;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _setBindMarker(visible?: boolean, system?: boolean): void;
-    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
-    layoutContent(ctx: PrintContext): void;
-    protected _doMeasureFolded(hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutFolded(): void;
     protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
     private $_setRotation;
     protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
@@ -3480,9 +3450,8 @@ declare abstract class ReportItemElement<T extends ReportItem> extends ReportEle
     protected _setY(dom: HTMLElement, y: number): void;
     protected _setPos(dom: HTMLElement, x: number, y: number): void;
     protected _runValueCallback(ctx: PrintContext, m: ReportItem, value: any): any;
-    protected _getDesignText(): string;
 }
-type ReportItemView = ReportItemElement<ReportItem>;
+declare type ReportItemView = ReportItemElement<ReportItem>;
 /** @internal */
 declare abstract class ReportGroupItemElement<T extends ReportGroupItem> extends ReportItemElement<T> {
     private _contentBox;
@@ -3495,7 +3464,6 @@ declare abstract class ReportGroupItemElement<T extends ReportGroupItem> extends
     measureFixed: boolean;
     constructor(doc: Document, model: T, name: string);
     protected _doDispose(): void;
-    get contentBox(): HTMLDivElement;
     get navigable(): boolean;
     get lazyLayoutChildren(): boolean;
     isContentDom(dom: HTMLElement): boolean;
@@ -3532,9 +3500,9 @@ declare abstract class ReportGroupItemElement<T extends ReportGroupItem> extends
     protected _isItemFocused(item: ReportPageItem): boolean;
     protected _isItemSelected(item: ReportPageItem): boolean;
     protected _getFocusedItem(): ReportPageItem;
-    protected _doMeasureFolded(hintWidth: number, hintHeight: number): Size$1;
     protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
     protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _getDesignText(): string;
     protected _setDesignContent(empty: boolean, designView: HTMLDivElement): void;
     protected _doMeasureItem(ctx: PrintContext, index: number, elt: ReportElement, hintWidth: number, hintHeight: number): void;
     protected _createElement(report: ReportView, parent: ReportElement, item: ReportItem): ReportElement;
@@ -3548,7 +3516,7 @@ declare abstract class ReportGroupItemElement<T extends ReportGroupItem> extends
     protected _doAfterLayout(ctx: PrintContext): void;
     protected _doPrint(doc: Document, ctx: PrintContext): void;
 }
-type ReportGroupItemView = ReportGroupItemElement<ReportGroupItem>;
+declare type ReportGroupItemView = ReportGroupItemElement<ReportGroupItem>;
 interface ITable {
     colCount: number;
     columns: TableColumnCollectionBase<ReportGroupItem, TableColumnBase>;
@@ -3685,7 +3653,7 @@ declare abstract class CrosstabFieldCollection<T extends CrosstabField> extends 
     protected _resetFields(): void;
     protected _fieldChanged(field: CrosstabField): void;
 }
-type CrosstabFieldCell = CrosstabField | CrosstabFieldHeader | CrosstabFieldSummary | CrosstabFieldSummaryHeader;
+declare type CrosstabFieldCell = CrosstabField | CrosstabFieldHeader | CrosstabFieldSummary | CrosstabFieldSummaryHeader;
 declare class CrosstabRowField extends CrosstabField {
     static readonly $_ctor: string;
     get itemType(): string;
@@ -3982,6 +3950,10 @@ declare enum PaperSize {
     A7 = "A7",
     A8 = "A8"
 }
+declare enum PaperOrientation {
+    PORTRAIT = "portrait",
+    LANDSCAPE = "landscape"
+}
 /**
  * Paper options
  */
@@ -4029,22 +4001,14 @@ declare class PaperOptions extends Base$1 {
     get marginBottom(): ValueString;
     set marginBottom(value: ValueString);
     load(src: any): void;
-    getOrientation(page?: ReportPage): PaperOrientation;
-    getPaperSize(): Size$1;
-    getPageSize(page?: ReportPage): Size$1;
+    getPageSize(): Size$1;
     getMargins(): ISides;
     getContentRect(r: Rectangle$1): Rectangle$1;
-    getClientRect(page: ReportPage): Rectangle$1;
-    applyExtents(page: ReportPage, css: CSSStyleDeclaration): void;
-    applyPreviewExtents(page: ReportPage, css: CSSStyleDeclaration): {
-        width: string;
-        height: string;
-    };
-    applyClient(page: ReportPage, css: CSSStyleDeclaration): void;
-    applyPreviewClient(page: ReportPage, css: CSSStyleDeclaration): {
-        width: string;
-        height: string;
-    };
+    getClientRect(): Rectangle$1;
+    applyExtents(css: CSSStyleDeclaration): void;
+    applyPreviewExtents(css: CSSStyleDeclaration): void;
+    applyClient(css: CSSStyleDeclaration): void;
+    applyPreviewClient(css: CSSStyleDeclaration): void;
     protected _changed(): void;
 }
 /**
@@ -4063,7 +4027,6 @@ declare class ReportInfo extends Base$1 {
  * Find result
  */
 interface FindResult {
-    page: number;
     item: ReportItem;
     prop: string;
 }
@@ -4144,8 +4107,6 @@ declare class ReportRootItem extends ReportGroupItem {
 declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPropertyContainer {
     static readonly RESET = "onReportReset";
     static readonly PAPER_CHANGED = "onReportPaperChanged";
-    static readonly PAGE_ADDED = "onReportPageAdded";
-    static readonly PAGE_REMOVED = "onReportPageRemoved";
     static readonly ITEM_ADD = "onReportItemAdd";
     static readonly ITEM_ADDED = "onReportItemAdded";
     static readonly ITEMS_ADDED = "onReportItemsAdded";
@@ -4153,7 +4114,6 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     static readonly ITEMS_REMOVED = "onReportItemsRemoved";
     static readonly ITEM_CHANGED = "onReportItemChanged";
     static readonly ITEM_MOVED = "onReportItemMoved";
-    static readonly ITEM_FOLDED = "onReportItemFolded";
     static readonly COLLECTION_CHANGED = "onReportCollectionChanged";
     static readonly COMMANDS_STACK_CHANGED = "onReportCommandStackChanged";
     static readonly DIRTY_CHANGED = "onReportDirtyChanged";
@@ -4169,7 +4129,7 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     private _unit;
     private _assetRoot;
     private _root;
-    private _pages;
+    private _page;
     private _assets;
     private _data;
     private _designData;
@@ -4206,8 +4166,7 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     get root(): ReportRootItem;
     /** page */
     get page(): ReportPage;
-    get pages(): ReportPage[];
-    get pageCount(): number;
+    set page(value: ReportPage);
     /** assets */
     get assets(): AssetManager;
     /** data */
@@ -4223,13 +4182,6 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     load(src: any): Report;
     setSaveTagging(tag: string): Report;
     save(pageOnly?: boolean): object;
-    getPage(index: number): ReportPage;
-    addPage(): ReportPage;
-    removePage(index: number): boolean;
-    movePage(index: number, newIndex: number): void;
-    internalAddPage(page?: ReportPage): ReportPage;
-    internalRemovePage(page: ReportPage): boolean;
-    internalMovePage(index: number, newIndex: number): void;
     getMaxPageCount(): number;
     prepareLayout(): void;
     preparePrint(ctx: PrintContext): void;
@@ -4354,16 +4306,13 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
         item: ReportItem;
         reason: string;
     }[];
-    foldedChanged(item: ReportItem): void;
-    private $_addPage;
     private $_refreshInvalids;
-    private $_resetPages;
-    protected onPageItemAdded(source: IEventAware, item: ReportPageItem, index: number, silent: boolean): void;
-    protected onPageItemsAdded(source: IEventAware, items: ReportPageItem[], index: number): void;
-    protected onPageItemRemoved(source: IEventAware, item: ReportPageItem, oldParent: ReportGroupItem): void;
-    protected onPageItemsRemoved(source: IEventAware, items: ReportPageItem[]): void;
-    protected onPageItemChanged(source: IEventAware, item: ReportPageItem, prop: string, value: any, oldValue: any): void;
-    protected onPageCollectionChanged(source: IEventAware, collection: ReportItemCollection<any>): void;
+    private onPageItemAdded;
+    private onPageItemsAdded;
+    private onPageItemRemoved;
+    private onPageItemsRemoved;
+    private onPageItemChanged;
+    private onPageCollectionChanged;
     protected _fireReset(): void;
     protected _firePaperChanged(): void;
     protected _fireItemAdd(group: ReportGroupItem, item: ReportItem, index: number): boolean;
@@ -4379,7 +4328,6 @@ interface IOutlineSource {
     outlineItems?: IOutlineSource[];
     outlineLabel: string;
     outlineOrder: number;
-    outlineVisible(child: IOutlineSource): boolean;
     getSaveType(): string;
     canRemoveFrom(): boolean;
     canParentOf?(itemType: string): boolean;
@@ -5094,7 +5042,6 @@ declare abstract class ReportPageItem extends Base$1 implements ISelectionSource
     outlineOrder: number;
     get index(): number;
     get outlineItems(): IOutlineSource[];
-    outlineVisible(child: IOutlineSource): boolean;
     abstract getSaveType(): string;
     abstract canRemoveFrom(): boolean;
     canParentOf(itemType: string): boolean;
@@ -5171,8 +5118,8 @@ declare enum ItemMoveType {
     INNER = "inner",
     OUTER = "outer"
 }
-type ReportItemValueCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => any;
-type ReportItemStyleCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => {
+declare type ReportItemValueCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => any;
+declare type ReportItemStyleCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => {
     [key: string]: string | undefined;
 };
 /**
@@ -5265,7 +5212,6 @@ declare abstract class ReportItem extends ReportPageItem {
     private _pageBreak;
     private _designOrder;
     private _designBorder;
-    private _folded;
     private _parent;
     private _index;
     private _childPropInfos;
@@ -5458,7 +5404,6 @@ declare abstract class ReportItem extends ReportPageItem {
     set designBorder(value: boolean);
     isRelativeHeight(): boolean;
     isRelativeWidth(): boolean;
-    get folded(): boolean;
     /**
      * ColumnBoxContainer|BoundedContainer
      */
@@ -5576,17 +5521,10 @@ declare abstract class ReportItem extends ReportPageItem {
     canRemoveFrom(): boolean;
     canAdoptDragSource(source: any): boolean;
     adoptDragSource(source: any): IDropResult;
-    canNamed(): boolean;
-    canTagged(): boolean;
-    canHide(): boolean;
     canPageBreak(): boolean;
     isBreakBefore(): boolean;
     isBreakAfter(): boolean;
     getInvalids(report: Report): string[];
-    canFold(): boolean;
-    fold(): boolean;
-    unfold(): boolean;
-    protected _foldedChanged(): void;
     get marqueeParent(): ReportItem;
     get printable(): boolean;
     isReadOnlyProperty(prop: IPropInfo): boolean;
@@ -5681,7 +5619,7 @@ declare abstract class ReportGroupItem extends ReportItem {
     clear(): void;
     getMoveType(item: ReportItem): ItemMoveType;
     canResizeChild(item: ReportItem, dir: ResizeDirection): boolean;
-    search(page: number, key: string, options: FindOptions, results: FindResult[]): void;
+    search(key: string, options: FindOptions, results: FindResult[]): void;
     canChangeChildProp(item: ReportPageItem, prop: string, value: any): boolean;
     changeChildIndex(child: ReportItem, newIndex: number): boolean;
     canAlign(child: ReportItem): boolean;
@@ -5921,7 +5859,6 @@ declare enum PropCategory {
     BOUND = "bound",
     LINK = "link",
     EVENT = "event",
-    SECTION = "section",
     EDITOR = "editor",
     REPORT = "report",
     PAPER = "paper",
@@ -6069,25 +6006,10 @@ declare class ReportFooter extends SpaceableSection {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
 }
-declare abstract class InheritableSection extends SpaceableSection {
-    static readonly PROP_INHERIT = "inherit";
-    static readonly PROPINFOS: IPropInfo[];
-    private _inherit;
-    protected _inherited: boolean;
-    /**
-     * 이전 페이지 표시대로 출력한다.
-     */
-    get inherit(): SectionInherit;
-    set inherit(value: SectionInherit);
-    get inherited(): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _getEditProps(): IPropInfo[];
-}
 /**
  * Report page header model.
  */
-declare class PageHeader extends InheritableSection {
+declare class PageHeader extends SpaceableSection {
     static readonly $_ctor: string;
     constructor();
     get outlineLabel(): string;
@@ -6097,7 +6019,7 @@ declare class PageHeader extends InheritableSection {
 /**
  * Report page footer model.
  */
-declare class PageFooter extends InheritableSection {
+declare class PageFooter extends SpaceableSection {
     static readonly $_ctor: string;
     constructor();
     get outlineLabel(): string;
@@ -6134,7 +6056,7 @@ declare abstract class SectionElement<T extends PageSection> extends StackContai
     protected _isContexable(): boolean;
     protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
     protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
+    measure(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
 }
 /** @internal */
 declare class ReportHeaderElement extends SectionElement<ReportHeader> {
@@ -6152,31 +6074,21 @@ declare class ReportFooterElement extends SectionElement<ReportFooter> {
     get debugLabel(): string;
     protected _getCssSelector(): string;
 }
-declare abstract class InheritableSectionElement<T extends InheritableSection> extends SectionElement<T> {
-    static readonly CLONE_CLASS = "rr-section-clone";
-    private _baseModel;
-    setBase(base: T): void;
-    protected _getModel(): T;
-    protected _setDesignContent(empty: boolean, designView: HTMLDivElement): void;
-}
 /** @internal */
-declare class PageHeaderElement extends InheritableSectionElement<PageHeader> {
+declare class PageHeaderElement extends SectionElement<PageHeader> {
     constructor(doc: Document, model?: PageHeader);
     protected _doDispose(): void;
     get debugLabel(): string;
     protected _getCssSelector(): string;
     protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
 }
 /** @internal */
-declare class PageFooterElement extends InheritableSectionElement<PageFooter> {
+declare class PageFooterElement extends SectionElement<PageFooter> {
     constructor(doc: Document, model?: PageFooter);
     protected _doDispose(): void;
     get debugLabel(): string;
     protected _getCssSelector(): string;
     protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
 }
 
 /**
@@ -6185,21 +6097,10 @@ declare class PageFooterElement extends InheritableSectionElement<PageFooter> {
  */
 declare abstract class BoxContainerElement<T extends BoxContainer> extends ReportGroupItemElement<T> {
     protected _container: ReportGroupItemView;
-    protected _paddings: {
-        left: number;
-        right: number;
-        top: number;
-        bottom: number;
-    };
+    protected _paddings: any;
     protected _gap: number;
     constructor(doc: Document, model: T, name: string);
     get gap(): number;
-    get paddings(): {
-        left: number;
-        right: number;
-        top: number;
-        bottom: number;
-    };
     get debugLabel(): string;
     protected _needDesignBox(): boolean;
     protected _initDom(doc: Document, dom: HTMLElement): void;
@@ -6229,6 +6130,8 @@ declare class ColumnBoxContainerElement extends BoxContainerElement<ColumnBoxCon
 declare class PageBodyElement extends ReportElement {
     private _model;
     private _findable;
+    private _backContainerView;
+    private _frontContainerView;
     private _itemsView;
     private _modelChanged;
     constructor(doc: Document, model?: PageBody);
@@ -6291,8 +6194,8 @@ declare class PageItemContainerElement extends BoundedContainerElement<PageItemC
     protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
 }
 
-type PrintPageCallback = (ctx: PrintContext, page: PrintPage, pageNo: number) => void;
-type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => void;
+declare type PrintPageCallback = (ctx: PrintContext, page: PrintPage, pageNo: number) => void;
+declare type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => void;
 /** @internal */
 declare class PageView extends LayerElement$1 {
     private _model;
@@ -6305,10 +6208,6 @@ declare class PageView extends LayerElement$1 {
     private _frontView;
     private _sections;
     private _sectionGuard;
-    headerHeight: number;
-    footerHeight: number;
-    reportHeaderHeight: number;
-    reportFooterHeight: number;
     constructor(doc: Document);
     protected _doDispose(): void;
     /** model */
@@ -6329,9 +6228,7 @@ declare class PageView extends LayerElement$1 {
     get frontFloatingView(): PageItemContainerElement;
     get sections(): ReportElement[];
     isPageDom(dom: HTMLElement): boolean;
-    getBaseView<T extends InheritableSectionElement<any>>(view: T, pageViews: PageView[], viewType: string): T;
-    preparePrint(ctx: PrintContext): void;
-    measure(ctx: PrintContext, bounds: Rectangle$1, pageViews: PageView[]): ISize;
+    measure(ctx: PrintContext, bounds: Rectangle$1): ISize;
     layout(ctx: PrintContext, bounds: Rectangle$1): void;
     layoutFloating(ctx: PrintContext): void;
     afterRender(ctx: PrintContext): void;
@@ -6341,7 +6238,7 @@ declare class PageView extends LayerElement$1 {
     getAllElements(root: ReportElement, bounds: Rectangle$1): ReportItemView[];
     prepareAsync(doc: Document, ctx: PrintContext): PrintLine[];
     refreshPageHeader(doc: Document, ctx: PrintContext): HTMLDivElement;
-    getSections(): ReportItemView[];
+    getSections(): ReportElement[];
     /**
      * 페이지의 한 행을 전부 차지하는가?
      */
@@ -6358,14 +6255,13 @@ declare class PageView extends LayerElement$1 {
     getLower(elt: ReportItemView): ReportItemView;
     itemOfDom(dom: Element): ReportItem;
     protected _getCssSelector(): string;
-    $_setModel(model: ReportPage): void;
+    private $_setModel;
 }
 /**
  * print page model.
  */
 declare class PrintPage {
     page: HTMLDivElement;
-    pageOrientation: PaperOrientation;
     pageHeader: HTMLDivElement;
     pageFooter: HTMLDivElement;
     background: HTMLDivElement;
@@ -6383,8 +6279,8 @@ declare class ReportView extends LayerElement$1 implements IImageContainer {
     private _loadError;
     private _editable;
     private _emptyView;
-    private _pageLayer;
-    private _pageViews;
+    private _pageView;
+    private _activePage;
     private _boxMeasurer;
     private _boxInner;
     private _nameMap;
@@ -6400,15 +6296,12 @@ declare class ReportView extends LayerElement$1 implements IImageContainer {
     /** model */
     get model(): Report;
     set model(value: Report);
+    /** pageView */
     get pageView(): PageView;
-    protected _resetPages(model: Report): void;
     /** loadError */
     get loadError(): string;
     set loadError(value: string);
     get zoom(): number;
-    get pageViews(): PageView[];
-    _internalPageViews(): PageView[];
-    getPageView(index: number): PageView;
     getBoxPaddings(model: ReportItem): {
         left: number;
         right: number;
@@ -6422,26 +6315,22 @@ declare class ReportView extends LayerElement$1 implements IImageContainer {
     protected _getCssSelector(): string;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _createEmptyView(doc: Document): VisualElement$1;
-    protected _createPageView(doc: Document): PageView;
     protected _layoutPageBorders(rReport: Rectangle$1, rPage: Rectangle$1): void;
     private $_layout;
-    protected _afterLayout(ctx: PrintContext, bounds: Rectangle$1): void;
+    protected _afterLayout(ctx: PrintContext): void;
     $_afterRender(ctx: PrintContext): void;
     $_createElement(item: ReportItem): ReportElement;
     /**
      * PrintContainer.$_print(...)에서 호출한다.
      */
-    $_preparePrint(ctx: PrintContext): void;
+    private $_preparePrint;
     /**
      * PrintContainer.$_print(...)에서 호출한다.
      */
-    $_endPrint(ctx: PrintContext): void;
-    protected _modelReset(): void;
+    private $_endPrint;
     protected _modelChanged(): void;
     protected onReportReset(report: Report): void;
     protected onReportPaperChanged(report: Report): void;
-    protected onReportPageAdded(report: Report, page: ReportPage): void;
-    protected onReportPageRemoved(report: Report, page: ReportPage, index: number): void;
     protected onReportItemAdded(report: Report, item: ReportItem, index: number, silent: boolean): void;
     protected onReportItemRemoved(report: Report, item: ReportItem, oldParent: ReportGroupItem): void;
     protected onReportItemsRemoved(report: Report, items: ReportPageItem[]): void;
@@ -6594,7 +6483,7 @@ declare abstract class TextItemElementBase<T extends TextItemBase> extends Repor
     isDom(dom: HTMLElement): boolean;
     protected _getText(m: TextItemBase, v: any): string;
     protected abstract _getPrintText(ctx: PrintContext, m: T): string;
-    protected abstract _getDesignText2(m: T, system: boolean): string;
+    protected abstract _getDesignText(m: T, system: boolean): string;
 }
 
 /**
@@ -6789,9 +6678,8 @@ declare class PrintContext extends Base$1 {
     getValue(data: string, row: number, field: string): any;
     saveBand(): void;
     restoreBand(): void;
-    getBaseView(view: InheritableSectionElement<any>, viewType: string): InheritableSectionElement<any>;
 }
-type ContextValueCallback = (ctx: PrintContext) => any;
+declare type ContextValueCallback = (ctx: PrintContext) => any;
 declare class PageBreaker {
 }
 declare class ReportFooterPrintInfo {
@@ -6838,7 +6726,7 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     protected _buildEndRows(marker: EndRowMarker, rowCount: number, rows: any[]): void;
     protected _unshiftEndRows(row: any, rows: any[]): void;
 }
-type PrintLine = HTMLElement | BandPrintInfo<any> | ReportFooterPrintInfo | PageBreaker;
+declare type PrintLine = HTMLElement | BandPrintInfo<any> | ReportFooterPrintInfo | PageBreaker;
 interface IReportData {
     name: string;
     isBand: boolean;
@@ -6917,7 +6805,6 @@ interface IPrintOptions {
 declare class PrintContainer extends VisualContainer$1 {
     static readonly CLASS_NAME = "rr-report-container";
     static readonly PREVIEW_CLASS = "rr-report-preview";
-    static readonly PRINT_SIZE = "--rr-print-size";
     private static readonly MARKER_CLASS;
     private static readonly PRINT_INDICATOR_CLASS;
     private static readonly PRINT_BACK_CLASS;
@@ -6937,7 +6824,6 @@ declare class PrintContainer extends VisualContainer$1 {
     private _preview;
     private _previewId;
     private _options;
-    private _printMode;
     constructor(containerId: string | HTMLDivElement);
     protected _doDispose(): void;
     /** pageCount */
@@ -6978,9 +6864,6 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_prepareSinglePage;
     private $_setSinglePage;
     private $_isReportFooter;
-    private $_setPrintMode;
-    private $_getScaleSize;
-    private $_setUnvisibleDom;
     private $_layoutFloatings;
 }
 
