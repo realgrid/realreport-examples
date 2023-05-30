@@ -23,7 +23,7 @@ const GRID_DEMO_URL = SERVICE_HOST.concat('/api/grid/griddemo');
 // onLoad
 //--------------------------------------------------------------------------------------------------
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var isIE = window.document.documentMode ? true : false;
     if (isIE) {
         document.write('죄송합니다. RealReport 데모 사이트는 IE브라우저를 지원하지 않습니다.');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //--------------------------------------------------------------------------------------------------
 
 // add node helper
-const appendNode = function(parent, tag, classNames, onClick) {
+const appendNode = function (parent, tag, classNames, onClick) {
     const el = document.createElement(tag);
     if (classNames) el.setAttribute('class', classNames);
     if (onClick) el.onclick = onClick;
@@ -50,13 +50,13 @@ const appendNode = function(parent, tag, classNames, onClick) {
 
 // 프레임 탭 열기
 function openTab(tabId, hideTabId) {
-    const setClasses = function(select, add, remove) {
+    const setClasses = function (select, add, remove) {
         var i;
         var x = document.getElementsByClassName(select);
         for (i = 0; i < x.length; i++) {
             if (add) x[i].classList.add(add);
             if (remove) x[i].classList.remove(remove);
-        }    
+        }
     }
     setClasses('frame-tab', 'hidden', undefined);
     setClasses('tab-button', undefined, 'active');
@@ -86,7 +86,7 @@ function openEditor(frameType, el) {
         document.getElementById('editorFrame').classList.remove('hidden');
     } else {
         hideEditor();
-        document.getElementById('editorFrame').classList.add('hidden');    
+        document.getElementById('editorFrame').classList.add('hidden');
     }
 }
 
@@ -123,7 +123,7 @@ function setEditorModel(sourceType) {
     if (reportViewer && sourceType === 'reportForm') {
         if (reportViewer._reportFormSets) {
             // ES5
-            const value = JSON.stringify(reportViewer._reportFormSets.map( set => set.form ), null, ' ');
+            const value = JSON.stringify(reportViewer._reportFormSets.map(set => set.form), null, ' ');
             model = monaco.editor.createModel(value, 'json');
         } else {
             const value = JSON.stringify(reportViewer.reportForm, null, ' ');
@@ -133,18 +133,18 @@ function setEditorModel(sourceType) {
     if (reportViewer && sourceType === 'reportData') {
         if (reportViewer._reportFormSets) {
             // ES5
-            const value = JSON.stringify(reportViewer._reportFormSets.map( set => set.dataSet ), null, ' ');
+            const value = JSON.stringify(reportViewer._reportFormSets.map(set => set.dataSet), null, ' ');
             model = monaco.editor.createModel(value, 'json');
         } else {
             const value = JSON.stringify(reportViewer.dataSet, null, ' ');
             model = monaco.editor.createModel(value, 'json');
-            }
+        }
     }
     if (model) editor.setModel(model);
 }
 
 // service 호출
-const serviceFetch = async function(serviceUrl, callback) {
+const serviceFetch = async function (serviceUrl, callback) {
     return fetch(serviceUrl, {
         method: 'POST',
         headers: {
@@ -153,23 +153,23 @@ const serviceFetch = async function(serviceUrl, callback) {
             'Authorization': realReportLic,
         },
         body: JSON.stringify({}),
-    }).then(function(r) {
+    }).then(function (r) {
         return r.json();
-    }).then(function(ret) {
+    }).then(function (ret) {
         if (ret) {
             const { status, message } = ret;
             if (status && status !== 200) console.error('Report Server error: ', message);
             if (typeof callback === 'function') callback(ret);
         }
-    }).catch(function(e) {
+    }).catch(function (e) {
         console.log(e);
     });
 }
 
 // 사이드바 데모용 리포트 목록 메뉴 구성
-const setupReportSidebar = function(category, hostUrl, sidebarId, onClick, onClickPopup) {
+const setupReportSidebar = function (category, hostUrl, sidebarId, onClick, onClickPopup) {
     // sidebar에 item 만들기: onclick 이벤트에서 preview처리
-    const sidebarLi = function(id, name) {
+    const sidebarLi = function (id, name) {
         const li = document.createElement('li');
         li.classList.add('menu-list-item');
         const a = appendNode(li, 'a', 'menu-link');
@@ -185,7 +185,7 @@ const setupReportSidebar = function(category, hostUrl, sidebarId, onClick, onCli
         return li;
     }
 
-    serviceFetch(hostUrl.concat('/list'),  function(ret) {
+    serviceFetch(hostUrl.concat('/list'), function (ret) {
         const ul = document.getElementById(sidebarId);
         if (ul) {
             ret.map(item => {
@@ -197,10 +197,10 @@ const setupReportSidebar = function(category, hostUrl, sidebarId, onClick, onCli
 }
 
 // 메뉴 링크 활성화 스타일 다시 지정하기
-const resetActiveClass = function(activeEl, selection, active, resetIndex) {
+const resetActiveClass = function (activeEl, selection, active, resetIndex) {
     const elements = document.getElementsByClassName(selection);
 
-    for (i=0; i<elements.length; i++) {
+    for (i = 0; i < elements.length; i++) {
         const element = elements[i];
         // active할 el을 넘기지 않고 resetIndex를 넘기면 해당 아이템을 active한다. 
         if (element) {
@@ -242,15 +242,15 @@ const makeReport = (serviceReport) => {
 //--------------------------------------------------------------------------------------------------
 
 // 사이드바에서 리포트 미리보기 메뉴 클릭
-const onClickReportPreviewMenu = async function(event) {
+const onClickReportPreviewMenu = async function (event) {
     const id = event.target.dataset.id;
     const hosturl = event.target.dataset.hosturl;
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
-    
+
     // setFrames('reportFrame', 'gridFrame', '리포트 미리보기');
     openTab('reportTab', 'gridTab');
 
-    serviceFetch(hosturl.concat('/', id), function(serviceItem) {
+    serviceFetch(hosturl.concat('/', id), function (serviceItem) {
         // ReportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
         // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
         // report = { id, name, report, data, description }
@@ -265,7 +265,7 @@ const onClickReportPreviewMenu = async function(event) {
 }
 
 // 사이드바에서 그리드 보기 메뉴 클릭
-const onClickGridViewMenu = function(event) {
+const onClickGridViewMenu = function (event) {
     const id = event.dataset.id;
     // console.log('GridViewItem: ', id);
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
@@ -278,7 +278,7 @@ const onClickGridViewMenu = function(event) {
         gridViewer = gridFrame.contentWindow.setGridLayout(gridItem);
 
         if (gridViewer) {
-            const options = gridItem.reportOptions || {};            
+            const options = gridItem.reportOptions || {};
             reportViewer = previewGridReportFrame('gridReportFrame', gridViewer, options);
         }
 
@@ -287,12 +287,12 @@ const onClickGridViewMenu = function(event) {
 }
 
 // 리포트 양식 미리보기 아이콘 클릭: 팝업 창에 리포트를 미리보기 합니다.
-const onClickPreviewPopup = function(event) {
+const onClickPreviewPopup = function (event) {
     const id = event.target.dataset.id;
     const hosturl = event.target.dataset.hosturl;
     if (!id) console.error('리포트 정보를 보여줄 키 ID가 없습니다.');
 
-    serviceFetch(hosturl.concat('/', id), function(serviceItem) {
+    serviceFetch(hosturl.concat('/', id), function (serviceItem) {
         // ReportreportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
         // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
         // report = { id, name, report, data, description }
@@ -304,13 +304,27 @@ const onClickPreviewPopup = function(event) {
 }
 
 // 그리드 메뉴 아이템 클릭
-const onClickGridPreviewPopup = function(event) {
+const onClickGridPreviewPopup = function (event) {
     const id = event.target.dataset.id;
     if (!id) console.error('그리드 ID가 없습니다.');
-    serviceFetch(GRID_DEMO_URL.concat('/', id), function(serviceItem) {
+    serviceFetch(GRID_DEMO_URL.concat('/', id), function (serviceItem) {
         const gridItem = serviceItem.grid;
         // console.log('POPUP GridItem: ', gridItem);
     })
+}
+
+function multiReportSample1(el) {
+    openTab('reportTab', 'gridTab');
+    reportViewer = previewFrame('reportFrame', [multiSample317]);
+    setEditorModel('reportForm');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
+}
+
+function multiReportSample2(el) {
+    openTab('reportTab', 'gridTab');
+    reportViewer = previewFrame('reportFrame', [multiSample318]);
+    setEditorModel('reportForm');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');;
 }
 
 // 복합 출력 샘플 1
