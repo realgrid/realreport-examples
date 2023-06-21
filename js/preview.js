@@ -79,3 +79,9 @@ function previewMultiFrame(iFrameId, reports, isDual) {
     reportFrame.classList.remove('hidden');
     return reportFrame.contentWindow.previewGridReport(grid, options);
 }
+
+function initPreviewFrame(iFrameId, reports) {
+    const reportFrame = document.getElementById(iFrameId);
+    reportFrame.classList.remove('hidden');
+    return reportFrame.contentWindow.initPreviewReport(reports);
+}

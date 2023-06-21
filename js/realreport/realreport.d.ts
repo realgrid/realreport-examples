@@ -2,7 +2,7 @@
 /// <reference types="node" />
 /** 
 * RealReport v1.7.1
-* commit fef3ee5
+* commit 370ca9e
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -10,10 +10,10 @@
 */
 
 /** 
-* RealReport Core v1.7.1
+* RealReport Core v1.7.2
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 56a210fb76e4d63b35b52c50072d73d1e55e61c3
+* commit 60ccbe3cee9e50ff750aa5d28965b0ae5221ba37
 */
 declare const enum Cursor$1 {
     DEFAULT = "default",
@@ -45,7 +45,7 @@ declare enum PrintUnit {
     PIXEL = "px",
     POINT = "pt",
     INCH = "in",
-    CENTCH = "cm",
+    CENTI = "cm",
     MILLI = "mm"
 }
 type ValueString = string | number;

@@ -174,6 +174,7 @@ const setupReportSidebar = function (category, hostUrl, sidebarId, onClick, onCl
         li.classList.add('menu-list-item');
         const a = appendNode(li, 'a', 'menu-link');
         const spanPreview = appendNode(a, 'span', '', onClick);
+        spanPreview.id = id;
         spanPreview.innerText = name;
         spanPreview.dataset['id'] = id;
         spanPreview.dataset['category'] = category;
@@ -240,6 +241,24 @@ const makeReport = (serviceReport) => {
 //--------------------------------------------------------------------------------------------------
 // event handlers
 //--------------------------------------------------------------------------------------------------
+
+// 제품 발표회용 임시 init
+const initPreview = async function () {
+    var initMenu = document.getElementById('500');
+    openTab('reportTab', 'gridTab');
+    serviceFetch("https://service.real-report.com/api/report/demo/500", function (serviceItem) {
+        // ReportViewer의 report 타입은 { form, dataSet } 의 구조를 가진다.
+        // 배열로 리포트 정보를 여러개 넘길 수 있다. 2개 이상의 리포트가 있는 경우 CompositReport
+        // report = { id, name, report, data, description }
+        // console.log(serviceItem);
+        const reports = makeReport(serviceItem.report);
+
+        // import from preview.js
+        reportViewer = initPreviewFrame('reportFrame', reports);
+        setEditorModel('reportForm');
+        resetActiveClass(initMenu.parentElement, 'menu-link-active', 'menu-link-active');
+    });
+}
 
 // 사이드바에서 리포트 미리보기 메뉴 클릭
 const onClickReportPreviewMenu = async function (event) {
