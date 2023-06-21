@@ -18,17 +18,25 @@
 </head>
 
 <body>
-    <div class="root">
+    <div id="overlay"></div>
+    <div id="root" class="root">
         <div class="header">
             <div class="toolbar">
                 <div class="toolbar-left">
+                    <button id="menu-btn" class="close-btn" onclick="toggleNav()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+                            <path
+                                d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z" />
+                        </svg>
+                    </button>
                     <a class="toolbar-brand" href="https://real-report.com">
                         <img src="/img/logo.svg" alt="RealReport Logo" class="toolbar-logo">
                         <b class="toolbar-title">Real Report</b>
                     </a>
-                    <a class="toolbar-item toolbar-link" href="https://real-report.com/pricing">가격</a>
-                    <a class="toolbar-item toolbar-link" href="https://real-report.com/docs/getting-started">문서</a>
-                    <a class="toolbar-item toolbar-link toolbar-link-active" href="https://demo.real-report.com">데모</a>
+                    <div>
+                        <a class="toolbar-item toolbar-link" href="https://real-report.com/pricing">가격</a>
+                        <a class="toolbar-item toolbar-link" href="https://real-report.com/docs/getting-started">문서</a>
+                    </div>
                 </div>
                 <div class="toolbar-center">
                 </div>
@@ -83,7 +91,7 @@
             </div>
         </div>
         <div class="container">
-            <div class="sidenav-container">
+            <div id="sidenav" class="sidenav-container">
                 <div class="sidenav">
                     <div class="menu">
                         <div id="spinner" class="spinner">
@@ -197,6 +205,12 @@
                                     </svg>
                                 </span>
                             </div>
+                            <div class="report-tab mobile-show" id="reportMenu" onclick="toggleNav()">
+                                <span class="report-tab-title">양식 메뉴</span>
+                                <span class="report-tab-icon">
+                                    <img src="./img/text-document.png" width="20" height="20" />
+                                </span>
+                            </div>
                             <div class="tab-button hidden" id="gridTabBtn">
                                 <span class="tab-header tab-title" onclick="openTab('gridTab')">Grid 보기</span>
                             </div>
@@ -261,8 +275,46 @@
 
             menuReport.style.visibility = 'visible';
             menuGrid.style.visibility = 'visible';
+
+            initPreview();
         });
 
+        function toggleNav() {
+            var rootEl = document.getElementById("root");
+            var sideEl = document.getElementById("sidenav");
+            var overlayEl = document.getElementById("overlay");
+
+            if (!rootEl.className.includes('body-overlay')) {
+                rootEl.classList.add("body-overlay");
+                sideEl.style.width = "300px";
+                overlayEl.style.display = "block";
+            } else {
+                rootEl.classList.remove("body-overlay");
+                sideEl.style.width = "0px";
+                overlayEl.style.display = "none";
+            }
+        }
+
+        window.onload = () => {
+            var rootEl = document.getElementById("root");
+            var menu = document.getElementById("sidenav");
+            var menuBtnEl = document.getElementById("menu-btn");
+            var reportMenuEl = document.getElementById("reportMenu");
+
+
+            document.onclick = (event) => {
+                var isClickInside = menu.contains(event.target);
+
+                if (menuBtnEl.contains(event.target)) {
+                    return;
+                } else if (reportMenuEl.contains(event.target)) {
+                    return;
+                } else if (!isClickInside && rootEl.className.includes('body-overlay')) {
+                    console.log('t')
+                    toggleNav();
+                }
+            }
+        }
     </script>
     <script src="/js/monaco-editor/min/vs/loader.js"></script>
     <script src="/js/monaco-editor/min/vs/editor/editor.main.nls.js"></script>

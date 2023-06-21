@@ -3,6 +3,14 @@
     flex-grow: 1;
     padding: 0.5rem;
     font-weight: var(--font-weight-semibold);
+    padding-bottom: 80px;
+}
+
+@media (min-width: 768px) {
+    .menu {
+        width: 300px;
+        padding-bottom: 0;
+    }
 }
 
 .menu-list {
