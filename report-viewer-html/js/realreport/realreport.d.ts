@@ -1,8 +1,8 @@
 /// <reference types="pdfkit" />
 /// <reference types="node" />
 /** 
-* RealReport v1.7.1
-* commit 370ca9e
+* RealReport v1.7.2
+* commit 3e2393d
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -13,7 +13,7 @@
 * RealReport Core v1.7.2
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 60ccbe3cee9e50ff750aa5d28965b0ae5221ba37
+* commit 5f0ed42cb85e4af49c799269cc92ce9139da2dcd
 */
 declare const enum Cursor$1 {
     DEFAULT = "default",
@@ -6675,7 +6675,6 @@ declare class PrintContext extends Base$1 {
     pageDelay: number;
     report: Report;
     container: HTMLDivElement;
-    tableContainer: HTMLDivElement;
     headerHeight: number;
     footerHeight: number;
     reportHeaderHeight: number;
@@ -6970,6 +6969,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_printReport;
     private $_getContainer;
     private $_getPreviewer;
+    private $_getPageHeight;
     private $_resetPreviewer;
     private $_buildOutput;
     /**
