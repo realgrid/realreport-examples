@@ -12,7 +12,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    touch-action: none;
     -ms-touch-action: none;
     -webkit-print-color-adjust: exact;
 }
@@ -32,7 +31,6 @@
     padding: 1px;
     /** 현재 이 설정이 없으면 중간 빈 페이지가 출력된다! */
     background-color: transparent;
-    pointer-events: none;
 }
 
 .rr-feedback-container {

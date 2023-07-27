@@ -1,8 +1,8 @@
 /// <reference types="pdfkit" />
 /// <reference types="node" />
 /** 
-* RealReport v1.7.2
-* commit 3e2393d
+* RealReport v1.7.3
+* commit dc14be1
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -10,10 +10,10 @@
 */
 
 /** 
-* RealReport Core v1.7.2
+* RealReport Core v1.7.3
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 5f0ed42cb85e4af49c799269cc92ce9139da2dcd
+* commit 0d781a39089760fda83c72c4f9c7ae91a3d011d2
 */
 declare const enum Cursor$1 {
     DEFAULT = "default",
@@ -137,6 +137,10 @@ declare namespace ResizeDirection {
     function isTop(dir: ResizeDirection): boolean;
     function isEdge(dir: ResizeDirection): boolean;
     function isIn(dir: ResizeDirection, ...dirs: ResizeDirection[]): boolean;
+}
+declare enum DataDirection {
+    ASCENDING = "ascending",
+    DESCENDING = "descending"
 }
 /**
  * Find options
@@ -1737,6 +1741,31 @@ declare class FieldValueRuntime extends ExpressionRuntime$1 {
     evaluateFunc(idKey: number, param: string): any;
 }
 
+/**
+ * @filename BandDataView.ts
+ * @author sykim <KIMSANGYEOB>
+ * @date 2023.07.13
+ * @description <밴드 데이터에서 추가적인 설정을 적용 후 표현하기 위해 작성>
+ */
+
+interface IBandDataView {
+    rowCount: number;
+    sort: (field: string, direction: DataDirection) => void;
+    getRowValue: (row: number, field: string) => any;
+    getFieldValues: (field: string, rows?: number[]) => any[];
+}
+declare class BandDataView extends Base$1 implements IBandDataView {
+    static readonly SOURCE_INDEX = "_sourceIndex";
+    private _source;
+    private _view;
+    constructor(data: IReportData);
+    get rowCount(): number;
+    sort(field: string, direction: DataDirection): this;
+    getRowValue(row: number, field: string): any;
+    getFieldValues(field: string, rows?: number[]): any[];
+    $_isValidField(field: string): boolean;
+}
+
 interface IBandDataField {
     fieldName: string;
     dataType?: "text" | "number" | "bool" | "datetime";
@@ -1770,7 +1799,7 @@ interface IBandData extends IReportData {
     getFieldValues(field: string | number): any[];
     equalValues(row: number, fields: string[], values: any[]): boolean;
     equalRows(row1: number, row2: number, fields?: string[]): boolean;
-    groupBy(fields: string[], rows: number[]): (number | IBandRowGroup | IBandRowGroupFooter)[];
+    groupBy(dataView: BandDataView, fields: string[], rows: number[]): (number | IBandRowGroup | IBandRowGroupFooter)[];
 }
 declare abstract class BandData extends ReportData$1 {
     protected _fields: IBandDataField[];
@@ -1793,7 +1822,7 @@ declare abstract class BandData extends ReportData$1 {
     addField(index: number, field: IBandDataField): boolean;
     removeField(field: IBandDataField): boolean;
     abstract getRowValue(row: number, field: string | number): any;
-    groupBy(fields: string[], subRows?: number[]): (number | IBandRowGroup | IBandRowGroupFooter)[];
+    groupBy(dataView: BandDataView, fields: string[], subRows?: number[]): (number | IBandRowGroup | IBandRowGroupFooter)[];
     readValue(field: IBandDataField, value: any): any;
     readRow(row: any): any;
     dateToStr(field: IBandDataField, v: Date): string;
@@ -2497,6 +2526,8 @@ declare abstract class DataBand extends ReportGroupItem {
     static readonly PROP_DATA_BAND_END_ROW_MESSAGE = "endRowMessage";
     static readonly PROP_DATA_BAND_ALWAYS_HEADER = "alwaysHeader";
     static readonly PROP_DATA_BAND_NO_SPLIT = "noSplit";
+    static readonly PROP_DATA_BAND_SORT_FIELD = "sortField";
+    static readonly PROP_DATA_BAND_SORT_DIRECTION = "sortDirection";
     static readonly PROPINFOS: IPropInfo[];
     private _sectionCount;
     private _sectionLayout;
@@ -2515,6 +2546,8 @@ declare abstract class DataBand extends ReportGroupItem {
     private _repeatDetailFooter;
     private _alwaysHeader;
     private _noSplit;
+    private _sortField;
+    private _sortDirection;
     private _detail;
     private _master;
     private _keyFlds;
@@ -2525,11 +2558,14 @@ declare abstract class DataBand extends ReportGroupItem {
     rowIndex: number;
     detailRows: number;
     masterValues: any;
+    isNextPagePrintRow: boolean;
+    _pr: number;
+    _currentPrintRow: number;
     private _dataObj;
     private _designData;
     private _fieldSummary;
     private _summaryRuntime;
-    _pr: number;
+    private _dataView;
     constructor(name: string);
     get dataObj(): IBandData;
     get designData(): IBandData;
@@ -2677,20 +2713,31 @@ declare abstract class DataBand extends ReportGroupItem {
      */
     get noSplit(): boolean;
     set noSplit(value: boolean);
+    get sortField(): string;
+    set sortField(value: string);
+    get sortDirection(): DataDirection;
+    set sortDirection(value: DataDirection);
     /**
      * summary runtime
      */
     get summaryRuntime(): DataBandSummaryRuntime;
+    /**
+     * Data View Model
+     */
+    get dataView(): BandDataView;
+    /**
+     * current Print Row Index
+     */
+    get currentPrintRow(): number;
+    set currentPrintRow(value: number);
     prepareIndices(ctx: PrintContext): void;
     protected abstract _doPrepareIndices(ctx: PrintContext): void;
     getColPoints(w: number, x?: number): number[];
     getColWidth(w: number): number;
-    getValues(ctx: PrintContext, row: number, fields: string[]): any[];
-    protected _selectRow(data: IBandData, row: number, idx: number): boolean;
-    abstract getNextDetailRows(ctx: PrintContext): number[];
-    protected _getNextDetailRows(ctx: PrintContext, from: number): number[];
-    abstract skipDetailRows(ctx: PrintContext): void;
-    protected _skipDetailRows(ctx: PrintContext, from: number): number;
+    getValues(dataView: BandDataView, row: number, fields: string[]): any[];
+    protected _selectRow(dataView: BandDataView, row: number, idx: number): boolean;
+    abstract getNextDetailRows(dataView: BandDataView, from?: number): number[];
+    protected _getNextDetailRows(dataView: BandDataView, from: number): number[];
     getRowsPerPage(): {
         rowsPerPage: number;
         breakRowsPerPage: boolean;
@@ -3056,8 +3103,7 @@ declare class TableBand extends DataBand {
     protected _doPreparePrint(ctx: PrintContext): void;
     protected _doPrepareIndices(ctx: PrintContext): void;
     remove(item: ReportPageItem): void;
-    getNextDetailRows(ctx: PrintContext): number[];
-    skipDetailRows(ctx: PrintContext): void;
+    getNextDetailRows(dataView: BandDataView, from?: number): number[];
     containsInSection(item: ReportItem): boolean;
 }
 
@@ -3331,8 +3377,7 @@ declare class SimpleBand extends DataBand {
     protected _doPreparePrint(ctx: PrintContext): void;
     protected _doPrepareIndices(ctx: PrintContext): void;
     canRemove(item: ReportItem): boolean;
-    getNextDetailRows(ctx: PrintContext): number[];
-    skipDetailRows(ctx: PrintContext): void;
+    getNextDetailRows(dataView: BandDataView, from?: number): number[];
     containsInSection(item: ReportItem): boolean;
 }
 
@@ -5572,6 +5617,7 @@ declare abstract class ReportItem extends ReportPageItem {
      */
     getPrintValue(dp: IReportDataProvider, row: number): any;
     getLinkValue(dp: IReportDataProvider, row: number): any;
+    getDataViewValue(dv: BandDataView, row: number): any;
     protected _getParentData(): string;
     canRemoveFrom(): boolean;
     canAdoptDragSource(source: any): boolean;
@@ -6789,6 +6835,16 @@ declare class PrintContext extends Base$1 {
     saveBand(): void;
     restoreBand(): void;
     getBaseView(view: InheritableSectionElement<any>, viewType: string): InheritableSectionElement<any>;
+    /**
+     * - 현재 출력중인 data row를 반환
+     * @returns 0부터 시작하며 현재 출력중인 band의 row index 반환
+     */
+    getPrintingRow(): number;
+    /**
+     * - 정렬 적용 후에도 onGetValue, onGetStyles 이벤트에서 사용하는 row 인자에 원본 데이터의 index를 반환하기 위해 작성
+     * @returns 원본 데이터의 index 반환
+     */
+    getSourceIndex(): number;
 }
 type ContextValueCallback = (ctx: PrintContext) => any;
 declare class PageBreaker {
@@ -6845,6 +6901,7 @@ interface IReportData {
     getSaveType(): string;
     getSaveValues(): any;
     getValue(path: string): any;
+    getValues(): any[];
 }
 interface IReportDataProvider {
     designTime?: boolean;
@@ -6883,6 +6940,7 @@ declare class SimpleData extends ReportData$1 implements IReportData {
      * TODO: array index
      */
     getValue(path?: string): any;
+    getValues(): any;
     get sample(): any;
     setSample(values: any): void;
     getFieldNames(): string[];
