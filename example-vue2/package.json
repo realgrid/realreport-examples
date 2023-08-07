@@ -10,7 +10,7 @@
   "dependencies": {
     "base64-inline-loader": "^2.0.1",
     "core-js": "^3.6.5",
-    "realreport": "^1.7.3",
+    "realreport": "^1.7.4",
     "vue": "^2.6.11"
   },
   "devDependencies": {

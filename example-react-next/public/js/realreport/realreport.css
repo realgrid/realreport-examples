@@ -28,8 +28,6 @@
 
 .rr-report-preview {
     position: absolute;
-    padding: 1px;
-    /** 현재 이 설정이 없으면 중간 빈 페이지가 출력된다! */
     background-color: transparent;
 }
 
@@ -381,14 +379,9 @@
 
 .rr-page-break {
     margin-bottom: 20px;
-    /** preview page 간격 */
     border: 1px solid gray;
     box-sizing: border-box;
     box-shadow: rgba(50, 54, 57, 0.15) 0px 1px 3px 1px;
-}
-
-.rr-print-back {
-    position: absolute !important;
 }
 
 @page {

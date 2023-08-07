@@ -1,8 +1,8 @@
 /// <reference types="pdfkit" />
 /// <reference types="node" />
 /** 
-* RealReport v1.7.3
-* commit dc14be1
+* RealReport v1.7.4
+* commit 8931b86
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -10,10 +10,10 @@
 */
 
 /** 
-* RealReport Core v1.7.3
+* RealReport Core v1.7.4
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 0d781a39089760fda83c72c4f9c7ae91a3d011d2
+* commit 92946b63c6b2aff0d7e155f742427f8fa8647b35
 */
 declare const enum Cursor$1 {
     DEFAULT = "default",
@@ -2524,6 +2524,7 @@ declare abstract class DataBand extends ReportGroupItem {
     static readonly PROP_DATA_BAND_END_ROW_COUNT = "endRowCount";
     static readonly PROP_DATA_BAND_MAX_END_ROW_COUNT = "maxEndRowCount";
     static readonly PROP_DATA_BAND_END_ROW_MESSAGE = "endRowMessage";
+    static readonly PROP_DATA_BAND_REPEAT_HEADER = "repeatHeader";
     static readonly PROP_DATA_BAND_ALWAYS_HEADER = "alwaysHeader";
     static readonly PROP_DATA_BAND_NO_SPLIT = "noSplit";
     static readonly PROP_DATA_BAND_SORT_FIELD = "sortField";
@@ -2544,6 +2545,7 @@ declare abstract class DataBand extends ReportGroupItem {
     private _repeatMastreRow;
     private _repeatDetailHeader;
     private _repeatDetailFooter;
+    private _repeatHeader;
     private _alwaysHeader;
     private _noSplit;
     private _sortField;
@@ -2703,6 +2705,11 @@ declare abstract class DataBand extends ReportGroupItem {
      */
     get repeatDetailFooter(): boolean;
     set repeatDetailFooter(value: boolean);
+    /**
+     * 첫번째 밴드 헤더를 출력 후 장을 넘어갈 때 반복해서 헤더를 표시한다.
+     */
+    get repeatHeader(): boolean;
+    set repeatHeader(value: boolean);
     /**
      * true면 데이터행 없이 footer만 표시되는 경우에도 header를 표시한다.
      */
@@ -3505,7 +3512,13 @@ declare abstract class ReportItemElement<T extends ReportItem> extends ReportEle
     getEditText(): string;
     setEditText(report: Report, text: string): void;
     refreshPrintValues(ctx: PrintContext): void;
-    get printable(): boolean;
+    /**
+     * - ReportItem에 visibileCallback 핸들러가 정의되어 있다면 핸들러의 반환값에 의해 아이템 표시여부 결정
+     * - 핸들러가 정의되어 있지 않거나 반환값이 boolean 값이 아닐경우 기존 아이템 속성의 Visible 값으로 표시여부 결정
+     * @param {PrintContext} ctx - PrintContext 객체 정보
+     * @returns {boolean}
+     */
+    isPrintable(ctx: PrintContext): boolean;
     protected _getModel(): T;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _setBindMarker(visible?: boolean, system?: boolean): void;
@@ -5220,6 +5233,7 @@ type ReportItemValueCallback = (ctx: PrintContext, item: ReportItem, row: number
 type ReportItemStyleCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => {
     [key: string]: string | undefined;
 };
+type ReportItemVisibleCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => boolean;
 /**
  * Report 구성 요소 기반 클래스.
  *
@@ -5239,6 +5253,7 @@ declare abstract class ReportItem extends ReportPageItem {
     static readonly PROP_BOTTOM = "bottom";
     static readonly PROP_DESIGN_BORDER = "designBorder";
     static readonly PROP_ON_GET_VALUE = "onGetValue";
+    static readonly PROP_ON_GET_VISIBLE = "onGetVisible";
     static readonly PROP_STYLES = "styles";
     static readonly PROP_ON_GET_STYLES = "onGetStyles";
     static readonly PROP_VISIBLE = "visible";
@@ -5291,6 +5306,8 @@ declare abstract class ReportItem extends ReportPageItem {
     private _name;
     private _tag;
     private _visible;
+    private _visibleCallback;
+    private _onGetVisible;
     private _data;
     private _value;
     private _valueCallback;
@@ -5319,6 +5336,8 @@ declare abstract class ReportItem extends ReportPageItem {
     private _valueCallbackDelegate;
     private _styleCallbackFunc;
     private _styleCallbackDelegate;
+    private _visibleCallbackFunc;
+    private _visibleCallbackDelegate;
     private _leftDim;
     private _rightDim;
     private _topDim;
@@ -5468,6 +5487,14 @@ declare abstract class ReportItem extends ReportPageItem {
     /** valueCallback */
     get valueCallback(): ReportItemValueCallback;
     set valueCallback(value: ReportItemValueCallback);
+    /**
+     * onGetVisible
+     */
+    get onGetVisible(): string;
+    set onGetVisible(value: string);
+    /** visibleCallback */
+    get visibleCallback(): ReportItemVisibleCallback;
+    set visibleCallback(value: ReportItemVisibleCallback);
     /** styles */
     get styles(): Styles;
     set styles(value: Styles);
@@ -6961,6 +6988,8 @@ interface IPreviewOptions {
     noScroll?: boolean;
     noIndicator?: boolean;
     singlePage?: boolean;
+    singlePageOptions?: ISinglePageOptions;
+    align?: Align;
     callback?: PrintPageCallback;
     endCallback?: PrintEndCallback;
 }
@@ -6970,6 +6999,9 @@ interface IPrintOptions {
     preview?: boolean;
     id?: string;
     previewOptions?: IPreviewOptions;
+}
+interface ISinglePageOptions {
+    border: boolean;
 }
 declare class PrintContainer extends VisualContainer$1 {
     static readonly CLASS_NAME = "rr-report-container";
@@ -7006,6 +7038,8 @@ declare class PrintContainer extends VisualContainer$1 {
     get zoom(): number;
     set zoom(value: number);
     get pages(): PrintPage[];
+    get align(): Align;
+    set align(value: Align);
     print(options: IPrintOptions): void;
     printSingle(options: IPrintOptions): void;
     printAll(options: IPrintOptions): void;
@@ -41159,24 +41193,35 @@ declare type GridReportLayout = {
  */
 declare type PreviewOptions = {
     /**
-     * 리포트간 간격 조절 옵션
-     */
-    pageGap?: number;
-    /**
      * 비동기 출력 여부
-     * default: false;
+     * @defaultValue `false`
      */
     async?: boolean;
     /**
      * 비동기 출력시 출력 페이지 마커 표시 여부
-     * default: false;
+     * @defaultValue `false`
      */
     pageMark?: boolean;
     /**
      * 비동기 출력시 출력 페이지마다 스크롤 이동 여부
-     * default: true;
+     * @defaultValue `true`
      */
     noScroll?: boolean;
+    /**
+     * 리포트 컨테이너에 페이지 정렬 설정
+     * @defaultValue `Align.CENTER`
+     */
+    align?: Align;
+    /**
+     * 리포트를 한장에 여백없이 출력하는 옵션
+     * @defaultValue `false`
+     */
+    singlePage?: boolean;
+    /**
+     * 싱글 페이지일 경우 관련 옵션
+     * @defaultValue `{ border: true }`
+     */
+    singlePageOptions?: ISinglePageOptions;
     /**
      * 미리보기가 시작될때 호출되는 콜백함수
      */
