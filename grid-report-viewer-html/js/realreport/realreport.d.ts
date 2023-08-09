@@ -1,8 +1,8 @@
 /// <reference types="pdfkit" />
 /// <reference types="node" />
 /** 
-* RealReport v1.7.4
-* commit 8931b86
+* RealReport v1.7.5
+* commit 02fedb9
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -10,10 +10,10 @@
 */
 
 /** 
-* RealReport Core v1.7.4
+* RealReport Core v1.7.5
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 92946b63c6b2aff0d7e155f742427f8fa8647b35
+* commit 3d539c2b90f3209c824d1f7cce998547b8c7f724
 */
 declare const enum Cursor$1 {
     DEFAULT = "default",
@@ -7064,11 +7064,13 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_getPageHeight;
     private $_resetPreviewer;
     private $_buildOutput;
+    private $_setFrontBackLayer;
     /**
      * unitpost 한장 요약 HTML 요청으로 singlePage 별도 메서드로 분리
      */
     private $_prepareSinglePage;
     private $_setSinglePage;
+    private $_setSinglePageStyles;
     private $_isReportFooter;
     private $_setPrintMode;
     private $_getScaleSize;
