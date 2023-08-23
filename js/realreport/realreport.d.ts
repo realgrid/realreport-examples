@@ -1,8 +1,8 @@
 /// <reference types="pdfkit" />
 /// <reference types="node" />
 /** 
-* RealReport v1.7.5
-* commit 02fedb9
+* RealReport v1.7.6
+* commit 23162c5
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -10,10 +10,10 @@
 */
 
 /** 
-* RealReport Core v1.7.5
+* RealReport Core v1.7.6
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 3d539c2b90f3209c824d1f7cce998547b8c7f724
+* commit a20880d1793a0e472bbb513c81005e982ea97304
 */
 declare const enum Cursor$1 {
     DEFAULT = "default",
@@ -6876,6 +6876,8 @@ declare class PrintContext extends Base$1 {
 type ContextValueCallback = (ctx: PrintContext) => any;
 declare class PageBreaker {
 }
+declare class BandFooterPrintInfo {
+}
 declare class ReportFooterPrintInfo {
 }
 declare class EndRowMarker {
@@ -6883,6 +6885,7 @@ declare class EndRowMarker {
     maxCount: number;
     constructor(count: number, maxCount: number);
 }
+type BandPrintRow = number | BandFooterPrintInfo | BandPrintInfo<any> | EndRowMarker;
 declare abstract class BandPrintInfo<T extends ReportItem> {
     band: T;
     xBand: number;
@@ -6919,6 +6922,14 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     protected _createSectionPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
     protected _buildEndRows(marker: EndRowMarker, rowCount: number, rows: any[]): void;
     protected _unshiftEndRows(row: any, rows: any[]): void;
+    /**
+     * 마스터-디테일 형태에서 디테일이 출력되는 동안 페이지마다 마스터 행 출력 준비
+     * 현재 출력중인 마스터 밴드 행 번호 사용
+     * @param band 마스터 밴드 정보
+     * @param rows 출력해야할 행 정보 목록
+     * @see {@link https://github.com/realgrid/realreport/issues/1138}
+     */
+    protected _prepareRepeatMasterRow(band: DataBand, rows: BandPrintRow[]): void;
 }
 type PrintLine = HTMLElement | BandPrintInfo<any> | ReportFooterPrintInfo | PageBreaker;
 interface IReportData {
