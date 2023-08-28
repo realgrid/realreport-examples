@@ -1,0 +1,22 @@
+/* 모바일 아닌(768 이상 인) 경우 */
+@media (min-width: 768px) {
+  .sidenav {
+    display: flex;
+    position: sticky;
+    flex-direction: column;
+    z-index: 0;
+    height: 100%;
+    max-height: 100vh;
+    padding-top: var(--ifm-navbar-height);
+    transition: opacity 50ms;
+    width: var(--viewer-sidenav-width);
+  }
+
+  .toolbar-right {
+    display: block;
+  }
+
+  .close-btn {
+    display: none;
+  }
+}
