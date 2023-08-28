@@ -6,13 +6,6 @@
     padding-bottom: 80px;
 }
 
-@media (min-width: 768px) {
-    .menu {
-        width: 300px;
-        padding-bottom: 0;
-    }
-}
-
 .menu-list {
     list-style-type: none;
     margin: 0;

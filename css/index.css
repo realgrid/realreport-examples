@@ -3,6 +3,7 @@
 @import "menu.css";
 @import "sidenav.css";
 @import "report-style.css";
+@import "mobile.css";
 
 :root {
     --color-white: #fff;
@@ -43,7 +44,7 @@
     --toolbar-item-padding-horizontal: 0.75rem;
     --toolbar-item-padding-vertical: 0.25rem;
 
-    --sidebar-width: 300px;
+    --sidebar-width: 316px;
     --menu-color-active: var(--link-color);
     --menu-color: var(--color-gray-700);
     --menu-link-padding-horizontal: 1rem;
@@ -60,7 +61,7 @@
 }
 
 .root {
-    --viewer-sidenav-width: 300px;
+    --viewer-sidenav-width: 316px;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -337,32 +338,6 @@
 
 .spinner-container div {
     box-sizing: content-box;
-}
-
-.close-btn {
-    /* display: none; */
-}
-
-.toolbar-right {
-    display: none;
-}
-
-@media (min-width: 768px) {
-    .toolbar-right {
-        display: block;
-    }
-}
-
-@media (min-width: 768px) {
-    .close-btn {
-        display: block;
-    }
-}
-
-.toolbar-left .close-btn {
-    border: none;
-    background: none;
-    margin-right: 8px;
 }
 
 .body-overlay {

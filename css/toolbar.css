@@ -71,13 +71,20 @@ input {
 
 .toolbar-right {
     flex: 1;
-    display: flex;
     justify-content: flex-end;
     padding-inline-start: 20px;
     text-align: end;
     align-items: center;
     white-space: nowrap;
     transition: opacity 100ms cubic-bezier(0, 0, 0.2, 1);
+    /* for mobile */
+    display: none;
+}
+
+.close-btn {
+    border: none;
+    background: none;
+    margin-right: 8px;
 }
 
 .toolbar-brand {
