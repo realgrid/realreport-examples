@@ -1,8 +1,8 @@
 /// <reference types="pdfkit" />
 /// <reference types="node" />
 /** 
-* RealReport v1.7.6
-* commit 23162c5
+* RealReport v1.7.7
+* commit f66c1bf
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -10,10 +10,10 @@
 */
 
 /** 
-* RealReport Core v1.7.6
+* RealReport Core v1.7.7
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit a20880d1793a0e472bbb513c81005e982ea97304
+* commit 3c7065afd6897afaf4cac9198485d136dcf84388
 */
 declare const enum Cursor$1 {
     DEFAULT = "default",
@@ -6906,12 +6906,14 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
      */
     erc: number;
     detailRows: number[];
+    isMasterRowPrintNext: boolean;
+    needMasterHeader: boolean;
     abstract isEnded(): boolean;
     abstract getRows(): any[];
     abstract getNextPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     rollback(page: HTMLDivElement): void;
     setMaxCount(rows: any[], count: number): void;
-    isRow(row: any): row is number;
+    isDataRow(row: any): row is number;
     isBand(row: any): row is BandPrintInfo<any>;
     isGroupHeader(row: any): boolean;
     isGroupFooter(row: any): boolean;
@@ -6930,6 +6932,24 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
      * @see {@link https://github.com/realgrid/realreport/issues/1138}
      */
     protected _prepareRepeatMasterRow(band: DataBand, rows: BandPrintRow[]): void;
+    /**
+     * 마스터-디테일 밴드에서 마스터 헤더 출력여부와 관련된 값들에 대한 설정
+     * @param band 출력중인 밴드 정보
+     * @param bandHeaderPrinted 출력중인 페이지내에서 마스터 해더의 출력여부
+     * @param printed 출력했는지 여부
+     */
+    protected _setBandHeaderPrintFlag(band: DataBand, printed: boolean): void;
+    /**
+     * 디테일 밴드를 계속 출력 or 끝 결정
+     * @param ctx PrintContext
+     * @param rows 현재 출력해야 할 행들에 대한 목록
+     * @param row 현재 출력중인 행 정보
+     * @param rowsPerPage 페이지에서 몇행 까지 출력할 수 있는지 정보
+     * @returns true = 디테일 밴드 출력 끝, false = 다음장에 디테일 계속 출력
+     */
+    protected _isDetailBandPrintEnd(row: BandPrintInfo<SimpleBand | TableBand>): boolean;
+    protected _resetRowIndex(row: BandPrintInfo<SimpleBand | TableBand>): void;
+    protected _prepareDetailBandPrintNext(ctx: PrintContext, band: DataBand, row: BandPrintInfo<SimpleBand | TableBand>, rows: BandPrintRow[], rowsPerPage: number): void;
 }
 type PrintLine = HTMLElement | BandPrintInfo<any> | ReportFooterPrintInfo | PageBreaker;
 interface IReportData {
