@@ -1,8 +1,8 @@
 /// <reference types="pdfkit" />
 /// <reference types="node" />
 /** 
-* RealReport v1.7.7
-* commit f66c1bf
+* RealReport v1.7.8
+* commit 9252471
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -10,10 +10,10 @@
 */
 
 /** 
-* RealReport Core v1.7.7
+* RealReport Core v1.7.8
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 3c7065afd6897afaf4cac9198485d136dcf84388
+* commit 64f28a7324ef3304067296d31ff309d13c29a7bb
 */
 declare const enum Cursor$1 {
     DEFAULT = "default",
@@ -1758,7 +1758,7 @@ declare class BandDataView extends Base$1 implements IBandDataView {
     static readonly SOURCE_INDEX = "_sourceIndex";
     private _source;
     private _view;
-    constructor(data: IReportData);
+    constructor(data: IBandData);
     get rowCount(): number;
     sort(field: string, direction: DataDirection): this;
     getRowValue(row: number, field: string): any;
@@ -1800,6 +1800,7 @@ interface IBandData extends IReportData {
     equalValues(row: number, fields: string[], values: any[]): boolean;
     equalRows(row1: number, row2: number, fields?: string[]): boolean;
     groupBy(dataView: BandDataView, fields: string[], rows: number[]): (number | IBandRowGroup | IBandRowGroupFooter)[];
+    getValues(): any[];
 }
 declare abstract class BandData extends ReportData$1 {
     protected _fields: IBandDataField[];
@@ -1854,7 +1855,6 @@ declare class BandArrayData extends BandData implements IBandData {
     getValues(): any[];
     setValues(vals: any[]): void;
     getSaveType(): string;
-    getSaveValues(): any;
     private $_cloneRow;
     private $_prepareSample;
     protected _readRows(): void;
@@ -3539,6 +3539,8 @@ declare abstract class ReportItemElement<T extends ReportItem> extends ReportEle
     protected _setPos(dom: HTMLElement, x: number, y: number): void;
     protected _runValueCallback(ctx: PrintContext, m: ReportItem, value: any): any;
     protected _getDesignText(): string;
+    protected _setEmptyStyle(dom: HTMLElement): void;
+    protected _setDomAlignCenter(dom: HTMLElement): void;
 }
 type ReportItemView = ReportItemElement<ReportItem>;
 /** @internal */
@@ -5681,7 +5683,7 @@ declare abstract class ReportItem extends ReportPageItem {
     protected _setRight(value: ValueString): void;
     protected _setTop(value: ValueString): void;
     protected _setBottom(value: ValueString): void;
-    protected _getEditProps(): IPropInfo[];
+    protected _getEditProps(excludedProps?: string[]): IPropInfo[];
     protected _getStyleProps(): string[];
     protected _getChildStyleProps(prop: string): string[];
     protected _valueable(): boolean;
@@ -6069,6 +6071,8 @@ declare class StackContainer extends BoundedContainer {
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     protected _getStyleProps(): string[];
     protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
     canAlign(child: ReportItem): boolean;
     canAdoptDragSource(source: any): boolean;
     getMoveType(item: ReportItem): ItemMoveType;
@@ -6676,6 +6680,7 @@ declare abstract class TextItemElementBase<T extends TextItemBase> extends Repor
  * 나머지 '${xxx}', '@{xxx}'는 'xxx' 필드의 값으로 대체된다.
  */
 declare class HtmlItem extends ReportItem {
+    static readonly ALLOWED_TAGS: string[];
     static readonly PROP_HTML = "html";
     static readonly PROPINFOS: IPropInfo[];
     static readonly STYLE_PROPS: string[];
@@ -6684,8 +6689,6 @@ declare class HtmlItem extends ReportItem {
     private _html;
     private _tokens;
     constructor(name: string);
-    /**
-     */
     get html(): string;
     set html(value: string);
     getHtml(ctx: PrintContext): string;
@@ -6720,6 +6723,11 @@ declare class HtmlItemElement extends ReportItemElement<HtmlItem> {
     saveContextValue(ctx: PrintContext): string;
     replaceContextValue(ctx: PrintContext, value?: string): string;
     refreshPrintValues(ctx: PrintContext, save?: boolean): void;
+    /**
+     * 허용하지 않은 태그가 포함되어있을 경우 console.error 표시
+     * @param html 표시할 html 형식 문자열
+     */
+    private $_validateHtmlTags;
 }
 
 /**
@@ -6872,6 +6880,11 @@ declare class PrintContext extends Base$1 {
      * @returns 원본 데이터의 index 반환
      */
     getSourceIndex(): number;
+    setPageSize(width: number, height: number): void;
+    /**
+     * 호출하기 전 pageHeader, pageFooter, pageHeight 값이 설정되어야 함
+     */
+    setBodySize(): void;
 }
 type ContextValueCallback = (ctx: PrintContext) => any;
 declare class PageBreaker {
@@ -6952,15 +6965,6 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     protected _prepareDetailBandPrintNext(ctx: PrintContext, band: DataBand, row: BandPrintInfo<SimpleBand | TableBand>, rows: BandPrintRow[], rowsPerPage: number): void;
 }
 type PrintLine = HTMLElement | BandPrintInfo<any> | ReportFooterPrintInfo | PageBreaker;
-interface IReportData {
-    name: string;
-    isBand: boolean;
-    getFieldNames(): string[];
-    getSaveType(): string;
-    getSaveValues(): any;
-    getValue(path: string): any;
-    getValues(): any[];
-}
 interface IReportDataProvider {
     designTime?: boolean;
     preparePrint(ctx: PrintContext): void;
@@ -6975,6 +6979,13 @@ interface IReportDataProvider {
     dataNameChanged?(data: IReportData, oldName: string): void;
     fieldNameChanged?(data: IReportData, newName: string, oldName: string): void;
 }
+interface IReportData {
+    name: string;
+    isBand: boolean;
+    getFieldNames(): string[];
+    getSaveType(): string;
+    getValue(path: string): any;
+}
 declare abstract class ReportData$1 extends Base$1 {
     private _name;
     private _dp;
@@ -6987,10 +6998,14 @@ declare abstract class ReportData$1 extends Base$1 {
     set name(value: string);
     preparePrint(ctx: PrintContext, design: boolean): void;
 }
+interface ISimpleData extends IReportData {
+    getValues(): any;
+    getSaveValues(): any;
+}
 /**
  * 단순형 값이나, json 객체를 값으로 지정한다.
  */
-declare class SimpleData extends ReportData$1 implements IReportData {
+declare class SimpleData extends ReportData$1 implements ISimpleData {
     private _isObj;
     private _values;
     constructor(name: string, values: any);
