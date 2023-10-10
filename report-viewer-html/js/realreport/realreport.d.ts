@@ -1,8 +1,8 @@
 /// <reference types="pdfkit" />
 /// <reference types="node" />
 /** 
-* RealReport v1.7.8
-* commit 9252471
+* RealReport v1.7.9
+* commit 27b0a21
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -10,10 +10,10 @@
 */
 
 /** 
-* RealReport Core v1.7.8
+* RealReport Core v1.7.9
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 64f28a7324ef3304067296d31ff309d13c29a7bb
+* commit f97017e22373c5951f797b36085ec48058b12f47
 */
 declare const enum Cursor$1 {
     DEFAULT = "default",
