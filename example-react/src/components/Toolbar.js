@@ -210,12 +210,12 @@ function Toolbar({ viewer, compositeViewer }) {
                     content: regularFont,
                     style: 'normal',
                     weight: 'normal',
-                },
-                {
-                    name: 'bold',
-                    content: boldFont,
-                    style: 'normal',
-                    weight: 'bold',
+                // },
+                // {
+                //     name: 'bold',
+                //     content: boldFont,
+                //     style: 'normal',
+                //     weight: 'bold',
                 }];
 
                 if (viewer) {
