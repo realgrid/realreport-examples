@@ -250,7 +250,7 @@
                     if (reportView) {
                         const oldZoom = reportView.zoom;
                         reportView.zoom = 1;
-                        reportView.exportPdf({fonts, filename: 'sample-pdf-filename.pdf', preview: false}).then(() => {
+                        reportView.exportPdf({fonts, filename: 'sample-report', preview: false}).then(() => {
                             reportView.zoom = oldZoom
                         });
                     }

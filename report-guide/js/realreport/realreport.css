@@ -1,4 +1,6 @@
-@charset "UTF-8";
+'use strict';
+
+";
 
 .rr-report-root {
     font-family: "Malgun Gothic", "맑은 고딕", AppleSDGothicNeo-Light, sans-serif;
@@ -389,10 +391,6 @@
 }
 
 @media print {
-    @page rotated {
-        page-orientation: rotate-left;
-    }
-
     .rr-print-page-portrait {
         margin: 0 !important;
         border: none !important;
@@ -403,7 +401,6 @@
     }
 
     .rr-print-page-landscape {
-        page: rotated !important;
         margin: 0 !important;
         border: none !important;
         box-shadow: none !important;

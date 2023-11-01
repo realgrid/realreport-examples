@@ -219,7 +219,7 @@ function Toolbar({ viewer, compositeViewer }) {
                 }];
 
                 if (viewer) {
-                    viewer.exportPdf({fonts, filename: 'sample-pdf-filename.pdf', preview: false});
+                    viewer.exportPdf({fonts, filename: 'sample-report', preview: false});
                 }
             });
         });

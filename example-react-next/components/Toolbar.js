@@ -218,7 +218,7 @@ function Toolbar({ viewer, compositeViewer }) {
                 if (viewer) {
                     const oldZoom = viewer.zoom;
                     viewer.zoom = 1;
-                    viewer.exportPdf({fonts, filename: 'sample-pdf-filename.pdf', preview: false}).then(() => {
+                    viewer.exportPdf({fonts, filename: 'sample-report', preview: false}).then(() => {
                         viewer.zoom = oldZoom;
                     })
                 }
