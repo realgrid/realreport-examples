@@ -1,8 +1,7 @@
 /// <reference types="pdfkit" />
-/// <reference types="node" />
 /** 
-* RealReport v1.7.9
-* commit 27b0a21
+* RealReport v1.7.10
+* commit a8e3fa2
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -10,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.7.9
+* RealReport Core v1.7.10
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit f97017e22373c5951f797b36085ec48058b12f47
+* commit a06bb0b54f667ef578f5763cab17426190ed05f5
 */
 declare const enum Cursor$1 {
     DEFAULT = "default",
@@ -4096,9 +4095,9 @@ declare class PaperOptions extends Base$1 {
     getContentRect(r: Rectangle$1): Rectangle$1;
     getClientRect(page: ReportPage): Rectangle$1;
     applyExtents(page: ReportPage, css: CSSStyleDeclaration): void;
-    applyPreviewExtents(page: ReportPage, css: CSSStyleDeclaration): {
-        width: string;
-        height: string;
+    applyPreviewExtents(page: ReportPage, css: CSSStyleDeclaration, paperOrientation: PaperOrientation): {
+        pageWidth: number;
+        pageHeight: number;
     };
     applyClient(page: ReportPage, css: CSSStyleDeclaration): void;
     applyPreviewClient(page: ReportPage, css: CSSStyleDeclaration): {
@@ -7108,6 +7107,8 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_getContainer;
     private $_getPreviewer;
     private $_getPageHeight;
+    private $_getPrintBack;
+    private $_removeBackContainer;
     private $_resetPreviewer;
     private $_buildOutput;
     private $_setFrontBackLayer;
@@ -7131,7 +7132,7 @@ interface PdfFont {
     style?: 'normal' | 'italic';
     weight?: 'normal' | 'bold';
 }
-interface IPdfPermissions {
+interface PdfPermissions {
     printing?: 'lowResolution' | 'highResolution';
     modifying?: boolean;
     copying?: boolean;
@@ -7158,11 +7159,6 @@ interface ImageExportOptions {
     fileName?: string;
     zipName?: string;
     tiff?: ITiffOptions;
-}
-
-interface DocExportOptions {
-    type: 'hwp' | 'docx' | 'pptx';
-    fileName?: string;
 }
 
 /**
@@ -41047,6 +41043,10 @@ declare type ErrorParams = {
     msg?: string;
 };
 
+interface DocExportOptions {
+    type: string;
+    filename?: string;
+}
 /**
  * ReportViewer base class
  */
@@ -41060,7 +41060,7 @@ declare abstract class ReportViewBase {
     abstract preview(options: PreviewOptions): void;
     abstract exportPdf(options: PDFExportOptions): Promise<void>;
     abstract exportImage(imageOptions: ImageExportOptions): void;
-    abstract exportDocument(documentOptions: DocExportOptions): void;
+    abstract exportDocument(options: DocExportOptions): void;
     /**
      * 컨테이너의 상태를 체크하기 위한 조건과 조건에 맞을 경우의 에러 처리코드를 넘겨 줍니다.
      * checker.is 가 true이면 errorParams로 error() 를 실행 합니다.
@@ -41121,12 +41121,12 @@ declare class ReportViewer extends ReportViewBase {
      * 이미지 내보내기 함수
      * @param imageOptions
      */
-    exportImage(imageOptions?: ImageExportOptions): void;
+    exportImage(imageOptions: ImageExportOptions): Promise<void>;
     /**
      * 문서 내보내기 함수
-     * @param documentOptions
+     * @param options
      */
-    exportDocument(documentOptions?: DocExportOptions): void;
+    exportDocument(options?: DocExportOptions): Promise<void>;
     private _checkReport;
 }
 
@@ -41191,7 +41191,7 @@ declare class GridReportViewer extends ReportViewer {
      */
     private _addGridTable;
     private _prepare;
-    exportImage(imageOptions?: ImageExportOptions): void;
+    exportImage(imageOptions?: ImageExportOptions): Promise<void>;
 }
 
 /**
@@ -41209,7 +41209,7 @@ declare class ReportCompositeViewer extends ReportViewBase {
     preview(options?: PreviewOptions): void;
     exportPdf(options: PDFExportOptions): Promise<void>;
     exportImage(imageOptions: ImageExportOptions): void;
-    exportDocument(documentOptions: DocExportOptions): void;
+    exportDocument(options: DocExportOptions): void;
     private _checkReportFormSet;
 }
 
@@ -41310,7 +41310,7 @@ declare type PDFExportOptions = {
     /**
      * 권한에 따른 기능을 제한 할 수 있습니다.
      */
-    permissions: IPdfPermissions;
+    permissions: PdfPermissions;
     pdfVersion: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 };
 
