@@ -22,10 +22,11 @@ function previewPopup(reports) {
     // 미리보기 팝업창이 없는 경우 새 창을 생성하고 있는 경우 그 창에 리포트를 표시합니다.
     if (windowPreview === null || windowPreview.closed) {
         windowPreview = window.open(PREVIEW_HTML, 'print', options);
-        setTimeout(() => {
+
+        windowPreview.onload = () => {
             const previewFn = windowPreview['previewReport'];
             if (typeof previewFn === 'function') previewFn(reports);
-        }, 200);
+        };
     } else {
         const previewFn = windowPreview['previewReport'];
         if (typeof previewFn === 'function') previewFn(reports);
