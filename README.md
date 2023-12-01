@@ -2,7 +2,7 @@
 
 [RealReport Example 저장소](https://github.com/realgrid/realreport-examples)는 다양한 환경에서 [RealReport](https://real-report.com)를 활용할 수 있는 방법을 설명하기 위한 샘플 코드를 제공하는 저장소 입니다.
 
-RealReport 및 realreport-examples에 대한 문의사항 및 요청사항은 [RealReport 기술지원 포럼](https://forum.realgrid.com/categories/z6SA78vS9G6cgiYht)에 남겨주시면 우리테크 고객지원 시스템에 의해 통합 관리되며 기술지원팀에서 친절히 답변드리겠습니다.
+RealReport 및 realreport-examples에 대한 문의사항 및 요청사항은 [RealReport 기술지원 포럼](https://support.realgrid.com/tickets/categories/z6SA78vS9G6cgiYht)에 남겨주시면 우리테크 고객지원 시스템에 의해 통합 관리되며 기술지원팀에서 친절히 답변드리겠습니다.
 
 ## 구조
 
@@ -48,7 +48,7 @@ RealReport 및 realreport-examples에 대한 문의사항 및 요청사항은 [R
 - [RealReport](https://real-report.com/)는 상용 라이브러리 입니다. 
 - 개발자를 위한 무료 라이선스를 제공하고 있습니다. [라이선스 발급 방법](https://www.real-report.com/license)을 클릭하세요.
 - 구매를 위해 [가격 및 구매방법](https://realgrid.com/#buy)을 확인하시고 [RealGrid & Report 영업팀]에 문의해 주세요.
-- 기술과 관련된 문의사항은 [RealReport 기술지원 포럼](https://forum.realgrid.com/categories/z6SA78vS9G6cgiYht)에 문의해 주세요. 
+- 기술과 관련된 문의사항은 [RealReport 기술지원 포럼](https://support.realgrid.com/tickets/categories/z6SA78vS9G6cgiYht)에 문의해 주세요. 
 
 ### highcharts
 
