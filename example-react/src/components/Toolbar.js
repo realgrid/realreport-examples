@@ -140,12 +140,12 @@ function Toolbar({ viewer, compositeViewer }) {
         if (viewer) {
             viewer.exportImage({
                 type: imageType,
-                fileName: `${imageType}_으로출력`
+                fileName: "sample-report"
             })
         }
     }
 
-    const onClickExportDoc = function(type) {
+    const onClickExportDoc = function (type) {
         if (viewer) {
             viewer.exportDocument({ type });
         }
@@ -210,16 +210,16 @@ function Toolbar({ viewer, compositeViewer }) {
                     content: regularFont,
                     style: 'normal',
                     weight: 'normal',
-                // },
-                // {
-                //     name: 'bold',
-                //     content: boldFont,
-                //     style: 'normal',
-                //     weight: 'bold',
+                },
+                {
+                    name: 'bold',
+                    content: boldFont,
+                    style: 'normal',
+                    weight: 'bold',
                 }];
 
                 if (viewer) {
-                    viewer.exportPdf({fonts, filename: 'sample-report', preview: false});
+                    viewer.exportPdf({ fonts, filename: 'sample-report', preview: false });
                 }
             });
         });

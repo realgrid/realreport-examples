@@ -16,8 +16,10 @@ export default {
     ],
     script: [
       { src: '/js/realReportLic.js' },
+      // Hichart 적용
       { src: '/js/highcharts/highcharts.js' },
       { src: '/js/highcharts/highcharts-more.js' },
+      // Pdf 적용
       { src: '/js/pdfkit.js' }
     ]
   },
