@@ -5,6 +5,9 @@ export default function Document() {
     <Html>
       <Head>
         <script src='/realreport-lic.js'></script>
+        {/* 리얼리포트 스타일 적용 */}
+        <link href='/js/realreport/realreport.css' rel='stylesheet' />
+        {/* 하이차트 스타일 적용 */}
         <link href='/js/highcharts/highcharts.css' rel='stylesheet' />
 
         {/* Highchart 적용 */}
@@ -13,8 +16,6 @@ export default function Document() {
 
         {/* PDF 적용 */}
         <script src="/js/pdfkit.js"></script>
-
-        <link href='/js/realreport/realreport.css' rel='stylesheet' />
       </Head>
       <body>
         <Main />
