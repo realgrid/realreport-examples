@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.7.11
-* commit 6cb7e7d
+* RealReport v1.8.0
+* commit e74ab7c
 
 * Copyright (C) 2013-2023 WooriTech Inc.
 	https://real-report.com
@@ -9,203 +9,11 @@
 */
 
 /** 
-* RealReport Core v1.7.11
+* RealReport Core v1.8.0
 * Copyright (C) 2013-2023 WooriTech Inc.
 * All Rights Reserved.
-* commit 2dfa98c7f5000178bde466f2fbd77771a266e32e
+* commit d3571933f79b2141784ccc1b7872b1e98daab3f5
 */
-declare const enum Cursor$1 {
-    DEFAULT = "default",
-    AUTO = "auto",
-    POINTER = "pointer",
-    WAIT = "wait",
-    MOVE = "move",
-    COL_RESIZE = "col-resize",
-    ROW_RESIZE = "row-resize",
-    CROSSHAIR = "crosshair",
-    HORZ_RESIZE = "ew-resize",
-    VERT_RESIZE = "ns-resize",
-    NESW_RESIZE = "nesw-resize",
-    NWSE_RESIZE = "nwse-resize",
-    NO_DROP = "no-drop",
-    NOT_ALLOWED = "not-allowed"
-}
-declare enum Align {
-    LEFT = "left",
-    CENTER = "center",
-    RIGHT = "right"
-}
-declare enum VerticalAlign {
-    TOP = "top",
-    MIDDLE = "middle",
-    BOTTOM = "bottom"
-}
-declare enum PrintUnit {
-    PIXEL = "px",
-    POINT = "pt",
-    INCH = "in",
-    CENTI = "cm",
-    MILLI = "mm"
-}
-type ValueString = string | number;
-type Styles = {
-    [key: string]: string;
-};
-/**
- * 상수로 다룬다.
- */
-declare class Dimension {
-    static HTMLDPI: number;
-    static create(str: any): Dimension;
-    static createDimensions(str: string): Dimension[];
-    static equals(d1: Dimension, d2: Dimension): boolean;
-    private _unit;
-    private _value;
-    private _fixed;
-    constructor(value: ValueString);
-    get fixed(): boolean;
-    get unit(): PrintUnit;
-    get value(): number;
-    clone(): Dimension;
-    equals(other: any): boolean;
-    toString(): string;
-    getValue(): any;
-    getValueNull(): any;
-    getPixel(domain: number): number;
-    getFixedPixel(): number;
-    $_getPixel(): number;
-    getFixedInch(): number;
-}
-/**
- * 상수로 다룬다.
- */
-declare class DimensionCollection {
-    static readonly Empty: DimensionCollection;
-    private _dims;
-    private _values;
-    private _relative;
-    private _fixed;
-    private _dirty;
-    constructor(str: string);
-    get count(): number;
-    get relative(): boolean;
-    get(index: number): Dimension;
-    set(index: number, dim: Dimension): void;
-    /**
-     * '%' 이면 domain에서 fixed 크기들을 제외한 크기에 대한 상대 크기.
-     * '%'의 전체 함이 100을 넘으면 100으로 scaling한다.
-     * 절대크기는 그 크기대로.
-     * NaN이거나 설정하지 않은 크기는 위의 크기들을 제외한 나머지 크기의 균등분으로
-     * 최소 min으로 설정된다.
-     * 전체 합이 domain보다 크거나 작을 수 있다.
-     */
-    getSizes(count: number, domain: number, minSize: Dimension, truncate?: boolean): number[];
-    getSize(index: number, domain: number): number;
-    changeSize(count: number, index: number, delta: number, domain: number, minWidth: Dimension): void;
-    private $_refresh;
-    private $_init;
-}
-declare enum PageBreakMode {
-    NONE = "none",
-    BEFORE = "before",
-    AFTER = "after",
-    BOTH = "both"
-}
-declare enum LinkTarget {
-    SELF = "_self",
-    BLANK = "_blank",
-    PARENT = "_parent",
-    TOP = "_top"
-}
-declare enum PaperOrientation {
-    PORTRAIT = "portrait",
-    LANDSCAPE = "landscape"
-}
-declare enum ResizeDirection {
-    LEFT = "left",
-    RIGHT = "right",
-    TOP = "top",
-    BOTTOM = "bottom",
-    TOP_LEFT = "topLeft",
-    BOTTOM_RIGHT = "bottomRight",
-    TOP_RIGHT = "topRight",
-    BOTTOM_LEFT = "bottomLeft"
-}
-declare namespace ResizeDirection {
-    function isLeft(dir: ResizeDirection): boolean;
-    function isTop(dir: ResizeDirection): boolean;
-    function isEdge(dir: ResizeDirection): boolean;
-    function isIn(dir: ResizeDirection, ...dirs: ResizeDirection[]): boolean;
-}
-declare enum DataDirection {
-    ASCENDING = "ascending",
-    DESCENDING = "descending"
-}
-/**
- * Find options
- */
-interface FindOptions {
-    caseSensitive?: boolean;
-    wholeWord?: boolean;
-    regularExpression?: boolean;
-    inSelection?: boolean;
-}
-declare enum BoxItemsAlign {
-    START = "start",
-    MIDDLE = "middle",
-    END = "end"
-}
-declare enum AnchorPosition {
-    CENTER = "center",
-    LEFT = "left",
-    RIGHT = "right",
-    TOP = "top",
-    BOTTOM = "bottom",
-    INNER_LEFT = "innerLeft",
-    INNER_RIGHT = "innerRight",
-    INNER_TOP = "innerTop",
-    INNER_BOTTOM = "innerBottom"
-}
-declare enum HichartStacking {
-    NORMAL = "normal",
-    PERCENT = "percent"
-}
-declare enum HichartDash {
-    DASH = "Dash",
-    DASH_DOT = "DashDot",
-    DOT = "Dot",
-    LONG_DASH = "LongDash",
-    LONG_DASH_DOT = "LongDashDot",
-    LONG_DASH_DOT_DOT = "LongDashDotDot",
-    SHORT_DASH = "ShortDash",
-    SHORT_DASH_DOT = "ShortDashDot",
-    SHORT_DASH_DOT_DOT = "ShortDashDotDot",
-    SHORT_DOT = "ShortDot",
-    SOLID = "Solid"
-}
-declare enum HichartLegendLayout {
-    HORIZONTAL = "horizontal",
-    VERTICAL = "vertical",
-    PROXIMATE = "proximate"
-}
-declare enum BandSectionLayout {
-    ACROSS_DOWN = "acrossDown",
-    DOWN_ACROSS = "downAcross"
-}
-declare enum CrosstabSummary {
-    SUM = "sum",
-    AVG = "avg",
-    MIN = "min",
-    MAX = "max",
-    COUNT = "count",
-    DISTINCT = "distinct"
-}
-declare enum SectionInherit {
-    NONE = "none",
-    HEAD = "head",
-    PREVIOUS = "previous"
-}
-
 type ConfigObject$1 = {
     [key: string]: any;
 };
@@ -251,6 +59,179 @@ declare class EventAware$1 extends Base$1 implements IEventAware {
     fireConfirmEvent(event: string, ...args: any): boolean;
     fireMessageEvent(event: string, ...args: any): string;
     fireObjectEvent(event: string, ...args: any): any;
+}
+
+/** @internal */
+interface VisualToolOwner$1 {
+    findElementAt(x: number, y: number, hitTesting: boolean, blockLayer: boolean): VisualElement$1;
+    findElementOf(dom: HTMLElement): VisualElement$1;
+    getTableCell(dom: HTMLElement): HTMLTableCellElement;
+}
+/** @internal */
+declare class VisualTool$1 extends Base$1 {
+    private _owner;
+    private _name;
+    private _previous;
+    private _dragTracker;
+    private _clickX;
+    private _clickY;
+    private _mouseX;
+    private _mouseY;
+    private _mouseEventTarget;
+    protected _lastTouch: number;
+    constructor(owner: VisualToolOwner$1, name?: string);
+    protected _doDispose(): void;
+    /** owner */
+    get owner(): VisualToolOwner$1;
+    /** name */
+    get name(): string;
+    /** previous */
+    get previous(): VisualTool$1;
+    /** dragTracker */
+    get dragTracker(): DragTracker$1;
+    set dragTracker(value: DragTracker$1);
+    /** dragging */
+    get dragging(): boolean;
+    /** mouseX */
+    get mouseX(): number;
+    /** mouseY */
+    get mouseY(): number;
+    get mouseEventTarget(): HTMLElement;
+    findElementAt(x: number, y: number, hitTesting: boolean, blockLayer?: boolean): VisualElement$1;
+    findElementOf(dom: HTMLElement): VisualElement$1;
+    activate(previous: VisualTool$1): void;
+    deactivate(): void;
+    keyDown(event: KeyboardEvent): boolean;
+    keyUp(event: KeyboardEvent): boolean;
+    keyPress(event: KeyboardEvent): boolean;
+    mouseDown(event: MouseEvent | TouchEvent): boolean;
+    dragFrom(event: MouseEvent, tracker: DragTracker$1): void;
+    dropFrom(event: MouseEvent, tracker: DragTracker$1): void;
+    mouseMove(event: MouseEvent | TouchEvent): void;
+    mouseUp(event: MouseEvent | TouchEvent): void;
+    mouseEnter(event: MouseEvent): void;
+    mouseLeave(event: MouseEvent): void;
+    mouseOver(event: MouseEvent): void;
+    mouseOutside(): void;
+    mouseWheel(event: MouseEvent): boolean;
+    contextMenu(event: MouseEvent): boolean;
+    click(event: MouseEvent): void;
+    dblclick(event: MouseEvent): void;
+    setFocus(target?: HTMLElement): void;
+    focusLeave(event: Event): void;
+    dragStart(event: MouseEvent): void;
+    dragEnd(event: MouseEvent): void;
+    dragEnter(event: MouseEvent): void;
+    dragOver(event: MouseEvent): void;
+    dragLeave(event: MouseEvent): void;
+    dragDrop(event: MouseEvent): void;
+    protected isMouseEventTarget(elt: VisualElement$1): boolean;
+    protected _doActivated(previous: VisualTool$1): void;
+    protected _doDeactivated(): void;
+    protected _doKeyDown(event: KeyboardEvent): boolean;
+    protected _doKeyUp(event: KeyboardEvent): boolean;
+    protected _doKeyPress(event: KeyboardEvent): boolean;
+    /**
+     * true 리턴하면 preventDefault 호출.
+     */
+    protected _doMouseDown(event: MouseEvent | TouchEvent): boolean;
+    protected _doMouseMove(event: MouseEvent | TouchEvent): void;
+    /** 그리드 밖에서도 호출된다. */
+    protected _doMouseUp(event: MouseEvent | TouchEvent): void;
+    protected _doMouseEnter(event: MouseEvent): void;
+    protected _doMouseLeave(event: MouseEvent): void;
+    protected _doMouseOver(event: MouseEvent): void;
+    protected _doMouseOutside(): void;
+    protected _doMouseWheel(event: MouseEvent): boolean;
+    protected _doContextMenu(event: MouseEvent): boolean;
+    /** 그리드 밖에서 마우스를 놓으면 호출되지 않는다. */
+    protected _doClick(event: MouseEvent): void;
+    protected _doDblClick(event: MouseEvent): void;
+    protected _doSetFocus(target?: HTMLElement): void;
+    protected _doFocusLeave(event: Event): void;
+    protected _doDragStart(event: MouseEvent): void;
+    protected _doDragEnd(event: MouseEvent): void;
+    protected _doDragEnter(event: MouseEvent): void;
+    protected _doDragOver(event: MouseEvent): void;
+    protected _doDragLeave(event: MouseEvent): void;
+    protected _doDragDrop(event: MouseEvent): void;
+    protected _getDragTracker(request: EditRequest$1, x: number, y: number): DragTracker$1;
+    protected _startDragTracker(x: number, y: number, shift: boolean, alt: boolean): void;
+    protected _stopDragTracker(x: number, y: number, canceled: boolean): void;
+    protected _doDragTrackerStarted(dragTracker: DragTracker$1): void;
+    protected _doDragTrackerFinished(dragTracker: DragTracker$1, canceled: boolean): void;
+    protected _findTableCell(source?: HTMLElement): HTMLTableCellElement;
+    protected _doTouchStart(event: TouchEvent): void;
+    protected _doTouchMove(event: TouchEvent): void;
+    protected _doTouchEnd(evnet: TouchEvent): void;
+    protected _doTouchCancel(evnet: TouchEvent): void;
+}
+/** @internal */
+declare abstract class EditRequest$1 extends Base$1 {
+    constructor();
+    /** cursor */
+    get cursor(): Cursor$1;
+    /** source */
+    get source(): any;
+    /** selectable */
+    get selectable(): boolean;
+    /** dblClickable */
+    get dblClickable(): boolean;
+}
+/** @internal */
+declare class DragTracker$1 extends Base$1 {
+    private _container;
+    private _name;
+    private _active;
+    private _completed;
+    private _dragging;
+    private _startX;
+    private _startY;
+    private _currentX;
+    private _currentY;
+    constructor(container: VisualContainer$1, name: string);
+    /** container */
+    get container(): VisualContainer$1;
+    /** name */
+    get name(): string;
+    /** active */
+    get active(): boolean;
+    /** dragging */
+    get dragging(): boolean;
+    /** startWhenCreated */
+    get startWhenCreated(): boolean;
+    /** completed */
+    get completed(): boolean;
+    /**
+     * linkable proprerty.
+     * 다른 그리드에서 진행 가능한 tracker.
+     */
+    get linkable(): boolean;
+    get cursor(): string;
+    activate(): void;
+    deactivate(): void;
+    start(eventTarget: HTMLElement, x: number, y: number, shift: boolean, alt: boolean): boolean;
+    drag(eventTarget: HTMLElement, x: number, y: number): boolean;
+    cancel(): void;
+    drop(eventTarget: HTMLElement, x: number, y: number): void;
+    end(): void;
+    getRequest(): EditRequest$1;
+    getNextRequest(x: number, y: number): EditRequest$1;
+    protected get startX(): number;
+    protected get startY(): number;
+    protected get currentX(): number;
+    protected get currentY(): number;
+    protected _showFeedback(x: number, y: number): void;
+    protected _moveFeedback(x: number, y: number): void;
+    protected _hideFeedback(): void;
+    protected _doActivate(): void;
+    protected _doDeactivate(): void;
+    protected _doStart(eventTarget: HTMLElement, x: number, y: number, shfit: boolean, alt: boolean): boolean;
+    protected _doDrag(eventTarget: HTMLElement, x: number, y: number): boolean;
+    protected _doCanceled(x: number, y: number): void;
+    protected _canAccept(eventTarget: HTMLElement, x: number, y: number): boolean;
+    protected _doCompleted(eventTarget: HTMLElement, x: number, y: number): void;
+    protected _doEnded(): void;
 }
 
 interface IPoint {
@@ -610,179 +591,6 @@ declare abstract class UIContainer extends EventAware$1 {
     private _globalPointerDownHandler;
     private _focusoutHandler;
     private _focusHandlerFireFox;
-}
-
-/** @internal */
-interface VisualToolOwner$1 {
-    findElementAt(x: number, y: number, hitTesting: boolean, blockLayer: boolean): VisualElement$1;
-    findElementOf(dom: HTMLElement): VisualElement$1;
-    getTableCell(dom: HTMLElement): HTMLTableCellElement;
-}
-/** @internal */
-declare class VisualTool$1 extends Base$1 {
-    private _owner;
-    private _name;
-    private _previous;
-    private _dragTracker;
-    private _clickX;
-    private _clickY;
-    private _mouseX;
-    private _mouseY;
-    private _mouseEventTarget;
-    protected _lastTouch: number;
-    constructor(owner: VisualToolOwner$1, name?: string);
-    protected _doDispose(): void;
-    /** owner */
-    get owner(): VisualToolOwner$1;
-    /** name */
-    get name(): string;
-    /** previous */
-    get previous(): VisualTool$1;
-    /** dragTracker */
-    get dragTracker(): DragTracker$1;
-    set dragTracker(value: DragTracker$1);
-    /** dragging */
-    get dragging(): boolean;
-    /** mouseX */
-    get mouseX(): number;
-    /** mouseY */
-    get mouseY(): number;
-    get mouseEventTarget(): HTMLElement;
-    findElementAt(x: number, y: number, hitTesting: boolean, blockLayer?: boolean): VisualElement$1;
-    findElementOf(dom: HTMLElement): VisualElement$1;
-    activate(previous: VisualTool$1): void;
-    deactivate(): void;
-    keyDown(event: KeyboardEvent): boolean;
-    keyUp(event: KeyboardEvent): boolean;
-    keyPress(event: KeyboardEvent): boolean;
-    mouseDown(event: MouseEvent | TouchEvent): boolean;
-    dragFrom(event: MouseEvent, tracker: DragTracker$1): void;
-    dropFrom(event: MouseEvent, tracker: DragTracker$1): void;
-    mouseMove(event: MouseEvent | TouchEvent): void;
-    mouseUp(event: MouseEvent | TouchEvent): void;
-    mouseEnter(event: MouseEvent): void;
-    mouseLeave(event: MouseEvent): void;
-    mouseOver(event: MouseEvent): void;
-    mouseOutside(): void;
-    mouseWheel(event: MouseEvent): boolean;
-    contextMenu(event: MouseEvent): boolean;
-    click(event: MouseEvent): void;
-    dblclick(event: MouseEvent): void;
-    setFocus(target?: HTMLElement): void;
-    focusLeave(event: Event): void;
-    dragStart(event: MouseEvent): void;
-    dragEnd(event: MouseEvent): void;
-    dragEnter(event: MouseEvent): void;
-    dragOver(event: MouseEvent): void;
-    dragLeave(event: MouseEvent): void;
-    dragDrop(event: MouseEvent): void;
-    protected isMouseEventTarget(elt: VisualElement$1): boolean;
-    protected _doActivated(previous: VisualTool$1): void;
-    protected _doDeactivated(): void;
-    protected _doKeyDown(event: KeyboardEvent): boolean;
-    protected _doKeyUp(event: KeyboardEvent): boolean;
-    protected _doKeyPress(event: KeyboardEvent): boolean;
-    /**
-     * true 리턴하면 preventDefault 호출.
-     */
-    protected _doMouseDown(event: MouseEvent | TouchEvent): boolean;
-    protected _doMouseMove(event: MouseEvent | TouchEvent): void;
-    /** 그리드 밖에서도 호출된다. */
-    protected _doMouseUp(event: MouseEvent | TouchEvent): void;
-    protected _doMouseEnter(event: MouseEvent): void;
-    protected _doMouseLeave(event: MouseEvent): void;
-    protected _doMouseOver(event: MouseEvent): void;
-    protected _doMouseOutside(): void;
-    protected _doMouseWheel(event: MouseEvent): boolean;
-    protected _doContextMenu(event: MouseEvent): boolean;
-    /** 그리드 밖에서 마우스를 놓으면 호출되지 않는다. */
-    protected _doClick(event: MouseEvent): void;
-    protected _doDblClick(event: MouseEvent): void;
-    protected _doSetFocus(target?: HTMLElement): void;
-    protected _doFocusLeave(event: Event): void;
-    protected _doDragStart(event: MouseEvent): void;
-    protected _doDragEnd(event: MouseEvent): void;
-    protected _doDragEnter(event: MouseEvent): void;
-    protected _doDragOver(event: MouseEvent): void;
-    protected _doDragLeave(event: MouseEvent): void;
-    protected _doDragDrop(event: MouseEvent): void;
-    protected _getDragTracker(request: EditRequest$1, x: number, y: number): DragTracker$1;
-    protected _startDragTracker(x: number, y: number, shift: boolean, alt: boolean): void;
-    protected _stopDragTracker(x: number, y: number, canceled: boolean): void;
-    protected _doDragTrackerStarted(dragTracker: DragTracker$1): void;
-    protected _doDragTrackerFinished(dragTracker: DragTracker$1, canceled: boolean): void;
-    protected _findTableCell(source?: HTMLElement): HTMLTableCellElement;
-    protected _doTouchStart(event: TouchEvent): void;
-    protected _doTouchMove(event: TouchEvent): void;
-    protected _doTouchEnd(evnet: TouchEvent): void;
-    protected _doTouchCancel(evnet: TouchEvent): void;
-}
-/** @internal */
-declare abstract class EditRequest$1 extends Base$1 {
-    constructor();
-    /** cursor */
-    get cursor(): Cursor$1;
-    /** source */
-    get source(): any;
-    /** selectable */
-    get selectable(): boolean;
-    /** dblClickable */
-    get dblClickable(): boolean;
-}
-/** @internal */
-declare class DragTracker$1 extends Base$1 {
-    private _container;
-    private _name;
-    private _active;
-    private _completed;
-    private _dragging;
-    private _startX;
-    private _startY;
-    private _currentX;
-    private _currentY;
-    constructor(container: VisualContainer$1, name: string);
-    /** container */
-    get container(): VisualContainer$1;
-    /** name */
-    get name(): string;
-    /** active */
-    get active(): boolean;
-    /** dragging */
-    get dragging(): boolean;
-    /** startWhenCreated */
-    get startWhenCreated(): boolean;
-    /** completed */
-    get completed(): boolean;
-    /**
-     * linkable proprerty.
-     * 다른 그리드에서 진행 가능한 tracker.
-     */
-    get linkable(): boolean;
-    get cursor(): string;
-    activate(): void;
-    deactivate(): void;
-    start(eventTarget: HTMLElement, x: number, y: number, shift: boolean, alt: boolean): boolean;
-    drag(eventTarget: HTMLElement, x: number, y: number): boolean;
-    cancel(): void;
-    drop(eventTarget: HTMLElement, x: number, y: number): void;
-    end(): void;
-    getRequest(): EditRequest$1;
-    getNextRequest(x: number, y: number): EditRequest$1;
-    protected get startX(): number;
-    protected get startY(): number;
-    protected get currentX(): number;
-    protected get currentY(): number;
-    protected _showFeedback(x: number, y: number): void;
-    protected _moveFeedback(x: number, y: number): void;
-    protected _hideFeedback(): void;
-    protected _doActivate(): void;
-    protected _doDeactivate(): void;
-    protected _doStart(eventTarget: HTMLElement, x: number, y: number, shfit: boolean, alt: boolean): boolean;
-    protected _doDrag(eventTarget: HTMLElement, x: number, y: number): boolean;
-    protected _doCanceled(x: number, y: number): void;
-    protected _canAccept(eventTarget: HTMLElement, x: number, y: number): boolean;
-    protected _doCompleted(eventTarget: HTMLElement, x: number, y: number): void;
-    protected _doEnded(): void;
 }
 
 /** @internal */
@@ -1214,6 +1022,155 @@ declare class ListableProperty extends StringProperty {
     constructor(prop: IPropInfo);
 }
 
+interface IPropertySource {
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    isDominantProp(prop: IPropInfo): boolean;
+    getPlaceHolder(prop: IPropInfo): string;
+    getPropDomain(prop: IPropInfo): any[];
+    getProperty(prop: string): any;
+    setProperty(prop: string, value: any): void;
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getStyleProperty(prop: string): any;
+    setStyleProperty(prop: string, value: any): void;
+    setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getSubStyleProperty(prop: string, style: string): any;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    isReadOnlyProperty(prop: IPropInfo): boolean;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    getCollapsedPropCategories?: () => string[];
+    isCollectionProp(): boolean;
+    isEditableCollection(): boolean;
+    isCollectionItem(): boolean;
+    getCollectionLabel(): string;
+    getPropertySources(): IPropertySource[];
+    getPopupPropLabel(prop: string): string;
+}
+interface IPropertyContainer {
+    addCollectionItem(collection: IPropertySource): void;
+    removeItem(item: IPropertySource): void;
+}
+declare enum PropCategory {
+    DESIGN = "design",
+    BASIC = "basic",
+    TEXT = "text",
+    DATA = "data",
+    BOUND = "bound",
+    LINK = "link",
+    EVENT = "event",
+    SECTION = "section",
+    EDITOR = "editor",
+    REPORT = "report",
+    PAPER = "paper",
+    PRINT = "print",
+    BOX = "box",
+    TABLE = "table",
+    BARCODE = "barcode",
+    CELL = "cell",
+    BAND = "band",
+    BAND_GROUP = "band group",
+    BAND_CELL = "band cell",
+    FIELD = "field",
+    COLUMN = "column",
+    ROW = "row",
+    CHART = "chart",
+    TITLE = "title",
+    SUBTITLE = "subtitle",
+    AXIS = "axis",
+    XAXIS = "x Axis",
+    YAXIS = "y Axis",
+    SERIES = "series",
+    LABEL = "label",
+    LABELS = "labels",
+    DATA_LABELS = "dataLabels",
+    MARKER = "marker",
+    LEGEND = "legend",
+    GRID = "grid",
+    LINE = "line",
+    TICK = "tick",
+    POINT = "point",
+    TOOLTIP = "tooltip",
+    CROSSHAIR = "crosshair",
+    OPTIONS = "options",
+    CREDITS = "credits",
+    STYLES = "Styles",
+    EMAIL_FORM_INFO = "email form info",
+    EMAIL_LAYOUT = "email layout"
+}
+interface IPropInfo {
+    name: string;
+    category: string;
+    type: any;
+    typeProps?: any | ModelPropertyTypeProps;
+    parent?: string;
+    indented?: boolean;
+    calculated?: boolean;
+    collection?: boolean;
+    visible?: (source: IPropertySource) => boolean;
+    multiple?: boolean;
+    /**
+     * 속성 기본값
+     * - 속성값이 `default` 값과 일치하면 양식에 저장하지 않는다.
+     *   - 이메일 아이템의 경우에는 로드할 때, 양식에 해당 속성 필드가 정의되어 있지 않으면 `default` 값으로 로드한다. (`EmailLoaderImpl.loadOwn()` 참고)
+     * - 명시적으로 `undefined`값을 할당해야 `undefined`를 기본값으로 처리한다. 반면 `default` 필드를 정의하지 않는 경우는 기본값 로직이 동작하지 않는다.
+     * - inspector에서 reset 시에도 활용된다.
+     */
+    default?: any;
+    /**
+     * 속성값 변경 가능 여부
+     * - `true`면 값을 변경할 수 없고, 양식에서 로드되지 않는다.
+     */
+    readonly?: boolean;
+    domain?: any[] | any;
+    label?: string;
+    tag?: string;
+    params?: any;
+    signature?: string;
+    validate?: (source: IPropertySource, inputValue: any) => void;
+    refresh?: boolean;
+    description?: string;
+}
+interface ModelPropertyTypeProps {
+    /**
+     * 포함해야할 모델 내부 속성을 정의
+     */
+    include?: string[];
+}
+
+/**
+ * 자식 item들을 순서대로 쌓아가며 배치한다.
+ * 위치 설정이 안된 item은 중앙에 정렬 시킨다.
+ */
+declare class StackContainer extends BoundedContainer {
+    static readonly PROP_OVERFLOW = "overflow";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Stack Container";
+    static readonly STYLE_PROPS: string[];
+    private _overflow;
+    constructor(name: string);
+    /**
+     * true로 설정되면 자식이 넘칠 수 있다.
+     * 특히, table을 자식으로 갖는 경우 true로 설정해야 우측 끝이 표시되는 경우가 있을 수 있다.
+     */
+    get overflow(): boolean;
+    set overflow(value: boolean);
+    get outlineLabel(): string;
+    getSaveType(): string;
+    protected _datable(): boolean;
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _getStyleProps(): string[];
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canAlign(child: ReportItem): boolean;
+    canAdoptDragSource(source: any): boolean;
+    getMoveType(item: ReportItem): ItemMoveType;
+}
+
 /**
  */
 declare class PageItemContainer extends BoundedContainer {
@@ -1390,153 +1347,6 @@ declare class EditCommandStack$1 extends EventAware$1 {
     private $_shrink;
 }
 
-/**
- * 리포트 페이지 모델. 하나 이상의 section들로 구성된다.
- *
- * 1. band는 body의 최상위 항목으로만 추가될 수 있다. 즉, 다른 항목의 자식이 될 수 없다.
- */
-declare class ReportPage extends ReportGroupItem implements IEventAware {
-    static readonly PROP_ORIENTATION = "orientation";
-    static readonly ITEM_ADDED = "onPageItemAdded";
-    static readonly ITEMS_ADDED = "onPageItemsAdded";
-    static readonly ITEM_REMOVED = "onPageItemRemoved";
-    static readonly ITEMS_REMOVED = "onPageItemsRemoved";
-    static readonly ITEM_CHANGED = "onPageItemChanged";
-    static readonly COLLECTION_CHANGED = "onPageCollectionChanged";
-    static readonly $_ctor: string;
-    static readonly PROPINFOS: IPropInfo[];
-    private _orientation;
-    private _report;
-    private _pageIndex;
-    private _events;
-    private _nameMap;
-    private _reportHeader;
-    private _reportFooter;
-    private _pageHeader;
-    private _pageFooter;
-    private _body;
-    private _backItems;
-    private _frontItems;
-    private _sections;
-    saveTag: string;
-    private _loading;
-    private _removing;
-    constructor(report: Report);
-    addListener(listener: object): IEventAware;
-    removeListener(listener: object): IEventAware;
-    /**
-     * report
-     */
-    get report(): Report;
-    /**
-     * reportHeader
-     */
-    get reportHeader(): ReportHeader;
-    /**
-     * reportFooter
-     */
-    get reportFooter(): ReportFooter;
-    /**
-     * pageHeader
-     */
-    get pageHeader(): PageHeader;
-    /**
-     * pageFooter
-     */
-    get pageFooter(): PageFooter;
-    /**
-     * body
-     */
-    get body(): PageBody;
-    get backContainer(): PageItemContainer;
-    /**
-     * backItems
-     */
-    get backItems(): ReportItem[];
-    get frontContainer(): PageItemContainer;
-    /**
-     * frontItems
-     */
-    get frontItems(): ReportItem[];
-    /**
-     * loading
-     */
-    get loading(): boolean;
-    /**
-     * orientation
-     */
-    get orientation(): PaperOrientation;
-    set orientation(value: PaperOrientation);
-    getItem(name: string): ReportItem;
-    removeItems(commands: EditCommandStack$1, items: ReportPageItem[]): number;
-    search(page: number, key: string, options: FindOptions, results: FindResult[]): void;
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    get page(): ReportPage;
-    outlineVisible(child: IOutlineSource): boolean;
-    canMove(): boolean;
-    getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    canDelete(): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _ignoreItems(): boolean;
-    protected _doSave(target: object): void;
-    canResize(dir: ResizeDirection): boolean;
-    getAllItems(root?: ReportGroupItem, all?: boolean): ReportItem[];
-    collectInvalids(report: Report, invalids: {
-        item: ReportItem;
-        reason: string;
-    }[]): void;
-    private $_itemAdded;
-    private $_addItem;
-    private $_itemsAdded;
-    private $_itemRemoved;
-    private $_removeItem;
-    private $_itemsRemoved;
-    private $_itemChanged;
-    private $_collectionChanged;
-    /**
-     * ReportItem.name에서 호출한다.
-     */
-    private $_nameChanged;
-    /**
-     * Report.onDesignDataManagerNameChanged에서 호출한다.
-     */
-    private $_dataNameChanged;
-    /**
-     * Report.onDesignDataManagerFieldNameChanged 호출한다.
-     */
-    private $_dataFieldNameChanged;
-    protected _fireItemAdded(item: ReportPageItem, index: number, silent: boolean): void;
-    protected _fireItemsAdded(items: ReportPageItem[], index: number): void;
-    protected _fireItemRemoved(item: ReportPageItem, oldParent: ReportGroupItem): void;
-    protected _fireItemsRemoved(items: ReportPageItem[]): void;
-    protected _fireItemChanged(item: ReportPageItem, prop: string, value: any, oldValue: any): void;
-    protected _fireCollectionChanged(collection: ReportItemCollection<any>): void;
-}
-/**
- * Report header/footer, Page header/footer를 제외한 리포트 페이지 영역.
- */
-declare class PageBody extends PageSection {
-    static readonly $_ctor: string;
-    private _bodyItems;
-    constructor();
-    /**
-     * items
-     */
-    get bodyItems(): ReportItem[];
-    get itemsContainer(): ColumnBoxContainer;
-    get itemsAlign(): BoxItemsAlign;
-    get outlineLabel(): string;
-    canParentOf(itemType: string): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _loadItems(loader: IReportLoader, src: any): void;
-    protected _ignoreItems(): boolean;
-    protected _doSave(target: object): void;
-    canRemove(item: ReportItem): boolean;
-}
-
 interface ISize {
     width: number;
     height: number;
@@ -1677,6 +1487,61 @@ declare class AssetManager extends EventAware$1 {
     private $_addPalette;
     private $_addChartist;
     private $_addHighchart;
+}
+interface IReportDataProvider {
+    designTime?: boolean;
+    preparePrint(ctx: PrintContext): void;
+    getAll(): IReportData[];
+    get(name: string): IReportData;
+    getContextValue(path: string): any;
+    getValue(path: string, row: number): any;
+    getValueAt(data: string, path: string, row: number): any;
+    getFieldValues(data: string, field: string, rows?: number[]): any[];
+    addData?(data: IReportData): boolean;
+    removeData?(data: string | IReportData): IReportData;
+    dataNameChanged?(data: IReportData, oldName: string): void;
+    fieldNameChanged?(data: IReportData, newName: string, oldName: string): void;
+}
+interface IReportData {
+    name: string;
+    isBand: boolean;
+    getFieldNames(): string[];
+    getSaveType(): string;
+    getValue(path: string): any;
+}
+declare abstract class ReportData$1 extends Base$1 {
+    private _name;
+    private _dp;
+    constructor(name: string, dp: IReportDataProvider);
+    get provider(): IReportDataProvider;
+    get designTime(): boolean;
+    get isBand(): boolean;
+    /** name */
+    get name(): string;
+    set name(value: string);
+    preparePrint(ctx: PrintContext, design: boolean): void;
+}
+interface ISimpleData extends IReportData {
+    getValues(): any;
+    getSaveValues(): any;
+}
+/**
+ * 단순형 값이나, json 객체를 값으로 지정한다.
+ */
+declare class SimpleData extends ReportData$1 implements ISimpleData {
+    private _isObj;
+    private _values;
+    constructor(name: string, values: any);
+    /**
+     * TODO: array index
+     */
+    getValue(path?: string): any;
+    getValues(): any;
+    get sample(): any;
+    setSample(values: any): void;
+    getFieldNames(): string[];
+    getSaveType(): string;
+    getSaveValues(): any;
 }
 
 /** @internal */
@@ -1903,6 +1768,18 @@ declare class DesignDataManager extends EventAware$1 implements IReportDataProvi
     private $_fireDataAdded;
     private $_fireDataRemoved;
     private $_fireDataUpdated;
+}
+
+interface IOutlineSource {
+    outlineParent: IOutlineSource;
+    outlineExpandable: boolean;
+    outlineItems?: IOutlineSource[];
+    outlineLabel: string;
+    outlineOrder: number;
+    outlineVisible(child: IOutlineSource): boolean;
+    getSaveType(): string;
+    canRemoveFrom(): boolean;
+    canParentOf?(itemType: string): boolean;
 }
 
 /**
@@ -2782,6 +2659,7 @@ declare abstract class DataBand extends ReportGroupItem {
     private $_getSum;
     private $_getMin;
     private $_getMax;
+    protected _createDataBandCollection(): DataBandCollection;
 }
 /**
  */
@@ -3111,6 +2989,9 @@ declare class TableBand extends DataBand {
     remove(item: ReportPageItem): void;
     getNextDetailRows(dataView: BandDataView, from?: number): number[];
     containsInSection(item: ReportItem): boolean;
+    protected _createHeader(): TableBandHeader;
+    protected _createDataRow(): TableBandDataRow;
+    protected _createFooter(): TableBandFooter;
 }
 
 declare class TableColumn extends TableColumnBase {
@@ -4030,6 +3911,891 @@ declare class CrosstabBand extends ReportGroupItem {
     _fieldsChanged(field: CrosstabField): void;
 }
 
+interface ChartWrappable<ChartConfig> {
+    getChartConfig(context: PrintContext): ChartConfig;
+}
+declare abstract class ChartItem<C = unknown> extends ReportGroupItem implements ChartWrappable<C> {
+    abstract getChartConfig(context: PrintContext): C;
+    getParentBand(): DataBand;
+}
+declare abstract class ChartObject$1<T extends ChartItem, C = unknown> extends ReportPageItem implements ReportObject, ChartWrappable<C> {
+    static readonly PROP_VISIBLE = "visible";
+    static readonly PROP_VISIBLE_DEFAULT_VALUE = true;
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: any[];
+    private _visible;
+    private _chart;
+    private _styles;
+    constructor(chart: T);
+    get outlineParent(): IOutlineSource | undefined;
+    get outlineExpandable(): boolean;
+    get outlineLabel(): string;
+    getSaveType(): string;
+    canRemoveFrom(): boolean;
+    abstract getSaveLabel(): string;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    getPlaceHolder(prop: IPropInfo): string;
+    getPropDomain(prop: IPropInfo): any[];
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getStyle(style: string): string;
+    setStyle(style: string, value: string): void;
+    getStyleProperty(prop: string): any;
+    setStyleProperty(prop: string, value: any): void;
+    isChildProp(prop: string): boolean;
+    getSubStyleProperty(prop: string, style: string): any;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    get visible(): boolean;
+    set visible(value: boolean);
+    get chart(): T;
+    get page(): ReportPage;
+    get report(): Report;
+    get pathLabel(): string;
+    get displayPath(): string;
+    get level(): number;
+    get styles(): Styles;
+    set styles(value: Styles);
+    defaultInit(): void;
+    load(loader: IReportLoader, source: ReportSource): void;
+    save(target: ReportTarget): boolean;
+    abstract getChartConfig(context: PrintContext): C;
+    get dataParent(): ReportGroupItem;
+    get marqueeParent(): ReportItem;
+    isCollection(): boolean;
+    protected _doDefaultInit(): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _getSubStyle(prop: string, style: string): any;
+    protected _setSubStyle(prop: string, style: string, value: any): void;
+    protected _getParentData(): string;
+    protected _changed(prop: string, newValue: unknown, oldValue: unknown): void;
+}
+declare abstract class ChartDataObject<T extends ChartItem, C = unknown> extends ChartObject$1<T, C> {
+    static readonly PROP_DATA = "data";
+    static readonly PROPINFOS: IPropInfo[];
+    private _data;
+    constructor(chart: T);
+    get data(): string;
+    set data(value: string);
+    protected getData(): IReportData | undefined;
+    protected getDataFieldNames(): string[];
+    protected getDataFieldValue(context: PrintContext, field: string): unknown;
+    protected _getEditProps(): IPropInfo[];
+    getPropDomain(prop: IPropInfo): any[];
+    getPlaceHolder(prop: IPropInfo): string;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+}
+declare abstract class ChartTextObject$1<T extends ChartItem, C = unknown> extends ChartObject$1<T, C> {
+    static readonly PROP_TEXT = "text";
+    static readonly PROPINFOS: IPropInfo[];
+    private _text;
+    constructor(chart: T, text?: string);
+    /** text */
+    get text(): string;
+    set text(value: string);
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+}
+
+type RCLegendConfig = {
+    visible?: boolean;
+    alignBase?: RCLegendAlignBase;
+    gap?: number;
+    itemGap?: number;
+    itemsAlign?: RCLegendItemsAlign;
+    itemsPerLine?: number;
+    layout?: RCLegendLayout;
+    lineGap?: number;
+    location?: RCLegendLocation;
+    markerGap?: number;
+    markerSize?: number;
+    maxHeight?: string | number;
+    maxWidth?: string | number;
+    backgroundStyle?: RCSvgStyles | string;
+    style?: RCSvgStyles | string;
+};
+declare enum RCLegendAlignBase {
+    CHART = "chart",
+    PARENT = "parent",
+    PLOT = "plot"
+}
+declare enum RCLegendItemsAlign {
+    START = "start",
+    CENTER = "center",
+    END = "end"
+}
+declare enum RCLegendLayout {
+    AUTO = "auto",
+    HORIZONTAL = "horizontal",
+    VERTICAL = "vertical"
+}
+declare enum RCLegendLocation {
+    TOP = "top",
+    BOTTOM = "bottom",
+    LEFT = "left",
+    RIGHT = "right",
+    PLOT = "plot"
+}
+
+interface RCSubtitleConfig {
+    visible?: boolean;
+    text: string;
+    style?: RCSvgStyles;
+}
+
+interface RCTitleConfig {
+    visible?: boolean;
+    text: string;
+    style?: RCSvgStyles;
+}
+
+interface RCCategoryAxisConfig extends RCAxisConfigBase {
+    type: 'category';
+    categories: string[];
+    unit?: string;
+}
+
+interface RCLinearAxisConfig extends RCAxisConfigBase {
+    type: 'linear';
+    strictMax?: number;
+    strictMin?: number;
+}
+
+interface RCLogAxisConfig extends RCAxisConfigBase {
+    type: 'log';
+    strictMax?: number;
+    strictMin?: number;
+}
+
+interface RCTimeAxisConfig extends RCAxisConfigBase {
+    type: 'time';
+    strictMax?: number;
+    strictMin?: number;
+}
+
+type RCAxisType = 'category' | 'linear' | 'log' | 'time';
+type RCAxisDirection = 'x' | 'y';
+type RCAxisConfig = RCCategoryAxisConfig | RCLinearAxisConfig | RCLogAxisConfig | RCTimeAxisConfig;
+interface RCAxisConfigBase {
+    visible?: boolean;
+    type: RCAxisType;
+    title: RCAxisTitleConfig;
+    name?: string;
+    maxValue?: number;
+    minValue?: number;
+    marginFar?: number;
+    marginNear?: number;
+    maxPadding?: number;
+    minPadding?: number;
+    label?: RCAxisLabelConfig;
+    grid?: RCAxisGridConfig;
+    line?: RCAxisLineConfig;
+    tick?: RCAxisGridConfig;
+    crosshair?: RCAxisCorssHairConfig;
+}
+interface RCAxisTitleConfig {
+    text: string;
+    visible?: boolean;
+    align?: number;
+    gap?: number;
+    offset?: number;
+    rotation?: number;
+    backgroundStyle?: RCSvgStyles;
+    style?: RCSvgStyles;
+}
+interface RCAxisLabelConfig {
+    visible?: boolean;
+    text?: string;
+    prefix?: string;
+    suffix?: string;
+    firstText?: string;
+    firstStyle?: RCSvgStyles;
+    lastText?: string;
+    lastStyle?: RCSvgStyles;
+    numberFormat?: string;
+    numberSymbols?: string;
+    autoArrange?: RCAxisLabelAutoArrange;
+    autoContrast?: boolean;
+    rotation?: number;
+    darkStyle?: RCSvgStyles;
+    lightStyle?: RCSvgStyles;
+    backgroundStyle?: RCSvgStyles;
+    style?: RCSvgStyles;
+}
+declare enum RCAxisLabelAutoArrange {
+    NONE = "none",
+    ROTATE = "rotate",
+    ROWS = "rows",
+    STEP = "step"
+}
+interface RCAxisGridConfig {
+    visible?: boolean;
+    endVisible?: boolean;
+    startVisible?: boolean;
+    style?: RCSvgStyles;
+}
+interface RCAxisLineConfig {
+    visible?: boolean;
+    style?: RCSvgStyles;
+}
+interface RCAxisTickConfig {
+    visible?: boolean;
+    stepInterval?: number;
+    gap?: number;
+    length?: number;
+    style?: RCSvgStyles;
+}
+interface RCAxisCorssHairConfig {
+    visible?: boolean;
+    flag?: {
+        visible?: boolean;
+        format?: string;
+        textStyles?: RCSvgStyles;
+        style?: RCSvgStyles;
+    };
+    followPointer?: boolean;
+    numberFormat?: string;
+    showAlways?: boolean;
+    style?: RCSvgStyles;
+}
+
+type RCCreditsConfig = {
+    visible?: boolean;
+    text?: string;
+    url?: string;
+    align?: 'left' | 'right' | 'center';
+    verticalAlign?: 'top' | 'middle' | 'bottom';
+    offsetX?: number;
+    offsetY?: number;
+    floating?: boolean;
+    style?: RCSvgStyles;
+};
+
+type RCBarSeriesConfig = {
+    type: 'bar';
+    xAxis?: string;
+    yAxis?: string;
+    data: number[];
+    tooltip?: RCSeriesTooltipConfig;
+    baseValue?: number;
+    nullAsBase?: boolean;
+    color?: string;
+    belowStyle?: RCSvgStyles;
+} & RCSeriesPointConfig & RCSeriesConfigBase;
+
+type RCLineSeriesConfig = {
+    type: 'line';
+    xAxis?: string;
+    yAxis?: string;
+    data: number[];
+    marker?: RCSeriesMarkerConfig;
+    tooltip?: RCSeriesTooltipConfig;
+    baseValue?: number;
+    nullAsBase?: boolean;
+    color?: string;
+    belowStyle?: RCSvgStyles;
+} & Pick<RCSeriesPointConfig, 'pointLabel' | 'pointColors'> & RCSeriesConfigBase;
+
+type RCPieSeriesConfig = {
+    type: 'pie';
+    xAxis?: string;
+    yAxis?: string;
+    data: number[];
+    tooltip?: RCSeriesTooltipConfig;
+    radius?: string | number;
+    legendByPoint?: boolean;
+} & Pick<RCSeriesPointConfig, 'pointLabel' | 'pointColors'> & RCSeriesConfigBase;
+
+type RCSeriesConfig = RCBarSeriesConfig | RCLineSeriesConfig | RCPieSeriesConfig;
+type RCSeriesType = 'bar' | 'line' | 'pie';
+interface RCSeriesConfigBase {
+    type: RCSeriesType;
+    name: string;
+    visible: boolean;
+    style?: RCSvgStyles;
+}
+interface RCSeriesPointConfig {
+    pointLabel?: RCSeriesPointLabelConfig;
+    pointPadding?: number;
+    colorByPoint?: boolean;
+    pointColors?: boolean | string[];
+}
+interface RCSeriesPointLabelConfig {
+    visible?: boolean;
+    text?: string;
+    style?: RCSvgStyles;
+}
+interface RCSeriesTooltipConfig {
+    visible?: boolean;
+    text?: string;
+    numberFormat?: string;
+    timeFormat?: string;
+    hideDelay?: number;
+    followPointer?: boolean;
+    style?: RCSvgStyles;
+}
+interface RCSeriesMarkerConfig {
+    visible?: boolean;
+    radius?: number;
+    shape?: RCSeriesMarkerShape;
+    style?: RCSvgStyles;
+}
+declare enum RCSeriesMarkerShape {
+    CIRCLE = "circle",
+    DIAMOND = "diamond",
+    SQUARE = "square",
+    TRIANGLE = "triangle",
+    STAR = "star",
+    ITRIANGLE = "itriangle",
+    RECTANGLE = "rectangle"
+}
+
+/**
+ * RealChart
+ */
+type RCConfig = {
+    inverted?: boolean;
+    title?: RCTitleConfig;
+    subtitle?: RCSubtitleConfig;
+    legend?: RCLegendConfig;
+    options?: RCOptionsConfig;
+    xAxis: RCAxisConfig[];
+    yAxis: RCAxisConfig[];
+    series: RCSeriesConfig[];
+};
+/**
+ *  Options
+ */
+type RCOptionsConfig = {
+    animatable?: boolean;
+    credits?: RCCreditsConfig;
+};
+/**
+ * Etc
+ */
+interface RCSvgStyles {
+    fill?: string;
+    fillOpacity?: string;
+    fontFamily?: string;
+    fontSize?: string;
+    fontStyle?: string;
+    fontWeight?: string;
+    stroke?: string;
+    strokeWidth?: string;
+    strokeDasharray?: string;
+    rx?: string;
+}
+
+declare abstract class ChartAxis<T extends ChartItem, C = unknown> extends ChartDataObject<T, C> {
+    static readonly PROPINFOS: IPropInfo[];
+    private _collection;
+    private _index;
+    constructor(collection: ChartAxisCollection<T>);
+    get outlineParent(): IOutlineSource;
+    get outlineLabel(): string;
+    abstract get type(): string;
+    get collection(): ChartAxisCollection<T>;
+    set collection(value: ChartAxisCollection<T>);
+    get index(): number;
+    set index(value: number);
+    get displayPath(): string;
+    getSaveLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: ReportTarget): void;
+}
+declare abstract class ChartAxisCollection<T extends ChartItem, C = unknown> extends ReportItemCollection<ChartAxis<T, C>> implements ReportObject {
+    private _chart;
+    private _axes;
+    constructor(chart: T);
+    get outlineParent(): IOutlineSource;
+    abstract get outlineLabel(): string;
+    get outlineExpandable(): boolean;
+    get outlineItems(): IOutlineSource[];
+    getSaveType(): string;
+    get owner(): ChartItem;
+    get chart(): T;
+    get count(): number;
+    get items(): ChartAxis<T, C>[];
+    get visibleCount(): number;
+    abstract getSaveLabel(): string;
+    defaultInit(): void;
+    load(loader: IReportLoader, source: ReportSource): void;
+    save(target: ReportTarget): boolean;
+    get(index: number): ChartAxis<T, C>;
+    indexOf(axis: ChartAxis<T, C>): number;
+    addNew(loader: IReportLoader, type: string): ChartAxis<T, C>;
+    add(axis: ChartAxis<T, C>): ChartAxis<T, C>;
+    removeAt(index: number): boolean;
+    remove(axis: ChartAxis<T, C>): boolean;
+    clear(): boolean;
+    get page(): ReportPage;
+    abstract get displayPath(): string;
+    get level(): number;
+    isCollection(): boolean;
+    isAncestorOf(item: ReportPageItem): boolean;
+    getCollectionLabel(): string;
+    protected _doMoveItem(from: number, to: number): boolean;
+    protected abstract _createAxis(loader: IReportLoader, src: ReportSource): ChartAxis<T, C>;
+    protected abstract _axesChanged(): void;
+    protected _doDefaultInit(): void;
+    private $_invalidateAxes;
+}
+
+declare abstract class RCAxisObject<C> extends ChartObject$1<RealChartItem, C> {
+    readonly axis: RCAxis<unknown>;
+    constructor(axis: RCAxis<unknown>);
+}
+declare abstract class RCAxisTextObject<C> extends ChartTextObject$1<RealChartItem, C> {
+    readonly axis: RCAxis<unknown>;
+    constructor(axis: RCAxis<unknown>);
+}
+
+declare class RCAxisTick extends RCAxisObject<RCAxisTickConfig> {
+    static readonly PROP_STEP_INTERVAL = "stepInterval";
+    static readonly PROP_GAP = "gap";
+    static readonly PROP_GAP_DEFUALT_VALUE = 3;
+    static readonly PROP_LENGTH = "length";
+    static readonly PROP_LENGTH_DEFAULT_VALUE = 7;
+    static readonly PROPINFOS: IPropInfo[];
+    private static readonly STYLES;
+    private _stepInterval;
+    private _gap;
+    private _length;
+    constructor(axis: RCAxis<unknown>);
+    get stepInterval(): number;
+    set stepInterval(value: number);
+    get gap(): number;
+    set gap(value: number);
+    get length(): number;
+    set length(value: number);
+    getChartConfig(context: PrintContext): RCAxisTickConfig;
+    getSaveLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+}
+
+declare class RCAxisTitle extends RCAxisTextObject<RCAxisTitleConfig> {
+    private static readonly STYLES;
+    constructor(axis: RCAxis<unknown>);
+    getCollapsedPropCategories(): string[];
+    getChartConfig(context: PrintContext): RCAxisTitleConfig;
+    getSaveLabel(): string;
+    protected _getStyleProps(): string[];
+}
+
+declare class RCAxisLine extends RCAxisObject<RCAxisLineConfig> {
+    private static readonly STYLES;
+    constructor(axis: RCAxis<unknown>);
+    getChartConfig(context: PrintContext): RCAxisLineConfig;
+    getSaveLabel(): string;
+    protected _getStyleProps(): string[];
+}
+
+declare class RCAxisGrid extends RCAxisObject<RCAxisGridConfig> {
+    static readonly PROP_START_VISIBLE = "startVisible";
+    static readonly PROP_START_VISIBLE_DEFUALT_VALUE = false;
+    static readonly PROP_END_VISIBLE = "endVisible";
+    static readonly PROPINFOS: IPropInfo[];
+    private static readonly STYLES;
+    private _startVisible;
+    private _endVisible;
+    constructor(axis: RCAxis<unknown>);
+    get startVisible(): boolean;
+    set startVisible(value: boolean);
+    get endVisible(): boolean;
+    set endVisible(value: boolean);
+    getChartConfig(context: PrintContext): RCAxisGridConfig;
+    getSaveLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+}
+
+declare class RCAxisLabel extends RCAxisTextObject<RCAxisLabelConfig> {
+    static readonly PROP_AUTO_ARRANGE = "autoArrange";
+    static readonly PROP_AUTO_ARRANGE_DEFAULT_VALUE = RCAxisLabelAutoArrange.ROTATE;
+    static readonly PROP_ROTATION = "rotation";
+    static readonly PROPINFOS: IPropInfo[];
+    private static readonly STYLES;
+    private _autoArrange;
+    private _rotation;
+    constructor(axis: RCAxis<unknown>);
+    get autoArrange(): RCAxisLabelAutoArrange;
+    set autoArrange(value: RCAxisLabelAutoArrange);
+    get rotation(): number;
+    set rotation(value: number);
+    getChartConfig(context: PrintContext): RCAxisLabelConfig;
+    getSaveLabel(): string;
+    getCollapsedPropCategories(): string[];
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+}
+
+declare abstract class RCAxis<C = RCAxisConfig> extends ChartAxis<RealChartItem, C> {
+    static readonly PROP_TYPE = "type";
+    static readonly PROP_NAME = "name";
+    static readonly PROP_MAX_VALUE = "maxValue";
+    static readonly PROP_MIN_VALUE = "minValue";
+    static readonly PROP_STRICT_MAX = "strictMax";
+    static readonly PROP_STRICT_MIN = "strictMin";
+    static readonly PROP_TITLE = "title";
+    static readonly PROP_LABEL = "label";
+    static readonly PROP_GRID = "grid";
+    static readonly PROP_LINE = "line";
+    static readonly PROP_TICK = "tick";
+    static readonly PROPINFOS: IPropInfo[];
+    private _name;
+    private _maxValue;
+    private _minValue;
+    private _strictMax;
+    private _strictMin;
+    private _title;
+    private _label;
+    private _grid;
+    private _line;
+    private _tick;
+    private _crosshair;
+    constructor(collection: RCAxisCollection);
+    get outlineParent(): IOutlineSource;
+    get outlineLabel(): string;
+    abstract get type(): string;
+    get direction(): RCAxisDirection | undefined;
+    get name(): string;
+    set name(value: string);
+    get maxValue(): number;
+    set maxValue(value: number);
+    get minValue(): number;
+    set minValue(value: number);
+    get strictMax(): number;
+    set strictMax(value: number);
+    get strictMin(): number;
+    set strictMin(value: number);
+    get title(): RCAxisTitle;
+    get label(): RCAxisLabel;
+    get grid(): RCAxisGrid;
+    get line(): RCAxisLine;
+    get tick(): RCAxisTick;
+    abstract getChartConfig(context: PrintContext): C;
+    getCollapsedPropCategories(): string[];
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: ReportTarget): void;
+}
+declare abstract class RCAxisCollection extends ChartAxisCollection<RealChartItem, RCAxisConfig> {
+    abstract get direction(): RCAxisDirection;
+    getConfig(context: PrintContext): RCAxisConfig[];
+}
+declare class RCXAxisCollection extends RCAxisCollection {
+    get outlineLabel(): string;
+    get direction(): RCAxisDirection;
+    get displayPath(): string;
+    getSaveLabel(): string;
+    protected _createAxis(loader: IReportLoader, src: ReportSource): RCAxis;
+    protected _axesChanged(): void;
+}
+declare class RCYAxisCollection extends RCAxisCollection {
+    get outlineLabel(): string;
+    get direction(): RCAxisDirection;
+    get displayPath(): string;
+    getSaveLabel(): string;
+    protected _createAxis(loader: IReportLoader, src: ReportSource): RCAxis;
+    protected _axesChanged(): void;
+}
+
+declare abstract class ChartSeriesCollection$1<T extends ChartItem, C = unknown> extends ReportItemCollection<ChartSeries$1<T, C>> implements ReportObject {
+    private _chart;
+    private _seriesList;
+    constructor(chart: T);
+    get outlineParent(): IOutlineSource;
+    get outlineLabel(): string;
+    get outlineExpandable(): boolean;
+    get outlineItems(): IOutlineSource[];
+    getSaveType(): string;
+    get owner(): ChartItem;
+    get chart(): T;
+    get count(): number;
+    get items(): ChartSeries$1<T, C>[];
+    get visibleCount(): number;
+    getSaveLabel(): string;
+    defaultInit(): void;
+    load(loader: IReportLoader, source: ReportSource): void;
+    save(target: ReportTarget): boolean;
+    get(index: number): ChartSeries$1<T, C>;
+    indexOf(series: ChartSeries$1<T, C>): number;
+    addNew(loader: IReportLoader, type: string): ChartSeries$1<T, C>;
+    add(series: ChartSeries$1<T, C>): ChartSeries$1<T, C>;
+    removeAt(index: number): boolean;
+    remove(series: ChartSeries$1<T, C>): boolean;
+    clear(): boolean;
+    select(series: ChartSeries$1<T, C> | null): void;
+    get page(): ReportPage;
+    get displayPath(): string;
+    get level(): number;
+    isCollection(): boolean;
+    isAncestorOf(item: ReportPageItem): boolean;
+    getCollectionLabel(): string;
+    protected _doMoveItem(from: number, to: number): boolean;
+    protected abstract _createSeries(loader: IReportLoader, src: ReportSource): ChartSeries$1<T, C>;
+    protected abstract _seriesChanged(): void;
+    protected _doDefaultInit(): void;
+    private $_invalidateSeriesList;
+}
+
+declare abstract class ChartSeries$1<T extends ChartItem, C = unknown> extends ChartDataObject<T, C> {
+    static readonly PROP_VALUE_FIELD = "valueField";
+    static readonly PROP_VALUES = "values";
+    static readonly PROPINFOS: IPropInfo[];
+    private _valueField;
+    private _values;
+    private _collection;
+    private _index;
+    private _designVisible;
+    constructor(collection: ChartSeriesCollection$1<T>);
+    getPropDomain(prop: IPropInfo): any[];
+    get outlineLabel(): string;
+    get outlineParent(): IOutlineSource;
+    abstract get type(): string;
+    get valueField(): string;
+    set valueField(value: string);
+    get values(): number[];
+    set values(value: number[]);
+    get collection(): ChartSeriesCollection$1<T>;
+    set collection(value: ChartSeriesCollection$1<T>);
+    get index(): number;
+    set index(value: number);
+    get designVisible(): boolean;
+    set designVisible(value: boolean);
+    protected getVisible(context: PrintContext): boolean;
+    protected getSeriesData(context: PrintContext): number[];
+    get displayPath(): string;
+    getSaveLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: ReportTarget): void;
+}
+
+declare abstract class RCSeries<C = RCSeriesConfig> extends ChartSeries$1<RealChartItem, C> {
+    static readonly PROP_TYPE = "type";
+    static readonly PROP_NAME = "name";
+    static readonly PROP_NAME_FIELD = "nameField";
+    static readonly PROP_X_AXIS = "xAxis";
+    static readonly PROP_Y_AXIS = "yAxis";
+    static readonly PROPINFOS: IPropInfo[];
+    private _name;
+    private _nameField;
+    private _xAxis;
+    private _yAxis;
+    constructor(collection: RCSeriesCollection);
+    get name(): string;
+    set name(value: string);
+    get nameField(): string;
+    set nameField(value: string);
+    get xAxis(): string;
+    set xAxis(value: string);
+    get yAxis(): string;
+    set yAxis(value: string);
+    abstract getChartConfig(context: PrintContext): C;
+    protected getSeriesName(context: PrintContext): string;
+    getPropDomain(prop: IPropInfo): any[];
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: ReportTarget): void;
+}
+declare class RCSeriesCollection extends ChartSeriesCollection$1<RealChartItem, RCSeriesConfig> {
+    getConfig(context: PrintContext): RCSeriesConfig[];
+    protected _createSeries(loader: IReportLoader, src: ReportSource): RCSeries;
+    protected _seriesChanged(): void;
+}
+
+declare class RCSubtitle extends ChartTextObject$1<RealChartItem, RCSubtitleConfig> {
+    private static readonly STYLES;
+    constructor(chart: RealChartItem);
+    getChartConfig(context: PrintContext): RCSubtitleConfig;
+    getSaveLabel(): string;
+    getCollapsedPropCategories(): string[];
+    protected _doDefaultInit(): void;
+    protected _getStyleProps(): string[];
+}
+
+declare class RCTitle extends ChartTextObject$1<RealChartItem, RCTitleConfig> {
+    private static readonly STYLES;
+    constructor(chart: RealChartItem);
+    getChartConfig(context: PrintContext): RCTitleConfig;
+    getSaveLabel(): string;
+    getCollapsedPropCategories(): string[];
+    protected _doDefaultInit(): void;
+    protected _getStyleProps(): string[];
+}
+
+declare class RCLegend extends ChartObject$1<RealChartItem, RCLegendConfig> {
+    static readonly PROP_ALIGN_BASE = "alignBase";
+    static readonly PROP_ALIGN_BASE_DEFAULT_VALUE = RCLegendAlignBase.PLOT;
+    static readonly PROP_GAP = "gap";
+    static readonly PROP_GAP_DEFAULT_VALUE = 6;
+    static readonly PROP_ITEM_GAP = "itemGap";
+    static readonly PROP_ITEM_GAP_DEFAULT_VALUE = 8;
+    static readonly PROP_ITEMS_ALIGN = "itemsAlign";
+    static readonly PROP_ITEMS_ALIGN_DEFAULT_VALUE = RCLegendItemsAlign.CENTER;
+    static readonly PROP_ITEMS_PER_LINE = "itemsPerLine";
+    static readonly PROP_LAYOUT = "layout";
+    static readonly PROP_LAYOUT_DEFAULT_VALUE = RCLegendLayout.AUTO;
+    static readonly PROP_LINE_GAP = "lineGap";
+    static readonly PROP_LINE_GAP_DEFAULT_VALUE = 4;
+    static readonly PROP_LOCATION = "location";
+    static readonly PROP_LOCATION_DEFAULT_VALUE = RCLegendLocation.BOTTOM;
+    static readonly PROP_MARKER_GAP = "markerGap";
+    static readonly PROP_MARKER_GAP_DEFAULT_VALUE = 4;
+    static readonly PROP_MARKER_SIZE = "markerSize";
+    static readonly PROP_MARKER_SIZE_DEFAULT_VALUE = 10;
+    static readonly PROP_MAX_HEIGHT = "maxHeight";
+    static readonly PROP_MAX_WIDTH = "maxWdith";
+    static readonly PROP_BACKGROUND_STYLE = "backgroundStyle";
+    static readonly PROPINFOS: IPropInfo[];
+    private static readonly STYLES;
+    private static readonly BACKGROUND_STYLES;
+    private _alignBase;
+    private _gap;
+    private _itemGap;
+    private _itemsAlign;
+    private _itemsPerLine;
+    private _layout;
+    private _lineGap;
+    private _location;
+    private _markerGap;
+    private _markerSize;
+    private _maxHeight;
+    private _maxWidth;
+    private _backgroundStyle;
+    get alignBase(): RCLegendAlignBase;
+    set alignBase(value: RCLegendAlignBase);
+    get gap(): number;
+    set gap(value: number);
+    get itemGap(): number;
+    set itemGap(value: number);
+    get itemsAlign(): RCLegendItemsAlign;
+    set itemsAlign(value: RCLegendItemsAlign);
+    get itemsPerLine(): number;
+    set itemsPerLine(value: number);
+    get layout(): RCLegendLayout;
+    set layout(value: RCLegendLayout);
+    get lineGap(): number;
+    set lineGap(value: number);
+    get location(): RCLegendLocation;
+    set location(value: RCLegendLocation);
+    get markerGap(): number;
+    set markerGap(value: number);
+    get markerSize(): number;
+    set markerSize(value: number);
+    get maxHeight(): number;
+    set maxHeight(value: number);
+    get maxWidth(): number;
+    set maxWidth(value: number);
+    getChartConfig(context: PrintContext): RCLegendConfig;
+    getSaveLabel(): string;
+    getCollapsedPropCategories(): string[];
+    protected _doDefaultInit(): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    protected _getSubStyle(prop: string, style: string): any;
+    protected _setSubStyle(prop: string, style: string, value: any): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+}
+
+declare class RCOptions extends ChartObject$1<RealChartItem, RCOptionsConfig> {
+    static readonly PROP_ANIMATABLE = "animatable";
+    static readonly PROP_CREDITS = "credits";
+    static readonly PROPINFOS: IPropInfo[];
+    private _animatable;
+    constructor(chart: RealChartItem);
+    get animatable(): boolean;
+    set animatable(value: boolean);
+    getChartConfig(context: PrintContext): RCOptionsConfig;
+    getSaveLabel(): string;
+    protected _doDefaultInit(): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+}
+
+/**
+ * Chart Item
+ */
+declare class RealChartItem extends ChartItem<RCConfig> {
+    static readonly PROP_INVERTED = "inverted";
+    static readonly PROP_INVERTED_DEFUALT_VALUE = false;
+    static readonly PROP_X_AXES = "xAxes";
+    static readonly PROP_Y_AXES = "yAxes";
+    static readonly PROP_SERIES_COLLECTION = "serieCollection";
+    static readonly PROP_TITLE = "title";
+    static readonly PROP_SUBTITLE = "subtitle";
+    static readonly PROP_LEGEND = "legend";
+    static readonly PROP_OPTIONS = "options";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "RealChart";
+    private _inverted;
+    private _xAxes;
+    private _yAxes;
+    private _seriesCollection;
+    private _title;
+    private _subtitle;
+    private _legend;
+    private _options;
+    constructor(name: string);
+    get outlineLabel(): string;
+    get outlineItems(): IOutlineSource[];
+    getSaveType(): string;
+    get inverted(): boolean;
+    set inverted(value: boolean);
+    get xAxes(): RCXAxisCollection;
+    get yAxes(): RCYAxisCollection;
+    get seriesCollection(): RCSeriesCollection;
+    get title(): RCTitle;
+    get subtitle(): RCSubtitle;
+    get legend(): RCLegend;
+    get options(): RCOptions;
+    addNewXAxis(type: RCAxisType): RCAxis;
+    addNewYAxis(type: RCAxisType): RCAxis;
+    addAxis(axis: RCAxis): void;
+    removeAxis(axis: RCAxis): void;
+    addNewSeries(type: RCSeriesType): RCSeries;
+    addSeries(series: RCSeries): void;
+    removeSeries(series: RCSeries): void;
+    selectSeries(series: RCSeries | null): void;
+    emitXAxesChanged(): void;
+    emitYAxesChanged(): void;
+    emitSeriesChanged(): void;
+    getChartConfig(context: PrintContext): RCConfig;
+    getCollapsedPropCategories(): string[];
+    needDesignWidth(): boolean;
+    needDesignHeight(): boolean;
+    protected _datable(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _doLoad(loader: IReportLoader, src: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+    canAddTo(group: ReportGroupItem): boolean;
+}
+
 declare enum PaperSize {
     A0 = "A0",
     A1 = "A1",
@@ -4127,6 +4893,7 @@ interface FindResult {
     prop: string;
 }
 declare class ReportRootItem extends ReportGroupItem {
+    static readonly PROP_REPORT_TYPE = "type";
     static readonly PROP_REPORT_NAME = "name";
     static readonly PROP_REPORT_AUTHOR = "author";
     static readonly PROP_REPORT_VERSION = "version";
@@ -4143,9 +4910,13 @@ declare class ReportRootItem extends ReportGroupItem {
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     private _report;
+    private _type;
     private _maxPageCount;
-    constructor(report: Report);
+    constructor(report: Report, name?: string);
     get report(): Report;
+    /** type */
+    get type(): ReportType;
+    set type(value: ReportType);
     /** name */
     get name(): string;
     set name(value: string);
@@ -4188,6 +4959,7 @@ declare class ReportRootItem extends ReportGroupItem {
     /** marginBottom */
     get marginBottom(): ValueString;
     set marginBottom(value: ValueString);
+    get outlineLabel(): string;
     get pathLabel(): string;
     get displayPath(): string;
     protected _ignoreItems(): boolean;
@@ -4233,7 +5005,7 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     private _data;
     private _designData;
     designTag: any;
-    models: any;
+    models: Record<number, ReportItem>;
     private _designTime;
     private _loader;
     private _commands;
@@ -4252,6 +5024,8 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     get designTime(): boolean;
     /** @internal */
     get loader(): IReportLoader;
+    /** type */
+    get type(): ReportType;
     /** info */
     get info(): ReportInfo;
     /** paper */
@@ -4304,7 +5078,11 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     defaultInit(item: ReportItem, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     addItem(parent: ReportGroupItem, item: ReportItem, index?: number): boolean;
     moveCollectionItem(collection: ReportItemCollection<any>, from: number, to: number): void;
-    addChartSeries(chart: HichartItem, seriesType: string): HichartSeries;
+    addChartAxis(chart: RealChartItem, type: RCAxisType, direction: RCAxisDirection): RCAxis;
+    removeChartAxis(axis: RCAxis): RCAxis;
+    addChartSeries(chart: RealChartItem, type: RCSeriesType): RCSeries;
+    removeChartSeries(series: RCSeries): RCSeries;
+    addHichartSeries(chart: HichartItem, seriesType: string): HichartSeries;
     addHichartPlotLine(axis: HichartAxis, config?: object): HichartAxisPlotLine;
     addHichartPlotBand(axis: HichartAxis, config?: object): HichartAxisPlotBand;
     /**
@@ -4414,6 +5192,10 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
         reason: string;
     }[];
     foldedChanged(item: ReportItem): void;
+    protected _createReportRootItem(report: Report): ReportRootItem;
+    protected _createReportInfo(report: Report): ReportInfo;
+    protected _createReportLoader(): IReportLoader;
+    protected _createReportPage(report: Report): ReportPage;
     private $_addPage;
     private $_refreshInvalids;
     private $_resetPages;
@@ -4432,16 +5214,1935 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     protected _fireAlert(item: ReportItem, message: string): void;
 }
 
-interface IOutlineSource {
-    outlineParent: IOutlineSource;
-    outlineExpandable: boolean;
-    outlineItems?: IOutlineSource[];
-    outlineLabel: string;
-    outlineOrder: number;
+/**
+ * 리포트 페이지 모델. 하나 이상의 section들로 구성된다.
+ *
+ * 1. band는 body의 최상위 항목으로만 추가될 수 있다. 즉, 다른 항목의 자식이 될 수 없다.
+ */
+declare class ReportPage extends ReportGroupItem implements IEventAware {
+    static readonly PROP_ORIENTATION = "orientation";
+    static readonly ITEM_ADDED = "onPageItemAdded";
+    static readonly ITEMS_ADDED = "onPageItemsAdded";
+    static readonly ITEM_REMOVED = "onPageItemRemoved";
+    static readonly ITEMS_REMOVED = "onPageItemsRemoved";
+    static readonly ITEM_CHANGED = "onPageItemChanged";
+    static readonly COLLECTION_CHANGED = "onPageCollectionChanged";
+    static readonly $_ctor: string;
+    static readonly PROPINFOS: IPropInfo[];
+    private _orientation;
+    private _report;
+    private _pageIndex;
+    private _events;
+    private _nameMap;
+    private _reportHeader;
+    private _reportFooter;
+    private _pageHeader;
+    private _pageFooter;
+    private _body;
+    private _backItems;
+    private _frontItems;
+    private _sections;
+    saveTag: string;
+    private _loading;
+    private _removing;
+    constructor(report: Report, name?: string);
+    addListener(listener: object): IEventAware;
+    removeListener(listener: object): IEventAware;
+    /**
+     * report
+     */
+    get report(): Report;
+    /**
+     * reportHeader
+     */
+    get reportHeader(): ReportHeader;
+    /**
+     * reportFooter
+     */
+    get reportFooter(): ReportFooter;
+    /**
+     * pageHeader
+     */
+    get pageHeader(): PageHeader;
+    /**
+     * pageFooter
+     */
+    get pageFooter(): PageFooter;
+    /**
+     * body
+     */
+    get body(): PageBody;
+    get backContainer(): PageItemContainer;
+    /**
+     * backItems
+     */
+    get backItems(): ReportItem[];
+    get frontContainer(): PageItemContainer;
+    /**
+     * frontItems
+     */
+    get frontItems(): ReportItem[];
+    /**
+     * loading
+     */
+    get loading(): boolean;
+    /**
+     * orientation
+     */
+    get orientation(): PaperOrientation;
+    set orientation(value: PaperOrientation);
+    getItem(name: string): ReportItem;
+    removeItems(commands: EditCommandStack$1, items: ReportPageItem[]): number;
+    search(page: number, key: string, options: FindOptions, results: FindResult[]): void;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    get page(): ReportPage;
     outlineVisible(child: IOutlineSource): boolean;
+    canMove(): boolean;
+    getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    canDelete(): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _ignoreItems(): boolean;
+    protected _doSave(target: object): void;
+    canResize(dir: ResizeDirection): boolean;
+    getAllItems(root?: ReportGroupItem, all?: boolean): ReportItem[];
+    collectInvalids(report: Report, invalids: {
+        item: ReportItem;
+        reason: string;
+    }[]): void;
+    protected _createPageBody(): PageBody;
+    protected _createReportFooter(): ReportFooter;
+    /**
+     * 양식(target)에 저장되는 리포트 푸터 필드명
+     */
+    protected _getReportFooterSourceFieldName(): string;
+    private $_itemAdded;
+    private $_addItem;
+    private $_itemsAdded;
+    private $_itemRemoved;
+    private $_removeItem;
+    private $_itemsRemoved;
+    private $_itemChanged;
+    private $_collectionChanged;
+    /**
+     * ReportItem.name에서 호출한다.
+     */
+    private $_nameChanged;
+    /**
+     * Report.onDesignDataManagerNameChanged에서 호출한다.
+     */
+    private $_dataNameChanged;
+    /**
+     * Report.onDesignDataManagerFieldNameChanged 호출한다.
+     */
+    private $_dataFieldNameChanged;
+    protected _fireItemAdded(item: ReportPageItem, index: number, silent: boolean): void;
+    protected _fireItemsAdded(items: ReportPageItem[], index: number): void;
+    protected _fireItemRemoved(item: ReportPageItem, oldParent: ReportGroupItem): void;
+    protected _fireItemsRemoved(items: ReportPageItem[]): void;
+    protected _fireItemChanged(item: ReportPageItem, prop: string, value: any, oldValue: any): void;
+    protected _fireCollectionChanged(collection: ReportItemCollection<any>): void;
+}
+/**
+ * page body item container.
+ */
+declare class PageBodyItems extends ColumnBoxContainer {
+    static readonly $_ctor: string;
+    static readonly STYLE_PROPS: string[];
+    get outlineLabel(): string;
+    canContainsBand(): boolean;
+    canContainsBandGroup(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    canMove(): boolean;
+    needDesignWidth(): boolean;
+    needDesignHeight(): boolean;
+    protected _boundable(): boolean;
+    protected _getStyleProps(): string[];
+}
+/**
+ * Report header/footer, Page header/footer를 제외한 리포트 페이지 영역.
+ */
+declare class PageBody extends PageSection {
+    static readonly CLASS: string;
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    private _bodyItems;
+    constructor(name?: string);
+    /**
+     * items
+     */
+    get bodyItems(): ReportItem[];
+    get itemsContainer(): ColumnBoxContainer;
+    get itemsAlign(): BoxItemsAlign;
+    get outlineLabel(): string;
+    canParentOf(itemType: string): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _loadItems(loader: IReportLoader, src: any): void;
+    protected _ignoreItems(): boolean;
+    protected _doSave(target: object): void;
+    canRemove(item: ReportItem): boolean;
+    protected _createPageBodyItems(): PageBodyItems;
+}
+
+/**
+ * 리포트 페이지의 수평 전체와 수직 일부를 차지하는 영역 그룹 item.
+ * body를 제외하고 페이지를 넘어갈 수 없다.
+ */
+declare abstract class PageSection extends StackContainer {
+    constructor(name: string);
+    get removable(): boolean;
+    get page(): ReportPage;
+    canMove(): boolean;
+    getSaveType(): string;
+    canResize(dir: ResizeDirection): boolean;
+    protected _getStyleProps(): string[];
+}
+/**
+ * 섹션 위아래에 공간(space)를 설정할 수 있는 page 섹션.
+ */
+declare abstract class SpaceableSection extends PageSection {
+    static readonly PROP_SPACE_TOP = "spaceTop";
+    static readonly PROP_SPACE_BOTTOM = "spaceBottom";
+    static readonly PROPINFOS: IPropInfo[];
+    private _spaceTop;
+    private _spaceBottom;
+    constructor(name: string);
+    /**
+     * spaceTop
+     */
+    get spaceTop(): number;
+    set spaceTop(value: number);
+    /**
+     * spaceBottom
+     */
+    get spaceBottom(): number;
+    set spaceBottom(value: number);
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    protected _getEditProps(): IPropInfo[];
+}
+/**
+ * Report header model.
+ */
+declare class ReportHeader extends SpaceableSection {
+    static readonly $_ctor: string;
+    constructor();
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    canResize(dir: ResizeDirection): boolean;
+}
+/**
+ * Report footer model.
+ */
+declare class ReportFooter extends SpaceableSection {
+    static readonly PROP_ALIGN_TO_BOTTOM = "alignToBottom";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    private _alignToBottom;
+    constructor(name?: string);
+    /**
+     * wrap
+     */
+    get alignToBottom(): boolean;
+    set alignToBottom(value: boolean);
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    canResize(dir: ResizeDirection): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+declare abstract class InheritableSection extends SpaceableSection {
+    static readonly PROP_INHERIT = "inherit";
+    static readonly PROPINFOS: IPropInfo[];
+    private _inherit;
+    protected _inherited: boolean;
+    /**
+     * 이전 페이지 표시대로 출력한다.
+     */
+    get inherit(): SectionInherit;
+    set inherit(value: SectionInherit);
+    get inherited(): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    protected _getEditProps(): IPropInfo[];
+}
+/**
+ * Report page header model.
+ */
+declare class PageHeader extends InheritableSection {
+    static readonly $_ctor: string;
+    constructor();
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    canResize(dir: ResizeDirection): boolean;
+}
+/**
+ * Report page footer model.
+ */
+declare class PageFooter extends InheritableSection {
+    static readonly $_ctor: string;
+    constructor();
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    canResize(dir: ResizeDirection): boolean;
+}
+
+/** @internal */
+declare abstract class BoundedContainerElement<T extends BoundedContainer> extends ReportGroupItemElement<T> {
+    constructor(doc: Document, model: T, name: string);
+    protected _prepareChild(child: ReportElement): void;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _layoutItem(ctx: PrintContext, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
+    protected _layoutChild(ctx: PrintContext, child: ReportElement, x: number, y: number, width: number, height: number): void;
+}
+
+/** @internal */
+declare abstract class StackContainerElement<T extends StackContainer> extends BoundedContainerElement<T> {
+    constructor(doc: Document, model: T, name?: string);
+    get debugLabel(): string;
+    protected _doSetStyles(model: ReportItem, dom: HTMLElement): void;
+    protected _getPrev(item: ReportItemView): ReportItemView;
+    protected _getNext(item: ReportItemView): ReportItemView;
+    getUpper(item: ReportItemView): ReportItemView;
+    getLower(item: ReportItemView): ReportItemView;
+    private $_getSorted;
+}
+
+/** @internal */
+declare abstract class SectionElement<T extends PageSection> extends StackContainerElement<T> {
+    constructor(doc: Document, model: T, name: string);
+    protected _doDispose(): void;
+    get dom(): HTMLDivElement;
+    protected _needDesignBox(): boolean;
+    protected _isContexable(): boolean;
+    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
+}
+/** @internal */
+declare class ReportHeaderElement extends SectionElement<ReportHeader> {
+    constructor(doc: Document, model?: ReportHeader);
+    protected _doDispose(): void;
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+}
+/** @internal */
+declare class ReportFooterElement extends SectionElement<ReportFooter> {
+    static readonly STYLE_NAME = "rr-report-footer rr-group-element";
+    static isFooter: (div: HTMLElement) => boolean;
+    constructor(doc: Document, model?: ReportFooter);
+    protected _doDispose(): void;
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+}
+declare abstract class InheritableSectionElement<T extends InheritableSection> extends SectionElement<T> {
+    static readonly CLONE_CLASS = "rr-section-clone";
+    private _baseModel;
+    setBase(base: T): void;
+    protected _getModel(): T;
+    protected _setDesignContent(empty: boolean, designView: HTMLDivElement): void;
+}
+/** @internal */
+declare class PageHeaderElement extends InheritableSectionElement<PageHeader> {
+    constructor(doc: Document, model?: PageHeader);
+    protected _doDispose(): void;
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+    protected _isContexable(): boolean;
+    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
+}
+/** @internal */
+declare class PageFooterElement extends InheritableSectionElement<PageFooter> {
+    constructor(doc: Document, model?: PageFooter);
+    protected _doDispose(): void;
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+    protected _isContexable(): boolean;
+    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+}
+
+/**
+ * @internal
+ * View base for BoxContainer.
+ */
+declare abstract class BoxContainerElement<T extends BoxContainer> extends ReportGroupItemElement<T> {
+    protected _container: ReportGroupItemView;
+    protected _paddings: {
+        left: number;
+        right: number;
+        top: number;
+        bottom: number;
+    };
+    protected _gap: number;
+    constructor(doc: Document, model: T, name: string);
+    get gap(): number;
+    get paddings(): {
+        left: number;
+        right: number;
+        top: number;
+        bottom: number;
+    };
+    get debugLabel(): string;
+    protected _needDesignBox(): boolean;
+    protected _initDom(doc: Document, dom: HTMLElement): void;
+    protected _doSetStyles(model: ReportItem, dom: HTMLElement): void;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+}
+/**
+ * View for ColumnBoxContainer
+ */
+declare class ColumnBoxContainerElement extends BoxContainerElement<ColumnBoxContainer> {
+    private _points;
+    constructor(doc: Document, model: ColumnBoxContainer, name?: string);
+    protected _doDispose(): void;
+    getRowPoints(): number[];
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+    protected _initDom(doc: Document, dom: HTMLElement): void;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _layoutItem(ctx: PrintContext, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
+    getLeft(view: ReportItemView): ReportItemView;
+    getRight(view: ReportItemView): ReportItemView;
+}
+
+/** @internal */
+declare class PageBodyElement extends ReportElement {
+    private _model;
+    private _findable;
+    private _itemsView;
+    private _modelChanged;
+    constructor(doc: Document, model?: PageBody);
+    protected _doDispose(): void;
+    /** model */
+    get model(): PageBody;
+    set model(value: PageBody);
+    /** empty */
+    get empty(): boolean;
+    get itemsView(): ColumnBoxContainerElement;
+    isPageDom(dom: HTMLElement): boolean;
+    findElement(modelName: string): ReportItemElement<ReportItem>;
+    findElementOf(dom: HTMLElement): ReportItemElement<ReportItem>;
+    getElementOf(model: ReportPageItem): ReportElement;
+    /**
+     * 페이지의 한 행을 전부 차지하는가?
+     */
+    isLine(view: ReportItemView): boolean;
+    /**
+     * view가 포함된 line.
+     * view가 line이면 view.
+     */
+    getLineOf(view: ReportItemView): ReportItemView;
+    getSiblingLine(line: ReportItemView, delta: number): ReportItemView;
+    /**
+     * @param index 0보다 작으면 뒤에서 부터. -1이면 마지막 line.
+     */
+    getLine(index: number): ReportItemView;
+    getLines(): ReportItemView[];
+    prepareAsync(doc: Document, ctx: PrintContext): PrintLine[];
+    itemOfDom(dom: Element): ReportItem;
+    protected _getCssSelector(): string;
+    get debugLabel(): string;
+    get findable(): boolean;
+    set findable(value: boolean);
+    protected _debugBorder(): string;
+    protected _debugColor(): string;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext): void;
+    layoutFloating(ctx: PrintContext): void;
+    private $_prepareAsync;
+}
+
+/** @internal */
+declare class PageItemContainerElement extends BoundedContainerElement<PageItemContainer> {
+    private _emptySize;
+    private _findable;
+    constructor(doc: Document, model: PageItemContainer, name: string, emptySize?: boolean);
+    protected _doDispose(): void;
+    get isLayer(): boolean;
+    get findable(): boolean;
+    set findable(value: boolean);
+    get debugLabel(): string;
+    get lazyLayout(): boolean;
+    protected _getCssSelector(): string;
+    protected _needDesignBox(): boolean;
+    protected _isEmptySize(): boolean;
+    protected _initDom(doc: Document, dom: HTMLElement): void;
+    protected _prepareChild(child: ReportElement): void;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+}
+
+type PrintPageCallback = (ctx: PrintContext, page: PrintPage, pageNo: number) => void;
+type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => void;
+declare class PageSectionGuard extends ReportItemElement<ReportPage> {
+    get guardLabel(): string;
+}
+interface PageViewOptions {
+    frontEnabled?: boolean;
+    backEnabled?: boolean;
+    reportHeaderEnabled?: boolean;
+    reportFooterEnabled?: boolean;
+    pageHeaderEnabled?: boolean;
+    pageFooterEnabled?: boolean;
+}
+/** @internal */
+declare class PageView extends LayerElement$1 {
+    private static readonly DEFAULT_PAGE_VIEW_OPTIONS;
+    private _model;
+    private _reportHeaderView?;
+    private _reportFooterView?;
+    private _pageHeaderView?;
+    private _pageFooterView?;
+    private _bodyView;
+    private _backView?;
+    private _frontView?;
+    private _sections;
+    private _sectionGuard;
+    headerHeight: number;
+    footerHeight: number;
+    reportHeaderHeight: number;
+    reportFooterHeight: number;
+    constructor(doc: Document, options?: PageViewOptions);
+    protected _doDispose(): void;
+    /** model */
+    get model(): ReportPage;
+    /** reportHeaderView */
+    get reportHeaderView(): ReportHeaderElement;
+    /** reportFooterView */
+    get reportFooterView(): ReportFooterElement;
+    /** pageHeaderView */
+    get pageHeaderView(): PageHeaderElement;
+    /** pageFooterView */
+    get pageFooterView(): PageFooterElement;
+    /** bodyView */
+    get bodyView(): PageBodyElement;
+    /** backFloatingView */
+    get backFloatingView(): PageItemContainerElement;
+    /** frontFloatingView */
+    get frontFloatingView(): PageItemContainerElement;
+    get sections(): ReportElement[];
+    isPageDom(dom: HTMLElement): boolean;
+    getBaseView<T extends InheritableSectionElement<any>>(view: T, pageViews: PageView[], viewType: string): T;
+    preparePrint(ctx: PrintContext): void;
+    measure(ctx: PrintContext, bounds: Rectangle$1, pageViews: PageView[]): ISize;
+    layout(ctx: PrintContext, bounds: Rectangle$1): void;
+    layoutFloating(ctx: PrintContext): void;
+    afterRender(ctx: PrintContext): void;
+    findElement(modelName: string): ReportElement;
+    findElementOf(dom: HTMLElement): ReportElement;
+    getElementOf(model: ReportPageItem): ReportElement;
+    getAllElements(root: ReportElement, bounds: Rectangle$1): ReportItemView[];
+    prepareAsync(doc: Document, ctx: PrintContext): PrintLine[];
+    printPageHeader(doc: Document, ctx: PrintContext): SectionElement<PageSection>;
+    printPageFooter(doc: Document, ctx: PrintContext): SectionElement<PageSection>;
+    printReportHeader(doc: Document, ctx: PrintContext): SectionElement<PageSection>;
+    printReportFooter(doc: Document, ctx: PrintContext): SectionElement<PageSection>;
+    getSections(): ReportItemView[];
+    /**
+     * 페이지의 한 행을 전부 차지하는가?
+     */
+    isLine(view: ReportItemView): boolean;
+    getFirst(): ReportItemView;
+    getLast(): ReportItemView;
+    getFirstInGroup(group: ReportGroupItemView): ReportItemView;
+    getLastInGroup(group: ReportGroupItemView): ReportItemView;
+    getPrev(elt: ReportItemView): ReportItemView;
+    getNext(elt: ReportItemView): ReportItemView;
+    getLeft(elt: ReportItemView): ReportItemView;
+    getRight(elt: ReportItemView): ReportItemView;
+    getUpper(elt: ReportItemView): ReportItemView;
+    getLower(elt: ReportItemView): ReportItemView;
+    itemOfDom(dom: Element): ReportItem;
+    protected _getCssSelector(): string;
+    protected _createPageHeaderElement(doc: Document): PageHeaderElement;
+    protected _createPageFooterElement(doc: Document): PageFooterElement;
+    protected _createReportHeaderElement(doc: Document): ReportHeaderElement;
+    protected _createReportFooterElement(doc: Document): ReportFooterElement;
+    protected _createPageSectionGuard(doc: Document): PageSectionGuard;
+    $_setModel(model: ReportPage): void;
+    /**
+     * pageView.prepareAsync()가 호출된 이후 시점에서 섹션 객체를 변경하기 (PrintContainer에서 활용)
+     *
+     * @param doc Document
+     * @param ctx PrintContext
+     * @param sectionProp 기존 섹션 뷰 객체가 저장된 PageView 속성명 (ex. pageView의 "_pageHeaderView")
+     * @param sectionView 변경할 새 섹션 뷰 객체
+     * @param modelSectionProp 섹션 모델이 저장된 PageView 모델의 속성명 (ex. pageViewModel의 "pageHeader")
+     * @param heightPropPrefix PageView객체에 저장되는 섹션Height 속성의 접두사 (ex. pageView.pageHeaderHeight의 "pageHeader")
+     * @returns 변경된 섹션 뷰
+     */
+    private $_changePreparedSection;
+    private $_printSection;
+}
+/**
+ * print page model.
+ */
+declare class PrintPage {
+    page: HTMLDivElement;
+    pageOrientation: PaperOrientation;
+    pageHeader: HTMLDivElement;
+    pageFooter: HTMLDivElement;
+    background: HTMLDivElement;
+    contents: HTMLDivElement[];
+    foreground: HTMLDivElement;
+}
+
+/** @internal */
+declare class ReportView extends LayerElement$1 implements IImageContainer {
+    static readonly PAGE_HEAD = "rr-page-head";
+    static readonly BACK_HEAD = "rr-back-head";
+    static readonly FRONT_HEAD = "rr-front-head";
+    private static ViewCreators;
+    private _model;
+    private _loadError;
+    private _editable;
+    private _emptyView;
+    private _pageLayer;
+    private _pageViews;
+    private _boxMeasurer;
+    private _boxInner;
+    private _nameMap;
+    private _modelDirty;
+    private _images;
+    constructor(doc: Document, editable?: boolean, printing?: boolean);
+    protected _doDispose(): void;
+    addImage(url: string): void;
+    imageLoaded(url: string): void;
+    imagesAllLoaded(): boolean;
+    /** editable */
+    get editable(): boolean;
+    /** model */
+    get model(): Report;
+    set model(value: Report);
+    get pageView(): PageView;
+    protected _resetPages(model: Report): void;
+    /** loadError */
+    get loadError(): string;
+    set loadError(value: string);
+    get zoom(): number;
+    get pageViews(): PageView[];
+    _internalPageViews(): PageView[];
+    getPageView(index: number): PageView;
+    getBoxPaddings(model: ReportItem): {
+        left: number;
+        right: number;
+        top: number;
+        bottom: number;
+    };
+    findElement(modelName: string): ReportElement;
+    findElementOf(dom: HTMLElement): ReportElement;
+    getElementOf(model: ReportPageItem): ReportElement;
+    getItemBoundingRect(element: VisualElement$1, rotated?: boolean): Rectangle$1;
+    protected _getCssSelector(): string;
+    protected _initDom(doc: Document, dom: HTMLElement): void;
+    protected _createEmptyView(doc: Document): VisualElement$1;
+    protected _createPageView(doc: Document): PageView;
+    protected _layoutPageBorders(rReport: Rectangle$1, rPage: Rectangle$1): void;
+    private $_layout;
+    protected _afterLayout(ctx: PrintContext, bounds: Rectangle$1): void;
+    $_afterRender(ctx: PrintContext): void;
+    $_createElement(item: ReportItem): ReportElement;
+    /**
+     * PrintContainer.$_print(...)에서 호출한다.
+     */
+    $_preparePrint(ctx: PrintContext): void;
+    /**
+     * PrintContainer.$_print(...)에서 호출한다.
+     */
+    $_endPrint(ctx: PrintContext): void;
+    protected _modelReset(): void;
+    protected _modelChanged(): void;
+    protected onReportReset(report: Report): void;
+    protected onReportPaperChanged(report: Report): void;
+    protected onReportPageAdded(report: Report, page: ReportPage): void;
+    protected onReportPageRemoved(report: Report, page: ReportPage, index: number): void;
+    protected onReportItemAdded(report: Report, item: ReportItem, index: number, silent: boolean): void;
+    protected onReportItemRemoved(report: Report, item: ReportItem, oldParent: ReportGroupItem): void;
+    protected onReportItemsRemoved(report: Report, items: ReportPageItem[]): void;
+    protected onReportItemChanged(report: Report, item: ReportItem, prop: string, value: any, oldValue: any): void;
+    protected onReportCommandStackChanged(report: Report, cmd: EditCommand$1): void;
+}
+
+/**
+ * 한 줄 혹은 여러줄의 텍스트를 표시한다.
+ * value 속성으로 지정된 data 위치가 타당하면 그 값을, 아니면 text 속성으로 지정한 문자열을 표시한다.
+ */
+declare abstract class TextItemBase extends ReportItem {
+    static readonly PROP_WRAP = "wrap";
+    static readonly PROP_MULTI_LINE = "multiLine";
+    static readonly PROP_BOOLEAN_FORMAT = "booleanFormat";
+    static readonly PROP_NUMBER_FORMAT = "numberFormat";
+    static readonly PROP_DATE_FORMAT = "dateFormat";
+    static readonly PROP_TEXT_FORMAT = "textFormat";
+    static readonly PROP_TEXT_PREFIX = "prefix";
+    static readonly PROP_TEXT_SUFFIX = "suffix";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    private _wrap;
+    private _multiLine;
+    private _booleanFormat;
+    private _numberFormat;
+    private _dateFormat;
+    private _textFormat;
+    private _prefix;
+    private _suffix;
+    constructor(name: string);
+    /**
+     * wrap
+     */
+    get wrap(): boolean;
+    set wrap(value: boolean);
+    /**
+     * multiLine
+     * true면 '<br>'이나 '\n', '\r\n'으로 줄을 나눠 표시한다.
+     */
+    get multiLine(): boolean;
+    set multiLine(value: boolean);
+    /**
+     * booleanFormat
+     */
+    get booleanFormat(): string;
+    set booleanFormat(value: string);
+    /**
+     * numberFormat
+     */
+    get numberFormat(): string;
+    set numberFormat(value: string);
+    /**
+     * dateFormat
+     */
+    get dateFormat(): string;
+    set dateFormat(value: string);
+    /**
+     * 세미콜론(;)으로 구분하여 왼쪽에는 String.prototype.replace의 첫 번째 매개변수,
+     * 오른쪽에는 두 번째 매개변수와 같은 타입으로 지정
+     * 예) Mr. 홍길동: `'([A-Za-z]*); Mr\. \$1'`,
+     * 예) 사업자번호: '(\\d{3})(\\d{2})(\\d{5});$1-$2-$3'
+     */
+    get textFormat(): string;
+    set textFormat(value: string);
+    /**
+     * 접두어.
+     * expression을 이용해서 표현할 수도 있지만,
+     * 이 속성으로 설정하면 text와 다른 스타일을 적용할 수 있다.
+     */
+    get prefix(): string;
+    set prefix(value: string);
+    /**
+     * 접미어.
+     * expression을 이용해서 표현할 수도 있지만,
+     * 이 속성으로 설정하면 text와 다른 스타일을 적용할 수 있다.
+     */
+    get suffix(): string;
+    set suffix(value: string);
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    protected _doApplyStyle(prop: string, value: string, target: CSSStyleDeclaration): boolean;
+    canRotate(): boolean;
+    canLink(): boolean;
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    getPrintValue(dp: IReportDataProvider, row: number): any;
+}
+/**
+ * 고정된 텍스트나 데이터 필드의 값을 출력하는 아이템.
+ */
+declare class TextItem extends TextItemBase {
+    static readonly PROP_MULTI_LINE = "multiLine";
+    static readonly PROP_TEXT = "text";
+    static readonly PROP_ON_GET_CONTEXT_VALUE = "onGetContextValue";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Text";
+    private _text;
+    private _contextValueCallback;
+    private _onGetContextValue;
+    private _contextValueCallbackFunc;
+    private _contextValueCallbackDelegate;
+    constructor(name: string, text?: string);
+    /**
+     * text
+     */
+    get text(): string;
+    set text(value: string);
+    /**
+     * onGetContextValue
+     */
+    get onGetContextValue(): string;
+    set onGetContextValue(value: string);
+    /**
+     * contextValueCallback
+     */
+    get contextValueCallback(): ContextValueCallback;
+    set contextValueCallback(value: ContextValueCallback);
+    getSaveType(): string;
+    get outlineLabel(): string;
+    get designText(): string;
+    get pathLabel(): string;
+    isContextValue(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+/** @internal */
+declare abstract class TextItemElementBase<T extends TextItemBase> extends ReportItemElement<T> {
+    static readonly CLASS_NAME = "rr-text";
+    static readonly CLASS_LIST: string;
+    static readonly SPAN = "_rr_span_";
+    private _span;
+    protected _text: string;
+    constructor(doc: Document, model: T, name: string);
+    protected _doDispose(): void;
+    get debugLabel(): string;
+    protected _initDom(doc: Document, dom: HTMLElement): void;
+    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    _doLayoutContent(ctx: PrintContext): void;
+    refreshPrintValues(ctx: PrintContext): void;
+    isDom(dom: HTMLElement): boolean;
+    protected _getText(m: TextItemBase, v: any): string;
+    protected abstract _getPrintText(ctx: PrintContext, m: T): string;
+    protected abstract _getDesignText2(m: T, system: boolean): string;
+}
+
+/**
+ * html 속성으로 지정한 문자열을 dom의 innerHtml로 설정한다.
+ * 문자열에 포함된 '${value}'나 '@{value}'는 연결된 field의 값으로 대체되고,
+ * 나머지 '${xxx}', '@{xxx}'는 'xxx' 필드의 값으로 대체된다.
+ */
+declare class HtmlItem extends ReportItem {
+    static readonly ALLOWED_TAGS: string[];
+    static readonly PROP_HTML = "html";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Html";
+    private _html;
+    private _tokens;
+    constructor(name: string);
+    get html(): string;
+    set html(value: string);
+    getHtml(ctx: PrintContext): string;
+    getSaveType(): string;
+    get outlineLabel(): string;
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canRotate(): boolean;
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    getRowContextValue(value: string, ctx: PrintContext): string | number;
+    private $_getTokenValue;
+    private $_parse;
+    private $_parseValues;
+}
+
+/** @internal */
+declare class HtmlItemElement extends ReportItemElement<HtmlItem> {
+    private _content;
+    constructor(doc: Document, model: HtmlItem);
+    protected _doDispose(): void;
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+    protected _initDom(doc: Document, dom: HTMLElement): void;
+    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    saveContextValue(ctx: PrintContext): string;
+    replaceContextValue(ctx: PrintContext, value?: string): string;
+    refreshPrintValues(ctx: PrintContext, save?: boolean): void;
+    /**
+     * 허용하지 않은 태그가 포함되어있을 경우 console.error 표시
+     * @param html 표시할 html 형식 문자열
+     */
+    private $_validateHtmlTags;
+}
+
+/**
+ * Printing 관련 상태 정보 모델.
+ */
+declare class PrintContext extends Base$1 {
+    static readonly VALUES: string[];
+    private _printing;
+    private _compositePrinting;
+    private _dp;
+    private _desingDp;
+    private _assets;
+    private _reportView;
+    private _pageWidth;
+    private _pageHeight;
+    private _date;
+    private _pageCount;
+    private _page;
+    private _detailPageCount;
+    private _detailPage;
+    private _compositePageCount;
+    private _compositePage;
+    detailRows: number[];
+    noValueCallback: boolean;
+    preview: boolean;
+    pageDelay: number;
+    report: Report;
+    container: HTMLDivElement;
+    headerHeight: number;
+    footerHeight: number;
+    reportHeaderHeight: number;
+    reportFooterHeight: number;
+    bodyTop: number;
+    bodyBottom: number;
+    bodyHeight: number;
+    y: number;
+    h: number;
+    yBand: number;
+    bandSummaryRuntime: DataBandSummaryRuntime;
+    row: number;
+    index: number;
+    contextable: boolean;
+    contextValues: (TextItemElementBase<any> | HtmlItemElement)[];
+    contextReplaces: {
+        [hash: string]: HtmlItemElement;
+    };
+    private _userData;
+    private _tags;
+    private _bandSave;
+    async: boolean;
+    band: DataBand | CrosstabBand;
+    pages: PrintPage[];
+    floatings: HTMLDivElement[];
+    reportCount: number;
+    reportIndex: number;
+    prevPages: number;
+    firstReport: PrintContext;
+    nextReport: PrintContext;
+    contextElements: {
+        [hash: string]: TextItemElementBase<any>;
+    };
+    constructor(printing?: boolean, compositePrinting?: boolean);
+    /**
+     * printing
+     */
+    get printing(): boolean;
+    /**
+     * compositePrinting 복합 출력 여부를 반환
+     */
+    get compositePrinting(): boolean;
+    /**
+     * data provider
+     */
+    get dp(): IReportDataProvider;
+    set dp(value: IReportDataProvider);
+    /**
+     * design data provider
+     */
+    get designDp(): DesignDataManager;
+    set designDp(value: DesignDataManager);
+    /**
+     * assets
+     */
+    get assets(): AssetManager;
+    set assets(value: AssetManager);
+    /**
+     * reportView
+     */
+    get reportView(): ReportView;
+    set reportView(value: ReportView);
+    /**
+     * pageWidth
+     */
+    get pageWidth(): number;
+    set pageWidth(value: number);
+    /**
+     * pageHeight
+     */
+    get pageHeight(): number;
+    set pageHeight(value: number);
+    /**
+     * date
+     */
+    get date(): Date;
+    /**
+     * page count.
+     */
+    get pageCount(): number;
+    /**
+     * page index.
+     */
+    get page(): number;
+    /**
+     * detail page count.
+     */
+    get detailPageCount(): number;
+    /**
+     * detail page index.
+     */
+    get detailPage(): number;
+    /**
+     * compositePage count.
+     */
+    get compositePageCount(): number;
+    /**
+     * compositePage index.
+     */
+    get compositePage(): number;
+    preparePrint(report?: Report): void;
+    preparePage(page: number, allPage: number): void;
+    setDetailPage(count: number, page: number): void;
+    finishPrint(pageCount: number): void;
+    setCompositePageCount(compostePageCount: number): void;
+    getUserData(): any;
+    getCurrentValue(prop: string): any;
+    setTag(tag: string, value: any): void;
+    unsetTag(tag: string): void;
+    getTag(tag: string, def?: any): any;
+    getValue(data: string, row: number, field: string): any;
+    saveBand(): void;
+    restoreBand(): void;
+    getBaseView(view: InheritableSectionElement<any>, viewType: string): InheritableSectionElement<any>;
+    /**
+     * - 현재 출력중인 data row를 반환
+     * @returns 0부터 시작하며 현재 출력중인 band의 row index 반환
+     */
+    getPrintingRow(): number;
+    /**
+     * - 정렬 적용 후에도 onGetValue, onGetStyles 이벤트에서 사용하는 row 인자에 원본 데이터의 index를 반환하기 위해 작성
+     * @returns 원본 데이터의 index 반환
+     */
+    getSourceIndex(): number;
+    setPageSize(width: number, height: number): void;
+    /**
+     * 호출하기 전 pageHeader, pageFooter, pageHeight 값이 설정되어야 함
+     */
+    setBodySize(): void;
+}
+type ContextValueCallback = (ctx: PrintContext) => any;
+declare class PageBreaker {
+}
+declare class BandFooterPrintInfo {
+}
+declare class ReportFooterPrintInfo {
+}
+declare class EndRowMarker {
+    count: number;
+    maxCount: number;
+    constructor(count: number, maxCount: number);
+}
+type BandPrintRow = number | BandFooterPrintInfo | BandPrintInfo<any> | EndRowMarker;
+declare abstract class BandPrintInfo<T extends ReportItem> {
+    band: T;
+    xBand: number;
+    ptsBand: number[];
+    wBand: number;
+    wCell: number;
+    masterRow: number;
+    masterValues: any;
+    /**
+     * rows per page.
+     * NaN이 아니면 이 수 만큼만 출력하고 페이지를 넘긴다.
+     */
+    rpp: number;
+    /**
+     * end row count
+     * NaN이 아니면 이 수만큼 빈 행을 추가한다.
+     * endRowCount가 0보다 커서 이전 페이지에서 빈 행들을 추가했는데 다 출력하지 못한 빈 행수.
+     */
+    erc: number;
+    detailRows: number[];
+    isMasterRowPrintNext: boolean;
+    needMasterHeader: boolean;
+    abstract isEnded(): boolean;
+    abstract getRows(): any[];
+    abstract getNextPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
+    abstract getNoPagingPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement;
+    rollback(page: HTMLDivElement): void;
+    setMaxCount(rows: any[], count: number): void;
+    isDataRow(row: any): row is number;
+    isBand(row: any): row is BandPrintInfo<any>;
+    isGroupHeader(row: any): boolean;
+    isGroupFooter(row: any): boolean;
+    protected _setX(dom: HTMLElement, x: number): void;
+    protected _setY(dom: HTMLElement, y: number): void;
+    protected _setPos(dom: HTMLElement, x: number, y: number): void;
+    protected _createPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
+    protected _createSectionPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
+    protected _buildEndRows(marker: EndRowMarker, rowCount: number, rows: any[]): void;
+    protected _unshiftEndRows(row: any, rows: any[]): void;
+    /**
+     * 마스터-디테일 형태에서 디테일이 출력되는 동안 페이지마다 마스터 행 출력 준비
+     * 현재 출력중인 마스터 밴드 행 번호 사용
+     * @param band 마스터 밴드 정보
+     * @param rows 출력해야할 행 정보 목록
+     * @see {@link https://github.com/realgrid/realreport/issues/1138}
+     */
+    protected _prepareRepeatMasterRow(band: DataBand, rows: BandPrintRow[]): void;
+    /**
+     * 마스터-디테일 밴드에서 마스터 헤더 출력여부와 관련된 값들에 대한 설정
+     * @param band 출력중인 밴드 정보
+     * @param bandHeaderPrinted 출력중인 페이지내에서 마스터 해더의 출력여부
+     * @param printed 출력했는지 여부
+     */
+    protected _setBandHeaderPrintFlag(band: DataBand, printed: boolean): void;
+    /**
+     * 디테일 밴드를 계속 출력 or 끝 결정
+     * @param ctx PrintContext
+     * @param rows 현재 출력해야 할 행들에 대한 목록
+     * @param row 현재 출력중인 행 정보
+     * @param rowsPerPage 페이지에서 몇행 까지 출력할 수 있는지 정보
+     * @returns true = 디테일 밴드 출력 끝, false = 다음장에 디테일 계속 출력
+     */
+    protected _isDetailBandPrintEnd(row: BandPrintInfo<SimpleBand | TableBand>): boolean;
+    protected _resetRowIndex(row: BandPrintInfo<SimpleBand | TableBand>): void;
+    protected _prepareDetailBandPrintNext(ctx: PrintContext, band: DataBand, row: BandPrintInfo<SimpleBand | TableBand>, rows: BandPrintRow[], rowsPerPage: number): void;
+}
+type PrintLine = HTMLElement | BandPrintInfo<any> | ReportFooterPrintInfo | PageBreaker;
+
+interface ISelectionSource {
+    selectItem: ReportPageItem;
+    canSelectedWith(other: ISelectionSource): boolean;
+}
+declare enum DropResultType {
+    PROP = "prop"
+}
+interface IDropResult {
+    type: DropResultType;
+    prop?: string;
+    value?: any;
+}
+/**
+ * Report page 구성 요소 기반 클래스.
+ * 현재, ReportItem, TableBandField가 있다.
+ */
+declare abstract class ReportPageItem extends Base$1 implements ISelectionSource, IOutlineSource, IPropertySource {
+    get selectItem(): ReportPageItem;
+    canSelectedWith(other: ISelectionSource): boolean;
+    abstract get outlineParent(): IOutlineSource;
+    abstract get outlineExpandable(): boolean;
+    abstract get outlineLabel(): string;
+    outlineOrder: number;
+    get index(): number;
+    get outlineItems(): IOutlineSource[];
+    outlineVisible(child: IOutlineSource): boolean;
+    abstract getSaveType(): string;
+    abstract canRemoveFrom(): boolean;
+    canParentOf(itemType: string): boolean;
+    abstract getEditProps(): IPropInfo[];
+    abstract getStyleProps(): IPropInfo[];
+    abstract getSubStyleProps(prop: string): IPropInfo[];
+    abstract getPlaceHolder(prop: IPropInfo): string;
+    abstract getPropDomain(prop: IPropInfo): any[];
+    getProperty(prop: string): any;
+    setProperty(prop: string, value: any): void;
+    abstract setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    abstract getStyle(style: string): string;
+    abstract setStyle(style: string, value: string): void;
+    abstract getStyleProperty(prop: string): any;
+    abstract setStyleProperty(prop: string, value: any): void;
+    abstract isChildProp(prop: string): boolean;
+    abstract getSubStyleProperty(prop: string, style: string): any;
+    abstract setSubStyleProperty(prop: string, style: string, value: any): void;
+    abstract setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    abstract canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    abstract adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    isReadOnlyProperty(prop: IPropInfo): boolean;
+    /**
+     * 이 속성 값이 변경되면 전체 property model을 변경해야 하는가?
+     */
+    isDominantProp(prop: IPropInfo): boolean;
+    isCollectionProp(): boolean;
+    isEditableCollection(): boolean;
+    isCollectionItem(): boolean;
+    getPropertySources(): IPropertySource[];
+    getCollectionLabel(): string;
+    setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getPopupPropLabel(prop: string): string;
+    abstract get page(): ReportPage;
+    abstract get displayPath(): string;
+    abstract get level(): number;
+    abstract get styles(): Styles;
+    get outlineSource(): IOutlineSource;
+    get parent(): ReportGroupItem;
+    get dataParent(): ReportGroupItem;
+    get displayParent(): ReportPageItem;
+    /**
+     * 선택됐을 때 표시될 marquee를 생성하는 item.
+     */
+    get marqueeParent(): ReportItem;
+    get printable(): boolean;
+    isAncestorOf(item: ReportPageItem): boolean;
+    getProps(): any;
+    setProps(src: any): void;
+    canMove(): boolean;
+    protected _loadProp(src: any, prop: string): void;
+    protected _loadProps(src: any, ...props: string[]): void;
+    protected _loadPropOf(src: any, info: IPropInfo): void;
+    protected _loadPropsOf(src: any, infos: IPropInfo[]): void;
+    protected _saveProp(target: object, prop: string): void;
+    protected _saveProps(target: object, ...props: string[]): void;
+    /**
+     * 속성값이 undefined 이거나 IPropInfo.default와 동일하면 저장하지 않는다.
+     * 속성의 기본값은 undefined이거나 IPropInfo.default와 동일해야 한다!!
+     */
+    protected _savePropOf(target: object, info: IPropInfo): void;
+    protected _savePropsOf(target: object, infos: IPropInfo[]): void;
+    protected _loadObject(item: ReportItem | ReportObject, loader: IReportLoader, src: any): void;
+    protected _loadObjects(items: ReportItem[] | ReportObject[], loader: IReportLoader, src: any): void;
+    protected _saveObject(item: ReportItem | ReportObject, target: any): void;
+    protected _saveObjects(items: ReportItem[] | ReportObject[], target: any): void;
+    protected _arrangePaddingStyles(styles: Styles): void;
+    protected _validateSize(v: ValueString): ValueString;
+    protected _validateStylesValue(styles: {
+        [key: string]: string;
+    }): void;
+}
+declare enum ItemMoveType {
+    INNER = "inner",
+    OUTER = "outer"
+}
+type ReportItemValueCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => any;
+type ReportItemStyleCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => {
+    [key: string]: string | undefined;
+};
+type ReportItemVisibleCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => boolean;
+/**
+ * Report 구성 요소 기반 클래스.
+ *
+ * [data]
+ * 1. data 속성에 dataProvider에 등록된 리포트 data 이름.
+ * 2. value 속성에 "."으로 분리된 값 경로.
+ * 3. data를 지정하지 않으면 가장 가까운 조상에 설정된 data.
+ * 4. value에 "data::value" 형식으로 지정하면 이 것을 우선.
+ */
+declare abstract class ReportItem extends ReportPageItem {
+    static readonly DEF_DISPLAY_ORDER = 99;
+    static readonly PROP_NAME = "name";
+    static readonly PROP_TAG = "tag";
+    static readonly PROP_LEFT = "left";
+    static readonly PROP_RIGHT = "right";
+    static readonly PROP_TOP = "top";
+    static readonly PROP_BOTTOM = "bottom";
+    static readonly PROP_DESIGN_BORDER = "designBorder";
+    static readonly PROP_ON_GET_VALUE = "onGetValue";
+    static readonly PROP_ON_GET_VISIBLE = "onGetVisible";
+    static readonly PROP_STYLES = "styles";
+    static readonly PROP_ON_GET_STYLES = "onGetStyles";
+    static readonly PROP_VISIBLE = "visible";
+    static readonly PROP_DATA = "data";
+    static readonly PROP_VALUE = "value";
+    static readonly PROP_HINT = "hint";
+    static readonly PROP_WIDTH = "width";
+    static readonly PROP_HEIGHT = "height";
+    static readonly PROP_MIN_WIDTH = "minWdth";
+    static readonly PROP_MIN_HEIGHT = "minHeight";
+    static readonly PROP_LOCKED = "locked";
+    static readonly PROP_PAGE_BREAK = "pageBreak";
+    static readonly PROP_STYLE_CALLBACK = "styleCallback";
+    static readonly PROP_ROTATION = "rotation";
+    static readonly PROP_LINK_URL = "linkUrl";
+    static readonly PROP_LINK_TARGET = "linkTarget";
+    static readonly PROP_LINK_FIELD = "linkField";
+    static readonly DATA_PROP: {
+        name: string;
+        category: PropCategory;
+        type: typeof ListableProperty;
+        multiple: boolean;
+        default: any;
+        domain: any;
+    };
+    static readonly VALUE_PROP: {
+        name: string;
+        category: PropCategory;
+        type: typeof ListableProperty;
+        multiple: boolean;
+        default: any;
+        domain: any;
+        validate: (source: ReportItem, value: any) => void;
+    };
+    static readonly LINK_FIELD_PROP: {
+        name: string;
+        category: PropCategory;
+        type: typeof ListableProperty;
+        multiple: boolean;
+        default: any;
+        domain: any;
+        validate: (source: ReportItem, value: any) => void;
+        visible: (source: IPropertySource) => boolean;
+    };
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly SIZE_PROPINFOS: IPropInfo[];
+    static readonly LINK_PROPINFOS: IPropInfo[];
+    static readonly VALUE_PROPINFOS: IPropInfo[];
+    static findFloatingAnchor(item: ReportPageItem): ReportItem;
+    private _name;
+    private _tag;
+    private _visible;
+    private _visibleCallback;
+    private _onGetVisible;
+    private _data;
+    private _value;
+    private _valueCallback;
+    private _onGetValue;
+    private _hint;
+    private _width;
+    private _height;
+    private _minWidth;
+    private _minHeight;
+    private _rotation;
+    private _linkUrl;
+    private _linkTarget;
+    private _linkField;
+    private _styles;
+    private _styleCallback;
+    private _onGetStyles;
+    private _pageBreak;
+    private _designOrder;
+    private _designBorder;
+    private _folded;
+    private _parent;
+    private _index;
+    private _childPropInfos;
+    private _childProps;
+    private _valueCallbackFunc;
+    private _valueCallbackDelegate;
+    private _styleCallbackFunc;
+    private _styleCallbackDelegate;
+    private _visibleCallbackFunc;
+    private _visibleCallbackDelegate;
+    private _leftDim;
+    private _rightDim;
+    private _topDim;
+    private _bottomDim;
+    private _widthDim;
+    private _heightDim;
+    private _minWidthDim;
+    private _minHeightDim;
+    constructor(name: string);
+    get outlineParent(): IOutlineSource;
+    get outlineExpandable(): boolean;
+    /**
+     * Report 편집기에서 수정할 수 있는 속성 정의 목록.
+     * 속성이 없는 경우라도 빈 배열을 리턴해야 한다.
+     * 각 항목은 아래 속성들을 갖는다.
+     * {
+     *  name: string,
+     *  type: DesignType.
+     *  category: string,
+     *  domain: any[],
+     * }
+     */
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    getPlaceHolder(prop: IPropInfo): string;
+    /**
+     * @internal
+     */
+    getData(): IReportData;
+    /**
+     * @internal
+     */
+    getDataFieldNames(): string[];
+    getPropDomain(prop: IPropInfo): any[];
+    getProperty(prop: string): any;
+    setProperty(prop: string, value: any): void;
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getProperties(props: string[] | ConfigObject$1): ConfigObject$1;
+    setProperties(props: ConfigObject$1): void;
+    getStyleProperty(prop: string): any;
+    setStyleProperty(prop: string, value: any): void;
+    getSubStyleProperty(prop: string, style: string): any;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    dataNameChanged(data: IReportData, oldName: string): void;
+    dataFieldNameChanged(data: IReportData, newName: string, oldName: string): void;
+    get ctor(): string | undefined;
+    /** parent */
+    get parent(): ReportGroupItem;
+    /** dataParent */
+    get dataParent(): ReportGroupItem;
+    /** index */
+    get index(): number;
+    /** level */
+    get level(): number;
+    /** page */
+    get page(): ReportPage;
+    get report(): Report;
+    /** name */
+    get name(): string;
+    set name(value: string);
+    get pathLabel(): string;
+    get displayPath(): string;
+    /** tag */
+    get tag(): string;
+    set tag(value: string);
+    /** load/save 시 array를 사용하면 true */
+    get isArray(): boolean;
+    get isBand(): boolean;
+    /**
+     * false면 자리를 차지하지 않는다.
+     */
+    get visible(): boolean;
+    set visible(value: boolean);
+    get removable(): boolean;
+    /**
+     * IReportData name.
+     */
+    get data(): string;
+    set data(value: string);
+    /**
+     * 리포트에 지정된 data의 특정 값(들)을 지시하는 경로.
+     * "::" 앞쪽에서 설정된 data 이름이 없는 경우,
+     * 자신으로 시작해서 Report까지 가장 가까운 곳(dataParent)에 설정된 data에서 값을 가져온다.
+     * '${page}', '%{page}', '${pages}', '%{pages}', '${date}', '%{date}' 등으로 print context 값을 지정할 수도 있다.
+     */
+    get value(): string;
+    set value(value: string);
+    /**
+     * Dom title.
+     * 출력 리포트에서 이게 필요한가?
+     */
+    get hint(): string;
+    set hint(value: string);
+    /**
+     * width
+     */
+    get width(): ValueString;
+    set width(value: ValueString);
+    /**
+     * height
+     */
+    get height(): ValueString;
+    set height(value: ValueString);
+    /**
+     * minWidth
+     */
+    get minWidth(): ValueString;
+    set minWidth(value: ValueString);
+    /**
+     * minHeight
+     */
+    get minHeight(): ValueString;
+    set minHeight(value: ValueString);
+    /**
+     * rotation
+     */
+    get rotation(): number;
+    set rotation(value: number);
+    get isRotated(): boolean;
+    /**
+     * linkUrl
+     * linkValue의 값이 있을 경우 해당 속성은 무시된다.
+     */
+    get linkUrl(): string;
+    set linkUrl(value: string);
+    /**
+     * linkTarget
+     */
+    get linkTarget(): LinkTarget;
+    set linkTarget(value: LinkTarget);
+    /**
+     * 리포트에 지정된 data의 특정 값(들)을 지시하는 경로.
+     * 자신으로 시작해서 Report까지 가장 가까운 곳(dataParent)에 설정된 data에서 값을 가져온다.
+     * Link 기능을 사용할 수 있는 아이템에 Url로 사용이 된다.
+     * print 시 해당 속성의 값이 linkUrl보다 우선 적용된다.
+     */
+    get linkField(): string;
+    set linkField(value: string);
+    /**
+     * onGetValue
+     */
+    get onGetValue(): string;
+    set onGetValue(value: string);
+    /** valueCallback */
+    get valueCallback(): ReportItemValueCallback;
+    set valueCallback(value: ReportItemValueCallback);
+    /**
+     * onGetVisible
+     */
+    get onGetVisible(): string;
+    set onGetVisible(value: string);
+    /** visibleCallback */
+    get visibleCallback(): ReportItemVisibleCallback;
+    set visibleCallback(value: ReportItemVisibleCallback);
+    /** styles */
+    get styles(): Styles;
+    set styles(value: Styles);
+    /** styleCallback */
+    get styleCallback(): ReportItemStyleCallback;
+    set styleCallback(value: ReportItemStyleCallback);
+    get onGetStyles(): string;
+    set onGetStyles(value: string);
+    /** pageBreak */
+    get pageBreak(): PageBreakMode;
+    set pageBreak(value: PageBreakMode);
+    /**
+     * 아웃라인에 표시되는 라벨명
+     */
+    get outlineLabel(): string;
+    /** designText */
+    get designText(): string;
+    /** designLevel */
+    get designLevel(): number;
+    /**
+     *  부모 리포트 아이템으로부터 주입된 속성 목록
+     */
+    get childPropInfos(): IPropInfo[];
+    set childPropInfos(value: IPropInfo[]);
+    /** floating */
+    get floating(): boolean;
+    /**
+     * outline viewer 등에서 이 아이템이 표시되는 순서.
+     * 값이 작을 수록 먼저 표시된다.
+     * 기본값은 99.
+     */
+    get designOrder(): number;
+    set designOrder(value: number);
+    get designBorder(): boolean;
+    set designBorder(value: boolean);
+    isRelativeHeight(): boolean;
+    isRelativeWidth(): boolean;
+    get folded(): boolean;
+    /**
+     * ColumnBoxContainer|BoundedContainer
+     */
+    get left(): any;
+    /**
+     * ColumnBoxContainer|BoundedContainer
+     */
+    get right(): any;
+    /**
+     * RowBoxContainer|BoundedContainer
+     */
+    get top(): any;
+    /**
+     * RowBoxContainer|BoundedContainer
+     */
+    get bottom(): any;
+    /**
+     * TableContainer.
+     * cell row index in table
+     */
+    get row(): number;
+    /**
+     * TableContainer.
+     * cell column index in table.
+     */
+    get col(): number;
+    /**
+     * TableBandRow.
+     * 이전 행 값과 동일하면 값을 표시하지 않는다.
+     * 값의 비교는 blankFields가 설정되면 그 필드들의 값이 모두 동일한 경우,
+     * blankFields가 설정되지 않은 경우 value에 설정된 필드 값이 동일한 경우.
+     */
+    get equalBlank(): boolean;
+    /**
+     * TableBandRow.
+     * equalBlank가 true일 깨 값을 비교하는 필드들을 ',' 분리해서 지정한다.
+     * 이 속성을 지정하지 않으면 value에 지정된 필드의 값으로 비교한다.
+     */
+    get blankFields(): string;
+    /**
+     * true로 지정되면 값과 상관 없이 leaf group 내의 모든 셀을 merge한다.
+     * 또, 둘 이상의 table row로 출력되는 경우에도 이 아이템이 속한 컬럼 셀들을 모두 병합한다.
+     * 한 행으로 구성된 group field에 bind된 아이템에만 적용해야 의미가 있다.
+     */
+    get mergedInGroup(): boolean;
+    /**
+     * 디자이너에서 추기될 때 초기값들 설정.
+     */
+    defaultInit(loader: IReportLoader, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    getSaveType(): string;
+    /**
+     * 하위 object 저장 label.
+     * _loadObject(), _saveObject()에서 사용.
+     */
+    getSaveLabel(): string;
+    isContextValue(value?: string): boolean;
+    /**
+     * 아이템이 특별한 부모에 포함될 때 추가되는 속성들.
+     * 예를들어 아이템을 table의 cell로 이동시키면 table에 추가하기 전
+     * 사용자가 마우스로 지정한 곳에 있는 셀의 'col', 'row' 속성을 설정해서
+     * table이 적절히 item을 배치하도록 한다.
+     */
+    setChildProp(prop: string, value: any): boolean;
+    private $_setChildProp;
+    isChildProp(prop: string): boolean;
+    getChildProp(prop: string, defaultValue?: any): any;
+    getChildProps(): any[];
+    isStyleProp(prop: string): boolean;
+    canParentOf(itemType: string): boolean;
+    canAddTo(group: ReportGroupItem): boolean;
+    canAddToFrontContainer(): boolean;
+    canAddToBackContainer(): boolean;
+    prepareLayout(printing: boolean): void;
+    preparePrint(ctx: PrintContext): void;
+    getLeft(domain: number): number;
+    setLeft(dim: Dimension): void;
+    getRight(domain: number): number;
+    setRight(dim: Dimension): void;
+    getTop(domain: number): number;
+    setTop(dim: Dimension): void;
+    getBottom(domain: number): number;
+    setBottom(dim: Dimension): void;
+    getWidth(domain: number): number;
+    getHeight(domain: number): number;
+    getMinWidth(domain: number): number;
+    getMinHeight(domain: number): number;
+    canSized(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    canResizeWidth(): boolean;
+    canResizeHeight(): boolean;
+    resize(width: number, height: number): ReportItem;
+    canRotate(): boolean;
+    canLink(): boolean;
+    hasStyle(style: string): boolean;
+    getStyle(style: string): string;
+    setStyle(style: string, value: string): void;
+    clearStyle(style: string): void;
+    clearStyles(css: CSSStyleDeclaration): void;
+    load(loader: IReportLoader, source: any): void;
+    save(target: object): boolean;
+    getFloatingContainer(): FloatingContainer;
+    delete(): void;
+    isAncestor(group: ReportGroupItem): boolean;
+    private $_getValue;
+    /**
+     * onGetStyles 등 callback 내에서 사용할 수 있게 노출.
+     */
+    getValue(row: number, field: string): any;
+    /**
+     * 출력 시 ReportItemElement에서 호출.
+     */
+    getPrintValue(dp: IReportDataProvider, row: number): any;
+    getLinkValue(dp: IReportDataProvider, row: number): any;
+    getDataViewValue(dv: BandDataView, row: number): any;
+    protected _getParentData(): string;
+    canRemoveFrom(): boolean;
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
+    canNamed(): boolean;
+    canTagged(): boolean;
+    canHide(): boolean;
+    canPageBreak(): boolean;
+    isBreakBefore(): boolean;
+    isBreakAfter(): boolean;
+    getInvalids(report: Report): string[];
+    canFold(): boolean;
+    fold(): boolean;
+    unfold(): boolean;
+    protected _foldedChanged(): void;
+    get marqueeParent(): ReportItem;
+    get printable(): boolean;
+    isReadOnlyProperty(prop: IPropInfo): boolean;
+    protected _sizable(): boolean;
+    protected _boundable(): boolean;
+    /**
+     * 리포트 아이템 생성 시, 수행할 초기화 작업을 정의한다.
+     *
+     * @param loader - 아이템을 로드하는 리포트 로더
+     * @param group - 아이템의 상위 리포트그룹아이템
+     * @param hintWidth - 아이템 영역 너비
+     * @param hintHeight - 아이템 영역 높이
+     */
+    protected _doDefaultInit(loader: IReportLoader, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _getSubStyle(prop: string, style: string): any;
+    protected _setSubStyle(prop: string, style: string, value: any): void;
+    protected _doApplyStyle(prop: string, value: string, target: CSSStyleDeclaration): boolean;
+    protected _setLeft(value: ValueString): void;
+    protected _setRight(value: ValueString): void;
+    protected _setTop(value: ValueString): void;
+    protected _setBottom(value: ValueString): void;
+    protected _getEditProps(excludedProps?: string[]): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _getChildStyleProps(prop: string): string[];
+    protected _valueable(): boolean;
+    protected _datable(): boolean;
+    private $_attached;
+    protected _doAttached(): void;
+    private $_detached;
+    protected _doDetached(): void;
+    protected _isLoading(): boolean;
+    protected _changed(prop: string, newValue: any, oldValue: any): void;
+    get stylable(): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _saveChildPropsOf(target: object, infos: IPropInfo[]): void;
+    protected _doSave(target: object): void;
+    protected _doAfterLoad(loader: IReportLoader, src: any): void;
+    protected _doAfterSave(target: object): void;
+    protected _doPrepareLayout(printing: boolean): void;
+    protected _doPreparePrint(ctx: PrintContext): void;
+}
+/**
+ * 하나 이상의 report item을 포함하는 group item 기반 클래스.
+ */
+declare abstract class ReportGroupItem extends ReportItem {
+    static readonly PROP_DESIGN_WIDTH = "designWidth";
+    static readonly PROP_DESIGN_HEIGHT = "designHeight";
+    static readonly PROPINFOS: IPropInfo[];
+    private _designWidth;
+    private _designHeight;
+    private _items;
+    layoutChanged: boolean;
+    constructor(name: string);
+    get outlineExpandable(): boolean;
+    get outlineItems(): IOutlineSource[];
+    /**
+     * child props를 제공하는가?
+     */
+    get isChildPropContainer(): boolean;
+    /** count */
+    get count(): number;
+    /** items */
+    get items(): ReportItem[];
+    /** designWidth */
+    get designWidth(): number;
+    set designWidth(value: number);
+    /** designHeight */
+    get designHeight(): number;
+    set designHeight(value: number);
+    get dataDominant(): boolean;
+    get firstChild(): ReportItem;
+    get lastChild(): ReportItem;
+    get isDataRowContainer(): boolean;
+    needDesignWidth(): boolean;
+    needDesignHeight(): boolean;
+    get(index: number): ReportItem;
+    canContainsBand(): boolean;
+    canContainsBandGroup(): boolean;
+    canAddToFrontContainer(): boolean;
+    canAddToBackContainer(): boolean;
+    contains(item: ReportPageItem, deep?: boolean): boolean;
+    indexOf(item: ReportPageItem): number;
+    getNames(list: string[], recursive?: boolean): string[];
+    find(name: string, recursive?: boolean): ReportItem;
+    canAdd(item: ReportItem): boolean;
+    append(item: ReportPageItem, slient?: boolean): boolean;
+    /**
+     * @param silent View나 Tool 쪽에서 지정하고 사용한다.
+     */
+    add(item: ReportPageItem, index?: number, silent?: boolean): boolean;
+    canRemove(item: ReportItem): boolean;
+    remove(item: ReportItem): void;
+    removeLast(): void;
+    clear(): void;
+    getMoveType(item: ReportItem): ItemMoveType;
+    canResizeChild(item: ReportItem, dir: ResizeDirection): boolean;
+    search(page: number, key: string, options: FindOptions, results: FindResult[]): void;
+    canChangeChildProp(item: ReportPageItem, prop: string, value: any): boolean;
+    changeChildIndex(child: ReportItem, newIndex: number): boolean;
+    canAlign(child: ReportItem): boolean;
+    canAlignTo(child: ReportPageItem, to: string): boolean;
+    filter(callback: (item: ReportItem) => boolean): ReportItem[];
+    getDescendants(all?: boolean, recursive?: boolean): ReportItem[];
+    collectInvalids(report: Report, list: {
+        item: ReportItem;
+        reason: string;
+    }[]): void;
+    collectBlankItems(childs?: ReportItem[]): ReportItem[];
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _maxChildCount(): number;
+    isAncestorOf(item: ReportPageItem): boolean;
+    canParentOf(itemType: string): boolean;
+    prepareLayout(printing: boolean): void;
+    preparePrint(ctx: PrintContext): void;
+    protected _getNameOfItems(): string;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _ignoreItems(): boolean;
+    save(target: object): boolean;
+    dataNameChanged(data: IReportData, oldName: string): void;
+    protected get internalItems(): ReportItem[];
+    protected _valueable(): boolean;
+    protected _loadChildProp(child: ReportItem, prop: string, src: any): void;
+    protected _loadChildProps(child: ReportItem, props: string[], src: any): void;
+    protected _loadChildPropsOf(child: ReportItem, src: any, infos: IPropInfo[]): void;
+    protected _getChildPropInfos(item: ReportItem): IPropInfo[];
+    protected _loadChild(loader: IReportLoader, item: ReportItem, src: any): ReportItem;
+    protected _loadItems(loader: IReportLoader, src: any): void;
+    protected _doLoadChild(child: ReportItem, src: any): void;
+    protected _saveItems(target: any[]): void;
+    protected _doSaveItems(target: any[], items: ReportItem[]): void;
+    protected _addItem(item: ReportItem, index: number, silent: boolean): ReportItem;
+    protected _removeItem(item: ReportItem): number;
+    protected _clearItems(): void;
+    protected _doItemAdded(item: ReportItem, index: number): void;
+    protected _doItemRemoved(item: ReportItem, index: number): void;
+    private $_resetIndices;
+    private $_childChanged;
+    protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
+    protected _setOutlineOrders(start: number, ...items: ReportPageItem[]): void;
+}
+declare abstract class ReportItemCollectionItem extends ReportPageItem {
+    private _collection;
+    private _styles;
+    constructor(collection: ReportItemCollection<any>, src?: any);
+    protected _doInitDefaults(): void;
+    get outlineParent(): IOutlineSource;
+    get outlineExpandable(): boolean;
+    get outlineLabel(): string;
     getSaveType(): string;
     canRemoveFrom(): boolean;
-    canParentOf?(itemType: string): boolean;
+    getPropDomain(prop: IPropInfo): any[];
+    getStyleProps(): IPropInfo[];
+    getStyle(style: string): string;
+    setStyle(style: string, value: string): void;
+    getStyleProperty(prop: string): string;
+    setStyleProperty(prop: string, value: any): void;
+    getSubStyleProps(prop: string): IPropInfo[];
+    getPlaceHolder(prop: IPropInfo): string;
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getSubStyleProperty(prop: string, style: string): any;
+    isChildProp(prop: string): boolean;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    isCollectionItem(): boolean;
+    abstract get itemType(): string;
+    /** styles */
+    get styles(): Styles;
+    set styles(value: Styles);
+    load(src: any): void;
+    save(target: any): any;
+    get collection(): ReportItemCollection<any>;
+    get level(): number;
+    protected _doLoad(src: any): void;
+    protected _doAfterLoad(src: ReportSource): void;
+    protected _doSave(target: any): void;
+    protected _doAfterSave(target: ReportTarget): void;
+    protected abstract _getStyleProps(): string[];
+    protected _changed(prop: string, newValue: any, oldValue: any): void;
+}
+declare abstract class ReportItemCollection<T extends ReportPageItem> extends ReportPageItem {
+    canRemoveFrom(): boolean;
+    canParentOf(itemType: string): boolean;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    getPlaceHolder(prop: IPropInfo): string;
+    getPropDomain(prop: IPropInfo): any[];
+    getProperty(prop: string): any;
+    setProperty(prop: string, value: any): void;
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getStyleProperty(prop: string): any;
+    getStyle(style: string): string;
+    setStyle(style: string, value: string): void;
+    setStyleProperty(prop: string, value: any): void;
+    setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
+    isChildProp(prop: string): boolean;
+    getSubStyleProperty(prop: string, style: string): any;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    isCollectionProp(): boolean;
+    getPropertySources(): IPropertySource[];
+    abstract get owner(): ReportItem;
+    abstract get count(): number;
+    abstract get items(): ReportPageItem[];
+    abstract get(index: number): T;
+    abstract indexOf(item: T): number;
+    preparePrint(ctx: PrintContext): void;
+    forEach(callback: (item: T, index: number) => void): void;
+    protected abstract _doMoveItem(from: number, to: number): boolean;
+    moveItem(from: number, to: number): boolean;
+    get styles(): Styles;
+    protected _itemChanged(item: ReportPageItem, prop: string, newValue: any, oldValue: any): void;
+    protected _itemAdded(item: ReportPageItem): void;
+    protected _itemsAdded(items: ReportPageItem[]): void;
+    protected _itemRemoved(item: ReportPageItem, oldParent: ReportGroupItem): void;
+    protected _itemsRemoved(items: ReportPageItem[]): void;
+    protected _indexChanged(): void;
+    protected _doPreparePrint(ctx: PrintContext): void;
+}
+/**
+ * 동일 그룹 내의 다른 아이템을 기준점으로 표시되는 아이템.
+ * 자식으로 floating을 추가할 수 없다.
+ */
+declare class FloatingContainer extends ReportGroupItem {
+    static readonly PROP_ANCHOR_TARGET = "anchorTarget";
+    static readonly PROP_ANCHOR_POSITION = "anchorPosition";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Floating Container";
+    private _anchorTarget;
+    private _anchorPosition;
+    constructor(name: string);
+    /** anchorTarget */
+    get anchorTarget(): string;
+    set anchorTarget(value: string);
+    /** anchorPosition */
+    get anchorPosition(): AnchorPosition;
+    set anchorPosition(value: AnchorPosition);
+    getSaveType(): string;
+    get outlineLabel(): string;
+    protected _maxChildCount(): number;
+    protected _boundable(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    getPropDomain(prop: IPropInfo): any[];
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canAdd(item: ReportItem): boolean;
+}
+/**
+ * 자식들의 위치를 지정할 수 있는 container.
+ * 위치 설정이 안된 item은 중앙에 정렬 시킨다.
+ */
+declare abstract class BoundedContainer extends ReportGroupItem {
+    static readonly CHILD_PROPS: IPropInfo[];
+    constructor(name: string);
+    protected _getChildPropInfos(item: ReportItem): IPropInfo[];
+    protected _doLoadChild(child: ReportItem, src: any): void;
+}
+/**
+ * 자식을 대리하는 그룹.
+ * 자식 하나만 가질 수 있다.
+ */
+declare abstract class CellGroup extends ReportGroupItem {
+    private _item;
+    constructor(item: ReportItem, name: string);
+    /**
+     * item
+     */
+    get item(): ReportItem;
+    get isEmpty(): boolean;
+    get isChildPropContainer(): boolean;
+    set childPropInfos(value: IPropInfo[]);
+    get printable(): boolean;
+    protected _maxChildCount(): number;
+    protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
+}
+/**
+ * CellGroup들만을 자식으로 갖는다.
+ */
+declare abstract class CellContainer extends ReportGroupItem {
+    /** @internal */
+    noPrepareCell: boolean;
+    constructor(name: string);
+    contains(item: ReportItem, deep?: boolean): boolean;
+    indexOf(item: ReportItem): number;
+    findCell(item: ReportItem): CellGroup;
+    find(name: string, recursive?: boolean): ReportItem;
+    protected _loadChild(loader: IReportLoader, item: ReportItem, src: any): ReportItem;
+    protected _addItem(item: ReportItem, index: number, silent: boolean): ReportItem;
+    protected _removeItem(item: ReportItem): number;
+    protected abstract _prepareCellGroup(item: ReportItem): CellGroup;
+    protected _unprepareCellGroup(item: ReportItem): CellGroup;
 }
 
 declare abstract class ChartObject<T extends ReportGroupItem> extends ReportItem {
@@ -5125,1899 +7826,237 @@ declare class HichartLegend extends ChartObject<HichartItem> {
  */
 interface IReportLoader {
     createItem(type: any): ReportItem;
+    createRealChartAxis(collection: RCAxisCollection, src: ReportSource): RCAxis;
+    createRealChartSeries(collection: RCSeriesCollection, src: ReportSource): RCSeries;
     createHichartSeries(chart: HichartItem, src: any): HichartSeries;
 }
 
-interface ISelectionSource {
-    selectItem: ReportPageItem;
-    canSelectedWith(other: ISelectionSource): boolean;
+declare const enum Cursor$1 {
+    DEFAULT = "default",
+    AUTO = "auto",
+    POINTER = "pointer",
+    WAIT = "wait",
+    MOVE = "move",
+    COL_RESIZE = "col-resize",
+    ROW_RESIZE = "row-resize",
+    CROSSHAIR = "crosshair",
+    HORZ_RESIZE = "ew-resize",
+    VERT_RESIZE = "ns-resize",
+    NESW_RESIZE = "nesw-resize",
+    NWSE_RESIZE = "nwse-resize",
+    NO_DROP = "no-drop",
+    NOT_ALLOWED = "not-allowed"
 }
-declare enum DropResultType {
-    PROP = "prop"
+declare enum Align {
+    LEFT = "left",
+    CENTER = "center",
+    RIGHT = "right"
 }
-interface IDropResult {
-    type: DropResultType;
-    prop?: string;
-    value?: any;
+declare enum VerticalAlign {
+    TOP = "top",
+    MIDDLE = "middle",
+    BOTTOM = "bottom"
 }
-/**
- * Report page 구성 요소 기반 클래스.
- * 현재, ReportItem, TableBandField가 있다.
- */
-declare abstract class ReportPageItem extends Base$1 implements ISelectionSource, IOutlineSource, IPropertySource {
-    get selectItem(): ReportPageItem;
-    canSelectedWith(other: ISelectionSource): boolean;
-    abstract get outlineParent(): IOutlineSource;
-    abstract get outlineExpandable(): boolean;
-    abstract get outlineLabel(): string;
-    outlineOrder: number;
-    get index(): number;
-    get outlineItems(): IOutlineSource[];
-    outlineVisible(child: IOutlineSource): boolean;
-    abstract getSaveType(): string;
-    abstract canRemoveFrom(): boolean;
-    canParentOf(itemType: string): boolean;
-    abstract getEditProps(): IPropInfo[];
-    abstract getStyleProps(): IPropInfo[];
-    abstract getSubStyleProps(prop: string): IPropInfo[];
-    abstract getPlaceHolder(prop: IPropInfo): string;
-    abstract getPropDomain(prop: IPropInfo): any[];
-    getProperty(prop: string): any;
-    setProperty(prop: string, value: any): void;
-    abstract setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
-    abstract getStyle(style: string): string;
-    abstract setStyle(style: string, value: string): void;
-    abstract getStyleProperty(prop: string): any;
-    abstract setStyleProperty(prop: string, value: any): void;
-    abstract isChildProp(prop: string): boolean;
-    abstract getSubStyleProperty(prop: string, style: string): any;
-    abstract setSubStyleProperty(prop: string, style: string, value: any): void;
-    abstract setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
-    abstract canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    abstract adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    isReadOnlyProperty(prop: IPropInfo): boolean;
-    /**
-     * 이 속성 값이 변경되면 전체 property model을 변경해야 하는가?
-     */
-    isDominantProp(prop: IPropInfo): boolean;
-    isCollectionProp(): boolean;
-    isEditableCollection(): boolean;
-    isCollectionItem(): boolean;
-    getPropertySources(): IPropertySource[];
-    getCollectionLabel(): string;
-    setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getPopupPropLabel(prop: string): string;
-    abstract get page(): ReportPage;
-    abstract get displayPath(): string;
-    abstract get level(): number;
-    abstract get styles(): Styles;
-    get outlineSource(): IOutlineSource;
-    get parent(): ReportGroupItem;
-    get dataParent(): ReportGroupItem;
-    get displayParent(): ReportPageItem;
-    /**
-     * 선택됐을 때 표시될 marquee를 생성하는 item.
-     */
-    get marqueeParent(): ReportItem;
-    get printable(): boolean;
-    isAncestorOf(item: ReportPageItem): boolean;
-    getProps(): any;
-    setProps(src: any): void;
-    canMove(): boolean;
-    protected _loadProp(src: any, prop: string): void;
-    protected _loadProps(src: any, ...props: string[]): void;
-    protected _loadPropOf(src: any, info: IPropInfo): void;
-    protected _loadPropsOf(src: any, infos: IPropInfo[]): void;
-    protected _saveProp(target: object, prop: string): void;
-    protected _saveProps(target: object, ...props: string[]): void;
-    /**
-     * 속성값이 undefined 이거나 IPropInfo.default와 동일하면 저장하지 않는다.
-     * 속성의 기본값은 undefined이거나 IPropInfo.default와 동일해야 한다!!
-     */
-    protected _savePropOf(target: object, info: IPropInfo): void;
-    protected _savePropsOf(target: object, infos: IPropInfo[]): void;
-    protected _loadObject(item: ReportItem, loader: IReportLoader, src: any): void;
-    protected _loadObjects(items: ReportItem[], loader: IReportLoader, src: any): void;
-    protected _saveObject(item: ReportItem, target: any): void;
-    protected _saveObjects(items: ReportItem[], target: any): void;
-    protected _arrangePaddingStyles(styles: Styles): void;
-    protected _validateSize(v: ValueString): ValueString;
-    protected _validateStylesValue(styles: {
-        [key: string]: string;
-    }): void;
+declare enum PrintUnit {
+    PIXEL = "px",
+    POINT = "pt",
+    INCH = "in",
+    CENTI = "cm",
+    MILLI = "mm"
 }
-declare enum ItemMoveType {
-    INNER = "inner",
-    OUTER = "outer"
-}
-type ReportItemValueCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => any;
-type ReportItemStyleCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => {
+type ValueString = string | number;
+type Styles = {
     [key: string]: string | undefined;
 };
-type ReportItemVisibleCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => boolean;
-/**
- * Report 구성 요소 기반 클래스.
- *
- * [data]
- * 1. data 속성에 dataProvider에 등록된 리포트 data 이름.
- * 2. value 속성에 "."으로 분리된 값 경로.
- * 3. data를 지정하지 않으면 가장 가까운 조상에 설정된 data.
- * 4. value에 "data::value" 형식으로 지정하면 이 것을 우선.
- */
-declare abstract class ReportItem extends ReportPageItem {
-    static readonly DEF_DISPLAY_ORDER = 99;
-    static readonly PROP_NAME = "name";
-    static readonly PROP_TAG = "tag";
-    static readonly PROP_LEFT = "left";
-    static readonly PROP_RIGHT = "right";
-    static readonly PROP_TOP = "top";
-    static readonly PROP_BOTTOM = "bottom";
-    static readonly PROP_DESIGN_BORDER = "designBorder";
-    static readonly PROP_ON_GET_VALUE = "onGetValue";
-    static readonly PROP_ON_GET_VISIBLE = "onGetVisible";
-    static readonly PROP_STYLES = "styles";
-    static readonly PROP_ON_GET_STYLES = "onGetStyles";
-    static readonly PROP_VISIBLE = "visible";
-    static readonly PROP_DATA = "data";
-    static readonly PROP_VALUE = "value";
-    static readonly PROP_HINT = "hint";
-    static readonly PROP_WIDTH = "width";
-    static readonly PROP_HEIGHT = "height";
-    static readonly PROP_MIN_WIDTH = "minWdth";
-    static readonly PROP_MIN_HEIGHT = "minHeight";
-    static readonly PROP_LOCKED = "locked";
-    static readonly PROP_PAGE_BREAK = "pageBreak";
-    static readonly PROP_STYLE_CALLBACK = "styleCallback";
-    static readonly PROP_ROTATION = "rotation";
-    static readonly PROP_LINK_URL = "linkUrl";
-    static readonly PROP_LINK_TARGET = "linkTarget";
-    static readonly PROP_LINK_FIELD = "linkField";
-    static readonly DATA_PROP: {
-        name: string;
-        category: PropCategory;
-        type: typeof ListableProperty;
-        multiple: boolean;
-        default: any;
-        domain: any;
-    };
-    static readonly VALUE_PROP: {
-        name: string;
-        category: PropCategory;
-        type: typeof ListableProperty;
-        multiple: boolean;
-        default: any;
-        domain: any;
-        validate: (source: ReportItem, value: any) => void;
-    };
-    static readonly LINK_FIELD_PROP: {
-        name: string;
-        category: PropCategory;
-        type: typeof ListableProperty;
-        multiple: boolean;
-        default: any;
-        domain: any;
-        validate: (source: ReportItem, value: any) => void;
-        visible: (source: IPropertySource) => boolean;
-    };
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly SIZE_PROPINFOS: IPropInfo[];
-    static readonly LINK_PROPINFOS: IPropInfo[];
-    static readonly VALUE_PROPINFOS: IPropInfo[];
-    static findFloatingAnchor(item: ReportPageItem): ReportItem;
-    private _name;
-    private _tag;
-    private _visible;
-    private _visibleCallback;
-    private _onGetVisible;
-    private _data;
-    private _value;
-    private _valueCallback;
-    private _onGetValue;
-    private _hint;
-    private _width;
-    private _height;
-    private _minWidth;
-    private _minHeight;
-    private _rotation;
-    private _linkUrl;
-    private _linkTarget;
-    private _linkField;
-    private _styles;
-    private _styleCallback;
-    private _onGetStyles;
-    private _pageBreak;
-    private _designOrder;
-    private _designBorder;
-    private _folded;
-    private _parent;
-    private _index;
-    private _childPropInfos;
-    private _childProps;
-    private _valueCallbackFunc;
-    private _valueCallbackDelegate;
-    private _styleCallbackFunc;
-    private _styleCallbackDelegate;
-    private _visibleCallbackFunc;
-    private _visibleCallbackDelegate;
-    private _leftDim;
-    private _rightDim;
-    private _topDim;
-    private _bottomDim;
-    private _widthDim;
-    private _heightDim;
-    private _minWidthDim;
-    private _minHeightDim;
-    constructor(name: string);
-    get outlineParent(): IOutlineSource;
-    get outlineExpandable(): boolean;
+type ReportSource = Record<string, unknown> | Record<string, unknown>[];
+type ReportTarget = Record<string, unknown> | Record<string, unknown>[];
+interface ReportObject {
     /**
-     * Report 편집기에서 수정할 수 있는 속성 정의 목록.
-     * 속성이 없는 경우라도 빈 배열을 리턴해야 한다.
-     * 각 항목은 아래 속성들을 갖는다.
-     * {
-     *  name: string,
-     *  type: DesignType.
-     *  category: string,
-     *  domain: any[],
-     * }
+     * 속성 불러오기
+     * @param loader 리포트 속성 로더
+     * @param source 리포트 속성을 불러올 소스
      */
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    getSubStyleProps(prop: string): IPropInfo[];
-    getPlaceHolder(prop: IPropInfo): string;
+    load(loader: IReportLoader, source: ReportSource): void;
     /**
-     * @internal
+     * 속성 저장하기
+     * @param target 리포트 속성을 저장할 타겟
      */
-    getData(): IReportData;
+    save(target: ReportTarget): boolean;
     /**
-     * @internal
-     */
-    getDataFieldNames(): string[];
-    getPropDomain(prop: IPropInfo): any[];
-    getProperty(prop: string): any;
-    setProperty(prop: string, value: any): void;
-    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getProperties(props: string[] | ConfigObject$1): ConfigObject$1;
-    setProperties(props: ConfigObject$1): void;
-    getStyleProperty(prop: string): any;
-    setStyleProperty(prop: string, value: any): void;
-    getSubStyleProperty(prop: string, style: string): any;
-    setSubStyleProperty(prop: string, style: string, value: any): void;
-    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    dataNameChanged(data: IReportData, oldName: string): void;
-    dataFieldNameChanged(data: IReportData, newName: string, oldName: string): void;
-    /** parent */
-    get parent(): ReportGroupItem;
-    /** dataParent */
-    get dataParent(): ReportGroupItem;
-    /** index */
-    get index(): number;
-    /** level */
-    get level(): number;
-    /** page */
-    get page(): ReportPage;
-    get report(): Report;
-    /** name */
-    get name(): string;
-    set name(value: string);
-    get pathLabel(): string;
-    get displayPath(): string;
-    /** tag */
-    get tag(): string;
-    set tag(value: string);
-    /** load/save 시 array를 사용하면 true */
-    get isArray(): boolean;
-    get isBand(): boolean;
-    /**
-     * false면 자리를 차지하지 않는다.
-     */
-    get visible(): boolean;
-    set visible(value: boolean);
-    get removable(): boolean;
-    /**
-     * IReportData name.
-     */
-    get data(): string;
-    set data(value: string);
-    /**
-     * 리포트에 지정된 data의 특정 값(들)을 지시하는 경로.
-     * "::" 앞쪽에서 설정된 data 이름이 없는 경우,
-     * 자신으로 시작해서 Report까지 가장 가까운 곳(dataParent)에 설정된 data에서 값을 가져온다.
-     * '${page}', '%{page}', '${pages}', '%{pages}', '${date}', '%{date}' 등으로 print context 값을 지정할 수도 있다.
-     */
-    get value(): string;
-    set value(value: string);
-    /**
-     * Dom title.
-     * 출력 리포트에서 이게 필요한가?
-     */
-    get hint(): string;
-    set hint(value: string);
-    /**
-     * width
-     */
-    get width(): ValueString;
-    set width(value: ValueString);
-    /**
-     * height
-     */
-    get height(): ValueString;
-    set height(value: ValueString);
-    /**
-     * minWidth
-     */
-    get minWidth(): ValueString;
-    set minWidth(value: ValueString);
-    /**
-     * minHeight
-     */
-    get minHeight(): ValueString;
-    set minHeight(value: ValueString);
-    /**
-     * rotation
-     */
-    get rotation(): number;
-    set rotation(value: number);
-    get isRotated(): boolean;
-    /**
-     * linkUrl
-     * linkValue의 값이 있을 경우 해당 속성은 무시된다.
-     */
-    get linkUrl(): string;
-    set linkUrl(value: string);
-    /**
-     * linkTarget
-     */
-    get linkTarget(): LinkTarget;
-    set linkTarget(value: LinkTarget);
-    /**
-     * 리포트에 지정된 data의 특정 값(들)을 지시하는 경로.
-     * 자신으로 시작해서 Report까지 가장 가까운 곳(dataParent)에 설정된 data에서 값을 가져온다.
-     * Link 기능을 사용할 수 있는 아이템에 Url로 사용이 된다.
-     * print 시 해당 속성의 값이 linkUrl보다 우선 적용된다.
-     */
-    get linkField(): string;
-    set linkField(value: string);
-    /**
-     * onGetValue
-     */
-    get onGetValue(): string;
-    set onGetValue(value: string);
-    /** valueCallback */
-    get valueCallback(): ReportItemValueCallback;
-    set valueCallback(value: ReportItemValueCallback);
-    /**
-     * onGetVisible
-     */
-    get onGetVisible(): string;
-    set onGetVisible(value: string);
-    /** visibleCallback */
-    get visibleCallback(): ReportItemVisibleCallback;
-    set visibleCallback(value: ReportItemVisibleCallback);
-    /** styles */
-    get styles(): Styles;
-    set styles(value: Styles);
-    /** styleCallback */
-    get styleCallback(): ReportItemStyleCallback;
-    set styleCallback(value: ReportItemStyleCallback);
-    get onGetStyles(): string;
-    set onGetStyles(value: string);
-    /** pageBreak */
-    get pageBreak(): PageBreakMode;
-    set pageBreak(value: PageBreakMode);
-    /**
-     * 아웃라인에 표시되는 라벨명
-     */
-    get outlineLabel(): string;
-    /** designText */
-    get designText(): string;
-    /** designLevel */
-    get designLevel(): number;
-    /** childPropInfos */
-    get childPropInfos(): IPropInfo[];
-    set childPropInfos(value: IPropInfo[]);
-    /** floating */
-    get floating(): boolean;
-    /**
-     * outline viewer 등에서 이 아이템이 표시되는 순서.
-     * 값이 작을 수록 먼저 표시된다.
-     * 기본값은 99.
-     */
-    get designOrder(): number;
-    set designOrder(value: number);
-    get designBorder(): boolean;
-    set designBorder(value: boolean);
-    isRelativeHeight(): boolean;
-    isRelativeWidth(): boolean;
-    get folded(): boolean;
-    /**
-     * ColumnBoxContainer|BoundedContainer
-     */
-    get left(): any;
-    /**
-     * ColumnBoxContainer|BoundedContainer
-     */
-    get right(): any;
-    /**
-     * RowBoxContainer|BoundedContainer
-     */
-    get top(): any;
-    /**
-     * RowBoxContainer|BoundedContainer
-     */
-    get bottom(): any;
-    /**
-     * TableContainer.
-     * cell row index in table
-     */
-    get row(): number;
-    /**
-     * TableContainer.
-     * cell column index in table.
-     */
-    get col(): number;
-    /**
-     * TableBandRow.
-     * 이전 행 값과 동일하면 값을 표시하지 않는다.
-     * 값의 비교는 blankFields가 설정되면 그 필드들의 값이 모두 동일한 경우,
-     * blankFields가 설정되지 않은 경우 value에 설정된 필드 값이 동일한 경우.
-     */
-    get equalBlank(): boolean;
-    /**
-     * TableBandRow.
-     * equalBlank가 true일 깨 값을 비교하는 필드들을 ',' 분리해서 지정한다.
-     * 이 속성을 지정하지 않으면 value에 지정된 필드의 값으로 비교한다.
-     */
-    get blankFields(): string;
-    /**
-     * true로 지정되면 값과 상관 없이 leaf group 내의 모든 셀을 merge한다.
-     * 또, 둘 이상의 table row로 출력되는 경우에도 이 아이템이 속한 컬럼 셀들을 모두 병합한다.
-     * 한 행으로 구성된 group field에 bind된 아이템에만 적용해야 의미가 있다.
-     */
-    get mergedInGroup(): boolean;
-    /**
-     * 디자이너에서 추기될 때 초기값들 설정.
-     */
-    defaultInit(loader: IReportLoader, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    getSaveType(): string;
-    /**
-     * 하위 object 저장 label.
-     * _loadObject(), _saveObject()에서 사용.
+     * 저장할 때 사용되는 레이블명 (ReportPageItem.loadObject/saveObject에서 사용)
      */
     getSaveLabel(): string;
-    isContextValue(value?: string): boolean;
     /**
-     * 아이템이 특별한 부모에 포함될 때 추가되는 속성들.
-     * 예를들어 아이템을 table의 cell로 이동시키면 table에 추가하기 전
-     * 사용자가 마우스로 지정한 곳에 있는 셀의 'col', 'row' 속성을 설정해서
-     * table이 적절히 item을 배치하도록 한다.
+     * 디자이너에서 추기될 때 실행되는 초기값 설정
      */
-    setChildProp(prop: string, value: any): boolean;
-    private $_setChildProp;
-    isChildProp(prop: string): boolean;
-    getChildProp(prop: string, defaultValue?: any): any;
-    getChildProps(): any[];
-    isStyleProp(prop: string): boolean;
-    canParentOf(itemType: string): boolean;
-    canAddTo(group: ReportGroupItem): boolean;
-    canAddToFrontContainer(): boolean;
-    canAddToBackContainer(): boolean;
-    prepareLayout(printing: boolean): void;
-    preparePrint(ctx: PrintContext): void;
-    getLeft(domain: number): number;
-    setLeft(dim: Dimension): void;
-    getRight(domain: number): number;
-    setRight(dim: Dimension): void;
-    getTop(domain: number): number;
-    setTop(dim: Dimension): void;
-    getBottom(domain: number): number;
-    setBottom(dim: Dimension): void;
-    getWidth(domain: number): number;
-    getHeight(domain: number): number;
-    getMinWidth(domain: number): number;
-    getMinHeight(domain: number): number;
-    canSized(): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    canResizeWidth(): boolean;
-    canResizeHeight(): boolean;
-    resize(width: number, height: number): ReportItem;
-    canRotate(): boolean;
-    canLink(): boolean;
-    hasStyle(style: string): boolean;
-    getStyle(style: string): string;
-    setStyle(style: string, value: string): void;
-    clearStyle(style: string): void;
-    clearStyles(css: CSSStyleDeclaration): void;
-    load(loader: IReportLoader, source: any): void;
-    save(target: object): boolean;
-    getFloatingContainer(): FloatingContainer;
-    delete(): void;
-    isAncestor(group: ReportGroupItem): boolean;
-    private $_getValue;
+    defaultInit(): void;
     /**
-     * onGetStyles 등 callback 내에서 사용할 수 있게 노출.
+     * ReportObject를 자식으로 갖는 컬렉션인지 여부
      */
-    getValue(row: number, field: string): any;
-    /**
-     * 출력 시 ReportItemElement에서 호출.
-     */
-    getPrintValue(dp: IReportDataProvider, row: number): any;
-    getLinkValue(dp: IReportDataProvider, row: number): any;
-    getDataViewValue(dv: BandDataView, row: number): any;
-    protected _getParentData(): string;
-    canRemoveFrom(): boolean;
-    canAdoptDragSource(source: any): boolean;
-    adoptDragSource(source: any): IDropResult;
-    canNamed(): boolean;
-    canTagged(): boolean;
-    canHide(): boolean;
-    canPageBreak(): boolean;
-    isBreakBefore(): boolean;
-    isBreakAfter(): boolean;
-    getInvalids(report: Report): string[];
-    canFold(): boolean;
-    fold(): boolean;
-    unfold(): boolean;
-    protected _foldedChanged(): void;
-    get marqueeParent(): ReportItem;
-    get printable(): boolean;
-    isReadOnlyProperty(prop: IPropInfo): boolean;
-    protected _sizable(): boolean;
-    protected _boundable(): boolean;
-    /**
-     * 리포트 아이템 생성 시, 수행할 초기화 작업을 정의한다.
-     *
-     * @param loader - 아이템을 로드하는 리포트 로더
-     * @param group - 아이템의 상위 리포트그룹아이템
-     * @param hintWidth - 아이템 영역 너비
-     * @param hintHeight - 아이템 영역 높이
-     */
-    protected _doDefaultInit(loader: IReportLoader, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _getSubStyle(prop: string, style: string): any;
-    protected _setSubStyle(prop: string, style: string, value: any): void;
-    protected _doApplyStyle(prop: string, value: string, target: CSSStyleDeclaration): boolean;
-    protected _setLeft(value: ValueString): void;
-    protected _setRight(value: ValueString): void;
-    protected _setTop(value: ValueString): void;
-    protected _setBottom(value: ValueString): void;
-    protected _getEditProps(excludedProps?: string[]): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _getChildStyleProps(prop: string): string[];
-    protected _valueable(): boolean;
-    protected _datable(): boolean;
-    private $_attached;
-    protected _doAttached(): void;
-    private $_detached;
-    protected _doDetached(): void;
-    protected _isLoading(): boolean;
-    protected _changed(prop: string, newValue: any, oldValue: any): void;
-    get stylable(): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _saveChildPropsOf(target: object, infos: IPropInfo[]): void;
-    protected _doSave(target: object): void;
-    protected _doPrepareLayout(printing: boolean): void;
-    protected _doPreparePrint(ctx: PrintContext): void;
+    isCollection(): boolean;
 }
 /**
- * 하나 이상의 report item을 포함하는 group item 기반 클래스.
+ * 상수로 다룬다.
  */
-declare abstract class ReportGroupItem extends ReportItem {
-    static readonly PROP_DESIGN_WIDTH = "designWidth";
-    static readonly PROP_DESIGN_HEIGHT = "designHeight";
-    static readonly PROPINFOS: IPropInfo[];
-    private _designWidth;
-    private _designHeight;
-    private _items;
-    layoutChanged: boolean;
-    constructor(name: string);
-    get outlineExpandable(): boolean;
-    get outlineItems(): IOutlineSource[];
-    /**
-     * child props를 제공하는가?
-     */
-    get isChildPropContainer(): boolean;
-    /** count */
-    get count(): number;
-    /** items */
-    get items(): ReportItem[];
-    /** designWidth */
-    get designWidth(): number;
-    set designWidth(value: number);
-    /** designHeight */
-    get designHeight(): number;
-    set designHeight(value: number);
-    get dataDominant(): boolean;
-    get firstChild(): ReportItem;
-    get lastChild(): ReportItem;
-    get isDataRowContainer(): boolean;
-    needDesignWidth(): boolean;
-    needDesignHeight(): boolean;
-    get(index: number): ReportItem;
-    canContainsBand(): boolean;
-    canContainsBandGroup(): boolean;
-    canAddToFrontContainer(): boolean;
-    canAddToBackContainer(): boolean;
-    contains(item: ReportPageItem, deep?: boolean): boolean;
-    indexOf(item: ReportPageItem): number;
-    getNames(list: string[], recursive?: boolean): string[];
-    find(name: string, recursive?: boolean): ReportItem;
-    canAdd(item: ReportItem): boolean;
-    append(item: ReportPageItem, slient?: boolean): boolean;
-    /**
-     * @param silent View나 Tool 쪽에서 지정하고 사용한다.
-     */
-    add(item: ReportPageItem, index?: number, silent?: boolean): boolean;
-    canRemove(item: ReportItem): boolean;
-    remove(item: ReportItem): void;
-    removeLast(): void;
-    clear(): void;
-    getMoveType(item: ReportItem): ItemMoveType;
-    canResizeChild(item: ReportItem, dir: ResizeDirection): boolean;
-    search(page: number, key: string, options: FindOptions, results: FindResult[]): void;
-    canChangeChildProp(item: ReportPageItem, prop: string, value: any): boolean;
-    changeChildIndex(child: ReportItem, newIndex: number): boolean;
-    canAlign(child: ReportItem): boolean;
-    canAlignTo(child: ReportPageItem, to: string): boolean;
-    filter(callback: (item: ReportItem) => boolean): ReportItem[];
-    getDescendants(all?: boolean, recursive?: boolean): ReportItem[];
-    collectInvalids(report: Report, list: {
-        item: ReportItem;
-        reason: string;
-    }[]): void;
-    collectBlankItems(childs?: ReportItem[]): ReportItem[];
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _maxChildCount(): number;
-    isAncestorOf(item: ReportPageItem): boolean;
-    canParentOf(itemType: string): boolean;
-    prepareLayout(printing: boolean): void;
-    preparePrint(ctx: PrintContext): void;
-    protected _getNameOfItems(): string;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _ignoreItems(): boolean;
-    save(target: object): boolean;
-    dataNameChanged(data: IReportData, oldName: string): void;
-    protected get internalItems(): ReportItem[];
-    protected _valueable(): boolean;
-    protected _loadChildProp(child: ReportItem, prop: string, src: any): void;
-    protected _loadChildProps(child: ReportItem, props: string[], src: any): void;
-    protected _loadChildPropsOf(child: ReportItem, src: any, infos: IPropInfo[]): void;
-    protected _getChildPropInfos(item: ReportItem): IPropInfo[];
-    protected _loadChild(loader: IReportLoader, item: ReportItem, src: any): ReportItem;
-    protected _loadItems(loader: IReportLoader, src: any): void;
-    protected _doLoadChild(child: ReportItem, src: any): void;
-    protected _saveItems(target: any[]): void;
-    protected _doSaveItems(target: any[], items: ReportItem[]): void;
-    protected _addItem(item: ReportItem, index: number, silent: boolean): ReportItem;
-    protected _removeItem(item: ReportItem): number;
-    protected _clearItems(): void;
-    protected _doItemAdded(item: ReportItem, index: number): void;
-    protected _doItemRemoved(item: ReportItem, index: number): void;
-    private $_resetIndices;
-    private $_childChanged;
-    protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
-    protected _setOutlineOrders(start: number, ...items: ReportPageItem[]): void;
-}
-declare abstract class ReportItemCollectionItem extends ReportPageItem {
-    private _collection;
-    private _styles;
-    constructor(collection: ReportItemCollection<any>, src?: any);
-    protected _doInitDefaults(): void;
-    get outlineParent(): IOutlineSource;
-    get outlineExpandable(): boolean;
-    get outlineLabel(): string;
-    getSaveType(): string;
-    canRemoveFrom(): boolean;
-    getPropDomain(prop: IPropInfo): any[];
-    getStyleProps(): IPropInfo[];
-    getStyle(style: string): string;
-    setStyle(style: string, value: string): void;
-    getStyleProperty(prop: string): string;
-    setStyleProperty(prop: string, value: any): void;
-    getSubStyleProps(prop: string): IPropInfo[];
-    getPlaceHolder(prop: IPropInfo): string;
-    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getSubStyleProperty(prop: string, style: string): any;
-    isChildProp(prop: string): boolean;
-    setSubStyleProperty(prop: string, style: string, value: any): void;
-    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    isCollectionItem(): boolean;
-    abstract get itemType(): string;
-    /** styles */
-    get styles(): Styles;
-    set styles(value: Styles);
-    load(src: any): void;
-    save(target: any): any;
-    get collection(): ReportItemCollection<any>;
-    get level(): number;
-    protected _doLoad(src: any): void;
-    protected _doSave(target: any): void;
-    protected abstract _getStyleProps(): string[];
-    protected _changed(prop: string, newValue: any, oldValue: any): void;
-}
-declare abstract class ReportItemCollection<T extends ReportPageItem> extends ReportPageItem {
-    canRemoveFrom(): boolean;
-    canParentOf(itemType: string): boolean;
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    getSubStyleProps(prop: string): IPropInfo[];
-    getPlaceHolder(prop: IPropInfo): string;
-    getPropDomain(prop: IPropInfo): any[];
-    getProperty(prop: string): any;
-    setProperty(prop: string, value: any): void;
-    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getStyleProperty(prop: string): any;
-    getStyle(style: string): string;
-    setStyle(style: string, value: string): void;
-    setStyleProperty(prop: string, value: any): void;
-    setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
-    isChildProp(prop: string): boolean;
-    getSubStyleProperty(prop: string, style: string): any;
-    setSubStyleProperty(prop: string, style: string, value: any): void;
-    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    isCollectionProp(): boolean;
-    getPropertySources(): IPropertySource[];
-    abstract get owner(): ReportItem;
-    abstract get count(): number;
-    abstract get items(): ReportPageItem[];
-    abstract get(index: number): T;
-    abstract indexOf(item: T): number;
-    preparePrint(ctx: PrintContext): void;
-    forEach(callback: (item: T, index: number) => void): void;
-    protected abstract _doMoveItem(from: number, to: number): boolean;
-    moveItem(from: number, to: number): boolean;
-    get styles(): Styles;
-    protected _itemChanged(item: ReportPageItem, prop: string, newValue: any, oldValue: any): void;
-    protected _itemAdded(item: ReportPageItem): void;
-    protected _itemsAdded(items: ReportPageItem[]): void;
-    protected _itemRemoved(item: ReportPageItem, oldParent: ReportGroupItem): void;
-    protected _itemsRemoved(items: ReportPageItem[]): void;
-    protected _indexChanged(): void;
-    protected _doPreparePrint(ctx: PrintContext): void;
+declare class Dimension {
+    static HTMLDPI: number;
+    static create(str: any): Dimension;
+    static createDimensions(str: string): Dimension[];
+    static equals(d1: Dimension, d2: Dimension): boolean;
+    private _unit;
+    private _value;
+    private _fixed;
+    constructor(value: ValueString);
+    get fixed(): boolean;
+    get unit(): PrintUnit;
+    get value(): number;
+    clone(): Dimension;
+    equals(other: any): boolean;
+    toString(): string;
+    getValue(): any;
+    getValueNull(): any;
+    getPixel(domain: number): number;
+    getFixedPixel(): number;
+    $_getPixel(): number;
+    getFixedInch(): number;
 }
 /**
- * 동일 그룹 내의 다른 아이템을 기준점으로 표시되는 아이템.
- * 자식으로 floating을 추가할 수 없다.
+ * 상수로 다룬다.
  */
-declare class FloatingContainer extends ReportGroupItem {
-    static readonly PROP_ANCHOR_TARGET = "anchorTarget";
-    static readonly PROP_ANCHOR_POSITION = "anchorPosition";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Floating Container";
-    private _anchorTarget;
-    private _anchorPosition;
-    constructor(name: string);
-    /** anchorTarget */
-    get anchorTarget(): string;
-    set anchorTarget(value: string);
-    /** anchorPosition */
-    get anchorPosition(): AnchorPosition;
-    set anchorPosition(value: AnchorPosition);
-    getSaveType(): string;
-    get outlineLabel(): string;
-    protected _maxChildCount(): number;
-    protected _boundable(): boolean;
-    protected _getEditProps(): IPropInfo[];
-    getPropDomain(prop: IPropInfo): any[];
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    canAdd(item: ReportItem): boolean;
-}
-/**
- * 자식들의 위치를 지정할 수 있는 container.
- * 위치 설정이 안된 item은 중앙에 정렬 시킨다.
- */
-declare abstract class BoundedContainer extends ReportGroupItem {
-    static readonly CHILD_PROPS: IPropInfo[];
-    constructor(name: string);
-    protected _getChildPropInfos(item: ReportItem): IPropInfo[];
-    protected _doLoadChild(child: ReportItem, src: any): void;
-}
-/**
- * 자식을 대리하는 그룹.
- * 자식 하나만 가질 수 있다.
- */
-declare abstract class CellGroup extends ReportGroupItem {
-    private _item;
-    constructor(item: ReportItem, name: string);
-    /**
-     * item
-     */
-    get item(): ReportItem;
-    get isEmpty(): boolean;
-    get isChildPropContainer(): boolean;
-    set childPropInfos(value: IPropInfo[]);
-    get printable(): boolean;
-    protected _maxChildCount(): number;
-    protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
-}
-/**
- * CellGroup들만을 자식으로 갖는다.
- */
-declare abstract class CellContainer extends ReportGroupItem {
-    /** @internal */
-    noPrepareCell: boolean;
-    constructor(name: string);
-    contains(item: ReportItem, deep?: boolean): boolean;
-    indexOf(item: ReportItem): number;
-    findCell(item: ReportItem): CellGroup;
-    find(name: string, recursive?: boolean): ReportItem;
-    protected _loadChild(loader: IReportLoader, item: ReportItem, src: any): ReportItem;
-    protected _addItem(item: ReportItem, index: number, silent: boolean): ReportItem;
-    protected _removeItem(item: ReportItem): number;
-    protected abstract _prepareCellGroup(item: ReportItem): CellGroup;
-    protected _unprepareCellGroup(item: ReportItem): CellGroup;
-}
-
-interface IPropertySource {
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    getSubStyleProps(prop: string): IPropInfo[];
-    isDominantProp(prop: IPropInfo): boolean;
-    getPlaceHolder(prop: IPropInfo): string;
-    getPropDomain(prop: IPropInfo): any[];
-    getProperty(prop: string): any;
-    setProperty(prop: string, value: any): void;
-    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getStyleProperty(prop: string): any;
-    setStyleProperty(prop: string, value: any): void;
-    setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getSubStyleProperty(prop: string, style: string): any;
-    setSubStyleProperty(prop: string, style: string, value: any): void;
-    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
-    isReadOnlyProperty(prop: IPropInfo): boolean;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    isCollectionProp(): boolean;
-    isEditableCollection(): boolean;
-    isCollectionItem(): boolean;
-    getCollectionLabel(): string;
-    getPropertySources(): IPropertySource[];
-    getPopupPropLabel(prop: string): string;
-}
-interface IPropertyContainer {
-    addCollectionItem(collection: IPropertySource): void;
-    removeItem(item: IPropertySource): void;
-}
-declare enum PropCategory {
-    DESIGN = "design",
-    BASIC = "basic",
-    TEXT = "text",
-    DATA = "data",
-    BOUND = "bound",
-    LINK = "link",
-    EVENT = "event",
-    SECTION = "section",
-    EDITOR = "editor",
-    REPORT = "report",
-    PAPER = "paper",
-    PRINT = "print",
-    BOX = "box",
-    TABLE = "table",
-    BARCODE = "barcode",
-    CELL = "cell",
-    BAND = "band",
-    BAND_GROUP = "band group",
-    BAND_CELL = "band cell",
-    FIELD = "field",
-    COLUMN = "column",
-    ROW = "row",
-    CHART = "chart",
-    TITLE = "title",
-    SUBTITLE = "subtitle",
-    AXIS = "axis",
-    XAXIS = "x Axis",
-    YAXIS = "y Axis",
-    SERIES = "series",
-    LABEL = "label",
-    LABELS = "labels",
-    DATA_LABELS = "dataLabels",
-    MARKER = "marker",
-    LEGEND = "legend"
-}
-interface IPropInfo {
-    name: string;
-    category: string;
-    type: any;
-    typeProps?: any;
-    parent?: string;
-    indented?: boolean;
-    calculated?: boolean;
-    collection?: boolean;
-    visible?: (source: IPropertySource) => boolean;
-    multiple?: boolean;
-    default?: any;
-    readonly?: boolean;
-    domain?: any[] | any;
-    label?: string;
-    tag?: string;
-    params?: any;
-    signature?: string;
-    validate?: (source: IPropertySource, inputValue: any) => void;
-    refresh?: boolean;
-    description?: string;
-}
-
-/**
- * 자식 item들을 순서대로 쌓아가며 배치한다.
- * 위치 설정이 안된 item은 중앙에 정렬 시킨다.
- */
-declare class StackContainer extends BoundedContainer {
-    static readonly PROP_OVERFLOW = "overflow";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Stack Container";
-    static readonly STYLE_PROPS: string[];
-    private _overflow;
-    constructor(name: string);
-    /**
-     * true로 설정되면 자식이 넘칠 수 있다.
-     * 특히, table을 자식으로 갖는 경우 true로 설정해야 우측 끝이 표시되는 경우가 있을 수 있다.
-     */
-    get overflow(): boolean;
-    set overflow(value: boolean);
-    get outlineLabel(): string;
-    getSaveType(): string;
-    protected _datable(): boolean;
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _getStyleProps(): string[];
-    protected _getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    canAlign(child: ReportItem): boolean;
-    canAdoptDragSource(source: any): boolean;
-    getMoveType(item: ReportItem): ItemMoveType;
-}
-
-/**
- * 리포트 페이지의 수평 전체와 수직 일부를 차지하는 영역 그룹 item.
- * body를 제외하고 페이지를 넘어갈 수 없다.
- */
-declare abstract class PageSection extends StackContainer {
-    constructor(name: string);
-    get removable(): boolean;
-    get page(): ReportPage;
-    canMove(): boolean;
-    getSaveType(): string;
-    canResize(dir: ResizeDirection): boolean;
-    protected _getStyleProps(): string[];
-}
-/**
- * 섹션 위아래에 공간(space)를 설정할 수 있는 page 섹션.
- */
-declare abstract class SpaceableSection extends PageSection {
-    static readonly PROP_SPACE_TOP = "spaceTop";
-    static readonly PROP_SPACE_BOTTOM = "spaceBottom";
-    static readonly PROPINFOS: IPropInfo[];
-    private _spaceTop;
-    private _spaceBottom;
-    constructor(name: string);
-    /**
-     * spaceTop
-     */
-    get spaceTop(): number;
-    set spaceTop(value: number);
-    /**
-     * spaceBottom
-     */
-    get spaceBottom(): number;
-    set spaceBottom(value: number);
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _getEditProps(): IPropInfo[];
-}
-/**
- * Report header model.
- */
-declare class ReportHeader extends SpaceableSection {
-    static readonly $_ctor: string;
-    constructor();
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    canResize(dir: ResizeDirection): boolean;
-}
-/**
- * Report footer model.
- */
-declare class ReportFooter extends SpaceableSection {
-    static readonly PROP_ALIGN_TO_BOTTOM = "alignToBottom";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    private _alignToBottom;
-    constructor();
-    /**
-     * wrap
-     */
-    get alignToBottom(): boolean;
-    set alignToBottom(value: boolean);
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    canResize(dir: ResizeDirection): boolean;
-    protected _getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-declare abstract class InheritableSection extends SpaceableSection {
-    static readonly PROP_INHERIT = "inherit";
-    static readonly PROPINFOS: IPropInfo[];
-    private _inherit;
-    protected _inherited: boolean;
-    /**
-     * 이전 페이지 표시대로 출력한다.
-     */
-    get inherit(): SectionInherit;
-    set inherit(value: SectionInherit);
-    get inherited(): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _getEditProps(): IPropInfo[];
-}
-/**
- * Report page header model.
- */
-declare class PageHeader extends InheritableSection {
-    static readonly $_ctor: string;
-    constructor();
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    canResize(dir: ResizeDirection): boolean;
-}
-/**
- * Report page footer model.
- */
-declare class PageFooter extends InheritableSection {
-    static readonly $_ctor: string;
-    constructor();
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    canResize(dir: ResizeDirection): boolean;
-}
-
-/** @internal */
-declare abstract class BoundedContainerElement<T extends BoundedContainer> extends ReportGroupItemElement<T> {
-    constructor(doc: Document, model: T, name: string);
-    protected _prepareChild(child: ReportElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _layoutItem(ctx: PrintContext, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
-    protected _layoutChild(ctx: PrintContext, child: ReportElement, x: number, y: number, width: number, height: number): void;
-}
-
-/** @internal */
-declare abstract class StackContainerElement<T extends StackContainer> extends BoundedContainerElement<T> {
-    constructor(doc: Document, model: T, name?: string);
-    get debugLabel(): string;
-    protected _doSetStyles(model: ReportItem, dom: HTMLElement): void;
-    protected _getPrev(item: ReportItemView): ReportItemView;
-    protected _getNext(item: ReportItemView): ReportItemView;
-    getUpper(item: ReportItemView): ReportItemView;
-    getLower(item: ReportItemView): ReportItemView;
-    private $_getSorted;
-}
-
-/** @internal */
-declare abstract class SectionElement<T extends PageSection> extends StackContainerElement<T> {
-    constructor(doc: Document, model: T, name: string);
-    protected _doDispose(): void;
-    protected _needDesignBox(): boolean;
-    protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
-}
-/** @internal */
-declare class ReportHeaderElement extends SectionElement<ReportHeader> {
-    constructor(doc: Document, model?: ReportHeader);
-    protected _doDispose(): void;
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-}
-/** @internal */
-declare class ReportFooterElement extends SectionElement<ReportFooter> {
-    static readonly STYLE_NAME = "rr-report-footer rr-group-element";
-    static isFooter: (div: HTMLElement) => boolean;
-    constructor(doc: Document, model?: ReportFooter);
-    protected _doDispose(): void;
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-}
-declare abstract class InheritableSectionElement<T extends InheritableSection> extends SectionElement<T> {
-    static readonly CLONE_CLASS = "rr-section-clone";
-    private _baseModel;
-    setBase(base: T): void;
-    protected _getModel(): T;
-    protected _setDesignContent(empty: boolean, designView: HTMLDivElement): void;
-}
-/** @internal */
-declare class PageHeaderElement extends InheritableSectionElement<PageHeader> {
-    constructor(doc: Document, model?: PageHeader);
-    protected _doDispose(): void;
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-    protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
-}
-/** @internal */
-declare class PageFooterElement extends InheritableSectionElement<PageFooter> {
-    constructor(doc: Document, model?: PageFooter);
-    protected _doDispose(): void;
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-    protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-}
-
-/**
- * @internal
- * View base for BoxContainer.
- */
-declare abstract class BoxContainerElement<T extends BoxContainer> extends ReportGroupItemElement<T> {
-    protected _container: ReportGroupItemView;
-    protected _paddings: {
-        left: number;
-        right: number;
-        top: number;
-        bottom: number;
-    };
-    protected _gap: number;
-    constructor(doc: Document, model: T, name: string);
-    get gap(): number;
-    get paddings(): {
-        left: number;
-        right: number;
-        top: number;
-        bottom: number;
-    };
-    get debugLabel(): string;
-    protected _needDesignBox(): boolean;
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doSetStyles(model: ReportItem, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
-}
-/**
- * View for ColumnBoxContainer
- */
-declare class ColumnBoxContainerElement extends BoxContainerElement<ColumnBoxContainer> {
-    private _points;
-    constructor(doc: Document, model: ColumnBoxContainer, name?: string);
-    protected _doDispose(): void;
-    getRowPoints(): number[];
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
-    protected _layoutItem(ctx: PrintContext, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
-    getLeft(view: ReportItemView): ReportItemView;
-    getRight(view: ReportItemView): ReportItemView;
-}
-
-/** @internal */
-declare class PageBodyElement extends ReportElement {
-    private _model;
-    private _findable;
-    private _itemsView;
-    private _modelChanged;
-    constructor(doc: Document, model?: PageBody);
-    protected _doDispose(): void;
-    /** model */
-    get model(): PageBody;
-    set model(value: PageBody);
-    /** empty */
-    get empty(): boolean;
-    get itemsView(): ColumnBoxContainerElement;
-    isPageDom(dom: HTMLElement): boolean;
-    findElement(modelName: string): ReportItemElement<ReportItem>;
-    findElementOf(dom: HTMLElement): ReportItemElement<ReportItem>;
-    getElementOf(model: ReportPageItem): ReportElement;
-    /**
-     * 페이지의 한 행을 전부 차지하는가?
-     */
-    isLine(view: ReportItemView): boolean;
-    /**
-     * view가 포함된 line.
-     * view가 line이면 view.
-     */
-    getLineOf(view: ReportItemView): ReportItemView;
-    getSiblingLine(line: ReportItemView, delta: number): ReportItemView;
-    /**
-     * @param index 0보다 작으면 뒤에서 부터. -1이면 마지막 line.
-     */
-    getLine(index: number): ReportItemView;
-    getLines(): ReportItemView[];
-    prepareAsync(doc: Document, ctx: PrintContext): PrintLine[];
-    itemOfDom(dom: Element): ReportItem;
-    protected _getCssSelector(): string;
-    get debugLabel(): string;
-    get findable(): boolean;
-    set findable(value: boolean);
-    protected _debugBorder(): string;
-    protected _debugColor(): string;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
-    layoutFloating(ctx: PrintContext): void;
-    private $_prepareAsync;
-}
-
-/** @internal */
-declare class PageItemContainerElement extends BoundedContainerElement<PageItemContainer> {
-    private _emptySize;
-    private _findable;
-    constructor(doc: Document, model: PageItemContainer, name: string, emptySize?: boolean);
-    protected _doDispose(): void;
-    get isLayer(): boolean;
-    get findable(): boolean;
-    set findable(value: boolean);
-    get debugLabel(): string;
-    get lazyLayout(): boolean;
-    protected _getCssSelector(): string;
-    protected _needDesignBox(): boolean;
-    protected _isEmptySize(): boolean;
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _prepareChild(child: ReportElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-}
-
-type PrintPageCallback = (ctx: PrintContext, page: PrintPage, pageNo: number) => void;
-type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => void;
-/** @internal */
-declare class PageView extends LayerElement$1 {
-    private _model;
-    private _reportHeaderView;
-    private _reportFooterView;
-    private _pageHeaderView;
-    private _pageFooterView;
-    private _bodyView;
-    private _backView;
-    private _frontView;
-    private _sections;
-    private _sectionGuard;
-    headerHeight: number;
-    footerHeight: number;
-    reportHeaderHeight: number;
-    reportFooterHeight: number;
-    constructor(doc: Document);
-    protected _doDispose(): void;
-    /** model */
-    get model(): ReportPage;
-    /** reportHeaderView */
-    get reportHeaderView(): ReportHeaderElement;
-    /** reportFooterView */
-    get reportFooterView(): ReportFooterElement;
-    /** pageHeaderView */
-    get pageHeaderView(): PageHeaderElement;
-    /** pageFooterView */
-    get pageFooterView(): PageFooterElement;
-    /** bodyView */
-    get bodyView(): PageBodyElement;
-    /** backFloatingView */
-    get backFloatingView(): PageItemContainerElement;
-    /** frontFloatingView */
-    get frontFloatingView(): PageItemContainerElement;
-    get sections(): ReportElement[];
-    isPageDom(dom: HTMLElement): boolean;
-    getBaseView<T extends InheritableSectionElement<any>>(view: T, pageViews: PageView[], viewType: string): T;
-    preparePrint(ctx: PrintContext): void;
-    measure(ctx: PrintContext, bounds: Rectangle$1, pageViews: PageView[]): ISize;
-    layout(ctx: PrintContext, bounds: Rectangle$1): void;
-    layoutFloating(ctx: PrintContext): void;
-    afterRender(ctx: PrintContext): void;
-    findElement(modelName: string): ReportElement;
-    findElementOf(dom: HTMLElement): ReportElement;
-    getElementOf(model: ReportPageItem): ReportElement;
-    getAllElements(root: ReportElement, bounds: Rectangle$1): ReportItemView[];
-    prepareAsync(doc: Document, ctx: PrintContext): PrintLine[];
-    refreshPageHeader(doc: Document, ctx: PrintContext): HTMLDivElement;
-    getSections(): ReportItemView[];
-    /**
-     * 페이지의 한 행을 전부 차지하는가?
-     */
-    isLine(view: ReportItemView): boolean;
-    getFirst(): ReportItemView;
-    getLast(): ReportItemView;
-    getFirstInGroup(group: ReportGroupItemView): ReportItemView;
-    getLastInGroup(group: ReportGroupItemView): ReportItemView;
-    getPrev(elt: ReportItemView): ReportItemView;
-    getNext(elt: ReportItemView): ReportItemView;
-    getLeft(elt: ReportItemView): ReportItemView;
-    getRight(elt: ReportItemView): ReportItemView;
-    getUpper(elt: ReportItemView): ReportItemView;
-    getLower(elt: ReportItemView): ReportItemView;
-    itemOfDom(dom: Element): ReportItem;
-    protected _getCssSelector(): string;
-    $_setModel(model: ReportPage): void;
-}
-/**
- * print page model.
- */
-declare class PrintPage {
-    page: HTMLDivElement;
-    pageOrientation: PaperOrientation;
-    pageHeader: HTMLDivElement;
-    pageFooter: HTMLDivElement;
-    background: HTMLDivElement;
-    contents: HTMLDivElement[];
-    foreground: HTMLDivElement;
-}
-
-/** @internal */
-declare class ReportView extends LayerElement$1 implements IImageContainer {
-    static readonly PAGE_HEAD = "rr-page-head";
-    static readonly BACK_HEAD = "rr-back-head";
-    static readonly FRONT_HEAD = "rr-front-head";
-    private static ViewCreators;
-    private _model;
-    private _loadError;
-    private _editable;
-    private _emptyView;
-    private _pageLayer;
-    private _pageViews;
-    private _boxMeasurer;
-    private _boxInner;
-    private _nameMap;
-    private _modelDirty;
-    private _images;
-    constructor(doc: Document, editable?: boolean, printing?: boolean);
-    protected _doDispose(): void;
-    addImage(url: string): void;
-    imageLoaded(url: string): void;
-    imagesAllLoaded(): boolean;
-    /** editable */
-    get editable(): boolean;
-    /** model */
-    get model(): Report;
-    set model(value: Report);
-    get pageView(): PageView;
-    protected _resetPages(model: Report): void;
-    /** loadError */
-    get loadError(): string;
-    set loadError(value: string);
-    get zoom(): number;
-    get pageViews(): PageView[];
-    _internalPageViews(): PageView[];
-    getPageView(index: number): PageView;
-    getBoxPaddings(model: ReportItem): {
-        left: number;
-        right: number;
-        top: number;
-        bottom: number;
-    };
-    findElement(modelName: string): ReportElement;
-    findElementOf(dom: HTMLElement): ReportElement;
-    getElementOf(model: ReportPageItem): ReportElement;
-    getItemBoundingRect(element: VisualElement$1, rotated?: boolean): Rectangle$1;
-    protected _getCssSelector(): string;
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _createEmptyView(doc: Document): VisualElement$1;
-    protected _createPageView(doc: Document): PageView;
-    protected _layoutPageBorders(rReport: Rectangle$1, rPage: Rectangle$1): void;
-    private $_layout;
-    protected _afterLayout(ctx: PrintContext, bounds: Rectangle$1): void;
-    $_afterRender(ctx: PrintContext): void;
-    $_createElement(item: ReportItem): ReportElement;
-    /**
-     * PrintContainer.$_print(...)에서 호출한다.
-     */
-    $_preparePrint(ctx: PrintContext): void;
-    /**
-     * PrintContainer.$_print(...)에서 호출한다.
-     */
-    $_endPrint(ctx: PrintContext): void;
-    protected _modelReset(): void;
-    protected _modelChanged(): void;
-    protected onReportReset(report: Report): void;
-    protected onReportPaperChanged(report: Report): void;
-    protected onReportPageAdded(report: Report, page: ReportPage): void;
-    protected onReportPageRemoved(report: Report, page: ReportPage, index: number): void;
-    protected onReportItemAdded(report: Report, item: ReportItem, index: number, silent: boolean): void;
-    protected onReportItemRemoved(report: Report, item: ReportItem, oldParent: ReportGroupItem): void;
-    protected onReportItemsRemoved(report: Report, items: ReportPageItem[]): void;
-    protected onReportItemChanged(report: Report, item: ReportItem, prop: string, value: any, oldValue: any): void;
-    protected onReportCommandStackChanged(report: Report, cmd: EditCommand$1): void;
-}
-
-/**
- * 한 줄 혹은 여러줄의 텍스트를 표시한다.
- * value 속성으로 지정된 data 위치가 타당하면 그 값을, 아니면 text 속성으로 지정한 문자열을 표시한다.
- */
-declare abstract class TextItemBase extends ReportItem {
-    static readonly PROP_WRAP = "wrap";
-    static readonly PROP_MULTI_LINE = "multiLine";
-    static readonly PROP_BOOLEAN_FORMAT = "booleanFormat";
-    static readonly PROP_NUMBER_FORMAT = "numberFormat";
-    static readonly PROP_DATE_FORMAT = "dateFormat";
-    static readonly PROP_TEXT_FORMAT = "textFormat";
-    static readonly PROP_TEXT_PREFIX = "prefix";
-    static readonly PROP_TEXT_SUFFIX = "suffix";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: string[];
-    private _wrap;
-    private _multiLine;
-    private _booleanFormat;
-    private _numberFormat;
-    private _dateFormat;
-    private _textFormat;
-    private _prefix;
-    private _suffix;
-    constructor(name: string);
-    /**
-     * wrap
-     */
-    get wrap(): boolean;
-    set wrap(value: boolean);
-    /**
-     * multiLine
-     * true면 '<br>'이나 '\n', '\r\n'으로 줄을 나눠 표시한다.
-     */
-    get multiLine(): boolean;
-    set multiLine(value: boolean);
-    /**
-     * booleanFormat
-     */
-    get booleanFormat(): string;
-    set booleanFormat(value: string);
-    /**
-     * numberFormat
-     */
-    get numberFormat(): string;
-    set numberFormat(value: string);
-    /**
-     * dateFormat
-     */
-    get dateFormat(): string;
-    set dateFormat(value: string);
-    /**
-     * 세미콜론(;)으로 구분하여 왼쪽에는 String.prototype.replace의 첫 번째 매개변수,
-     * 오른쪽에는 두 번째 매개변수와 같은 타입으로 지정
-     * 예) Mr. 홍길동: `'([A-Za-z]*); Mr\. \$1'`,
-     * 예) 사업자번호: '(\\d{3})(\\d{2})(\\d{5});$1-$2-$3'
-     */
-    get textFormat(): string;
-    set textFormat(value: string);
-    /**
-     * 접두어.
-     * expression을 이용해서 표현할 수도 있지만,
-     * 이 속성으로 설정하면 text와 다른 스타일을 적용할 수 있다.
-     */
-    get prefix(): string;
-    set prefix(value: string);
-    /**
-     * 접미어.
-     * expression을 이용해서 표현할 수도 있지만,
-     * 이 속성으로 설정하면 text와 다른 스타일을 적용할 수 있다.
-     */
-    get suffix(): string;
-    set suffix(value: string);
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _doApplyStyle(prop: string, value: string, target: CSSStyleDeclaration): boolean;
-    canRotate(): boolean;
-    canLink(): boolean;
-    canAdoptDragSource(source: any): boolean;
-    adoptDragSource(source: any): IDropResult;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    getPrintValue(dp: IReportDataProvider, row: number): any;
-}
-/**
- * 고정된 텍스트나 데이터 필드의 값을 출력하는 아이템.
- */
-declare class TextItem extends TextItemBase {
-    static readonly PROP_MULTI_LINE = "multiLine";
-    static readonly PROP_TEXT = "text";
-    static readonly PROP_ON_GET_CONTEXT_VALUE = "onGetContextValue";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Text";
-    private _text;
-    private _contextValueCallback;
-    private _onGetContextValue;
-    private _contextValueCallbackFunc;
-    private _contextValueCallbackDelegate;
-    constructor(name: string, text?: string);
-    /**
-     * text
-     */
-    get text(): string;
-    set text(value: string);
-    /**
-     * onGetContextValue
-     */
-    get onGetContextValue(): string;
-    set onGetContextValue(value: string);
-    /**
-     * contextValueCallback
-     */
-    get contextValueCallback(): ContextValueCallback;
-    set contextValueCallback(value: ContextValueCallback);
-    getSaveType(): string;
-    get outlineLabel(): string;
-    get designText(): string;
-    get pathLabel(): string;
-    isContextValue(): boolean;
-    protected _getEditProps(): IPropInfo[];
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-
-/** @internal */
-declare abstract class TextItemElementBase<T extends TextItemBase> extends ReportItemElement<T> {
-    static readonly CLASS_NAME = "rr-text";
-    static readonly CLASS_LIST: string;
-    static readonly SPAN = "_rr_span_";
-    private _span;
-    protected _text: string;
-    constructor(doc: Document, model: T, name: string);
-    protected _doDispose(): void;
-    get debugLabel(): string;
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    _doLayoutContent(ctx: PrintContext): void;
-    refreshPrintValues(ctx: PrintContext): void;
-    isDom(dom: HTMLElement): boolean;
-    protected _getText(m: TextItemBase, v: any): string;
-    protected abstract _getPrintText(ctx: PrintContext, m: T): string;
-    protected abstract _getDesignText2(m: T, system: boolean): string;
-}
-
-/**
- * html 속성으로 지정한 문자열을 dom의 innerHtml로 설정한다.
- * 문자열에 포함된 '${value}'나 '@{value}'는 연결된 field의 값으로 대체되고,
- * 나머지 '${xxx}', '@{xxx}'는 'xxx' 필드의 값으로 대체된다.
- */
-declare class HtmlItem extends ReportItem {
-    static readonly ALLOWED_TAGS: string[];
-    static readonly PROP_HTML = "html";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: string[];
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Html";
-    private _html;
-    private _tokens;
-    constructor(name: string);
-    get html(): string;
-    set html(value: string);
-    getHtml(ctx: PrintContext): string;
-    getSaveType(): string;
-    get outlineLabel(): string;
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    canRotate(): boolean;
-    canAdoptDragSource(source: any): boolean;
-    adoptDragSource(source: any): IDropResult;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    getRowContextValue(value: string, ctx: PrintContext): string | number;
-    private $_getTokenValue;
-    private $_parse;
-    private $_parseValues;
-}
-
-/** @internal */
-declare class HtmlItemElement extends ReportItemElement<HtmlItem> {
-    private _content;
-    constructor(doc: Document, model: HtmlItem);
-    protected _doDispose(): void;
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    saveContextValue(ctx: PrintContext): string;
-    replaceContextValue(ctx: PrintContext, value?: string): string;
-    refreshPrintValues(ctx: PrintContext, save?: boolean): void;
-    /**
-     * 허용하지 않은 태그가 포함되어있을 경우 console.error 표시
-     * @param html 표시할 html 형식 문자열
-     */
-    private $_validateHtmlTags;
-}
-
-/**
- * Printing 관련 상태 정보 모델.
- */
-declare class PrintContext extends Base$1 {
-    static readonly VALUES: string[];
-    private _printing;
-    private _compositePrinting;
-    private _dp;
-    private _desingDp;
-    private _assets;
-    private _reportView;
-    private _pageWidth;
-    private _pageHeight;
-    private _date;
-    private _pageCount;
-    private _page;
-    private _detailPageCount;
-    private _detailPage;
-    private _compositePageCount;
-    private _compositePage;
-    detailRows: number[];
-    noValueCallback: boolean;
-    preview: boolean;
-    pageDelay: number;
-    report: Report;
-    container: HTMLDivElement;
-    headerHeight: number;
-    footerHeight: number;
-    reportHeaderHeight: number;
-    reportFooterHeight: number;
-    bodyTop: number;
-    bodyBottom: number;
-    bodyHeight: number;
-    y: number;
-    h: number;
-    yBand: number;
-    bandSummaryRuntime: DataBandSummaryRuntime;
-    row: number;
-    index: number;
-    contextable: boolean;
-    contextValues: (TextItemElementBase<any> | HtmlItemElement)[];
-    contextReplaces: {
-        [hash: string]: HtmlItemElement;
-    };
-    private _userData;
-    private _tags;
-    private _bandSave;
-    async: boolean;
-    band: DataBand | CrosstabBand;
-    pages: PrintPage[];
-    floatings: HTMLDivElement[];
-    reportCount: number;
-    reportIndex: number;
-    prevPages: number;
-    firstReport: PrintContext;
-    nextReport: PrintContext;
-    contextElements: {
-        [hash: string]: TextItemElementBase<any>;
-    };
-    constructor(printing?: boolean, compositePrinting?: boolean);
-    /**
-     * printing
-     */
-    get printing(): boolean;
-    /**
-     * compositePrinting 복합 출력 여부를 반환
-     */
-    get compositePrinting(): boolean;
-    /**
-     * data provider
-     */
-    get dp(): IReportDataProvider;
-    set dp(value: IReportDataProvider);
-    /**
-     * design data provider
-     */
-    get designDp(): DesignDataManager;
-    set designDp(value: DesignDataManager);
-    /**
-     * assets
-     */
-    get assets(): AssetManager;
-    set assets(value: AssetManager);
-    /**
-     * reportView
-     */
-    get reportView(): ReportView;
-    set reportView(value: ReportView);
-    /**
-     * pageWidth
-     */
-    get pageWidth(): number;
-    set pageWidth(value: number);
-    /**
-     * pageHeight
-     */
-    get pageHeight(): number;
-    set pageHeight(value: number);
-    /**
-     * date
-     */
-    get date(): Date;
-    /**
-     * page count.
-     */
-    get pageCount(): number;
-    /**
-     * page index.
-     */
-    get page(): number;
-    /**
-     * detail page count.
-     */
-    get detailPageCount(): number;
-    /**
-     * detail page index.
-     */
-    get detailPage(): number;
-    /**
-     * compositePage count.
-     */
-    get compositePageCount(): number;
-    /**
-     * compositePage index.
-     */
-    get compositePage(): number;
-    preparePrint(report?: Report): void;
-    preparePage(page: number, allPage: number): void;
-    setDetailPage(count: number, page: number): void;
-    finishPrint(pageCount: number): void;
-    setCompositePageCount(compostePageCount: number): void;
-    getUserData(): any;
-    getCurrentValue(prop: string): any;
-    setTag(tag: string, value: any): void;
-    unsetTag(tag: string): void;
-    getTag(tag: string, def?: any): any;
-    getValue(data: string, row: number, field: string): any;
-    saveBand(): void;
-    restoreBand(): void;
-    getBaseView(view: InheritableSectionElement<any>, viewType: string): InheritableSectionElement<any>;
-    /**
-     * - 현재 출력중인 data row를 반환
-     * @returns 0부터 시작하며 현재 출력중인 band의 row index 반환
-     */
-    getPrintingRow(): number;
-    /**
-     * - 정렬 적용 후에도 onGetValue, onGetStyles 이벤트에서 사용하는 row 인자에 원본 데이터의 index를 반환하기 위해 작성
-     * @returns 원본 데이터의 index 반환
-     */
-    getSourceIndex(): number;
-    setPageSize(width: number, height: number): void;
-    /**
-     * 호출하기 전 pageHeader, pageFooter, pageHeight 값이 설정되어야 함
-     */
-    setBodySize(): void;
-}
-type ContextValueCallback = (ctx: PrintContext) => any;
-declare class PageBreaker {
-}
-declare class BandFooterPrintInfo {
-}
-declare class ReportFooterPrintInfo {
-}
-declare class EndRowMarker {
-    count: number;
-    maxCount: number;
-    constructor(count: number, maxCount: number);
-}
-type BandPrintRow = number | BandFooterPrintInfo | BandPrintInfo<any> | EndRowMarker;
-declare abstract class BandPrintInfo<T extends ReportItem> {
-    band: T;
-    xBand: number;
-    ptsBand: number[];
-    wBand: number;
-    wCell: number;
-    masterRow: number;
-    masterValues: any;
-    /**
-     * rows per page.
-     * NaN이 아니면 이 수 만큼만 출력하고 페이지를 넘긴다.
-     */
-    rpp: number;
-    /**
-     * end row count
-     * NaN이 아니면 이 수만큼 빈 행을 추가한다.
-     * endRowCount가 0보다 커서 이전 페이지에서 빈 행들을 추가했는데 다 출력하지 못한 빈 행수.
-     */
-    erc: number;
-    detailRows: number[];
-    isMasterRowPrintNext: boolean;
-    needMasterHeader: boolean;
-    abstract isEnded(): boolean;
-    abstract getRows(): any[];
-    abstract getNextPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
-    rollback(page: HTMLDivElement): void;
-    setMaxCount(rows: any[], count: number): void;
-    isDataRow(row: any): row is number;
-    isBand(row: any): row is BandPrintInfo<any>;
-    isGroupHeader(row: any): boolean;
-    isGroupFooter(row: any): boolean;
-    protected _setX(dom: HTMLElement, x: number): void;
-    protected _setY(dom: HTMLElement, y: number): void;
-    protected _setPos(dom: HTMLElement, x: number, y: number): void;
-    protected _createPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
-    protected _createSectionPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
-    protected _buildEndRows(marker: EndRowMarker, rowCount: number, rows: any[]): void;
-    protected _unshiftEndRows(row: any, rows: any[]): void;
-    /**
-     * 마스터-디테일 형태에서 디테일이 출력되는 동안 페이지마다 마스터 행 출력 준비
-     * 현재 출력중인 마스터 밴드 행 번호 사용
-     * @param band 마스터 밴드 정보
-     * @param rows 출력해야할 행 정보 목록
-     * @see {@link https://github.com/realgrid/realreport/issues/1138}
-     */
-    protected _prepareRepeatMasterRow(band: DataBand, rows: BandPrintRow[]): void;
-    /**
-     * 마스터-디테일 밴드에서 마스터 헤더 출력여부와 관련된 값들에 대한 설정
-     * @param band 출력중인 밴드 정보
-     * @param bandHeaderPrinted 출력중인 페이지내에서 마스터 해더의 출력여부
-     * @param printed 출력했는지 여부
-     */
-    protected _setBandHeaderPrintFlag(band: DataBand, printed: boolean): void;
-    /**
-     * 디테일 밴드를 계속 출력 or 끝 결정
-     * @param ctx PrintContext
-     * @param rows 현재 출력해야 할 행들에 대한 목록
-     * @param row 현재 출력중인 행 정보
-     * @param rowsPerPage 페이지에서 몇행 까지 출력할 수 있는지 정보
-     * @returns true = 디테일 밴드 출력 끝, false = 다음장에 디테일 계속 출력
-     */
-    protected _isDetailBandPrintEnd(row: BandPrintInfo<SimpleBand | TableBand>): boolean;
-    protected _resetRowIndex(row: BandPrintInfo<SimpleBand | TableBand>): void;
-    protected _prepareDetailBandPrintNext(ctx: PrintContext, band: DataBand, row: BandPrintInfo<SimpleBand | TableBand>, rows: BandPrintRow[], rowsPerPage: number): void;
-}
-type PrintLine = HTMLElement | BandPrintInfo<any> | ReportFooterPrintInfo | PageBreaker;
-interface IReportDataProvider {
-    designTime?: boolean;
-    preparePrint(ctx: PrintContext): void;
-    getAll(): IReportData[];
-    get(name: string): IReportData;
-    getContextValue(path: string): any;
-    getValue(path: string, row: number): any;
-    getValueAt(data: string, path: string, row: number): any;
-    getFieldValues(data: string, field: string, rows?: number[]): any[];
-    addData?(data: IReportData): boolean;
-    removeData?(data: string | IReportData): IReportData;
-    dataNameChanged?(data: IReportData, oldName: string): void;
-    fieldNameChanged?(data: IReportData, newName: string, oldName: string): void;
-}
-interface IReportData {
-    name: string;
-    isBand: boolean;
-    getFieldNames(): string[];
-    getSaveType(): string;
-    getValue(path: string): any;
-}
-declare abstract class ReportData$1 extends Base$1 {
-    private _name;
-    private _dp;
-    constructor(name: string, dp: IReportDataProvider);
-    get provider(): IReportDataProvider;
-    get designTime(): boolean;
-    get isBand(): boolean;
-    /** name */
-    get name(): string;
-    set name(value: string);
-    preparePrint(ctx: PrintContext, design: boolean): void;
-}
-interface ISimpleData extends IReportData {
-    getValues(): any;
-    getSaveValues(): any;
-}
-/**
- * 단순형 값이나, json 객체를 값으로 지정한다.
- */
-declare class SimpleData extends ReportData$1 implements ISimpleData {
-    private _isObj;
+declare class DimensionCollection {
+    static readonly Empty: DimensionCollection;
+    private _dims;
     private _values;
-    constructor(name: string, values: any);
+    private _relative;
+    private _fixed;
+    private _dirty;
+    constructor(str: string);
+    get count(): number;
+    get relative(): boolean;
+    get(index: number): Dimension;
+    set(index: number, dim: Dimension): void;
     /**
-     * TODO: array index
+     * '%' 이면 domain에서 fixed 크기들을 제외한 크기에 대한 상대 크기.
+     * '%'의 전체 함이 100을 넘으면 100으로 scaling한다.
+     * 절대크기는 그 크기대로.
+     * NaN이거나 설정하지 않은 크기는 위의 크기들을 제외한 나머지 크기의 균등분으로
+     * 최소 min으로 설정된다.
+     * 전체 합이 domain보다 크거나 작을 수 있다.
      */
-    getValue(path?: string): any;
-    getValues(): any;
-    get sample(): any;
-    setSample(values: any): void;
-    getFieldNames(): string[];
-    getSaveType(): string;
-    getSaveValues(): any;
+    getSizes(count: number, domain: number, minSize: Dimension, truncate?: boolean): number[];
+    getSize(index: number, domain: number): number;
+    changeSize(count: number, index: number, delta: number, domain: number, minWidth: Dimension): void;
+    private $_refresh;
+    private $_init;
+}
+declare enum PageBreakMode {
+    NONE = "none",
+    BEFORE = "before",
+    AFTER = "after",
+    BOTH = "both"
+}
+declare enum LinkTarget {
+    SELF = "_self",
+    BLANK = "_blank",
+    PARENT = "_parent",
+    TOP = "_top"
+}
+declare enum PaperOrientation {
+    PORTRAIT = "portrait",
+    LANDSCAPE = "landscape"
+}
+declare enum ResizeDirection {
+    LEFT = "left",
+    RIGHT = "right",
+    TOP = "top",
+    BOTTOM = "bottom",
+    TOP_LEFT = "topLeft",
+    BOTTOM_RIGHT = "bottomRight",
+    TOP_RIGHT = "topRight",
+    BOTTOM_LEFT = "bottomLeft"
+}
+declare namespace ResizeDirection {
+    function isLeft(dir: ResizeDirection): boolean;
+    function isTop(dir: ResizeDirection): boolean;
+    function isEdge(dir: ResizeDirection): boolean;
+    function isIn(dir: ResizeDirection, ...dirs: ResizeDirection[]): boolean;
+}
+declare enum DataDirection {
+    ASCENDING = "ascending",
+    DESCENDING = "descending"
+}
+/**
+ * Find options
+ */
+interface FindOptions {
+    caseSensitive?: boolean;
+    wholeWord?: boolean;
+    regularExpression?: boolean;
+    inSelection?: boolean;
+}
+declare enum ReportType {
+    REPORT = "report",
+    EMAIL = "email"
+}
+declare enum BoxItemsAlign {
+    START = "start",
+    MIDDLE = "middle",
+    END = "end"
+}
+declare enum AnchorPosition {
+    CENTER = "center",
+    LEFT = "left",
+    RIGHT = "right",
+    TOP = "top",
+    BOTTOM = "bottom",
+    INNER_LEFT = "innerLeft",
+    INNER_RIGHT = "innerRight",
+    INNER_TOP = "innerTop",
+    INNER_BOTTOM = "innerBottom"
+}
+declare enum HichartStacking {
+    NORMAL = "normal",
+    PERCENT = "percent"
+}
+declare enum HichartDash {
+    DASH = "Dash",
+    DASH_DOT = "DashDot",
+    DOT = "Dot",
+    LONG_DASH = "LongDash",
+    LONG_DASH_DOT = "LongDashDot",
+    LONG_DASH_DOT_DOT = "LongDashDotDot",
+    SHORT_DASH = "ShortDash",
+    SHORT_DASH_DOT = "ShortDashDot",
+    SHORT_DASH_DOT_DOT = "ShortDashDotDot",
+    SHORT_DOT = "ShortDot",
+    SOLID = "Solid"
+}
+declare enum HichartLegendLayout {
+    HORIZONTAL = "horizontal",
+    VERTICAL = "vertical",
+    PROXIMATE = "proximate"
+}
+declare enum BandSectionLayout {
+    ACROSS_DOWN = "acrossDown",
+    DOWN_ACROSS = "downAcross"
+}
+declare enum CrosstabSummary {
+    SUM = "sum",
+    AVG = "avg",
+    MIN = "min",
+    MAX = "max",
+    COUNT = "count",
+    DISTINCT = "distinct"
+}
+declare enum SectionInherit {
+    NONE = "none",
+    HEAD = "head",
+    PREVIOUS = "previous"
+}
+
+declare const I_EMAIL_ITEM_DSCIRIMINATOR: "I_EMAIL_ITEM";
+interface IEmailItem extends ReportItem {
+    discriminator: typeof I_EMAIL_ITEM_DSCIRIMINATOR;
 }
 
 interface IPrintReport {
@@ -7035,6 +8074,7 @@ interface IPreviewOptions {
     singlePage?: boolean;
     singlePageOptions?: ISinglePageOptions;
     align?: Align;
+    paging?: boolean;
     callback?: PrintPageCallback;
     endCallback?: PrintEndCallback;
 }
@@ -7104,6 +8144,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_replacePages;
     private $_refreshHtmlItemValue;
     private $_printReport;
+    private $_printPageless;
     private $_getContainer;
     private $_getPreviewer;
     private $_getPageHeight;
@@ -7111,6 +8152,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_removeBackContainer;
     private $_resetPreviewer;
     private $_buildOutput;
+    private $_buildNoPagingOutput;
     private $_setFrontBackLayer;
     /**
      * unitpost 한장 요약 HTML 요청으로 singlePage 별도 메서드로 분리
@@ -7121,8 +8163,20 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_isReportFooter;
     private $_setPrintMode;
     private $_getScaleSize;
+    /**
+     * 각 인쇄 영역 Container Style 설정
+     */
+    private $_setPageContainerStyle;
     private $_setUnvisibleDom;
     private $_layoutFloatings;
+    /**
+     * 출력 옵션 검증
+     * @throws 출력 옵션이 유효하지 않을 경우 에러 발생
+     */
+    private $_validatePrintOptions;
+    private $_validateReportOption;
+    private $_createReportView;
+    private $_instanceofIPrintReport;
 }
 
 interface PdfFont {
@@ -7159,6 +8213,107 @@ interface ImageExportOptions {
     fileName?: string;
     zipName?: string;
     tiff?: ITiffOptions;
+}
+
+declare class EmailFooterItems extends ColumnBoxContainer implements IEmailItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly INHERITED_PROPINFO_NAMES: string[];
+    static readonly STYLE_PROPS: string[];
+    static readonly INHERITED_STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    private _itemsHorizontalAlign;
+    discriminator: "I_EMAIL_ITEM";
+    constructor(name: string);
+    get itemsHorizontalAlign(): Align;
+    set itemsHorizontalAlign(value: Align);
+    get outlineLabel(): string;
+    get outlineParent(): IOutlineSource;
+    canResize(dir: ResizeDirection): boolean;
+    canMove(): boolean;
+    protected _boundable(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _doAfterLoad(loader: IReportLoader, src: any): void;
+    protected _doAfterSave(target: object): void;
+    protected _doItemAdded(item: ReportItem, index: number): void;
+}
+
+declare class EmailFooter extends ReportFooter implements IEmailItem {
+    static readonly $_ctor: string;
+    private _footerItems;
+    discriminator: "I_EMAIL_ITEM";
+    constructor();
+    get footerItems(): ReportItem[];
+    get itemsContainer(): EmailFooterItems;
+    get itemsAlign(): BoxItemsAlign;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    canResize(dir: ResizeDirection): boolean;
+    protected _ignoreItems(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+declare class EmailPage extends ReportPage implements IEmailItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly INHERITED_PROPINFO_NAMES: string[];
+    static readonly STYLE_PROPS: string[];
+    static readonly INHERITED_STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    discriminator: "I_EMAIL_ITEM";
+    constructor(report: Report);
+    get emailFooter(): EmailFooter;
+    get outlineItems(): IOutlineSource[];
+    protected _createPageBody(): PageBody;
+    protected _createReportFooter(): ReportFooter;
+    protected _getReportFooterSourceFieldName(): string;
+    getPropDomain(prop: IPropInfo): any[];
+    getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doAfterLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+declare class EmailPageBody extends PageBody implements IEmailItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly INHERITED_PROPINFO_NAMES: string[];
+    static readonly STYLE_PROPS: string[];
+    static readonly INHERITED_STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    discriminator: "I_EMAIL_ITEM";
+    constructor();
+    protected _createPageBodyItems(): PageBodyItems;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+declare class EmailRootItem extends ReportRootItem {
+    static readonly PROP_WIDTH = "width";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly INHERITED_PROPINFO_NAMES: string[];
+    static readonly $_ctor: string;
+    constructor(email: Email);
+    get width(): ValueString;
+    set width(value: ValueString);
+    get outlineLabel(): string;
+    getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    private $_checkReportType;
+}
+declare class Email extends Report {
+    get root(): EmailRootItem;
+    get page(): EmailPage;
+    get body(): EmailPageBody;
+    protected _createReportRootItem(report: Report): ReportRootItem;
+    protected _createReportInfo(report: Report): ReportInfo;
+    protected _createReportLoader(): IReportLoader;
+    protected _createReportPage(report: Report): ReportPage;
 }
 
 /**
@@ -41100,14 +42255,16 @@ declare abstract class ReportViewBase {
 declare class ReportViewer extends ReportViewBase {
     private _reportForm?;
     private _dataSet?;
-    protected _report: Report;
+    protected _report: Report | Email;
     private _reportDataProvider;
+    private _isPaging;
     constructor(container: string | HTMLDivElement, reportForm?: ReportForm, dataSet?: ReportDataSet, options?: ReportOptions);
     get reportForm(): ReportForm;
-    set reportForm(v: ReportForm);
-    get report(): Report;
+    set reportForm(form: ReportForm);
+    get report(): Report | Email;
     get dataSet(): ReportDataSet;
     set dataSet(v: any);
+    get isPaging(): boolean;
     /**
      * container에 리포트를 preview로 렌더링 합니다.
      */
@@ -41127,6 +42284,10 @@ declare class ReportViewer extends ReportViewBase {
      * @param options
      */
     exportDocument(options?: DocExportOptions): Promise<void>;
+    /**
+     * 이메일 HTML 내보내기 함수
+     */
+    exportEmailHtml(): Promise<string>;
     private _checkReport;
 }
 

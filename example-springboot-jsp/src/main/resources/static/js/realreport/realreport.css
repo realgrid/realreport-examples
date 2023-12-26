@@ -1,3 +1,8 @@
+/* 
+RealReport v1.8.0
+Copyright (C) 2013-2023 WooriTech Inc.
+All Rights Reserved.
+*/
 @charset "UTF-8";
 
 .rr-report-root {
@@ -14,6 +19,10 @@
     user-select: none;
     -ms-touch-action: none;
     -webkit-print-color-adjust: exact;
+}
+
+.rr-report-root.rr-email {
+    font-family: "Arial", "Courier New", "Times New Roman", sans-serif;
 }
 
 .rr-report-container {
@@ -225,20 +234,7 @@
 }
 
 .rr-rotate-handle {
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='20' height='20' viewBox='0 0 20 20'%3E%3Cdefs%3E%3Cfilter id='Ellipse_80' x='0' y='0' width='20' height='20' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='0.5' result='blur'/%3E%3CfeFlood result='color'/%3E%3CfeComposite operator='out' in='SourceGraphic' in2='blur'/%3E%3CfeComposite operator='in' in='color'/%3E%3CfeComposite operator='in' in2='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Cg id='Group_338' data-name='Group 338' transform='translate(-1375 -4363)'%3E%3Cg data-type='innerShadowGroup'%3E%3Ccircle id='Ellipse_80-2' data-name='Ellipse 80' cx='10' cy='10' r='10' transform='translate(1375 4363)' fill='%23fff'/%3E%3Cg transform='matrix(1  0  0  1  1375  4363)' filter='url(%23Ellipse_80)'%3E%3Ccircle id='Ellipse_80-3' data-name='Ellipse 80' cx='10' cy='10' r='10' fill='%23fff'/%3E%3C/g%3E%3Cg id='Ellipse_80-4' data-name='Ellipse 80' transform='translate(1375 4363)' fill='none' stroke='rgba(0 0 0 0)' stroke-width='1'%3E%3Ccircle cx='10' cy='10' r='10' stroke='none'/%3E%3Ccircle cx='10' cy='10' r='9.5' fill='none'/%3E%3C/g%3E%3C/g%3E%3Cg id='refresh-arrows-circle-with-clockwise-rotation-svgrepo-com' transform='translate(1379.282 4315.982)'%3E%3Cpath id='Path_719' data-name='Path 719' d='M70.95 52.746v1.115q-.12-.208-.259-.407a5.38 5.38 0 0 0-9.633 1.828.7.7 0 1 0 1.356.326 3.98 3.98 0 0 1 3.874-3.048 3.949 3.949 0 0 1 2.395.8 4.028 4.028 0 0 1 1.131 1.33h-.773a.7.7 0 1 0 0 1.395h2.606a.7.7 0 0 0 .7-.7V52.746a.7.7 0 0 0-1.395 0Z' transform='translate(-60.227 0)'/%3E%3Cpath id='Path_720' data-name='Path 720' d='M.7 490.43a.7.7 0 0 0 .7-.7v-1.12a5.379 5.379 0 0 0 4.66 2.7h.007a5.38 5.38 0 0 0 5.224-4.117.7.7 0 1 0-1.356-.326 3.984 3.984 0 0 1-7.4.919H3.3a.7.7 0 0 0 0-1.395H.7a.7.7 0 0 0-.7.7v2.642A.7.7 0 0 0 .7 490.43Z' transform='translate(0 -429.389)'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='20' height='20' viewBox='0 0 20 20'%3E%3Cdefs%3E%3Cfilter id='Ellipse_80' x='0' y='0' width='20' height='20' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='0.5' result='blur'/%3E%3CfeFlood result='color'/%3E%3CfeComposite operator='out' in='SourceGraphic' in2='blur'/%3E%3CfeComposite operator='in' in='color'/%3E%3CfeComposite operator='in' in2='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Cg id='Group_338' data-name='Group 338' transform='translate(-1375 -4363)'%3E%3Cg data-type='innerShadowGroup'%3E%3Ccircle id='Ellipse_80-2' data-name='Ellipse 80' cx='10' cy='10' r='10' transform='translate(1375 4363)' fill='%23fff'/%3E%3Cg transform='matrix(1  0  0  1  1375  4363)' filter='url(%23Ellipse_80)'%3E%3Ccircle id='Ellipse_80-3' data-name='Ellipse 80' cx='10' cy='10' r='10' fill='%23fff'/%3E%3C/g%3E%3Cg id='Ellipse_80-4' data-name='Ellipse 80' transform='translate(1375 4363)' fill='none' stroke='rgba(0 0 0 0)' stroke-width='1'%3E%3Ccircle cx='10' cy='10' r='10' stroke='none'/%3E%3Ccircle cx='10' cy='10' r='9.5' fill='none'/%3E%3C/g%3E%3C/g%3E%3Cg id='refresh-arrows-circle-with-clockwise-rotation-svgrepo-com' transform='translate(1377.282 4314.982)'%3E%3Cpath id='Path_719' data-name='Path 719' d='M73.664 53.178V54.6q-.153-.265-.33-.518A6.854 6.854 0 0 0 61.063 56.41a.888.888 0 1 0 1.727.416 5.07 5.07 0 0 1 4.935-3.883 5.031 5.031 0 0 1 3.051 1.019 5.131 5.131 0 0 1 1.441 1.694h-.984a.888.888 0 1 0 0 1.777h3.32a.888.888 0 0 0 .888-.888V53.178a.888.888 0 0 0-1.777 0Z' transform='translate(-60.005 0)'/%3E%3Cpath id='Path_720' data-name='Path 720' d='M.888 491.552a.888.888 0 0 0 .888-.888v-1.427a6.853 6.853 0 0 0 5.937 3.439h.009a6.854 6.854 0 0 0 6.655-5.244.888.888 0 0 0-1.727-.416 5.075 5.075 0 0 1-9.424 1.17h.982a.888.888 0 0 0 0-1.777H.888A.888.888 0 0 0 0 487.3v3.365A.888.888 0 0 0 .888 491.552Z' transform='translate(0 -427.805)'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg id='Group_336' data-name='Group 336' transform='translate(-1375 -4363)'%3E%3Cg id='Ellipse_80' data-name='Ellipse 80' transform='translate(1375 4363)' fill='%23fff' stroke='rgba(0 0 0 0)' stroke-width='1'%3E%3Ccircle cx='10' cy='10' r='10' stroke='none'/%3E%3Ccircle cx='10' cy='10' r='9.5' fill='none'/%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1376.483 4364.483)'%3E%3Cg id='Group_340' data-name='Group 340'%3E%3Cg id='Group_339' data-name='Group 339'%3E%3Cpath id='Path_716' data-name='Path 716' d='M8.517 0a8.517 8.517 0 1 0 8.517 8.517A8.517 8.517 0 0 0 8.517 0Zm0 16.182a7.665 7.665 0 1 1 7.665-7.665A7.674 7.674 0 0 1 8.517 16.182Z'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.555 3.833)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M82.766 115.2a4.681 4.681 0 0 0-4.676 4.516l-.559-.559a.426.426 0 0 0-.6.6l1.278 1.278a.426.426 0 0 0 .6 0l1.278-1.278a.426.426 0 0 0-.6-.6l-.531.531a3.81 3.81 0 0 1 7.189-1.58l.635-.635A4.677 4.677 0 0 0 82.766 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(4.506 7.239)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M145.289 219l-1.278-1.278a.426.426 0 0 0-.6 0L142.132 219a.426.426 0 0 0 .6.6l.531-.531a3.81 3.81 0 0 1-7.189 1.58l-.635.635a4.677 4.677 0 0 0 8.687-2.243l.559.559a.426.426 0 1 0 .6-.6Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg id='Group_336' data-name='Group 336' transform='translate(-1375 -4363)'%3E%3Cg id='Ellipse_80' data-name='Ellipse 80' transform='translate(1375 4363)' fill='%23fff' stroke='rgba(0 0 0 0)' stroke-width='1'%3E%3Ccircle cx='10' cy='10' r='10' stroke='none'/%3E%3Ccircle cx='10' cy='10' r='9.5' fill='none'/%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1376.483 4364.483)'%3E%3Cg id='Group_340' data-name='Group 340'%3E%3Cg id='Group_339' data-name='Group 339'%3E%3Cpath id='Path_716' data-name='Path 716' d='M8.517 0a8.517 8.517 0 1 0 8.517 8.517A8.517 8.517 0 0 0 8.517 0Zm0 16.182a7.665 7.665 0 1 1 7.665-7.665A7.674 7.674 0 0 1 8.517 16.182Z' fill='%23777'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.555 3.833)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M82.766 115.2a4.681 4.681 0 0 0-4.676 4.516l-.559-.559a.426.426 0 0 0-.6.6l1.278 1.278a.426.426 0 0 0 .6 0l1.278-1.278a.426.426 0 0 0-.6-.6l-.531.531a3.81 3.81 0 0 1 7.189-1.58l.635-.635A4.677 4.677 0 0 0 82.766 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(4.506 7.239)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M145.289 219l-1.278-1.278a.426.426 0 0 0-.6 0L142.132 219a.426.426 0 0 0 .6.6l.531-.531a3.81 3.81 0 0 1-7.189 1.58l-.635.635a4.677 4.677 0 0 0 8.687-2.243l.559.559a.426.426 0 1 0 .6-.6Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='20' height='20' viewBox='0 0 20 20'%3E%3Cdefs%3E%3Cfilter id='Path_721' x='0' y='0' width='20' height='20' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='0.5' result='blur'/%3E%3CfeFlood result='color'/%3E%3CfeComposite operator='out' in='SourceGraphic' in2='blur'/%3E%3CfeComposite operator='in' in='color'/%3E%3CfeComposite operator='in' in2='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Cg id='Group_336' data-name='Group 336' transform='translate(-1375 -4363)'%3E%3Cg data-type='innerShadowGroup'%3E%3Cg id='Path_721-2' data-name='Path 721' transform='translate(1375 4363)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none'/%3E%3C/g%3E%3Cg transform='matrix(1  0  0  1  1375  4363)' filter='url(%23Path_721)'%3E%3Cg id='Path_721-3' data-name='Path 721' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none'/%3E%3C/g%3E%3C/g%3E%3Cg id='Path_721-4' data-name='Path 721' transform='translate(1375 4363)' fill='none'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='rgba(0 0 0 0)'/%3E%3C/g%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1376.483 4364.483)'%3E%3Cg id='Group_340' data-name='Group 340'%3E%3Cg id='Group_339' data-name='Group 339'%3E%3Cpath id='Path_716' data-name='Path 716' d='M8.517 0a8.517 8.517 0 1 0 8.517 8.517A8.517 8.517 0 0 0 8.517 0Zm0 16.182a7.665 7.665 0 1 1 7.665-7.665A7.674 7.674 0 0 1 8.517 16.182Z' fill='%23fff'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.555 3.833)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M82.766 115.2a4.681 4.681 0 0 0-4.676 4.516l-.559-.559a.426.426 0 0 0-.6.6l1.278 1.278a.426.426 0 0 0 .6 0l1.278-1.278a.426.426 0 0 0-.6-.6l-.531.531a3.81 3.81 0 0 1 7.189-1.58l.635-.635A4.677 4.677 0 0 0 82.766 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(4.506 7.239)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M145.289 219l-1.278-1.278a.426.426 0 0 0-.6 0L142.132 219a.426.426 0 0 0 .6.6l.531-.531a3.81 3.81 0 0 1-7.189 1.58l-.635.635a4.677 4.677 0 0 0 8.687-2.243l.559.559a.426.426 0 1 0 .6-.6Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='20' height='20' viewBox='0 0 20 20'%3E%3Cdefs%3E%3Cfilter id='Path_721' x='0' y='0' width='20' height='20' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='0.5' result='blur'/%3E%3CfeFlood result='color'/%3E%3CfeComposite operator='out' in='SourceGraphic' in2='blur'/%3E%3CfeComposite operator='in' in='color'/%3E%3CfeComposite operator='in' in2='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Cg id='Group_336' data-name='Group 336' transform='translate(-1375 -4363)'%3E%3Cg data-type='innerShadowGroup'%3E%3Cg id='Path_721-2' data-name='Path 721' transform='translate(1375 4363)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none'/%3E%3C/g%3E%3Cg transform='matrix(1  0  0  1  1375  4363)' filter='url(%23Path_721)'%3E%3Cg id='Path_721-3' data-name='Path 721' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none'/%3E%3C/g%3E%3C/g%3E%3Cg id='Path_721-4' data-name='Path 721' transform='translate(1375 4363)' fill='none'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='rgba(0 0 0 0)'/%3E%3C/g%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1375.483 4363.483)'%3E%3Cg id='Group_340' data-name='Group 340'%3E%3Cg id='Group_339' data-name='Group 339'%3E%3Cpath id='Path_716' data-name='Path 716' d='M9.6 0a9.6 9.6 0 1 0 9.6 9.6A9.6 9.6 0 0 0 9.6 0Zm0 18.238A8.639 8.639 0 1 1 18.238 9.6 8.649 8.649 0 0 1 9.6 18.238Z' fill='%23fff'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.88 4.32)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M83.523 115.2a5.275 5.275 0 0 0-5.27 5.09l-.63-.63a.48.48 0 0 0-.679.679l1.44 1.44a.48.48 0 0 0 .679 0l1.44-1.44a.48.48 0 0 0-.679-.679l-.6.6a4.294 4.294 0 0 1 8.1-1.78l.716-.716A5.271 5.271 0 0 0 83.523 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(5.079 8.159)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M146.54 219.176l-1.44-1.44a.48.48 0 0 0-.679 0l-1.44 1.44a.48.48 0 1 0 .679.679l.6-.6a4.294 4.294 0 0 1-8.1 1.781l-.716.716a5.272 5.272 0 0 0 9.79-2.528l.63.63a.48.48 0 1 0 .679-.679Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='23' height='23' viewBox='0 0 23 23'%3E%3Cdefs%3E%3Cfilter id='Path_721' x='0' y='0' width='23' height='23' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='0.5' result='blur'/%3E%3CfeFlood/%3E%3CfeComposite operator='in' in2='blur'/%3E%3C/filter%3E%3Cfilter id='Path_721-2' x='0' y='0' width='23' height='23' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='0.5' result='blur-2'/%3E%3CfeFlood result='color'/%3E%3CfeComposite operator='out' in='SourceGraphic' in2='blur-2'/%3E%3CfeComposite operator='in' in='color'/%3E%3CfeComposite operator='in' in2='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Cg id='Group_336' data-name='Group 336' transform='translate(-1373.5 -4361.5)'%3E%3Cg data-type='innerShadowGroup'%3E%3Cg transform='matrix(1  0  0  1  1373.5  4361.5)' filter='url(%23Path_721)'%3E%3Cg id='Path_721-3' data-name='Path 721' transform='translate(1.5 1.5)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='rgba(0 0 0 0)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Path_721-4' data-name='Path 721' transform='translate(1375 4363)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none'/%3E%3C/g%3E%3Cg transform='matrix(1  0  0  1  1373.5  4361.5)' filter='url(%23Path_721-2)'%3E%3Cg id='Path_721-5' data-name='Path 721' transform='translate(1.5 1.5)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none'/%3E%3C/g%3E%3C/g%3E%3Cg id='Path_721-6' data-name='Path 721' transform='translate(1375 4363)' fill='none'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='rgba(0 0 0 0)'/%3E%3C/g%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1375.483 4363.483)'%3E%3Cg id='Group_340' data-name='Group 340'%3E%3Cg id='Group_339' data-name='Group 339'%3E%3Cpath id='Path_716' data-name='Path 716' d='M9.6 0a9.6 9.6 0 1 0 9.6 9.6A9.6 9.6 0 0 0 9.6 0Zm0 18.238A8.639 8.639 0 1 1 18.238 9.6 8.649 8.649 0 0 1 9.6 18.238Z' fill='%23fff'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.88 4.32)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M83.523 115.2a5.275 5.275 0 0 0-5.27 5.09l-.63-.63a.48.48 0 0 0-.679.679l1.44 1.44a.48.48 0 0 0 .679 0l1.44-1.44a.48.48 0 0 0-.679-.679l-.6.6a4.294 4.294 0 0 1 8.1-1.78l.716-.716A5.271 5.271 0 0 0 83.523 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(5.079 8.159)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M146.54 219.176l-1.44-1.44a.48.48 0 0 0-.679 0l-1.44 1.44a.48.48 0 1 0 .679.679l.6-.6a4.294 4.294 0 0 1-8.1 1.781l-.716.716a5.272 5.272 0 0 0 9.79-2.528l.63.63a.48.48 0 1 0 .679-.679Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='23' height='23' viewBox='0 0 23 23'%3E%3Cdefs%3E%3Cfilter id='Path_721' x='0' y='0' width='23' height='23' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='0.5' result='blur'/%3E%3CfeFlood/%3E%3CfeComposite operator='in' in2='blur'/%3E%3C/filter%3E%3Cfilter id='Path_721-2' x='0' y='0' width='23' height='23' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='0.5' result='blur-2'/%3E%3CfeFlood result='color'/%3E%3CfeComposite operator='out' in='SourceGraphic' in2='blur-2'/%3E%3CfeComposite operator='in' in='color'/%3E%3CfeComposite operator='in' in2='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Cg id='Group_345' data-name='Group 345' transform='translate(-1373.5 -4361.5)'%3E%3Cg data-type='innerShadowGroup'%3E%3Cg transform='matrix(1  0  0  1  1373.5  4361.5)' filter='url(%23Path_721)'%3E%3Cg id='Path_721-3' data-name='Path 721' transform='translate(1.5 1.5)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='rgba(0 0 0 0)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Path_721-4' data-name='Path 721' transform='translate(1375 4363)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none'/%3E%3C/g%3E%3Cg transform='matrix(1  0  0  1  1373.5  4361.5)' filter='url(%23Path_721-2)'%3E%3Cg id='Path_721-5' data-name='Path 721' transform='translate(1.5 1.5)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none'/%3E%3C/g%3E%3C/g%3E%3Cg id='Path_721-6' data-name='Path 721' transform='translate(1375 4363)' fill='none'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='rgba(0 0 0 0)'/%3E%3C/g%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1372.989 4361.505)'%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.88 4.32)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M85.936 115.2a7.169 7.169 0 0 0-7.162 6.918l-.856-.856a.652.652 0 0 0-.922.922l1.957 1.957a.652.652 0 0 0 .922 0l1.957-1.957a.652.652 0 0 0-.923-.923l-.813.813a5.836 5.836 0 0 1 11.011-2.419l.973-.973A7.164 7.164 0 0 0 85.936 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(5.868 9.538)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M150.525 219.743l-1.957-1.957a.652.652 0 0 0-.922 0l-1.957 1.957a.652.652 0 1 0 .922.922l.813-.813a5.836 5.836 0 0 1-11.011 2.42l-.973.973a7.164 7.164 0 0 0 13.305-3.436l.856.856a.652.652 0 1 0 .923-.922Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='23' height='23' viewBox='0 0 23 23'%3E%3Cdefs%3E%3Cfilter id='Path_721' x='0' y='0' width='23' height='23' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='0.5' result='blur'/%3E%3CfeFlood/%3E%3CfeComposite operator='in' in2='blur'/%3E%3C/filter%3E%3Cfilter id='Path_721-2' x='0' y='0' width='23' height='23' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='0.5' result='blur-2'/%3E%3CfeFlood result='color'/%3E%3CfeComposite operator='out' in='SourceGraphic' in2='blur-2'/%3E%3CfeComposite operator='in' in='color'/%3E%3CfeComposite operator='in' in2='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Cg id='Group_345' data-name='Group 345' transform='translate(-1373.5 -4361.5)'%3E%3Cg data-type='innerShadowGroup'%3E%3Cg transform='matrix(1  0  0  1  1373.5  4361.5)' filter='url(%23Path_721)'%3E%3Cg id='Path_721-3' data-name='Path 721' transform='translate(1.5 1.5)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='rgba(0 0 0 0)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Path_721-4' data-name='Path 721' transform='translate(1375 4363)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none'/%3E%3C/g%3E%3Cg transform='matrix(1  0  0  1  1373.5  4361.5)' filter='url(%23Path_721-2)'%3E%3Cg id='Path_721-5' data-name='Path 721' transform='translate(1.5 1.5)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none'/%3E%3C/g%3E%3C/g%3E%3Cg id='Path_721-6' data-name='Path 721' transform='translate(1375 4363)' fill='none'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='rgba(0 0 0 0)'/%3E%3C/g%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1374.551 4362.732)'%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.88 4.32)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M84.374 115.2a5.943 5.943 0 0 0-5.937 5.735l-.71-.71a.541.541 0 0 0-.765.765l1.622 1.622a.54.54 0 0 0 .765 0l1.622-1.622a.541.541 0 0 0-.765-.765l-.674.674a4.838 4.838 0 0 1 9.128-2.006l.806-.806A5.938 5.938 0 0 0 84.374 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(5.357 8.645)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M147.945 219.376l-1.622-1.622a.54.54 0 0 0-.765 0l-1.622 1.622a.541.541 0 0 0 .765.765l.674-.674a4.838 4.838 0 0 1-9.128 2.006l-.806.806a5.939 5.939 0 0 0 11.03-2.848l.71.71a.541.541 0 1 0 .765-.764Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg id='Group_345' data-name='Group 345' transform='translate(-1375 -4363)'%3E%3Cg id='Path_721' data-name='Path 721' transform='translate(1375 4363)' fill='%23fff'%3E%3Cpath d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='rgba(0 0 0 0)'/%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1374.551 4362.732)'%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.88 4.32)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M84.374 115.2a5.943 5.943 0 0 0-5.937 5.735l-.71-.71a.541.541 0 0 0-.765.765l1.622 1.622a.54.54 0 0 0 .765 0l1.622-1.622a.541.541 0 0 0-.765-.765l-.674.674a4.838 4.838 0 0 1 9.128-2.006l.806-.806A5.938 5.938 0 0 0 84.374 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(5.357 8.645)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M147.945 219.376l-1.622-1.622a.54.54 0 0 0-.765 0l-1.622 1.622a.541.541 0 0 0 .765.765l.674-.674a4.838 4.838 0 0 1-9.128 2.006l-.806.806a5.939 5.939 0 0 0 11.03-2.848l.71.71a.541.541 0 1 0 .765-.764Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg id='Group_345' data-name='Group 345' transform='translate(-1375 -4363)'%3E%3Cg id='Path_721' data-name='Path 721' transform='translate(1375 4363)' fill='%23fff'%3E%3Cpath d='M 10 19.85000038146973 C 4.568689823150635 19.85000038146973 0.1500000059604645 15.43130970001221 0.1500000059604645 10 C 0.1500000059604645 4.568689823150635 4.568689823150635 0.1500000059604645 10 0.1500000059604645 C 15.43130970001221 0.1500000059604645 19.85000038146973 4.568689823150635 19.85000038146973 10 C 19.85000038146973 15.43130970001221 15.43130970001221 19.85000038146973 10 19.85000038146973 Z' stroke='none'/%3E%3Cpath d='M 10 0.2999992370605469 C 4.651399612426758 0.2999992370605469 0.2999992370605469 4.651399612426758 0.2999992370605469 10 C 0.2999992370605469 15.34860038757324 4.651399612426758 19.70000076293945 10 19.70000076293945 C 15.34860038757324 19.70000076293945 19.70000076293945 15.34860038757324 19.70000076293945 10 C 19.70000076293945 4.651399612426758 15.34860038757324 0.2999992370605469 10 0.2999992370605469 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='%23000'/%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1374.551 4362.732)'%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.88 4.32)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M84.374 115.2a5.943 5.943 0 0 0-5.937 5.735l-.71-.71a.541.541 0 0 0-.765.765l1.622 1.622a.54.54 0 0 0 .765 0l1.622-1.622a.541.541 0 0 0-.765-.765l-.674.674a4.838 4.838 0 0 1 9.128-2.006l.806-.806A5.938 5.938 0 0 0 84.374 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(5.357 8.645)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M147.945 219.376l-1.622-1.622a.54.54 0 0 0-.765 0l-1.622 1.622a.541.541 0 0 0 .765.765l.674-.674a4.838 4.838 0 0 1-9.128 2.006l-.806.806a5.939 5.939 0 0 0 11.03-2.848l.71.71a.541.541 0 1 0 .765-.764Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg id='Group_345' data-name='Group 345' transform='translate(-1375 -4363)'%3E%3Cg id='Path_721' data-name='Path 721' transform='translate(1375 4363)' fill='%23fff'%3E%3Cpath d='M 10 19.85000038146973 C 4.568689823150635 19.85000038146973 0.1500000059604645 15.43130970001221 0.1500000059604645 10 C 0.1500000059604645 4.568689823150635 4.568689823150635 0.1500000059604645 10 0.1500000059604645 C 15.43130970001221 0.1500000059604645 19.85000038146973 4.568689823150635 19.85000038146973 10 C 19.85000038146973 15.43130970001221 15.43130970001221 19.85000038146973 10 19.85000038146973 Z' stroke='none'/%3E%3Cpath d='M 10 0.2999992370605469 C 4.651399612426758 0.2999992370605469 0.2999992370605469 4.651399612426758 0.2999992370605469 10 C 0.2999992370605469 15.34860038757324 4.651399612426758 19.70000076293945 10 19.70000076293945 C 15.34860038757324 19.70000076293945 19.70000076293945 15.34860038757324 19.70000076293945 10 C 19.70000076293945 4.651399612426758 15.34860038757324 0.2999992370605469 10 0.2999992370605469 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='%23000'/%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1376.101 4363.951)'%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.88 4.32)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M82.823 115.2a4.726 4.726 0 0 0-4.721 4.56l-.564-.564a.43.43 0 0 0-.608.608l1.29 1.29a.43.43 0 0 0 .608 0l1.29-1.29a.43.43 0 0 0-.608-.608l-.536.536a3.847 3.847 0 0 1 7.258-1.595l.641-.641A4.722 4.722 0 0 0 82.823 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(4.849 7.759)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M145.384 219.011l-1.29-1.29a.43.43 0 0 0-.608 0l-1.29 1.29a.43.43 0 0 0 .608.608l.536-.536a3.847 3.847 0 0 1-7.258 1.6l-.641.641a4.722 4.722 0 0 0 8.77-2.265l.564.564a.43.43 0 1 0 .608-.608Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg id='Group_345' data-name='Group 345' transform='translate(-1375 -4363)'%3E%3Cg id='Path_721' data-name='Path 721' transform='translate(1375 4363)' fill='%23fff'%3E%3Cpath d='M 10 19.5 C 4.761680126190186 19.5 0.5 15.23832035064697 0.5 10 C 0.5 4.761680126190186 4.761680126190186 0.5 10 0.5 C 15.23832035064697 0.5 19.5 4.761680126190186 19.5 10 C 19.5 15.23832035064697 15.23832035064697 19.5 10 19.5 Z' stroke='none'/%3E%3Cpath d='M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 C 1 14.96261978149414 5.037380218505859 19 10 19 C 14.96261978149414 19 19 14.96261978149414 19 10 C 19 5.037380218505859 14.96261978149414 1 10 1 M 10 0 C 15.52285003662109 0 20 4.477149963378906 20 10 C 20 15.52285003662109 15.52285003662109 20 10 20 C 4.477149963378906 20 0 15.52285003662109 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z' stroke='none' fill='%23000'/%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1374.551 4362.732)'%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.88 4.32)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M84.374 115.2a5.943 5.943 0 0 0-5.937 5.735l-.71-.71a.541.541 0 0 0-.765.765l1.622 1.622a.54.54 0 0 0 .765 0l1.622-1.622a.541.541 0 0 0-.765-.765l-.674.674a4.838 4.838 0 0 1 9.128-2.006l.806-.806A5.938 5.938 0 0 0 84.374 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(5.357 8.645)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M147.945 219.376l-1.622-1.622a.54.54 0 0 0-.765 0l-1.622 1.622a.541.541 0 0 0 .765.765l.674-.674a4.838 4.838 0 0 1-9.128 2.006l-.806.806a5.939 5.939 0 0 0 11.03-2.848l.71.71a.541.541 0 1 0 .765-.764Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
-    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='26' height='26' viewBox='0 0 26 26'%3E%3Cdefs%3E%3Cfilter id='Path_721' x='0' y='0' width='26' height='26' filterUnits='userSpaceOnUse'%3E%3CfeOffset input='SourceAlpha'/%3E%3CfeGaussianBlur stdDeviation='1' result='blur'/%3E%3CfeFlood/%3E%3CfeComposite operator='in' in2='blur'/%3E%3CfeComposite in='SourceGraphic'/%3E%3C/filter%3E%3C/defs%3E%3Cg id='Group_345' data-name='Group 345' transform='translate(-1372 -4360)'%3E%3Cg transform='matrix(1  0  0  1  1372  4360)' filter='url(%23Path_721)'%3E%3Cpath id='Path_721-2' data-name='Path 721' d='M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0Z' transform='translate(3 3)' fill='%23fff'/%3E%3C/g%3E%3Cg id='refresh-svgrepo-com' transform='translate(1374.551 4362.732)'%3E%3Cg id='Group_342' data-name='Group 342' transform='translate(2.88 4.32)'%3E%3Cg id='Group_341' data-name='Group 341'%3E%3Cpath id='Path_717' data-name='Path 717' d='M84.374 115.2a5.943 5.943 0 0 0-5.937 5.735l-.71-.71a.541.541 0 0 0-.765.765l1.622 1.622a.54.54 0 0 0 .765 0l1.622-1.622a.541.541 0 0 0-.765-.765l-.674.674a4.838 4.838 0 0 1 9.128-2.006l.806-.806A5.938 5.938 0 0 0 84.374 115.2Z' transform='translate(-76.804 -115.2)'/%3E%3C/g%3E%3C/g%3E%3Cg id='Group_344' data-name='Group 344' transform='translate(5.357 8.645)'%3E%3Cg id='Group_343' data-name='Group 343'%3E%3Cpath id='Path_718' data-name='Path 718' d='M147.945 219.376l-1.622-1.622a.54.54 0 0 0-.765 0l-1.622 1.622a.541.541 0 0 0 .765.765l.674-.674a4.838 4.838 0 0 1-9.128 2.006l-.806.806a5.939 5.939 0 0 0 11.03-2.848l.71.71a.541.541 0 1 0 .765-.764Z' transform='translate(-135.441 -217.595)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
     background-size: 20px;
     cursor: alias;
 }
@@ -1078,4 +1074,1104 @@
     background-repeat: no-repeat;
     background-attachment: local;
     background-position: center;
+}
+
+/* RealChart Style */
+
+.rct-root {
+    font-family: var(--rct-font-family);
+    font-size: var(--rct-font-size);
+    color: #000;
+    /* background-color: white; */
+    /* word-break: break-all;
+    word-wrap: break-word; */
+    -webkit-touch-callout: default;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    touch-action: auto;
+    -ms-touch-action: auto; 
+    text-align: initial;
+}   
+
+.rct-root text {
+    stroke: none;
+}
+
+.rct-pattern {
+    stroke: #000;
+}
+
+/** palette */
+.rct-root {
+    --color-1: #0098ff;
+    --color-2: #66d0ff;
+    --color-3: #ff5c35;
+    --color-4: #ff9f00;
+    --color-5: #ffd938;
+    --color-6: #00ac69;
+    --color-7: #91cc39;
+    --color-8: #8fc6a9;
+    --color-9: #c45db9;
+    --color-10: #ef5e99;
+    --color-11: #afa4c6;
+    --color-12: #5b63aa;
+}
+.rct-root[data-palette="gray"] {
+    --color-1: #464646;
+    --color-2: #61666a;
+    --color-3: #6f6f6d;
+    --color-4: #82898f;
+    --color-5: #8d8d8b;
+    --color-6: #9ea7a6;
+    --color-7: #acaba7;
+    --color-8: #bcbcbc;
+    --color-9: #c5c9ca;
+    --color-10: #d9d4ce;
+    --color-11: #dedede;
+    --color-12: #e8ecef;
+}
+.rct-root[data-palette="warm"] {
+    --color-1: #ccaacb;
+    --color-2: #8fc9ca;
+    --color-3: #97c1a9;
+    --color-4: #f3b0c2;
+    --color-5: #ffc7a2;
+    --color-6: #d97872;
+    --color-7: #8ba3c5;
+    --color-8: #dc97aa;
+    --color-9: #9c9cc2;
+    --color-10: #b7cadb;
+    --color-11: #c7c19d;
+    --color-12: #fbe693;
+}
+.rct-root[data-palette="cool"] {
+    --color-1: #eb455f;
+    --color-2: #ffd49c;
+    --color-3: #a4cadd;
+    --color-4: #3e4977;
+    --color-5: #faab78;
+    --color-6: #bface2;
+    --color-7: #a0bcc2;
+    --color-8: #ff7396;
+    --color-9: #6dc7c9;
+    --color-10: #7895cb;
+    --color-11: #fea1a1;
+    --color-12: #90c8ac;
+}
+.rct-root[data-palette="forest"] {
+    --color-1: #666d4d;
+    --color-2: #7f736c;
+    --color-3: #a9a389;
+    --color-4: #d0b081;
+    --color-5: #8da34e;
+    --color-6: #4f5d3a;
+    --color-7: #9d7448;
+    --color-8: #a7afa2;
+    --color-9: #9fa871;
+    --color-10: #656146;
+    --color-11: #8d877b;
+    --color-12: #422c1e;
+}
+
+.rct-root[data-palette='vintage'] {
+	--color-1: #2a9d8f;
+	--color-2: #ff9a00;
+	--color-3: #e76f51;
+	--color-4: #ffd68d;
+	--color-5: #69b85f;
+	--color-6: #6397c1;
+	--color-7: #c068a8;
+	--color-8: #8dd8a3;
+	--color-9: #f0d9be;
+	--color-10: #c2b1e3;
+	--color-11: #fc9390;
+	--color-12: #f4d470;
+}
+.rct-root[data-palette='unicorn'] {
+	--color-1: #00d6a3;
+	--color-2: #2196f3;
+	--color-3: #fe3ea5;
+	--color-4: #ffd938;
+	--color-5: #45dcff;
+	--color-6: #ff773b;
+	--color-7: #80f9c5;
+	--color-8: #f21170;
+	--color-9: #c355f5;
+	--color-10: #b2fcff;
+	--color-11: #fffde1;
+	--color-12: #98a8f8;
+}
+
+/** theme */
+.rct-control {
+    --rct-background: none;
+}
+.rct-control[data-theme="dark"] {
+    --rct-background: #262626;
+}
+.rct-control[data-theme='real'] {
+	--rct-background: #264653;
+}
+
+.rct-root {
+    --rct-font-family: AppleSDGothicNeo-Light, "HelveticaNeue", "Malgun Gothic", "맑은 고딕", sans-serif;
+    --rct-font-size: 16px;
+
+    --rct-focus-stroke: black;
+    --rct-focus-stroke-width: 2px;
+    --rct-text-fill: #333;
+
+    --rct-title-fill: #333;
+    --rct-subtitle-fill: #333;
+
+    --rct-body-background-stroke: none;
+
+    --rct-axis-title-fill: #333;
+    --rct-axis-line-stroke: #aaa;
+    --rct-axis-tick-stroke: #555;
+    --rct-axis-label-fill: #555;
+    --rct-axis-grid-line-stroke: #ddd;
+    --rct-axis-grid-line-stroke-start: none;
+    --rct-axis-grid-line-stroke-end: none;
+    --rct-axis-grid-line-stroke-width: 1px;
+    --rct-axis-scrollbar-track-fill: #fdfdfd;
+    --rct-axis-scrollbar-track-stroke: #aaa;
+    --rct-axis-scrollbar-thumb-fill: lightgray;
+    --rct-axis-scrollbar-rx: 4px;
+    
+    --rct-legend-background: none;
+	--rct-legend-background-stroke: none;
+    --rct-legend-background-stroke: none;
+    --rct-legend-fill: #333;
+    --rct-legend-item-disabled: #aaa;
+    --rct-legend-item-disabled-decoration: line-through;
+
+    --rct-point-label-font-size: 0.8em;
+    --rct-point-label-font-weight: bold;
+    --rct-point-label-stroke: none;
+    --rct-point-label-fill: #333;
+
+    --rct-credits-fill: #777;
+
+    /* polar */
+    --rct-polar-xaxis-grid-line-stroke: #ccc;
+    --rct-polar-yaxis-grid-line-stroke: #ccc;
+    --rct-polar-axis-labels-fill: #555;
+
+    /* circle gauge */
+    --rct-circle-gauge-back-fill: #ededed;
+    --rct-circle-gauge-inner-fill: none;
+    --rct-circle-gauge-label-fill: #000;
+    --rct-gauge-scale-line: #555;
+    --rct-gauge-scale-tick: #555;
+    --rct-gauge-scale-tick-labels: #333;
+    /* clock gauge */
+    --rct-clock-gauge-face-fill: white;
+    --rct-clock-gauge-rim-fill: #eee;
+    --rct-clock-gauge-rim-stroke: gray;
+    --rct-clock-gauge-tick-stroke: #333;
+    --rct-clock-gauge-minor-tick-stroke: #555;
+    --rct-clock-gauge-tick-label-fill: #333;
+    --rct-clock-gauge-label-fill: #aaa;
+    /** zoom tracker */
+    --rct-zoom-tracker-fill: #0044ff30;
+    /** series navigator */
+    --rct-navigator-handle-color: #0098ff; 
+    --rct-navigator-handle-hover-color: #55c;
+    --rct-navigator-track-fill: lightgray;
+    --rct-navigator-thumb-fill:#0098ff;
+}
+.rct-root[data-theme='dark'] {
+    --rct-focus-stroke: yellow;
+    --rct-text-fill: #fff;
+
+    --rct-title-fill: #fff;
+    --rct-subtitle-fill: #fff;
+
+    --rct-body-background-stroke: none;
+    
+    --rct-axis-title-fill: #fff;
+    --rct-axis-line-stroke: #fff;
+    --rct-axis-tick-stroke: #fff;
+    --rct-axis-label-fill: #fff;
+    --rct-axis-grid-line-stroke: #fff;
+    
+    --rct-legend-background: none;
+	--rct-legend-background-stroke: none;
+    --rct-legend-fill: #fff;
+    --rct-legend-item-disabled: #707070;
+    --rct-legend-item-disabled-decoration: line-through;
+
+    --rct-point-label-fill: #ddd;
+
+    --rct-credits-fill: #999;
+
+    /* polar */
+    --rct-polar-xaxis-grid-line-stroke: #ccc;
+    --rct-polar-yaxis-grid-line-stroke: #fff;
+    --rct-polar-axis-labels-fill: #fff;
+
+    /* circle gauge */
+    --rct-circle-gauge-back-fill: #515151;
+    --rct-circle-gauge-label-fill: #fff;
+    --rct-gauge-scale-line: #fff;
+    --rct-gauge-scale-tick: #fff;
+    --rct-gauge-scale-tick-labels: #fff;
+
+    /** zoom tracker */
+    --rct-zoom-tracker-fill: #efefef40;
+}
+.rct-root[data-theme='real'] {
+    --rct-focus-stroke: yellow;
+    --rct-text-fill: #f0d9be;
+
+    --rct-title-fill: #f0d9be;
+    --rct-subtitle-fill: #f0d9be;
+
+    --rct-body-background-stroke: none;
+    
+    --rct-axis-title-fill: #f0d9be;
+    --rct-axis-line-stroke: #f0d9be;
+    --rct-axis-tick-stroke: #f0d9be;
+    --rct-axis-label-fill: #f0d9be;
+    --rct-axis-grid-line-stroke: #f0d9be;
+    
+    --rct-legend-background: none;
+	--rct-legend-background-stroke: none;
+    --rct-legend-fill: #f0d9be;
+    --rct-legend-item-disabled: #4e7b82;
+    --rct-legend-item-disabled-decoration: line-through;
+
+    --rct-point-label-fill: #ddd;
+
+    --rct-credits-fill: #999;
+
+    /* polar */
+    --rct-polar-xaxis-grid-line-stroke: #ccc;
+    --rct-polar-yaxis-grid-line-stroke: #f0d9be;
+    --rct-polar-axis-labels-fill: #f0d9be;
+
+    /* circle gauge */
+    --rct-circle-gauge-back-fill: #515151;
+    --rct-circle-gauge-label-fill: #fff;
+    --rct-gauge-scale-line: #fff;
+    --rct-gauge-scale-tick: #fff;
+    --rct-gauge-scale-tick-labels: #fff;
+
+    /** zoom tracker */
+    --rct-zoom-tracker-fill: #efefef40;
+}
+
+
+/** control */
+.rct-control {
+    background-color: var(--rct-background);
+}
+
+/** root */
+.rct-root {
+    padding: 20px;
+}
+
+/** debug border */
+.rct-debug {
+    fill: none;
+    stroke: #ff000040;
+    pointer-events: none;
+}
+
+/** rich text */
+.rct-text-bold {
+    font-weight: bold;
+}
+.rct-text-italic {
+    font-style: italic;
+}
+
+/** label */
+.rct-label-dark {
+    fill: black;
+}
+.rct-label-light {
+    fill: white;
+}
+.rct-label-background {
+    fill: lightgray;
+}
+
+/** button */
+.rct-button-background {
+    padding: 2px 4px;
+    rx: 5px;
+    fill: #e0e0e0;
+    stroke: #c0c0c0;
+}
+.rct-button {
+    fill: #333;
+    font-size: 0.9em;
+}
+
+/** background */
+.rct-background {
+    fill: none;
+}
+
+/** credits */
+.rct-credits {
+    font-size: 0.7em;
+    fill: var(--rct-credits-fill);
+}
+
+/** title */
+.rct-title {
+    margin-bottom: 10px;
+    font-size: 24px;
+    fill: var(--rct-title-fill);
+}
+.rct-title-background {
+    fill: none;
+}
+.rct-subtitle {
+    margin-bottom: 10px;
+    font-size: 16px;
+    fill: var(--rct-subtitle-fill);
+}
+.rct-subtitle-background {
+    fill: none;
+}
+
+/** legend */
+.rct-legend {
+    fill: var(--rct-legend-fill);
+    stroke: none;
+    padding: 3px 6px;
+}
+.rct-legend-background {
+    fill: var(--rct-legend-background);
+    rx: 7px;
+    stroke: var(--rct-legend-background-stroke);
+}
+.rct-legend-item-label[data-hidden] {
+    fill: var(--rct-legend-item-disabled);
+    text-decoration: var(--rct-legend-item-disabled-decoration)
+}
+/* .rct-legend-item-marker {
+    stroke: none;
+} */
+.rct-legend-item-marker[data-hidden] {
+    fill: #aaa !important;
+    stroke: #aaa !important;
+}
+
+/** plot area */
+.rct-body-background {
+    stroke: var(--rct-body-background-stroke);
+    fill: none;
+}
+.rct-body-background[data-polar] {
+    stroke: none;
+}
+
+/** axis */
+.rct-axis-title {
+    font-size: 16px;
+    fill: var(--rct-axis-title-fill);
+}
+.rct-axis-title-background {
+    fill: none;
+}
+.rct-axis-line {
+    stroke: var(--rct-axis-line-stroke);
+    stroke-width: 1px;
+}
+.rct-axis-tick {
+    stroke: var(--rct-axis-tick-stroke);
+    stroke-width: 1px;
+}
+.rct-axis-labels {
+    font-size: 14px;
+    fill: var(--rct-axis-label-fill);
+}
+/* .rct-axis-grid {
+    stroke: var(--rct-axis-grid-stroke);
+    stroke-width: 1px;
+} */
+.rct-axis-grid-line {
+    stroke: var(--rct-axis-grid-line-stroke);
+    stroke-width: var(--rct-axis-grid-line-stroke-width);
+}
+.rct-axis-break {
+    stroke: #aaa;
+    fill: white;
+    fill-opacity: 0.9;
+}
+.rct-axis-guide-label {
+    fill: #555;
+}
+.rct-axis-guide-line {
+    stroke: #555;
+    stroke-width: 2px;
+}
+.rct-axis-guide-range {
+    stroke: none;
+    fill: #0088ff;
+    fill-opacity: 0.2;
+}
+.rct-axis-scrollbar-track {
+    fill: var(--rct-axis-scrollbar-track-fill);
+    stroke: var(--rct-axis-scrollbar-track-stroke);
+    rx: var(--rct-axis-scrollbar-rx);
+}
+.rct-axis-scrollbar-thumb {
+    fill: var(--rct-axis-scrollbar-thumb-fill);
+    rx: var(--rct-axis-scrollbar-rx);
+}
+
+/** polar axis */
+.rct-polar-xaxis-line {
+    stroke: #333;
+}
+.rct-polar-xaxis-sector-line {
+    stroke: #555;
+}
+.rct-polar-xaxis-grid-line {
+    stroke: var(--rct-polar-xaxis-grid-line-stroke)
+}
+.rct-polar-yaxis-line {
+    stroke: #afafaf;
+}
+.rct-polar-yaxis-grid-line {
+    stroke: var(--rct-polar-yaxis-grid-line-stroke)
+}
+.rct-polar-axis-labels {
+    fill: var(--rct-polar-axis-labels-fill)
+}
+
+/** series */
+.rct-series[data-index="0"] {
+    fill: var(--color-1);
+    stroke: var(--color-1);
+}
+.rct-series[data-index="1"] {
+    fill: var(--color-2);
+    stroke: var(--color-2);
+}
+.rct-series[data-index="2"] {
+    fill: var(--color-3);
+    stroke: var(--color-3);
+}
+.rct-series[data-index="3"] {
+    fill: var(--color-4);
+    stroke: var(--color-4);
+}
+.rct-series[data-index="4"] {
+    fill: var(--color-5);
+    stroke: var(--color-5);
+}
+.rct-series[data-index="5"] {
+    fill: var(--color-6);
+    stroke: var(--color-6);
+}
+.rct-series[data-index="6"] {
+    fill: var(--color-7);
+    stroke: var(--color-7);
+}
+.rct-series[data-index="7"] {
+    fill: var(--color-8);
+    stroke: var(--color-8);
+}
+.rct-series[data-index="8"] {
+    fill: var(--color-9);
+    stroke: var(--color-9);
+}
+.rct-series[data-index="9"] {
+    fill: var(--color-10);
+    stroke: var(--color-10);
+}
+.rct-series[data-index="10"] {
+    fill: var(--color-11);
+    stroke: var(--color-11);
+}
+.rct-series[data-index="11"] {
+    fill: var(--color-12);
+    stroke: var(--color-12);
+}
+
+.rct-series-trendline {
+    stroke: red;
+    stroke-width: 2px;
+    fill: none;
+}
+
+/** data point */
+.rct-series[data-pointcolors="a"] .rct-point[data-index="0"] {
+    fill: var(--color-1);
+    stroke: var(--color-1);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="1"] {
+    fill: var(--color-2);
+    stroke: var(--color-2);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="2"] {
+    fill: var(--color-3);
+    stroke: var(--color-3);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="3"] {
+    fill: var(--color-4);
+    stroke: var(--color-4);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="4"] {
+    fill: var(--color-5);
+    stroke: var(--color-5);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="5"] {
+    fill: var(--color-6);
+    stroke: var(--color-6);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="6"] {
+    fill: var(--color-7);
+    stroke: var(--color-7);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="7"] {
+    fill: var(--color-8);
+    stroke: var(--color-8);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="8"] {
+    fill: var(--color-9);
+    stroke: var(--color-9);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="9"] {
+    fill: var(--color-10);
+    stroke: var(--color-10);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="10"] {
+    fill: var(--color-11);
+    stroke: var(--color-11);
+}
+.rct-series[data-pointcolors="a"] .rct-point[data-index="11"] {
+    fill: var(--color-12);
+    stroke: var(--color-12);
+}
+
+.rct-series[data-pointcolors="f"] .rct-point[data-index="0"] {
+    fill: var(--color-1);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="1"] {
+    fill: var(--color-2);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="2"] {
+    fill: var(--color-3);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="3"] {
+    fill: var(--color-4);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="4"] {
+    fill: var(--color-5);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="5"] {
+    fill: var(--color-6);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="6"] {
+    fill: var(--color-7);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="7"] {
+    fill: var(--color-8);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="8"] {
+    fill: var(--color-9);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="9"] {
+    fill: var(--color-10);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="10"] {
+    fill: var(--color-11);
+}
+.rct-series[data-pointcolors="f"] .rct-point[data-index="11"] {
+    fill: var(--color-12);
+}
+
+/** series */
+.rct-series {
+    opacity: inherit;
+    transition-property: opacity;
+    transition-duration: 0.9s;
+}
+.rct-series[data-unfocus] {
+    opacity: 0.2;
+}
+.rct-series .rct-point[data-focus] {
+    stroke: var(--rct-focus-stroke) !important;
+    stroke-width: var(--rct-focus-stroke-width);
+    filter: brightness(115%);
+}
+.rct-point-labels {
+    opacity: inherit;
+    transition-property: opacity;
+    transition-duration: 0.9s;
+}
+.rct-point-labels[data-unfocus] {
+    opacity: 0.3;
+}
+
+/** rct-point 대신 여기에 지정해야 outline에 반영된다. */
+.rct-point-labels {
+    font-size: var(--rct-point-label-font-size);
+    font-weight: var(--rct-point-label-font-weight);
+    stroke: var(--rct-point-label-stroke);
+    fill: var(--rct-point-label-fill);
+}
+.rct-point-label {
+    fill-opacity: 1;
+    opacity: 1;
+}
+.rct-point-label-lines {
+    stroke: #585;
+    fill: none;
+}
+
+/** bar series */
+.rct-bar-series {
+    fill-opacity: 1;
+}
+
+/** circlebar series */
+.rct-circlebar-series .rct-point {
+    stroke: white;
+}
+
+/** barrange series */
+.rct-barrange-series {
+    fill-opacity: 0.85;
+}
+
+/** line series */
+.rct-line-series-line {
+    stroke-width: 1px;
+}
+.rct-line-series .rct-point {
+    stroke-dasharray: none;
+}
+.rct-line-series .rct-point[data-focus] {
+    stroke-width: 3px;
+}
+
+/** area series */
+.rct-area-series-area {
+    fill-opacity: 0.5;
+}
+.rct-area-series-area[data-polar] {
+    fill-opacity: 0.25;
+}
+.rct-area-series-area[data-simple] {
+    fill-opacity: 0.05;
+}
+.rct-area-series .rct-area-series-area {
+    stroke: none;
+}
+
+/** arearange series */
+.rct-arearange-series-area {
+    fill-opacity: 0.5;
+}
+.rct-arearange-series .rct-arearange-series-area {
+    stroke: none;
+}
+
+/** bubble series */
+.rct-bubble-series {
+    fill-opacity: 0.75;
+    stroke-width: 1px;
+}
+
+/** scatter series */
+.rct-scatter-series {
+    fill-opacity: 0.7;
+}
+
+/** boxplot series */
+.rct-boxplot-series {
+    stroke-width: 1;
+}
+.rct-boxplot-point-min {
+    stroke: #333;
+    stroke-width: 2;
+}
+.rct-boxplot-point-mid {
+    stroke: #333;
+    stroke-width: 2;
+}
+.rct-boxplot-point-max {
+    stroke: #333;
+    stroke-width: 2;
+}
+.rct-boxplot-point-stem {
+    stroke: #333;
+    stroke-dasharray: 2;
+}
+.rct-boxplot-series .rct-point[data-focus] .rct-boxplot-point-stem {
+    stroke: black;
+    stroke-dasharray: none;
+    stroke-width: 2px;
+}
+
+/** candlestick series */
+.rct-candlestick-series {
+    stroke-width: 1;
+    fill-opacity: 0.85;
+}
+.rct-candlestick-series .rct-point[data-focus] {
+    fill-opacity: 0.5;
+}
+.rct-candlestick-series .rct-point[data-decline] {
+    fill: #008;
+    stroke: #008;
+}
+.rct-candlestick-point-border {
+    stroke: #333;
+}
+.rct-candlestick-point-wick {
+    stroke: #003;
+}
+
+/** ohlc series */
+.rct-ohlc-series {
+    stroke-width: 2;
+}
+.rct-ohlc-series .rct-point[data-decline] {
+    stroke: #00f;
+}
+.rct-ohlc-point-back {
+    stroke: none;
+}
+
+/** waterfall series */
+.rct-waterfall-series {
+    fill-opacity: 0.85;
+}
+.rct-waterfall-point-negative {
+    fill: #dd5500;
+    stroke: #dd5500;
+}
+.rct-waterfall-point-sum {
+    fill: #0055cc;
+    stroke: #0055cc;
+}
+.rct-waterfall-series-lines {
+    stroke: #77f;
+    stroke-width: 2;
+    stroke-dasharray: 2;
+}
+
+/** errobar series */
+.rct-errorbar-series .rct-point {
+    stroke: #008;
+    stroke-width: 2px;
+}
+
+/** lollipop series */
+.rct-lollipop-series {
+    stroke-width: 3px;
+}
+.rct-lollipop-point-marker {
+    stroke: none;
+}
+.rct-lollipop-series .rct-point[data-focus] {
+    stroke: var(--rct-focus-stroke);
+    stroke-width: inherit;
+}
+.rct-lollipop-series .rct-point[data-focus] .rct-lollipop-point-marker {
+    stroke: var(--rct-focus-stroke);
+    stroke-width: var(--rct-focus-stroke-width);
+}
+
+/** dumbbell series */
+.rct-dumbbell-series {
+    stroke-width: 3px;
+}
+.rct-dumbbell-point-marker {
+    stroke: none;
+}
+.rct-dumbbell-series .rct-point[data-focus] {
+    stroke: var(--rct-focus-stroke);
+    stroke-width: inherit;
+}
+.rct-dumbbell-series .rct-point[data-focus] .rct-dumbbell-point-marker {
+    stroke: var(--rct-focus-stroke);
+    stroke-width: var(--rct-focus-stroke-width);
+}
+
+/** equalizer series */
+.rct-equalizer-series {
+    fill-opacity: 0.9;
+}
+.rct-equalizer-series .rct-point[data-focus] {
+    filter: brightness(120%);
+}
+
+/** histogram */
+.rct-histogram-series .rct-point {
+    stroke: white;
+}
+
+/** vector series */
+.rct-vector-series {
+    stroke-width: 2px;
+}
+.rct-vector-series .rct-point[data-focus] {
+    stroke-width: 5px;
+}
+
+/** heatmpa series */
+.rct-heatmap-series .rct-point {
+    stroke: none;
+}
+
+/** treemap series */
+.rct-treemap-series .rct-point {
+    stroke: white;
+}
+
+/** pie series */
+.rct-pie-series .rct-point {
+    stroke: white;
+}
+.rct-pie-series-inner {
+    font-size: 20px;
+    fill: #557;
+}
+
+/** funnel series */
+.rct-funnel-series .rct-point {
+    stroke: white;
+}
+.rct-funnel-series .rct-point[data-focus] {
+    stroke: black;
+    stroke-width: 2px;
+}
+
+/** gauge */
+.rct-gauge-pane {
+    fill: none;
+}
+
+/** gauge group */
+.rct-gauge-group {
+    padding: 10px;
+}
+
+/** circle gauge */
+.rct-circle-gauge-back {
+    fill: var(--rct-circle-gauge-back-fill);
+}
+.rct-circle-gauge-inner {
+    fill: var(--rct-circle-gauge-inner-fill);
+}
+.rct-circle-gauge-value {
+    fill: #0098ff;
+}
+.rct-circle-gauge-value[data-stroked] {
+    fill: none;
+}
+.rct-circle-gauge-label {
+    font-size: 40px;
+    fill: var(--rct-circle-gauge-label-fill);
+    stroke: none;
+}
+.rct-circle-gauge-label[data-grouped] {
+    font-size: 20px;
+}
+.rct-circle-gauge-pin {
+    fill: white;
+    stroke: #333;
+    stroke-width: 3px;
+}
+.rct-circle-gauge-hand {
+    fill: #333;
+    stroke: none;
+}
+
+/** clock gauge */
+.rct-clock-gauge-face {
+    fill: var(--rct-clock-gauge-face-fill);
+    stroke: none;
+}
+.rct-clock-gauge-rim {
+    fill: var(--rct-clock-gauge-rim-fill);
+    stroke: var(--rct-clock-gauge-rim-stroke);
+}
+.rct-clock-gauge-tick {
+    stroke: var(--rct-clock-gauge-tick-stroke);
+    stroke-width: 2px;
+}
+.rct-clock-gauge-minor-tick {
+    stroke: var(--rct-clock-gauge-minor-tick-stroke);
+    stroke-width: 1px;
+}
+.rct-clock-gauge-tick-label {
+    stroke: none;
+    fill: var(--rct-clock-gauge-tick-label-fill);
+    font-size: 1em;
+}
+.rct-clock-gauge-pin {
+    fill: white;
+    stroke: #333;
+    stroke-width: 3px;
+}
+.rct-clock-gauge-hour {
+    fill: #333;
+}
+.rct-clock-gauge-minute {
+    fill: #333;
+}
+.rct-clock-gauge-second {
+    fill: #c00;
+}
+.rct-clock-gauge-label {
+    fill: var(--rct-clock-gauge-label-fill);
+}
+
+/** gauge scale */
+.rct-gauge-scale-line {
+    stroke: var(--rct-gauge-scale-line);
+    fill: none;
+}
+.rct-gauge-scale-ticks {
+    stroke: #555;
+    stroke: var(--rct-gauge-scale-tick);
+}
+.rct-gauge-scale-tick-labels {
+    font-size: 0.85em;
+    fill: var(--rct-gauge-scale-tick-labels);
+}
+
+/** linear gauge */
+.rct-linear-gauge-background {
+    fill: #eee;
+}
+.rct-linear-gauge-value {
+    fill: green;
+}
+.rct-linear-gauge-band-tick-labels {
+    font-size: 0.85em;
+    fill: #333;
+}
+
+/** linear gauge group */
+.rct-linear-gauge-group-label {
+    font-size: 1.5em;
+}
+
+/** bullet gauge */
+.rct-bullet-gauge-background {
+    fill: #eee;
+}
+.rct-bullet-gauge-value {
+    fill: #333;
+}
+.rct-bullet-gauge-target {
+    fill: #338;
+}
+.rct-bullet-gauge-label {
+    font-size: 1em;
+    fill: #333;
+}
+.rct-bullet-gauge-scale-line {
+    stroke: #333;
+}
+.rct-bullet-gauge-scale-ticks {
+    stroke: #333;
+}
+.rct-bullet-gauge-scale-tick-labels {
+    font-size: 0.9em;
+    fill: #333;
+}
+
+/** bullet gauge group */
+.rct-bullet-gauge-group {
+    padding: 10px;
+}
+.rct-bullet-gauge-group-label {
+    font-size: 1.5em;
+}
+
+/** tooltip */
+.rct-tooltip {
+    font-size: 0.8em;
+    pointer-events: none;
+    opacity: 0.9;
+}
+.rct-tooltip-back {
+    fill: white;
+}
+.rct-tooltip-tail {
+    fill: white;
+}
+.rct-tooltip-text {
+    fill: #333;
+    stroke: none;
+}
+
+/** annotation */
+.rct-text-annotation {
+    font-size: 20px;
+}
+.rct-shape-annotation {
+    stroke: #333;
+    stroke-width: 3px;
+}
+
+/** crosshair */
+.rct-crosshair-line {
+    fill: none;
+    stroke-width: 1;
+    stroke: #80808080;
+}
+.rct-crosshair-bar {
+    stroke: none;
+    fill: #4488cc18;
+}
+.rct-crosshair-flag {
+    stroke: none;
+    fill: #555;    
+}
+.rct-crosshair-flag-text {
+    stroke: none;
+    fill: #fff;    
+}
+
+/** zoom tracker */
+.rct-zoom-tracker {
+    fill: var(--rct-zoom-tracker-fill);
+}
+
+/** series navigator */
+.rct-navigator .rct-axis-line {
+    display: none;
+}
+.rct-navigator-back {
+    fill: white;
+    stroke: #f0f0f0;
+}
+.rct-navigator-mask {
+    fill: #4488cc20;
+    /* stroke: #ccc; */
+}
+.rct-navigator-handle {
+    fill: var(--rct-navigator-handle-color);
+    stroke: var(--rct-navigator-handle-color);
+}
+.rct-navigator-handle[data-select], .rct-navigator-handle:hover {
+    fill: var(--rct-navigator-handle-hover-color);
+    stroke: var(--rct-navigator-handle-hover-color);
+}
+
+.rct-navigator-track {
+    fill: var(--rct-navigator-track-fill);
+    stroke: var(--rct-navigator-track-fill);
+}
+.rct-navigator-thumb {
+    fill: var(--rct-navigator-thumb-fill);
+    stroke: var(--rct-navigator-thumb-fill);
 }
