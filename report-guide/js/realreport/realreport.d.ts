@@ -1,18 +1,18 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.8.0
-* commit e74ab7c
+* RealReport v1.8.1
+* commit 70aeedf
 
-* Copyright (C) 2013-2023 WooriTech Inc.
+* Copyright (C) 2013-2024 WooriTech Inc.
 	https://real-report.com
 * All Rights Reserved.
 */
 
 /** 
-* RealReport Core v1.8.0
-* Copyright (C) 2013-2023 WooriTech Inc.
+* RealReport Core v1.8.1
+* Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit d3571933f79b2141784ccc1b7872b1e98daab3f5
+* commit 15ef0812b90536bd8483d5a6a13ae4f7801d38b0
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -3324,8 +3324,10 @@ declare class ReportElement extends VisualElement$1 {
     get guardLabel(): string;
     /** measuredWidth */
     get measuredWidth(): number;
+    set measuredWidth(width: number);
     /** measuredHeight */
     get measuredHeight(): number;
+    set measuredHeight(height: number);
     get measuredSize(): Size$1;
     /**
      * true면 measure() 시점이 아니라
@@ -3456,6 +3458,11 @@ declare abstract class ReportGroupItemElement<T extends ReportGroupItem> extends
     getLower(item: ReportItemView): ReportItemView;
     itemOfDom(dom: Element): ReportItem;
     setFixedSize(w: number): ReportGroupItemElement<ReportGroupItem>;
+    /**
+     * 그룹 아이템일 경우 자식 아이템에게 hintWidth를 전달할 때 보더를 제외한 너비를 전달하기 위해 사용
+     * @param hintWidth 부모에서 전달받은 기준 너비 값
+     */
+    getWidthWithoutBorder(hintWidth: number): number;
     isDom(dom: Element): boolean;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     replaceDom(dom: HTMLElement): void;
@@ -5586,6 +5593,7 @@ declare abstract class BoxContainerElement<T extends BoxContainer> extends Repor
         top: number;
         bottom: number;
     };
+    getWidthWithoutBoxsizing(hintWidth: number): number;
     get debugLabel(): string;
     protected _needDesignBox(): boolean;
     protected _initDom(doc: Document, dom: HTMLElement): void;
@@ -5606,6 +5614,11 @@ declare class ColumnBoxContainerElement extends BoxContainerElement<ColumnBoxCon
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
     protected _doLayoutContent(ctx: PrintContext): void;
+    /**
+     *
+     * @param x paddingLeft + borderLeftWidth 를 더한 것
+     * @param width columnBox Width - (paddingLeft + borderLeftWidth + paddingRight + borderRightWidth)
+     */
     protected _layoutItem(ctx: PrintContext, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
     getLeft(view: ReportItemView): ReportItemView;
     getRight(view: ReportItemView): ReportItemView;
