@@ -386,26 +386,38 @@ All Rights Reserved.
 
 @media print {
     .rr-print-page-portrait {
-        width: var(--rr-print-height) !important;
-        height: var(--rr-print-height) !important;
-        transform-origin: top left;
-        transform: translateX(var(--rr-print-portrait-x)) scale(var(--rr-print-scale));
-    }
-
-    .rr-print-page-landscape {
-        width: var(--rr-print-width) !important;
-        height: var(--rr-print-width) !important;
-        transform-origin: top left;
-        transform: translateX(var(--rr-print-size)) rotate(90deg);
-    }
-
-    .rr-print-page-landscape-start {
         margin: 0 !important;
         border: none !important;
         box-shadow: none !important;
         overflow: hidden;
         transform-origin: top left;
-        transform: translateX(calc(var(--rr-print-size) * var(--rr-print-scale))) translateY(var(--rr-print-portrait-x)) rotate(90deg) scale(var(--rr-print-scale));
+        transform: scale(var(--rr-print-scale));
+    }
+
+    .rr-print-page-landscape {
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: hidden;
+        width: var(--rr-print-height) !important;
+        height: var(--rr-print-width) !important;
+        transform-origin: top left;
+        transform: translateX(calc(var(--rr-print-scale) * var(--rr-print-size))) rotate(90deg) scale(var(--rr-print-scale));
+    }
+
+    .rr-print-page-portrait-only {
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: hidden;
+    }
+
+    .rr-print-page-landscape-only {
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: hidden;
     }
 
     .rr-report-preview {

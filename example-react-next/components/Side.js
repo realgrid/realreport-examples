@@ -2,7 +2,7 @@ import style from '../styles/Report.module.css';
 import { RiFileSearchLine } from "react-icons/ri";
 import Link from "next/link";
 
-const text = [1, 2, 3, 4, 5, 6, 7];
+const text = [1, 2, 3, 4, 5, 6];
 function Side() {
     return (
         <div className={style.side}>

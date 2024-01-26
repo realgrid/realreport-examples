@@ -151,41 +151,8 @@ function Toolbar({ viewer, compositeViewer }) {
         }
     }
 
-    const onClickPrintHiddenFrame = function () {
-        if (viewer || compositeViewer) {
-            function closePrint() {
-                document.body.removeChild(this.__container__);
-            }
-
-            function setPrint() {
-                this.contentWindow.__container__ = this;
-                this.contentWindow.onbeforeunload = closePrint;
-                this.contentWindow.onafterprint = closePrint;
-                const dom = this.contentWindow.document.getElementById('realreport');
-                if (viewer) dom.innerHTML = viewer.reportHtml;
-                if (compositeViewer) dom.innerHTML = compositeViewer.reportHtml;
-
-                setTimeout(() => {
-                    this.contentWindow.focus(); // Required for IE
-                    this.contentWindow.print();
-                }, 1);
-            }
-
-            function printPage(sURL) {
-                var oHideFrame = document.createElement("iframe");
-                oHideFrame.onload = setPrint;
-                oHideFrame.style.position = "";
-                oHideFrame.style.right = "0";
-                oHideFrame.style.bottom = "0";
-                oHideFrame.style.width = "0";
-                oHideFrame.style.height = "0";
-                oHideFrame.style.border = "0";
-                oHideFrame.src = sURL;
-                document.body.appendChild(oHideFrame);
-            }
-
-            printPage('./print.html');
-        }
+    const printReport = function () {
+        viewer.print()
     }
 
     async function base64convert(url, split) {
@@ -286,7 +253,7 @@ function Toolbar({ viewer, compositeViewer }) {
                     </div>
                 </div>
                 <div className={style.toolbarContainer}>
-                    <div className={style.toolbarButton} onClick={onClickPrintHiddenFrame}>
+                    <div className={style.toolbarButton} onClick={printReport}>
                         <BsPrinter className={style.toolbarIcon} />
                     </div>
                     <div className={style.toolbarButton} onClick={onClickExportPdf}>

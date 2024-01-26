@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리얼리포트 인쇄 예제코드</title>
+
+    <!-- 리얼리포트 라이브러리 -->
+    <link href='/public/lib/realreport/realreport.css' rel='stylesheet' />
+    <script src='/public/lib/realreport/realreport-lic.js'></script>
+    <script src='/public/lib/realreport/realreport.js'></script>
+
+    <!-- 하이차트 라이브러리: 리포트 양식에서 하이차트 아이템을 사용할 경우에만, 임포트 필요 -->
+    <!-- <link href="/public/lib/highcharts/highcharts.css" rel='stylesheet' /> -->
+    <!-- <script src="/public/lib/highcharts/highcharts.js"></script> -->
+    <!-- <script src="/public/lib/highcharts/highcharts-more.js"></script> -->
+
+    <!-- 샘플 보고서 양식: 전역 변수(ex. reportForm)로 임포트 -->
+    <script src='/public/report/form.js'></script>
+
+    <style>
+        .title, .description, .report-toolbar {
+            margin: 8px 0;
+        }
+
+        #realreport-container {
+            position: relative; /* 필수 설정 */
+            width: 1000px;
+            height: 500px;
+            padding: 16px 0;
+            overflow: auto; /* 스크롤 허용 */
+            background-color: lightgray;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">리얼리포트 인쇄 예제</h1>
+    <p class="description">리얼리포트 뷰어 1.8.1 이하 버전 사용자를 위한 예제입니다.</p>
+
+    <div class="report-toolbar">
+        <button type="button" onclick="printReport()">인쇄하기</button>
+    </div>
+
+    <!-- 리포트 컨테이너용 div -->
+    <div id="realreport-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            const REALREPORT_CONTAINER_ID = "realreport-container"; // 리포트 컨테이너용 div id
+            const REALREPORT_PRINT_CONTAINER_ID = "realreport-container"; // print.html에서 정의된 리포트 컨테이너용 div id 
+            const REALREPORT_PRINT_HTML_PATH = "/print.html";
+
+            const container = document.getElementById(REALREPORT_CONTAINER_ID);
+
+            // 리포트 데이터셋 생성
+            // 참고: https://real-report.com/docs/viewer/03-data
+            const reportDataSet = {
+                contract: {
+                    values: [{
+                        "사업체명": "우리컴퍼니",
+                        "주소": "서울시 서울구 서울로 123-45",
+                        "대표자": "김철수",
+                        "전화": "02-1234-1234",
+                        "성명": "홍길동",
+                        "연락처": "010-5678-5678"
+                    }],
+                },
+            };
+
+            // 리포트 뷰어 객체 생성
+            const viewer = new RealReport.ReportViewer(container, reportForm, reportDataSet);
+
+            // 리포트 미리보기실행
+            viewer.preview({
+                async: true,
+                endCallback: (ctx, pages) => {
+                    console.log("리포트 미리보기가 생성되었습니다.");
+                },
+            });
+
+            // 인쇄 함수 등록
+            window.printReport = printReport.bind(null, viewer, REALREPORT_PRINT_HTML_PATH, REALREPORT_PRINT_CONTAINER_ID);
+        });
+
+        function printReport(viewer, printHtmlPath, printContainerId) {
+            function _print(viewer, iframe, printContainerId, closePrint) {
+                const contentWindow = iframe.contentWindow;
+
+                contentWindow.onbeforeunload = closePrint;
+                contentWindow.onafterprint = closePrint;
+
+                const dom = contentWindow.document.getElementById(printContainerId);
+                dom.innerHTML = viewer.reportHtml; // iframe 내부의 리포트 컨테이너에 미리보기된 리포트 HTML을 표시
+
+                setTimeout(() => {
+                    contentWindow.print(); // 인쇄 시작
+                }, 1);
+            }
+
+            // 숨겨진 iframe 생성
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = '0';
+
+            iframe.onload = _print.bind(null, viewer, iframe, printContainerId, () => { document.body.removeChild(iframe); });
+            iframe.src = printHtmlPath;
+
+            document.body.appendChild(iframe);
+        }
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 import style from '../css/Report.module.css';
 import { RiFileSearchLine } from "react-icons/ri";
 
-const text = [1, 2, 3, 4, 5, 6, 7];
+const text = [1, 2, 3, 4, 5, 6];
 function Side({ getJson }) {
 
     return (

@@ -19,12 +19,6 @@
                 <a class="menu-link" @click="setReport(reportSample4, dataSample4, 'viewer')">
                   <span>리포트 샘플4</span>
                 </a>
-                <a
-                  class="menu-link"
-                  @click="setReport([reportSample1, reportSample2], ['', dataSample], 'compositeViewer')"
-                >
-                  <span>복합 리포트</span>
-                </a>
               </li>
             </ul>
           </li>

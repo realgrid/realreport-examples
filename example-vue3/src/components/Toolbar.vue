@@ -44,7 +44,7 @@
     </div>
     <div class="toolbar-right">
       <div class="toolbar-items">
-        <a class="toolbar-icon-button" @click="onClickPrintPopup()">
+        <a class="toolbar-icon-button" @click="printReport()">
           <div class="toolbar-icon icon preview-print-png"></div>
         </a>
       </div>
@@ -220,26 +220,8 @@ export default {
         this.viewer.exportImage(options);
       }
     },
-    onClickPrintPopup() {
-      if (this.viewer) {
-        const w = Math.min(screen.width, 1024);
-        const h = Math.min(screen.height, 768);
-        const x = (screen.width - w) / 2;
-        const y = (screen.height - h) / 2;
-        const win = window.open('./print.html', 'print', 'left=' + x + ',top=' + y + ',width=' + w + ',height=' + h);
-        var reportHtml = this.viewer.reportHtml;
-        // 페이지가 로드된 다음 즉시 프린트 실행
-        win.addEventListener('DOMContentLoaded', function () {
-          const dom = win.document.getElementById('realreport');
-          dom.innerHTML = reportHtml;
-          win.print();
-        });
-
-        // 프린트한 다음 팝업창 닫기
-        win.addEventListener('afterprint', function () {
-          win.close();
-        });
-      }
+    printReport() {
+      this.viewer.print();
     },
     setInputValue(id, value, prefix, surfix) {
       if (id) {

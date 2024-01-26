@@ -1,0 +1,30 @@
+<!-- 리포트 인쇄 시에 사용되는 HTML 코드 파일입니다. -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리얼리포트 인쇄</title>
+
+     <!-- 리얼리포트 스타일 -->
+    <link href='/public/lib/realreport/realreport.css' rel='stylesheet' />
+
+    <!-- 하이차트 스타일: 리포트 양식에서 하이차트 아이템을 사용할 경우에만, 임포트 필요 -->
+    <!-- <link href='/public/lib/highcharts/highcharts.css' rel='stylesheet' /> -->
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #realreport {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div id="realreport-container"></div>
+</body>
+</html>

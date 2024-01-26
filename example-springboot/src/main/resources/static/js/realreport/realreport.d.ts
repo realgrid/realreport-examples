@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.8.1
-* commit 70aeedf
+* RealReport v1.8.2
+* commit 2558024
 
 * Copyright (C) 2013-2024 WooriTech Inc.
 	https://real-report.com
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.8.1
+* RealReport Core v1.8.2
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit 15ef0812b90536bd8483d5a6a13ae4f7801d38b0
+* commit a4993ff60cea5ad3357ab5abd502b4ad774a15c0
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -672,6 +672,7 @@ declare abstract class VisualContainer$1 extends EventAware$1 implements VisualT
     get scrollHeight(): number;
     get scrollTop(): number;
     protected get scrolling(): boolean;
+    get containerDiv(): HTMLDivElement;
     findElementAt(x: number, y: number, hitTesting: boolean, blockLayer: boolean): VisualElement$1;
     findElementOf(dom: Element): VisualElement$1;
     getTableCell(dom: HTMLElement): HTMLTableCellElement;
@@ -4803,6 +4804,49 @@ declare class RealChartItem extends ChartItem<RCConfig> {
     canAddTo(group: ReportGroupItem): boolean;
 }
 
+declare enum ReportItemType {
+    TEXT = "text",
+    SUMMARY = "summary",
+    IMAGE = "image",
+    CHECK = "check",
+    STACK = "stack",
+    CBOX = "cbox",
+    RBOX = "rbox",
+    DBOX = "dbox",
+    LIST = "list",
+    TABLE = "table",
+    SPACE = "space",
+    SIMPLEBAND = "simpleband",
+    TABLEBAND = "tableband",
+    BANDGROUP = "bandgroup",
+    BANDCELL = "bandcell",
+    CROSSTAB = "crosstab",
+    DATALIST = "datalist",
+    FLOATING = "floating",
+    SHAPE = "shape",
+    BARCODE = "barcode",
+    QRCODE = "qrcode",
+    DATAMATRIX = "datamatrix",
+    BAR = "bar",
+    RATING = "rating",
+    HTML = "html",
+    HTMLVIEW = "htmlview",
+    SVG = "svg",
+    REALCHART = "realchart",
+    HICHART = "hichart",
+    PAGE = "page"
+}
+
+/**
+ * Report Item들에 대한 정보를 한곳에 모아서 등록해놓고 용이하게 꺼내쓰기 위해 작성
+ */
+declare class ReportItemRegistry extends Base$1 {
+    private _reportItemFlatMap;
+    constructor();
+    add(type: ReportItemType, item: ReportItem): void;
+    getItemCount(type: ReportItemType): number;
+}
+
 declare enum PaperSize {
     A0 = "A0",
     A1 = "A1",
@@ -4841,7 +4885,6 @@ declare class PaperOptions extends Base$1 {
     /** size */
     get size(): PaperSize;
     set size(value: PaperSize);
-    private $_checkSize;
     /** width */
     get width(): ValueString;
     set width(value: ValueString);
@@ -5018,6 +5061,7 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     private _commands;
     private _loading;
     private _invalids;
+    private _reportItemRegistry;
     constructor(designTime?: boolean, source?: any);
     _doDispose(): void;
     onDesignDataManagerDataAdded(dm: DesignDataManager, data: IReportData): void;
@@ -5060,6 +5104,8 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     get canRedo(): boolean;
     /** dirty */
     get dirty(): boolean;
+    /** reportItemRegistry */
+    get reportItemRegistry(): ReportItemRegistry;
     load(src: any): Report;
     setSaveTagging(tag: string): Report;
     save(pageOnly?: boolean): object;
@@ -5199,6 +5245,7 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
         reason: string;
     }[];
     foldedChanged(item: ReportItem): void;
+    isFirstPageLandscape(): boolean;
     protected _createReportRootItem(report: Report): ReportRootItem;
     protected _createReportInfo(report: Report): ReportInfo;
     protected _createReportLoader(): IReportLoader;
@@ -5228,6 +5275,10 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
  */
 declare class ReportPage extends ReportGroupItem implements IEventAware {
     static readonly PROP_ORIENTATION = "orientation";
+    static readonly PROP_MARGIN_LEFT = "marginLeft";
+    static readonly PROP_MARGIN_RIGHT = "marginRight";
+    static readonly PROP_MARGIN_TOP = "marginTop";
+    static readonly PROP_MARGIN_BOTTOM = "marginBottom";
     static readonly ITEM_ADDED = "onPageItemAdded";
     static readonly ITEMS_ADDED = "onPageItemsAdded";
     static readonly ITEM_REMOVED = "onPageItemRemoved";
@@ -5237,6 +5288,14 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
     static readonly $_ctor: string;
     static readonly PROPINFOS: IPropInfo[];
     private _orientation;
+    private _marginLeft;
+    private _marginRight;
+    private _marginTop;
+    private _marginBottom;
+    private _marginLeftDim;
+    private _marginRightDim;
+    private _marginTopDim;
+    private _marginBottomDim;
     private _report;
     private _pageIndex;
     private _events;
@@ -5298,9 +5357,33 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
      */
     get orientation(): PaperOrientation;
     set orientation(value: PaperOrientation);
+    /** marginLeft */
+    get marginLeft(): ValueString;
+    set marginLeft(value: ValueString);
+    /** marginRight */
+    get marginRight(): ValueString;
+    set marginRight(value: ValueString);
+    /** marginTop */
+    get marginTop(): ValueString;
+    set marginTop(value: ValueString);
+    /** marginBottom */
+    get marginBottom(): ValueString;
+    set marginBottom(value: ValueString);
     getItem(name: string): ReportItem;
     removeItems(commands: EditCommandStack$1, items: ReportPageItem[]): number;
     search(page: number, key: string, options: FindOptions, results: FindResult[]): void;
+    /**
+     * 만약 리포트 페이지마다 margin이 지정되어있다면 해당 값을 구하기 위해 작성
+     * @returns reportPage에 지정된 margin값 지정이 되어있지 않다면 report.paper의 margin 값
+     */
+    getPageMargins(): {
+        pageMarginTop: number;
+        pageMarginBottom: number;
+        pageMarginLeft: number;
+        pageMarginRight: number;
+    };
+    getPageRect(rect: Rectangle$1): Rectangle$1;
+    getPageSize(): Rectangle$1;
     get outlineLabel(): string;
     get pathLabel(): string;
     get page(): ReportPage;
@@ -5691,7 +5774,7 @@ declare class PageItemContainerElement extends BoundedContainerElement<PageItemC
 }
 
 type PrintPageCallback = (ctx: PrintContext, page: PrintPage, pageNo: number) => void;
-type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => void;
+type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => Promise<void>;
 declare class PageSectionGuard extends ReportItemElement<ReportPage> {
     get guardLabel(): string;
 }
@@ -6085,6 +6168,9 @@ declare class HtmlItemElement extends ReportItemElement<HtmlItem> {
     private $_validateHtmlTags;
 }
 
+interface AsyncLoadable {
+    loadAsync(ctx: PrintContext): Promise<void>;
+}
 /**
  * Printing 관련 상태 정보 모델.
  */
@@ -6144,6 +6230,7 @@ declare class PrintContext extends Base$1 {
     contextElements: {
         [hash: string]: TextItemElementBase<any>;
     };
+    private _asyncLoadableElements;
     constructor(printing?: boolean, compositePrinting?: boolean);
     /**
      * printing
@@ -6240,6 +6327,15 @@ declare class PrintContext extends Base$1 {
      * 호출하기 전 pageHeader, pageFooter, pageHeight 값이 설정되어야 함
      */
     setBodySize(): void;
+    /**
+     * 로드가 필요한 리포트 아이템 View 정보를 추가한다.
+     * @param itemElement 로드가 필요한 reportItemElement
+     */
+    addAsyncLoadableElement(itemElement: AsyncLoadable): void;
+    /**
+     * 로드가 필요한 Elements에 대한 비동기 처리
+     */
+    loadAsyncLoadableElements(): Promise<void[]>;
 }
 type ContextValueCallback = (ctx: PrintContext) => any;
 declare class PageBreaker {
@@ -8138,15 +8234,29 @@ declare class PrintContainer extends VisualContainer$1 {
     get pages(): PrintPage[];
     get align(): Align;
     set align(value: Align);
+    /**
+     * Report 에서 사용
+     */
+    get ReportItemRegistry(): ReportItemRegistry;
+    /**
+     * Composite Report 에서 사용
+     */
+    get ReportItemRegistries(): ReportItemRegistry[];
     print(options: IPrintOptions): void;
     printSingle(options: IPrintOptions): void;
     printAll(options: IPrintOptions): void;
     private $_printAll;
     getPrintHtml(): string;
+    loadAsyncLoadableElements(): Promise<void>;
     setStyles(styles: any): void;
     fitToWidth(): void;
     fitToHeight(): void;
     fitToPage(): void;
+    /**
+     * Multi 리포트이면서 가로로 시작하는 양식은 따로 설정이 필요함
+     * @returns 멀티 페이지이면서 첫번째 페이지가 가로양식으로 시작할 경우
+     */
+    needPrintScale(): boolean;
     get printing(): boolean;
     protected _doPrepareContainer(dom: HTMLElement): void;
     protected _render(timestamp: number): void;
@@ -8180,6 +8290,8 @@ declare class PrintContainer extends VisualContainer$1 {
      * 각 인쇄 영역 Container Style 설정
      */
     private $_setPageContainerStyle;
+    private $_setLandscapePageStyle;
+    private $_setPrintScaleStyle;
     private $_setUnvisibleDom;
     private $_layoutFloatings;
     /**
@@ -42271,6 +42383,7 @@ declare class ReportViewer extends ReportViewBase {
     protected _report: Report | Email;
     private _reportDataProvider;
     private _isPaging;
+    private _reportViewPrinter;
     constructor(container: string | HTMLDivElement, reportForm?: ReportForm, dataSet?: ReportDataSet, options?: ReportOptions);
     get reportForm(): ReportForm;
     set reportForm(form: ReportForm);
@@ -42282,6 +42395,7 @@ declare class ReportViewer extends ReportViewBase {
      * container에 리포트를 preview로 렌더링 합니다.
      */
     preview(options?: PreviewOptions): void;
+    print(options: PrintOptions): Promise<void>;
     /**
      * 리포트를 PDF파일로 다운로드 합니다.
      * @param options PDFExportOptions
@@ -42454,6 +42568,16 @@ declare type PreviewOptions = {
     endCallback?: PrintEndCallback;
 };
 /**
+ * 리포트 출력 옵션
+ */
+declare type PrintOptions = {
+    /**
+     * 최대 출력 대기 시간 ms 단위
+     * @defaultValue 2000
+     */
+    timeout: number;
+};
+/**
  * PDF내보내기시 인자로 사용되는 옵션
  */
 declare type PDFExportOptions = {
@@ -42488,4 +42612,4 @@ declare type PDFExportOptions = {
     pdfVersion: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 };
 
-export { GridReportLayout, GridReportViewer, PDFExportOptions, PreviewOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer };
+export { GridReportLayout, GridReportViewer, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer };

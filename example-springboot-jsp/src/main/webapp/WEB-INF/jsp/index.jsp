@@ -114,10 +114,10 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="menu-list-item">
+                            <!-- <li class="menu-list-item">
                                 <span class="menu-head">compositeViewer 양식</span>
                                 <ul class="menu-list menu-list-block" id="sidebarUl">
-                                    <!-- 이곳에 리포트 사이드바 생성 -->
+                                    이곳에 리포트 사이드바 생성
                                     <li class="menu-list-item">
                                         <a class="menu-link" onclick="javascript:previewReportSample('4');">
                                             <span>주소라벨+invoice</span>
@@ -131,7 +131,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
