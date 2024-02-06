@@ -1,7 +1,7 @@
 // import './templates/index.js';
 
-// 아래 라이선스는 유효기간 2024년 2월 29일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
-var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjdX/TRvH17asONaYpJP0FO3fFyQNoWuTp2ZPD4xNAYbs1NqSTTJH1R1kGLXSdmOv40QeIbtyyIEGTFVqWmNPdyQ==';
+// 아래 라이선스는 유효기간 2024년 5월 31일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
+var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUC/9tdzLD/UUEjA7Am16Mku+6ZGVxDxR7Q=';
 var viewer;
 var editor;
 
@@ -185,7 +185,7 @@ const setupReportSidebar = function (category, sidebarId, onClick, onClickPopup)
   const CATEGORY_ID_PROD = 'cllq2kbnc0002l30fmkvbp1fi';
   const LIST_URL_PROD = `${API_HOST_PROD}/category/${CATEGORY_ID_PROD}/templates`;
   const GET_FORM_URL_PROD = `${API_HOST_PROD}/template`;
-    
+
   const listUrl = isDev ? LIST_URL_DEV : LIST_URL_PROD;
   const formUrl = isDev ? GET_FORM_URL_DEV : GET_FORM_URL_PROD;
 

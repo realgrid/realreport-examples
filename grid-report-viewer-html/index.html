@@ -14,7 +14,7 @@
     <script type="text/javascript" src="/js/highcharts/highcharts-more.js"></script>
     <script type="text/javascript" src="/js/pdfkit.js"></script>
     <script type="text/javascript" src='/js/realreport/realreport.js'></script>
-    
+
     <script defer src="./sample1.js"></script>
     <script defer src="./sample2.js"></script>
     <style>
@@ -27,6 +27,7 @@
             margin: 0;
             overflow: hidden;
         }
+
         .contents {
             flex-grow: 1;
             display: flex;
@@ -35,27 +36,33 @@
             height: 100%;
             overflow: hidden;
         }
+
         .toolbar {
             margin: 10px;
             height: 22px;
             border-top: solic silver 1px;
         }
+
         .hr {
             display: inline;
             border: 1px solid silver;
             margin: 0 10px;
         }
+
         .gridViewer {
             height: 300px;
         }
+
         #realgrid {
             height: 100%;
         }
+
         .reportViewer {
             flex-grow: 1;
             overflow: auto;
             position: relative;
         }
+
         #realreport {
             height: 100%;
         }
@@ -102,13 +109,13 @@
          * RealReport를 사용하기 위해 라이선스가 필요합니다. https://service.realgrid.com 에서 무료 라이선스를 발급 받을 수 있습니다.
          * - 아래 라이선스는 유효기간 2024년 1월 31일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
          */
-         var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjdX/TRvH17asONaYpJP0FO3omxwgpdzq2I8zB1XKm5AAz/VxgxdBn+fumRlcQ8Ue0';
+        var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUC/9tdzLD/UUEjA7Am16Mku+6ZGVxDxR7Q=';
 
         /**
          * RealGrid를 사용하기 위해 라이선스가 필요합니다. https://service.realgrid.com 에서 무료 라이선스를 발급 받을 수 있습니다.
          * - 아래 라이선스는 유효기간 2024년 1월 31일 까지 localhost,127.0.0.1,*.real-report.com,*.realgrid.com 도메인에서 사용할 수 있는 라이선스 입니다.
          */
-         var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYm9cY8amGDkiMnVeQKUHJDjW2y71jtk+wv50juZqrKKzQ4npiZoGBKqiyNJFvlrikYx1/B3rwdT6DEb9aq2Rq6tY+DYrnIhhC+kFDXPgxFjxA==';
+        var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYm9cY8amGDkiMnVeQKUHJDjW2y71jtk+wv50juZqrKKzQ4npiZoGBKqeibHCCl3OrYt9dcRbm8F99aAc3Rglyqb';
 
         /**
          * 웹 페이지에 RealGrid와 RealReport 컴포넌트를 랜더링할 컨테이너가 필요합니다.
@@ -218,17 +225,17 @@
         // PDF
         function clickButton_8() {
             // 폰트 파일을 base64로 변환
-            async function base64convert (url, split) {
+            async function base64convert(url, split) {
                 const data = await fetch(url);
                 const blob = await data.blob();
-                
+
                 return new Promise(resolve => {
                     const reader = new FileReader();
                     reader.readAsDataURL(blob);
                     reader.onloadend = () => {
-                    const base64data = reader.result;
-                    resolve(split ? base64data.split(',')[1] : base64data);
-                    }    
+                        const base64data = reader.result;
+                        resolve(split ? base64data.split(',')[1] : base64data);
+                    }
                 });
             }
 
@@ -246,11 +253,11 @@
                         style: 'normal',
                         weight: 'bold',
                     }];
-            
+
                     if (reportView) {
                         const oldZoom = reportView.zoom;
                         reportView.zoom = 1;
-                        reportView.exportPdf({fonts, filename: 'sample-report', preview: false}).then(() => {
+                        reportView.exportPdf({ fonts, filename: 'sample-report', preview: false }).then(() => {
                             reportView.zoom = oldZoom
                         });
                     }
