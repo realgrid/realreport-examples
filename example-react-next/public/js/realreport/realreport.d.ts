@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.8.4
-* commit 18487d5
+* RealReport v1.8.5
+* commit f4fe6ec
 
 * Copyright (C) 2013-2024 WooriTech Inc.
 	https://real-report.com
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.8.4
+* RealReport Core v1.8.5
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit 40d5438857ce09d15cfc240c2056d7d8ebee963f
+* commit d77f855778c98d11c8607fac13d8b71178f4edfc
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -1489,6 +1489,7 @@ declare class AssetManager extends EventAware$1 {
     private $_addChartist;
     private $_addHighchart;
 }
+
 interface IReportDataProvider {
     designTime?: boolean;
     preparePrint(ctx: PrintContext): void;
@@ -2409,6 +2410,8 @@ declare abstract class DataBand extends ReportGroupItem {
     static readonly PROP_DATA_BAND_MASTER_BAND_NAME = "masterBandName";
     static readonly PROP_DATA_BAND_MASTER_BAND_KEY_FIELDS = "masterBandKeyFields";
     static readonly PROP_DATA_BAND_SUB_BAND_KEY_FIELDS = "subBandKeyFields";
+    static readonly PROP_DATA_BAND_EMPTY_DATA_HEADER_VISIBLE = "emptyDataHeaderVisible";
+    static readonly PROP_DATA_BAND_EMPTY_DATA_FOOTER_VISIBLE = "emptyDataFooterVisible";
     static readonly PROPINFOS: IPropInfo[];
     private _sectionCount;
     private _sectionLayout;
@@ -2433,6 +2436,8 @@ declare abstract class DataBand extends ReportGroupItem {
     private _masterBandName;
     private _masterBandKeyFields;
     private _subBandKeyFields;
+    private _emptyDataHeaderVisible;
+    private _emptyDataFooterVisible;
     private _detail;
     private _master;
     private _keyFlds;
@@ -2602,6 +2607,16 @@ declare abstract class DataBand extends ReportGroupItem {
     get alwaysHeader(): boolean;
     set alwaysHeader(value: boolean);
     /**
+     * true면 밴드 데이터가 없어도 밴드 헤더 영역을 표시한다.
+     */
+    get emptyDataHeaderVisible(): boolean;
+    set emptyDataHeaderVisible(value: boolean);
+    /**
+     * true면 밴드 데이터가 없어도 밴드 푸터 영역을 표시한다.
+     */
+    get emptyDataFooterVisible(): boolean;
+    set emptyDataFooterVisible(value: boolean);
+    /**
      * true면 밴드 아이템 전체 높이가 출력 페이지의 남은 높이 보다 클 경우 다음 페이지에 출력한다. #612
      */
     get noSplit(): boolean;
@@ -2636,6 +2651,11 @@ declare abstract class DataBand extends ReportGroupItem {
     get keyFlds(): string[];
     get subBandMasterKeyFieldValues(): string[];
     get subBandKeyFieldValues(): string[];
+    get dataRowCount(): number;
+    /**
+     * 데이터가 비어있어도 특정 섹션이 표시가 필요한지 여부를 판단하기 위해 작성
+     */
+    get isEmptyDataSectionVisible(): boolean;
     prepareIndices(ctx: PrintContext): void;
     protected abstract _doPrepareIndices(ctx: PrintContext): void;
     getColPoints(w: number, x?: number): number[];
@@ -2663,6 +2683,10 @@ declare abstract class DataBand extends ReportGroupItem {
     getMax(field: string, count: number, rows?: number[]): number;
     getAvg(field: string, count: number, rows?: number[]): number;
     getPropDomain(prop: IPropInfo): any[];
+    /**
+     * 출력시 사용되는 밴드의 정보를 초기값으로 초기화
+     */
+    resetBandPrintingValue(): void;
     abstract containsInSection(item: ReportItem): boolean;
     get designLevel(): number;
     get dataDominant(): boolean;
@@ -2761,14 +2785,9 @@ declare abstract class TableBandSection extends TableBase {
     isAncestorOf(item: ReportPageItem): boolean;
 }
 declare class TableBandHeader extends TableBandSection {
-    static readonly PROP_TABLE_BAND_HEADER_REPEAT = "repeat";
     static readonly $_ctor: string;
-    private _repeat;
     private _pageSection;
     constructor(band: TableBand, pageSection?: boolean);
-    /** repeat */
-    get repeat(): boolean;
-    set repeat(value: boolean);
     get outlineLabel(): string;
     get pathLabel(): string;
 }
@@ -6436,6 +6455,7 @@ declare class ReportItemElementMap extends Base$1 {
     getItemElementByModel<T extends ReportItem>(model: ReportItem): ReportItemElement<T> | undefined;
     getBandElementByModel<T extends DataBand>(model: DataBand): BandElement<T> | undefined;
 }
+
 declare class TableBandGroupSectionElement<T extends TableBandRowGroupSection> extends TableElement<T> {
     constructor(doc: Document, model: T, name: string);
     applyGroupStyles(tr: HTMLTableRowElement): void;
@@ -6460,6 +6480,54 @@ interface ISimpleGroupPrintInfo extends IGroupPrintInfo {
     view: SimpleBandGroupSectionElement<SimpleBandRowGroupHeader | SimpleBandRowGroupFooter>;
 }
 type SimpleBandPrintRow = BandPrintRow | ISimpleGroupPrintInfo;
+
+declare class BandGroup extends ReportGroupItem {
+    static readonly PROP_BAND_COUNT = "bandCount";
+    static readonly PROP_BAND_GAP = "bandGap";
+    static readonly PROP_NO_SPLIT = "noSplit";
+    static readonly PROP_DIRECTION = "direction";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: any[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Band Group";
+    private _bandGap;
+    private _noSplit;
+    private _direction;
+    constructor(name: string);
+    /**
+     * band count.
+     */
+    get bandCount(): number;
+    set bandCount(value: number);
+    /**
+     * gap between bands.
+     */
+    get bandGap(): number;
+    set bandGap(value: number);
+    /**
+     * 밴드그룹 설정 방향
+     */
+    get direction(): Direction;
+    set direction(value: Direction);
+    /**
+     * true면 밴드 아이템 전체 높이가 출력 페이지의 남은 높이 보다 클 경우 다음 페이지에 출력한다. #612
+     */
+    get noSplit(): boolean;
+    set noSplit(value: boolean);
+    /**
+     * @internal
+     * ReportPage에서 bodyItems를 통해 호출한다.
+     */
+    loadProps(src: any): void;
+    getSaveType(): string;
+    get outlineLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canAdd(item: ReportItem): boolean;
+    private $_resetCells;
+}
 
 interface AsyncLoadable {
     loadAsync(ctx: PrintContext): Promise<void>;
@@ -6650,13 +6718,15 @@ interface IGroupPrintInfo {
     rowType: string;
     group: IBandRowGroup;
 }
+type BandModel = SimpleBand | TableBand | BandGroup | CrosstabBand;
 type BandPrintRow = number | BandFooterPrintInfo | BandPrintInfo<any> | EndRowMarker;
 declare abstract class BandPrintInfo<T extends ReportItem> {
     band: T;
     xBand: number;
     ptsBand: number[];
     wBand: number;
-    wCell: number;
+    bandCellWidth: number;
+    bandCellHeight: number;
     masterRow: number;
     masterValues: any;
     /**
@@ -6673,10 +6743,18 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     detailRows: number[];
     isMasterRowPrintNext: boolean;
     needMasterHeader: boolean;
+    needNextPage: boolean;
+    private _headerSectionPrinted;
+    private _footerSectionPrinted;
+    get isHeaderSectionPrinted(): boolean;
+    set headerSectionPrinted(print: boolean);
+    get isFooterSectionPrinted(): boolean;
+    set footerSectionPrinted(print: boolean);
     abstract isEnded(): boolean;
     abstract getRows(): any[];
     abstract getNextPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     abstract getNoPagingPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement;
+    abstract getEmptyDataBandPage(doc: Document, ctx: PrintContext, bandPrintInfo: BandPrintInfo<T>, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     rollback(page: HTMLDivElement): void;
     setMaxCount(rows: any[], count: number): void;
     isDataRow(row: any): row is number;
@@ -6687,6 +6765,10 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
      * 밴드아이템 출력중 가장 마지막 행이 포함되어서 출력중인지 판단
      */
     isLastRowIncluded(lastRow: number, rows: TableBandPrintRow[] | SimpleBandPrintRow[]): boolean;
+    /**
+     * 데이터가 존재하지 않는 밴드에 대해 표시할지 말지 여부를 판단할 때 사용
+     */
+    isEmptyDataBandVisible(): boolean;
     protected _setX(dom: HTMLElement, x: number): void;
     protected _setY(dom: HTMLElement, y: number): void;
     protected _setPos(dom: HTMLElement, x: number, y: number): void;
@@ -6722,7 +6804,7 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     protected _prepareDetailBandPrintNext(ctx: PrintContext, band: DataBand, row: BandPrintInfo<SimpleBand | TableBand>, rows: BandPrintRow[], rowsPerPage: number): void;
 }
 type PrintLine = {
-    line: HTMLElement | BandPrintInfo<any> | ReportFooterPrintInfo | PageBreaker;
+    line: HTMLElement | BandPrintInfo<BandModel> | ReportFooterPrintInfo | PageBreaker;
     pageIndex: number;
 };
 
@@ -8402,6 +8484,10 @@ declare enum DataDirection {
     ASCENDING = "ascending",
     DESCENDING = "descending"
 }
+declare enum Direction {
+    HORIZONTAL = "horizontal",
+    VERTICAL = "vertical"
+}
 /**
  * Find options
  */
@@ -8473,11 +8559,6 @@ declare enum SectionInherit {
     NONE = "none",
     HEAD = "head",
     PREVIOUS = "previous"
-}
-
-declare const I_EMAIL_ITEM_DSCIRIMINATOR: "I_EMAIL_ITEM";
-interface IEmailItem extends ReportItem {
-    discriminator: typeof I_EMAIL_ITEM_DSCIRIMINATOR;
 }
 
 interface IPrintReport {
@@ -8654,6 +8735,11 @@ interface ImageExportOptions {
     fileName?: string;
     zipName?: string;
     tiff?: ITiffOptions;
+}
+
+declare const I_EMAIL_ITEM_DSCIRIMINATOR: "I_EMAIL_ITEM";
+interface IEmailItem extends ReportItem {
+    discriminator: typeof I_EMAIL_ITEM_DSCIRIMINATOR;
 }
 
 declare class EmailFooterItems extends ColumnBoxContainer implements IEmailItem {
@@ -42718,6 +42804,11 @@ declare class ReportViewer extends ReportViewBase {
      */
     exportPdf(options: PDFExportOptions): Promise<void>;
     /**
+     * 리포트를 Blob 형식으로 내보내기 합니다.
+     * @param options PDFExportOptions
+     */
+    exportPdfBlob(options: PDFExportBlobOptions): Promise<Blob>;
+    /**
      * 이미지 내보내기 함수
      * @param imageOptions
      */
@@ -42927,5 +43018,6 @@ declare type PDFExportOptions = {
     permissions: PdfPermissions;
     pdfVersion: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 };
+declare type PDFExportBlobOptions = Omit<PDFExportOptions, 'filename' | 'preview'>;
 
-export { GridReportLayout, GridReportViewer, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer };
+export { GridReportLayout, GridReportViewer, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer };
