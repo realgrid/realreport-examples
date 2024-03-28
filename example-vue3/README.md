@@ -4,12 +4,14 @@
 [Vue cli 공식문서](https://cli.vuejs.org/)
 
 ## vue 프로젝트 생성
+
 ```bash
 npm install -g @vue/cli
 vue create example-vue3
 ```
 
 ### realreport 패키지 설치
+
 ```bash
 npm install realreport
 ```

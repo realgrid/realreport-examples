@@ -1,0 +1,37 @@
+{
+  "name": "realreport-examples",
+  "version": "1.8.6",
+  "description": "RealReport Examples",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Wooritech",
+    "url": "https://real-report.com",
+    "email": "support@realgrid.com"
+  },
+  "homepage": "https://real-report.com",
+  "keywords": [
+    "reports",
+    "dataviz",
+    "visualization",
+    "realreport",
+    "realgrid"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/realgrid/realreport-new.git"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "demo": "npx live-server ../viewer-examples/report-viewer-html --host=localhost --port=6081",
+    "grid": "npx live-server ../viewer-examples/grid-report-viewer-html --host=localhost --port=6082"
+  },
+  "engines": {
+    "node": ">=18.18.2"
+  },
+  "engineStrict": true
+}

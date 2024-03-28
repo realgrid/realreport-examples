@@ -2,7 +2,6 @@
 
 이 샘플 코드는 react 프로젝트에서 RealReport 미리보기를 구현한 예제입니다.
 
-
 ### realreport 패키지 설치
 
 [관련 링크](https://www.real-report.com/docs/guide/viewer/install#npm%EC%9C%BC%EB%A1%9C-%EC%84%A4%EC%B9%98)

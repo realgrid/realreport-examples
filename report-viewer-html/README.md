@@ -10,25 +10,22 @@
 
 이 디렉토리의 코드가 실행되는 모습은 [데모 사이트](https://demo.real-report.com)에서 확인 하실 수 있습니다. 이 코드는 [GitHub Pages](https://pages.github.com/)를 이용해서 호스팅되고 있으며 호스팅 방법은 예고 없이 변경 될 수 있습니다.
 
-
 ### example-node
 
 npm을 통해 RealReport를 설치한 예를 확인할 수 있습니다.
-
 
 ### realreport-guide
 
 [realreport-guide](tree/main/report-guide)에는 [RealReport 가이드](https://www.real-report.com/docs/guide/viewer/install)에 사용된 샘플 코드가 들어 있습니다.
 
-
 ## 라이선스
 
 ### realreport
 
-- [RealReport](https://real-report.com/)는 상용 라이브러리 입니다. 
+- [RealReport](https://real-report.com/)는 상용 라이브러리 입니다.
 - 개발자를 위한 무료 라이선스를 제공하고 있습니다. [라이선스 발급 방법](https://www.real-report.com/license)을 클릭하세요.
 - 구매를 위해 [가격 및 구매방법](https://realgrid.com/#buy)을 확인하시고 [RealGrid & Report 영업팀]에 문의해 주세요.
-- 기술과 관련된 문의사항은 [RealReport 기술지원 포럼](https://support.realgrid.com/tickets/categories/z6SA78vS9G6cgiYht)에 문의해 주세요. 
+- 기술과 관련된 문의사항은 [RealReport 기술지원 포럼](https://support.realgrid.com/tickets/categories/z6SA78vS9G6cgiYht)에 문의해 주세요.
 
 ### highcharts
 
@@ -53,4 +50,3 @@ html과 javascript를 이용해 RealReport를 프리뷰하고 인쇄하는 예�
 코드는 아래 링크에서 확인하세요.
 
 https://github.com/realgrid/realreport-examples/tree/main/html
-

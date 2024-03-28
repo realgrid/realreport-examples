@@ -151,13 +151,13 @@ Contributions to `monaco-typescript`:
 
 ```ts
 monaco.languages.typescript.typescriptDefaults.setInlayHintsOptions({
-	includeInlayParameterNameHints: 'all',
-	includeInlayParameterNameHintsWhenArgumentMatchesName: true,
-	includeInlayFunctionParameterTypeHints: true,
-	includeInlayVariableTypeHints: true,
-	includeInlayPropertyDeclarationTypeHints: true,
-	includeInlayFunctionLikeReturnTypeHints: true,
-	includeInlayEnumMemberValueHints: true
+  includeInlayParameterNameHints: 'all',
+  includeInlayParameterNameHintsWhenArgumentMatchesName: true,
+  includeInlayFunctionParameterTypeHints: true,
+  includeInlayVariableTypeHints: true,
+  includeInlayPropertyDeclarationTypeHints: true,
+  includeInlayFunctionLikeReturnTypeHints: true,
+  includeInlayEnumMemberValueHints: true,
 });
 ```
 
@@ -165,9 +165,9 @@ monaco.languages.typescript.typescriptDefaults.setInlayHintsOptions({
 
 ```ts
 var editor = monaco.editor.create(document.getElementById('container'), {
-	model: model,
-	language: 'javascript',
-	'bracketPairColorization.enabled': true
+  model: model,
+  language: 'javascript',
+  'bracketPairColorization.enabled': true,
 });
 ```
 

@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.8.5
-* commit f4fe6ec
+* RealReport v1.8.6
+* commit cf74945
 
 * Copyright (C) 2013-2024 WooriTech Inc.
 	https://real-report.com
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.8.5
+* RealReport Core v1.8.6
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit d77f855778c98d11c8607fac13d8b71178f4edfc
+* commit 84d9dfe922d0c8c03c2dcac923be8e4a2e26f685
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -6466,6 +6466,7 @@ declare class TableBandGroupSectionElement<T extends TableBandRowGroupSection> e
 }
 interface ITableGroupPrintInfo extends IGroupPrintInfo {
     view: TableBandGroupSectionElement<TableBandRowGroupHeader | TableBandRowGroupFooter>;
+    needNextPage: boolean;
 }
 type TableBandPrintRow = BandPrintRow | ITableGroupPrintInfo;
 
@@ -6769,6 +6770,10 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
      * 데이터가 존재하지 않는 밴드에 대해 표시할지 말지 여부를 판단할 때 사용
      */
     isEmptyDataBandVisible(): boolean;
+    /**
+     * 밴드의 left, right 속성 적용
+     */
+    setBandBoundPosition(ctx: PrintContext, model: BandModel, div: HTMLDivElement): void;
     protected _setX(dom: HTMLElement, x: number): void;
     protected _setY(dom: HTMLElement, y: number): void;
     protected _setPos(dom: HTMLElement, x: number, y: number): void;
@@ -42719,7 +42724,7 @@ declare class TreeViewListener extends GridBaseListener {
     onTreeViewChanged(tree: TreeView$1, item: TreeItem): void;
 }
 
-declare type ErrorParams = {
+type ErrorParams = {
     code: number;
     stop: boolean;
     msg?: string;
@@ -42791,7 +42796,7 @@ declare class ReportViewer extends ReportViewBase {
     set reportForm(form: ReportForm);
     get report(): Report | Email;
     get dataSet(): ReportDataSet;
-    set dataSet(v: any);
+    set dataSet(v: ReportDataSet);
     get isPaging(): boolean;
     /**
      * container에 리포트를 preview로 렌더링 합니다.
@@ -42831,6 +42836,7 @@ interface GridReportHeader {
     items: TextItem[];
 }
 interface GridReportTitle extends TextItem {
+    sample?: string;
 }
 interface GridReportOptions extends ReportOptions {
     paper?: PaperOptions;
@@ -42911,30 +42917,43 @@ declare class ReportCompositeViewer extends ReportViewBase {
 interface ReportOptions {
     zoom: number;
 }
-declare type ReportForm = Record<string, any>;
-declare type ReportData = Record<string, any>;
-declare type ReportDataSet = Record<string, ReportData>;
-declare type ReportFormSet = {
+type ReportForm = Record<string, any>;
+type ReportData = Record<string, any>;
+type ReportDataSet = Record<string, ReportData>;
+type ReportFormSet = {
     form: ReportForm;
     dataSet?: ReportDataSet;
 };
-declare type ReportFormSets = ReportFormSet[];
+type ReportFormSets = ReportFormSet[];
 
 /**
  * 컬럼 이름
  */
-declare type ColumnName = string;
+type ColumnName = string;
 /**
-* 그리드 리포트 레이아웃 정보
-*/
-declare type GridReportLayout = {
+ * 그리드 리포트 레이아웃 정보
+ */
+type GridReportLayout = {
     exclude?: ColumnName[];
     autoWidth: boolean;
+};
+type GridReportItemSource = {
+    type: string;
+    value: string;
+    text: string;
+    name: string;
+    height: string;
+    prefix: string;
+    top: string;
+    bottom: string;
+    left: string;
+    right: string;
+    styles: Styles;
 };
 /**
  * 리포트 프리뷰 옵션
  */
-declare type PreviewOptions = {
+type PreviewOptions = {
     /**
      * 비동기 출력 여부
      * @defaultValue `false`
@@ -42955,6 +42974,11 @@ declare type PreviewOptions = {
      * @defaultValue `Align.CENTER`
      */
     align?: Align;
+    /**
+     * 페이지 없이 출력하는 옵션. false인 경우 페이지 구분 없이 출력합니다.
+     * @defaultValue `true`
+     */
+    paging?: boolean;
     /**
      * 리포트를 한장에 여백없이 출력하는 옵션
      * @defaultValue `false`
@@ -42977,7 +43001,7 @@ declare type PreviewOptions = {
 /**
  * 리포트 출력 옵션
  */
-declare type PrintOptions = {
+type PrintOptions = {
     /**
      * 최대 출력 대기 시간 ms 단위
      * @defaultValue 2000
@@ -42987,7 +43011,7 @@ declare type PrintOptions = {
 /**
  * PDF내보내기시 인자로 사용되는 옵션
  */
-declare type PDFExportOptions = {
+type PDFExportOptions = {
     /**
      * pdf 문서에서 사용할 폰트의 목록 입니다.
      */
@@ -43018,6 +43042,6 @@ declare type PDFExportOptions = {
     permissions: PdfPermissions;
     pdfVersion: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 };
-declare type PDFExportBlobOptions = Omit<PDFExportOptions, 'filename' | 'preview'>;
+type PDFExportBlobOptions = Omit<PDFExportOptions, 'filename' | 'preview'>;
 
-export { GridReportLayout, GridReportViewer, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer };
+export { GridReportItemSource, GridReportLayout, GridReportViewer, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer };

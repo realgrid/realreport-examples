@@ -9,11 +9,13 @@
 ```shell
 ./mvnw install
 ```
+
 ### 스프링 부트 스크립트 실행
 
 ```shell
 ./mvnw spring-boot:run
 ```
+
 - 스크립트 실행 후, `http://localhost:8080/`해당 경로로 접속해주세요
 
 # 프로젝트 간단소개
