@@ -27,8 +27,8 @@
     "dist/**/*"
   ],
   "scripts": {
-    "demo": "npx live-server ../viewer-examples/report-viewer-html --host=localhost --port=6081",
-    "grid": "npx live-server ../viewer-examples/grid-report-viewer-html --host=localhost --port=6082"
+    "demo": "npx live-server ../examples/report-viewer-html --host=localhost --port=6081",
+    "grid": "npx live-server ../examples/grid-report-viewer-html --host=localhost --port=6082"
   },
   "engines": {
     "node": ">=18.18.2"

@@ -1,89 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
-    <title>그리드 리포트</title>
-    <link href="js/realgrid/realgrid-style.css" rel="stylesheet" />
-    <script src="js/realgrid/realgrid.2.5.4.min.js"></script>
-    <script src="js/realgrid/libs/jszip.min.js"></script>
-    <style>
-        html {
-            height: 100%;
-        }
-
-        body {
-            height: 100%;
-            margin: 0;
-        }
-
-        #realgrid {
-            height: 100%;
-            width: 100%;
-        }
-
-        .content {
-            height: 100%;
-        }
-    </style>
-
-    <script>
-        // 아래 라이선스는 유효기간 2024년 1월 31일 까지 localhost,127.0.0.1,*.real-report.com,*.realgrid.com 도메인에서 사용할 수 있는 라이선스 입니다.
-        var realGrid2Lic = 'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYm9cY8amGDkiMnVeQKUHJDjW2y71jtk+wv50juZqrKKzQ4npiZoGBKqeibHCCl3OrYt9dcRbm8F99aAc3Rglyqb';
-        var container;
-        var dataProvider;
-        var gridView;
-        var data;
-
-        var clearGrid = function() {
-            delete container;
-            delete gridView;
-            delete dataProvider;
-        }
-
-        var setGridLayout = function (gridItem) {
-            clearGrid();
-            container = document.getElementById('realgrid');
-            /* RealGrid Version 2.2.5 */
-            if (!dataProvider) {
-                dataProvider = new RealGrid.LocalDataProvider();
-                gridView = new RealGrid.GridView(container);
-                gridView.setDataSource(dataProvider);
+    <head>
+        <title>그리드 리포트</title>
+        <link href="css/grid.css" rel="stylesheet" />
+        <link href="js/realgrid/realgrid-style.css" rel="stylesheet" />
+        <script src="js/realgrid/realgrid.2.5.4.min.js"></script>
+        <script src="js/realgrid/libs/jszip.min.js"></script>
+        <style>
+            html {
+                height: 100%;
             }
 
-            if (gridItem) {
-                // console.log(gridItem);
-                dataProvider.setFields(gridItem.fields);
-                dataProvider.fillJsonData(gridItem.data, { fillMode: "set" });
-                gridView.setColumns(gridItem.columns);
+            body {
+                height: 100%;
+                margin: 0;
             }
 
-            return gridView;
-        }
+            #realgrid {
+                width: 100%;
+                height: calc(100% - 38px);
+            }
 
-        function serialize(rawData) {
-            let rtnData = {};
-            for (let [key, value] of rawData) {
-                let sel = document.querySelectorAll("[name=" + key + "]");
-                if (sel.length > 1) {
-                    if (rtnData[key] === undefined) {
-                        rtnData[key] = [];
+            .content {
+                height: 100%;
+            }
+
+            .grid-toolbar {
+                height: 38px;
+            }
+
+            .toolbar-scrolller {
+                display: flex;
+                padding-top: 4px;
+                padding-bottom: 4px;
+            }
+        </style>
+
+        <script>
+            // 아래 라이선스는 유효기간 2024년 1월 31일 까지 localhost,127.0.0.1,*.real-report.com,*.realgrid.com 도메인에서 사용할 수 있는 라이선스 입니다.
+            var realGrid2Lic =
+                'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYm9cY8amGDkiMnVeQKUHJDjW2y71jtk+wv50juZqrKKzQ4npiZoGBKqeibHCCl3OrYt9dcRbm8F99aAc3Rglyqb';
+            var container;
+            var dataProvider;
+            var gridView;
+            var data;
+            var reportOptions;
+
+            var clearGrid = function () {
+                delete container;
+                delete gridView;
+                delete dataProvider;
+            };
+
+            var setGridLayout = function (gridItem) {
+                clearGrid();
+                container = document.getElementById('realgrid');
+                /* RealGrid Version 2.2.5 */
+                if (!dataProvider) {
+                    dataProvider = new RealGrid.LocalDataProvider();
+                    gridView = new RealGrid.GridView(container);
+                    gridView.setDataSource(dataProvider);
+                }
+
+                if (gridItem) {
+                    // console.log(gridItem);
+                    dataProvider.setFields(gridItem.fields);
+                    dataProvider.fillJsonData(gridItem.data, {
+                        fillMode: 'set',
+                    });
+                    gridView.setColumns(gridItem.columns);
+                }
+
+                return gridView;
+            };
+
+            var setReportOptions = function (options) {
+                reportOptions = options;
+            }
+
+            function serialize(rawData) {
+                let rtnData = {};
+                for (let [key, value] of rawData) {
+                    let sel = document.querySelectorAll('[name=' + key + ']');
+                    if (sel.length > 1) {
+                        if (rtnData[key] === undefined) {
+                            rtnData[key] = [];
+                        }
+                        rtnData[key].push(value);
+                    } else {
+                        rtnData[key] = value;
                     }
-                    rtnData[key].push(value);
                 }
-                else {
-                    rtnData[key] = value;
-                }
+                return rtnData;
             }
-            return rtnData;
-        }
-    </script>
 
-</head>
+            var gridReportWindowPopup = null;
 
-<body>
-    <div class="content">
-        <div id="realgrid"></div>
-    </div>
-</body>
+            var onGridReportPreviewPopup = function () {
+                const w = Math.min(screen.width, 1024);
+                const h = Math.min(screen.height, 768);
+                const x = (screen.width - w) / 2;
+                const y = (screen.height - h) / 2;
+                const options =
+                    'left=' + x + ',top=' + y + ',width=' + w + ',height=' + h;
 
+                // 미리보기 팝업창이 없는 경우 새 창을 생성하고 있는 경우 그 창에 리포트를 표시합니다.
+                if (gridReportWindowPopup === null || gridReportWindowPopup.closed) {
+                    gridReportWindowPopup = window.open(
+                        'preview.html',
+                        'print',
+                        options,
+                    );
+
+                    gridReportWindowPopup.onload = () => {
+                        const gridReportPreviewFn = gridReportWindowPopup['previewGridReport'];
+                        gridReportPreviewFn(gridView, reportOptions);
+                        gridReportWindowPopup.window.hidePrintPopup();
+                    };
+                } else {
+                    const gridReportPreviewFn = gridReportWindowPopup['previewGridReport'];
+                    gridReportPreviewFn(gridView, reportOptions);
+                    gridReportWindowPopup.window.hidePrintPopup();
+                    gridReportWindowPopup.focus();
+                }
+            };
+        </script>
+    </head>
+
+    <body>
+        <div class="content">
+            <div class="grid-toolbar">
+                <div class="toolbar-scrolller">
+                    <button
+                        id="gridToReport"
+                        class="toolbar-btn"
+                        onclick="onGridReportPreviewPopup()"
+                    >
+                        그리드 리포트로 미리보기
+                    </button>
+                </div>
+            </div>
+            <div id="realgrid"></div>
+        </div>
+    </body>
 </html>

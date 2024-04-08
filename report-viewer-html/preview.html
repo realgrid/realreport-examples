@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <div class="toolbar-right">
-                                <div class="toolbar-items mobile-gap">
+                                <div id="printPopup" class="toolbar-items mobile-gap">
                                     <a class="toolbar-icon-button" onclick="onClickPrintPopup()">
                                         <div class="toolbar-icon icon preview-print-png"></div>
                                     </a>
@@ -143,6 +143,10 @@
         // public methods
         //--------------------------------------------------------------------------------------------------
 
+        var hidePrintPopup = function () {
+            const popupBtn = document.getElementById("printPopup");
+            popupBtn.style.display = 'none';
+        }
         /**
          * 리포트 컨테이너 및 viewer 객체를 초기화 하는 함수 
          * */
@@ -174,12 +178,12 @@
             if (Array.isArray(reports) && reports.length > 1) {
                 // 여러 양식 리포트는 ReportCompositeViewer 객체를 이용한다.
                 // 생성 인자는 컨테이너Id와 report객체
-                // 도움말 참조 💡 https://real-report.com/docs/guide/viewer/composite-report
+                // 도움말 참조 💡 https://real-report.com/docs/api/ReportCompositeViewer
                 viewer = new RealReport.ReportCompositeViewer(containerId, reports);
             } else {
                 // 단일 양식 리포트는 ReportViewer 객체를 이용한다.
                 // 생성인자는 컨테이너Id, 리포트 양식, 데이터
-                // 도움말 참조 💡 https://real-report.com/docs/guide/viewer/preview
+                // 도움말 참조 💡 https://real-report.com/docs/api/ReportViewer
                 viewer = new RealReport.ReportViewer(containerId, reports[0].form, reports[0].dataSet);
             }
 
@@ -202,7 +206,7 @@
 
             // 미리보기 함수 preview() 호출
             // 호출 인자는 PreviewOptions로 자세한 속성은 도움말 참조
-            // 💡 https://real-report.com/docs/api/viewer/types-report-viewer#previewoptions
+            // 💡 https://real-report.com/docs/api/ReportViewer#preview
             if (viewer) viewer.preview({
                 async: true,
                 pageMark: false,
@@ -216,7 +220,7 @@
 
         /**
          * RealGrid 리포트 미리보기 실행
-         * 도움말 참조 💡 https://real-report.com/docs/guide/grid-report/preview
+         * 도움말 참조 💡 https://real-report.com/docs/api/GridReportViewer#preview
          * */
         var previewGridReport = function (grid, options) {
             clearReport();
@@ -233,7 +237,6 @@
                 console.log('모든 페이지 미리보기 완료');
                 setTotalPage('totalpage');
                 setPageInputValue('inputPageNumber');
-                viewer.fitToWidth();
                 setZoomScaleInputValue('inputZoomScale');
             }
 
@@ -250,7 +253,7 @@
 
         /**
          * 인쇄를 위해 별도 페이지로 미리보기 하는 방법
-         * 도움말 참조 💡 https://real-report.com/docs/guide/viewer/print
+         * 도움말 참조 💡 https://real-report.com/docs/api/ReportViewer#print
          * */
         var printPopup = function () {
             if (viewer) {
@@ -313,7 +316,7 @@
 
         /**
          * z 비율 만큼 확대 또는 축소
-         * 💡 https://real-report.com/docs/guide/viewer/zoom
+         * 💡 https://real-report.com/docs/api/ReportViewer#zoom
          * */
         const onClickZoom = (z) => {
             if (viewer) {
@@ -323,7 +326,7 @@
 
         /**
          * 미리보기 화면 10% 확대
-         * 💡 https://real-report.com/docs/api/viewer/reportviewer#zoom
+         * 💡 https://real-report.com/docs/api/ReportViewer#zoomin
          * */
         const onClickZoomIn10 = function () {
             if (viewer) {
@@ -334,7 +337,7 @@
 
         /**
          * 미리보기 화면 10% 축소
-         * 💡 https://real-report.com/docs/api/viewer/reportviewer#zoomout
+         * 💡 https://real-report.com/docs/api/ReportViewer#zoomout
          * */
         const onClickZoomOut10 = function () {
             if (viewer) {
@@ -345,7 +348,7 @@
 
         /**
          * 미리보기 화면 1:1 비율
-         * 💡 https://real-report.com/docs/api/viewer/reportviewer#zoomout
+         * 💡 https://real-report.com/docs/api/ReportViewer#zoomout
          * */
         const onClickZoom100 = function () {
             if (viewer) {
@@ -356,7 +359,7 @@
 
         /**
          * 미리보기 페이지 크기를 컨테이너 높이에 맞게 조정
-         * 💡 https://real-report.com/docs/api/viewer/reportviewer#fittoheight
+         * 💡 https://real-report.com/docs/api/ReportViewer#fittoheight
          * */
         const onClickFitToHeight = function () {
             if (viewer) {
@@ -367,7 +370,7 @@
 
         /**
          * 미리보기 페이지 크기를 컨테이너 너비에 맞게 조정
-         * 💡 https://real-report.com/docs/api/viewer/reportviewer#fittowidth
+         * 💡 https://real-report.com/docs/api/ReportViewer#fittowidth
          * */
         const onClickFitToWidth = function () {
             if (viewer) {
@@ -378,7 +381,7 @@
 
         /**
          * 미리보기 페이지 크기를 컨테이너 너비와 높이에 맞게 조정
-         * 💡 https://real-report.com/docs/api/viewer/reportviewer#fittopage
+         * 💡 https://real-report.com/docs/api/ReportViewer#fittopage
          * */
         const onClickFitToPage = function () {
             if (viewer) {
@@ -389,7 +392,7 @@
 
         /**
          * 첫 번째 페이지로 이동
-         * 💡 https://real-report.com/docs/api/viewer/reportviewer#first
+         * 💡 https://real-report.com/docs/api/ReportViewer#first
          * */
         const onClickFirstPage = function () {
             if (viewer) {
@@ -400,7 +403,7 @@
 
         /**
          * 마지막 페이지로 이동
-         * 💡 https://real-report.com/docs/api/viewer/reportviewer#last
+         * 💡 https://real-report.com/docs/api/ReportViewer#last
          * */
         const onClickLastPage = function () {
             if (viewer) {
@@ -411,7 +414,7 @@
 
         /**
          * 이전 페이지로 이동
-         * 💡 https://real-report.com/docs/api/viewer/reportviewer#prev
+         * 💡 https://real-report.com/docs/api/ReportViewer#prev
          * */
         const onClickPrevPage = function () {
             if (viewer) {
@@ -422,7 +425,7 @@
 
         /**
          * 다음 페이지로 이동
-         * 💡 https://real-report.com/docs/api/viewer/reportviewer#first
+         * 💡 https://real-report.com/docs/api/ReportViewer#next
          * */
         const onClickNextPage = function () {
             if (viewer) {
@@ -433,7 +436,7 @@
 
         /**
          * PDF 내보내기
-         * 💡 https://real-report.com/docs/guide/viewer/export#pdf-%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0
+         * 💡 https://real-report.com/docs/api/ReportViewer#exportpdf
          * */
         const onClickExportPdf = function () {
             const zoomSclae = viewer.zoom
@@ -480,7 +483,7 @@
 
         /**
          * HWP, DOCX, PPTX 문서 내보내기
-         * 💡 https://real-report.com/docs/guide/viewer/export#%EB%AC%B8%EC%84%9C-%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0
+         * 💡 https://real-report.com/docs/api/ReportViewer#exportdocument
          * */
         const onClickExportDoc = function (type) {
             if (viewer) {
@@ -490,7 +493,7 @@
 
         /**
          * PNG, JPEG, GIF, TIF, TIFF 이미지 내보내기 함수
-         * 💡 https://real-report.com/docs/guide/viewer/export#%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0
+         * 💡 https://real-report.com/docs/api/ReportViewer#exportimage
          * */
         const onClickExportImage = function (type, encoding, fileName) {
             if (viewer) {
@@ -506,7 +509,6 @@
 
         /**
          * 숨겨진 iFrame을 이용해 미리보기 상태에서 바로 출력
-         * 💡 https://real-report.com/docs/guide/viewer/print#%EC%88%A8%EA%B2%A8%EC%A7%84-iframe-%EC%9D%B4%EC%9A%A9
          * */
         const onClickPrintHiddenFrame = function () {
             if (viewer) {

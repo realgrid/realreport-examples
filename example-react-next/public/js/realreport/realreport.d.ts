@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.8.6
-* commit cf74945
+* RealReport v1.8.7
+* commit ab37db0
 
 * Copyright (C) 2013-2024 WooriTech Inc.
 	https://real-report.com
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.8.6
+* RealReport Core v1.8.7
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit 84d9dfe922d0c8c03c2dcac923be8e4a2e26f685
+* commit 2aaf9cc3a7145340f2496410f5c04ecff548ded0
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -2474,6 +2474,7 @@ declare abstract class DataBand extends ReportGroupItem {
      * master band.
      */
     get master(): DataBand;
+    set master(band: DataBand);
     /**
      * band level.
      * 최상위 band이면 0.
@@ -2716,18 +2717,22 @@ declare abstract class DataBand extends ReportGroupItem {
  */
 declare class DataBandCollection extends ReportGroupItem {
     static readonly PROPINFOS: IPropInfo[];
+    static readonly CHILD_PROPS: IPropInfo[];
     static readonly $_ctor: string;
     private _owner;
     private _label;
     constructor(owner: DataBand, label: string);
     /** owner */
     get owner(): DataBand;
+    protected _getChildPropInfos(item: ReportItem): IPropInfo[];
     getSaveType(): string;
     get outlineLabel(): string;
     get designLevel(): number;
     get marqueeParent(): ReportItem;
+    protected _doLoadChild(child: ReportItem, src: any): void;
     canAdd(item: ReportItem): boolean;
     canContainsBand(): boolean;
+    canContainsBandGroup(): boolean;
     protected _doItemAdded(item: ReportItem, index: number): void;
 }
 
@@ -3410,8 +3415,61 @@ declare class ReportElement extends VisualElement$1 {
     protected _doPrint(doc: Document, ctx: PrintContext): void;
 }
 
-/**
- */
+declare class BandGroup extends ReportGroupItem {
+    static readonly PROP_BAND_COUNT = "bandCount";
+    static readonly PROP_BAND_GAP = "bandGap";
+    static readonly PROP_NO_SPLIT = "noSplit";
+    static readonly PROP_DIRECTION = "direction";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: any[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Band Group";
+    private _bandGap;
+    private _noSplit;
+    private _direction;
+    private _master;
+    constructor(name: string);
+    /**
+     * band count.
+     */
+    get bandCount(): number;
+    set bandCount(value: number);
+    /**
+     * gap between bands.
+     */
+    get bandGap(): number;
+    set bandGap(value: number);
+    /**
+     * 밴드그룹 설정 방향
+     */
+    get direction(): Direction;
+    set direction(value: Direction);
+    /**
+     * true면 밴드 아이템 전체 높이가 출력 페이지의 남은 높이 보다 클 경우 다음 페이지에 출력한다. #612
+     */
+    get noSplit(): boolean;
+    set noSplit(value: boolean);
+    /**
+     * master band.
+     */
+    get master(): DataBand;
+    set master(band: DataBand);
+    /**
+     * @internal
+     * ReportPage에서 bodyItems를 통해 호출한다.
+     */
+    loadProps(src: any): void;
+    getBandItem(index: number): DataBand | undefined;
+    getSaveType(): string;
+    get outlineLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canAdd(item: ReportItem): boolean;
+    private $_resetCells;
+}
+
 declare class BandCollectionElement extends ReportGroupItemElement<DataBandCollection> {
     constructor(doc: Document, model: DataBandCollection);
     protected _doDispose(): void;
@@ -3582,9 +3640,11 @@ declare abstract class BandElement<T extends DataBand> extends ReportGroupItemEl
     abstract addMasterRow(page: HTMLDivElement, headerView: any, rowView: any, x: number, y: number): number;
     abstract prepareAsync(doc: Document, ctx: PrintContext, width: number, subRows: number[], masterRow: number): BandPrintInfo<any>;
     abstract prepareSubBand(doc: Document, ctx: PrintContext, width: number, dataRows: number[]): BandPrintInfo<any>;
-    protected _prepareDetail(doc: Document, ctx: PrintContext, band: DataBand, details: DataBandCollection, detailViews: BandCollectionElement, r: number, rows: BandPrintRow[], width: number): void;
+    protected _prepareDetail(doc: Document, ctx: PrintContext, band: DataBand, details: DataBandCollection, detailViews: BandCollectionElement, masterBandRow: number, rows: BandPrintRow[], width: number): void;
     protected _getNext(item: ReportItemView): ReportItemView;
     protected _getPrev(item: ReportItemView): ReportItemView;
+    private $_prepareDetailDataBand;
+    private $_prepareDetailBandGroup;
 }
 
 /**
@@ -3696,6 +3756,14 @@ declare abstract class TableElement<T extends TableBase> extends ReportGroupItem
     private $_layoutViewInCell;
     protected _findCell(model: TableCellItem): TableCellElementBase;
     createColGroup(doc: Document, width: number): HTMLTableColElement;
+    /**
+     * 셀 높이를 계산하여 반환한다. (모델 값만으로 계산)
+     *
+     * @param cell
+     * @param rowHeightPixels 모든 행의 px 높이가 담긴 배열 (행 높이가 설정되어 있지 않은 경우 NaN)
+     * @returns 셀 높이 (row 높이가 고정되어 있지 않고, 컨텐츠에 따라 늘어나는 경우는 undefined를 반환한다.)
+     */
+    private $_calcCellHeight;
 }
 
 declare class CrosstabFieldHeader extends ReportItem {
@@ -6482,54 +6550,6 @@ interface ISimpleGroupPrintInfo extends IGroupPrintInfo {
 }
 type SimpleBandPrintRow = BandPrintRow | ISimpleGroupPrintInfo;
 
-declare class BandGroup extends ReportGroupItem {
-    static readonly PROP_BAND_COUNT = "bandCount";
-    static readonly PROP_BAND_GAP = "bandGap";
-    static readonly PROP_NO_SPLIT = "noSplit";
-    static readonly PROP_DIRECTION = "direction";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: any[];
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Band Group";
-    private _bandGap;
-    private _noSplit;
-    private _direction;
-    constructor(name: string);
-    /**
-     * band count.
-     */
-    get bandCount(): number;
-    set bandCount(value: number);
-    /**
-     * gap between bands.
-     */
-    get bandGap(): number;
-    set bandGap(value: number);
-    /**
-     * 밴드그룹 설정 방향
-     */
-    get direction(): Direction;
-    set direction(value: Direction);
-    /**
-     * true면 밴드 아이템 전체 높이가 출력 페이지의 남은 높이 보다 클 경우 다음 페이지에 출력한다. #612
-     */
-    get noSplit(): boolean;
-    set noSplit(value: boolean);
-    /**
-     * @internal
-     * ReportPage에서 bodyItems를 통해 호출한다.
-     */
-    loadProps(src: any): void;
-    getSaveType(): string;
-    get outlineLabel(): string;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    canAdd(item: ReportItem): boolean;
-    private $_resetCells;
-}
-
 interface AsyncLoadable {
     loadAsync(ctx: PrintContext): Promise<void>;
 }
@@ -6756,6 +6776,7 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     abstract getNextPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     abstract getNoPagingPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement;
     abstract getEmptyDataBandPage(doc: Document, ctx: PrintContext, bandPrintInfo: BandPrintInfo<T>, width: number, parent: HTMLDivElement): HTMLDivElement | null;
+    abstract resetRowIndex(): void;
     rollback(page: HTMLDivElement): void;
     setMaxCount(rows: any[], count: number): void;
     isDataRow(row: any): row is number;
@@ -6774,11 +6795,13 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
      * 밴드의 left, right 속성 적용
      */
     setBandBoundPosition(ctx: PrintContext, model: BandModel, div: HTMLDivElement): void;
+    setBandPrevIndex(index: number): void;
     protected _setX(dom: HTMLElement, x: number): void;
     protected _setY(dom: HTMLElement, y: number): void;
     protected _setPos(dom: HTMLElement, x: number, y: number): void;
     protected _createPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
     protected _createSectionPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
+    protected _createBandDetailPage(doc: Document, top: number, pageWidth: number): HTMLDivElement;
     protected _buildEndRows(marker: EndRowMarker, rowCount: number, rows: any[]): void;
     protected _unshiftEndRows(row: any, rows: any[]): void;
     /**
@@ -6804,9 +6827,9 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
      * @param rowsPerPage 페이지에서 몇행 까지 출력할 수 있는지 정보
      * @returns true = 디테일 밴드 출력 끝, false = 다음장에 디테일 계속 출력
      */
-    protected _isDetailBandPrintEnd(row: BandPrintInfo<SimpleBand | TableBand>): boolean;
-    protected _resetRowIndex(row: BandPrintInfo<SimpleBand | TableBand>): void;
-    protected _prepareDetailBandPrintNext(ctx: PrintContext, band: DataBand, row: BandPrintInfo<SimpleBand | TableBand>, rows: BandPrintRow[], rowsPerPage: number): void;
+    protected _isDetailBandPrintEnd(row: BandPrintInfo<SimpleBand | TableBand | BandGroup>): boolean;
+    protected _resetRowIndex(row: BandPrintInfo<SimpleBand | TableBand | BandGroup>): void;
+    protected _prepareDetailBandPrintNext(ctx: PrintContext, band: DataBand, row: BandPrintInfo<SimpleBand | TableBand | BandGroup>, rows: BandPrintRow[], rowsPerPage: number): void;
 }
 type PrintLine = {
     line: HTMLElement | BandPrintInfo<BandModel> | ReportFooterPrintInfo | PageBreaker;
