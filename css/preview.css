@@ -133,6 +133,12 @@ a {
     padding: 0 16px;
 }
 
+.toolbar-center {
+    display: flex;
+    align-items: center;
+    transition: opacity 100ms cubic-bezier(0, 0, 0.2, 1);
+}
+
 .toolbar-left {
     display: flex;
     align-items: center;
@@ -145,12 +151,6 @@ a {
         overflow: hidden;
         padding-inline-end: 20px;
     }
-}
-
-.toolbar-center {
-    display: flex;
-    align-items: center;
-    transition: opacity 100ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .mobile-gap {
