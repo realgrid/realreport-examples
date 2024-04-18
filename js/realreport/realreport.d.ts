@@ -1,6 +1,6 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.8.7
+* RealReport v1.8.8
 * commit ab37db0
 
 * Copyright (C) 2013-2024 WooriTech Inc.
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.8.7
+* RealReport Core v1.8.8
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit 2aaf9cc3a7145340f2496410f5c04ecff548ded0
+* commit 69b12800d983b21d8253f1d0e913d665b6d800f4
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -6830,6 +6830,7 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     protected _isDetailBandPrintEnd(row: BandPrintInfo<SimpleBand | TableBand | BandGroup>): boolean;
     protected _resetRowIndex(row: BandPrintInfo<SimpleBand | TableBand | BandGroup>): void;
     protected _prepareDetailBandPrintNext(ctx: PrintContext, band: DataBand, row: BandPrintInfo<SimpleBand | TableBand | BandGroup>, rows: BandPrintRow[], rowsPerPage: number): void;
+    protected _isNextRowDataRow(rows: BandPrintRow[]): boolean;
 }
 type PrintLine = {
     line: HTMLElement | BandPrintInfo<BandModel> | ReportFooterPrintInfo | PageBreaker;
