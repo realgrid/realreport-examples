@@ -1,5 +1,6 @@
-// 아래 라이선스는 유효기간 2024년 1월 31일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
-var realReportLic = 'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUC/9tdzLD/UUEjA7Am16Mku+6ZGVxDxR7Q=';
+// 아래 라이선스는 유효기간 2024년 12월 31일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
+var realReportLic =
+    'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUC/9tdzLD/UUBWJVz4BABQVdAeQQV4lYgQ=';
 var viewer;
 var editor;
 
@@ -15,7 +16,9 @@ const url = 'http://localhost:8080/report/';
 document.addEventListener('DOMContentLoaded', function () {
     var isIE = window.document.documentMode ? true : false;
     if (isIE) {
-        document.write('죄송합니다. RealReport 데모 사이트는 IE브라우저를 지원하지 않습니다.');
+        document.write(
+            '죄송합니다. RealReport 데모 사이트는 IE브라우저를 지원하지 않습니다.',
+        );
         document.close();
     }
 });
@@ -26,7 +29,7 @@ const resetActiveClass = function (activeEl, selection, active, resetIndex) {
 
     for (i = 0; i < elements.length; i++) {
         const element = elements[i];
-        // active할 el을 넘기지 않고 resetIndex를 넘기면 해당 아이템을 active한다. 
+        // active할 el을 넘기지 않고 resetIndex를 넘기면 해당 아이템을 active한다.
         if (element) {
             element.classList.remove(active);
         }
@@ -38,33 +41,36 @@ const resetActiveClass = function (activeEl, selection, active, resetIndex) {
     if (activeEl && activeEl instanceof HTMLElement) {
         activeEl.classList.add(active);
     }
-}
-
+};
 
 //--------------------------------------------------------------------------------------------------
 // event handlers
 //--------------------------------------------------------------------------------------------------
 
 const exampleFetch = async function (serviceUrl, callback) {
-    return fetch(serviceUrl).then(function (r) {
-        return r.json();
-    }).then(function (ret) {
-        if (ret) {
-            const { status, message } = ret;
-            if (status && status !== 200) console.error('Report Server error: ', message);
-            if (typeof callback === 'function') callback(ret);
-        }
-    }).catch(function (e) {
-        console.log(e);
-    });
-}
+    return fetch(serviceUrl)
+        .then(function (r) {
+            return r.json();
+        })
+        .then(function (ret) {
+            if (ret) {
+                const { status, message } = ret;
+                if (status && status !== 200) {
+                    console.error('Report Server error: ', message);
+                }
+                if (typeof callback === 'function') callback(ret);
+            }
+        })
+        .catch(function (e) {
+            console.log(e);
+        });
+};
 
 function previewReport(id) {
     exampleFetch(url.concat(id), function (report) {
         if (Array.isArray(report)) {
             reportViewer = previewFrame('reportFrame', [...report]);
-        }
-        else {
+        } else {
             reportViewer = previewFrame('reportFrame', [report]);
         }
     });
