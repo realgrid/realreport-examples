@@ -1,0 +1,2085 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader"
+        },
+        "reportHeader": {
+            "name": "reportHeader"
+        },
+        "reportFooter": {
+            "name": "reportFooter",
+            "visible": false
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "visible": false
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "simpleband",
+                    "data": "personal-card-profile",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "items": [
+                            {
+                                "type": "tableband",
+                                "data": "personal-card-education",
+                                "width": "100%",
+                                "name": "",
+                                "masterFields": "ResidentRegister",
+                                "keyFields": "ResidentRegister",
+                                "detail": {
+                                    "type": "detail",
+                                    "width": "100%",
+                                    "name": "",
+                                    "visible": false
+                                },
+                                "colCount": 6,
+                                "columns": [
+                                    {
+                                        "width": "6%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    }
+                                ],
+                                "header": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [
+                                        {
+                                            "height": "30px"
+                                        }
+                                    ],
+                                    "cells": [
+                                        {
+                                            "r": 0,
+                                            "c": 0,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 1,
+                                            "colspan": 2,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 2,
+                                            "styles": {
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 3,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 4,
+                                            "colspan": 2,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 5,
+                                            "styles": {
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        }
+                                    ],
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 1,
+                                            "row": 0,
+                                            "text": "학교이름",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 3,
+                                            "row": 0,
+                                            "text": "학과",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 4,
+                                            "row": 0,
+                                            "text": "졸업년도",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        }
+                                    ]
+                                },
+                                "footer": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "visible": false,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [{}],
+                                    "cells": []
+                                },
+                                "dataRow": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [
+                                        {
+                                            "height": "30px"
+                                        }
+                                    ],
+                                    "cells": [
+                                        {
+                                            "r": 0,
+                                            "c": 0,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "none",
+                                                "borderBottom": "1px solid #000"
+                                            },
+                                            "autoMerge": true
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 1,
+                                            "colspan": 2,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 2,
+                                            "styles": {
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 3,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "none",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 4,
+                                            "colspan": 2,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "none",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 5,
+                                            "styles": {
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        }
+                                    ],
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "value": "Category",
+                                            "width": "13px",
+                                            "name": "",
+                                            "col": 0,
+                                            "row": 0,
+                                            "wrap": true,
+                                            "text": "Text",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "Brightness",
+                                            "name": "",
+                                            "col": 1,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "Department",
+                                            "name": "",
+                                            "col": 3,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "GraduationYear",
+                                            "name": "",
+                                            "col": 4,
+                                            "row": 0,
+                                            "suffix": " 졸업",
+                                            "text": "Text"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "groups": [],
+                    "header": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "styles": {
+                            "paddingBottom": "40px",
+                            "__tag_": {}
+                        },
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "text": "개인 인사 기록 카드",
+                                "styles": {
+                                    "fontSize": "22px",
+                                    "fontWeight": "bold",
+                                    "borderBottom": "1px solid #000",
+                                    "__tag_": {}
+                                }
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "visible": false
+                    },
+                    "dataRow": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "items": [
+                            {
+                                "type": "table",
+                                "width": "84.1%",
+                                "height": "144px",
+                                "name": "",
+                                "right": "-1px",
+                                "rowCount": 6,
+                                "minRowHeight": "24px",
+                                "cellStyles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "1px solid #000",
+                                    "borderTop": "1px solid #000",
+                                    "borderBottom": "none"
+                                },
+                                "rows": [{}, {}, {}, {}, {}, {}],
+                                "cells": [
+                                    {
+                                        "r": 0,
+                                        "c": 0,
+                                        "styles": {
+                                            "backgroundColor": "#eee",
+                                            "borderLeft": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 1,
+                                        "colspan": 2
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 3,
+                                        "styles": {
+                                            "backgroundColor": "#eee"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 4,
+                                        "colspan": 2
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 0,
+                                        "styles": {
+                                            "backgroundColor": "#eee",
+                                            "paddingLeft": "5px",
+                                            "paddingRight": "5px",
+                                            "borderLeft": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 1,
+                                        "colspan": 2
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 3,
+                                        "styles": {
+                                            "backgroundColor": "#eee"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 4,
+                                        "colspan": 2
+                                    },
+                                    {
+                                        "r": 2,
+                                        "c": 0,
+                                        "styles": {
+                                            "backgroundColor": "#eee",
+                                            "paddingLeft": "5px",
+                                            "paddingRight": "5px",
+                                            "borderLeft": "1px solid #000",
+                                            "borderBottom": "none"
+                                        }
+                                    },
+                                    {
+                                        "r": 2,
+                                        "c": 1,
+                                        "colspan": 5,
+                                        "styles": {
+                                            "cellAlign": "left",
+                                            "borderBottom": "none"
+                                        }
+                                    },
+                                    {
+                                        "r": 3,
+                                        "c": 0,
+                                        "rowspan": 2,
+                                        "styles": {
+                                            "backgroundColor": "#eee",
+                                            "paddingLeft": "5px",
+                                            "paddingRight": "5px",
+                                            "borderLeft": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 3,
+                                        "c": 1,
+                                        "colspan": 5,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 4,
+                                        "c": 1,
+                                        "colspan": 5,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 5,
+                                        "c": 0,
+                                        "styles": {
+                                            "backgroundColor": "#eee",
+                                            "paddingLeft": "5px",
+                                            "paddingRight": "5px",
+                                            "borderBottom": "1px solid #000",
+                                            "borderLeft": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 5,
+                                        "c": 1,
+                                        "styles": {
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 5,
+                                        "c": 2,
+                                        "styles": {
+                                            "backgroundColor": "#eee",
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 5,
+                                        "c": 3,
+                                        "styles": {
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 5,
+                                        "c": 4,
+                                        "styles": {
+                                            "backgroundColor": "#eee",
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 5,
+                                        "c": 5,
+                                        "styles": {
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    }
+                                ],
+                                "colCount": 6,
+                                "columns": [
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    }
+                                ],
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 0,
+                                        "text": "주민등록번호",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "CurrentAddress",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 4,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Postcode",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 3,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "FamilyRegister",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 2,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Name",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 1,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "ResidentRegister",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 0,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 0,
+                                        "text": "생년월일",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 1,
+                                        "text": "전화번호",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "PhoneNumber",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 1,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "DateOfBirth",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 0,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "rbox",
+                                        "width": "100%",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 1,
+                                        "itemGap": "60px",
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "성",
+                                                "styles": {
+                                                    "fontWeight": "bold"
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "명",
+                                                "styles": {
+                                                    "fontWeight": "bold"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "rbox",
+                                        "width": "100%",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 2,
+                                        "itemGap": "60px",
+                                        "styles": {
+                                            "paddingLeft": "5px"
+                                        },
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "본",
+                                                "styles": {
+                                                    "fontWeight": "bold"
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "적",
+                                                "styles": {
+                                                    "fontWeight": "bold"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "rbox",
+                                        "width": "100%",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 3,
+                                        "itemGap": "60px",
+                                        "styles": {
+                                            "paddingLeft": "5px"
+                                        },
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "주",
+                                                "styles": {
+                                                    "fontWeight": "bold"
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "소",
+                                                "styles": {
+                                                    "fontWeight": "bold"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "rbox",
+                                        "width": "100%",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 5,
+                                        "itemGap": "60px",
+                                        "styles": {
+                                            "paddingLeft": "5px"
+                                        },
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "취",
+                                                "styles": {
+                                                    "fontWeight": "bold"
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "미",
+                                                "styles": {
+                                                    "fontWeight": "bold"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Hobby",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 5,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 5,
+                                        "text": "특기",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Speciality",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 5,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 5,
+                                        "text": "통근시간",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "RushHour",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 5,
+                                        "text": "Text"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "image",
+                                "value": "IDPicture",
+                                "width": "16.1%",
+                                "height": "144px",
+                                "name": "",
+                                "onGetStyles": "return { backgroundPosition: 'center', border: '1px solid #000', height: '100%'};",
+                                "left": 0,
+                                "top": 0
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "simpleband",
+                    "data": "personal-card-profile",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "items": [
+                            {
+                                "type": "tableband",
+                                "data": "personal-card-career",
+                                "width": "100%",
+                                "name": "",
+                                "masterFields": "ResidentRegister",
+                                "keyFields": "ResidentRegister",
+                                "detail": {
+                                    "type": "detail",
+                                    "width": "100%",
+                                    "name": "",
+                                    "visible": false
+                                },
+                                "colCount": 6,
+                                "columns": [
+                                    {
+                                        "width": "6%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    }
+                                ],
+                                "header": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [
+                                        {
+                                            "height": "30px"
+                                        }
+                                    ],
+                                    "cells": [
+                                        {
+                                            "r": 0,
+                                            "c": 0,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 1,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 2,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 3,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 4,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 5,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        }
+                                    ],
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 1,
+                                            "row": 0,
+                                            "text": "근무처",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 2,
+                                            "row": 0,
+                                            "text": "소재지",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 3,
+                                            "row": 0,
+                                            "text": "근속년수",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 4,
+                                            "row": 0,
+                                            "text": "퇴직사유",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 5,
+                                            "row": 0,
+                                            "text": "퇴직일자",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        }
+                                    ]
+                                },
+                                "footer": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "visible": false,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [{}],
+                                    "cells": []
+                                },
+                                "dataRow": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "rowCount": 1,
+                                    "cellStyles": {
+                                        "borderLeft": "",
+                                        "borderRight": "",
+                                        "borderTop": "",
+                                        "borderBottom": ""
+                                    },
+                                    "rows": [
+                                        {
+                                            "height": "30px"
+                                        }
+                                    ],
+                                    "cells": [
+                                        {
+                                            "r": 0,
+                                            "c": 0,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "none",
+                                                "borderBottom": "1px solid #000"
+                                            },
+                                            "autoMerge": true
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 1,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 2,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 3,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 4,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 5,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        }
+                                    ],
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "value": "Category",
+                                            "width": "13px",
+                                            "name": "",
+                                            "col": 0,
+                                            "row": 0,
+                                            "wrap": true,
+                                            "text": "Text",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "Employment",
+                                            "name": "",
+                                            "col": 1,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "Location",
+                                            "name": "",
+                                            "col": 2,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "YearsOfService",
+                                            "name": "",
+                                            "col": 3,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "ReasonForRetirement",
+                                            "name": "",
+                                            "col": 4,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "RetirementDate",
+                                            "name": "",
+                                            "col": 5,
+                                            "row": 0,
+                                            "suffix": "",
+                                            "text": "Text"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "groups": [],
+                    "header": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "visible": false
+                    },
+                    "footer": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "visible": false
+                    },
+                    "dataRow": {
+                        "type": "stack",
+                        "width": "100%",
+                        "height": 0,
+                        "name": null,
+                        "visible": false
+                    }
+                },
+                {
+                    "type": "simpleband",
+                    "data": "personal-card-profile",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "items": [
+                            {
+                                "type": "tableband",
+                                "data": "personal-card-family",
+                                "width": "100%",
+                                "name": "",
+                                "masterFields": "ResidentRegister",
+                                "keyFields": "ResidentRegister",
+                                "detail": {
+                                    "type": "detail",
+                                    "width": "100%",
+                                    "name": "",
+                                    "visible": false
+                                },
+                                "colCount": 6,
+                                "columns": [
+                                    {
+                                        "width": "6%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    }
+                                ],
+                                "header": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [
+                                        {
+                                            "height": "30px"
+                                        }
+                                    ],
+                                    "cells": [
+                                        {
+                                            "r": 0,
+                                            "c": 0,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 1,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 2,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 3,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 4,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 5,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        }
+                                    ],
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 1,
+                                            "row": 0,
+                                            "text": "가족성명",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 2,
+                                            "row": 0,
+                                            "text": "관계",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 3,
+                                            "row": 0,
+                                            "text": "가족생년월일",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 4,
+                                            "row": 0,
+                                            "text": "연령",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 5,
+                                            "row": 0,
+                                            "text": "최종학력",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        }
+                                    ]
+                                },
+                                "footer": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "visible": false,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [{}],
+                                    "cells": []
+                                },
+                                "dataRow": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [
+                                        {
+                                            "height": "30px"
+                                        }
+                                    ],
+                                    "cells": [
+                                        {
+                                            "r": 0,
+                                            "c": 0,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "none",
+                                                "borderBottom": "1px solid #000"
+                                            },
+                                            "autoMerge": true
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 1,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 2,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 3,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 4,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 5,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        }
+                                    ],
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "value": "Category",
+                                            "width": "13px",
+                                            "name": "",
+                                            "col": 0,
+                                            "row": 0,
+                                            "wrap": true,
+                                            "text": "Text",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "FamilyName",
+                                            "name": "",
+                                            "col": 1,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "Relationship",
+                                            "name": "",
+                                            "col": 2,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "FamilyGraduationYear",
+                                            "name": "",
+                                            "col": 3,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "FamilyAge",
+                                            "name": "",
+                                            "col": 4,
+                                            "row": 0,
+                                            "suffix": "세",
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "FamilyFinalEducation",
+                                            "name": "",
+                                            "col": 5,
+                                            "row": 0,
+                                            "text": "Text"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "groups": [],
+                    "header": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "visible": false
+                    },
+                    "footer": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "visible": false
+                    },
+                    "dataRow": {
+                        "type": "stack",
+                        "width": "100%",
+                        "height": 0,
+                        "name": null,
+                        "visible": false
+                    }
+                },
+                {
+                    "type": "simpleband",
+                    "data": "personal-card-profile",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "items": [
+                            {
+                                "type": "tableband",
+                                "data": "personal-card-guarantor",
+                                "width": "100%",
+                                "name": "",
+                                "masterFields": "ResidentRegister",
+                                "keyFields": "ResidentRegister",
+                                "detail": {
+                                    "type": "detail",
+                                    "width": "100%",
+                                    "name": "",
+                                    "visible": false
+                                },
+                                "colCount": 6,
+                                "columns": [
+                                    {
+                                        "width": "6%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    }
+                                ],
+                                "header": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [
+                                        {
+                                            "height": "30px"
+                                        }
+                                    ],
+                                    "cells": [
+                                        {
+                                            "r": 0,
+                                            "c": 0,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 1,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 2,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 3,
+                                            "colspan": 3,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "none"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 4,
+                                            "styles": {
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 5,
+                                            "styles": {
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        }
+                                    ],
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 1,
+                                            "row": 0,
+                                            "text": "신원보증인",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 2,
+                                            "row": 0,
+                                            "text": "신원관계",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 3,
+                                            "row": 0,
+                                            "text": "신원주소",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            }
+                                        }
+                                    ]
+                                },
+                                "footer": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "visible": false,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [{}],
+                                    "cells": []
+                                },
+                                "dataRow": {
+                                    "width": "100%",
+                                    "name": null,
+                                    "rowCount": 1,
+                                    "cellStyles": {},
+                                    "rows": [
+                                        {
+                                            "height": "30px"
+                                        }
+                                    ],
+                                    "cells": [
+                                        {
+                                            "r": 0,
+                                            "c": 0,
+                                            "onGetStyles": "",
+                                            "styleCallback": null,
+                                            "styles": {
+                                                "backgroundColor": "#eee",
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "none",
+                                                "borderBottom": "1px solid #000"
+                                            },
+                                            "autoMerge": true
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 1,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 2,
+                                            "styles": {
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 3,
+                                            "colspan": 3,
+                                            "styles": {
+                                                "cellAlign": "left",
+                                                "borderLeft": "none",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 4,
+                                            "styles": {
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 5,
+                                            "styles": {
+                                                "borderLeft": "1px solid #000",
+                                                "borderRight": "1px solid #000",
+                                                "borderTop": "1px solid #000",
+                                                "borderBottom": "1px solid #000"
+                                            }
+                                        }
+                                    ],
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "value": "Category",
+                                            "width": "13px",
+                                            "name": "",
+                                            "onGetStyles": "",
+                                            "col": 0,
+                                            "row": 0,
+                                            "wrap": true,
+                                            "text": "Text",
+                                            "styles": {
+                                                "fontWeight": "bold",
+                                                "__tag_": {}
+                                            },
+                                            "styleCallback": null
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "Guarantor",
+                                            "name": "",
+                                            "col": 1,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "IdentityRelationship",
+                                            "name": "",
+                                            "col": 2,
+                                            "row": 0,
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "value": "IdentityAddress",
+                                            "name": "",
+                                            "col": 3,
+                                            "row": 0,
+                                            "text": "Text"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "groups": [],
+                    "header": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "visible": false
+                    },
+                    "footer": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "visible": false
+                    },
+                    "dataRow": {
+                        "type": "stack",
+                        "width": "100%",
+                        "height": 0,
+                        "name": null,
+                        "visible": false
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "personal-card-profile": {
+            "sampleCount": 1,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "IDPicture",
+                    "dataType": "text",
+                    "sample": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3x6ERYm3Hpjv0-h-43hrqspDknKKAUxbIlg&usqp=CAU",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ResidentRegister",
+                    "dataType": "text",
+                    "sample": "830919-1233487",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Name",
+                    "dataType": "text",
+                    "sample": "김철수",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "FamilyRegister",
+                    "dataType": "text",
+                    "sample": "서울시 동작구 대방동 13-1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Postcode",
+                    "dataType": "text",
+                    "sample": "231-115",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "CurrentAddress",
+                    "dataType": "text",
+                    "sample": "서울시 동작구 대방동 13-1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Hobby",
+                    "dataType": "text",
+                    "sample": "게임",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Speciality",
+                    "dataType": "text",
+                    "sample": "볼링",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "DateOfBirth",
+                    "dataType": "text",
+                    "sample": "1983년9월1일",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "PhoneNumber",
+                    "dataType": "text",
+                    "sample": "02-883-9093",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "RushHour",
+                    "dataType": "text",
+                    "sample": "1시간",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "personal-card-guarantor": {
+            "sampleCount": 3,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "ResidentRegister",
+                    "dataType": "text",
+                    "sample": "830919-1233487",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Category",
+                    "dataType": "text",
+                    "sample": "신원보증인",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Guarantor",
+                    "dataType": "text",
+                    "sample": "김진수",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "IdentityRelationship",
+                    "dataType": "text",
+                    "sample": "부",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "IdentityAddress",
+                    "dataType": "text",
+                    "sample": "서울시 동작구 대방동 13-1",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "personal-card-family": {
+            "sampleCount": 5,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "ResidentRegister",
+                    "dataType": "text",
+                    "sample": "830919-1233487",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Category",
+                    "dataType": "text",
+                    "sample": "가족관계",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "FamilyName",
+                    "dataType": "text",
+                    "sample": "김진수",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Relationship",
+                    "dataType": "text",
+                    "sample": "부",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "FamilyGraduationYear",
+                    "dataType": "text",
+                    "sample": "1950년5월10일",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "FamilyAge",
+                    "dataType": "number",
+                    "sample": "58",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "FamilyFinalEducation",
+                    "dataType": "text",
+                    "sample": "대졸",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "personal-card-education": {
+            "sampleCount": 4,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "ResidentRegister",
+                    "dataType": "text",
+                    "sample": "830919-1233487",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Category",
+                    "dataType": "text",
+                    "sample": "학력",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Brightness",
+                    "dataType": "text",
+                    "sample": "대방중학교",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Department",
+                    "dataType": "text",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "GraduationYear",
+                    "dataType": "text",
+                    "sample": "1999년2월20일",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "personal-card-career": {
+            "sampleCount": 5,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "ResidentRegister",
+                    "dataType": "text",
+                    "sample": "830919-1233487",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Category",
+                    "dataType": "text",
+                    "sample": "경력사항",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Employment",
+                    "dataType": "text",
+                    "sample": "포시에스",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Location",
+                    "dataType": "text",
+                    "sample": "서울",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "YearsOfService",
+                    "dataType": "text",
+                    "sample": "2년",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ReasonForRetirement",
+                    "dataType": "text",
+                    "sample": "계약만료",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "RetirementDate",
+                    "dataType": "text",
+                    "sample": "2008-03-12",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        }
+    },
+    "guid": "b4c28bc9-a4c7-4b7d-97fc-0d9336121e04"
+}

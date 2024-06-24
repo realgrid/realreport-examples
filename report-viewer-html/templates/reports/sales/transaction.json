@@ -1,0 +1,884 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader"
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "height": 70,
+            "styles": {
+                "borderLeft": "1px solid black",
+                "borderRight": "1px solid black",
+                "borderTop": "1px solid black",
+                "__tag_": {}
+            },
+            "items": [
+                {
+                    "type": "text",
+                    "width": 202,
+                    "height": "30px",
+                    "text": "거래 명세서",
+                    "styles": {
+                        "fontSize": "30px",
+                        "fontWeight": "bold",
+                        "textAlign": "center",
+                        "verticalAlign": "middle",
+                        "__tag_": {}
+                    }
+                }
+            ]
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter"
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "table",
+                    "data": "transaction-master",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 8,
+                    "minRowHeight": "24px",
+                    "cellStyles": {
+                        "borderLeft": "1px solid black",
+                        "borderRight": "1px solid black",
+                        "borderTop": "1px solid black",
+                        "borderBottom": "1px solid black"
+                    },
+                    "rows": [
+                        {
+                            "height": "30px"
+                        },
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {}
+                    ],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "colspan": 4
+                        },
+                        {
+                            "r": 0,
+                            "c": 4,
+                            "colspan": 2
+                        },
+                        {
+                            "r": 1,
+                            "c": 1,
+                            "colspan": 3
+                        },
+                        {
+                            "r": 2,
+                            "c": 1,
+                            "colspan": 3
+                        },
+                        {
+                            "r": 3,
+                            "c": 1,
+                            "colspan": 3
+                        },
+                        {
+                            "r": 4,
+                            "c": 1,
+                            "colspan": 3
+                        },
+                        {
+                            "r": 5,
+                            "c": 1,
+                            "colspan": 3
+                        },
+                        {
+                            "r": 6,
+                            "c": 1,
+                            "colspan": 3
+                        }
+                    ],
+                    "colCount": 6,
+                    "columns": [
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "13%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "12%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "250px"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "공급자"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 0,
+                            "text": "공급받는 자"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 1,
+                            "text": "등록번호"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 2,
+                            "text": "상호(법인명)"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 3,
+                            "text": "성명"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 4,
+                            "text": "사업장주소"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 5,
+                            "text": "업태"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 6,
+                            "text": "업종"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 7,
+                            "text": "납품번호"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "name": "",
+                            "col": 0,
+                            "row": 1,
+                            "text": "등록번호"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 2,
+                            "text": "상호(법인명)"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 3,
+                            "text": "성명"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 4,
+                            "text": "사업장주소"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 5,
+                            "text": "업태"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 6,
+                            "text": "업종"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 7,
+                            "text": "PO번호"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 7,
+                            "text": "납품일"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prodBizRegNo",
+                            "name": "",
+                            "col": 1,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prodCompName",
+                            "name": "",
+                            "col": 1,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prodRepName",
+                            "name": "",
+                            "col": 1,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prodBizAddress",
+                            "name": "",
+                            "col": 1,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prodBizType",
+                            "name": "",
+                            "col": 1,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prodBizItem",
+                            "name": "",
+                            "col": 1,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "poNo",
+                            "name": "",
+                            "col": 1,
+                            "row": 7,
+                            "numberFormat": "",
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deliveryDate",
+                            "name": "",
+                            "col": 3,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "consBizRegNo",
+                            "name": "",
+                            "col": 5,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "consCompName",
+                            "name": "",
+                            "col": 5,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "consRepName",
+                            "name": "",
+                            "col": 5,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "consBizAddress",
+                            "name": "",
+                            "col": 5,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "consBizType",
+                            "name": "",
+                            "col": 5,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "consBizItem",
+                            "name": "",
+                            "col": 5,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deliveryNo",
+                            "name": "",
+                            "col": 5,
+                            "row": 7,
+                            "numberFormat": "",
+                            "text": "Text"
+                        }
+                    ]
+                },
+                {
+                    "type": "space",
+                    "name": "",
+                    "size": "30px"
+                },
+                {
+                    "type": "tableband",
+                    "data": "transaction-detail",
+                    "width": "100%",
+                    "name": "",
+                    "rowsPerPage": 8,
+                    "repeatDetailHeader": false,
+                    "endRowCount": 8,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "colCount": 10,
+                    "columns": [
+                        {
+                            "width": "90px"
+                        },
+                        {
+                            "width": "30%"
+                        },
+                        {
+                            "width": "40px"
+                        },
+                        {
+                            "width": "50px"
+                        },
+                        {
+                            "width": "70px"
+                        },
+                        {
+                            "width": "60px"
+                        },
+                        {
+                            "width": "50px"
+                        },
+                        {
+                            "width": "70px"
+                        },
+                        {
+                            "width": "70px"
+                        },
+                        {
+                            "width": "100px"
+                        }
+                    ],
+                    "header": {
+                        "name": "bandHeader",
+                        "width": "100%",
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "1px solid black",
+                            "borderRight": "1px solid black",
+                            "borderTop": "1px solid black",
+                            "borderBottom": "1px solid black"
+                        },
+                        "rows": [
+                            {
+                                "height": "30px"
+                            }
+                        ],
+                        "cells": [],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "품목코드"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "품명"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "단위"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "수량"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "단가"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "공급가액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "세액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "제조일"
+                            },
+                            {
+                                "type": "text",
+                                "width": 64,
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "구매 의뢰자"
+                            },
+                            {
+                                "type": "cbox",
+                                "width": 100,
+                                "height": 30,
+                                "name": "",
+                                "col": 9,
+                                "row": 0,
+                                "itemsAlign": "middle",
+                                "itemGap": 0,
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "text": "구매"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "text": "의뢰자TEL"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "name": "bandFooter",
+                        "width": "100%",
+                        "rowCount": 1,
+                        "minRowHeight": "30px",
+                        "cellStyles": {
+                            "borderLeft": "1px solid black",
+                            "borderRight": "1px solid black",
+                            "borderTop": "1px solid black",
+                            "borderBottom": "1px solid black"
+                        },
+                        "rows": [
+                            {
+                                "height": "24px"
+                            }
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "colspan": 2
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "합계"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "expression": "sum(quantity)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "expression": "sum(supplyPrice)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "expression": "sum(tax)"
+                            }
+                        ]
+                    },
+                    "dataRow": {
+                        "name": "dataRow",
+                        "width": "100%",
+                        "rowCount": 1,
+                        "minRowHeight": "30px",
+                        "cellStyles": {
+                            "borderLeft": "1px solid black",
+                            "borderRight": "1px solid black",
+                            "borderTop": "1px solid black",
+                            "borderBottom": "1px solid black"
+                        },
+                        "rows": [
+                            {
+                                "height": "24px"
+                            }
+                        ],
+                        "cells": [],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "code",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "name",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "unit",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "quantity",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "unitPrice",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "supplyPrice",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "tax",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "createDate",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "dateFormat": "yyyy-MM-dd",
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "buyerName",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "buyerTel",
+                                "name": "",
+                                "col": 9,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "space",
+                    "name": "",
+                    "size": "30px"
+                },
+                {
+                    "type": "table",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 2,
+                    "cellStyles": {
+                        "borderLeft": "1px solid black",
+                        "borderRight": "1px solid black",
+                        "borderTop": "1px solid black",
+                        "borderBottom": "1px solid black"
+                    },
+                    "rows": [
+                        {
+                            "height": "300px"
+                        },
+                        {
+                            "height": "24px"
+                        }
+                    ],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "styles": {
+                                "borderLeft": "",
+                                "borderRight": "",
+                                "borderTop": "",
+                                "borderBottom": ""
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 1,
+                            "colspan": 3
+                        }
+                    ],
+                    "colCount": 4,
+                    "columns": [
+                        {
+                            "width": "90px"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "120px"
+                        },
+                        {
+                            "width": "19%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "비고"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 1,
+                            "text": "공급자(서명)"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "text": "공급받는자(서명)"
+                        }
+                    ]
+                }
+            ]
+        },
+        "styles": {
+            "fontFamily": "Arial",
+            "fontSize": "11px",
+            "__tag_": {}
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "transaction-master": {
+            "type": "simple",
+            "sample": {
+                "prodBizRegNo": "123-45-67890",
+                "prodCompName": "우리테크",
+                "prodRepName": "홍길동",
+                "prodBizAddress": "경기도 성남시 운중로 123",
+                "prodBizType": "과학기기 시약",
+                "prodBizItem": "도소매",
+                "consBizRegNo": "098-76-54321",
+                "consCompName": "제일제약",
+                "consRepName": "김철수",
+                "consBizAddress": "경기도 광주시 경안동 123-1",
+                "consBizType": "기타화학제품제",
+                "consBizItem": "화공약품 외",
+                "poNo": 2817319237,
+                "deliveryDate": "2021.1.1",
+                "deliveryNo": 137154220
+            }
+        },
+        "transaction-detail": {
+            "sampleCount": 3,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "code",
+                    "dataType": "text",
+                    "sample": "DP0000001",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "name",
+                    "dataType": "text",
+                    "sample": "TSM Roter A",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "unit",
+                    "dataType": "text",
+                    "sample": "EA",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "quantity",
+                    "dataType": "number",
+                    "sample": "1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "unitPrice",
+                    "dataType": "number",
+                    "sample": "1300000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "supplyPrice",
+                    "dataType": "number",
+                    "sample": "1300000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "tax",
+                    "dataType": "number",
+                    "sample": "130000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "createDate",
+                    "dataType": "text",
+                    "sample": "2019-01-03",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "buyerName",
+                    "dataType": "text",
+                    "sample": "김지민",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "buyerTel",
+                    "dataType": "text",
+                    "sample": "010-123-4567",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        }
+    },
+    "guid": "021a5342-a9fe-40b5-9636-138a5cdcfb06"
+}

@@ -1,0 +1,30 @@
+{
+    "fields": [
+        {"fieldName": "ResidentRegister", "dataType": "text", "sample": "830919-1233487" },
+        {"fieldName": "Category", "dataType": "text", "sample": "신원보증인" },
+        {"fieldName": "Guarantor", "dataType": "text", "sample": "김진수" },
+        {"fieldName": "IdentityRelationship", "dataType": "text", "sample": "부" },
+        {"fieldName": "IdentityAddress", "dataType": "text", "sample": "서울시 동작구 대방동 13-1" }
+    ],
+    "sample": [{
+        "ResidentRegister" : "830919-1233487",
+        "Category": "신원보증인",
+        "Guarantor": "김진수",
+        "IdentityRelationship": "부",
+        "IdentityAddress": "서울시 동작구 대방동 13-1"
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category": "신원보증인",
+        "Guarantor": "",
+        "IdentityRelationship": "",
+        "IdentityAddress": ""
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category": "신원보증인",
+        "Guarantor": "",
+        "IdentityRelationship": "",
+        "IdentityAddress": ""
+    }]
+}

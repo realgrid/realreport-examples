@@ -1,0 +1,56 @@
+{
+    "fields": [
+        {"fieldName": "ResidentRegister", "dataType": "text", "sample": "830919-1233487" },
+        {"fieldName": "Category", "dataType": "text", "sample": "가족관계" },
+        {"fieldName": "FamilyName", "dataType": "text","sample": "김진수" },
+        {"fieldName": "Relationship", "dataType": "text", "sample": "부" },
+        {"fieldName": "FamilyGraduationYear", "dataType": "text", "sample": "1950년5월10일" },
+        {"fieldName": "FamilyAge", "dataType": "number", "sample": 58 },
+        {"fieldName": "FamilyFinalEducation", "dataType": "text", "sample": "대졸"}
+    ],
+    "sample": [{
+        "ResidentRegister" : "830919-1233487",
+        "Category": "가족관계",
+        "FamilyName": "김진수",
+        "Relationship": "부",
+        "FamilyGraduationYear": "1950년5월10일",
+        "FamilyAge": 58,
+        "FamilyFinalEducation": "대졸"
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category": "가족관계",
+        "FamilyName": "이서영",
+        "Relationship": "모",
+        "FamilyGraduationYear": "1956년8월14일",
+        "FamilyAge": 52,
+        "FamilyFinalEducation": "고졸"
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category": "가족관계",
+        "FamilyName": "김기철",
+        "Relationship": "형",
+        "FamilyGraduationYear": "1982년3월4일",
+        "FamilyAge": 27,
+        "FamilyFinalEducation": "대졸"
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category": "가족관계",
+        "FamilyName": "",
+        "Relationship": "",
+        "FamilyGraduationYear": "",
+        "FamilyAge": null,
+        "FamilyFinalEducation": ""
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category": "가족관계",
+        "FamilyName": "",
+        "Relationship": "",
+        "FamilyGraduationYear": "",
+        "FamilyAge": null,
+        "FamilyFinalEducation": ""
+    }]
+}

@@ -1,0 +1,24 @@
+{
+    "fields": [
+      { "fieldName": "Title", "dataType": "text", "sample": "비영업용 소형승용차매입및유지" },
+      { "fieldName": "SuppyPrice", "dataType": "number", "sample": 0 },
+      { "fieldName": "Tax", "dataType": "number", "sample": 0 }
+    ],
+    "sample": [
+      {
+        "Title": "비영업용 소형승용차매입및유지",
+        "SuppyPrice": 0,
+        "Tax": 0
+      },
+      {
+        "Title": "연세 사업관 관련 내역",
+        "SuppyPrice": 206300,
+        "Tax": 0
+      },
+      {
+        "Title": "공동매입세역안분내역",
+        "SuppyPrice": 0,
+        "Tax": 0
+      }
+    ]
+}

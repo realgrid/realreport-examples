@@ -1,0 +1,26 @@
+{
+    "fields": [
+        { "fieldName": "company", "dataType": "text", "sample": "AAA" },
+        { "fieldName": "contact", "dataType": "text", "sample": "홍길동" },
+        { "fieldName": "fromHour", "dataType": "text", "sample": "9:40" },
+        { "fieldName": "toHour", "dataType": "text", "sample": "10:30" },
+        { "fieldName": "purpose", "dataType": "text", "sample": "SALE" },
+        { "fieldName": "amount", "dataType": "number", "sample": 10000000 },
+        { "fieldName": "depositDate", "dataType": "text", "sample": "2/10" },
+        { "fieldName": "depositAmount", "dataType": "number", "sample": 10000000 },
+        { "fieldName": "comment", "dataType": "text", "sample": "" }
+    ],
+    "sample": [
+        {
+            "company": "AAA",
+            "contact": "홍길동",
+            "fromHour": "11:00",
+            "toHour": "12:00",
+            "purpose": "SALE",
+            "amount": 7500000,
+            "depositDate": "2/10",
+            "depositAmount": 7500000,
+            "comment": ""
+        }
+    ]
+}

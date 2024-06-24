@@ -1,0 +1,62 @@
+{
+    "master-detail-01": {
+        "type": "band",
+        "values": [
+            {
+                "OrderID": 10248,
+                "OrderDate": "1996-07-04",
+                "RequiredDate": "1996-08-01",
+                "ShippedDate": "1996-07-16",
+                "ShipVia": 3,
+                "ShipName": "해바라기 백화점 (주)",
+                "ShipAddress": "도봉구 창 1동 218-16",
+                "ShipCity": "서울특별시",
+                "ShipRegion": "경기도",
+                "ShipPostalCode": "032-041",
+                "ShipCountry": "대한민국",
+                "ShipFullAddr": "서울특별시 도봉구 창 1동 218-16",
+                "Freight": 32000,
+                "CustomerID": "VINET",
+                "CompanyName": "해바바라기 백화점 (주)",
+                "ContactName": "채송아",
+                "ContactTitle": "경리 과장",
+                "PostalCode": "032-041",
+                "Phone": "(02)222-2243",
+                "Fax": "(02)222-8243",
+                "FullAddr": "서울특별시 도봉구 창 1동 218-16",
+                "Country": "대한민국",
+                "ShipperCompany": "국제 특송 (주)",
+                "TotalPrice": "443000"
+            }
+        ]
+    },
+    "master-detail-02": {
+        "type": "band",
+        "values": [
+            {
+                "OrderID": 10248,
+                "ProductName": "현진 커피 밀크",
+                "UnitPrice": 14000,
+                "Quantity": 12,
+                "Discount": 0,
+                "ExtendedPrice": 168000
+            },
+            {
+                "OrderID": 10248,
+                "ProductName": "싱가폴 원산 옥수수",
+                "UnitPrice": 10000,
+                "Quantity": 10,
+                "Discount": 0,
+                "ExtendedPrice": 100000
+            },
+            {
+                "OrderID": 10248,
+                "ProductName": "대관령 특제 버터",
+                "UnitPrice": 35000,
+                "Quantity": 5,
+                "Discount": 0,
+                "ExtendedPrice": 175000
+            }
+        ]
+    }
+}

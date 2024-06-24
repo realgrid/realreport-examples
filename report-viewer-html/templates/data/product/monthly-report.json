@@ -1,0 +1,11 @@
+{
+    "fields": [
+        { "fieldName": "Month", "dataType": "text", "sample": "Jan" },
+        { "fieldName": "Plan", "dataType": "text", "sample": 6 },
+        { "fieldName": "Result", "dataType": "text", "sample": 3.99 },
+        { "fieldName": "Faulty", "dataType": "text", "sample": 1 }
+    ],
+    "sample": [
+
+    ]
+}

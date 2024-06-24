@@ -1,0 +1,64 @@
+{
+    "fields": [
+        { "fieldName": "No", "dataType": "number", "sample": 1 },
+        { "fieldName": "Day", "dataType": "text", "sample": "1일" },
+        { "fieldName": "Week", "dataType": "text", "sample": "월요일" },
+        { "fieldName": "ComeTime", "dataType": "text", "sample": "9:00" },
+        { "fieldName": "LeaveTime", "dataType": "text", "sample": "18:30" },
+        { "fieldName": "WorkTime", "dataType": "text", "sample": "9:30" },
+        { "fieldName": "WeekWorkTime", "dataType": "text", "sample": "7:30" },
+        { "fieldName": "NightOverTime", "dataType": "text", "sample": "2:00" },
+        { "fieldName": "MorningEarlyTime", "dataType": "text", "sample": "1:30" },
+        { "fieldName": "ETC", "dataType": "text", "sample": null }
+    ],
+    "sample": [
+        {
+            "No": 1,
+            "Day": "1일",
+            "Week": "월요일",
+            "ComeTime": "9:00",
+            "LeaveTime": "18:30",
+            "WorkTime": "9:30",
+            "WeekWorkTime": "7:30",
+            "NightOverTime": "2:00",
+            "MorningEarlyTime": "1:30",
+            "ETC": null
+        },
+        {
+            "No": 2,
+            "Day": "2일",
+            "Week": "화요일",
+            "ComeTime": "9:10",
+            "LeaveTime": "18:50",
+            "WorkTime": "9:40",
+            "WeekWorkTime": "7:20",
+            "NightOverTime": "2:20",
+            "MorningEarlyTime": "1:20",
+            "ETC": null
+        },
+        {
+            "No": 3,
+            "Day": "3일",
+            "Week": "수요일",
+            "ComeTime": "9:00",
+            "LeaveTime": "19:00",
+            "WorkTime": "10:00",
+            "WeekWorkTime": "7:30",
+            "NightOverTime": "2:30",
+            "MorningEarlyTime": "1:30",
+            "ETC": null
+        },
+        {
+            "No": 4,
+            "Day": "4일",
+            "Week": "목요일",
+            "ComeTime": "6:00",
+            "LeaveTime": "19:00",
+            "WorkTime": "13:00",
+            "WeekWorkTime": "10:30",
+            "NightOverTime": "2:300",
+            "MorningEarlyTime": "4:30",
+            "ETC": null
+        }
+    ]
+}

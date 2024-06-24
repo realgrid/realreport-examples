@@ -1,0 +1,61 @@
+{
+    "proof-employeement": {
+        "type": "band",
+        "values": [
+            {
+                "NameKor": "김대한",
+                "NameChn": "金大韓",
+                "RegidentNo": "800101-1234567",
+                "Address": "서울시 광진구 뚝섬로 40길 45 1004동 1404호",
+                "Company": "주식회사 한국금속",
+                "CorporateNo": "120-10-12345",
+                "Department": "생산부 품질팀",
+                "Position": "과장",
+                "JoinDate": "2003년 3월 1일",
+                "Duration": "9년 3개월",
+                "Usage": "은행 제출용",
+                "IssueDate": "2012년 6월 12일",
+                "Issuer": "김동현",
+                "IssuerDepartment": "인사부",
+                "IssuerPhone": "031-4000-1234",
+                "CEO": "김금철"
+            },
+            {
+                "NameKor": "손기정",
+                "NameChn": "孫基禎",
+                "RegidentNo": "780101-1234568",
+                "Address": "서울시 광진구 뚝섬로 40길 45 1004동 1404호",
+                "Company": "주식회사 한국금속",
+                "CorporateNo": "120-10-12346",
+                "Department": "생산부 품질팀",
+                "Position": "부장",
+                "JoinDate": "2001년 5월 7일",
+                "Duration": "11년 1개월",
+                "Usage": "은행 제출용",
+                "IssueDate": "2012년 6월 12일",
+                "Issuer": "김동현",
+                "IssuerDepartment": "인사부",
+                "IssuerPhone": "031-4000-1234",
+                "CEO": "김금철"
+            },
+            {
+                "NameKor": "엄복동",
+                "NameChn": "嚴福童",
+                "RegidentNo": "820101-1234567",
+                "Address": "서울시 광진구 뚝섬로 40길 45 1004동 1404호",
+                "Company": "주식회사 한국금속",
+                "CorporateNo": "120-10-12347",
+                "Department": "생산부 품질팀",
+                "Position": "팀장",
+                "JoinDate": "2007년 3월 1일",
+                "Duration": "5년 3개월",
+                "Usage": "은행 제출용",
+                "IssueDate": "2012년 6월 12일",
+                "Issuer": "김동현",
+                "IssuerDepartment": "인사부",
+                "IssuerPhone": "031-4000-1234",
+                "CEO": "김금철"
+            }
+        ]
+    }
+}

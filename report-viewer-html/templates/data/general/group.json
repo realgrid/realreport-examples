@@ -1,0 +1,268 @@
+{
+	"fields": [
+		{
+			"fieldName": "Company",
+			"dataType": "text",
+			"sample": "AND"
+		},
+		{
+			"fieldName": "Distributor",
+			"dataType": "text",
+			"sample": "강원"
+		},
+		{
+			"fieldName": "Agent",
+			"dataType": "text",
+			"sample": "강릉"
+		},
+		{
+			"fieldName": "Model",
+			"dataType": "text",
+			"sample": "하우젠 SEW-3HW124"
+		},
+		{
+			"fieldName": "UnitCost",
+			"dataType": "number",
+			"sample": 60
+		},
+		{
+			"fieldName": "Quantity",
+			"dataType": "number",
+			"sample": 19
+		}
+	],
+	"sample": [
+		{
+			"Company": "AND",
+			"Distributor": "강원",
+			"Agent": "강릉",
+			"Model": "컴펙트 싸이킹 V-C712J",
+			"UnitCost": 163800,
+			"Quantity": 35
+		},
+		{
+			"Company": "Absolutes",
+			"Distributor": "강원",
+			"Agent": "강릉",
+			"Model": "업그레이드 싸이킹 V-C712JN",
+			"UnitCost": 174900,
+			"Quantity": 13
+		},
+		{
+			"Company": "BTCS",
+			"Distributor": "강원",
+			"Agent": "강릉",
+			"Model": "파으 SVP-50L22HXN",
+			"UnitCost": 4010000,
+			"Quantity": 5
+		},
+		{
+			"Company": "HOOXS",
+			"Distributor": "강원",
+			"Agent": "강릉",
+			"Model": "IS-9000QD I28-140 mm렌즈",
+			"UnitCost": 490000,
+			"Quantity": 26
+		},
+		{
+			"Company": "CUS",
+			"Distributor": "강원",
+			"Agent": "강릉",
+			"Model": "하우젠 SCW-3HW124",
+			"UnitCost": 690900,
+			"Quantity": 20
+		},
+		{
+			"Company": "CUS",
+			"Distributor": "강원",
+			"Agent": "강릉",
+			"Model": "공기방울 DWr-558W",
+			"UnitCost": 238000,
+			"Quantity": 31
+		},
+		{
+			"Company": "백두산",
+			"Distributor": "강원",
+			"Agent": "강릉",
+			"Model": "베이브플러스 CW B0001",
+			"UnitCost": 149000,
+			"Quantity": 26
+		},
+		{
+			"Company": "새륵",
+			"Distributor": "강원",
+			"Agent": "강릉",
+			"Model": "DVD-RW DVD 3001",
+			"UnitCost": 164000,
+			"Quantity": 21
+		},
+		{
+			"Company": "한미디어",
+			"Distributor": "강원",
+			"Agent": "강릉",
+			"Model": "하우젠 HNR-2120T",
+			"UnitCost": 1340000,
+			"Quantity": 26
+		},
+		{
+			"Company": "히타자",
+			"Distributor": "강원",
+			"Agent": "강릉",
+			"Model": "SCR-0150R",
+			"UnitCost": 222000,
+			"Quantity": 26
+		},
+		{
+			"Company": "COMPCQ",
+			"Distributor": "강원",
+			"Agent": "속초",
+			"Model": "하우젠 SCW-3HW125W",
+			"UnitCost": 837000,
+			"Quantity": 65
+		},
+		{
+			"Company": "CPSAN",
+			"Distributor": "강원",
+			"Agent": "속초",
+			"Model": "32TD9954",
+			"UnitCost": 4050000,
+			"Quantity": 63
+		},
+		{
+			"Company": "IMRIS",
+			"Distributor": "강원",
+			"Agent": "속초",
+			"Model": "VPC-MZ3IDSC-MZ3",
+			"UnitCost": 335000,
+			"Quantity": 65
+		},
+		{
+			"Company": "IMRIS",
+			"Distributor": "강원",
+			"Agent": "속초",
+			"Model": "VPC-MZ3IDSC-MZ3",
+			"UnitCost": 335000,
+			"Quantity": 30
+		},
+		{
+			"Company": "INTCN",
+			"Distributor": "강원",
+			"Agent": "속초",
+			"Model": "수중강타 SCW-MA600",
+			"UnitCost": 310000,
+			"Quantity": 32
+		},
+		{
+			"Company": "CUS",
+			"Distributor": "강원",
+			"Agent": "속초",
+			"Model": "하우젠 SCW-3HW124",
+			"UnitCost": 690900,
+			"Quantity": 23
+		},
+		{
+			"Company": "씨니큐",
+			"Distributor": "강원",
+			"Agent": "속초",
+			"Model": "딤채 DD-150SSD",
+			"UnitCost": 833000,
+			"Quantity": 61
+		},
+		{
+			"Company": "팔립스",
+			"Distributor": "강원",
+			"Agent": "속초",
+			"Model": "티타늄지맬 SR-S686ITI",
+			"UnitCost": 1640000,
+			"Quantity": 85
+		},
+		{
+			"Company": "ASTech",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "먼지파토 VC-L822X",
+			"UnitCost": 79500,
+			"Quantity": 13
+		},
+		{
+			"Company": "AND",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "동글이 V-C391T",
+			"UnitCost": 76000,
+			"Quantity": 26
+		},
+		{
+			"Company": "Absolutes",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "업그레이드 싸이킹 V-C712JN",
+			"UnitCost": 174900,
+			"Quantity": 49
+		},
+		{
+			"Company": "BROTHCRS",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "씨머스 DTQ-29US",
+			"UnitCost": 370000,
+			"Quantity": 12
+		},
+		{
+			"Company": "DDR",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "디오스 R-S684NHJ",
+			"UnitCost": 1138000,
+			"Quantity": 23
+		},
+		{
+			"Company": "TUJATSU",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "클라쎄 DWD-200DR",
+			"UnitCost": 1220000,
+			"Quantity": 78
+		},
+		{
+			"Company": "INTCN",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "DSC-T1",
+			"UnitCost": 960000,
+			"Quantity": 27
+		},
+		{
+			"Company": "INTCN",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "DSC-T1",
+			"UnitCost": 960000,
+			"Quantity": 24
+		},
+		{
+			"Company": "백두산",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "TB-200",
+			"UnitCost": 195000,
+			"Quantity": 43
+		},
+		{
+			"Company": "씨니큐",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "DOTJP-6600",
+			"UnitCost": 1595000,
+			"Quantity": 78
+		},
+		{
+			"Company": "팔립스",
+			"Distributor": "강원",
+			"Agent": "원주",
+			"Model": "티타늄지맬 SR-S686ITI",
+			"UnitCost": 1640000,
+			"Quantity": 23
+		}
+	]
+}

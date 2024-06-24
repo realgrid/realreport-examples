@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.8.8
-* commit ab37db0
+* RealReport v1.9.0
+* commit bcd8d0b
 
 * Copyright (C) 2013-2024 WooriTech Inc.
 	https://real-report.com
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.8.8
+* RealReport Core v1.9.0
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit 69b12800d983b21d8253f1d0e913d665b6d800f4
+* commit bc11ef2f13fe4761f6f7f9459c9d8b0ad53d0310
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -541,8 +541,10 @@ declare abstract class UIContainer extends EventAware$1 {
     get defaultTool(): UITool;
     /** width */
     get width(): number;
+    set width(value: number);
     /** height */
     get height(): number;
+    set height(value: number);
     getBound(): Rectangle$1;
     getHtml(): string;
     setCursor(cursor?: string): void;
@@ -550,6 +552,7 @@ declare abstract class UIContainer extends EventAware$1 {
     protected abstract _getCssSelector(): string;
     private prepareContainer;
     protected _addElement(element: UIElement): void;
+    protected _prepareContainer(div: HTMLDivElement): void;
     protected _prepareChildren(doc: Document, dom: HTMLElement): void;
     protected _createDefaultTool(): UITool;
     isLayoutNeeded(): boolean;
@@ -652,6 +655,9 @@ declare abstract class VisualContainer$1 extends EventAware$1 implements VisualT
     /** visible */
     get visible(): boolean;
     set visible(value: boolean);
+    /** contentVisible */
+    get contentVisible(): boolean;
+    set contentVisible(value: boolean);
     /** disabled */
     get disabled(): boolean;
     set disabled(value: boolean);
@@ -666,14 +672,16 @@ declare abstract class VisualContainer$1 extends EventAware$1 implements VisualT
     protected get measurer(): HTMLElement;
     /** width */
     get width(): number;
+    set width(value: number);
     /** height */
     get height(): number;
+    set height(value: number);
     get scrollHeight(): number;
     get scrollTop(): number;
     protected get scrolling(): boolean;
     get containerDiv(): HTMLDivElement;
     findElementAt(x: number, y: number, hitTesting: boolean, blockLayer: boolean): VisualElement$1;
-    findElementOf(dom: Element): VisualElement$1;
+    findElementOf(dom: Element, deep?: boolean): VisualElement$1;
     getTableCell(dom: HTMLElement): HTMLTableCellElement;
     setCursor(cursor: string): void;
     setFocus(): void;
@@ -685,6 +693,7 @@ declare abstract class VisualContainer$1 extends EventAware$1 implements VisualT
     };
     getBound(): Rectangle$1;
     getHtml(): string;
+    appendDom(dom: HTMLElement): void;
     addElement(element: VisualElement$1): boolean;
     removeElement(element: VisualElement$1): boolean;
     addFeedback(element: UIElement | HTMLElement): boolean;
@@ -700,11 +709,14 @@ declare abstract class VisualContainer$1 extends EventAware$1 implements VisualT
     getDomPosition(elt: HTMLElement | VisualElement$1, rotated?: boolean): IRect;
     private $_offsetDomPosition;
     getBoundingRect(element: VisualElement$1): Rectangle$1;
+    domToContainer(dom: Element): IRect;
+    get feedbackElement(): UIElement;
     private $_setTesting;
     protected get _isTesting(): boolean;
     protected _doDisabledChanged(): void;
     private $_prepareContainer;
-    protected _doPrepareContainer(dom: HTMLElement): void;
+    protected _doPrepareContainer(doc: Document, dom: HTMLElement): void;
+    protected _doPrepareContent(doc: Document, root: HTMLDivElement): void;
     protected _createRootElement(doc: Document): VisualElement$1;
     protected _createDefaultTool(): VisualTool$1;
     isLayoutNeeded(): boolean;
@@ -737,6 +749,7 @@ declare abstract class VisualContainer$1 extends EventAware$1 implements VisualT
     eventToContainer(event: any): Point$1;
     private toOffset;
     private toOffsetTouch;
+    protected _doClickHandler(event: MouseEvent): boolean;
     private _clickHandler;
     private _dblclickHandler;
     private $_getHtmlElement;
@@ -874,10 +887,11 @@ declare abstract class VisualElement$1 extends EventAware$1 {
     get firstChild(): VisualElement$1;
     contains(element: VisualElement$1): boolean;
     getAncestor(cls: any): VisualElement$1;
-    addDom(dom: HTMLElement): void;
+    addDom(dom: Element): void;
     addChild(child: VisualElement$1): boolean;
     protected _getParentDom(): HTMLElement;
     insertChild(index: number, child: VisualElement$1): boolean;
+    remove(): void;
     removeChild(child: VisualElement$1): boolean;
     removeChildAt(index: number): VisualElement$1;
     removeLast(): VisualElement$1;
@@ -901,7 +915,7 @@ declare abstract class VisualElement$1 extends EventAware$1 {
     offsetFrom(elt: VisualElement$1): Point$1;
     hitTest(x: number, y: number): boolean;
     findChildAt(x: number, y: number, hitTesting: boolean, blockLayer: boolean): VisualElement$1;
-    findChildOf(dom: Element): VisualElement$1;
+    findChildOf(dom: Element, deep: boolean): VisualElement$1;
     internalSetX(x: number): void;
     internalSetY(y: number): void;
     move(x: number, y: number, draw?: boolean): void;
@@ -913,7 +927,7 @@ declare abstract class VisualElement$1 extends EventAware$1 {
     setRect(r: IRect): VisualElement$1;
     setRectI(r: IRect): VisualElement$1;
     getBoundingRect(): any;
-    draw(): void;
+    draw(force?: boolean): void;
     drawRecursive(): void;
     resetSizeStyle(): void;
     getHtml(): string;
@@ -1061,6 +1075,7 @@ declare enum PropCategory {
     BOUND = "bound",
     LINK = "link",
     EVENT = "event",
+    I18N = "internationalization",
     SECTION = "section",
     EDITOR = "editor",
     REPORT = "report",
@@ -1238,7 +1253,6 @@ declare abstract class BoxContainer extends ReportGroupItem {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
     canAlign(child: ReportItem): boolean;
-    canAdoptDragSource(source: any): boolean;
 }
 /**
  * 수직으로 자식 item들을 배치한다.
@@ -1370,6 +1384,20 @@ declare class Size$1 implements ISize {
     toString(): string;
 }
 
+type TreeItemSource = {
+    name: string;
+    label?: string;
+    editable?: boolean;
+    expandable?: boolean;
+    loadable?: boolean;
+    tag?: any;
+    value?: string;
+    type?: string;
+    iconType?: TreeItemIconType;
+    children?: TreeItemSource[];
+};
+type TreeItemIconType = 'group' | 'report' | 'asset' | 'favorite' | 'bandData' | 'simpleData' | 'language';
+
 /**
  * Asset item base.
  */
@@ -1474,7 +1502,7 @@ declare class AssetManager extends EventAware$1 {
     addPalette(group: string | AssetGroup, name: string, paletteData: string): ColorPaletteAsset;
     addCharitst(group: string | AssetGroup, name: string, themeData: string): ChartistThemeAsset;
     addHighchart(group: string | AssetGroup, name: string, themeData: string): HighchartThemeAsset;
-    getTree(root?: string): object;
+    getTree(root?: string): TreeItemSource;
     private $_parseTree;
     getValidName(prefix: string): string;
     isValidName(name: string): boolean;
@@ -1523,6 +1551,37 @@ declare abstract class ReportData$1 extends Base$1 {
     set name(value: string);
     preparePrint(ctx: PrintContext, design: boolean): void;
 }
+declare enum ReportDataLinkFormat {
+    JSON = "JSON",
+    CSV = "CSV"
+}
+interface IReportDataLink {
+    url: string;
+    method?: 'GET' | 'POST' | 'PUT';
+    format?: ReportDataLinkFormat;
+    /**
+     * format이 json일 때 value 배열 위치.
+     */
+    dataPath?: string;
+    params?: {
+        [name: string]: string;
+    };
+    headers?: {
+        [name: string]: string;
+    };
+    body?: string;
+}
+declare abstract class LinkableReportData extends ReportData$1 {
+    mode: 'link' | 'embed';
+    _link?: IReportDataLink;
+    constructor(name: string, link?: IReportDataLink, dp?: IReportDataProvider);
+    get link(): IReportDataLink;
+    set link(value: IReportDataLink);
+    get linkUrl(): IReportDataLink['url'];
+    fetch(): Promise<void>;
+    save(target: object): void;
+    protected abstract _doDataFetched(fetchedData: unknown): void;
+}
 interface ISimpleData extends IReportData {
     getValues(): any;
     getSaveValues(): any;
@@ -1530,10 +1589,10 @@ interface ISimpleData extends IReportData {
 /**
  * 단순형 값이나, json 객체를 값으로 지정한다.
  */
-declare class SimpleData extends ReportData$1 implements ISimpleData {
+declare class SimpleData extends LinkableReportData implements ISimpleData {
     private _isObj;
     private _values;
-    constructor(name: string, values: any);
+    constructor(name: string, values: any, link?: IReportDataLink);
     /**
      * TODO: array index
      */
@@ -1544,6 +1603,7 @@ declare class SimpleData extends ReportData$1 implements ISimpleData {
     getFieldNames(): string[];
     getSaveType(): string;
     getSaveValues(): any;
+    protected _doDataFetched(fetchedData: unknown): void;
 }
 
 /** @internal */
@@ -1635,6 +1695,7 @@ declare class BandDataView extends Base$1 implements IBandDataView {
 interface IBandDataField {
     fieldName: string;
     dataType?: "text" | "number" | "bool" | "datetime";
+    source?: string;
     expression?: string;
     format?: string;
     description?: string;
@@ -1668,11 +1729,11 @@ interface IBandData extends IReportData {
     groupBy(dataView: BandDataView, fields: string[], rows: number[]): (number | IBandRowGroup | IBandRowGroupFooter)[];
     getValues(): any[];
 }
-declare abstract class BandData extends ReportData$1 {
+declare abstract class BandData extends LinkableReportData {
     protected _fields: IBandDataField[];
     protected _fieldMap: any;
     protected _calcFieldRuntime: FieldValueRuntime;
-    constructor(name: string, fields: IBandDataField[], dp: IReportDataProvider);
+    constructor(name: string, fields: IBandDataField[], link?: IReportDataLink, dp?: IReportDataProvider);
     get fields(): IBandDataField[];
     get fieldCount(): number;
     abstract get rowCount(): number;
@@ -1706,9 +1767,12 @@ declare abstract class BandData extends ReportData$1 {
  * (필드.sample로 최초 한 행을 생성하고, 추후 다른 tool로 관리할 수 있도록 한다.)
  */
 declare class BandArrayData extends BandData implements IBandData {
-    private _values;
+    private _linkedValues;
+    private _embeddedValues;
     private _sampleCount;
-    constructor(name: string, fields: IBandDataField[], values: any[], sampleCount?: number, dp?: IReportDataProvider);
+    private get _values();
+    private set _values(value);
+    constructor(name: string, fields: IBandDataField[], values: any[], sampleCount?: number, link?: IReportDataLink, dp?: IReportDataProvider);
     get rowCount(): number;
     getRowValues(row: number): any;
     getValue(path: string): any;
@@ -1720,9 +1784,14 @@ declare class BandArrayData extends BandData implements IBandData {
     get sample(): any[];
     getValues(): any[];
     setValues(vals: any[]): void;
+    setSource(source: any[]): void;
+    /**
+     * 특정 모드의 데이터를 일회성으로 조작하기 위한 편의성 메서드 (callback 실행 후 모드는 원복됨)
+     */
+    runInMode(mode: LinkableReportData['mode'], callback: (() => void) | Promise<void>): void;
     getSaveType(): string;
+    protected _doDataFetched(fetchedData: unknown): void;
     private $_cloneRow;
-    private $_prepareSample;
     protected _readRows(): void;
     protected _prepareCalcField(fields: IBandDataField[], fieldMap: any, calcField: IBandDataField, index: number, node: ExpressionNode$1): void;
 }
@@ -2251,6 +2320,7 @@ declare abstract class TableColumnBase extends ReportItemCollectionItem {
     static readonly PROP_WIDTH = "width";
     static readonly PROPINFOS: IPropInfo[];
     private static readonly styleProps;
+    static readonly $_ctor: string;
     private _width;
     private _index;
     private _widthDim;
@@ -3533,7 +3603,7 @@ declare abstract class ReportItemElement<T extends ReportItem> extends ReportEle
     isPrintable(ctx: PrintContext): boolean;
     protected _getModel(): T;
     protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _setBindMarker(visible?: boolean, system?: boolean): void;
+    protected _setBindMarker(visible?: boolean, type?: 'system' | 'language'): void;
     measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
     layoutContent(ctx: PrintContext): void;
     protected _doMeasureFolded(hintWidth: number, hintHeight: number): Size$1;
@@ -5111,6 +5181,7 @@ declare class ReportItemRegistry extends Base$1 {
     constructor();
     add(item: ReportItem): void;
     remove(item: ReportItem | ReportPageItem): void;
+    getItems(type?: ReportItemType): ReportItem[];
     getItemCount(type: ReportItemType): number;
     /**
      * 가장 최상위에 있는 밴드의 이름들을 반환해주기 위해 작성
@@ -5130,6 +5201,338 @@ declare class SubBandPage extends ReportPage {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _ignoreItems(): boolean;
     protected _doSave(target: object): void;
+}
+
+type LanguageCode = keyof typeof ISO_639_LANGUAGES;
+declare const ISO_639_LANGUAGES: {
+    readonly aa: "Afar";
+    readonly ab: "Abkhazian";
+    readonly ae: "Avestan";
+    readonly af: "Afrikaans";
+    readonly ak: "Akan";
+    readonly am: "Amharic";
+    readonly an: "Aragonese";
+    readonly ar: "Arabic";
+    readonly 'ar-ae': "Arabic (U.A.E.)";
+    readonly 'ar-bh': "Arabic (Bahrain)";
+    readonly 'ar-dz': "Arabic (Algeria)";
+    readonly 'ar-eg': "Arabic (Egypt)";
+    readonly 'ar-iq': "Arabic (Iraq)";
+    readonly 'ar-jo': "Arabic (Jordan)";
+    readonly 'ar-kw': "Arabic (Kuwait)";
+    readonly 'ar-lb': "Arabic (Lebanon)";
+    readonly 'ar-ly': "Arabic (Libya)";
+    readonly 'ar-ma': "Arabic (Morocco)";
+    readonly 'ar-om': "Arabic (Oman)";
+    readonly 'ar-qa': "Arabic (Qatar)";
+    readonly 'ar-sa': "Arabic (Saudi Arabia)";
+    readonly 'ar-sy': "Arabic (Syria)";
+    readonly 'ar-tn': "Arabic (Tunisia)";
+    readonly 'ar-ye': "Arabic (Yemen)";
+    readonly as: "Assamese";
+    readonly av: "Avaric";
+    readonly ay: "Aymara";
+    readonly az: "Azeri";
+    readonly ba: "Bashkir";
+    readonly be: "Belarusian";
+    readonly bg: "Bulgarian";
+    readonly bh: "Bihari";
+    readonly bi: "Bislama";
+    readonly bm: "Bambara";
+    readonly bn: "Bengali";
+    readonly bo: "Tibetan";
+    readonly br: "Breton";
+    readonly bs: "Bosnian";
+    readonly ca: "Catalan";
+    readonly ce: "Chechen";
+    readonly ch: "Chamorro";
+    readonly co: "Corsican";
+    readonly cr: "Cree";
+    readonly cs: "Czech";
+    readonly cu: "Church Slavonic";
+    readonly cv: "Chuvash";
+    readonly cy: "Welsh";
+    readonly da: "Danish";
+    readonly de: "German";
+    readonly 'de-at': "German (Austria)";
+    readonly 'de-ch': "German (Switzerland)";
+    readonly 'de-de': "German (Germany)";
+    readonly 'de-li': "German (Liechtenstein)";
+    readonly 'de-lu': "German (Luxembourg)";
+    readonly div: "Divehi";
+    readonly dv: "Divehi";
+    readonly dz: "Bhutani";
+    readonly ee: "Ewe";
+    readonly el: "Greek";
+    readonly en: "English";
+    readonly 'en-au': "English (Australia)";
+    readonly 'en-bz': "English (Belize)";
+    readonly 'en-ca': "English (Canada)";
+    readonly 'en-cb': "English (Caribbean)";
+    readonly 'en-gb': "English (United Kingdom)";
+    readonly 'en-ie': "English (Ireland)";
+    readonly 'en-jm': "English (Jamaica)";
+    readonly 'en-nz': "English (New Zealand)";
+    readonly 'en-ph': "English (Philippines)";
+    readonly 'en-tt': "English (Trinidad and Tobago)";
+    readonly 'en-us': "English (United States)";
+    readonly 'en-za': "English (South Africa)";
+    readonly 'en-zw': "English (Zimbabwe)";
+    readonly eo: "Esperanto";
+    readonly es: "Spanish";
+    readonly 'es-ar': "Spanish (Argentina)";
+    readonly 'es-bo': "Spanish (Bolivia)";
+    readonly 'es-cl': "Spanish (Chile)";
+    readonly 'es-co': "Spanish (Colombia)";
+    readonly 'es-cr': "Spanish (Costa Rica)";
+    readonly 'es-do': "Spanish (Dominican Republic)";
+    readonly 'es-ec': "Spanish (Ecuador)";
+    readonly 'es-es': "Spanish (Spain)";
+    readonly 'es-gt': "Spanish (Guatemala)";
+    readonly 'es-hn': "Spanish (Honduras)";
+    readonly 'es-mx': "Spanish (Mexico)";
+    readonly 'es-ni': "Spanish (Nicaragua)";
+    readonly 'es-pa': "Spanish (Panama)";
+    readonly 'es-pe': "Spanish (Peru)";
+    readonly 'es-pr': "Spanish (Puerto Rico)";
+    readonly 'es-py': "Spanish (Paraguay)";
+    readonly 'es-sv': "Spanish (El Salvador)";
+    readonly 'es-us': "Spanish (United States)";
+    readonly 'es-uy': "Spanish (Uruguay)";
+    readonly 'es-ve': "Spanish (Venezuela)";
+    readonly et: "Estonian";
+    readonly eu: "Basque";
+    readonly fa: "Farsi";
+    readonly ff: "Fulah";
+    readonly fi: "Finnish";
+    readonly fj: "Fiji";
+    readonly fo: "Faroese";
+    readonly fr: "French";
+    readonly 'fr-be': "French (Belgium)";
+    readonly 'fr-ca': "French (Canada)";
+    readonly 'fr-ch': "French (Switzerland)";
+    readonly 'fr-fr': "French (France)";
+    readonly 'fr-lu': "French (Luxembourg)";
+    readonly 'fr-mc': "French (Monaco)";
+    readonly fy: "Frisian";
+    readonly ga: "Irish";
+    readonly gd: "Gaelic";
+    readonly gl: "Galician";
+    readonly gn: "Guarani";
+    readonly gu: "Gujarati";
+    readonly gv: "Manx";
+    readonly ha: "Hausa";
+    readonly he: "Hebrew";
+    readonly hi: "Hindi";
+    readonly ho: "Hiri Motu";
+    readonly hr: "Croatian";
+    readonly 'hr-ba': "Croatian (Bosnia and Herzegovina)";
+    readonly 'hr-hr': "Croatian (Croatia)";
+    readonly ht: "Haitian";
+    readonly hu: "Hungarian";
+    readonly hy: "Armenian";
+    readonly hz: "Herero";
+    readonly ia: "Interlingua";
+    readonly id: "Indonesian";
+    readonly ie: "Interlingue";
+    readonly ig: "Igbo";
+    readonly ii: "Sichuan Yi";
+    readonly ik: "Inupiak";
+    readonly in: "Indonesian";
+    readonly io: "Ido";
+    readonly is: "Icelandic";
+    readonly it: "Italian";
+    readonly 'it-ch': "Italian (Switzerland)";
+    readonly 'it-it': "Italian (Italy)";
+    readonly iu: "Inuktitut";
+    readonly iw: "Hebrew";
+    readonly ja: "Japanese";
+    readonly ji: "Yiddish";
+    readonly jv: "Javanese";
+    readonly jw: "Javanese";
+    readonly ka: "Georgian";
+    readonly kg: "Kongo";
+    readonly ki: "Kikuyu";
+    readonly kj: "Kuanyama";
+    readonly kk: "Kazakh";
+    readonly kl: "Greenlandic";
+    readonly km: "Cambodian";
+    readonly kn: "Kannada";
+    readonly ko: "Korean";
+    readonly kok: "Konkani";
+    readonly kr: "Kanuri";
+    readonly ks: "Kashmiri";
+    readonly ku: "Kurdish";
+    readonly kv: "Komi";
+    readonly kw: "Cornish";
+    readonly ky: "Kirghiz";
+    readonly kz: "Kyrgyz";
+    readonly la: "Latin";
+    readonly lb: "Luxembourgish";
+    readonly lg: "Ganda";
+    readonly li: "Limburgan";
+    readonly ln: "Lingala";
+    readonly lo: "Laothian";
+    readonly ls: "Slovenian";
+    readonly lt: "Lithuanian";
+    readonly lu: "Luba-Katanga";
+    readonly lv: "Latvian";
+    readonly mg: "Malagasy";
+    readonly mh: "Marshallese";
+    readonly mi: "Maori";
+    readonly mk: "FYRO Macedonian";
+    readonly ml: "Malayalam";
+    readonly mn: "Mongolian";
+    readonly mo: "Moldavian";
+    readonly mr: "Marathi";
+    readonly ms: "Malay";
+    readonly 'ms-bn': "Malay (Brunei Darussalam)";
+    readonly 'ms-my': "Malay (Malaysia)";
+    readonly mt: "Maltese";
+    readonly my: "Burmese";
+    readonly na: "Nauru";
+    readonly nb: "Norwegian (Bokmal)";
+    readonly nd: "North Ndebele";
+    readonly ne: "Nepali (India)";
+    readonly ng: "Ndonga";
+    readonly nl: "Dutch";
+    readonly 'nl-be': "Dutch (Belgium)";
+    readonly 'nl-nl': "Dutch (Netherlands)";
+    readonly nn: "Norwegian (Nynorsk)";
+    readonly no: "Norwegian";
+    readonly nr: "South Ndebele";
+    readonly ns: "Northern Sotho";
+    readonly nv: "Navajo";
+    readonly ny: "Chichewa";
+    readonly oc: "Occitan";
+    readonly oj: "Ojibwa";
+    readonly om: "(Afan)/Oromoor/Oriya";
+    readonly or: "Oriya";
+    readonly os: "Ossetian";
+    readonly pa: "Punjabi";
+    readonly pi: "Pali";
+    readonly pl: "Polish";
+    readonly ps: "Pashto/Pushto";
+    readonly pt: "Portuguese";
+    readonly 'pt-br': "Portuguese (Brazil)";
+    readonly 'pt-pt': "Portuguese (Portugal)";
+    readonly qu: "Quechua";
+    readonly 'qu-bo': "Quechua (Bolivia)";
+    readonly 'qu-ec': "Quechua (Ecuador)";
+    readonly 'qu-pe': "Quechua (Peru)";
+    readonly rm: "Rhaeto-Romanic";
+    readonly rn: "Kirundi";
+    readonly ro: "Romanian";
+    readonly ru: "Russian";
+    readonly rw: "Kinyarwanda";
+    readonly sa: "Sanskrit";
+    readonly sb: "Sorbian";
+    readonly sc: "Sardinian";
+    readonly sd: "Sindhi";
+    readonly se: "Sami";
+    readonly 'se-fi': "Sami (Finland)";
+    readonly 'se-no': "Sami (Norway)";
+    readonly 'se-se': "Sami (Sweden)";
+    readonly sg: "Sangro";
+    readonly sh: "Serbo-Croatian";
+    readonly si: "Singhalese";
+    readonly sk: "Slovak";
+    readonly sl: "Slovenian";
+    readonly sm: "Samoan";
+    readonly sn: "Shona";
+    readonly so: "Somali";
+    readonly sq: "Albanian";
+    readonly sr: "Serbian";
+    readonly 'sr-ba': "Serbian (Bosnia and Herzegovina)";
+    readonly 'sr-sp': "Serbian (Serbia and Montenegro)";
+    readonly ss: "Siswati";
+    readonly st: "Sesotho";
+    readonly su: "Sundanese";
+    readonly sv: "Swedish";
+    readonly 'sv-fi': "Swedish (Finland)";
+    readonly 'sv-se': "Swedish (Sweden)";
+    readonly sw: "Swahili";
+    readonly sx: "Sutu";
+    readonly syr: "Syriac";
+    readonly ta: "Tamil";
+    readonly te: "Telugu";
+    readonly tg: "Tajik";
+    readonly th: "Thai";
+    readonly ti: "Tigrinya";
+    readonly tk: "Turkmen";
+    readonly tl: "Tagalog";
+    readonly tn: "Tswana";
+    readonly to: "Tonga";
+    readonly tr: "Turkish";
+    readonly ts: "Tsonga";
+    readonly tt: "Tatar";
+    readonly tw: "Twi";
+    readonly ty: "Tahitian";
+    readonly ug: "Uighur";
+    readonly uk: "Ukrainian";
+    readonly ur: "Urdu";
+    readonly us: "English";
+    readonly uz: "Uzbek";
+    readonly ve: "Venda";
+    readonly vi: "Vietnamese";
+    readonly vo: "Volapuk";
+    readonly wa: "Walloon";
+    readonly wo: "Wolof";
+    readonly xh: "Xhosa";
+    readonly yi: "Yiddish";
+    readonly yo: "Yoruba";
+    readonly za: "Zhuang";
+    readonly zh: "Chinese";
+    readonly 'zh-cn': "Chinese (China)";
+    readonly 'zh-hk': "Chinese (Hong Kong SAR)";
+    readonly 'zh-mo': "Chinese (Macau SAR)";
+    readonly 'zh-sg': "Chinese (Singapore)";
+    readonly 'zh-tw': "Chinese (Taiwan)";
+    readonly zu: "Zulu";
+};
+
+type LanguageItem = {
+    field: string;
+    value: string;
+};
+/**
+ * i18n 다국어 리소스 관리
+ */
+declare class I18nManager extends EventAware$1 {
+    static readonly LANGUAGE_ADDED = "onI18nManagerLanguageAdded";
+    static readonly LANGUAGE_REMOVED = "onI18nManagerLanguageRemoved";
+    static readonly FIELD_ADDED = "onI18nManagerFieldAdded";
+    static readonly FIELD_REMOVED = "onI18nManagerFieldRemoved";
+    static readonly DEFAULT_LANGUAGE_CHANGED = "onI18nManagerDefaultLanguageChanged";
+    static readonly LANGUAGE_DOMAINS: LanguageCode[];
+    private _languages;
+    private _defaultLanguage;
+    private _fields;
+    private _languageMap;
+    private _commands;
+    constructor(commands: EditCommandStack$1);
+    protected _doDispose(): void;
+    get languages(): string[];
+    get fields(): string[];
+    get defaultLanguage(): string;
+    set defaultLanguage(language: string);
+    clear(): I18nManager;
+    load(source: any, clear?: boolean): I18nManager;
+    save(target: object): void;
+    addLanguage(language: string): void;
+    removeLanguage(language: string): void;
+    addField(field: string): void;
+    updateField(oldField: string, newField: string): void;
+    removeField(field: string): void;
+    getValue(language: string, field: string): string;
+    updateValue(language: string, field: string, value: string): void;
+    getLanguageMap(language: string): LanguageItem[];
+    getNextFieldName(prefix?: string): string;
+    private $_fireLanguageAdded;
+    private $_fireLanguageRemoved;
+    private $_fireFieldAdded;
+    private $_fireFieldRemoved;
+    private $_fireDefaultLanguageChanged;
 }
 
 declare enum PaperSize {
@@ -5330,6 +5733,11 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     static readonly DATA_FIELD_NAME_CHANGED = "onReportDataFieldNameChanged";
     static readonly CELL_MERGED = "onReportCellMerged";
     static readonly ALERT = "onReportAlert";
+    static readonly LANGUAGE_ADDED = "onReportLanguageAdded";
+    static readonly LANGUAGE_REMOVED = "onReportLanguageRemoved";
+    static readonly LANGUAGE_FIELD_ADDED = "onReportLanguageFieldAdded";
+    static readonly LANGUAGE_FIELD_REMOVED = "onReportLanguageFieldRemoved";
+    static readonly DEFAULT_LANGUAGE_CHANGED = "onReportDefaultLanguageChanged";
     static isReportSource(source: any): boolean;
     private _info;
     private _unit;
@@ -5339,6 +5747,7 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     private _assets;
     private _data;
     private _designData;
+    private _i18n;
     designTag: any;
     models: Record<number, ReportItem>;
     private _designTime;
@@ -5354,6 +5763,11 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     onDesignDataManagerDataUpdated(dm: DesignDataManager, data: IReportData): void;
     onDesignDataManagerNameChanged(dm: DesignDataManager, data: IReportData, oldName: string): void;
     onDesignDataManagerFieldNameChanged(dm: DesignDataManager, data: IReportData, newName: string, oldName: string): void;
+    onI18nManagerLanguageAdded(i18n: I18nManager, language: string): void;
+    onI18nManagerLanguageRemoved(i18n: I18nManager, language: string): void;
+    onI18nManagerFieldAdded(i18n: I18nManager, field: string): void;
+    onI18nManagerFieldRemoved(i18n: I18nManager, field: string): void;
+    onI18nManagerDefaultLanguageChanged(i18n: I18nManager, language: string): void;
     editCommandStackChanged(stack: EditCommandStack$1, cmd: EditCommand$1, undoable: boolean, redoable: boolean): void;
     editCommandStackDirtyChanged(stack: EditCommandStack$1): void;
     addCollectionItem(collection: IPropertySource): void;
@@ -5383,6 +5797,8 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     get data(): IReportDataProvider;
     /** desingData */
     get designData(): DesignDataManager;
+    /** i18n */
+    get i18n(): I18nManager;
     /** canUndo */
     get canUndo(): boolean;
     /** canRedo */
@@ -5464,6 +5880,11 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
      */
     moveTableColumns(table: TableContainer | TableBand, col: number, count: number, delta: number): void;
     moveTableColumnsToNearest(table: TableContainer | TableBand, col: number, count: number, delta: number): void;
+    /**
+     * 테이블셀에 아이템을 추가한다.
+     * @returns 추가될 경우 아이템 정보 반환
+     */
+    addTableCell(table: TableBase, item: ReportItem, row: number, col: number, callback?: (item: ReportItem) => void): ReportItem;
     addCrosstabField(collection: CrosstabFieldCollection<any>, field: string): void;
     /**
      * 리포트 아이템을 제거한다.
@@ -5533,6 +5954,16 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     }[];
     foldedChanged(item: ReportItem): void;
     isFirstPageLandscape(): boolean;
+    /**
+     * i18nManager command 모음
+     */
+    addLanguage(language: string): void;
+    removeLanguage(language: string): void;
+    addLanguageField(field: string): void;
+    removeLanguageField(field: string): void;
+    updateLanguageField(oldField: string, newField: string): void;
+    getLangaugeFieldValue(language: string, field: string): string;
+    updateLanguageFieldValue(language: string, field: string, value: string): void;
     protected _createReportRootItem(report: Report): ReportRootItem;
     protected _createReportInfo(report: Report): ReportInfo;
     protected _createReportLoader(): IReportLoader;
@@ -5544,6 +5975,7 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     private $_refreshInvalids;
     private $_refereshPages;
     private $_resetPages;
+    private $_updateReportItemsLanguageField;
     protected onPageItemAdded(source: IEventAware, item: ReportPageItem, index: number, silent: boolean): void;
     protected onPageItemsAdded(source: IEventAware, items: ReportPageItem[], index: number): void;
     protected onPageItemRemoved(source: IEventAware, item: ReportPageItem, oldParent: ReportGroupItem): void;
@@ -5766,6 +6198,8 @@ declare class PageBodyItems extends ColumnBoxContainer {
     needDesignHeight(): boolean;
     protected _boundable(): boolean;
     protected _getStyleProps(): string[];
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
 }
 /**
  * Report header/footer, Page header/footer를 제외한 리포트 페이지 영역.
@@ -6310,6 +6744,52 @@ declare class ReportView extends LayerElement$1 implements IImageContainer {
 }
 
 /**
+ * 다국어 관련 속성 구현
+ */
+declare class I18nObject<T extends ReportItem> extends ReportPageItem implements ReportObject {
+    static readonly PROP_FIELD = "field";
+    static readonly PROPINFOS: IPropInfo[];
+    private _item;
+    private _field;
+    get field(): string;
+    set field(value: string);
+    get page(): ReportPage;
+    get report(): Report;
+    get pathLabel(): string;
+    get displayPath(): string;
+    get level(): number;
+    get styles(): Styles;
+    constructor(item: T);
+    get outlineParent(): IOutlineSource | undefined;
+    get outlineExpandable(): boolean;
+    get outlineLabel(): string;
+    getSaveType(): string;
+    canRemoveFrom(): boolean;
+    getSaveLabel(): string;
+    load(loader: IReportLoader, source: ReportSource): void;
+    save(target: ReportTarget): boolean;
+    defaultInit(): void;
+    isCollection(): boolean;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    getPlaceHolder(prop: IPropInfo): string;
+    getPropDomain(prop: IPropInfo): any[];
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getStyle(style: string): string;
+    setStyle(style: string, value: string): void;
+    getStyleProperty(prop: string): any;
+    setStyleProperty(prop: string, value: any): void;
+    isChildProp(prop: string): boolean;
+    getSubStyleProperty(prop: string, style: string): any;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    protected _changed(prop: string, newValue: unknown, oldValue: unknown): void;
+}
+
+/**
  * 한 줄 혹은 여러줄의 텍스트를 표시한다.
  * value 속성으로 지정된 data 위치가 타당하면 그 값을, 아니면 text 속성으로 지정한 문자열을 표시한다.
  */
@@ -6401,10 +6881,12 @@ declare class TextItem extends TextItemBase {
     static readonly PROP_MULTI_LINE = "multiLine";
     static readonly PROP_TEXT = "text";
     static readonly PROP_ON_GET_CONTEXT_VALUE = "onGetContextValue";
+    static readonly PROP_I18N = "internationalization";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     static readonly ITEM_TYPE = "Text";
     private _text;
+    private _i18nObject;
     private _contextValueCallback;
     private _onGetContextValue;
     private _contextValueCallbackFunc;
@@ -6415,6 +6897,7 @@ declare class TextItem extends TextItemBase {
      */
     get text(): string;
     set text(value: string);
+    get internationalization(): I18nObject<TextItem>;
     /**
      * onGetContextValue
      */
@@ -6434,6 +6917,7 @@ declare class TextItem extends TextItemBase {
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
+    protected _isI18nFieldExist(): boolean;
 }
 
 /** @internal */
@@ -6573,6 +7057,7 @@ declare class PrintContext extends Base$1 {
     private _detailPage;
     private _compositePageCount;
     private _compositePage;
+    private _language;
     detailRows: number[];
     noValueCallback: boolean;
     preview: boolean;
@@ -6682,6 +7167,11 @@ declare class PrintContext extends Base$1 {
      */
     get compositePage(): number;
     get reportItemElementMap(): ReportItemElementMap;
+    /**
+     * language
+     */
+    get language(): string;
+    set language(value: string);
     preparePrint(report?: Report): void;
     preparePage(page: number, allPage: number): void;
     setDetailPage(count: number, page: number): void;
@@ -6842,12 +7332,15 @@ interface ISelectionSource {
     canSelectedWith(other: ISelectionSource): boolean;
 }
 declare enum DropResultType {
-    PROP = "prop"
+    PROP = "prop",
+    ITEM = "item"
 }
 interface IDropResult {
     type: DropResultType;
     prop?: string;
     value?: any;
+    hintWidth?: number;
+    hintHeight?: number;
 }
 /**
  * Report page 구성 요소 기반 클래스.
@@ -6896,6 +7389,7 @@ declare abstract class ReportPageItem extends Base$1 implements ISelectionSource
     getCollectionLabel(): string;
     setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
     getPopupPropLabel(prop: string): string;
+    hasStyleProperty(prop: string): boolean;
     abstract get page(): ReportPage;
     abstract get displayPath(): string;
     abstract get level(): number;
@@ -7082,6 +7576,7 @@ declare abstract class ReportItem extends ReportPageItem {
      * @internal
      */
     getDataFieldNames(): string[];
+    getLanguageFields(): string[];
     getPropDomain(prop: IPropInfo): any[];
     getProperty(prop: string): any;
     setProperty(prop: string, value: any): void;
@@ -7372,6 +7867,8 @@ declare abstract class ReportItem extends ReportPageItem {
     canFold(): boolean;
     fold(): boolean;
     unfold(): boolean;
+    isI18nFieldValid(): boolean;
+    getLanguageFieldValue(language: string, field: string): string;
     protected _foldedChanged(): void;
     get marqueeParent(): ReportItem;
     get printable(): boolean;
@@ -7413,6 +7910,7 @@ declare abstract class ReportItem extends ReportPageItem {
     protected _doAfterSave(target: object): void;
     protected _doPrepareLayout(printing: boolean): void;
     protected _doPreparePrint(ctx: PrintContext): void;
+    protected _isI18nFieldExist(): boolean;
 }
 /**
  * 하나 이상의 report item을 포함하는 group item 기반 클래스.
@@ -7481,6 +7979,8 @@ declare abstract class ReportGroupItem extends ReportItem {
         reason: string;
     }[]): void;
     collectBlankItems(childs?: ReportItem[]): ReportItem[];
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
     protected _maxChildCount(): number;
@@ -7544,6 +8044,7 @@ declare abstract class ReportItemCollectionItem extends ReportPageItem {
     /** styles */
     get styles(): Styles;
     set styles(value: Styles);
+    get ctor(): string | undefined;
     load(src: any): void;
     save(target: any): any;
     get collection(): ReportItemCollection<any>;
@@ -8353,6 +8854,7 @@ declare class HichartLegend extends ChartObject<HichartItem> {
  * Report loader spec.
  */
 interface IReportLoader {
+    getCreator(type: string): (name: string) => ReportItem;
     createItem(type: any): ReportItem;
     createRealChartAxis(collection: RCAxisCollection, src: ReportSource): RCAxis;
     createRealChartSeries(collection: RCSeriesCollection, src: ReportSource): RCSeries;
@@ -8606,6 +9108,7 @@ interface IPreviewOptions {
     singlePageOptions?: ISinglePageOptions;
     align?: Align;
     paging?: boolean;
+    language?: string;
     callback?: PrintPageCallback;
     endCallback?: PrintEndCallback;
 }
@@ -8626,6 +9129,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private static readonly MARKER_CLASS;
     private static readonly PRINT_INDICATOR_CLASS;
     private static readonly PRINT_BACK_CLASS;
+    static readonly SCROLL_END = "onScrollEnd";
     private _pageGap;
     private _zoom;
     private _align;
@@ -8643,6 +9147,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private _previewId;
     private _options;
     private _printMode;
+    private _pageToGo?;
     constructor(containerId: string | HTMLDivElement);
     protected _doDispose(): void;
     /** pageCount */
@@ -8654,6 +9159,7 @@ declare class PrintContainer extends VisualContainer$1 {
     get zoom(): number;
     set zoom(value: number);
     get pages(): PrintPage[];
+    get isPrinted(): boolean;
     get align(): Align;
     set align(value: Align);
     /**
@@ -8679,8 +9185,12 @@ declare class PrintContainer extends VisualContainer$1 {
      * @returns 멀티 페이지이면서 첫번째 페이지가 가로양식으로 시작할 경우
      */
     needPrintScale(): boolean;
+    /**
+     * containerDiv의 크기에 맞춰 previewer의 위치를 재조정한다.
+     */
+    resetPreviewer(): void;
     get printing(): boolean;
-    protected _doPrepareContainer(dom: HTMLElement): void;
+    protected _doPrepareContainer(doc: Document, dom: HTMLElement): void;
     protected _render(timestamp: number): void;
     protected _doResized(): void;
     private $_showError;
@@ -8720,6 +9230,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_setPrintScaleStyle;
     private $_setUnvisibleDom;
     private $_layoutFloatings;
+    private $_setLanguageContext;
     /**
      * 출력 옵션 검증
      * @throws 출력 옵션이 유효하지 않을 경우 에러 발생
@@ -8728,6 +9239,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_validateReportOption;
     private $_createReportView;
     private $_instanceofIPrintReport;
+    protected _fireScrollEnd: () => void;
 }
 
 interface PdfFont {
@@ -42822,6 +43334,7 @@ declare class ReportViewer extends ReportViewBase {
     get dataSet(): ReportDataSet;
     set dataSet(v: ReportDataSet);
     get isPaging(): boolean;
+    get languages(): string[];
     /**
      * container에 리포트를 preview로 렌더링 합니다.
      */
@@ -42852,6 +43365,10 @@ declare class ReportViewer extends ReportViewBase {
      */
     exportEmailHtml(): Promise<string>;
     private _checkReport;
+    /**
+     * API 링크가 있는 데이터는 받아온 후에 사용자가 넘겨준 데이터에서 교체한다.
+     */
+    private $_prepareLinkData;
 }
 
 /** REPORT CORE */
@@ -42884,6 +43401,10 @@ declare class GridReportViewer extends ReportViewer {
      * 컨테이너에 미리보기 랜더링
      */
     preview(options?: PreviewOptions): void;
+    /**
+     * 출력 준비전 그리드 정보로 리포트 정보를 생성한다.
+     */
+    print(options: PrintOptions): Promise<void>;
     /**
      * 타이틀 또는 서브 타이틀 추가
      * @param title GridReportTitle 객체
@@ -42998,6 +43519,11 @@ type PreviewOptions = {
      * @defaultValue `Align.CENTER`
      */
     align?: Align;
+    /**
+     * 다국어 언어 설정 key 정보 (ko, en, jp, ...)
+     * @defaultValue `기본으로 설정된 언어 key`
+     */
+    language?: string;
     /**
      * 페이지 없이 출력하는 옵션. false인 경우 페이지 구분 없이 출력합니다.
      * @defaultValue `true`

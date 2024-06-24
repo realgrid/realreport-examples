@@ -1,0 +1,646 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "height": 0,
+            "visible": false
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "height": 0,
+            "visible": false
+        },
+        "reportFooter": {
+            "name": "reportFooter",
+            "height": 0,
+            "visible": false
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "height": 0,
+            "visible": false
+        },
+        "body": {
+            "itemGap": 4,
+            "items": [
+                {
+                    "type": "simpleband",
+                    "data": "proof-employeement",
+                    "width": "100%",
+                    "name": "",
+                    "rowsPerPage": 1,
+                    "repeatDetailHeader": false,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "visible": false
+                    },
+                    "groups": [],
+                    "header": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "styles": {
+                            "paddingTop": "20px",
+                            "paddingBottom": "20px",
+                            "border": "1px solid #000",
+                            "borderBottom": "0"
+                        },
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "text": "재직증명서",
+                                "styles": {
+                                    "fontSize": "25px"
+                                }
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "visible": false
+                    },
+                    "dataRow": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "items": [
+                            {
+                                "type": "table",
+                                "width": "100%",
+                                "name": "",
+                                "rowCount": 9,
+                                "minRowHeight": "35px",
+                                "cellStyles": {
+                                    "borderLeft": "1px solid #000",
+                                    "borderRight": "1px solid #000",
+                                    "borderTop": "1px solid #000",
+                                    "borderBottom": "1px solid #000"
+                                },
+                                "rows": [
+                                    {},
+                                    {},
+                                    {},
+                                    {},
+                                    {},
+                                    {},
+                                    {
+                                        "height": "50px"
+                                    },
+                                    {
+                                        "height": "550px"
+                                    },
+                                    {
+                                        "height": "60px"
+                                    }
+                                ],
+                                "cells": [
+                                    {
+                                        "r": 0,
+                                        "c": 0,
+                                        "rowspan": 3
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 1,
+                                        "rowspan": 2
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 4,
+                                        "rowspan": 2
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 5,
+                                        "rowspan": 2
+                                    },
+                                    {
+                                        "r": 2,
+                                        "c": 2,
+                                        "colspan": 4
+                                    },
+                                    {
+                                        "r": 3,
+                                        "c": 0,
+                                        "rowspan": 3
+                                    },
+                                    {
+                                        "r": 3,
+                                        "c": 2,
+                                        "colspan": 2
+                                    },
+                                    {
+                                        "r": 4,
+                                        "c": 2,
+                                        "colspan": 2
+                                    },
+                                    {
+                                        "r": 5,
+                                        "c": 2,
+                                        "colspan": 2
+                                    },
+                                    {
+                                        "r": 6,
+                                        "c": 1,
+                                        "colspan": 5,
+                                        "styles": {
+                                            "paddingLeft": "10px",
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 7,
+                                        "c": 0,
+                                        "colspan": 6
+                                    },
+                                    {
+                                        "r": 8,
+                                        "c": 0,
+                                        "colspan": 6
+                                    }
+                                ],
+                                "colCount": 6,
+                                "columns": [
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "10%"
+                                    },
+                                    {
+                                        "width": "8%"
+                                    },
+                                    {
+                                        "width": "22%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "25%"
+                                    }
+                                ],
+                                "items": [
+                                    {
+                                        "type": "stack",
+                                        "width": "100%",
+                                        "height": "550px",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 7,
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "top": "120px",
+                                                "text": "상기인은 재직증명서 발급 현재 위와 같이 당사에 재직하고 있음을 증명합니다."
+                                            },
+                                            {
+                                                "type": "text",
+                                                "value": "IssueDate",
+                                                "name": "",
+                                                "text": "Text"
+                                            },
+                                            {
+                                                "type": "rbox",
+                                                "width": 168,
+                                                "height": 17,
+                                                "name": "",
+                                                "left": 520,
+                                                "top": 469,
+                                                "itemGap": "5px",
+                                                "items": [
+                                                    {
+                                                        "type": "text",
+                                                        "name": "",
+                                                        "text": "연락처 :"
+                                                    },
+                                                    {
+                                                        "type": "text",
+                                                        "value": "IssuerPhone",
+                                                        "name": "",
+                                                        "text": "Text"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "rbox",
+                                                "width": 168,
+                                                "height": 18,
+                                                "name": "",
+                                                "left": 520,
+                                                "top": 452,
+                                                "itemGap": "0px",
+                                                "items": [
+                                                    {
+                                                        "type": "text",
+                                                        "name": "",
+                                                        "text": "발급인 :"
+                                                    },
+                                                    {
+                                                        "type": "text",
+                                                        "value": "IssuerDepartment",
+                                                        "width": 55,
+                                                        "name": "",
+                                                        "text": "Text"
+                                                    },
+                                                    {
+                                                        "type": "text",
+                                                        "name": "",
+                                                        "text": "/ "
+                                                    },
+                                                    {
+                                                        "type": "text",
+                                                        "value": "Issuer",
+                                                        "name": "",
+                                                        "text": "Text"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 0,
+                                        "text": "인적 사항",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 3,
+                                        "text": "재직 사항",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 6,
+                                        "text": "발급 용도",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Usage",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 6,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 5,
+                                        "text": "입 사 일",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 4,
+                                        "text": "부  서",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 3,
+                                        "text": "회 사 명",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 2,
+                                        "text": "주  소",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 0,
+                                        "text": "성  명",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 0,
+                                        "text": "한글",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 1,
+                                        "text": "한자",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "NameChn",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 1,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "NameKor",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 0,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Address",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 2,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 0,
+                                        "text": "주민등록번호",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "RegidentNo",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 0,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Company",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 3,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Department",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 4,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 4,
+                                        "text": "직  위",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 5,
+                                        "text": "근속기간",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "JoinDate",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 5,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 3,
+                                        "text": "사업자등록번호",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "CorporateNo",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 3,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Position",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 4,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Duration",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 5,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "CEO ",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 8,
+                                        "prefix": "주식회사 한국금속 대표이사 ",
+                                        "suffix": " (인)",
+                                        "text": "Text"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "proof-employeement": {
+            "sampleCount": 3,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "NameKor",
+                    "dataType": "text",
+                    "sample": "김대한",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "NameChn",
+                    "dataType": "text",
+                    "sample": "金大韓",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "RegidentNo",
+                    "dataType": "text",
+                    "sample": "800101-1234567",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Address",
+                    "dataType": "text",
+                    "sample": "서울시 광진구 뚝섬로 40길 45 1004동 1404호",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Company",
+                    "dataType": "text",
+                    "sample": "주식회사 한국금속",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "CorporateNo",
+                    "dataType": "text",
+                    "sample": "120-10-12345",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Department",
+                    "dataType": "text",
+                    "sample": "생산부 품질팀",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Position",
+                    "dataType": "text",
+                    "sample": "과장",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "JoinDate",
+                    "dataType": "text",
+                    "sample": "2003년 3월 1일",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Duration",
+                    "dataType": "text",
+                    "sample": "9년 3개월",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Usage",
+                    "dataType": "text",
+                    "sample": "은행 제출용",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "IssueDate",
+                    "dataType": "text",
+                    "sample": "2012년 6월 12일",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Issuer",
+                    "dataType": "text",
+                    "sample": "김동현",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "IssuerDepartment",
+                    "dataType": "text",
+                    "sample": "인사부",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "IssuerPhone",
+                    "dataType": "text",
+                    "sample": "031-4000-1234",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "CEO ",
+                    "dataType": "text",
+                    "sample": "김금철",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        }
+    },
+    "guid": "a4102402-84dc-452b-b090-748d7e1e2169"
+}

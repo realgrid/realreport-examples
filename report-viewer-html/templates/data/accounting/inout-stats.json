@@ -1,0 +1,18 @@
+{
+    "fields": [
+        { "fieldName": "Month", "dataType": "text", "sample": "01" },
+        { "fieldName": "LAccount", "dataType": "text", "sample": "수입" },
+        { "fieldName": "MAccount", "dataType": "text", "sample": "매출수금" },
+        { "fieldName": "SAccount", "dataType": "text", "sample": "매출수금" },
+        { "fieldName": "Amount", "dataType": "number", "sample": 0 }
+    ],
+    "sample": [
+        {
+            "Month": "01",
+            "LAccount": "수입",
+            "MAccount": "매출수금",
+            "SAccount": "매출수금",
+            "Amount": 0
+        }
+    ]
+}

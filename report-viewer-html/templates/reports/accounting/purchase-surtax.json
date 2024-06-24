@@ -1,0 +1,821 @@
+{
+    "name": "reportRoot",
+    "paperOrientation": "landscape",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "5mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "spaceBottom": 2,
+            "items": [
+                {
+                    "type": "stack",
+                    "width": "100%",
+                    "name": "",
+                    "items": [
+                        {
+                            "type": "text",
+                            "width": 237,
+                            "top": "5px",
+                            "text": "매입 부가세 내역",
+                            "styles": {
+                                "fontSize": "30px",
+                                "fontWeight": "bold",
+                                "borderBottom": "2px solid #000",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "stack",
+                            "data": "purchase-surtax-01",
+                            "width": 1028,
+                            "height": 44,
+                            "name": "",
+                            "left": 0,
+                            "top": 53,
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "left": 0,
+                                    "bottom": "0px",
+                                    "text": "사업자등록"
+                                },
+                                {
+                                    "type": "rbox",
+                                    "name": "",
+                                    "itemGap": 0,
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "text": "( 발행일자 :     "
+                                        },
+                                        {
+                                            "type": "text",
+                                            "data": "",
+                                            "value": "fromDate",
+                                            "name": "",
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "text": "   ~   "
+                                        },
+                                        {
+                                            "type": "text",
+                                            "data": "",
+                                            "value": "toDate",
+                                            "name": "",
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "text": " )"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "left": "780px",
+                                    "bottom": "0px",
+                                    "text": "(단위: 원)"
+                                },
+                                {
+                                    "type": "rbox",
+                                    "name": "",
+                                    "right": "0px",
+                                    "bottom": "0px",
+                                    "itemGap": 0,
+                                    "items": [
+                                        {
+                                            "type": "cbox",
+                                            "name": "",
+                                            "itemGap": 0,
+                                            "items": [
+                                                {
+                                                    "type": "text",
+                                                    "name": "",
+                                                    "text": "작업일자 : "
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "name": "",
+                                                    "right": 0,
+                                                    "text": "Page : "
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "cbox",
+                                            "name": "",
+                                            "itemGap": 0,
+                                            "items": [
+                                                {
+                                                    "type": "text",
+                                                    "data": "",
+                                                    "value": "currentDate",
+                                                    "name": "",
+                                                    "right": 0,
+                                                    "text": "Text"
+                                                },
+                                                {
+                                                    "type": "rbox",
+                                                    "name": "",
+                                                    "left": 0,
+                                                    "itemGap": 0,
+                                                    "items": [
+                                                        {
+                                                            "type": "text",
+                                                            "value": "${page}",
+                                                            "name": "",
+                                                            "text": "Text"
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "name": "",
+                                                            "text": "/",
+                                                            "styles": {
+                                                                "paddingLeft": "3px",
+                                                                "paddingRight": "3px",
+                                                                "__tag_": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "text",
+                                                            "value": "${pages}",
+                                                            "name": "",
+                                                            "text": "Text"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "height": 0
+        },
+        "reportFooter": {
+            "name": "reportFooter",
+            "visible": false
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "visible": false
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "tableband",
+                    "data": "purchase-surtax-02",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "colCount": 9,
+                    "columns": [
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "7%"
+                        },
+                        {
+                            "width": "5.5%"
+                        },
+                        {
+                            "width": "7%"
+                        },
+                        {
+                            "width": "9%"
+                        },
+                        {
+                            "width": "6%"
+                        },
+                        {
+                            "width": "6%"
+                        },
+                        {
+                            "width": "8%"
+                        },
+                        {
+                            "width": "23%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 2,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #000",
+                            "borderRight": "1px solid #000",
+                            "borderTop": "1px solid #000",
+                            "borderBottom": "1px solid #000"
+                        },
+                        "rows": [{}, {}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "rowspan": 2,
+                                "styles": {
+                                    "cellAlign": "center"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "rowspan": 2,
+                                "styles": {
+                                    "cellAlign": "center"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "rowspan": 2
+                            }
+                        ],
+                        "styles": {
+                            "backgroundColor": "#9ac5faff",
+                            "__tag_": {}
+                        },
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "세금구분"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "부가세종류"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "발행일자"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 1,
+                                "text": "발의일자"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "권-호"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 1,
+                                "text": "사업자번호"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "상호"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 1,
+                                "text": "성명"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "공급가액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 1,
+                                "text": "부가세액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "합계액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "업태"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 1,
+                                "text": "종목"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "주소"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 8,
+                                "row": 1,
+                                "text": "적요"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": []
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 2,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #000",
+                            "borderRight": "1px solid #000",
+                            "borderTop": "1px solid #000",
+                            "borderBottom": "1px solid #000"
+                        },
+                        "rows": [{}, {}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "rowspan": 2,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "rowspan": 2,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "rowspan": 2,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 7,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 8,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 4,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 5,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 7,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 8,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "division",
+                                "name": "",
+                                "equalBlank": true,
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "vatType",
+                                "name": "",
+                                "equalBlank": true,
+                                "blankFields": "division",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "issueDate",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "requestDate",
+                                "name": "",
+                                "col": 2,
+                                "row": 1,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "volumeIssue",
+                                "name": "",
+                                "onGetValue": "if(!value) return '-';",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "registerNo",
+                                "name": "",
+                                "col": 3,
+                                "row": 1,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "company",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "wrap": true,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "textAlign": "left",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "manager",
+                                "name": "",
+                                "col": 4,
+                                "row": 1,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "supplyPrice",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "tax",
+                                "name": "",
+                                "col": 5,
+                                "row": 1,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "totalPrice",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "businessKind",
+                                "name": "",
+                                "onGetValue": "if(!value) return '-';",
+                                "col": 7,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "businessType",
+                                "name": "",
+                                "onGetValue": "if(!value) return '-';",
+                                "col": 7,
+                                "row": 1,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "address",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "remark",
+                                "name": "",
+                                "col": 8,
+                                "row": 1,
+                                "text": "Text",
+                                "styles": {
+                                    "fontSize": "12px",
+                                    "__tag_": {}
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "purchase-surtax-02": {
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "division",
+                    "dataType": "text",
+                    "sample": "세금계산서(과세기타)",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "vatType",
+                    "dataType": "text",
+                    "sample": "기타",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "issueDate",
+                    "dataType": "text",
+                    "sample": "2004-01-01",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "requestDate",
+                    "dataType": "text",
+                    "sample": "2003-12-31",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "volumeIssue",
+                    "dataType": "text",
+                    "sample": "-",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "registerNo",
+                    "dataType": "text",
+                    "sample": "1208114525",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "company",
+                    "dataType": "text",
+                    "sample": "대한도시가스(주)",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "manager",
+                    "dataType": "text",
+                    "sample": "김승주",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "supplyPrice",
+                    "dataType": "number",
+                    "sample": "17432558",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "tax",
+                    "dataType": "number",
+                    "sample": "1743253",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "totalPrice",
+                    "dataType": "number",
+                    "sample": "19175811",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "businessKind",
+                    "dataType": "text",
+                    "sample": "전기가스",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "businessType",
+                    "dataType": "text",
+                    "sample": "도시가스",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "address",
+                    "dataType": "text",
+                    "sample": "강남구대치동27-1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "remark",
+                    "dataType": "text",
+                    "sample": "2003년 12월사용 도시가스 요금",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "purchase-surtax-01": {
+            "type": "simple",
+            "sample": {
+                "currentDate": "2004-01-01",
+                "fromDate": "2004-01-31",
+                "toDate": "2020-12-18"
+            }
+        }
+    },
+    "guid": "abab638a-4657-4e80-8f37-9d70f5349e41"
+}

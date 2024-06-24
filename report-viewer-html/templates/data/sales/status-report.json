@@ -1,0 +1,265 @@
+{
+    "fields": [
+        { "fieldName": "EmployeeID", "dataType": "number", "sample":2 },
+        { "fieldName": "Dept", "dataType": "text", "sample":"영업1팀" },
+        { "fieldName": "EmployeeName", "dataType": "text", "sample":"김상륜" },
+        { "fieldName": "SalesYear", "dataType": "text", "sample":"2001" },
+        { "fieldName": "Accomplishment", "dataType": "number", "sample":70 },
+        { "fieldName": "ProductType", "dataType": "text", "sample":"Accessorise" },
+        { "fieldName": "SalesAmount", "dataType": "number", "sample":234456577 }
+    ],
+    "sample": [
+        {
+            "EmployeeID": 1,
+            "Dept": "영업1팀",
+            "EmployeeName": "김상륜",
+            "SalesYear": "2001",
+            "Accomplishment": 70,
+            "ProductType": "Accessorise",
+            "SalesAmount": 234456577
+        },
+        {
+            "EmployeeID": 1,
+            "Dept": "영업1팀",
+            "EmployeeName": "김상륜",
+            "SalesYear": "2001",
+            "Accomplishment": 70,
+            "ProductType": "Bicycles",
+            "SalesAmount": 3252535
+        },
+        {
+            "EmployeeID": 1,
+            "Dept": "영업1팀",
+            "EmployeeName": "김상륜",
+            "SalesYear": "2001",
+            "Accomplishment": 70,
+            "ProductType": "Pencil",
+            "SalesAmount": 86574
+        },
+        {
+            "EmployeeID": 2,
+            "Dept": "영업1팀",
+            "EmployeeName": "이상호",
+            "SalesYear": "2001",
+            "Accomplishment": 90,
+            "ProductType": "Bicycles",
+            "SalesAmount": 4536536
+        },
+        {
+            "EmployeeID": 2,
+            "Dept": "영업1팀",
+            "EmployeeName": "이상호",
+            "SalesYear": "2001",
+            "Accomplishment": 90,
+            "ProductType": "Pencil",
+            "SalesAmount": 3432424
+        },
+        {
+            "EmployeeID": 2,
+            "Dept": "영업1팀",
+            "EmployeeName": "이상호",
+            "SalesYear": "2001",
+            "Accomplishment": 90,
+            "ProductType": "Accessorise",
+            "SalesAmount": 549760000
+        },
+        {
+            "EmployeeID": "3",
+            "Dept": "엉업1팀",
+            "EmployeeName": "차두철",
+            "SalesYear": "2001",
+            "Accomplishment": 50,
+            "ProductType": "Pencil",
+            "SalesAmount": 676767
+        },
+        {
+            "EmployeeID": "3",
+            "Dept": "엉업1팀",
+            "EmployeeName": "차두철",
+            "SalesYear": "2001",
+            "Accomplishment": 50,
+            "ProductType": "Accessorise",
+            "SalesAmount": 33443000
+        },
+        {
+            "EmployeeID": "3",
+            "Dept": "엉업1팀",
+            "EmployeeName": "차두철",
+            "SalesYear": "2001",
+            "Accomplishment": 50,
+            "ProductType": "Bicycles",
+            "SalesAmount": 2351454
+        },
+        {
+            "EmployeeID": "4",
+            "Dept": "영업2팀",
+            "EmployeeName": "박일홍",
+            "SalesYear": "2001",
+            "Accomplishment": 50,
+            "ProductType": "Pencil",
+            "SalesAmount": 3242345
+        },
+        {
+            "EmployeeID": "4",
+            "Dept": "영업2팀",
+            "EmployeeName": "박일홍",
+            "SalesYear": "2001",
+            "Accomplishment": 50,
+            "ProductType": "Bicycles",
+            "SalesAmount": 8234234
+        },
+        {
+            "EmployeeID": "4",
+            "Dept": "영업2팀",
+            "EmployeeName": "박일홍",
+            "SalesYear": "2001",
+            "Accomplishment": 50,
+            "ProductType": "Accessorise",
+            "SalesAmount": 23329999
+        },
+        {
+            "EmployeeID": "5",
+            "Dept": "영업2팀",
+            "EmployeeName": "이근진",
+            "SalesYear": "2001",
+            "Accomplishment": 80,
+            "ProductType": "Pencil",
+            "SalesAmount": 4563
+        },
+        {
+            "EmployeeID": "5",
+            "Dept": "영업2팀",
+            "EmployeeName": "이근진",
+            "SalesYear": "2001",
+            "Accomplishment": 80,
+            "ProductType": "Accessorise",
+            "SalesAmount": 244654000
+        },
+        {
+            "EmployeeID": "5",
+            "Dept": "영업2팀",
+            "EmployeeName": "이근진",
+            "SalesYear": "2001",
+            "Accomplishment": 80,
+            "ProductType": "Bicycles",
+            "SalesAmount": 977456
+        },
+        {
+            "EmployeeID": "6",
+            "Dept": "영업2팀",
+            "EmployeeName": "천세진",
+            "SalesYear": "2001",
+            "Accomplishment": 90,
+            "ProductType": "Accessorise",
+            "SalesAmount": 769545654
+        },
+        {
+            "EmployeeID": "6",
+            "Dept": "영업2팀",
+            "EmployeeName": "천세진",
+            "SalesYear": "2001",
+            "Accomplishment": 90,
+            "ProductType": "Pencil",
+            "SalesAmount": 4544545
+        },
+        {
+            "EmployeeID": "6",
+            "Dept": "영업2팀",
+            "EmployeeName": "천세진",
+            "SalesYear": "2001",
+            "Accomplishment": 90,
+            "ProductType": "Bicycles",
+            "SalesAmount": 3646346
+        },
+        {
+            "EmployeeID": "7",
+            "Dept": "영업2팀",
+            "EmployeeName": "피강희",
+            "SalesYear": "2001",
+            "Accomplishment": 20,
+            "ProductType": "Pencil",
+            "SalesAmount": 435345
+        },
+        {
+            "EmployeeID": "7",
+            "Dept": "영업2팀",
+            "EmployeeName": "피강희",
+            "SalesYear": "2001",
+            "Accomplishment": 20,
+            "ProductType": "Accessorise",
+            "SalesAmount": 3254353
+        },
+        {
+            "EmployeeID": "7",
+            "Dept": "영업2팀",
+            "EmployeeName": "피강희",
+            "SalesYear": "2001",
+            "Accomplishment": 20,
+            "ProductType": "Bicycles",
+            "SalesAmount": 4563453
+        },
+        {
+            "EmployeeID": "8",
+            "Dept": "영업3팀",
+            "EmployeeName": "강창식",
+            "SalesYear": "2001",
+            "Accomplishment": 60,
+            "ProductType": "Pencil",
+            "SalesAmount": 43456
+        },
+        {
+            "EmployeeID": "8",
+            "Dept": "영업3팀",
+            "EmployeeName": "강창식",
+            "SalesYear": "2001",
+            "Accomplishment": 60,
+            "ProductType": "Bicycles",
+            "SalesAmount": 113423
+        },
+        {
+            "EmployeeID": "8",
+            "Dept": "영업3팀",
+            "EmployeeName": "강창식",
+            "SalesYear": "2001",
+            "Accomplishment": 60,
+            "ProductType": "Accessorise",
+            "SalesAmount": 45685444
+        },
+        {
+            "EmployeeID": "9",
+            "Dept": "영업3팀",
+            "EmployeeName": "권하림",
+            "SalesYear": "2001",
+            "Accomplishment": 50,
+            "ProductType": "Pencil",
+            "SalesAmount": 4334533
+        },
+        {
+            "EmployeeID": "9",
+            "Dept": "영업3팀",
+            "EmployeeName": "권하림",
+            "SalesYear": "2001",
+            "Accomplishment": 50,
+            "ProductType": "Accessorise",
+            "SalesAmount": 23421243
+        },
+        {
+            "EmployeeID": "9",
+            "Dept": "영업3팀",
+            "EmployeeName": "권하림",
+            "SalesYear": "2001",
+            "Accomplishment": 50,
+            "ProductType": "Bicycles",
+            "SalesAmount": 4343333
+        },
+        {
+            "EmployeeID": "10",
+            "Dept": "영업3팀",
+            "EmployeeName": "박기자",
+            "SalesYear": "2001",
+            "Accomplishment": 50,
+            "ProductType": "Accessorise",
+            "SalesAmount": 32454654
+        }
+    ]
+}

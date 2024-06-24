@@ -1,0 +1,5157 @@
+{
+    "name": "reportRoot",
+    "paperOrientation": "landscape",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "10mm",
+    "marginBottom": "5mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "items": [
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "right": 0,
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "Date:"
+                        },
+                        {
+                            "type": "text",
+                            "value": "${date}",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "visible": false
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "items": [
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "right": 0,
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "text",
+                            "value": "${page}",
+                            "name": "",
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "/",
+                            "styles": {
+                                "paddingLeft": "3px",
+                                "paddingRight": "3px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "${pages}",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "body": {
+            "itemGap": "-1px",
+            "items": [
+                {
+                    "type": "table",
+                    "data": "earned-tax-report-01",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 9,
+                    "minRowHeight": "16px",
+                    "cellStyles": {
+                        "paddingLeft": "1px",
+                        "paddingRight": "1px"
+                    },
+                    "rows": [{}, {}, {}, {}, {}, {}, {}, {}, {}],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "colspan": 29,
+                            "styles": {
+                                "backgroundColor": "#f3f3f3ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 0,
+                            "rowspan": 6,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 1,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 3,
+                            "rowspan": 6,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 4,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 7,
+                            "rowspan": 7,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 8,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 10,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 11,
+                            "rowspan": 5,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 12,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 13,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 14,
+                            "rowspan": 6,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 15,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 17,
+                            "rowspan": 4,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 18,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 19,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 20,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 21,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 22,
+                            "rowspan": 8,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 23,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 25,
+                            "rowspan": 8,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 26,
+                            "colspan": 3,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 1,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 4,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 5,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 8,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 10,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 12,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 13,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 15,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 18,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 19,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 20,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 21,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 23,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 26,
+                            "colspan": 3
+                        },
+                        {
+                            "r": 3,
+                            "c": 1,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 5,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 8,
+                            "rowspan": 5,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 9,
+                            "colspan": 2
+                        },
+                        {
+                            "r": 3,
+                            "c": 12,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 13,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 15,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 18,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 19,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 20,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 21,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 23,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 26,
+                            "colspan": 3,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 1,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 4,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 10,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 12,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 13,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 15,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 18,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 19,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 20,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 23,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 26,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 28,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 1,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 4,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 5,
+                            "colspan": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 9,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 12,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 13,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 15,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 17,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 20,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 23,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 26,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 28,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 1,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 4,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 10,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 11,
+                            "rowspan": 3,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 12,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 13,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 15,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 17,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 19,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 20,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 23,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 26,
+                            "colspan": 3,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 0,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 1,
+                            "colspan": 3,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 4,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 9,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 10,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 12,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 13,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 14,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 17,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 19,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 20,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 23,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 26,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 27,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 1,
+                            "colspan": 3,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 4,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 6,
+                            "colspan": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 8,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 10,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 12,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 14,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 17,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 19,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 20,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 23,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 26,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 27,
+                            "styles": {
+                                "backgroundColor": "#BFE1FF"
+                            }
+                        }
+                    ],
+                    "colCount": 29,
+                    "columns": [
+                        {
+                            "width": "1%"
+                        },
+                        {
+                            "width": "2%"
+                        },
+                        {
+                            "width": "7%"
+                        },
+                        {
+                            "width": "1%"
+                        },
+                        {
+                            "width": "2%"
+                        },
+                        {
+                            "width": "2%"
+                        },
+                        {
+                            "width": "2%"
+                        },
+                        {
+                            "width": "1%"
+                        },
+                        {
+                            "width": "1%"
+                        },
+                        {
+                            "width": "2.5%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "1%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "3%"
+                        },
+                        {
+                            "width": "1%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "1%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "1%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "1%"
+                        },
+                        {
+                            "width": "1%"
+                        },
+                        {
+                            "width": "1.5%"
+                        },
+                        {
+                            "width": "4%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "소  득  자  별  근  로  소  득  원  천  징  수  부  (당해년도)",
+                            "styles": {
+                                "fontSize": "15px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 26,
+                            "row": 7,
+                            "wrap": true,
+                            "text": "신청서"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 27,
+                            "row": 7,
+                            "text": "접수"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 27,
+                            "row": 8,
+                            "text": "제출"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 0,
+                            "row": 1,
+                            "wrap": true,
+                            "text": "소득자"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 0,
+                            "row": 7,
+                            "wrap": true,
+                            "text": "주소"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 3,
+                            "row": 1,
+                            "wrap": true,
+                            "text": "가족사항"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 2,
+                            "wrap": true,
+                            "text": "부양"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 7,
+                            "row": 1,
+                            "wrap": true,
+                            "text": "보험료납입상황"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 8,
+                            "row": 3,
+                            "wrap": true,
+                            "text": "보장성보험"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 11,
+                            "row": 1,
+                            "wrap": true,
+                            "text": "의료비"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 11,
+                            "row": 6,
+                            "wrap": true,
+                            "text": "교육비"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 14,
+                            "row": 1,
+                            "wrap": true,
+                            "text": "기부금특별공제"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 17,
+                            "row": 1,
+                            "wrap": true,
+                            "text": "주택자금공제"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 22,
+                            "row": 1,
+                            "wrap": true,
+                            "text": "외국근무"
+                        },
+                        {
+                            "type": "text",
+                            "width": "100%",
+                            "name": "",
+                            "col": 25,
+                            "row": 1,
+                            "wrap": true,
+                            "text": "외국납입세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 1,
+                            "text": "소속"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 3,
+                            "text": "성명"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 2,
+                            "text": "사번"
+                        },
+                        {
+                            "type": "text",
+                            "width": 20,
+                            "name": "",
+                            "col": 1,
+                            "row": 4,
+                            "wrap": true,
+                            "text": "주민번호"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 5,
+                            "text": "직위"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 6,
+                            "multiLine": true,
+                            "text": "직급<br>호봉"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 1,
+                            "text": "배우자"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 2,
+                            "wrap": true,
+                            "text": "20세 이하"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 3,
+                            "wrap": true,
+                            "text": "60세이상"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 4,
+                            "text": "장애자"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 5,
+                            "text": "경로우대"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 6,
+                            "text": "부녀자"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 7,
+                            "text": "6세이하자녀"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 8,
+                            "text": "신고서"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 8,
+                            "row": 1,
+                            "text": "의료보험"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 8,
+                            "row": 2,
+                            "text": "고용보험"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 9,
+                            "row": 5,
+                            "text": "장애인전용"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 9,
+                            "row": 7,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 8,
+                            "row": 8,
+                            "text": "국민연금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 9,
+                            "row": 6,
+                            "multiLine": true,
+                            "text": "납입<br>금액",
+                            "styles": {
+                                "fontSize": "8px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 9,
+                            "row": 4,
+                            "multiLine": true,
+                            "text": "납입<br>금액",
+                            "styles": {
+                                "fontSize": "8px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 1,
+                            "text": "지출의료비"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 2,
+                            "multiLine": true,
+                            "text": "의료비<br>보조금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 3,
+                            "text": "총급여의3%"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 4,
+                            "text": "공제의료비"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 5,
+                            "text": "※경로재활"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 6,
+                            "text": "본      인"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 7,
+                            "multiLine": true,
+                            "text": "직계비속 및<br>형제자매",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 8,
+                            "multiLine": true,
+                            "text": "신청서<br>제출일",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 15,
+                            "row": 1,
+                            "text": "법정기부금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 15,
+                            "row": 2,
+                            "text": "지정기부금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 15,
+                            "row": 3,
+                            "text": "사립학교"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 15,
+                            "row": 4,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 15,
+                            "row": 5,
+                            "text": "공제액계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 15,
+                            "row": 6,
+                            "multiLine": true,
+                            "text": "영수증<br>제출일",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 14,
+                            "row": 7,
+                            "text": "개인연금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 14,
+                            "row": 8,
+                            "text": "연금저축공제"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 18,
+                            "row": 1,
+                            "multiLine": true,
+                            "text": "주택마련<br>저축",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 18,
+                            "row": 2,
+                            "text": "원리금상환"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 18,
+                            "row": 3,
+                            "multiLine": true,
+                            "text": "장기저당<br>차입금이자",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 18,
+                            "row": 4,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 17,
+                            "row": 6,
+                            "multiLine": true,
+                            "text": "투자조합<br>출자",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 17,
+                            "row": 7,
+                            "text": "신용카드"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 17,
+                            "row": 8,
+                            "text": "직불카드"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 20,
+                            "row": 1,
+                            "multiLine": true,
+                            "text": "근로자<br>주식저축",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 20,
+                            "row": 2,
+                            "multiLine": true,
+                            "text": "장기<br>증권저축",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 20,
+                            "row": 3,
+                            "multiLine": true,
+                            "text": "미분양<br>주택차입금",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 23,
+                            "row": 6,
+                            "multiLine": true,
+                            "text": "외국인근로 소득에<br>대한 감면신청",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 23,
+                            "row": 1,
+                            "text": "근무지"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 23,
+                            "row": 2,
+                            "text": "직책"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 23,
+                            "row": 3,
+                            "multiLine": true,
+                            "text": "국외<br>근무기간",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 23,
+                            "row": 4,
+                            "multiLine": true,
+                            "text": "국외근무<br>총급여",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 23,
+                            "row": 5,
+                            "multiLine": true,
+                            "text": "신청서<br>제출일"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 23,
+                            "row": 7,
+                            "text": "접수"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 23,
+                            "row": 8,
+                            "text": "제출"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 26,
+                            "row": 1,
+                            "text": "납세국명"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 26,
+                            "row": 3,
+                            "text": "납세액"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignUnit",
+                            "width": "20px",
+                            "name": "",
+                            "col": 26,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 26,
+                            "row": 5,
+                            "text": "￦"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 26,
+                            "row": 6,
+                            "text": "세액"
+                        },
+                        {
+                            "type": "text",
+                            "value": "department",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "empNo",
+                            "name": "",
+                            "col": 2,
+                            "row": 2,
+                            "numberFormat": "###0",
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "name",
+                            "name": "",
+                            "col": 2,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "registerNo",
+                            "name": "",
+                            "col": 2,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "position",
+                            "name": "",
+                            "col": 2,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "class",
+                            "name": "",
+                            "col": 2,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "address1",
+                            "name": "",
+                            "col": 1,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "address2",
+                            "name": "",
+                            "col": 1,
+                            "row": 8,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "spouse",
+                            "name": "",
+                            "col": 6,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "dependent",
+                            "name": "",
+                            "onGetValue": "if(!value) return '';",
+                            "col": 6,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "over60",
+                            "name": "",
+                            "onGetValue": "if(!value) return '';",
+                            "col": 6,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "handicap",
+                            "name": "",
+                            "onGetValue": "if(!value) return '';",
+                            "col": 6,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "senior",
+                            "name": "",
+                            "onGetValue": "if(!value) return '';",
+                            "col": 6,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "woman",
+                            "name": "",
+                            "onGetValue": "if(!value) return '';",
+                            "col": 6,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "infantCount",
+                            "name": "",
+                            "onGetValue": "if(!value) return '';",
+                            "col": 6,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "medicalInsur",
+                            "name": "",
+                            "col": 10,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "employeeInsur",
+                            "name": "",
+                            "col": 10,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "assureAmount",
+                            "name": "",
+                            "col": 10,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "handicapAmount",
+                            "name": "",
+                            "col": 10,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalInsur",
+                            "name": "",
+                            "col": 10,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "nationalInsur",
+                            "name": "",
+                            "col": 10,
+                            "row": 8,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "midicalExpenditure",
+                            "name": "",
+                            "onGetValue": "",
+                            "col": 13,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "medicalSubsidy",
+                            "name": "",
+                            "onGetValue": "",
+                            "col": 13,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "midicalSalaryBase",
+                            "name": "",
+                            "onGetValue": "",
+                            "col": 13,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "medicalDeduction",
+                            "name": "",
+                            "col": 13,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "medicalSenior",
+                            "name": "",
+                            "col": 13,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "eduSelf",
+                            "name": "",
+                            "col": 13,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "eduDependent",
+                            "name": "",
+                            "col": 13,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "eduSubmitted",
+                            "name": "",
+                            "col": 13,
+                            "row": 8,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "donateLegal",
+                            "name": "",
+                            "col": 16,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "donateAppointment",
+                            "name": "",
+                            "col": 16,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "donateSchool",
+                            "name": "",
+                            "col": 16,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "donateTotal",
+                            "name": "",
+                            "col": 16,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "donateDeduct",
+                            "name": "",
+                            "col": 16,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "donateSummited",
+                            "name": "",
+                            "col": 16,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "personalPension",
+                            "name": "",
+                            "col": 16,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "pensionDeduct",
+                            "name": "",
+                            "col": 16,
+                            "row": 8,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "housing",
+                            "name": "",
+                            "col": 19,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "housingRepayment",
+                            "name": "",
+                            "col": 19,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "housingLoanInterest",
+                            "name": "",
+                            "col": 19,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "hosingTotal",
+                            "name": "",
+                            "col": 19,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "investment",
+                            "name": "",
+                            "col": 19,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "creditCard",
+                            "name": "",
+                            "col": 19,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "debitCard",
+                            "name": "",
+                            "col": 19,
+                            "row": 8,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "stock",
+                            "name": "",
+                            "col": 21,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "longTermStock",
+                            "name": "",
+                            "col": 21,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "unsoldDebt",
+                            "name": "",
+                            "col": 21,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignWorkplace",
+                            "name": "",
+                            "col": 24,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignPosition",
+                            "name": "",
+                            "col": 24,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignPeriod",
+                            "name": "",
+                            "col": 24,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignSarary",
+                            "name": "",
+                            "col": 24,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignRequested",
+                            "name": "",
+                            "col": 24,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignReduceReceipted",
+                            "name": "",
+                            "col": 24,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignReduceSubmited",
+                            "name": "",
+                            "col": 24,
+                            "row": 8,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignCountry",
+                            "name": "",
+                            "col": 26,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignAmount",
+                            "name": "",
+                            "col": 28,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "wonAmount",
+                            "name": "",
+                            "col": 28,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignReduceReceipted",
+                            "name": "",
+                            "col": 28,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "foreignTaxSubmited",
+                            "name": "",
+                            "col": 28,
+                            "row": 8,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "rbox",
+                            "name": "",
+                            "col": 9,
+                            "row": 3,
+                            "itemGap": 0,
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "value": "assure",
+                                    "width": 60,
+                                    "name": "",
+                                    "text": "",
+                                    "styles": {
+                                        "paddingRight": "3px",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "text": "보험"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "tableband",
+                    "name": "newband",
+                    "data": "earned-tax-report-02",
+                    "width": "100%",
+                    "masterFields": "empNo",
+                    "keyFields": "empNo",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "visible": false
+                    },
+                    "colCount": 21,
+                    "columns": [
+                        {
+                            "width": "7%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "3%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "4%"
+                        }
+                    ],
+                    "header": {
+                        "name": "newheader",
+                        "width": "100%",
+                        "rowCount": 3,
+                        "minRowHeight": "17px",
+                        "cellStyles": {},
+                        "rows": [{}, {}, {}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "colspan": 21,
+                                "styles": {
+                                    "backgroundColor": "#f3f3f3ff",
+                                    "borderTop": ""
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 0,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 1,
+                                "colspan": 3,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 4,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 5,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 6,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 7,
+                                "colspan": 4,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 11,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 12,
+                                "colspan": 4,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 16,
+                                "colspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 18,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 19,
+                                "colspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 2,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 3,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 4,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 7,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 8,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 9,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 10,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 12,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 13,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 14,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 15,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 16,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 17,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 19,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 20,
+                                "styles": {
+                                    "backgroundColor": "#E3FEFF"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "근  로  소  득  지  급  명  세  서",
+                                "styles": {
+                                    "fontSize": "15px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 1,
+                                "multiLine": true,
+                                "text": "지급월<br>지급내역",
+                                "styles": {
+                                    "textAlign": "center",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 1,
+                                "text": "근 로 소 득"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 2,
+                                "text": "급여액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 2,
+                                "text": "상여액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 2,
+                                "text": "계"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 1,
+                                "text": "의료보험료"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 1,
+                                "text": "고용보험료"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 6,
+                                "row": 1,
+                                "multiLine": true,
+                                "text": "국민연금<br>보험액",
+                                "styles": {
+                                    "textAlign": "center",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 1,
+                                "text": "세 액 공 제"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 2,
+                                "text": "근로소득"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 8,
+                                "row": 2,
+                                "multiLine": true,
+                                "text": "외국<br>납부"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 9,
+                                "row": 2,
+                                "text": "재형저축"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 10,
+                                "row": 2,
+                                "text": "계"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 11,
+                                "row": 1,
+                                "text": "감면세액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 12,
+                                "row": 1,
+                                "text": "차 감 원 천 징 수 액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 12,
+                                "row": 2,
+                                "text": "소득세"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 13,
+                                "row": 2,
+                                "multiLine": true,
+                                "text": "농어촌<br>특별세"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 14,
+                                "row": 2,
+                                "text": "주민세"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 15,
+                                "row": 2,
+                                "text": "계"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 16,
+                                "row": 1,
+                                "text": "비과세급여등"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 16,
+                                "row": 2,
+                                "text": "금액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 17,
+                                "row": 2,
+                                "text": "내용"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 18,
+                                "row": 1,
+                                "text": "기타"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 19,
+                                "row": 1,
+                                "text": "외국근로소득"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 19,
+                                "row": 2,
+                                "multiLine": true,
+                                "text": "지급<br>일자"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 20,
+                                "row": 2,
+                                "text": "금액"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "15px",
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 12,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 14,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 15,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 16,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "합계",
+                                "styles": {
+                                    "fontSize": "9px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "expression": "sum(Salary)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "expression": "sum(Bonus)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "expression": "sum(IncomeTotal)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "expression": "sum(MedicalInsurence)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "expression": "sum(EmployeeInsurence)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "expression": "sum(PensionInsurence)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 12,
+                                "row": 0,
+                                "expression": "sum(IncomeTax)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 14,
+                                "row": 0,
+                                "expression": "sum(RegidentTax)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 15,
+                                "row": 0,
+                                "expression": "sum(TotalTax)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 16,
+                                "row": 0,
+                                "expression": "sum(TaxFree)"
+                            }
+                        ]
+                    },
+                    "dataRow": {
+                        "name": "newrow",
+                        "width": "100%",
+                        "rowCount": 1,
+                        "minRowHeight": "15px",
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 12,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 14,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 15,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 16,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "IncomeType",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Salary",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Bonus",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "IncomeTotal",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "MedicalInsurence",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "EmployeeInsurence",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "PensionInsurence",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "IncomeTax",
+                                "name": "",
+                                "col": 12,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "RegidentTax",
+                                "name": "",
+                                "col": 14,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "TotalTax",
+                                "name": "",
+                                "col": 15,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "TaxFree",
+                                "name": "",
+                                "col": 16,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "table",
+                    "data": "earned-tax-receipt",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 10,
+                    "minRowHeight": "16px",
+                    "cellStyles": {},
+                    "rows": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "colspan": 17,
+                            "styles": {
+                                "backgroundColor": "#f3f3f3ff",
+                                "borderTop": ""
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 0,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 1,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 2,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 3,
+                            "colspan": 3,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 6,
+                            "colspan": 5,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 11,
+                            "colspan": 6,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 3,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 4,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 5,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 6,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 7,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 8,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 9,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 10,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 11,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 12,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 13,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 14,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 15,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 16,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 0,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 6,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 7,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 8,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 9,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 10,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 11,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 12,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 13,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 14,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 15,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 0,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 1,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 2,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 3,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 4,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 5,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 6,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 7,
+                            "colspan": 5,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 12,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 13,
+                            "colspan": 4,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 7,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 8,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 9,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 10,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 11,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 13,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 14,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 15,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 16,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 0,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 6,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 7,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 8,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 9,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 10,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 11,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 12,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 13,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 14,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 15,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 0,
+                            "rowspan": 2,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 2,
+                            "colspan": 4,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 6,
+                            "colspan": 3,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 9,
+                            "colspan": 4,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 13,
+                            "colspan": 4,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 2,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 3,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 4,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 5,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 6,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 7,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 8,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 9,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 10,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 11,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 12,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 13,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 14,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 15,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 8,
+                            "c": 16,
+                            "styles": {
+                                "backgroundColor": "#FFEEFF"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 0,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 6,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 7,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 8,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 9,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 10,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 11,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 12,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 13,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 14,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 15,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 9,
+                            "c": 16,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        }
+                    ],
+                    "colCount": 17,
+                    "columns": [
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "연      말      정      산",
+                            "styles": {
+                                "fontSize": "15px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 1,
+                            "text": "근로소득"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 1,
+                            "multiLine": true,
+                            "text": "근로소득<br>공제",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "multiLine": true,
+                            "text": "근로소득<br>금액",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 1,
+                            "text": "기본 공제"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 6,
+                            "row": 1,
+                            "text": "추가 공제"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 11,
+                            "row": 1,
+                            "text": "특별 공제"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 2,
+                            "text": "본인"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 2,
+                            "text": "배우자"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 2,
+                            "text": "부양가족"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 6,
+                            "row": 2,
+                            "text": "경로우대"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 7,
+                            "row": 2,
+                            "text": "장애자"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 8,
+                            "row": 2,
+                            "text": "부녀자"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 9,
+                            "row": 2,
+                            "text": "자녀양육비"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 10,
+                            "row": 2,
+                            "text": "소수자공제"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 11,
+                            "row": 2,
+                            "text": "보험료"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 2,
+                            "text": "의료비"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 13,
+                            "row": 2,
+                            "text": "교육비"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 14,
+                            "row": 2,
+                            "text": "주택자금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 15,
+                            "row": 2,
+                            "text": "기부금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 16,
+                            "row": 2,
+                            "text": "계/(표준공제)"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalIncome",
+                            "name": "",
+                            "col": 0,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "workingDeduction",
+                            "name": "",
+                            "col": 1,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "workingIncome",
+                            "name": "",
+                            "col": 2,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductPrincipal",
+                            "name": "",
+                            "col": 3,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductSpouse",
+                            "name": "",
+                            "col": 4,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductDependent",
+                            "name": "",
+                            "col": 5,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductSenior",
+                            "name": "",
+                            "col": 6,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductHandicap",
+                            "name": "",
+                            "col": 7,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductWoman",
+                            "name": "",
+                            "col": 8,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductInfant",
+                            "name": "",
+                            "col": 9,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductMinority",
+                            "name": "",
+                            "col": 10,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductInsurance",
+                            "name": "",
+                            "col": 11,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductMedical",
+                            "name": "",
+                            "col": 12,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductEducation",
+                            "name": "",
+                            "col": 13,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductHousingFund",
+                            "name": "",
+                            "col": 14,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "deductDonation",
+                            "name": "",
+                            "col": 15,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "specialDeduct",
+                            "name": "",
+                            "col": 16,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 4,
+                            "multiLine": true,
+                            "text": "국민연금<br>공제",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 4,
+                            "multiLine": true,
+                            "text": "개인연금<br>공제",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 4,
+                            "multiLine": true,
+                            "text": "연금저축<br>공제",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 4,
+                            "multiLine": true,
+                            "text": "투자조합<br>출자금공제",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 4,
+                            "multiLine": true,
+                            "text": "신용카드<br>공제",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 4,
+                            "multiLine": true,
+                            "text": "종합소득<br>과세표준",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 6,
+                            "row": 4,
+                            "text": "산출세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 7,
+                            "row": 4,
+                            "text": "세액공제"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 7,
+                            "row": 5,
+                            "text": "근로소득"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 8,
+                            "row": 5,
+                            "text": "주식저축"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 9,
+                            "row": 5,
+                            "text": "주택차입금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 10,
+                            "row": 5,
+                            "text": "정치기부금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 11,
+                            "row": 5,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 4,
+                            "text": "감면세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 13,
+                            "row": 4,
+                            "text": "결정세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 13,
+                            "row": 5,
+                            "text": "소득세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 14,
+                            "row": 5,
+                            "text": "농어촌특별세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 15,
+                            "row": 5,
+                            "text": "주민세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 16,
+                            "row": 5,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "value": "nationalInsurDeduct",
+                            "name": "",
+                            "col": 0,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "personalPensionDeduct",
+                            "name": "",
+                            "col": 1,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "pensionDeduct",
+                            "name": "",
+                            "col": 2,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "investmentDeduct",
+                            "name": "",
+                            "col": 3,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "creditCardDeduct",
+                            "name": "",
+                            "col": 4,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "standard",
+                            "name": "",
+                            "col": 5,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "computed",
+                            "name": "",
+                            "col": 6,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incomeTaxDeduct",
+                            "name": "",
+                            "col": 7,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "stockDeduct",
+                            "name": "",
+                            "col": 8,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "housingDeduct",
+                            "name": "",
+                            "col": 9,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "politicalDeduct",
+                            "name": "",
+                            "col": 10,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalTaxDeduct",
+                            "name": "",
+                            "col": 11,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "reduceTax",
+                            "name": "",
+                            "col": 12,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incomeTax",
+                            "name": "",
+                            "col": 13,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "villageTax",
+                            "name": "",
+                            "col": 14,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "regidentTax",
+                            "name": "",
+                            "col": 15,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalTax",
+                            "name": "",
+                            "col": 16,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 7,
+                            "multiLine": true,
+                            "text": "종된(전) 근무지에서<br>징수한 세액",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 7,
+                            "text": "주된(현) 근무지에서 징수할 세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 6,
+                            "row": 7,
+                            "text": "주된(현) 근무지에서 징수한 세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 9,
+                            "row": 7,
+                            "text": "차감징수세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 13,
+                            "row": 7,
+                            "text": "차감환급세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 8,
+                            "text": "소득세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 8,
+                            "text": "농어촌특별세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 8,
+                            "text": "주민세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 8,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 6,
+                            "row": 8,
+                            "text": "소득세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 7,
+                            "row": 8,
+                            "text": "주민세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 8,
+                            "row": 8,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 9,
+                            "row": 8,
+                            "text": "소득세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 10,
+                            "row": 8,
+                            "text": "농어촌특별세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 11,
+                            "row": 8,
+                            "text": "주민세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 12,
+                            "row": 8,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 13,
+                            "row": 8,
+                            "text": "소득세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 14,
+                            "row": 8,
+                            "text": "농어촌특별세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 15,
+                            "row": 8,
+                            "text": "주민세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 16,
+                            "row": 8,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevPrepaidIncomeTax",
+                            "name": "",
+                            "col": 0,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevPrepadRegidentTax",
+                            "name": "",
+                            "col": 1,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "currIncomeTax",
+                            "name": "",
+                            "col": 2,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "currVillageTax",
+                            "name": "",
+                            "col": 3,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "currRegidentTax",
+                            "name": "",
+                            "col": 4,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "currTaxTotal",
+                            "name": "",
+                            "col": 5,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "currPrepaidIncomeTax",
+                            "name": "",
+                            "col": 6,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "currPrepaidRegidentTax",
+                            "name": "",
+                            "col": 7,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "currPrepaidTotal",
+                            "name": "",
+                            "col": 8,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "payableIncomeTax",
+                            "name": "",
+                            "onGetValue": "return value < 0 ? null : value;",
+                            "col": 9,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "payableVillageTax",
+                            "name": "",
+                            "onGetValue": "return item.getValue(row,'payableIncomeTax') < 0 ? null : value;",
+                            "col": 10,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "payableRegidentTax",
+                            "name": "",
+                            "onGetValue": "return item.getValue(row,'payableIncomeTax') < 0 ? null : value;",
+                            "col": 11,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "payableTaxTotal",
+                            "name": "",
+                            "onGetValue": "return item.getValue(row,'payableIncomeTax') < 0 ? null : value;",
+                            "col": 12,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "payableIncomeTax",
+                            "name": "",
+                            "onGetValue": "return value < 0 ? value : null;",
+                            "col": 13,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "payableVillageTax",
+                            "name": "",
+                            "onGetValue": "return item.getValue(row,'payableIncomeTax') < 0 ? value : null;",
+                            "col": 14,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "payableIncomeTax",
+                            "name": "",
+                            "onGetValue": "return item.getValue(row,'payableIncomeTax') < 0 ? value : null;",
+                            "col": 15,
+                            "row": 9,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "payableIncomeTax",
+                            "name": "",
+                            "onGetValue": "return item.getValue(row,'payableIncomeTax') < 0 ? value : null;",
+                            "col": 16,
+                            "row": 9,
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "styles": {
+            "fontFamily": "Tahoma",
+            "fontSize": "9px",
+            "__tag_": {}
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "earned-tax-report-01": {
+            "type": "simple",
+            "sample": {
+                "department": "영업부 마케팅팀",
+                "empNo": 200504124,
+                "name": "김재원",
+                "registerNo": "740930-1******",
+                "position": "대리",
+                "class": "2호봉",
+                "address1": "서울 동작구 노량진동",
+                "address2": "6-37(3/3)",
+                "spouse": "유",
+                "dependent": "2명",
+                "over60": 0,
+                "handicap": 0,
+                "senior": 0,
+                "woman": 0,
+                "infantCount": "1명",
+                "declaration": 0,
+                "medicalInsur": 788250,
+                "employeeInsur": 143934,
+                "assure": 0,
+                "assureAmount": 3482653,
+                "handicapAmount": 0,
+                "totalInsur": 3482653,
+                "nationalInsur": 1533600,
+                "midicalExpenditure": 0,
+                "medicalSubsidy": null,
+                "midicalSalaryBase": null,
+                "medicalDeduction": null,
+                "medicalSenior": 0,
+                "eduSelf": 0,
+                "eduDependent": 0,
+                "eduTotal": 0,
+                "eduSubmitDate": null,
+                "donateLegal": 0,
+                "donateAppointment": 0,
+                "donateSchool": 0,
+                "donateTotal": 0,
+                "personalPension": 600000,
+                "pensionDeduct": 0,
+                "housing": 1200000,
+                "housingRepayment": 0,
+                "housingLoanInterest": 0,
+                "hosingTotal": 1200000,
+                "investment": 0,
+                "creditCard": 6942042,
+                "debitCard": 0,
+                "stock": 0,
+                "longTermStock": 0,
+                "unsoldDebt": 0,
+                "foreignWorkplace": null,
+                "foreignPosition": null,
+                "foreignPeriod": null,
+                "foreignSarary": null,
+                "foreignRequested": null,
+                "foreignReduceReceipted": null,
+                "foreignReduceSubmited": null,
+                "foreignCountry": null,
+                "foreignUnit": "$",
+                "foreignAmount": null,
+                "wonAmount": null,
+                "taxReceipted": null,
+                "taxSubmited": null,
+                "totalIncome": 36395020,
+                "workingDeduction": 12889502,
+                "workingIncome": 23505518,
+                "deductPrincipal": 1000000,
+                "deductSpouse": 1000000,
+                "deductDependent": 2000000,
+                "deductSenior": 1500000,
+                "deductHandicap": 0,
+                "deductWoman": 0,
+                "deductInfant": 1000000,
+                "deductMinority": 0,
+                "deductInsurance": 1932184,
+                "deductMedical": 0,
+                "deductEducation": 0,
+                "deductHousingFund": 480000,
+                "deductDonation": 266580,
+                "additionalDeduct": 2678764,
+                "nationalInsurDeduct": 1533600,
+                "personalPensionDeduct": 240000,
+                "investmentDeduct": 0,
+                "creditCardDeduct": 660508,
+                "standard": 11892646,
+                "computed": 1240676,
+                "incomeTaxDeduct": 497202,
+                "stockDeduct": 0,
+                "housingDeduct": 0,
+                "politicalDeduct": 0,
+                "totalTaxDeduct": 497202,
+                "reduceTax": null,
+                "incomeTax": 743470,
+                "villageTax": 0,
+                "regidentTax": 74340,
+                "totalTax": 817810,
+                "prevPrepaidIncomeTax": null,
+                "prevPrepadRegidentTax": null,
+                "currPrepaidIncomeTax": 1235860,
+                "currPrepaidRegidentTax": 123520,
+                "currPrepaidTotal": 1359380,
+                "currIncomeTax": 743470,
+                "currVillageTax": 0,
+                "currRegidentTax": 74340,
+                "currTaxTotal": 817810,
+                "payableIncomeTax": -492390,
+                "payableRegidentTax": -49180,
+                "payableVillageTax": 0,
+                "payableTaxTotal": -541570
+            }
+        },
+        "earned-tax-receipt": {
+            "type": "simple",
+            "sample": {
+                "companyName": "가나다 유통 주식회사",
+                "Registration": "123-12-1234567",
+                "presidentName": "홍길동",
+                "presidentRRN": "720101-1234567",
+                "address": "서울특별시 종로구 종료1가 1번지",
+                "employeeName": "김아름",
+                "employeeRRN": "981231-1234567",
+                "employeeAddress": "경기도 수원시 팔달구 고등동 67-1",
+                "imputedFromDate": "2004/01/01",
+                "imputedToDate": "2004/12/31",
+                "reduceFromDate": "2004/01/01",
+                "reduceToDate": "2004/12/31",
+                "issuedDate": "2004/12/31",
+                "beforeWorkplace": null,
+                "beforeRegistration": null,
+                "beforeSalary": null,
+                "beforeBonus": null,
+                "beforeTotal": null,
+                "currentSalary": 28288820,
+                "currentBonus": 7270370,
+                "currentConstructive": 0,
+                "currentTotal": 35559190,
+                "totalSalary": 28288820,
+                "totalBonus": 7270370,
+                "totalConstructive": 0,
+                "taxfreeOversea": null,
+                "taxfreeOvertime": null,
+                "taxfreeEtc": 1320000,
+                "taxfreeTotal": 1320000,
+                "totalIncome": 35559190,
+                "totalDeduction": 12805919,
+                "totalWorkingIncome": 22753271,
+                "principal": 1000000,
+                "spouse": 0,
+                "dependentCount": null,
+                "dependent": 0,
+                "seniorCount": null,
+                "senior": 0,
+                "handicapCount": null,
+                "handicap": 0,
+                "woman": 500000,
+                "infantCount": 1,
+                "infant": 1000000,
+                "minority": 1000000,
+                "annuity": 1460700,
+                "insurance": 1872952,
+                "medical": 0,
+                "education": 0,
+                "housingFund": 0,
+                "donation": 261960,
+                "marry": 0,
+                "specialTotal": 2134912,
+                "deductionDecreased": 15657659,
+                "personalPension": 0,
+                "pension": 0,
+                "investment": 0,
+                "card": 2047026,
+                "stock": null,
+                "restrictionTotal": 2047026,
+                "taxStandard": 13610633,
+                "computedTax": 1549913,
+                "rawReduction": null,
+                "controlActReduction": null,
+                "reductionTotal": null,
+                "workingTC": 500000,
+                "accociationTC": null,
+                "houseTC": 0,
+                "foreignTC": null,
+                "politicalTC": 0,
+                "stockTC": 0,
+                "longTermStockTC": 0,
+                "totalTC": 500000,
+                "incomeTax": 1049910,
+                "regidentTax": 0,
+                "villageTax": 104990,
+                "totalTax": 1154900,
+                "prevIncomeTax": 0,
+                "prevRegidentTax": 0,
+                "prevVillageTax": 0,
+                "prevTotalTax": 0,
+                "currIncomeTax": 1730520,
+                "currRegidentTax": 0,
+                "currVillageTax": 172960,
+                "currTotalTax": 1903480,
+                "deductIncomeTax": -680610,
+                "deductRegidentTax": 0,
+                "deductVillageTax": -67970,
+                "deductTotalTax": -67970
+            }
+        },
+        "earned-tax-report-02": {
+            "sampleCount": 15,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "IncomeType",
+                    "dataType": "text",
+                    "sample": "04-Jan",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Salary",
+                    "dataType": "number",
+                    "sample": "1772630",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Bonus",
+                    "dataType": "number",
+                    "sample": "0",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "IncomeTotal",
+                    "dataType": "number",
+                    "sample": "1772630",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "MedicalInsurence",
+                    "dataType": "number",
+                    "sample": "54300",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "EmployeeInsurence",
+                    "dataType": "number",
+                    "sample": "8274",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "PensionInsurence",
+                    "dataType": "number",
+                    "sample": "114300",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "IncomeTax",
+                    "dataType": "number",
+                    "sample": "8140",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "RegidentTax",
+                    "dataType": "number",
+                    "sample": "810",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "TotalTax",
+                    "dataType": "number",
+                    "sample": "8950",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "TaxFree",
+                    "dataType": "number",
+                    "sample": "120000",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        }
+    },
+    "guid": "40bf9d0e-0f0d-418d-83b2-afb9a10572a7"
+}

@@ -1,0 +1,572 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader"
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "height": 93,
+            "items": [
+                {
+                    "type": "text",
+                    "text": "영업현황",
+                    "styles": {
+                        "fontSize": "30px",
+                        "fontWeight": "bold",
+                        "__tag_": {}
+                    }
+                },
+                {
+                    "type": "rbox",
+                    "width": 420,
+                    "height": 19,
+                    "name": "",
+                    "left": 0,
+                    "bottom": "0px",
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "영업기간:",
+                            "styles": {
+                                "paddingRight": "3px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "2021.01.01"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "~",
+                            "styles": {
+                                "paddingLeft": "3px",
+                                "paddingRight": "3px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "${date}",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter"
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "hichart",
+                    "width": "100%",
+                    "height": 270,
+                    "name": "",
+                    "data": "graph-chart",
+                    "title": {
+                        "text": "분류별 실적"
+                    },
+                    "xAxis": {
+                        "title": {
+                            "visible": false,
+                            "text": "Labels"
+                        },
+                        "categoryField": "CategoryName"
+                    },
+                    "yAxis": {
+                        "title": {
+                            "text": "Amount"
+                        }
+                    },
+                    "legend": {
+                        "align": "center",
+                        "verticalAlign": "bottom",
+                        "layout": "horizontal"
+                    },
+                    "series": [
+                        {
+                            "type": "column",
+                            "valueField": "Amount",
+                            "values": [3, 4, 7, 2, 4]
+                        }
+                    ],
+                    "styles": {
+                        "border": "1px solid #a0a0a0",
+                        "__tag_": {}
+                    }
+                },
+                {
+                    "type": "space",
+                    "name": "",
+                    "size": 10
+                },
+                {
+                    "type": "tableband",
+                    "data": "graph-table",
+                    "width": "100%",
+                    "name": "",
+                    "repeatDetailHeader": false,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "visible": false
+                    },
+                    "colCount": 4,
+                    "columns": [
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "40%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "15%"
+                        }
+                    ],
+                    "groups": [
+                        {
+                            "name": "tableBandRowGroup",
+                            "field": "CategoryName",
+                            "header": {
+                                "name": "groupHeader",
+                                "width": "100%",
+                                "visible": false,
+                                "rowCount": 1,
+                                "cellStyles": {},
+                                "rows": [{}],
+                                "cells": []
+                            },
+                            "footer": {
+                                "name": "groupFooter",
+                                "width": "100%",
+                                "rowCount": 1,
+                                "cellStyles": {},
+                                "rows": [{}],
+                                "cells": [
+                                    {
+                                        "r": 0,
+                                        "c": 0,
+                                        "styles": {
+                                            "borderRight": "none",
+                                            "borderTop": ""
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 1,
+                                        "colspan": 2,
+                                        "styles": {
+                                            "cellAlign": "left",
+                                            "borderLeft": "",
+                                            "borderRight": "none",
+                                            "borderTop": "solid #999933"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 3,
+                                        "styles": {
+                                            "cellAlign": "right",
+                                            "borderLeft": "none",
+                                            "borderTop": "solid #999933"
+                                        }
+                                    }
+                                ],
+                                "items": [
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 0,
+                                        "expression": "sum(Amount)",
+                                        "styles": {
+                                            "fontFamily": "Arial",
+                                            "fontWeight": "bold",
+                                            "color": "#030691ff",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 0,
+                                        "text": "분류 합계",
+                                        "styles": {
+                                            "fontFamily": "Tahoma",
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "header": {
+                        "name": "bandHeader",
+                        "width": "100%",
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Category",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Product",
+                                "styles": {
+                                    "fontFamily": "Tahoma",
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Quantity",
+                                "styles": {
+                                    "fontFamily": "Tahoma",
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Amount",
+                                "styles": {
+                                    "fontFamily": "Tahoma",
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "name": "bandFooter",
+                        "width": "100%",
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "colspan": 3,
+                                "styles": {
+                                    "cellAlign": "left",
+                                    "borderRight": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "borderLeft": "none"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "expression": "sum(Amount)",
+                                "styles": {
+                                    "fontFamily": "Arial",
+                                    "fontWeight": "bold",
+                                    "color": "#a80213ff",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "합계",
+                                "styles": {
+                                    "fontFamily": "Tahoma",
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            }
+                        ]
+                    },
+                    "dataRow": {
+                        "name": "dataRow",
+                        "width": "100%",
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "cellAlign": "left",
+                                    "borderRight": "none",
+                                    "borderTop": "",
+                                    "borderBottom": ""
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "CategoryName",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "paddingLeft": "3px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "ProductName",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "paddingLeft": "3px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "Quantity",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "paddingRight": "3px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "Amount",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "paddingRight": "3px",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "CategoryName",
+                                "name": "",
+                                "onGetStyles": "",
+                                "mergedInGroup": true,
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontFamily": "Tahoma",
+                                    "__tag_": {}
+                                },
+                                "styleCallback": null
+                            },
+                            {
+                                "type": "text",
+                                "value": "ProductName",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontFamily": "Tahoma",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "Quantity",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontFamily": "Arial",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "Amount",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "fontFamily": "Arial",
+                                    "__tag_": {}
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "graph-chart": {
+            "sampleCount": 10,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "CategoryID",
+                    "dataType": "text",
+                    "sample": "1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "CategoryName",
+                    "dataType": "text",
+                    "sample": "음료",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Quantity",
+                    "dataType": "number",
+                    "sample": "3692",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Amount",
+                    "dataType": "number",
+                    "sample": "105355",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "graph-table": {
+            "type": "band",
+            "sampleCount": 10,
+            "fields": [
+                {
+                    "fieldName": "CategoryID",
+                    "dataType": "text",
+                    "sample": "1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ProductName",
+                    "dataType": "text",
+                    "sample": "OK 바닐라 셰이크",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "CategoryName",
+                    "dataType": "text",
+                    "sample": "음료",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ProductID",
+                    "dataType": "text",
+                    "sample": "2",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Quantity",
+                    "dataType": "text",
+                    "sample": "435",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Amount",
+                    "dataType": "text",
+                    "sample": "7565",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        }
+    },
+    "guid": "cd417bbe-9dc1-4766-a39e-ed41845a3267"
+}

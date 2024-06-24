@@ -1,0 +1,17 @@
+{
+    "prodBizRegNo": "123-45-67890",
+    "prodCompName": "우리테크",
+    "prodRepName": "홍길동",
+    "prodBizAddress": "경기도 성남시 운중로 123",
+    "prodBizType": "과학기기 시약",
+    "prodBizItem": "도소매",
+    "consBizRegNo": "098-76-54321",
+    "consCompName": "제일제약",
+    "consRepName": "김철수",
+    "consBizAddress": "경기도 광주시 경안동 123-1",
+    "consBizType": "기타화학제품제",
+    "consBizItem": "화공약품 외",
+    "poNo": 2817319237,
+    "deliveryDate": "2021.1.1",
+    "deliveryNo": 137154220
+}

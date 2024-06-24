@@ -1,0 +1,1450 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "spaceBottom": -1,
+            "items": [
+                {
+                    "type": "cbox",
+                    "width": "100%",
+                    "name": "",
+                    "itemGap": "0px",
+                    "styles": {
+                        "border": "1px solid #000"
+                    },
+                    "items": [
+                        {
+                            "type": "stack",
+                            "width": "100%",
+                            "height": "150px",
+                            "name": "",
+                            "styles": {
+                                "paddingTop": "20px"
+                            },
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "top": "0px",
+                                    "text": "발 주 서",
+                                    "styles": {
+                                        "fontSize": "30px",
+                                        "fontWeight": "bold"
+                                    }
+                                },
+                                {
+                                    "type": "rbox",
+                                    "name": "",
+                                    "left": 0,
+                                    "bottom": "0px",
+                                    "itemGap": 0,
+                                    "items": [
+                                        {
+                                            "type": "cbox",
+                                            "name": "",
+                                            "itemGap": 0,
+                                            "items": [
+                                                {
+                                                    "type": "text",
+                                                    "name": "",
+                                                    "text": "발주번호 : "
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "name": "",
+                                                    "text": "발주일자 : "
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "cbox",
+                                            "name": "",
+                                            "itemGap": 0,
+                                            "items": [
+                                                {
+                                                    "type": "text",
+                                                    "data": "order-master",
+                                                    "value": "orderNo",
+                                                    "name": "",
+                                                    "left": 0,
+                                                    "text": "Text"
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "data": "order-master",
+                                                    "value": "orderDate",
+                                                    "name": "",
+                                                    "left": 0,
+                                                    "text": "Text"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "table",
+                                    "width": 318,
+                                    "name": "",
+                                    "right": 0,
+                                    "bottom": "0px",
+                                    "rowCount": 2,
+                                    "minRowHeight": "18px",
+                                    "cellStyles": {
+                                        "borderLeft": "solid 1px #313131ff",
+                                        "borderRight": "solid 1px #313131ff",
+                                        "borderTop": "solid 1px #313131ff",
+                                        "borderBottom": "solid 1px #313131ff"
+                                    },
+                                    "rows": [
+                                        {},
+                                        {
+                                            "height": "50px"
+                                        }
+                                    ],
+                                    "cells": [
+                                        {
+                                            "r": 0,
+                                            "c": 0,
+                                            "rowspan": 2,
+                                            "styles": {
+                                                "backgroundColor": "#e8e8e8ff",
+                                                "borderBottom": "0"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 1,
+                                            "styles": {
+                                                "backgroundColor": "#e8e8e8ff"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 2,
+                                            "styles": {
+                                                "backgroundColor": "#e8e8e8ff"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 3,
+                                            "styles": {
+                                                "backgroundColor": "#e8e8e8ff"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 4,
+                                            "styles": {
+                                                "backgroundColor": "#e8e8e8ff"
+                                            }
+                                        },
+                                        {
+                                            "r": 0,
+                                            "c": 5,
+                                            "styles": {
+                                                "backgroundColor": "#e8e8e8ff"
+                                            }
+                                        },
+                                        {
+                                            "r": 1,
+                                            "c": 1,
+                                            "styles": {
+                                                "borderBottom": "0"
+                                            }
+                                        },
+                                        {
+                                            "r": 1,
+                                            "c": 2,
+                                            "styles": {
+                                                "borderBottom": "0"
+                                            }
+                                        },
+                                        {
+                                            "r": 1,
+                                            "c": 3,
+                                            "styles": {
+                                                "borderBottom": "0"
+                                            }
+                                        },
+                                        {
+                                            "r": 1,
+                                            "c": 4,
+                                            "styles": {
+                                                "borderBottom": "0"
+                                            }
+                                        },
+                                        {
+                                            "r": 1,
+                                            "c": 5,
+                                            "styles": {
+                                                "borderBottom": "0"
+                                            }
+                                        }
+                                    ],
+                                    "colCount": 6,
+                                    "columns": [
+                                        {
+                                            "width": "10%"
+                                        },
+                                        {
+                                            "width": "25%"
+                                        },
+                                        {
+                                            "width": "25%"
+                                        },
+                                        {
+                                            "width": "25%"
+                                        },
+                                        {
+                                            "width": "25%"
+                                        },
+                                        {
+                                            "width": "25%"
+                                        }
+                                    ],
+                                    "items": [
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 0,
+                                            "row": 0,
+                                            "multiLine": true,
+                                            "text": "결<br>재",
+                                            "styles": {
+                                                "verticalAlign": "middle"
+                                            }
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 1,
+                                            "row": 0,
+                                            "text": "담당"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 2,
+                                            "row": 0,
+                                            "text": "과장"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 3,
+                                            "row": 0,
+                                            "text": "부장"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 4,
+                                            "row": 0,
+                                            "text": "이사"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "col": 5,
+                                            "row": 0,
+                                            "text": "사장"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "table",
+                            "data": "order-master",
+                            "width": "100%",
+                            "name": "",
+                            "rowCount": 10,
+                            "minRowHeight": "24px",
+                            "cellStyles": {
+                                "paddingLeft": "3px",
+                                "borderLeft": "solid 1px #313131ff",
+                                "borderRight": "solid 1px #313131ff",
+                                "borderTop": "solid 1px #313131ff",
+                                "borderBottom": "solid 1px #313131ff"
+                            },
+                            "rows": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+                            "cells": [
+                                {
+                                    "r": 0,
+                                    "c": 0,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 1,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 4,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 5,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderRight": "none",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 0,
+                                    "styles": {
+                                        "backgroundColor": ""
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 0,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 1,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 4,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 5,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderRight": "none",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 0,
+                                    "styles": {
+                                        "backgroundColor": ""
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 0,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 1,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 4,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 5,
+                                    "rowspan": 2,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderRight": "none",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 5,
+                                    "c": 0,
+                                    "styles": {
+                                        "backgroundColor": ""
+                                    }
+                                },
+                                {
+                                    "r": 5,
+                                    "c": 2,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 5,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 6,
+                                    "c": 0,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 6,
+                                    "c": 1,
+                                    "colspan": 2,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 6,
+                                    "c": 3,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 6,
+                                    "c": 4,
+                                    "colspan": 2,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderRight": "none",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 7,
+                                    "c": 0,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 7,
+                                    "c": 1,
+                                    "colspan": 5,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderRight": "none",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 8,
+                                    "c": 0,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 8,
+                                    "c": 1,
+                                    "colspan": 5,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderRight": "none",
+                                        "borderLeft": "none"
+                                    }
+                                },
+                                {
+                                    "r": 9,
+                                    "c": 0,
+                                    "styles": {
+                                        "backgroundColor": "#e8e8e8ff",
+                                        "borderLeft": "none",
+                                        "borderBottom": "none"
+                                    }
+                                },
+                                {
+                                    "r": 9,
+                                    "c": 1,
+                                    "colspan": 5,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "borderRight": "none",
+                                        "borderBottom": "none",
+                                        "borderLeft": "none"
+                                    }
+                                }
+                            ],
+                            "colCount": 6,
+                            "columns": [
+                                {
+                                    "width": "15%"
+                                },
+                                {
+                                    "width": "30%"
+                                },
+                                {
+                                    "width": "7%"
+                                },
+                                {
+                                    "width": "15%"
+                                },
+                                {
+                                    "width": "10%"
+                                },
+                                {
+                                    "width": "20%"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 0,
+                                    "text": "수 신 처"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 2,
+                                    "text": "발 신 처"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 4,
+                                    "text": "납품현황"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 6,
+                                    "text": "납 기 일"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 7,
+                                    "text": "대금결제조건"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 8,
+                                    "text": "검 수 방 법"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 9,
+                                    "text": "특 기 사 항"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 0,
+                                    "text": "TEL"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 1,
+                                    "text": "FAX"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 2,
+                                    "text": "TEL"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 3,
+                                    "text": "FAX"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 4,
+                                    "text": "TEL"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 5,
+                                    "text": "FAX"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 6,
+                                    "text": "인도조건"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 4,
+                                    "row": 0,
+                                    "text": "담 당"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 4,
+                                    "row": 2,
+                                    "text": "담 당"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 4,
+                                    "row": 4,
+                                    "text": "현장담당"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "receiptName",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 0,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "senderName",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 2,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "receiptName",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 4,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "dueDate",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 6,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "paymentTerm",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 7,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "insection",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 8,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "remark",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 9,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "deliveryTerm",
+                                    "name": "",
+                                    "col": 4,
+                                    "row": 6,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "receiptFax",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 5,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "receiptPhone",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 4,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "senderFax",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 3,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "senderPhone",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 2,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "receiptFax",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 1,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "receiptPhone",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 0,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "receiptContact",
+                                    "name": "",
+                                    "col": 5,
+                                    "row": 0,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "senderContact",
+                                    "name": "",
+                                    "col": 5,
+                                    "row": 2,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "receiptContact",
+                                    "name": "",
+                                    "col": 5,
+                                    "row": 4,
+                                    "text": "Text"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "visible": false,
+            "styles": {
+                "paddingTop": "20px",
+                "border": "1px solid",
+                "borderBottom": "none",
+                "__tag_": {}
+            }
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter"
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "tableband",
+                    "data": "order-detail",
+                    "width": "100%",
+                    "name": "",
+                    "rowsPerPage": 13,
+                    "endRowCount": 13,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "colCount": 7,
+                    "columns": [
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "12%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "10%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "24px",
+                        "cellStyles": {
+                            "borderLeft": "solid 1px #313131ff",
+                            "borderRight": "solid 1px #313131ff",
+                            "borderTop": "solid 1px #313131ff",
+                            "borderBottom": "solid 1px #313131ff"
+                        },
+                        "rows": [
+                            {
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff"
+                                }
+                            }
+                        ],
+                        "cells": [],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "품명"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "규격"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "단위"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "수량"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "단가"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "금액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "비고"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #000",
+                            "borderRight": "1px solid #000",
+                            "borderTop": "1px solid #000",
+                            "borderBottom": "1px solid #000"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "colspan": 7,
+                                "styles": {
+                                    "cellAlign": "left",
+                                    "borderLeft": "",
+                                    "borderRight": "",
+                                    "borderTop": "",
+                                    "borderBottom": ""
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "table",
+                                "data": "detail",
+                                "width": "100%",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "rowCount": 3,
+                                "minRowHeight": "24px",
+                                "cellStyles": {
+                                    "borderLeft": "",
+                                    "borderRight": "",
+                                    "borderTop": "",
+                                    "borderBottom": ""
+                                },
+                                "rows": [
+                                    {
+                                        "height": "40px"
+                                    },
+                                    {
+                                        "height": "40px"
+                                    },
+                                    {}
+                                ],
+                                "cells": [
+                                    {
+                                        "r": 0,
+                                        "c": 0,
+                                        "styles": {
+                                            "borderLeft": "0",
+                                            "borderRight": "1px solid #000",
+                                            "borderTop": "0",
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 1,
+                                        "styles": {
+                                            "borderLeft": "1px solid #000",
+                                            "borderRight": "1px solid #000",
+                                            "borderTop": "0",
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 2,
+                                        "styles": {
+                                            "borderLeft": "1px solid #000",
+                                            "borderRight": "1px solid #000",
+                                            "borderTop": "0",
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 3,
+                                        "styles": {
+                                            "borderLeft": "1px solid #000",
+                                            "borderRight": "1px solid #000",
+                                            "borderTop": "0",
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 4,
+                                        "styles": {
+                                            "borderLeft": "1px solid #000",
+                                            "borderRight": "1px solid #000",
+                                            "borderTop": "0",
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 5,
+                                        "styles": {
+                                            "borderLeft": "1px solid #000",
+                                            "borderRight": "0",
+                                            "borderTop": "0",
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 0,
+                                        "colspan": 6,
+                                        "styles": {
+                                            "borderLeft": "0",
+                                            "borderRight": "0",
+                                            "borderTop": "1px solid #000",
+                                            "borderBottom": "1px solid #000"
+                                        }
+                                    },
+                                    {
+                                        "r": 2,
+                                        "c": 0,
+                                        "colspan": 6,
+                                        "styles": {
+                                            "cellAlign": "left",
+                                            "borderLeft": "0",
+                                            "borderRight": "0",
+                                            "borderTop": "1px solid #000",
+                                            "borderBottom": "0"
+                                        }
+                                    }
+                                ],
+                                "colCount": 6,
+                                "columns": [
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    },
+                                    {
+                                        "width": "15%"
+                                    }
+                                ],
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 0,
+                                        "text": "공급가액"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 0,
+                                        "text": "부가세액"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 0,
+                                        "text": "합계금액"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 1,
+                                        "text": "상기 자재를 발주하오니 납기를 준수하여 입고 바랍니다."
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 0,
+                                        "expression": "sum(amount)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 0,
+                                        "expression": "sum(tax)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 0,
+                                        "expression": "sum(amount)+sum(tax)",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "stack",
+                                        "width": "100%",
+                                        "height": 100,
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 2,
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "left": 4,
+                                                "top": 5,
+                                                "text": "* 붙임서류 :"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "24px",
+                        "cellStyles": {
+                            "paddingLeft": "2px",
+                            "paddingRight": "2px",
+                            "borderLeft": "solid 1px #313131ff",
+                            "borderRight": "solid 1px #313131ff",
+                            "borderTop": "solid 1px #313131ff",
+                            "borderBottom": "solid 1px #313131ff"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "item",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "standard",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "unit",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "quantity",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "unitPrice",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "amount",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "remark",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "order-detail": {
+            "sampleCount": 3,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "orderNo",
+                    "dataType": "text",
+                    "sample": "21300-493002",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "item",
+                    "dataType": "text",
+                    "sample": "LB018Q01-A1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "standard",
+                    "dataType": "text",
+                    "sample": "EPS M50",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "unit",
+                    "dataType": "text",
+                    "sample": "BOX",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "quantity",
+                    "dataType": "number",
+                    "sample": "510",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "unitPrice",
+                    "dataType": "number",
+                    "sample": "3300",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "amount",
+                    "dataType": "number",
+                    "sample": "902000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "tax",
+                    "dataType": "number",
+                    "sample": "90200",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "remark",
+                    "dataType": "text",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "order-master": {
+            "type": "simple",
+            "sample": {
+                "orderNo": "21300-493002",
+                "orderDate": "2004-12-01",
+                "receiptName": "(주)대한특수플라스틱",
+                "receiptPhone": "(081)230-3009",
+                "receiptFax": "(081)230-3008",
+                "receiptContact": "김대한",
+                "senderName": "대만프라스틱공업(주)",
+                "senderPhone": "(081)489-2003",
+                "senderFax": "(081)489-2002",
+                "senderContact": "이대만",
+                "dueDate": "2004-12-10",
+                "deliveryTerm": null,
+                "paymentTerm": "Cash(대금지불일 현금지급)",
+                "insection": null,
+                "remark": null
+            }
+        }
+    },
+    "guid": "29a48d46-fecb-497c-b619-4ad29824c491"
+}

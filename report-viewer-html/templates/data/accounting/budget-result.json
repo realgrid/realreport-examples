@@ -1,0 +1,26 @@
+{
+    "fields": [
+        { "fieldName": "Article", "dataType": "text", "sample": "유동자산" },
+        { "fieldName": "Clause", "dataType": "text", "sample": "유동자산" },
+        { "fieldName": "Item", "dataType": "text", "sample": "저장품" },
+        { "fieldName": "Department", "dataType": "text", "sample": "솔루션 사업부" },
+        { "fieldName": "Business", "dataType": "text", "sample": "주택자금" },
+        { "fieldName": "Budget", "dataType": "number", "sample": 0 },
+        { "fieldName": "Income", "dataType": "number", "sample": -915 },
+        { "fieldName": "VariationRate", "dataType": "number", "sample": 0.0000007 },
+        { "fieldName": "Variation", "dataType": "number", "sample": -915 }
+    ],
+    "sample": [
+        {
+            "Article": "유동자산",
+            "Clause": "유동자산",
+            "Item": "저장품",
+            "Department": "솔루션 사업부",
+            "Business": "주택자금",
+            "Budget": 0,
+            "Income": -915,
+            "VariationRate": 0.0000007,
+            "Variation": -915
+        }
+    ]
+}

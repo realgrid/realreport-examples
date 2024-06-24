@@ -1,0 +1,676 @@
+{
+    "graph-chart": {
+        "type": "band",
+        "values": [
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "Quantity": 3692,
+                "Amount": 105355.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "Quantity": 2875,
+                "Amount": 60485.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "Quantity": 4157,
+                "Amount": 87253.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "Quantity": 4678,
+                "Amount": 129760.0
+            },
+            {
+                "CategoryID": 5,
+                "CategoryName": "곡류",
+                "Quantity": 2636,
+                "Amount": 60411.0
+            },
+            {
+                "CategoryID": 6,
+                "CategoryName": "육류",
+                "Quantity": 2189,
+                "Amount": 87509.0
+            },
+            {
+                "CategoryID": 7,
+                "CategoryName": "가공 식품",
+                "Quantity": 1583,
+                "Amount": 57721.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "Quantity": 3679,
+                "Amount": 71715.0
+            }
+        ]
+    },
+    "graph-table": {
+        "type": "band",
+        "values": [
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 2,
+                "ProductName": "태양 100% 레몬 주스",
+                "Quantity": 435,
+                "Amount": 7565.0
+            },
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 24,
+                "ProductName": "삼화 콜라",
+                "Quantity": 421,
+                "Amount": 1952.0
+            },
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 34,
+                "ProductName": "태일 라이트 맥주",
+                "Quantity": 171,
+                "Amount": 2229.0
+            },
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 35,
+                "ProductName": "태일 적포도주",
+                "Quantity": 346,
+                "Amount": 5816.0
+            },
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 38,
+                "ProductName": "OK 체리 셰이크",
+                "Quantity": 223,
+                "Amount": 52035.0
+            },
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 39,
+                "ProductName": "OK 바닐라 셰이크",
+                "Quantity": 283,
+                "Amount": 4910.0
+            },
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 43,
+                "ProductName": "콜롬비아산 원두커피",
+                "Quantity": 258,
+                "Amount": 11526.0
+            },
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 67,
+                "ProductName": "태일 브랜디",
+                "Quantity": 65,
+                "Amount": 910.0
+            },
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 70,
+                "ProductName": "트로피컬 칵테일",
+                "Quantity": 413,
+                "Amount": 5880.0
+            },
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 75,
+                "ProductName": "알파인 맥주",
+                "Quantity": 630,
+                "Amount": 4892.0
+            },
+            {
+                "CategoryID": 1,
+                "CategoryName": "음료",
+                "ProductID": 76,
+                "ProductName": "미왕 초콜릿 드링크",
+                "Quantity": 447,
+                "Amount": 7640.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 3,
+                "ProductName": "태양 체리 시럽",
+                "Quantity": 190,
+                "Amount": 3284.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 4,
+                "ProductName": "신한 100% 복숭아 시럽",
+                "Quantity": 264,
+                "Amount": 5744.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 5,
+                "ProductName": "신한 100% 파인애플 시럽",
+                "Quantity": 19,
+                "Amount": 399.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 6,
+                "ProductName": "대양 특선 블루베리 잼",
+                "Quantity": 100,
+                "Amount": 2500.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 8,
+                "ProductName": "대양 특선 딸기 소스",
+                "Quantity": 114,
+                "Amount": 4560.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 15,
+                "ProductName": "유미 간장",
+                "Quantity": 97,
+                "Amount": 1552.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 44,
+                "ProductName": "델타 청정 생강즙",
+                "Quantity": 396,
+                "Amount": 7053.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 61,
+                "ProductName": "사계절 핫 소스",
+                "Quantity": 396,
+                "Amount": 10698.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 63,
+                "ProductName": "대륙 사과 식초",
+                "Quantity": 169,
+                "Amount": 6536.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 65,
+                "ProductName": "루이지애나 특산 후추",
+                "Quantity": 490,
+                "Amount": 9898.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 66,
+                "ProductName": "유미 멸치 가루",
+                "Quantity": 208,
+                "Amount": 3146.0
+            },
+            {
+                "CategoryID": 2,
+                "CategoryName": "조미료",
+                "ProductID": 77,
+                "ProductName": "알파 샐러드 드레싱",
+                "Quantity": 432,
+                "Amount": 5115.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 16,
+                "ProductName": "파블로바 피넛 스프레드",
+                "Quantity": 571,
+                "Amount": 9230.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 19,
+                "ProductName": "신한 초콜릿 소스",
+                "Quantity": 377,
+                "Amount": 3123.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 20,
+                "ProductName": "대양 마말레이드",
+                "Quantity": 96,
+                "Amount": 7776.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 21,
+                "ProductName": "대양 핫 케이크 소스",
+                "Quantity": 630,
+                "Amount": 5886.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 25,
+                "ProductName": "우미 특선 레몬 파이",
+                "Quantity": 152,
+                "Amount": 1912.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 26,
+                "ProductName": "우미 코코넛 쿠키",
+                "Quantity": 382,
+                "Amount": 10924.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 27,
+                "ProductName": "우미 피넛 샌드",
+                "Quantity": 260,
+                "Amount": 10990.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 47,
+                "ProductName": "진미 바닐라 쿠키",
+                "Quantity": 359,
+                "Amount": 3360.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 48,
+                "ProductName": "진미 트로피컬 캔디",
+                "Quantity": 130,
+                "Amount": 1435.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 49,
+                "ProductName": "미왕 계피 캔디",
+                "Quantity": 183,
+                "Amount": 3240.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 50,
+                "ProductName": "미왕 코코아 샌드",
+                "Quantity": 150,
+                "Amount": 2205.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 62,
+                "ProductName": "사계절 커스터드 파이",
+                "Quantity": 482,
+                "Amount": 22518.0
+            },
+            {
+                "CategoryID": 3,
+                "CategoryName": "과자류",
+                "ProductID": 68,
+                "ProductName": "미미 스카치 캔디",
+                "Quantity": 385,
+                "Amount": 4654.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 1,
+                "ProductName": "태양 100% 오렌지 주스",
+                "Quantity": 304,
+                "Amount": 5276.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 11,
+                "ProductName": "현진 커피 밀크",
+                "Quantity": 374,
+                "Amount": 7446.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 12,
+                "ProductName": "현진 바닐라 엣센스",
+                "Quantity": 236,
+                "Amount": 8848.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 31,
+                "ProductName": "대관령 바닐라 아이스크림",
+                "Quantity": 656,
+                "Amount": 8312.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 32,
+                "ProductName": "대관령 초콜릿 아이스크림",
+                "Quantity": 98,
+                "Amount": 3136.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 33,
+                "ProductName": "한라 멜론 아이스크림",
+                "Quantity": 356,
+                "Amount": 917.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 59,
+                "ProductName": "대일 포장 치즈",
+                "Quantity": 752,
+                "Amount": 37917.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 60,
+                "ProductName": "대일 파메쌍 치즈",
+                "Quantity": 665,
+                "Amount": 21770.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 69,
+                "ProductName": "한라 분유",
+                "Quantity": 430,
+                "Amount": 15165.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 71,
+                "ProductName": "한라 연유",
+                "Quantity": 454,
+                "Amount": 9143.0
+            },
+            {
+                "CategoryID": 4,
+                "CategoryName": "유제품",
+                "ProductID": 72,
+                "ProductName": "대관령 특제 버터",
+                "Quantity": 353,
+                "Amount": 11830.0
+            },
+            {
+                "CategoryID": 5,
+                "CategoryName": "곡류",
+                "ProductID": 22,
+                "ProductName": "신성 시리얼",
+                "Quantity": 209,
+                "Amount": 4341.0
+            },
+            {
+                "CategoryID": 5,
+                "CategoryName": "곡류",
+                "ProductID": 23,
+                "ProductName": "신성 쌀 튀김 과자",
+                "Quantity": 287,
+                "Amount": 2371.0
+            },
+            {
+                "CategoryID": 5,
+                "CategoryName": "곡류",
+                "ProductID": 42,
+                "ProductName": "싱가폴 원산 옥수수",
+                "Quantity": 451,
+                "Amount": 5984.0
+            },
+            {
+                "CategoryID": 5,
+                "CategoryName": "곡류",
+                "ProductID": 52,
+                "ProductName": "필로 믹스",
+                "Quantity": 313,
+                "Amount": 2156.0
+            },
+            {
+                "CategoryID": 5,
+                "CategoryName": "곡류",
+                "ProductID": 56,
+                "ProductName": "한성 옥수수 가루",
+                "Quantity": 971,
+                "Amount": 34642.0
+            },
+            {
+                "CategoryID": 5,
+                "CategoryName": "곡류",
+                "ProductID": 57,
+                "ProductName": "한성 통밀가루",
+                "Quantity": 124,
+                "Amount": 2340.0
+            },
+            {
+                "CategoryID": 5,
+                "CategoryName": "곡류",
+                "ProductID": 64,
+                "ProductName": "알파 콘 플레이크",
+                "Quantity": 281,
+                "Amount": 8577.0
+            },
+            {
+                "CategoryID": 6,
+                "CategoryName": "육류",
+                "ProductID": 9,
+                "ProductName": "북미산 상등육 쇠고기",
+                "Quantity": 92,
+                "Amount": 8544.0
+            },
+            {
+                "CategoryID": 6,
+                "CategoryName": "육류",
+                "ProductID": 17,
+                "ProductName": "앨리스 포장육",
+                "Quantity": 527,
+                "Amount": 19697.0
+            },
+            {
+                "CategoryID": 6,
+                "CategoryName": "육류",
+                "ProductID": 29,
+                "ProductName": "알파 왕갈비 훈제육",
+                "Quantity": 305,
+                "Amount": 36245.0
+            },
+            {
+                "CategoryID": 6,
+                "CategoryName": "육류",
+                "ProductID": 53,
+                "ProductName": "파스 페이스 티",
+                "Quantity": 352,
+                "Amount": 10790.0
+            },
+            {
+                "CategoryID": 6,
+                "CategoryName": "육류",
+                "ProductID": 54,
+                "ProductName": "한림 훈제 통닭",
+                "Quantity": 494,
+                "Amount": 3287.0
+            },
+            {
+                "CategoryID": 6,
+                "CategoryName": "육류",
+                "ProductID": 55,
+                "ProductName": "한림 특선 양념 칠면조",
+                "Quantity": 419,
+                "Amount": 8946.0
+            },
+            {
+                "CategoryID": 7,
+                "CategoryName": "가공 식품",
+                "ProductID": 7,
+                "ProductName": "대양 특선 건과(배)",
+                "Quantity": 324,
+                "Amount": 9444.0
+            },
+            {
+                "CategoryID": 7,
+                "CategoryName": "가공 식품",
+                "ProductID": 14,
+                "ProductName": "유미 건조 다시마",
+                "Quantity": 298,
+                "Amount": 6538.0
+            },
+            {
+                "CategoryID": 7,
+                "CategoryName": "가공 식품",
+                "ProductID": 28,
+                "ProductName": "알파 특선 튀김 다시마",
+                "Quantity": 344,
+                "Amount": 14654.0
+            },
+            {
+                "CategoryID": 7,
+                "CategoryName": "가공 식품",
+                "ProductID": 51,
+                "ProductName": "유림 사과 통조림",
+                "Quantity": 501,
+                "Amount": 26047.0
+            },
+            {
+                "CategoryID": 7,
+                "CategoryName": "가공 식품",
+                "ProductID": 74,
+                "ProductName": "서울 구이 김",
+                "Quantity": 116,
+                "Amount": 1038.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 10,
+                "ProductName": "노르웨이산 연어알 조림",
+                "Quantity": 346,
+                "Amount": 10402.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 13,
+                "ProductName": "유미 돌김",
+                "Quantity": 142,
+                "Amount": 849.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 18,
+                "ProductName": "대륙 냉동 참치",
+                "Quantity": 282,
+                "Amount": 17376.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 30,
+                "ProductName": "태평양 포장 파래",
+                "Quantity": 264,
+                "Amount": 6594.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 36,
+                "ProductName": "특제 굴 통조림",
+                "Quantity": 378,
+                "Amount": 7162.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 37,
+                "ProductName": "포장 건 오징어",
+                "Quantity": 28,
+                "Amount": 678.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 40,
+                "ProductName": "보스톤산 게살 통조림",
+                "Quantity": 596,
+                "Amount": 10329.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 41,
+                "ProductName": "훈제 대합조개 통조림",
+                "Quantity": 549,
+                "Amount": 5340.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 45,
+                "ProductName": "버뮤다 포장 문어",
+                "Quantity": 392,
+                "Amount": 3860.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 46,
+                "ProductName": "버뮤다 포장 참치",
+                "Quantity": 269,
+                "Amount": 3104.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 58,
+                "ProductName": "대성 어묵",
+                "Quantity": 177,
+                "Amount": 2301.0
+            },
+            {
+                "CategoryID": 8,
+                "CategoryName": "해산물",
+                "ProductID": 73,
+                "ProductName": "원양 순 상어알",
+                "Quantity": 256,
+                "Amount": 3720.0
+            }
+        ]
+    }
+}

@@ -1,0 +1,1119 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "styles": {
+                "paddingBottom": "20px",
+                "__tag_": {}
+            },
+            "items": [
+                {
+                    "type": "text",
+                    "height": 37,
+                    "text": "자재 청구대비 투입 현황",
+                    "styles": {
+                        "fontSize": "20px",
+                        "fontWeight": "normal",
+                        "paddingLeft": "20px",
+                        "paddingRight": "20px",
+                        "borderBottom": "1px solid #000",
+                        "__tag_": {}
+                    }
+                }
+            ]
+        },
+        "reportHeader": {
+            "name": "reportHeader"
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter"
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "table",
+                    "data": "material-input1",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 1,
+                    "minRowHeight": "24px",
+                    "cellStyles": {
+                        "borderLeft": "1px solid #000",
+                        "borderRight": "1px solid #000",
+                        "borderTop": "1px solid #000",
+                        "borderBottom": "1px solid #000"
+                    },
+                    "rows": [{}],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "styles": {
+                                "backgroundColor": "#fffed9"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 2,
+                            "styles": {
+                                "backgroundColor": "#fffed9"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 4,
+                            "styles": {
+                                "backgroundColor": "#fffed9"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 6,
+                            "styles": {
+                                "backgroundColor": "#fffed9"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 7,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        }
+                    ],
+                    "colCount": 8,
+                    "columns": [
+                        {
+                            "width": "8%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "8%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "8%"
+                        },
+                        {
+                            "width": "30%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "사업장"
+                        },
+                        {
+                            "type": "text",
+                            "value": "Workplace",
+                            "name": "",
+                            "col": 1,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "부서"
+                        },
+                        {
+                            "type": "text",
+                            "value": "Department",
+                            "name": "",
+                            "col": 3,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "ProjectNo",
+                            "name": "",
+                            "col": 5,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 0,
+                            "text": "프로젝트"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 6,
+                            "row": 0,
+                            "text": "날짜"
+                        },
+                        {
+                            "type": "rbox",
+                            "width": 189,
+                            "height": 22,
+                            "name": "",
+                            "col": 7,
+                            "row": 0,
+                            "itemGap": 0,
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "value": "FromDate",
+                                    "name": "",
+                                    "dateFormat": "yyyy/MM/dd",
+                                    "suffix": " ~",
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "ToDate",
+                                    "name": "",
+                                    "dateFormat": "yyyy/MM/dd",
+                                    "suffix": "",
+                                    "text": "Text"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "space",
+                    "name": "",
+                    "size": 10
+                },
+                {
+                    "type": "text",
+                    "name": "",
+                    "left": 0,
+                    "text": "작업 지시",
+                    "styles": {
+                        "fontWeight": "bold",
+                        "color": "#fff",
+                        "backgroundColor": "#2f77af",
+                        "paddingLeft": "25px",
+                        "paddingRight": "25px",
+                        "__tag_": {}
+                    }
+                },
+                {
+                    "type": "tableband",
+                    "data": "material-input2",
+                    "width": "100%",
+                    "name": "",
+                    "repeatDetailHeader": false,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "colCount": 9,
+                    "columns": [
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "13%"
+                        },
+                        {
+                            "width": "13%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #000",
+                            "borderRight": "1px solid #000",
+                            "borderTop": "1px solid #000",
+                            "borderBottom": "1px solid #000"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 7,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 8,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "지시 구분"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "지시 번호"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "작업장"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "공정"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "제품번호"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "제품명"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "단위"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "단가"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "LotNo"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": []
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #000",
+                            "borderRight": "1px solid #000",
+                            "borderTop": "1px solid #000",
+                            "borderBottom": "1px solid #000"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 7,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "OrderType",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "OrderNo",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Unit",
+                                "name": "",
+                                "onGetValue": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Quantity",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "-"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Process",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Workshop",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "ProductNo",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "ProductName",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "space",
+                    "name": "",
+                    "size": 10
+                },
+                {
+                    "type": "text",
+                    "name": "",
+                    "left": 0,
+                    "text": "청구/투입",
+                    "styles": {
+                        "fontWeight": "bold",
+                        "color": "#fff",
+                        "backgroundColor": "#2f77af",
+                        "paddingLeft": "25px",
+                        "paddingRight": "25px",
+                        "__tag_": {}
+                    }
+                },
+                {
+                    "type": "tableband",
+                    "data": "material-input3",
+                    "width": "100%",
+                    "name": "",
+                    "repeatDetailHeader": false,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "colCount": 10,
+                    "columns": [
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "11%"
+                        },
+                        {
+                            "width": "23%"
+                        },
+                        {
+                            "width": "7%"
+                        },
+                        {
+                            "width": "12%"
+                        },
+                        {
+                            "width": "11%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "12%"
+                        },
+                        {
+                            "width": "15%"
+                        }
+                    ],
+                    "groups": [
+                        {
+                            "name": "tableBandRowGroup",
+                            "field": "OrderNo",
+                            "header": {
+                                "name": "groupHeader",
+                                "width": "100%",
+                                "visible": false,
+                                "rowCount": 1,
+                                "cellStyles": {},
+                                "rows": [{}],
+                                "cells": [
+                                    {
+                                        "r": 0,
+                                        "c": 7,
+                                        "styles": {
+                                            "backgroundColor": ""
+                                        }
+                                    }
+                                ]
+                            },
+                            "footer": {
+                                "name": "groupFooter",
+                                "width": "100%",
+                                "visible": false,
+                                "rowCount": 1,
+                                "cellStyles": {},
+                                "rows": [{}],
+                                "cells": []
+                            }
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #000",
+                            "borderRight": "1px solid #000",
+                            "borderTop": "1px solid #000",
+                            "borderBottom": "1px solid #000"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 7,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 8,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 9,
+                                "styles": {
+                                    "backgroundColor": "#abdbf2"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "지시 번호"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "요청일"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "자재 코드"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "자재명"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "단위"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "단가"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "요청수량"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "요청금액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "투입수량"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 9,
+                                "row": 0,
+                                "text": "투입금액"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": []
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "onGetStyles": "if(value === 0) return { backgroundColor: \"red\"}",
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #000",
+                            "borderRight": "1px solid #000",
+                            "borderTop": "1px solid #000",
+                            "borderBottom": "1px solid #000"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 7,
+                                "onGetStyles": "",
+                                "styleCallback": null,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 8,
+                                "onGetStyles": "const reqQty = ctx.getValue('material-input3', row, 'ReqQty');   const spendQty = ctx.getValue('material-input3', row, 'SpendQty');   if(reqQty > spendQty) return { backgroundColor : '#ffed9d' };",
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "backgroundColor": ""
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 9,
+                                "onGetStyles": "const reqAmt = ctx.getValue('material-input3', row, 'ReqAmt');   const spendAmt = ctx.getValue('material-input3', row, 'SpendAmt');   if(reqAmt > spendAmt) return { backgroundColor : '#ffed9d' };",
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "OrderNo",
+                                "name": "",
+                                "mergedInGroup": true,
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "ReqDate",
+                                "name": "",
+                                "mergedInGroup": true,
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "MaterialCode",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "MaterialName",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "UnitPrice",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Unit",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "ReqQty",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "ReqAmt",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "SpendQty",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "SpendAmt",
+                                "name": "",
+                                "col": 9,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "material-input2": {
+            "sampleCount": 7,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "ID",
+                    "dataType": "number",
+                    "sample": "1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "OrderType",
+                    "dataType": "text",
+                    "sample": "A",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "OrderNo",
+                    "dataType": "text",
+                    "sample": "W01611000007",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Process",
+                    "dataType": "text",
+                    "sample": "생산공정",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Workshop",
+                    "dataType": "text",
+                    "sample": "양품 작업장",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ProductNo",
+                    "dataType": "text",
+                    "sample": "CR02",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ProductName",
+                    "dataType": "text",
+                    "sample": "스마트폰B",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Unit",
+                    "dataType": "text",
+                    "sample": "EA",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Quantity",
+                    "dataType": "number",
+                    "sample": "10",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "material-input3": {
+            "sampleCount": 10,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "ID",
+                    "dataType": "number",
+                    "sample": "1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "MaterialCode",
+                    "dataType": "text",
+                    "sample": "DH02",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ReqDate",
+                    "dataType": "text",
+                    "sample": "2009-11-12T15:00:00.000Z",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "MaterialName",
+                    "dataType": "text",
+                    "sample": "커브드 디스플레이",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Unit",
+                    "dataType": "text",
+                    "sample": "EA",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "UnitPrice",
+                    "dataType": "number",
+                    "sample": "180000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ReqQty",
+                    "dataType": "number",
+                    "sample": "11",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ReqAmt",
+                    "dataType": "number",
+                    "sample": "1980000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "SpendQty",
+                    "dataType": "number",
+                    "sample": "8",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "SpendAmt",
+                    "dataType": "number",
+                    "sample": "1440000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ReqNo",
+                    "dataType": "number",
+                    "sample": "1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "OrderNo",
+                    "dataType": "text",
+                    "sample": "W01611000007",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "material-input1": {
+            "type": "simple",
+            "sample": {
+                "Workplace": "용인사업장",
+                "Department": "모바일사업부",
+                "ProjectNo": "AXXP57B705C",
+                "FromDate": "2009/11/09",
+                "ToDate": "2009/11/13"
+            }
+        }
+    },
+    "guid": "eeb4a158-2e9a-44d8-804b-c460dee38977"
+}

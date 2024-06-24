@@ -1,0 +1,790 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader"
+        },
+        "reportHeader": {
+            "name": "reportHeader"
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter"
+        },
+        "body": {
+            "itemGap": 4,
+            "items": [
+                {
+                    "type": "table",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 3,
+                    "minRowHeight": "24px",
+                    "cellStyles": {
+                        "borderLeft": "1px solid #000",
+                        "borderRight": "1px solid #000",
+                        "borderTop": "1px solid #000",
+                        "borderBottom": "1px solid #000"
+                    },
+                    "rows": [
+                        {},
+                        {
+                            "height": "60px"
+                        },
+                        {}
+                    ],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "rowspan": 3
+                        }
+                    ],
+                    "colCount": 4,
+                    "columns": [
+                        {
+                            "width": "70%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "10%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "출퇴근 관리 대장 (조근, 야근 구분)",
+                            "styles": {
+                                "fontSize": "20px"
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 0,
+                            "text": "작성"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 0,
+                            "text": "결재"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "검토"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 2,
+                            "text": "/"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 2,
+                            "text": "/"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 2,
+                            "text": "/"
+                        }
+                    ]
+                },
+                {
+                    "type": "space",
+                    "name": "",
+                    "size": 10
+                },
+                {
+                    "type": "table",
+                    "data": "time-report-head",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 2,
+                    "minRowHeight": "24px",
+                    "cellStyles": {
+                        "borderLeft": "1px solid #000",
+                        "borderRight": "1px solid #000",
+                        "borderTop": "1px solid #000",
+                        "borderBottom": "1px solid #000"
+                    },
+                    "rows": [{}, {}],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "styles": {
+                                "backgroundColor": "#b2e0ff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 2,
+                            "styles": {
+                                "backgroundColor": "#b2e0ff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 4,
+                            "styles": {
+                                "backgroundColor": "#b2e0ff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 5,
+                            "colspan": 3
+                        },
+                        {
+                            "r": 0,
+                            "c": 8,
+                            "styles": {
+                                "backgroundColor": "#b2e0ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 0,
+                            "styles": {
+                                "backgroundColor": "#b2e0ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 2,
+                            "styles": {
+                                "backgroundColor": "#b2e0ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 4,
+                            "styles": {
+                                "backgroundColor": "#b2e0ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 6,
+                            "styles": {
+                                "backgroundColor": "#b2e0ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 7,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 8,
+                            "styles": {
+                                "backgroundColor": "#b2e0ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 9,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        }
+                    ],
+                    "colCount": 10,
+                    "columns": [
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "년도"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 1,
+                            "text": "야근시간"
+                        },
+                        {
+                            "type": "text",
+                            "value": "NightTime",
+                            "name": "",
+                            "col": 1,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "Year",
+                            "name": "",
+                            "col": 1,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "월"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "text": "조근시간"
+                        },
+                        {
+                            "type": "text",
+                            "value": "MorningTime",
+                            "name": "",
+                            "col": 3,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "Month",
+                            "name": "",
+                            "col": 3,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 0,
+                            "text": "부서명"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 1,
+                            "text": "월급"
+                        },
+                        {
+                            "type": "text",
+                            "value": "DailyWeight",
+                            "name": "",
+                            "col": 5,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 6,
+                            "row": 1,
+                            "text": "야근시급"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 8,
+                            "row": 1,
+                            "text": "조근시급"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 8,
+                            "row": 0,
+                            "text": "성명"
+                        },
+                        {
+                            "type": "text",
+                            "value": "NightWeight",
+                            "name": "",
+                            "col": 7,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "Name",
+                            "name": "",
+                            "col": 9,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "MorningWeight",
+                            "name": "",
+                            "col": 9,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "Department",
+                            "name": "",
+                            "col": 5,
+                            "row": 0,
+                            "text": "Text"
+                        }
+                    ]
+                },
+                {
+                    "type": "space",
+                    "name": "",
+                    "size": 10
+                },
+                {
+                    "type": "tableband",
+                    "data": "time-report-list",
+                    "width": "100%",
+                    "name": "",
+                    "repeatDetailHeader": false,
+                    "endRowCount": 40,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "visible": false
+                    },
+                    "colCount": 9,
+                    "columns": [
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #000",
+                            "borderTop": "1px solid #000",
+                            "borderBottom": "1px solid #000",
+                            "borderRight": "1px solid #000"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#b2e0ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#b2e0ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "backgroundColor": "#b2e0ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "backgroundColor": "#b2e0ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "backgroundColor": "#b2e0ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "backgroundColor": "#b2e0ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "styles": {
+                                    "backgroundColor": "#b2e0ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 7,
+                                "styles": {
+                                    "backgroundColor": "#b2e0ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 8,
+                                "styles": {
+                                    "backgroundColor": "#b2e0ff"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "일자"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "요일"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "출근시간"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "퇴근시간"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "근무시간"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "주간근무"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "야간근무"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "조간근무"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "기타"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": []
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #000",
+                            "borderRight": "1px solid #000",
+                            "borderTop": "1px solid #000",
+                            "borderBottom": "1px solid #000"
+                        },
+                        "rows": [{}],
+                        "cells": [],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "Day",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Week",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "ComeTime",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "LeaveTime",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "WorkTime",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "WeekWorkTime",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "NightOverTime",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "MorningEarlyTime",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "ETC",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "time-report-list": {
+            "sampleCount": 20,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "No",
+                    "dataType": "number",
+                    "sample": "1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Day",
+                    "dataType": "text",
+                    "sample": "1일",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Week",
+                    "dataType": "text",
+                    "sample": "월요일",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ComeTime",
+                    "dataType": "text",
+                    "sample": "9:00",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "LeaveTime",
+                    "dataType": "text",
+                    "sample": "18:30",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "WorkTime",
+                    "dataType": "text",
+                    "sample": "9:30",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "WeekWorkTime",
+                    "dataType": "text",
+                    "sample": "7:30",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "NightOverTime",
+                    "dataType": "text",
+                    "sample": "2:00",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "MorningEarlyTime",
+                    "dataType": "text",
+                    "sample": "1:30",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "ETC",
+                    "dataType": "text",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "time-report-head": {
+            "type": "simple",
+            "sample": {
+                "Year": 2013,
+                "Month": 4,
+                "Department": "생산부 조립1팀",
+                "Name": "홍길동",
+                "NightTime": "18:50",
+                "MorningTime": "12:00",
+                "DailyWeight": 20000,
+                "NightWeight": 9250,
+                "MorningWeight": 9250
+            }
+        }
+    },
+    "guid": "7288d692-bc2c-432e-ae8e-89531325f386"
+}

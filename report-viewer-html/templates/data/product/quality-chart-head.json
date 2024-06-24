@@ -1,0 +1,31 @@
+{
+    "Line": "A",
+    "Process": "W/B Adjustment",
+    "Product": "C/M",
+    "Item": "X",
+    "Model": "G700",
+    "Gage": "CA-100",
+    "Frag": "1set/2hr",
+    "SampleNo": 6,
+    "Capability": {
+        "Cp": 1.12,
+        "Cpk": 0.78,
+        "Cpm": 1.12
+    },
+    "Specification": {
+        "Usl": 35,
+        "Target": 25,
+        "Lsl": 20
+    },
+    "Control": {
+        "Xbar": {
+            "Ucl": 28,
+            "Cl": 25,
+            "Lcl": 22
+        },
+        "R": {
+            "Ucl": 7,
+            "Cl": 5
+        }
+    }
+}

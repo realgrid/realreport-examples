@@ -1,0 +1,704 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "height": 0,
+            "visible": false
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "data": "journal-head",
+            "height": 72,
+            "spaceBottom": 5,
+            "items": [
+                {
+                    "type": "text",
+                    "top": "5px",
+                    "text": "회계 분개장",
+                    "styles": {
+                        "fontSize": "30px",
+                        "fontWeight": "bold",
+                        "__tag_": {}
+                    }
+                },
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "left": "0px",
+                    "bottom": "0px",
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "회사명: "
+                        },
+                        {
+                            "type": "text",
+                            "value": "company",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                },
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "right": 0,
+                    "bottom": "0px",
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "기간 :"
+                        },
+                        {
+                            "type": "text",
+                            "value": "dateFrom",
+                            "name": "",
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "~"
+                        },
+                        {
+                            "type": "text",
+                            "value": "dateTo",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportFooter": {
+            "name": "reportFooter",
+            "visible": false
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "visible": false
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "tableband",
+                    "data": "journal-body",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "visible": false
+                    },
+                    "colCount": 8,
+                    "columns": [
+                        {
+                            "width": "6%"
+                        },
+                        {
+                            "width": "6%"
+                        },
+                        {
+                            "width": "13%"
+                        },
+                        {
+                            "width": "12%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "13%"
+                        },
+                        {
+                            "width": "12%"
+                        },
+                        {
+                            "width": "23%"
+                        }
+                    ],
+                    "groups": [
+                        {
+                            "name": "tableBandRowGroup",
+                            "field": "seqNo",
+                            "header": {
+                                "name": "groupHeader",
+                                "width": "100%",
+                                "height": "0px",
+                                "rowCount": 1,
+                                "cellStyles": {
+                                    "borderTop": ""
+                                },
+                                "rows": [{}],
+                                "cells": [
+                                    {
+                                        "r": 0,
+                                        "c": 0,
+                                        "colspan": 8,
+                                        "styles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "1px solid #000",
+                                            "borderBottom": "none"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 1,
+                                        "styles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "1px solid #000",
+                                            "borderBottom": "none"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 2,
+                                        "styles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "1px solid #000",
+                                            "borderBottom": "none"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 3,
+                                        "styles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "1px solid #000",
+                                            "borderBottom": "none"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 4,
+                                        "styles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "1px solid #000",
+                                            "borderBottom": "none"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 5,
+                                        "styles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "1px solid #000",
+                                            "borderBottom": "none"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 6,
+                                        "styles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "1px solid #000",
+                                            "borderBottom": "none"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 7,
+                                        "styles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "1px solid #000",
+                                            "borderBottom": "none"
+                                        }
+                                    }
+                                ]
+                            },
+                            "footer": {
+                                "name": "groupFooter",
+                                "width": "100%",
+                                "height": "0px",
+                                "visible": false,
+                                "rowCount": 1,
+                                "cellStyles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                },
+                                "rows": [{}],
+                                "cells": []
+                            }
+                        }
+                    ],
+                    "header": {
+                        "name": "bandHeader2",
+                        "width": "100%",
+                        "rowCount": 2,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #000",
+                            "borderRight": "1px solid #000",
+                            "borderTop": "1px solid #000",
+                            "borderBottom": "1px solid #000"
+                        },
+                        "rows": [{}, {}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "colspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "colspan": 3,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "colspan": 3,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 2,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 3,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 4,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 5,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 6,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 7,
+                                "styles": {
+                                    "backgroundColor": "#e2e2e2ff"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "차변"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "대변"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 1,
+                                "text": "계정과목"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 1,
+                                "text": "금액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 1,
+                                "text": "적요"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 1,
+                                "text": "계정과목"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 6,
+                                "row": 1,
+                                "text": "금액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 1,
+                                "text": "적요"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 1,
+                                "text": "번호"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 1,
+                                "text": "월/일"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "구분"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "name": "bandFooter2",
+                        "width": "100%",
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": []
+                    },
+                    "dataRow": {
+                        "name": "dataRow2",
+                        "width": "100%",
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "center",
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "paddingRight": "5px",
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "cellAlign": "left",
+                                    "paddingLeft": "5px",
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "styles": {
+                                    "paddingRight": "5px",
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 7,
+                                "styles": {
+                                    "cellAlign": "left",
+                                    "paddingLeft": "5px",
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "acctDate",
+                                "name": "",
+                                "equalBlank": true,
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "seqNo",
+                                "name": "",
+                                "equalBlank": true,
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "debitAcctName",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "debitAmount",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "debitBriefs",
+                                "name": "",
+                                "equalBlank": true,
+                                "col": 4,
+                                "row": 0,
+                                "wrap": true,
+                                "text": "Text",
+                                "styles": {
+                                    "textAlign": "left",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "creditAcctName",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "creditAmount",
+                                "name": "",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "creditBriefs",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "Text",
+                                "styles": {
+                                    "textAlign": "left",
+                                    "__tag_": {}
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "styles": {
+            "fontSize": "12px",
+            "__tag_": {}
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "journal-body": {
+            "sampleCount": 30,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "acctDate",
+                    "dataType": "text",
+                    "sample": "08-28",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "seqNo",
+                    "dataType": "text",
+                    "sample": "00001",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "serial",
+                    "dataType": "number",
+                    "sample": "1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "debitAcctName",
+                    "dataType": "text",
+                    "sample": "미지급금",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "debitAmount",
+                    "dataType": "number",
+                    "sample": "141600",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "debitBriefs",
+                    "dataType": "text",
+                    "sample": "대금 결제(노트북 배터리 구입비)",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "creditAcctName",
+                    "dataType": "text",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "creditAmount",
+                    "dataType": "number",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "creditBriefs",
+                    "dataType": "text",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "journal-head": {
+            "type": "simple",
+            "sample": {
+                "company": "(주)포시에스",
+                "dateFrom": "2008-08-28",
+                "dateTo": "2008-08-29"
+            }
+        }
+    },
+    "guid": "0f9c9d21-e03a-4316-a00e-71c35b2d7602"
+}

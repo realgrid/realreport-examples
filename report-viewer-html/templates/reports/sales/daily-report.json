@@ -1,0 +1,975 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "styles": {
+                "paddingBottom": "10px"
+            },
+            "items": [
+                {
+                    "type": "cbox",
+                    "width": "100%",
+                    "name": "",
+                    "itemGap": "0px",
+                    "overflow": true,
+                    "items": [
+                        {
+                            "type": "table",
+                            "width": "100%",
+                            "name": "",
+                            "rowCount": 3,
+                            "cellStyles": {
+                                "borderLeft": "1px solid #000",
+                                "borderRight": "1px solid #000",
+                                "borderTop": "1px solid #000",
+                                "borderBottom": "1px solid #000"
+                            },
+                            "rows": [
+                                {
+                                    "height": "2%"
+                                },
+                                {
+                                    "height": "40px"
+                                },
+                                {
+                                    "height": "2%"
+                                }
+                            ],
+                            "cells": [
+                                {
+                                    "r": 0,
+                                    "c": 0,
+                                    "rowspan": 3,
+                                    "styles": {
+                                        "cellAlign": "left",
+                                        "backgroundColor": "#3f3c3cff",
+                                        "paddingLeft": "10px"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 1,
+                                    "styles": {
+                                        "backgroundColor": "#ffedc9"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 2,
+                                    "styles": {
+                                        "backgroundColor": "#ffedc9"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 3,
+                                    "styles": {
+                                        "backgroundColor": "#ffedc9",
+                                        "borderRight": "1px solid #000"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 3,
+                                    "styles": {
+                                        "borderRight": "1px solid #000"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 3,
+                                    "styles": {
+                                        "borderRight": "1px solid #000"
+                                    }
+                                }
+                            ],
+                            "colCount": 4,
+                            "columns": [
+                                {
+                                    "width": "70%"
+                                },
+                                {
+                                    "width": "10%"
+                                },
+                                {
+                                    "width": "10%"
+                                },
+                                {
+                                    "width": "10%"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 0,
+                                    "text": "일일 영업활동 보고서",
+                                    "styles": {
+                                        "fontSize": "21px",
+                                        "fontWeight": "bold",
+                                        "color": "white"
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 0,
+                                    "text": "담당"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 0,
+                                    "text": "팀장"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 0,
+                                    "text": "대표"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 2,
+                                    "text": "/"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 2,
+                                    "text": "/"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 2,
+                                    "text": "/"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "rbox",
+                            "name": "",
+                            "right": 0,
+                            "itemGap": 0,
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "text": "일자 : "
+                                },
+                                {
+                                    "type": "text",
+                                    "data": "daily-summary",
+                                    "value": "date",
+                                    "name": "",
+                                    "textFormat": "(\\d{4})-(\\d{2})-(\\d{2}); $1년$2월$3일",
+                                    "text": "Text"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportHeader": {
+            "name": "reportHeader"
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter"
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "tableband",
+                    "data": "daily-report",
+                    "width": "100%",
+                    "name": "",
+                    "endRowCount": 23,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "colCount": 11,
+                    "columns": [
+                        {
+                            "width": "1.2%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "2%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "1.5%"
+                        },
+                        {
+                            "width": "1.5%"
+                        },
+                        {
+                            "width": "1.5%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "3%"
+                        },
+                        {
+                            "width": "4%"
+                        },
+                        {
+                            "width": "3%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 2,
+                        "minRowHeight": "16px",
+                        "cellStyles": {
+                            "borderLeft": "solid 1px",
+                            "borderRight": "solid 1px",
+                            "borderTop": "solid 1px",
+                            "borderBottom": "solid 1px"
+                        },
+                        "rows": [
+                            {
+                                "styles": {
+                                    "backgroundColor": "#d3f3feff"
+                                }
+                            },
+                            {
+                                "styles": {
+                                    "backgroundColor": "#d3f3feff"
+                                }
+                            }
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "rowspan": 2
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "rowspan": 2
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "rowspan": 2
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "rowspan": 2
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "colspan": 3
+                            },
+                            {
+                                "r": 0,
+                                "c": 7,
+                                "rowspan": 2
+                            },
+                            {
+                                "r": 0,
+                                "c": 8,
+                                "colspan": 2
+                            },
+                            {
+                                "r": 0,
+                                "c": 10,
+                                "rowspan": 2
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "No."
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "거래처명"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "담당자"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "면담시간"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "방문목적"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 1,
+                                "text": "판매"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 1,
+                                "text": "수금"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 6,
+                                "row": 1,
+                                "text": "신규"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "체결금액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "입금"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 8,
+                                "row": 1,
+                                "text": "일자"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 9,
+                                "row": 1,
+                                "text": "금액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 10,
+                                "row": 0,
+                                "text": "비고"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "paddingRight": "",
+                            "borderLeft": "",
+                            "borderRight": "",
+                            "borderTop": "",
+                            "borderBottom": "",
+                            "paddingTop": ""
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "colspan": 11,
+                                "styles": {
+                                    "paddingTop": "",
+                                    "borderRight": ""
+                                }
+                            }
+                        ]
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "25px",
+                        "cellStyles": {
+                            "paddingLeft": "1px",
+                            "paddingRight": "3px",
+                            "paddingTop": "",
+                            "paddingBottom": "",
+                            "borderLeft": "solid 1px",
+                            "borderRight": "solid 1px",
+                            "borderTop": "solid 1px",
+                            "borderBottom": "solid 1px"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "cellAlign": "center"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "cellAlign": "center"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 7,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 9,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 10,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "${no}",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "company",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "contact",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "purpose",
+                                "name": "",
+                                "onGetValue": "return value == 'SALE' ? 'Y' : 'N';",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "purpose",
+                                "name": "",
+                                "onGetValue": "return value == 'BILL' ? 'Y' : 'N';",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "purpose",
+                                "name": "",
+                                "onGetValue": "return value == 'NEW' ? 'Y' : 'N';",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "amount",
+                                "name": "",
+                                "col": 7,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "depositDate",
+                                "name": "",
+                                "col": 8,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "depositAmount",
+                                "name": "",
+                                "col": 9,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "comment",
+                                "name": "",
+                                "col": 10,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "rbox",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "itemGap": 0,
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "value": "fromHour",
+                                        "name": "",
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "text": " ~"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "toHour",
+                                        "name": "",
+                                        "text": "Text"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "space",
+                    "name": "",
+                    "size": "30px"
+                },
+                {
+                    "type": "table",
+                    "data": "daily-summary",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 4,
+                    "minRowHeight": "24px",
+                    "cellStyles": {
+                        "paddingLeft": "",
+                        "paddingRight": "3px",
+                        "paddingTop": "",
+                        "borderLeft": "1px solid #000",
+                        "borderRight": "1px solid #000",
+                        "borderTop": "1px solid #000",
+                        "borderBottom": "1px solid #000"
+                    },
+                    "rows": [
+                        {
+                            "styles": {
+                                "backgroundColor": "#d3f3feff"
+                            }
+                        },
+                        {},
+                        {},
+                        {}
+                    ],
+                    "cells": [
+                        {
+                            "r": 1,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "center"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 3,
+                            "styles": {
+                                "backgroundColor": "#d7d7d7ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 4,
+                            "styles": {
+                                "backgroundColor": "#d7d7d7ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 5,
+                            "styles": {
+                                "backgroundColor": "#d7d7d7ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 6,
+                            "styles": {
+                                "backgroundColor": "#d7d7d7ff"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "center"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 6,
+                            "styles": {
+                                "cellAlign": "center"
+                            }
+                        }
+                    ],
+                    "colCount": 7,
+                    "columns": [
+                        {
+                            "width": "4%",
+                            "styles": {
+                                "backgroundColor": "#d3f3feff"
+                            }
+                        },
+                        {
+                            "width": "7%"
+                        },
+                        {
+                            "width": "2%"
+                        },
+                        {
+                            "width": "3%"
+                        },
+                        {
+                            "width": "3%"
+                        },
+                        {
+                            "width": "8%"
+                        },
+                        {
+                            "width": "4%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "구분"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 0,
+                            "text": "판매금액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "달성율"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 0,
+                            "text": "입금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 0,
+                            "text": "잔금"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 0,
+                            "text": "수금합계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 6,
+                            "row": 0,
+                            "text": "입금현황"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 1,
+                            "text": "금월목표"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 2,
+                            "text": "금일실적"
+                        },
+                        {
+                            "type": "text",
+                            "value": "monthPlan",
+                            "name": "",
+                            "col": 1,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "monthlyPct",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 3,
+                            "text": "총누계"
+                        },
+                        {
+                            "type": "text",
+                            "value": "todayResult",
+                            "name": "",
+                            "col": 1,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "todatPct",
+                            "name": "",
+                            "col": 2,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "todayDeposit",
+                            "name": "",
+                            "col": 3,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "todayRemain",
+                            "name": "",
+                            "col": 4,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "todayTotal",
+                            "name": "",
+                            "col": 5,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "depositPct",
+                            "name": "",
+                            "col": 6,
+                            "row": 2,
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "daily-report": {
+            "sampleCount": 1,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "company",
+                    "dataType": "text",
+                    "sample": "AAA",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "contact",
+                    "dataType": "text",
+                    "sample": "홍길동",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "fromHour",
+                    "dataType": "text",
+                    "sample": "9:40",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "toHour",
+                    "dataType": "text",
+                    "sample": "10:30",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "purpose",
+                    "dataType": "text",
+                    "sample": "SALE",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "amount",
+                    "dataType": "number",
+                    "sample": "10000000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "depositDate",
+                    "dataType": "text",
+                    "sample": "2/10",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "depositAmount",
+                    "dataType": "number",
+                    "sample": "10000000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "comment",
+                    "dataType": "text",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "daily-summary": {
+            "type": "simple",
+            "sample": {
+                "date": "2007-01-08",
+                "monthPlan": 50000000,
+                "monthlyPct": "50%",
+                "todayResult": 7500000,
+                "todayDeposit": 7500000,
+                "todayRemain": 0,
+                "todayTotal": 7500000,
+                "todatPct": "15%",
+                "depositPct": "100%"
+            }
+        }
+    },
+    "guid": "8ab9992d-a9bb-4527-8334-33e6ff8d454f"
+}

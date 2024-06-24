@@ -1,0 +1,26 @@
+{
+    "fields": [
+        { "fieldName": "No", "dataType": "text", "sample": "1002M-0410A" },
+        { "fieldName": "Name", "dataType": "text", "sample": "PACKING *** PVC 0.8T & MO200Q01-A1" },
+        { "fieldName": "Quantity", "dataType": "text", "sample": 220000 },
+        { "fieldName": "MakerLotNo", "dataType": "text", "sample": null }
+    ],
+    "sample": [
+        {
+            "No": "1002M-0410A",
+            "Name": "PACKING *** PVC 0.8T & MO200Q01-A1",
+            "Quantity": 220000,
+            "MakerLotNo": null
+        },{
+            "No": "3920L-0120A",
+            "Name": "PACKING *** PVC 0.8T & LB018Q01-A1",
+            "Quantity": 150000,
+            "MakerLotNo": null
+        },{
+            "No": "1002M-0410A",
+            "Name": "PVC 0.5T & LB018Q01-A2",
+            "Quantity": 350000,
+            "MakerLotNo": null
+        }
+    ]
+}

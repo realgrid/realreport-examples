@@ -1,6 +1,6 @@
-@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap);
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 
-html{
+html {
     -webkit-font-smoothing: antialiased;
     height: 100%;
     width: 100%;
@@ -10,7 +10,7 @@ html{
 body {
     height: 100%;
     width: 100%;
-    font: var(--font-size-base)/var(--line-height-base) var(--font-family-base);
+    font: var(--font-size-base) / var(--line-height-base) var(--font-family-base);
     background-color: var(--background-color);
     color: var(--primary-text-color);
     margin: 0;

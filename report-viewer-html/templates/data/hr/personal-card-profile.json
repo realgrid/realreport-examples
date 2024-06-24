@@ -1,0 +1,28 @@
+{
+    "fields": [
+        {"fieldName": "IDPicture","sample": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3x6ERYm3Hpjv0-h-43hrqspDknKKAUxbIlg&usqp=CAU","dataType": "text"},
+        {"fieldName": "ResidentRegister","sample": "830919-1233487","dataType": "text"},
+        {"fieldName": "Name","sample": "김철수","dataType": "text"},
+        {"fieldName": "FamilyRegister","sample": "서울시 동작구 대방동 13-1","dataType": "text"},
+        {"fieldName": "Postcode","sample": "231-115","dataType": "text"},
+        {"fieldName": "CurrentAddress", "sample": "서울시 동작구 대방동 13-1","dataType": "text"},
+        {"fieldName": "Hobby","sample": "게임","dataType": "text"},
+        {"fieldName": "Speciality","sample": "볼링","dataType": "text"},
+        {"fieldName": "DateOfBirth","sample": "1983년9월1일","dataType": "text"},
+        {"fieldName": "PhoneNumber","sample": "02-883-9093","dataType": "text"},
+        {"fieldName": "RushHour","sample": "1시간","dataType": "text"}
+    ],
+    "sample": [{
+        "IDPicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3x6ERYm3Hpjv0-h-43hrqspDknKKAUxbIlg&usqp=CAU",
+        "ResidentRegister" : "830919-1233487",
+        "Name" : "김철수",
+        "FamilyRegister" : "서울시 동작구 대방동 13-1",
+        "Postcode" : "231-115",
+        "CurrentAddress" : "서울시 동작구 대방동 13-1",
+        "Hobby" : "게임",
+        "Speciality" : "볼링",
+        "DateOfBirth" : "1983년9월19일",
+        "PhoneNumber" : "02-883-9093",
+        "RushHour": "1시간"
+    }]
+}

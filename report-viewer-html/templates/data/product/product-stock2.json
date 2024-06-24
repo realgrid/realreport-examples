@@ -1,0 +1,82 @@
+{
+    "fields": [
+        { "fieldName": "Process", "dataType": "text", "sample": "생산계획" },
+        { "fieldName": "Product", "dataType": "text", "sample": "ET001" },
+        { "fieldName": "Quantity", "dataType": "number", "sample": 100 },
+        { "fieldName": "Amount", "dataType": "number", "sample": 300000 },
+        { "fieldName": "Comment", "dataType": "text", "sample": "" }
+  
+    ],
+    "sample": [
+        {
+            "Process": "생산계획",
+            "Product": "ET001",
+            "Quantity": 100,
+            "Amount": 300000,
+            "Comment": ""
+        },
+        {
+            "Process": "생산계획",
+            "Product": "ET002",
+            "Quantity": 200,
+            "Amount": 400000,
+            "Comment": ""
+        },
+        {
+            "Process": "생산계획",
+            "Product": "ET003",
+            "Quantity": 700,
+            "Amount": 70000,
+            "Comment": ""
+        },
+        {
+            "Process": "생산계획",
+            "Product": "ET004",
+            "Quantity": 1000,
+            "Amount": 600000,
+            "Comment": ""
+        },
+        {
+            "Process": "생산계획",
+            "Product": "ET005",
+            "Quantity": 200,
+            "Amount": 460000,
+            "Comment": ""
+        },
+        {
+            "Process": "구매계획",
+            "Product": "SP006",
+            "Quantity": 50,
+            "Amount": 10000,
+            "Comment": ""
+        },
+        {
+            "Process": "구매계획",
+            "Product": "SP023",
+            "Quantity": 100,
+            "Amount": 50000,
+            "Comment": ""
+        },
+        {
+            "Process": "구매계획",
+            "Product": "SP024",
+            "Quantity": 50,
+            "Amount": 50000,
+            "Comment": ""
+        },
+        {
+            "Process": "구매계획",
+            "Product": "SP026",
+            "Quantity": 60,
+            "Amount": 12000,
+            "Comment": ""
+        },
+        {
+            "Process": "구매계획",
+            "Product": "SP033",
+            "Quantity": 100,
+            "Amount": 100000,
+            "Comment": ""
+        }
+    ]
+}

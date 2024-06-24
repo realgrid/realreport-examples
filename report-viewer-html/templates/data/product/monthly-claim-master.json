@@ -1,0 +1,16 @@
+{
+    "fields": [
+        { "fieldName": "Month", "dataType": "text", "sample": "08" }
+    ],
+    "sample": [
+        {
+            "Month": "08"
+        },
+        {
+            "Month": "09"
+        },
+        {
+            "Month": "10"
+        }
+    ]
+}

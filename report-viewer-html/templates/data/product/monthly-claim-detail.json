@@ -1,0 +1,158 @@
+{
+    "fields": [
+        { "fieldName": "Month", "dataType": "text", "sample": "08" },
+        { "fieldName": "Type", "dataType": "text", "sample": "기타" },
+        { "fieldName": "Status", "dataType": "text", "sample": "Pending" },
+        { "fieldName": "Day", "dataType": "number", "sample": 14 },
+        { "fieldName": "TotDay", "dataType": "number", "sample": 51.4 }
+    ],
+    "sample": [
+        {
+            "Month": "08",
+            "Type": "기타",
+            "Status": "Pending",
+            "Day": 14,
+            "TotDay": 51.4
+        },
+        {
+            "Month": "08",
+            "Type": "기타",
+            "Status": "Closed",
+            "Day": 12,
+            "TotDay": 14.3
+        },
+        {
+            "Month": "08",
+            "Type": "NBPC",
+            "Status": "Pending",
+            "Day": 3,
+            "TotDay": 169
+        },
+        {
+            "Month": "08",
+            "Type": "TV",
+            "Status": "Pending",
+            "Day": 6,
+            "TotDay": 318
+        },
+        {
+            "Month": "08",
+            "Type": "TV",
+            "Status": "Closed",
+            "Day": 2,
+            "TotDay": 22
+        },
+        {
+            "Month": "08",
+            "Type": "APPL",
+            "Status": "Pending",
+            "Day": 3,
+            "TotDay": 74
+        },
+        {
+            "Month": "08",
+            "Type": "APPL",
+            "Status": "Closed",
+            "Day": 5,
+            "TotDay": 34
+        },
+        {
+            "Month": "09",
+            "Type": "기타",
+            "Status": "Pending",
+            "Day": 14,
+            "TotDay": 65.4
+        },
+        {
+            "Month": "09",
+            "Type": "기타",
+            "Status": "Closed",
+            "Day": 12,
+            "TotDay": 26.3
+        },
+        {
+            "Month": "09",
+            "Type": "NBPC",
+            "Status": "Pending",
+            "Day": 3,
+            "TotDay": 172
+        },
+        {
+            "Month": "09",
+            "Type": "TV",
+            "Status": "Pending",
+            "Day": 6,
+            "TotDay": 324
+        },
+        {
+            "Month": "09",
+            "Type": "TV",
+            "Status": "Closed",
+            "Day": 2,
+            "TotDay": 24
+        },
+        {
+            "Month": "09",
+            "Type": "APPL",
+            "Status": "Pending",
+            "Day": 3,
+            "TotDay": 77
+        },
+        {
+            "Month": "09",
+            "Type": "APPL",
+            "Status": "Closed",
+            "Day": 5,
+            "TotDay": 39
+        },
+        {
+            "Month": "10",
+            "Type": "기타",
+            "Status": "Pending",
+            "Day": 14,
+            "TotDay": 79.4
+        },
+        {
+            "Month": "10",
+            "Type": "기타",
+            "Status": "Closed",
+            "Day": 12,
+            "TotDay": 38.3
+        },
+        {
+            "Month": "10",
+            "Type": "NBPC",
+            "Status": "Pending",
+            "Day": 3,
+            "TotDay": 175
+        },
+        {
+            "Month": "10",
+            "Type": "TV",
+            "Status": "Pending",
+            "Day": 6,
+            "TotDay": 330
+        },
+        {
+            "Month": "10",
+            "Type": "TV",
+            "Status": "Closed",
+            "Day": 2,
+            "TotDay": 26
+        },
+        {
+            "Month": "10",
+            "Type": "APPL",
+            "Status": "Pending",
+            "Day": 3,
+            "TotDay": 80
+        },
+        {
+            "Month": "10",
+            "Type": "APPL",
+            "Status": "Closed",
+            "Day": 5,
+            "TotDay": 44
+        }
+    ]
+}

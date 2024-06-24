@@ -1,0 +1,16 @@
+{
+    "fields": [
+        { "fieldName": "XDay", "dataType": "number", "sample": 1 },
+        { "fieldName": "Density", "dataType": "number", "sample": 27.0 },
+        { "fieldName": "XMin", "dataType": "number", "sample": 20 },
+        { "fieldName": "XMax", "dataType": "number", "sample": 30 },
+        { "fieldName": "XAvg", "dataType": "number", "sample": 25 },
+        { "fieldName": "Density2", "dataType": "number", "sample": 4.0 },
+        { "fieldName": "Basis", "dataType": "number", "sample": 5 },
+        { "fieldName": "RMax", "dataType": "number", "sample": 7.5 },
+        { "fieldName": "YZeroBasis", "dataType": "number", "sample": 0.2 }
+    ],
+    "sample": [
+
+    ]
+}

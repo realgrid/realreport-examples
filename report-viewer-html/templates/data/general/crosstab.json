@@ -1,0 +1,19 @@
+{
+    "fields": [
+        { "fieldName": "Distributor", "dataType": "text", "sample": "호남" },
+        { "fieldName": "Agent", "dataType": "text", "sample": "광주" },
+        { "fieldName": "Category", "dataType": "text", "sample": "사무용품기기" },
+        { "fieldName": "SubCategory", "dataType": "text", "sample": "복사기" },
+        { "fieldName": "Quantity", "dataType": "number", "sample": 9 }
+    ],
+    "sample": [
+        {
+            "Distributor": "홍길동",
+            "Agent": "삼성물산",
+            "Category": "물류",
+            "SubCategory": "가전제품",
+            "Quantity": 0
+        }
+    ]
+}
+    

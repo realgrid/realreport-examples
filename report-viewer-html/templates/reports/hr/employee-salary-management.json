@@ -1,0 +1,615 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader"
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "styles": {
+                "paddingBottom": "40px"
+            },
+            "items": [
+                {
+                    "type": "text",
+                    "text": "직원 급여 관리",
+                    "styles": {
+                        "fontSize": "30px",
+                        "fontWeight": "bold",
+                        "__tag_": {}
+                    }
+                }
+            ]
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter"
+        },
+        "body": {
+            "itemGap": 4,
+            "items": [
+                {
+                    "type": "tableband",
+                    "data": "employee-salary-management",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "colCount": 6,
+                    "columns": [
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "14.9%"
+                        },
+                        {
+                            "width": "22.9%"
+                        },
+                        {
+                            "width": "21.2%"
+                        },
+                        {
+                            "width": "21%"
+                        }
+                    ],
+                    "groups": [
+                        {
+                            "name": "tableBandRowGroup",
+                            "field": "job",
+                            "header": {
+                                "name": "groupHeader",
+                                "width": "100%",
+                                "visible": false,
+                                "rowCount": 1,
+                                "cellStyles": {},
+                                "rows": [{}],
+                                "cells": []
+                            },
+                            "footer": {
+                                "name": "groupFooter",
+                                "width": "100%",
+                                "height": 25,
+                                "rowCount": 1,
+                                "cellStyles": {},
+                                "rows": [{}],
+                                "cells": [
+                                    {
+                                        "r": 0,
+                                        "c": 0,
+                                        "styles": {
+                                            "backgroundColor": "#dde9c4",
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "none",
+                                            "borderBottom": "2px solid #c6c6c6"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 1,
+                                        "styles": {
+                                            "backgroundColor": "#dde9c4",
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "none",
+                                            "borderBottom": "2px solid #c6c6c6"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 2,
+                                        "styles": {
+                                            "backgroundColor": "#dde9c4",
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "none",
+                                            "borderBottom": "2px solid #c6c6c6"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 3,
+                                        "styles": {
+                                            "backgroundColor": "#dde9c4",
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "none",
+                                            "borderBottom": "2px solid #c6c6c6"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 4,
+                                        "colspan": 2,
+                                        "styles": {
+                                            "backgroundColor": "#dde9c4",
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "none",
+                                            "borderBottom": "2px solid #c6c6c6",
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 5,
+                                        "styles": {
+                                            "cellAlign": "right",
+                                            "backgroundColor": "#dde9c4",
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "none",
+                                            "borderBottom": "2px solid #c6c6c6"
+                                        }
+                                    }
+                                ],
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 0,
+                                        "text": "부서별급여총액",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 0,
+                                        "suffix": "원",
+                                        "expression": "sum(salary)",
+                                        "styles": {
+                                            "fontWeight": "bold"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "height": 27,
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "1px solid #ebebeb",
+                            "borderRight": "1px solid #ebebeb",
+                            "borderTop": "1px solid #ebebeb",
+                            "borderBottom": "2px solid #c6c6c6"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "borderBottom": ""
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "borderBottom": ""
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "borderBottom": ""
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "borderBottom": ""
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "borderBottom": ""
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "borderBottom": ""
+                                }
+                            }
+                        ],
+                        "styles": {
+                            "backgroundColor": "#deddd3",
+                            "__tag_": {}
+                        },
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "성별",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "핸드폰번호",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "입사일",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "급여",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "부서",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "이름",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "height": "25px",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderBottom": ""
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "colspan": 2,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none",
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            }
+                        ],
+                        "styles": {
+                            "backgroundColor": "#96bc80",
+                            "__tag_": {}
+                        },
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "급여총액",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "suffix": "원",
+                                "expression": "sum(salary)",
+                                "styles": {
+                                    "fontSize": "17px",
+                                    "fontWeight": "bold",
+                                    "color": "#852222"
+                                }
+                            }
+                        ]
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "height": "23px",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "cellAlign": "center",
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "cellAlign": "center",
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "gender",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "phoneNumber",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "hireDate",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "salary",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "job",
+                                "name": "",
+                                "equalBlank": true,
+                                "mergedInGroup": true,
+                                "col": 0,
+                                "row": 0,
+                                "text": "부서",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "value": "name",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "employee-salary-management": {
+            "sampleCount": 30,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "name",
+                    "dataType": "text",
+                    "format": "",
+                    "sample": "김철수",
+                    "expression": "",
+                    "description": ""
+                },
+                {
+                    "fieldName": "job",
+                    "dataType": "text",
+                    "sample": "개발팀",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "gender",
+                    "dataType": "text",
+                    "sample": "남",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "phoneNumber",
+                    "dataType": "text",
+                    "format": "",
+                    "sample": "010-3534-3343",
+                    "expression": "",
+                    "description": ""
+                },
+                {
+                    "fieldName": "hireDate",
+                    "dataType": "text",
+                    "format": "",
+                    "sample": "2000.06.12",
+                    "expression": "",
+                    "description": ""
+                },
+                {
+                    "fieldName": "salary",
+                    "dataType": "number",
+                    "format": "",
+                    "sample": "53000000",
+                    "expression": "",
+                    "description": ""
+                }
+            ]
+        }
+    },
+    "guid": "74d3ca77-031f-41a7-964e-158183026353"
+}

@@ -1,0 +1,179 @@
+{
+    "page": {
+        "pageHeader": {
+            "name": "pageHeader",
+            "items": [
+                {
+                    "type": "text",
+                    "value": "${date}",
+                    "name": "",
+                    "right": 0,
+                    "dateFormat": "yyyy/MM/dd",
+                    "text": ""
+                }
+            ]
+        },
+        "reportHeader": {
+            "name": "reportHeader"
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "items": [
+                {
+                    "type": "text",
+                    "value": "${pages}",
+                    "name": "",
+                    "width": 37,
+                    "right": 0,
+                    "text": "",
+                    "styles": {
+                        "textAlign": "left",
+                        "border": ""
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "",
+                    "right": "38px",
+                    "text": "/"
+                },
+                {
+                    "type": "text",
+                    "value": "${page}",
+                    "name": "",
+                    "right": "45px",
+                    "text": "Text",
+                    "styles": {
+                        "textAlign": "right"
+                    }
+                }
+            ]
+        },
+        "body": {
+            "itemGap": 4,
+            "items": [
+                {
+                    "type": "simpleband",
+                    "data": "mail-label",
+                    "name": "",
+                    "width": "100%",
+                    "columnCount": 2,
+                    "columnGap": 50,
+                    "rowsPerPage": 6,
+                    "detail": {
+                        "type": "detail",
+                        "name": "",
+                        "width": "100%"
+                    },
+                    "header": {
+                        "type": "stack",
+                        "name": "bandHeader",
+                        "width": 350.4960629921259
+                    },
+                    "footer": {
+                        "type": "stack",
+                        "name": "bandPageFooter",
+                        "width": "100%"
+                    },
+                    "row": {
+                        "type": "stack",
+                        "name": "bandrow",
+                        "width": "100%",
+                        "onGetStyles": "",
+                        "styles": {
+                            "paddingRight": "px",
+                            "paddingBottom": "30px",
+                            "borderBottom": ""
+                        },
+                        "styleCallback": null,
+                        "items": [
+                            {
+                                "type": "stack",
+                                "name": "",
+                                "width": "100%",
+                                "height": 105,
+                                "styles": {
+                                    "paddingRight": "10px",
+                                    "paddingBottom": "10px",
+                                    "border": "1px solid",
+                                    "paddingLeft": "10px",
+                                    "paddingTop": "10px"
+                                },
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "value": "PostalCode",
+                                        "name": "",
+                                        "left": "0px",
+                                        "top": "0px",
+                                        "text": "Text",
+                                        "styles": {
+                                            "fontSize": "15px"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "Address",
+                                        "name": "",
+                                        "right": "0px",
+                                        "top": "30px",
+                                        "text": "Text",
+                                        "styles": {
+                                            "fontSize": "15px"
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "ContactName",
+                                        "name": "",
+                                        "right": "50px",
+                                        "bottom": "0px",
+                                        "text": "Text",
+                                        "styles": {
+                                            "fontSize": "15px",
+                                            "fontWeight": "bold"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "styles": {
+                        "paddingRight": "px",
+                        "paddingBottom": "30px"
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "mail-label": {
+            "type": "band",
+            "sampleCount": 10,
+            "fields": [
+                {
+                    "fieldName": "PostalCode",
+                    "dataType": "text",
+                    "sample": "742-170"
+                },
+                {
+                    "fieldName": "Address",
+                    "dataType": "text",
+                    "sample": "가장동 78-3 상주시 대한민국"
+                },
+                {
+                    "fieldName": "ContactName",
+                    "dataType": "text",
+                    "sample": "한석규"
+                }
+            ]
+        }
+    },
+    "guid": "46d4f01e-acd0-4ea5-8bdb-4b7a13ca8cfb"
+}

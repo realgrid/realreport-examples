@@ -1,0 +1,52 @@
+{
+    "fields": [
+        { "fieldName": "Customer", "dataType": "text", "sample": "(주)파워엑셀연구소" },
+        { "fieldName": "Company", "dataType": "text", "sample": "(주)기업연구원" },
+        { "fieldName": "Pregident", "dataType": "text", "sample": "이응혈" },
+        { "fieldName": "Item", "dataType": "text", "sample": "파워엑셀" },
+        { "fieldName": "Standard", "dataType": "text", "sample": "GX*10" },
+        { "fieldName": "Unit", "dataType": "text", "sample": "EA" },
+        { "fieldName": "Quantity", "dataType": "number", "sample": 3 },
+        { "fieldName": "UnitPrice", "dataType": "number", "sample": 50000 },
+        { "fieldName": "Amount", "dataType": "number", "sample": 150000 },
+        { "fieldName": "Comment", "dataType": "text", "sample": "" }
+    ],
+    "sample": [
+        {
+            "Customer": "(주)파워엑셀연구소",
+            "Company": "(주)기업연구원",
+            "Pregident": "이응혈",
+            "Item": "파워엑셀",
+            "Standard": "GX*10",
+            "Unit": "EA",
+            "Quantity": 3,
+            "UnitPrice": 50000,
+            "Amount": 150000,
+            "Comment": ""
+        },
+        {
+            "Customer": "(주)파워엑셀연구소",
+            "Company": "(주)기업연구원",
+            "Pregident": "이응혈",
+            "Item": "오픈산전",
+            "Standard": "TX3",
+            "Unit": "권",
+            "Quantity": 5,
+            "UnitPrice": 25000,
+            "Amount": 125000,
+            "Comment": ""
+        },
+        {
+            "Customer": "(주)파워엑셀연구소",
+            "Company": "(주)기업연구원",
+            "Pregident": "이응혈",
+            "Item": "클립아트",
+            "Standard": "LK23",
+            "Unit": "kg",
+            "Quantity": 7,
+            "UnitPrice": 34000,
+            "Amount": 238000,
+            "Comment": ""
+        }
+    ]
+}

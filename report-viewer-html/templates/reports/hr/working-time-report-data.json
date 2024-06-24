@@ -1,0 +1,69 @@
+{
+    "time-report-head": {
+        "type": "simple",
+        "values": {
+            "Year": 2013,
+            "Month": 4,
+            "Department": "생산부 조립1팀",
+            "Name": "홍길동",
+            "NightTime": "18:50",
+            "MorningTime": "12:00",
+            "DailyWeight": 20000,
+            "NightWeight": 9250,
+            "MorningWeight": 9250
+        }
+    },
+    "time-report-list": {
+        "type": "band",
+        "values": [
+            {
+                "No": 1,
+                "Day": "1일",
+                "Week": "월요일",
+                "ComeTime": "9:00",
+                "LeaveTime": "18:30",
+                "WorkTime": "9:30",
+                "WeekWorkTime": "7:30",
+                "NightOverTime": "2:00",
+                "MorningEarlyTime": "1:30",
+                "ETC": null
+            },
+            {
+                "No": 2,
+                "Day": "2일",
+                "Week": "화요일",
+                "ComeTime": "9:10",
+                "LeaveTime": "18:50",
+                "WorkTime": "9:40",
+                "WeekWorkTime": "7:20",
+                "NightOverTime": "2:20",
+                "MorningEarlyTime": "1:20",
+                "ETC": null
+            },
+            {
+                "No": 3,
+                "Day": "3일",
+                "Week": "수요일",
+                "ComeTime": "9:00",
+                "LeaveTime": "19:00",
+                "WorkTime": "10:00",
+                "WeekWorkTime": "7:30",
+                "NightOverTime": "2:30",
+                "MorningEarlyTime": "1:30",
+                "ETC": null
+            },
+            {
+                "No": 4,
+                "Day": "4일",
+                "Week": "목요일",
+                "ComeTime": "6:00",
+                "LeaveTime": "19:00",
+                "WorkTime": "13:00",
+                "WeekWorkTime": "10:30",
+                "NightOverTime": "2:300",
+                "MorningEarlyTime": "4:30",
+                "ETC": null
+            }
+        ]
+    }
+}

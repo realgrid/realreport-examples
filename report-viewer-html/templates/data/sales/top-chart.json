@@ -1,0 +1,40 @@
+{
+    "fields": [
+        { "fieldName": "Dept", "dataType": "text", "sample":"영업2팀" },
+        { "fieldName": "EmployeeName", "dataType": "text", "sample":"천세진" },
+        { "fieldName": "Accomplishment", "dataType": "number", "sample":90 },
+        { "fieldName": "SalesAmount", "dataType": "number", "sample":777736545 }
+    ],
+    "sample": [
+        {
+            "Dept": "영업2팀",
+            "EmployeeName": "천세진",
+            "Accomplishment": 90,
+            "SalesAmount": 777736545
+        },
+        {
+            "Dept": "영업1팀",
+            "EmployeeName": "이상호",
+            "Accomplishment": 90,
+            "SalesAmount": 557728960
+        },
+        {
+            "Dept": "영업2팀",
+            "EmployeeName": "이근진",
+            "Accomplishment": 80,
+            "SalesAmount": 245636019
+        },
+        {
+            "Dept": "영업1팀",
+            "EmployeeName": "김상륜",
+            "Accomplishment": 70,
+            "SalesAmount": 237795686
+        },
+        {
+            "Dept": "영업3팀",
+            "EmployeeName": "윤대성",
+            "Accomplishment": 60,
+            "SalesAmount": 47101021
+        }
+    ]
+}

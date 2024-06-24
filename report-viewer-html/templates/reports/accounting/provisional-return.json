@@ -1,0 +1,1364 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "height": "180px",
+            "items": [
+                {
+                    "type": "text",
+                    "width": "350px",
+                    "top": "50px",
+                    "text": "예정 신고 매입/매출 현황",
+                    "styles": {
+                        "fontSize": "30px",
+                        "fontWeight": "bold",
+                        "borderBottom": "solid black 1px",
+                        "__tag_": {}
+                    }
+                },
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "top": "100px",
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "( 발행일자 :  "
+                        },
+                        {
+                            "type": "text",
+                            "data": "privisional-return-date",
+                            "value": "fromDate",
+                            "name": "",
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "~",
+                            "styles": {
+                                "paddingLeft": "10px",
+                                "paddingRight": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "data": "privisional-return-date",
+                            "value": "toDate",
+                            "name": "",
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": " )"
+                        }
+                    ]
+                },
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "right": 0,
+                    "bottom": "20px",
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "작업일자 : "
+                        },
+                        {
+                            "type": "text",
+                            "value": "${date}",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                },
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "right": 0,
+                    "bottom": "0px",
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "Page : "
+                        },
+                        {
+                            "type": "text",
+                            "value": "${page}",
+                            "width": "50px",
+                            "name": "",
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "width": "5px",
+                            "name": "",
+                            "text": "/"
+                        },
+                        {
+                            "type": "text",
+                            "value": "${pages}",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "height": "0px",
+            "visible": false
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter"
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "stack",
+                    "width": "100%",
+                    "name": "",
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "left": 0,
+                            "bottom": "5px",
+                            "text": "1. 매출 세금 계산서",
+                            "styles": {
+                                "fontWeight": "bold",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "bottom": "5px",
+                            "text": "(단위: 원)"
+                        }
+                    ]
+                },
+                {
+                    "type": "tableband",
+                    "data": "privisional-return-01",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "visible": false
+                    },
+                    "colCount": 5,
+                    "columns": [
+                        {
+                            "width": "17%"
+                        },
+                        {
+                            "width": "12%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "21%"
+                        },
+                        {
+                            "width": "25%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "30px",
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#ebeaeaff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#ebeaeaff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "backgroundColor": "#ebeaeaff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "backgroundColor": "#ebeaeaff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "backgroundColor": "#ebeaeaff"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "구분"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "매수"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "공급가액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "부가세액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "합계"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "30px",
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "합 계"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "expression": "sum(SuppyPrice)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "expression": "sum(Tax)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "expression": "sum(TotalPrice)"
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "expression": "sum(Purchase)"
+                            }
+                        ]
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "30px",
+                        "cellStyles": {
+                            "borderLeft": "",
+                            "borderRight": ""
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "paddingRight": "3px"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "paddingRight": "3px"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "paddingRight": "3px"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "paddingRight": "3px"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "Title",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Purchase",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "SuppyPrice",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Tax",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "TotalPrice",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    },
+                    "styles": {
+                        "paddingLeft": "3px",
+                        "paddingRight": "3px",
+                        "__tag_": {}
+                    }
+                },
+                {
+                    "type": "stack",
+                    "width": "100%",
+                    "name": "",
+                    "styles": {
+                        "paddingTop": "70px",
+                        "__tag_": {}
+                    },
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "left": 0,
+                            "bottom": "5px",
+                            "text": "2. 매입 세금 계산서",
+                            "styles": {
+                                "fontWeight": "bold",
+                                "__tag_": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "table",
+                    "data": "privisional-return-02",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 6,
+                    "minRowHeight": "30px",
+                    "cellStyles": {
+                        "paddingLeft": "3px",
+                        "paddingRight": "3px",
+                        "borderLeft": "",
+                        "borderRight": ""
+                    },
+                    "rows": [{}, {}, {}, {}, {}, {}],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "colspan": 2,
+                            "styles": {
+                                "backgroundColor": "#ebeaeaff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 2,
+                            "styles": {
+                                "backgroundColor": "#ebeaeaff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 3,
+                            "styles": {
+                                "backgroundColor": "#ebeaeaff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 4,
+                            "styles": {
+                                "backgroundColor": "#ebeaeaff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 5,
+                            "styles": {
+                                "backgroundColor": "#ebeaeaff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 0,
+                            "colspan": 2
+                        },
+                        {
+                            "r": 1,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 0,
+                            "colspan": 2
+                        },
+                        {
+                            "r": 2,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 0,
+                            "rowspan": 3
+                        },
+                        {
+                            "r": 3,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        }
+                    ],
+                    "colCount": 6,
+                    "columns": [
+                        {
+                            "width": "7%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "12%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "21%"
+                        },
+                        {
+                            "width": "25%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "구분"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "매수"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 0,
+                            "text": "공급가액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 0,
+                            "text": "부가세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 0,
+                            "text": "합계"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalPrice1",
+                            "name": "",
+                            "col": 5,
+                            "row": 1,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalPrice2",
+                            "name": "",
+                            "col": 5,
+                            "row": 2,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalPrice3",
+                            "name": "",
+                            "col": 5,
+                            "row": 3,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalPrice4",
+                            "name": "",
+                            "col": 5,
+                            "row": 4,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalPrice5",
+                            "name": "",
+                            "col": 5,
+                            "row": 5,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "tax5",
+                            "name": "",
+                            "col": 4,
+                            "row": 5,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "tax4",
+                            "name": "",
+                            "col": 4,
+                            "row": 4,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "tax3",
+                            "name": "",
+                            "col": 4,
+                            "row": 3,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "tax2",
+                            "name": "",
+                            "col": 4,
+                            "row": 2,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "tax1",
+                            "name": "",
+                            "col": 4,
+                            "row": 1,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "supplyPrice1",
+                            "name": "",
+                            "col": 3,
+                            "row": 1,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "supplyPrice2",
+                            "name": "",
+                            "col": 3,
+                            "row": 2,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "supplyPrice3",
+                            "name": "",
+                            "col": 3,
+                            "row": 3,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "supplyPrice4",
+                            "name": "",
+                            "col": 3,
+                            "row": 4,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "supplyPrice5",
+                            "name": "",
+                            "col": 3,
+                            "row": 5,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "count1",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "count2",
+                            "name": "",
+                            "col": 2,
+                            "row": 2,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "count3",
+                            "name": "",
+                            "col": 2,
+                            "row": 3,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "count4",
+                            "name": "",
+                            "col": 2,
+                            "row": 4,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "count5",
+                            "name": "",
+                            "col": 2,
+                            "row": 5,
+                            "text": "Text",
+                            "styles": {
+                                "textAlign": "right",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 1,
+                            "text": "총계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 2,
+                            "text": "매입 세액 공제"
+                        },
+                        {
+                            "type": "text",
+                            "width": 37,
+                            "name": "",
+                            "col": 0,
+                            "row": 3,
+                            "wrap": true,
+                            "text": "매입 세액 불공제"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 3,
+                            "text": "합계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 4,
+                            "text": "명세율"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 5,
+                            "text": "기타"
+                        }
+                    ]
+                },
+                {
+                    "type": "stack",
+                    "width": "100%",
+                    "name": "",
+                    "styles": {
+                        "paddingTop": "70px",
+                        "__tag_": {}
+                    },
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "left": 0,
+                            "bottom": "5px",
+                            "text": "3. 불공제 매입 세액 내역",
+                            "styles": {
+                                "fontWeight": "bold",
+                                "__tag_": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "tableband",
+                    "data": "privisional-return-03",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "visible": false
+                    },
+                    "colCount": 3,
+                    "columns": [
+                        {
+                            "width": "29%"
+                        },
+                        {
+                            "width": "36%"
+                        },
+                        {
+                            "width": "35%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "30px",
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#ebeaeaff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#ebeaeaff"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "backgroundColor": "#ebeaeaff"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "불공제 구분"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "공급가액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "매입세액"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "30px",
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "paddingLeft": "20px",
+                                    "paddingRight": "20px",
+                                    "cellAlign": "center"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "summary",
+                                "value": "",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "expression": "sum(SuppyPrice)"
+                            },
+                            {
+                                "type": "summary",
+                                "value": "",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "expression": "sum(Tax)"
+                            },
+                            {
+                                "type": "rbox",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "itemGap": "100px",
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "text": "총"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "text": "계"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "30px",
+                        "cellStyles": {
+                            "borderLeft": "",
+                            "borderRight": ""
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "paddingRight": "3px"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "paddingRight": "3px"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "Title",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "wrap": true,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "SuppyPrice",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Tax",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    },
+                    "styles": {
+                        "paddingLeft": "3px",
+                        "paddingRight": "3px",
+                        "__tag_": {}
+                    }
+                }
+            ]
+        },
+        "styles": {
+            "fontSize": "14px",
+            "__tag_": {}
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "privisional-return-03": {
+            "sampleCount": 3,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "Title",
+                    "dataType": "text",
+                    "format": "",
+                    "sample": "비영업용 소형승용차매입및유지",
+                    "expression": "",
+                    "description": ""
+                },
+                {
+                    "fieldName": "SuppyPrice",
+                    "dataType": "number",
+                    "sample": "0",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Tax",
+                    "dataType": "number",
+                    "sample": "0",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "privisional-return-02": {
+            "type": "simple",
+            "sample": {
+                "count1": 22691,
+                "supplyPrice1": 586039501216,
+                "tax1": 50011408174,
+                "totalPrice1": 635968810390,
+                "count2": 0,
+                "supplyPrice2": 0,
+                "tax2": 0,
+                "totalPrice2": 0,
+                "count3": 22691,
+                "supplyPrice3": 586039501216,
+                "tax3": 50011408174,
+                "totalPrice3": 635968810390,
+                "count4": 411,
+                "supplyPrice4": 85455228083,
+                "tax4": 0,
+                "totalPrice4": 85383228083,
+                "count5": 22250,
+                "supplyPrice5": 500584273133,
+                "tax5": 50011408174,
+                "totalPrice5": 550585582307
+            }
+        },
+        "privisional-return-date": {
+            "type": "simple",
+            "sample": {
+                "fromDate": "2001-01-01",
+                "toDate": "2001-03-30"
+            }
+        },
+        "privisional-return-01": {
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "Title",
+                    "dataType": "text",
+                    "sample": "세금계산서 발행",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Purchase",
+                    "dataType": "number",
+                    "format": "",
+                    "sample": "48328",
+                    "expression": "",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "SuppyPrice",
+                    "dataType": "number",
+                    "sample": "310281358314",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Tax",
+                    "dataType": "number",
+                    "sample": "31028127373",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "TotalPrice",
+                    "dataType": "number",
+                    "sample": "341320485587",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        }
+    },
+    "guid": "e17b5d11-ef57-458c-af18-b377adde73e4"
+}

@@ -1,0 +1,11 @@
+{
+    "Year": 2013,
+    "Month": 4,
+    "Department": "생산부 조립1팀",
+    "Name": "홍길동",
+    "NightTime": "18:50",
+    "MorningTime": "12:00",
+    "DailyWeight": 20000,
+    "NightWeight": 9250,
+    "MorningWeight": 9250
+}

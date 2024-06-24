@@ -1,0 +1,2058 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+      "name": "reportPage",
+      "pageHeader": {
+        "name": "pageHeader",
+        "height": 79,
+        "items": [
+          {
+            "type": "table",
+            "width": "100%",
+            "name": "",
+            "rowCount": 3,
+            "cellStyles": {
+              "borderLeft": "1px solid #000",
+              "borderRight": "1px solid #000",
+              "borderTop": "1px solid #000",
+              "borderBottom": "1px solid #000"
+            },
+            "rows": [
+              {
+                "height": "2%"
+              },
+              {
+                "height": "40px"
+              },
+              {
+                "height": "2%"
+              }
+            ],
+            "cells": [
+              {
+                "r": 0,
+                "c": 0,
+                "rowspan": 3,
+                "styles": {
+                  "cellAlign": "left",
+                  "backgroundColor": "#8c8c8c",
+                  "paddingLeft": ""
+                }
+              }
+            ],
+            "colCount": 4,
+            "columns": [
+              {
+                "width": "75%"
+              },
+              {
+                "width": "10%"
+              },
+              {
+                "width": "10%"
+              },
+              {
+                "width": "10%"
+              }
+            ],
+            "items": [
+              {
+                "type": "text",
+                "name": "",
+                "col": 0,
+                "row": 0,
+                "text": "일일 생산활동 보고",
+                "styles": {
+                  "fontSize": "21px",
+                  "fontWeight": "normal",
+                  "color": "white",
+                  "__tag_": {}
+                }
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 1,
+                "row": 0,
+                "text": "작성"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 2,
+                "row": 0,
+                "text": "검토"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 3,
+                "row": 0,
+                "text": "보고"
+              }
+            ]
+          }
+        ]
+      },
+      "reportHeader": {
+        "name": "reportHeader",
+        "height": 0
+      },
+      "reportFooter": {
+        "name": "reportFooter"
+      },
+      "pageFooter": {
+        "name": "pageFooter"
+      },
+      "body": {
+        "itemGap": 0,
+        "items": [
+          {
+            "type": "space",
+            "name": "",
+            "size": 10
+          },
+          {
+            "type": "table",
+            "width": "100%",
+            "name": "",
+            "rowCount": 1,
+            "minRowHeight": "24px",
+            "cellStyles": {
+              "borderLeft": "1px solid #000",
+              "borderRight": "1px solid #000",
+              "borderTop": "1px solid #000",
+              "borderBottom": "1px solid #000"
+            },
+            "rows": [
+              {}
+            ],
+            "cells": [
+              {
+                "r": 0,
+                "c": 0,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 0,
+                "c": 2,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 0,
+                "c": 4,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 0,
+                "c": 6,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              }
+            ],
+            "colCount": 8,
+            "columns": [
+              {
+                "width": "10%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "8%"
+              },
+              {
+                "width": "15%"
+              },
+              {
+                "width": "10%"
+              },
+              {
+                "width": "12%"
+              },
+              {
+                "width": "10%"
+              },
+              {
+                "width": "20%"
+              }
+            ],
+            "items": [
+              {
+                "type": "text",
+                "name": "",
+                "col": 0,
+                "row": 0,
+                "text": "관리번호"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 1,
+                "row": 0,
+                "text": "HA-0008"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 2,
+                "row": 0,
+                "text": "날씨"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 3,
+                "row": 0,
+                "text": "맑음"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 5,
+                "row": 0,
+                "text": "고주몽"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 4,
+                "row": 0,
+                "text": "작성자"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 6,
+                "row": 0,
+                "text": "작성일자"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 7,
+                "row": 0,
+                "dateFormat": "yyyy/MM/dd",
+                "suffix": "",
+                "text": "2014/08/11 (월)"
+              }
+            ]
+          },
+          {
+            "type": "space",
+            "name": "",
+            "size": 10
+          },
+          {
+            "type": "tableband",
+            "data": "daily-report-worker",
+            "width": "100%",
+            "name": "",
+            "detail": {
+              "type": "detail",
+              "width": "100%",
+              "name": "",
+              "visible": false
+            },
+            "colCount": 11,
+            "columns": [
+              {
+                "width": "40%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              }
+            ],
+            "header": {
+              "width": "100%",
+              "name": null,
+              "rowCount": 1,
+              "minRowHeight": "24px",
+              "cellStyles": {
+                "borderLeft": "1px solid #000",
+                "borderRight": "1px solid #000",
+                "borderTop": "1px solid #000",
+                "borderBottom": "1px solid #000"
+              },
+              "rows": [
+                {}
+              ],
+              "cells": [
+                {
+                  "r": 0,
+                  "c": 0,
+                  "styles": {
+                    "backgroundColor": "#324a8c"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 1,
+                  "colspan": 10
+                }
+              ],
+              "items": [
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 0,
+                  "row": 0,
+                  "text": "작업자",
+                  "styles": {
+                    "fontWeight": "bolder",
+                    "color": "#fff"
+                  }
+                }
+              ]
+            },
+            "footer": {
+              "width": "100%",
+              "name": null,
+              "visible": false,
+              "rowCount": 1,
+              "cellStyles": {},
+              "rows": [
+                {}
+              ],
+              "cells": []
+            },
+            "dataRow": {
+              "width": "100%",
+              "name": null,
+              "rowCount": 1,
+              "minRowHeight": "24px",
+              "cellStyles": {
+                "borderLeft": "1px solid #000",
+                "borderRight": "1px solid #000",
+                "borderTop": "1px solid #000",
+                "borderBottom": "1px solid #000"
+              },
+              "rows": [
+                {}
+              ],
+              "cells": [
+                {
+                  "r": 0,
+                  "c": 0,
+                  "styles": {
+                    "backgroundColor": "#fffed9"
+                  }
+                }
+              ],
+              "items": [
+                {
+                  "type": "text",
+                  "value": "TeamName",
+                  "name": "",
+                  "col": 0,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "Member1",
+                  "name": "",
+                  "col": 1,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "Member2",
+                  "name": "",
+                  "col": 2,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "Member3",
+                  "name": "",
+                  "col": 3,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "Member4",
+                  "name": "",
+                  "col": 4,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "Member5",
+                  "name": "",
+                  "col": 5,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "Member6",
+                  "name": "",
+                  "col": 6,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "Member7",
+                  "name": "",
+                  "col": 7,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "Member8",
+                  "name": "",
+                  "col": 8,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "Member9",
+                  "name": "",
+                  "col": 9,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "Member10",
+                  "name": "",
+                  "col": 10,
+                  "row": 0,
+                  "text": "Text"
+                }
+              ]
+            }
+          },
+          {
+            "type": "space",
+            "name": "",
+            "size": 10
+          },
+          {
+            "type": "table",
+            "data": "daily-report-airliftStatus",
+            "width": "100%",
+            "name": "",
+            "rowCount": 3,
+            "cellStyles": {
+              "borderLeft": "1px solid #000",
+              "borderRight": "1px solid #000",
+              "borderTop": "1px solid #000",
+              "borderBottom": "1px solid #000"
+            },
+            "rows": [
+              {},
+              {},
+              {}
+            ],
+            "cells": [
+              {
+                "r": 0,
+                "c": 0,
+                "styles": {
+                  "backgroundColor": "#324a8c"
+                }
+              },
+              {
+                "r": 0,
+                "c": 1,
+                "colspan": 5,
+                "styles": {
+                  "backgroundColor": "#ffcdcd"
+                }
+              },
+              {
+                "r": 0,
+                "c": 6,
+                "colspan": 2,
+                "styles": {
+                  "backgroundColor": "#a6d1e8"
+                }
+              },
+              {
+                "r": 0,
+                "c": 8,
+                "colspan": 3,
+                "styles": {
+                  "backgroundColor": "#e1ffce"
+                }
+              },
+              {
+                "r": 1,
+                "c": 0,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 1,
+                "c": 1,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 1,
+                "c": 2,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 1,
+                "c": 3,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 1,
+                "c": 4,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 1,
+                "c": 5,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 1,
+                "c": 6,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 1,
+                "c": 7,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 1,
+                "c": 8,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 1,
+                "c": 9,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 1,
+                "c": 10,
+                "styles": {
+                  "backgroundColor": "#fffed9"
+                }
+              },
+              {
+                "r": 2,
+                "c": 1,
+                "styles": {
+                  "cellAlign": "right"
+                }
+              },
+              {
+                "r": 2,
+                "c": 2,
+                "styles": {
+                  "cellAlign": "right"
+                }
+              },
+              {
+                "r": 2,
+                "c": 3,
+                "styles": {
+                  "cellAlign": "right"
+                }
+              },
+              {
+                "r": 2,
+                "c": 4,
+                "styles": {
+                  "cellAlign": "right"
+                }
+              },
+              {
+                "r": 2,
+                "c": 5,
+                "styles": {
+                  "cellAlign": "right"
+                }
+              },
+              {
+                "r": 2,
+                "c": 6,
+                "styles": {
+                  "cellAlign": "right"
+                }
+              },
+              {
+                "r": 2,
+                "c": 7,
+                "styles": {
+                  "cellAlign": "right"
+                }
+              },
+              {
+                "r": 2,
+                "c": 8,
+                "styles": {
+                  "cellAlign": "right"
+                }
+              },
+              {
+                "r": 2,
+                "c": 9,
+                "styles": {
+                  "cellAlign": "right"
+                }
+              },
+              {
+                "r": 2,
+                "c": 10,
+                "styles": {
+                  "cellAlign": "right"
+                }
+              }
+            ],
+            "colCount": 11,
+            "columns": [
+              {
+                "width": "40%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              }
+            ],
+            "items": [
+              {
+                "type": "text",
+                "name": "",
+                "col": 8,
+                "row": 0,
+                "text": "작업공수"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 6,
+                "row": 0,
+                "text": "추가공수"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 1,
+                "row": 0,
+                "text": "휴업공수"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 0,
+                "row": 0,
+                "text": "공수현황",
+                "styles": {
+                  "fontWeight": "bolder",
+                  "color": "#fff",
+                  "__tag_": {}
+                }
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 0,
+                "row": 1,
+                "text": "재적공수"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 1,
+                "row": 1,
+                "text": "교육/훈련"
+              },
+              {
+                "type": "text",
+                "value": "Training",
+                "name": "",
+                "col": 1,
+                "row": 2,
+                "text": "Text"
+              },
+              {
+                "type": "text",
+                "value": "Enroll",
+                "name": "",
+                "col": 0,
+                "row": 2,
+                "text": "Text"
+              },
+              {
+                "type": "text",
+                "value": "Vacation",
+                "name": "",
+                "col": 2,
+                "row": 2,
+                "text": "Text"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 2,
+                "row": 1,
+                "text": "휴가"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 3,
+                "row": 1,
+                "text": "조퇴/외출"
+              },
+              {
+                "type": "text",
+                "value": "Leave",
+                "name": "",
+                "col": 3,
+                "row": 2,
+                "text": "Text"
+              },
+              {
+                "type": "text",
+                "value": "Absence",
+                "name": "",
+                "col": 4,
+                "row": 2,
+                "text": "Text"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 4,
+                "row": 1,
+                "text": "결근"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 5,
+                "row": 1,
+                "text": "기타"
+              },
+              {
+                "type": "text",
+                "value": "Etc",
+                "name": "",
+                "col": 5,
+                "row": 2,
+                "text": "Text"
+              },
+              {
+                "type": "text",
+                "value": "Overtime",
+                "name": "",
+                "col": 6,
+                "row": 2,
+                "text": "Text"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 6,
+                "row": 1,
+                "text": "잔업"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 7,
+                "row": 1,
+                "text": "피지원"
+              },
+              {
+                "type": "text",
+                "value": "Supported",
+                "name": "",
+                "col": 7,
+                "row": 2,
+                "text": "Text"
+              },
+              {
+                "type": "text",
+                "value": "Total",
+                "name": "",
+                "col": 8,
+                "row": 2,
+                "text": "Text"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 8,
+                "row": 1,
+                "text": "작업공수"
+              },
+              {
+                "type": "text",
+                "value": "Less",
+                "name": "",
+                "col": 9,
+                "row": 2,
+                "text": "Text"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 9,
+                "row": 1,
+                "text": "유실공수"
+              },
+              {
+                "type": "text",
+                "name": "",
+                "col": 10,
+                "row": 1,
+                "text": "실동공수"
+              },
+              {
+                "type": "text",
+                "value": "Current",
+                "name": "",
+                "col": 10,
+                "row": 2,
+                "text": "Text"
+              }
+            ]
+          },
+          {
+            "type": "space",
+            "name": "",
+            "size": 10
+          },
+          {
+            "type": "tableband",
+            "data": "daily-report-production",
+            "width": "100%",
+            "name": "",
+            "detail": {
+              "type": "detail",
+              "width": "100%",
+              "name": ""
+            },
+            "colCount": 11,
+            "columns": [
+              {
+                "width": "40%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              }
+            ],
+            "header": {
+              "width": "100%",
+              "name": null,
+              "rowCount": 2,
+              "cellStyles": {
+                "borderLeft": "1px solid #000",
+                "borderRight": "1px solid #000",
+                "borderTop": "1px solid #000",
+                "borderBottom": "1px solid #000"
+              },
+              "rows": [
+                {},
+                {}
+              ],
+              "cells": [
+                {
+                  "r": 0,
+                  "c": 0,
+                  "rowspan": 2,
+                  "styles": {
+                    "backgroundColor": "#324a8c"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 1,
+                  "colspan": 5,
+                  "styles": {
+                    "backgroundColor": "#a6d1e8"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 6,
+                  "colspan": 5,
+                  "styles": {
+                    "backgroundColor": "#e1ffce"
+                  }
+                },
+                {
+                  "r": 1,
+                  "c": 1,
+                  "styles": {
+                    "backgroundColor": "#a6d1e8"
+                  }
+                },
+                {
+                  "r": 1,
+                  "c": 2,
+                  "styles": {
+                    "backgroundColor": "#a6d1e8"
+                  }
+                },
+                {
+                  "r": 1,
+                  "c": 3,
+                  "styles": {
+                    "backgroundColor": "#a6d1e8"
+                  }
+                },
+                {
+                  "r": 1,
+                  "c": 4,
+                  "styles": {
+                    "backgroundColor": "#a6d1e8"
+                  }
+                },
+                {
+                  "r": 1,
+                  "c": 5,
+                  "styles": {
+                    "backgroundColor": "#a6d1e8"
+                  }
+                },
+                {
+                  "r": 1,
+                  "c": 6,
+                  "styles": {
+                    "backgroundColor": "#e1ffce"
+                  }
+                },
+                {
+                  "r": 1,
+                  "c": 7,
+                  "styles": {
+                    "backgroundColor": "#e1ffce"
+                  }
+                },
+                {
+                  "r": 1,
+                  "c": 8,
+                  "styles": {
+                    "backgroundColor": "#e1ffce"
+                  }
+                },
+                {
+                  "r": 1,
+                  "c": 9,
+                  "styles": {
+                    "backgroundColor": "#e1ffce"
+                  }
+                },
+                {
+                  "r": 1,
+                  "c": 10,
+                  "styles": {
+                    "backgroundColor": "#e1ffce"
+                  }
+                }
+              ],
+              "items": [
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 0,
+                  "row": 0,
+                  "text": "생산현황",
+                  "styles": {
+                    "fontWeight": "bolder",
+                    "color": "#fff",
+                    "__tag_": {}
+                  }
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 1,
+                  "row": 0,
+                  "text": "금일 계획 및 달성 실적"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 1,
+                  "row": 1,
+                  "text": "금일계획"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 2,
+                  "row": 1,
+                  "text": "금일생산"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 3,
+                  "row": 1,
+                  "text": "금일불량"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 4,
+                  "row": 1,
+                  "text": "생산실적"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 5,
+                  "row": 1,
+                  "text": "불량율"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 6,
+                  "row": 0,
+                  "text": "월간 계획 및 달성 실적"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 7,
+                  "row": 1,
+                  "text": "월간누계"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 8,
+                  "row": 1,
+                  "text": "월간불량"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 9,
+                  "row": 1,
+                  "text": "월간실적"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 10,
+                  "row": 1,
+                  "text": "월불량율"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 6,
+                  "row": 1,
+                  "text": "월간계획"
+                }
+              ]
+            },
+            "footer": {
+              "width": "100%",
+              "name": null,
+              "rowCount": 1,
+              "cellStyles": {
+                "borderLeft": "1px solid #000",
+                "borderRight": "1px solid #000",
+                "borderTop": "2px solid rgb(0, 0, 0)",
+                "borderBottom": "1px solid #000"
+              },
+              "rows": [
+                {}
+              ],
+              "cells": [
+                {
+                  "r": 0,
+                  "c": 1,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 2,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 3,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 4,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 5,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 6,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 7,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 8,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 9,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 10,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                }
+              ],
+              "items": [
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 0,
+                  "row": 0,
+                  "text": "합계"
+                },
+                {
+                  "type": "summary",
+                  "name": "",
+                  "col": 1,
+                  "row": 0,
+                  "expression": "sum(금일계획)"
+                },
+                {
+                  "type": "summary",
+                  "name": "",
+                  "col": 3,
+                  "row": 0,
+                  "expression": "sum(금일불량)"
+                },
+                {
+                  "type": "summary",
+                  "name": "",
+                  "col": 4,
+                  "row": 0,
+                  "suffix": "%",
+                  "expression": "sum(금일실적)/sum(금일계획)*100"
+                },
+                {
+                  "type": "summary",
+                  "name": "",
+                  "col": 2,
+                  "row": 0,
+                  "expression": "sum(금일실적)"
+                },
+                {
+                  "type": "summary",
+                  "name": "",
+                  "col": 5,
+                  "row": 0,
+                  "suffix": "%",
+                  "expression": "sum(금일불량)/sum(금일실적)*100"
+                },
+                {
+                  "type": "summary",
+                  "name": "",
+                  "col": 6,
+                  "row": 0,
+                  "expression": "sum(월간계획)"
+                },
+                {
+                  "type": "summary",
+                  "name": "",
+                  "col": 7,
+                  "row": 0,
+                  "expression": "sum(월간누계)"
+                },
+                {
+                  "type": "summary",
+                  "name": "",
+                  "col": 8,
+                  "row": 0,
+                  "expression": "sum(월간불량)"
+                },
+                {
+                  "type": "summary",
+                  "name": "",
+                  "col": 9,
+                  "row": 0,
+                  "suffix": "%",
+                  "expression": "sum(월간누계)/sum(월간계획)*100"
+                },
+                {
+                  "type": "summary",
+                  "name": "",
+                  "col": 10,
+                  "row": 0,
+                  "suffix": "%",
+                  "expression": "sum(월간불량)/sum(월간누계)*100"
+                }
+              ]
+            },
+            "dataRow": {
+              "width": "100%",
+              "name": null,
+              "rowCount": 1,
+              "cellStyles": {
+                "borderLeft": "1px solid #000",
+                "borderRight": "1px solid #000",
+                "borderTop": "1px solid #000",
+                "borderBottom": "1px solid #000"
+              },
+              "rows": [
+                {}
+              ],
+              "cells": [
+                {
+                  "r": 0,
+                  "c": 1,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 2,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 3,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 4,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 5,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 6,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 7,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 8,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 9,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 10,
+                  "styles": {
+                    "cellAlign": "right"
+                  }
+                }
+              ],
+              "items": [
+                {
+                  "type": "text",
+                  "value": "제품",
+                  "name": "",
+                  "col": 0,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "금일계획",
+                  "name": "",
+                  "col": 1,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "금일실적",
+                  "name": "",
+                  "col": 2,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "금일불량",
+                  "name": "",
+                  "col": 3,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "월간계획",
+                  "name": "",
+                  "col": 6,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "월간누계",
+                  "name": "",
+                  "col": 7,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "월간불량",
+                  "name": "",
+                  "col": 8,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "생산실적",
+                  "name": "",
+                  "col": 4,
+                  "row": 0,
+                  "suffix": "%",
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "불량율",
+                  "name": "",
+                  "col": 5,
+                  "row": 0,
+                  "suffix": "%",
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "월간실적",
+                  "name": "",
+                  "col": 9,
+                  "row": 0,
+                  "suffix": "%",
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "월불량율",
+                  "name": "",
+                  "col": 10,
+                  "row": 0,
+                  "suffix": "%",
+                  "text": "Text"
+                }
+              ]
+            }
+          },
+          {
+            "type": "space",
+            "name": "",
+            "size": 10
+          },
+          {
+            "type": "tableband",
+            "data": "daily-report-faulty",
+            "width": "100%",
+            "name": "",
+            "detail": {
+              "type": "detail",
+              "width": "100%",
+              "name": ""
+            },
+            "colCount": 7,
+            "columns": [
+              {
+                "width": "24%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              },
+              {
+                "width": "20%"
+              }
+            ],
+            "header": {
+              "width": "100%",
+              "name": null,
+              "rowCount": 1,
+              "cellStyles": {
+                "borderLeft": "1px solid #000",
+                "borderRight": "1px solid #000",
+                "borderTop": "1px solid #000",
+                "borderBottom": "1px solid #000"
+              },
+              "rows": [
+                {}
+              ],
+              "cells": [
+                {
+                  "r": 0,
+                  "c": 0,
+                  "styles": {
+                    "backgroundColor": "#324a8c"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 1,
+                  "styles": {
+                    "backgroundColor": "#ffcdcd"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 2,
+                  "styles": {
+                    "backgroundColor": "#ffcdcd"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 3,
+                  "styles": {
+                    "backgroundColor": "#ffcdcd"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 4,
+                  "styles": {
+                    "backgroundColor": "#ffcdcd"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 5,
+                  "styles": {
+                    "backgroundColor": "#ffcdcd"
+                  }
+                },
+                {
+                  "r": 0,
+                  "c": 6,
+                  "styles": {
+                    "backgroundColor": "#ffcdcd"
+                  }
+                }
+              ],
+              "items": [
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 0,
+                  "row": 0,
+                  "text": "불량현황",
+                  "styles": {
+                    "fontWeight": "bolder",
+                    "color": "#fff",
+                    "__tag_": {}
+                  }
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 1,
+                  "row": 0,
+                  "text": "성형"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 2,
+                  "row": 0,
+                  "text": "혼입"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 3,
+                  "row": 0,
+                  "text": "압착"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 4,
+                  "row": 0,
+                  "text": "작동"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 5,
+                  "row": 0,
+                  "text": "흠집"
+                },
+                {
+                  "type": "text",
+                  "name": "",
+                  "col": 6,
+                  "row": 0,
+                  "text": "조립"
+                }
+              ]
+            },
+            "footer": {
+              "width": "100%",
+              "name": null,
+              "visible": false,
+              "rowCount": 1,
+              "cellStyles": {
+                "borderLeft": "1px solid #fff",
+                "borderRight": "1px solid #fff",
+                "borderTop": "1px solid #fff",
+                "borderBottom": "1px solid #fff"
+              },
+              "rows": [
+                {}
+              ],
+              "cells": []
+            },
+            "dataRow": {
+              "width": "100%",
+              "name": null,
+              "rowCount": 1,
+              "cellStyles": {
+                "borderLeft": "1px solid #000",
+                "borderRight": "1px solid #000",
+                "borderTop": "1px solid #000",
+                "borderBottom": "1px solid #000"
+              },
+              "rows": [
+                {}
+              ],
+              "cells": [],
+              "items": [
+                {
+                  "type": "text",
+                  "value": "제품",
+                  "name": "",
+                  "col": 0,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "성형",
+                  "name": "",
+                  "col": 1,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "혼입",
+                  "name": "",
+                  "col": 2,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "압착",
+                  "name": "",
+                  "col": 3,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "작동",
+                  "name": "",
+                  "col": 4,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "흠집",
+                  "name": "",
+                  "col": 5,
+                  "row": 0,
+                  "text": "Text"
+                },
+                {
+                  "type": "text",
+                  "value": "조립",
+                  "name": "",
+                  "col": 6,
+                  "row": 0,
+                  "text": "Text"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "assets": {
+      "/": []
+    },
+    "data": {
+      "daily-report-production": {
+        "type": "band",
+        "sampleCount": 13,
+        "fields": [
+          {
+            "fieldName": "ID",
+            "dataType": "number",
+            "sample": "1",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "제품",
+            "dataType": "text",
+            "sample": "SSANGYOUNG",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "금일계획",
+            "dataType": "number",
+            "sample": "30",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "금일실적",
+            "dataType": "number",
+            "sample": "30",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "금일불량",
+            "dataType": "number",
+            "sample": "1",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "월간계획",
+            "dataType": "number",
+            "sample": "650",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "월간누계",
+            "dataType": "number",
+            "sample": "168",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "월간불량",
+            "dataType": "number",
+            "sample": "3",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "생산실적",
+            "dataType": "number",
+            "format": "",
+            "sample": "",
+            "expression": "(금일실적/금일계획)*100",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "불량율",
+            "dataType": "number",
+            "format": "",
+            "sample": "",
+            "expression": "(금일불량/금일실적)*100",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "월간실적",
+            "dataType": "number",
+            "format": "",
+            "sample": "",
+            "expression": "(월간누계/월간계획)*100",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "월불량율",
+            "dataType": "number",
+            "format": "",
+            "sample": "",
+            "expression": "(월간불량/월간누계)*100",
+            "description": "",
+            "dateReader": null
+          }
+        ]
+      },
+      "daily-report-faulty": {
+        "type": "band",
+        "sampleCount": 13,
+        "fields": [
+          {
+            "fieldName": "ID",
+            "dataType": "number",
+            "sample": "1",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "제품",
+            "dataType": "text",
+            "sample": "SSANGYOUNG",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "성형",
+            "dataType": "number",
+            "sample": "1",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "혼입",
+            "dataType": "number",
+            "sample": "0",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "압착",
+            "dataType": "number",
+            "sample": "0",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "작동",
+            "dataType": "number",
+            "sample": "0",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "흠집",
+            "dataType": "number",
+            "sample": "0",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "조립",
+            "dataType": "number",
+            "sample": "0",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "유형1",
+            "dataType": "number",
+            "sample": "",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "유형2",
+            "dataType": "number",
+            "sample": "",
+            "description": "",
+            "dateReader": null
+          },
+          {
+            "fieldName": "유형3",
+            "dataType": "number",
+            "sample": "",
+            "description": "",
+            "dateReader": null
+          }
+        ]
+      },
+      "daily-report-airliftStatus": {
+        "type": "simple",
+        "sample": {
+          "Enroll": 22,
+          "Training": 0,
+          "Vacation": 0,
+          "Leave": 0,
+          "Absence": 0,
+          "Etc": 0,
+          "Overtime": 0,
+          "Supported": 0,
+          "Total": 22,
+          "Less": 0,
+          "Current": 22
+        }
+      },
+      "daily-report-worker": {
+        "type": "band",
+        "sampleCount": 6,
+        "fields": [
+          {
+            "fieldName": "ID",
+            "dataType": "number",
+            "sample": 1,
+            "dateReader": null
+          },
+          {
+            "fieldName": "TeamName",
+            "dataType": "text",
+            "sample": "가공1팀",
+            "dateReader": null
+          },
+          {
+            "fieldName": "Member1",
+            "dataType": "text",
+            "sample": "이효리",
+            "dateReader": null
+          },
+          {
+            "fieldName": "Member2",
+            "dataType": "text",
+            "sample": "전지현",
+            "dateReader": null
+          },
+          {
+            "fieldName": "Member3",
+            "dataType": "text",
+            "sample": "차태현",
+            "dateReader": null
+          },
+          {
+            "fieldName": "Member4",
+            "dataType": "text",
+            "sample": "원빈",
+            "dateReader": null
+          },
+          {
+            "fieldName": "Member5",
+            "dataType": "text",
+            "sample": "강남",
+            "dateReader": null
+          },
+          {
+            "fieldName": "Member6",
+            "dataType": "text",
+            "sample": null,
+            "dateReader": null
+          },
+          {
+            "fieldName": "Member7",
+            "dataType": "text",
+            "sample": null,
+            "dateReader": null
+          },
+          {
+            "fieldName": "Member8",
+            "dataType": "text",
+            "sample": null,
+            "dateReader": null
+          },
+          {
+            "fieldName": "Member9",
+            "dataType": "text",
+            "sample": null,
+            "dateReader": null
+          },
+          {
+            "fieldName": "Member10",
+            "dataType": "text",
+            "sample": null,
+            "dateReader": null
+          }
+        ]
+      }
+    },
+    "guid": "8ab99006-8227-4494-bddf-e8373d3109ae"
+}

@@ -1,0 +1,16 @@
+{
+    "fields": [
+        { "fieldName": "XData", "dataType": "number", "sample": 5 },
+        { "fieldName": "Item", "dataType": "number", "sample": 5 },
+        { "fieldName": "X2", "dataType": "number", "sample": 1 },
+        { "fieldName": "Cp", "dataType": "number", "sample": 1.3 },
+        { "fieldName": "Cpk", "dataType": "number", "sample": 1.0 },
+        { "fieldName": "Item2", "dataType": "number", "sample": 2 },
+        { "fieldName": "Item3", "dataType": "number", "sample": 3 },
+        { "fieldName": "Min", "dataType": "number", "sample": 27 },
+        { "fieldName": "Max", "dataType": "number", "sample": 27 }
+    ],
+    "sample": [
+
+    ]
+}

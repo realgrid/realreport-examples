@@ -1,0 +1,32 @@
+{
+    "daily-report": {
+        "type": "band",
+        "values": [
+            {
+                "company": "AAA",
+                "contact": "홍길동",
+                "fromHour": "11:00",
+                "toHour": "12:00",
+                "purpose": "SALE",
+                "amount": 7500000,
+                "depositDate": "2/10",
+                "depositAmount": 7500000,
+                "comment": ""
+            }
+        ]
+    },
+    "daily-summary": {
+        "type": "simple",
+        "values": {
+            "date": "2007-01-08",
+            "monthPlan": 50000000,
+            "monthlyPct": "50%",
+            "todayResult": 7500000,
+            "todayDeposit": 7500000,
+            "todayRemain": 0,
+            "todayTotal": 7500000,
+            "todatPct": "15%",
+            "depositPct": "100%"
+        }
+    }
+}
