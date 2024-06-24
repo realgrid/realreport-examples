@@ -1,0 +1,63 @@
+{
+    "transaction-master": {
+        "type": "simple",
+        "values": {
+            "prodBizRegNo": "123-45-67890",
+            "prodCompName": "우리테크",
+            "prodRepName": "홍길동",
+            "prodBizAddress": "경기도 성남시 운중로 123",
+            "prodBizType": "과학기기 시약",
+            "prodBizItem": "도소매",
+            "consBizRegNo": "098-76-54321",
+            "consCompName": "제일제약",
+            "consRepName": "김철수",
+            "consBizAddress": "경기도 광주시 경안동 123-1",
+            "consBizType": "기타화학제품제",
+            "consBizItem": "화공약품 외",
+            "poNo": 2817319237,
+            "deliveryDate": "2021.1.1",
+            "deliveryNo": 137154220
+        }
+    },
+    "transaction-detail": {
+        "type": "band",
+        "values": [
+            {
+                "code": "DP0000001",
+                "name": "TSM Roter A",
+                "unit": "EA",
+                "quantity": 1,
+                "unitPrice": 1300000,
+                "supplyPrice": 1300000,
+                "tax": 130000,
+                "createDate": "2019-01-03",
+                "buyerName": "김지민",
+                "buyerTel": "010-1234-5678"
+            },
+            {
+                "code": "DP0000002",
+                "name": "TSM Roter B",
+                "unit": "EA",
+                "quantity": 3,
+                "unitPrice": 1700000,
+                "supplyPrice": 5100000,
+                "tax": 510000,
+                "createDate": "2019-11-10",
+                "buyerName": "이성민",
+                "buyerTel": "010-1234-5679"
+            },
+            {
+                "code": "KS0000521",
+                "name": "KS Roter B",
+                "unit": "EA",
+                "quantity": 2,
+                "unitPrice": 1800000,
+                "supplyPrice": 3600000,
+                "tax": 360000,
+                "createDate": "2020-12-17",
+                "buyerName": "최민욱",
+                "buyerTel": "010-1234-5680"
+            }
+        ]
+    }
+}

@@ -1,0 +1,1190 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "height": 0,
+            "visible": false
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "items": [
+                {
+                    "type": "table",
+                    "width": "50%",
+                    "name": "",
+                    "right": "0px",
+                    "rowCount": 2,
+                    "minRowHeight": "18px",
+                    "cellStyles": {
+                        "borderLeft": "solid 1px #313131ff",
+                        "borderRight": "solid 1px #313131ff",
+                        "borderTop": "solid 1px #313131ff",
+                        "borderBottom": "solid 1px #313131ff"
+                    },
+                    "rows": [
+                        {},
+                        {
+                            "height": "50px"
+                        }
+                    ],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "rowspan": 2,
+                            "styles": {
+                                "backgroundColor": "#e8e8e8ff",
+                                "borderBottom": ""
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 1,
+                            "styles": {
+                                "backgroundColor": "#e8e8e8ff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 2,
+                            "styles": {
+                                "backgroundColor": "#e8e8e8ff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 3,
+                            "styles": {
+                                "backgroundColor": "#e8e8e8ff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 4,
+                            "styles": {
+                                "backgroundColor": "#e8e8e8ff"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 5,
+                            "styles": {
+                                "backgroundColor": "#e8e8e8ff"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 1,
+                            "styles": {
+                                "borderBottom": ""
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 2,
+                            "styles": {
+                                "borderBottom": ""
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 3,
+                            "styles": {
+                                "borderBottom": ""
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 4,
+                            "styles": {
+                                "borderBottom": ""
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 5,
+                            "styles": {
+                                "borderBottom": ""
+                            }
+                        }
+                    ],
+                    "colCount": 6,
+                    "columns": [
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "25%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "multiLine": true,
+                            "text": "결<br>재",
+                            "styles": {
+                                "verticalAlign": "middle",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 0,
+                            "text": "담당"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "과장"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 0,
+                            "text": "부장"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 0,
+                            "text": "이사"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 0,
+                            "text": "사장"
+                        }
+                    ]
+                },
+                {
+                    "type": "text",
+                    "name": "",
+                    "left": 84,
+                    "text": "생산/재고 일일보고",
+                    "styles": {
+                        "fontSize": "23px",
+                        "__tag_": {}
+                    }
+                }
+            ]
+        },
+        "reportFooter": {
+            "name": "reportFooter",
+            "height": 0
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "height": 0,
+            "visible": false
+        },
+        "body": {
+            "itemGap": "-1px",
+            "items": [
+                {
+                    "type": "space",
+                    "name": "",
+                    "size": "30px"
+                },
+                {
+                    "type": "tableband",
+                    "data": "product-stock1",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "visible": false
+                    },
+                    "colCount": 7,
+                    "columns": [
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [
+                            {
+                                "height": "40px"
+                            }
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "colspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "구분"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "기준재고액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "현재재고액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "과다재고액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "특기사항"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": []
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [
+                            {
+                                "height": "40px"
+                            }
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "none",
+                                    "borderBottom": "1px solid"
+                                },
+                                "autoMerge": true
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "colspan": 2,
+                                "styles": {
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "Process",
+                                "width": "13px",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "wrap": true,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Type",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Base",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Current",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Over",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Comment",
+                                "name": "",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "tableband",
+                    "data": "product-stock2",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "visible": false
+                    },
+                    "colCount": 7,
+                    "columns": [
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [
+                            {
+                                "height": "40px"
+                            }
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "center",
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "center",
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "colspan": 3,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "width": 26,
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "계획"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "품목명"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "수량"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "금액"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "특기사항"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": []
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [
+                            {
+                                "height": "40px"
+                            }
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                },
+                                "autoMerge": true
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "colspan": 3,
+                                "styles": {
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "Process",
+                                "width": "13px",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "wrap": true,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Product",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Quantity",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Amount",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Comment",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "tableband",
+                    "data": "product-stock3",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": "",
+                        "visible": false
+                    },
+                    "colCount": 7,
+                    "columns": [
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [
+                            {
+                                "height": "40px"
+                            }
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "none"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "center",
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "center",
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "colspan": 3,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "구분"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "품목"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "수량"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "처리방안"
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": []
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [
+                            {
+                                "height": "40px"
+                            }
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#e8e8e8ff",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "none",
+                                    "borderBottom": "1px solid"
+                                },
+                                "autoMerge": true
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "center",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right",
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "colspan": 3,
+                                "styles": {
+                                    "borderLeft": "1px solid",
+                                    "borderRight": "1px solid",
+                                    "borderTop": "1px solid",
+                                    "borderBottom": "1px solid"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "Process",
+                                "width": "13px",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "wrap": true,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Method",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Quantity",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Product",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Type",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "product-stock1": {
+            "sampleCount": 2,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "Process",
+                    "dataType": "text",
+                    "sample": "재고관리",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Type",
+                    "dataType": "text",
+                    "sample": "상품",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Base",
+                    "dataType": "number",
+                    "sample": "50000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Current",
+                    "dataType": "number",
+                    "sample": "60000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Over",
+                    "dataType": "number",
+                    "sample": "10000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Comment",
+                    "dataType": "text",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "product-stock2": {
+            "sampleCount": 10,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "Process",
+                    "dataType": "text",
+                    "sample": "생산계획",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Product",
+                    "dataType": "text",
+                    "sample": "ET001",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Quantity",
+                    "dataType": "number",
+                    "sample": "100",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Amount",
+                    "dataType": "number",
+                    "sample": "300000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Comment",
+                    "dataType": "text",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "product-stock3": {
+            "sampleCount": 4,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "Process",
+                    "dataType": "text",
+                    "sample": "불량재고 관리",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Type",
+                    "dataType": "text",
+                    "sample": "악성재고",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Product",
+                    "dataType": "text",
+                    "sample": "ET001",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Quantity",
+                    "dataType": "number",
+                    "sample": "500",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Method",
+                    "dataType": "text",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        }
+    },
+    "guid": "24643851-f8ab-44d4-ae5b-5b59716ee8b4"
+}

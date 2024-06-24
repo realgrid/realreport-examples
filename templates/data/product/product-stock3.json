@@ -1,0 +1,39 @@
+{
+    "fields": [
+        { "fieldName": "Process", "dataType": "text", "sample": "불량재고 관리" },
+        { "fieldName": "Type", "dataType": "text", "sample": "악성재고" },
+        { "fieldName": "Product", "dataType": "text", "sample": "ET001" },
+        { "fieldName": "Quantity", "dataType": "number", "sample": 500 },
+        { "fieldName": "Method", "dataType": "text", " sample": "폐기예정" }
+    ],
+    "sample": [
+        {
+            "Process" : "불량재고 관리",
+            "Type": "과다재고",
+            "Product": "ET005",
+            "Quantity": 200,
+            "Method": ""
+        },
+        {
+            "Process" : "불량재고 관리",
+            "Type": "과다재고",
+            "Product": "ET006",
+            "Quantity": 500,
+            "Method": ""
+        },
+        {
+            "Process" : "불량재고 관리",
+            "Type": "부진재고",
+            "Product": "ET008",
+            "Quantity": 100,
+            "Method": ""
+        },
+        {
+            "Process" : "불량재고 관리",
+            "Type": "악성재고",
+            "Product": "ET001",
+            "Quantity": 500,
+            "Method": "폐기예정"
+        }
+    ]
+}

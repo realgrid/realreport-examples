@@ -1,0 +1,60 @@
+{
+    "order-master": {
+        "type": "simple",
+        "values": {
+            "orderNo": "21300-493002",
+            "orderDate": "2004-12-01",
+            "receiptName": "(주)대한특수플라스틱",
+            "receiptPhone": "(081)230-3009",
+            "receiptFax": "(081)230-3008",
+            "receiptContact": "김대한",
+            "senderName": "대만프라스틱공업(주)",
+            "senderPhone": "(081)489-2003",
+            "senderFax": "(081)489-2002",
+            "senderContact": "이대만",
+            "dueDate": "2004-12-10",
+            "deliveryTerm": null,
+            "paymentTerm": "Cash(대금지불일 현금지급)",
+            "insection": null,
+            "remark": null
+        }
+    },
+    "order-detail": {
+        "type": "band",
+        "values": [
+            {
+                "orderNo": "21300-493002",
+                "item": "MQ200Q01-A1",
+                "standard": "EPS M50",
+                "unit": "BOX",
+                "quantity": 220,
+                "unitPrice": 4100,
+                "amount": 902000,
+                "tax": 90200,
+                "remark": null
+            },
+            {
+                "orderNo": "21300-493002",
+                "item": "CUSHIN-L/R",
+                "standard": "PG19HS",
+                "unit": "BOX",
+                "quantity": 1300,
+                "unitPrice": 2500,
+                "amount": 3250000,
+                "tax": 325000,
+                "remark": null
+            },
+            {
+                "orderNo": "21300-493002",
+                "item": "LB018Q01",
+                "standard": "EPS M50",
+                "unit": "BOX",
+                "quantity": 510,
+                "unitPrice": 3300,
+                "amount": 1683000,
+                "tax": 168300,
+                "remark": null
+            }
+        ]
+    }
+}

@@ -1,0 +1,82 @@
+{
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "items": [
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "right": 0,
+                    "itemGap": 4,
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "Date:"
+                        },
+                        {
+                            "type": "text",
+                            "value": "${date}",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "items": [
+                {
+                    "type": "text",
+                    "text": "Report Header",
+                    "styles": {
+                        "fontSize": "30px",
+                        "fontWeight": "bold"
+                    }
+                }
+            ]
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "items": [
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "right": 0,
+                    "itemGap": 4,
+                    "items": [
+                        {
+                            "type": "text",
+                            "value": "${page}",
+                            "name": "",
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "/",
+                            "styles": {
+                                "paddingLeft": "3px",
+                                "paddingRight": "3px"
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "${pages}",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "body": {
+            "name": "pageBody"
+        }
+    }
+}

@@ -1,0 +1,1426 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "height": 0,
+            "visible": false
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "styles": {
+                "paddingBottom": "30px",
+                "__tag_": {}
+            },
+            "items": [
+                {
+                    "type": "text",
+                    "text": "인원현황 보고서",
+                    "styles": {
+                        "fontSize": "30px",
+                        "fontWeight": "bold",
+                        "borderBottom": "1px solid #000",
+                        "__tag_": {}
+                    }
+                }
+            ]
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "items": [
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "right": 0,
+                    "itemGap": 4,
+                    "items": [
+                        {
+                            "type": "text",
+                            "value": "${page}",
+                            "name": "",
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "/",
+                            "styles": {
+                                "paddingLeft": "3px",
+                                "paddingRight": "3px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "${pages}",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "body": {
+            "itemGap": 4,
+            "items": [
+                {
+                    "type": "stack",
+                    "width": "100%",
+                    "height": 100,
+                    "name": "",
+                    "styles": {
+                        "paddingBottom": "20px",
+                        "__tag_": {}
+                    },
+                    "items": [
+                        {
+                            "type": "table",
+                            "width": "35%",
+                            "name": "",
+                            "right": "0px",
+                            "rowCount": 2,
+                            "minRowHeight": "24px",
+                            "cellStyles": {
+                                "borderLeft": "",
+                                "borderRight": "",
+                                "borderTop": "",
+                                "borderBottom": ""
+                            },
+                            "rows": [
+                                {},
+                                {
+                                    "height": "50px"
+                                }
+                            ],
+                            "cells": [
+                                {
+                                    "r": 0,
+                                    "c": 0,
+                                    "styles": {
+                                        "backgroundColor": "#eee",
+                                        "borderLeft": "2px solid #bbb",
+                                        "borderTop": "2px solid #bbb"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 1,
+                                    "styles": {
+                                        "backgroundColor": "#eee",
+                                        "borderTop": "2px solid #bbb"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 2,
+                                    "styles": {
+                                        "backgroundColor": "#eee",
+                                        "borderRight": "2px solid #bbb",
+                                        "borderTop": "2px solid #bbb"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 0,
+                                    "styles": {
+                                        "borderLeft": "2px solid #bbb",
+                                        "borderBottom": "2px solid #bbb"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 1,
+                                    "styles": {
+                                        "borderBottom": "2px solid #bbb"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 2,
+                                    "styles": {
+                                        "borderRight": "2px solid #bbb",
+                                        "borderBottom": "2px solid #bbb"
+                                    }
+                                }
+                            ],
+                            "colCount": 3,
+                            "columns": [
+                                {
+                                    "width": "20%"
+                                },
+                                {
+                                    "width": "20%"
+                                },
+                                {
+                                    "width": "20%"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 0,
+                                    "text": "담  당",
+                                    "styles": {
+                                        "fontWeight": "bold",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 0,
+                                    "text": "부서장",
+                                    "styles": {
+                                        "fontWeight": "bold",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 0,
+                                    "text": "사  장",
+                                    "styles": {
+                                        "fontWeight": "bold",
+                                        "__tag_": {}
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "table",
+                            "width": "370px",
+                            "name": "",
+                            "left": 0,
+                            "rowCount": 3,
+                            "minRowHeight": "24px",
+                            "cellStyles": {
+                                "borderLeft": "none",
+                                "borderRight": "none",
+                                "borderTop": "none",
+                                "borderBottom": "none"
+                            },
+                            "rows": [{}, {}, {}],
+                            "cells": [
+                                {
+                                    "r": 0,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                }
+                            ],
+                            "colCount": 2,
+                            "columns": [
+                                {
+                                    "width": "25%"
+                                },
+                                {
+                                    "width": "75%"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 0,
+                                    "text": "작   성   자:",
+                                    "styles": {
+                                        "fontWeight": "bold",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 0,
+                                    "text": "김도희"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 1,
+                                    "text": "작 성 부 서:",
+                                    "styles": {
+                                        "fontWeight": "bold",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 1,
+                                    "text": "부포시에스 총무부"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 2,
+                                    "text": "작 성 일 자:",
+                                    "styles": {
+                                        "fontWeight": "bold",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "rbox",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 2,
+                                    "itemGap": 4,
+                                    "items": [
+                                        {
+                                            "type": "rbox",
+                                            "name": "",
+                                            "itemGap": "0px",
+                                            "items": [
+                                                {
+                                                    "type": "text",
+                                                    "name": "",
+                                                    "onGetValue": "return new Date().getFullYear();",
+                                                    "numberFormat": "###0",
+                                                    "suffix": "년",
+                                                    "text": "Text"
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "name": "",
+                                                    "onGetValue": "return new Date().getMonth() + 1;",
+                                                    "numberFormat": "###0",
+                                                    "suffix": "월",
+                                                    "text": "Text"
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "name": "",
+                                                    "onGetValue": "return new Date().getDate();",
+                                                    "numberFormat": "###0",
+                                                    "suffix": "일",
+                                                    "text": "Text"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "onGetValue": "const weekday = ['일', '월', '화', '수', '목', '금', '토'];\n  return weekday[new Date().getDay()];",
+                                            "text": "Text"
+                                        },
+                                        {
+                                            "type": "rbox",
+                                            "name": "",
+                                            "itemGap": "0px",
+                                            "items": [
+                                                {
+                                                    "type": "text",
+                                                    "name": "",
+                                                    "onGetValue": "return new Date().getHours();",
+                                                    "numberFormat": "###0",
+                                                    "suffix": "시",
+                                                    "text": "Text"
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "name": "",
+                                                    "onGetValue": "return new Date().getMinutes();",
+                                                    "numberFormat": "###0",
+                                                    "suffix": "분",
+                                                    "text": "Text"
+                                                },
+                                                {
+                                                    "type": "text",
+                                                    "name": "",
+                                                    "onGetValue": "return new Date().getSeconds();",
+                                                    "numberFormat": "###0",
+                                                    "suffix": "초",
+                                                    "text": "Text"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "onGetValue": "if(new Date().getHours() >= 12) return '오후';\n  else return '오전';",
+                                            "text": "Text",
+                                            "onGetContextValue": ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "tableband",
+                    "data": "resource-status",
+                    "width": "100%",
+                    "name": "",
+                    "endRowCount": 14,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "colCount": 12,
+                    "columns": [
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "15%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 3,
+                        "minRowHeight": "25px",
+                        "cellStyles": {},
+                        "rows": [
+                            {},
+                            {
+                                "height": 25
+                            },
+                            {}
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#eee",
+                                    "borderLeft": "2px solid #bbb",
+                                    "borderTop": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "colspan": 11,
+                                "styles": {
+                                    "cellAlign": "left",
+                                    "backgroundColor": "#eee",
+                                    "paddingLeft": "10px",
+                                    "borderRight": "2px solid #bbb",
+                                    "borderTop": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 0,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#eee",
+                                    "borderLeft": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 1,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 2,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 3,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 4,
+                                "colspan": 7,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 11,
+                                "rowspan": 2,
+                                "styles": {
+                                    "backgroundColor": "#eee",
+                                    "borderRight": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 4,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 5,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 6,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 7,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 8,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 9,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 10,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "총  원",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 1,
+                                "text": "구  분",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 1,
+                                "text": "직  원",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 1,
+                                "text": "계 약 직",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 1,
+                                "text": "합  계",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 1,
+                                "text": "사 고 내 역",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 2,
+                                "text": "출장",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 5,
+                                "row": 2,
+                                "text": "훈련",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 6,
+                                "row": 2,
+                                "text": "교육",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "height": 16,
+                                "name": "",
+                                "col": 8,
+                                "row": 2,
+                                "text": "결근",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 7,
+                                "row": 2,
+                                "text": "휴가",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 9,
+                                "row": 2,
+                                "text": "기타",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 10,
+                                "row": 2,
+                                "text": "계",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 11,
+                                "row": 1,
+                                "text": "현재원",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "rbox",
+                                "width": 300,
+                                "height": 22,
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "itemGap": 4,
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "onGetValue": "const a = (ctx.dp.getFieldValues(\"resource-status\", \"직원\").reduce((acc, cur) => acc + cur));\n\tconst b = (ctx.dp.getFieldValues(\"resource-status\", \"계약직\").reduce((acc, cur) => acc + cur));\n\treturn a + b;",
+                                        "onGetStyles": "",
+                                        "suffix": " 명 ",
+                                        "text": "Text",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        },
+                                        "styleCallback": null
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "text": "(",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "onGetValue": "return (ctx.dp.getFieldValues(\"resource-status\", \"직원\").reduce((acc, cur) => acc + cur));",
+                                        "prefix": "직원 ",
+                                        "suffix": " 명,",
+                                        "text": "Text",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "onGetValue": "return (ctx.dp.getFieldValues(\"resource-status\", \"계약직\").reduce((acc, cur) => acc + cur));",
+                                        "prefix": " 계약직",
+                                        "suffix": " 명",
+                                        "text": "Text",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "text": ")",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "height": 240,
+                        "name": null,
+                        "rowCount": 8,
+                        "minRowHeight": "30px",
+                        "cellStyles": {},
+                        "rows": [{}, {}, {}, {}, {}, {}, {}, {}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "backgroundColor": "#eee",
+                                    "borderLeft": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 4,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 5,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 6,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 7,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 8,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 9,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 10,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 11,
+                                "styles": {
+                                    "backgroundColor": "#eee",
+                                    "borderRight": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 0,
+                                "styles": {
+                                    "borderLeft": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 1,
+                                "c": 1,
+                                "colspan": 8
+                            },
+                            {
+                                "r": 1,
+                                "c": 9,
+                                "colspan": 3,
+                                "styles": {
+                                    "borderRight": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 0,
+                                "styles": {
+                                    "borderLeft": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 2,
+                                "c": 1,
+                                "colspan": 8
+                            },
+                            {
+                                "r": 2,
+                                "c": 9,
+                                "colspan": 3,
+                                "styles": {
+                                    "borderRight": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 3,
+                                "c": 0,
+                                "styles": {
+                                    "borderLeft": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 3,
+                                "c": 1,
+                                "colspan": 8
+                            },
+                            {
+                                "r": 3,
+                                "c": 9,
+                                "colspan": 3,
+                                "styles": {
+                                    "borderRight": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 4,
+                                "c": 0,
+                                "styles": {
+                                    "borderLeft": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 4,
+                                "c": 1,
+                                "colspan": 8
+                            },
+                            {
+                                "r": 4,
+                                "c": 9,
+                                "colspan": 3,
+                                "styles": {
+                                    "borderRight": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 5,
+                                "c": 0,
+                                "styles": {
+                                    "borderLeft": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 5,
+                                "c": 1,
+                                "colspan": 8
+                            },
+                            {
+                                "r": 5,
+                                "c": 9,
+                                "colspan": 3,
+                                "styles": {
+                                    "borderRight": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 6,
+                                "c": 0,
+                                "styles": {
+                                    "borderLeft": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 6,
+                                "c": 1,
+                                "colspan": 8
+                            },
+                            {
+                                "r": 6,
+                                "c": 9,
+                                "colspan": 3,
+                                "styles": {
+                                    "borderRight": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 7,
+                                "c": 0,
+                                "styles": {
+                                    "borderLeft": "2px solid #bbb",
+                                    "borderBottom": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 7,
+                                "c": 1,
+                                "colspan": 8,
+                                "styles": {
+                                    "borderBottom": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 7,
+                                "c": 9,
+                                "colspan": 3,
+                                "styles": {
+                                    "borderRight": "2px solid #bbb",
+                                    "borderBottom": "2px solid #bbb"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "합  계",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 1,
+                                "text": "사고내역",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 2,
+                                "text": "출    장",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 3,
+                                "text": "훈    련",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 4,
+                                "text": "교    육",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 5,
+                                "text": "휴    가",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 6,
+                                "text": "결    근",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 7,
+                                "text": "기    타",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 1,
+                                "row": 1,
+                                "text": "내                     용",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "expression": "sum(직원)",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "expression": "sum(계약직)",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "summary",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "expression": "sum(합계)",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 9,
+                                "row": 1,
+                                "text": "비                  고",
+                                "styles": {
+                                    "fontWeight": "bold",
+                                    "__tag_": {}
+                                }
+                            }
+                        ]
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "minRowHeight": "25px",
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "styles": {
+                                    "borderLeft": "2px solid #bbb"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "backgroundColor": "#eee"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 11,
+                                "styles": {
+                                    "backgroundColor": "#eee",
+                                    "borderRight": "2px solid #bbb"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "부서",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "직원",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "계약직",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "합계",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "출장",
+                                "name": "",
+                                "onGetValue": "if(!value) return '';",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "교육",
+                                "name": "",
+                                "onGetValue": "if(!value) return '';",
+                                "col": 6,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "훈련",
+                                "name": "",
+                                "onGetValue": "if(!value) return '';",
+                                "col": 5,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "휴가",
+                                "name": "",
+                                "onGetValue": "if(!value) return '';",
+                                "col": 7,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "결근",
+                                "name": "",
+                                "onGetValue": "if(!value) return '';",
+                                "col": 8,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "계",
+                                "name": "",
+                                "onGetValue": "",
+                                "col": 10,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "기타",
+                                "name": "",
+                                "onGetValue": "if(!value) return '';",
+                                "col": 9,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "현재원",
+                                "name": "",
+                                "col": 11,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "resource-status": {
+            "sampleCount": 5,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "부서",
+                    "dataType": "text",
+                    "sample": "총무부",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "직원",
+                    "dataType": "number",
+                    "sample": "20",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "계약직",
+                    "dataType": "number",
+                    "sample": "0",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "출장",
+                    "dataType": "number",
+                    "sample": "2",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "훈련",
+                    "dataType": "number",
+                    "sample": 0,
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "교육",
+                    "dataType": "number",
+                    "sample": 0,
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "휴가",
+                    "dataType": "number",
+                    "sample": 0,
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "결근",
+                    "dataType": "number",
+                    "sample": 0,
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "기타",
+                    "dataType": "number",
+                    "sample": 0,
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "합계",
+                    "dataType": "number",
+                    "format": "",
+                    "sample": "",
+                    "expression": "직원+계약직",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "계",
+                    "dataType": "number",
+                    "format": "",
+                    "sample": "",
+                    "expression": "출장+훈련+교육+휴가+결근+기타",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "현재원",
+                    "dataType": "number",
+                    "format": "",
+                    "sample": "",
+                    "expression": "합계+계",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        }
+    },
+    "guid": "1b2a55e9-969a-4fce-b1fd-02b571959904"
+}

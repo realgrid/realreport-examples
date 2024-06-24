@@ -1,0 +1,31 @@
+{
+    "fields": [{
+        "fieldName": "item",
+        "sample": "item-001",
+        "dataType": "text"
+    }, {
+        "fieldName": "price",
+        "dataType": "number",
+        "sample": 4234234
+    }, {
+        "fieldName": "soldout",
+        "dataType": "bool",
+        "sample": false,
+        "description": ""
+    }, {
+        "fieldName": "description",
+        "sample": "item-001 is a best product.",
+        "dataType": "text"
+    }],
+    "sample": [{
+        "item": "item01",
+        "price": 123456,
+        "soldout": false,
+        "description": "item-01 is a best product."
+    }, {
+        "item": "item02",
+        "price": 4234214,
+        "soldout": true,
+        "description": "item-02 is a best product."
+    }]
+}

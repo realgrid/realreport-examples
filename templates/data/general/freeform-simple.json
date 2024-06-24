@@ -1,0 +1,60 @@
+{
+    "fields": [
+        {
+            "fieldName": "ProductID",
+            "sample": "171",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "CategoryID",
+            "sample": "DE10",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "Company",
+            "sample": "아큐아드림",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "Model",
+            "sample": "DMC-FZ1",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "UnitCost",
+            "dataType": "number",
+            "sample": 365000
+        },
+        {
+            "fieldName": "Discount",
+            "dataType": "number",
+            "sample": 3,
+            "description": ""
+        },
+        {
+            "fieldName": "Description",
+            "sample": "아티브 북9 Lite",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "Specification",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "ImageUrl",
+            "sample": "asset/sample/NT910S3G-K3WL.jpg",
+            "dataType": "text"
+        }
+    ],
+    "sample": {
+        "ProductID" : "171",
+        "CategoryID" : "DE10",
+        "Company" : "아큐아드림",
+        "Model" : "NT910S3G-K3WL",
+        "UnitCost" : 1190000,
+        "Discount" : 3,
+        "Description" : "아티브 북9 Lite",
+        "Specification" : "- 운영체계 : Windows 8.1 (64-bit)- 프로세서 \r\n/ 칩셋 : Intel® Core™ i3 Processor 4020Y (1.50 GHz, 3 MB L3 Cache) \r\n\r\n- 메모리 : 4GB DDR3L System Memory at 1600MHz (on BD 4GB) \r\n\r\n- 저장장치 : 128GB Solid-state Drive \r\n\r\n- 디스플레이 : 33.7cm SuperBright HD LED Display (1366 x 768), Anti-Reflective \r\n\r\n- 그래픽 : Intel® HD Graphics 4200 \r\n\r\n- 멀티미디어 : 스테레오 스피커 ( 1.5 W x 2 )\r\n\r\n- 네트워크 : 802.11 bg\/n 1X1\r\n\r\n- 입력장치 : 페블 키보드, 클릭패드",
+        "ImageUrl" : "templates/asset/sample/NT910S3G-K3WL.jpg"
+    }
+}

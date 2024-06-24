@@ -1,0 +1,427 @@
+{
+    "tabular": {
+        "type": "band",
+        "values": [
+            {
+                "company": "백두산",
+                "model": "FA-210",
+                "unitCost": 139000,
+                "discount": null,
+                "description": "열전사, 9600bps, ADF5매, 발신자표시, 폴링"
+            },
+            {
+                "company": "백두산",
+                "model": "FAX-B120",
+                "unitCost": 180000,
+                "discount": null,
+                "description": "잉크젯, 14.4kbps, ADF15매, 폴링"
+            },
+            {
+                "company": "백두산",
+                "model": "FAX-B120",
+                "unitCost": 180000,
+                "discount": null,
+                "description": "잉크젯, 14.4kbps, ADF15매, 폴링"
+            },
+            {
+                "company": "백두산",
+                "model": "FAX-B140",
+                "unitCost": 230000,
+                "discount": null,
+                "description": "잉크젯, 14.4kbps, ADF15매, 폴링"
+            },
+            {
+                "company": "백두산",
+                "model": "FAX-L240",
+                "unitCost": 492000,
+                "discount": null,
+                "description": "레이저, 33.6kbps, ADF30매"
+            },
+            {
+                "company": "백두산",
+                "model": "FAX-L7000",
+                "unitCost": 594000,
+                "discount": null,
+                "description": "레이저, 14.4kbps, A4"
+            },
+            {
+                "company": "백두산",
+                "model": "FB-200",
+                "unitCost": 195000,
+                "discount": null,
+                "description": "잉크젯, 14.4kbps, ADF20매, 발신자표시"
+            },
+            {
+                "company": "백두산",
+                "model": "FC-220S",
+                "unitCost": 330000,
+                "discount": null,
+                "description": "흑백, 4cpm, A4, 휴대용"
+            },
+            {
+                "company": "백두산",
+                "model": "HS-330",
+                "unitCost": 63000,
+                "discount": null,
+                "description": "플래시메모리, 세닉스"
+            },
+            {
+                "company": "백두산",
+                "model": "KB-128",
+                "unitCost": 30200,
+                "discount": null,
+                "description": "지하철빠른노선, 미니미니"
+            },
+            {
+                "company": "백두산",
+                "model": "LF-4160",
+                "unitCost": 525000,
+                "discount": null,
+                "description": "레이저, 16ppm, 스캔600dpi, 14.4kbps, ADF30매"
+            },
+            {
+                "company": "백두산",
+                "model": "LS-R2A",
+                "unitCost": 46000,
+                "discount": null,
+                "description": "플래쉬메모리, 마이크론II"
+            },
+            {
+                "company": "백두산",
+                "model": "NP-7250",
+                "unitCost": 1650000,
+                "discount": null,
+                "description": "흑백, 25cpm, A3, 연속999매"
+            },
+            {
+                "company": "백두산",
+                "model": "NT-2090",
+                "unitCost": 1210000,
+                "discount": null,
+                "description": "흑백, 18cpm, A3, 연속99매, 분할복사"
+            },
+            {
+                "company": "백두산",
+                "model": "PA-Z300H",
+                "unitCost": 179900,
+                "discount": 20,
+                "description": "한영,영한-옥편"
+            },
+            {
+                "company": "백두산",
+                "model": "PC-425",
+                "unitCost": 377000,
+                "discount": null,
+                "description": "흑백, 4cpm, A4, 초소형복사기"
+            },
+            {
+                "company": "백두산",
+                "model": "PD-9000",
+                "unitCost": 95000,
+                "discount": null,
+                "description": "영한-옥편,토익,토플, 프로"
+            },
+            {
+                "company": "백두산",
+                "model": "T-4120S",
+                "unitCost": 1420000,
+                "discount": null,
+                "description": "N흑백, 21cpm, A3, 자동양면복사"
+            },
+            {
+                "company": "백두산",
+                "model": "공기방울 DWF-107AW",
+                "unitCost": 465000,
+                "discount": null,
+                "description": "10KG, 순백이온, 거름망3개, 살균표시등, 노블골드"
+            },
+            {
+                "company": "백두산",
+                "model": "마이팩스 CF-200G",
+                "unitCost": 180000,
+                "discount": null,
+                "description": "열전사, 발신자표시"
+            },
+            {
+                "company": "백두산",
+                "model": "베이비플러스 CWB0001",
+                "unitCost": 149000,
+                "discount": null,
+                "description": "6kg, 삶는세탁, 전자동세탁, 블루"
+            },
+            {
+                "company": "백두산",
+                "model": "오피스마스터 CF-5100",
+                "unitCost": 482000,
+                "discount": null,
+                "description": "레이저, 6ppm, 14.4kbps, A4, ADF20매"
+            },
+            {
+                "company": "아큐아드림",
+                "model": "NT450R5E-K28L",
+                "unitCost": 610000,
+                "discount": null,
+                "description": "아티브 북4"
+            },
+            {
+                "company": "아큐아드림",
+                "model": "NT450R5E-X6PB",
+                "unitCost": 1090000,
+                "discount": 10,
+                "description": "아티브 북4"
+            },
+            {
+                "company": "아큐아드림",
+                "model": "NT450R5G-X58L",
+                "unitCost": 1140000,
+                "discount": 3,
+                "description": "아티브 북4"
+            },
+            {
+                "company": "아큐아드림",
+                "model": "NT550P7C-S78",
+                "unitCost": 1650000,
+                "discount": 8,
+                "description": "노트북 시리즈5"
+            },
+            {
+                "company": "아큐아드림",
+                "model": "NT910S3G-K3WL",
+                "unitCost": 1190000,
+                "discount": 3,
+                "description": "아티브 북9 Lite"
+            },
+            {
+                "company": "올림파사",
+                "model": "DVD-ROM 16X DVD-120 MIS",
+                "unitCost": 67000,
+                "discount": null,
+                "description": "DVD-ROM"
+            },
+            {
+                "company": "원이",
+                "model": "DVD-ROM 8X SDR-081 노트북용",
+                "unitCost": 67000,
+                "discount": null,
+                "description": "DVD-ROM"
+            },
+            {
+                "company": "원이",
+                "model": "DVD-ROM NVD-080B",
+                "unitCost": 174000,
+                "discount": 30,
+                "description": "DVD-ROM"
+            },
+            {
+                "company": "이젠",
+                "model": "DVD+RW DVD 200e",
+                "unitCost": 415000,
+                "discount": 25,
+                "description": "DVD+RW"
+            },
+            {
+                "company": "제록",
+                "model": "DVD+RW DVD 300i",
+                "unitCost": 164000,
+                "discount": null,
+                "description": "DVD+RW"
+            },
+            {
+                "company": "코코니",
+                "model": "DVD-Multi GSA-4081B 정품",
+                "unitCost": 229000,
+                "discount": 25,
+                "description": "DVD-Multi"
+            },
+            {
+                "company": "코코니",
+                "model": "DVD-Multi SR-T03B, DOM",
+                "unitCost": 240000,
+                "discount": 20,
+                "description": "DVD-Multi"
+            },
+            {
+                "company": "코코니",
+                "model": "DVD-RAM 1216S",
+                "unitCost": 99000,
+                "discount": 25,
+                "description": "DVD-RAM"
+            },
+            {
+                "company": "코코니",
+                "model": "DVD-RW 4X DRW-0402P",
+                "unitCost": 243000,
+                "discount": null,
+                "description": "DVD-RW"
+            },
+            {
+                "company": "코코니",
+                "model": "DVD-RW DVR-A05U",
+                "unitCost": 350000,
+                "discount": null,
+                "description": "DVD-RW"
+            },
+            {
+                "company": "코코니",
+                "model": "DVD±RW DRW-1S41+CD-509-U",
+                "unitCost": 278000,
+                "discount": null,
+                "description": "DVD±RW"
+            },
+            {
+                "company": "코코니",
+                "model": "DVD±RW DRW1004IM",
+                "unitCost": 182000,
+                "discount": null,
+                "description": "DVD±RW"
+            },
+            {
+                "company": "코코니",
+                "model": "DVD±RW HJ-1004ND 4X Dual",
+                "unitCost": 179000,
+                "discount": 30,
+                "description": "DVD±RW"
+            },
+            {
+                "company": "코코니",
+                "model": "딤채 DC-R1236DFW",
+                "unitCost": 776000,
+                "discount": null,
+                "description": "뚜껑식, 123L, 2룸, 냉동X, 후레쉬화이트"
+            },
+            {
+                "company": "퀘스트",
+                "model": "DVD+RW DVRW 2412 o",
+                "unitCost": 338000,
+                "discount": null,
+                "description": "DVD+RW"
+            },
+            {
+                "company": "퀘스트",
+                "model": "DVD-ROM 8X 노트북 USB 외장형",
+                "unitCost": 150000,
+                "discount": null,
+                "description": "DVD-ROM"
+            },
+            {
+                "company": "토마",
+                "model": "DVD±RW 4X Dual DVD",
+                "unitCost": 185000,
+                "discount": null,
+                "description": "DVD±RW"
+            },
+            {
+                "company": "파나소",
+                "model": "DVD±RW SR-W04B, DOM",
+                "unitCost": 149000,
+                "discount": null,
+                "description": "DVD±RW"
+            },
+            {
+                "company": "팔립스",
+                "model": "MO DynaMO MCD3130AP",
+                "unitCost": 445000,
+                "discount": null,
+                "description": "MO"
+            },
+            {
+                "company": "팔립스",
+                "model": "지펠 SR-S57ELU",
+                "unitCost": 775000,
+                "discount": null,
+                "description": "567리터, 베이직형, 냉동212L, 나노헬스, 유니버셜베이지"
+            },
+            {
+                "company": "팔립스",
+                "model": "지펠 SR-S68HSC",
+                "unitCost": 964000,
+                "discount": 10,
+                "description": "684리터, 베이직형, 냉동267L, 독립냉각, 크림화이트"
+            },
+            {
+                "company": "팔립스",
+                "model": "티타늄지펠 SR-S686FTI",
+                "unitCost": 1640000,
+                "discount": 20,
+                "description": "684리터, 홈바형, 냉동267L, 독립냉각, 티타늄"
+            },
+            {
+                "company": "팔캄",
+                "model": "DVD복사기 CM-D31-PH 1:3",
+                "unitCost": 1550000,
+                "discount": null,
+                "description": "DVD복사기"
+            },
+            {
+                "company": "퍼스",
+                "model": "DVD복사기 DD07-H DVD 1:7 복사기",
+                "unitCost": 2640000,
+                "discount": null,
+                "description": "DVD복사기"
+            },
+            {
+                "company": "펜만",
+                "model": "MO DynaMO DMO-640PT",
+                "unitCost": 249000,
+                "discount": null,
+                "description": "MO"
+            },
+            {
+                "company": "펜만",
+                "model": "트롬 WD-120X",
+                "unitCost": 1030000,
+                "discount": 10,
+                "description": "세탁12KG, 건조X, 삶는세탁, 냉온수겸용, 140L, 1200rpm, 화이트"
+            },
+            {
+                "company": "한미디어",
+                "model": "하우젠 HNR-2120T",
+                "unitCost": 1340000,
+                "discount": null,
+                "description": "뚜껑식, 202L, 2룸, 냉동"
+            },
+            {
+                "company": "한술",
+                "model": "인테리어지펠 SR-T686FSiA",
+                "unitCost": 1710000,
+                "discount": null,
+                "description": "679리터, 홈바형, 냉동267L, 독립냉각, 아쿠아실버"
+            },
+            {
+                "company": "한술",
+                "model": "하우젠 HNR-2117N",
+                "unitCost": 1200000,
+                "discount": null,
+                "description": "뚜껑식, 174L, 2룸, 냉동O, 하와이안카퍼"
+            },
+            {
+                "company": "한양",
+                "model": "클라쎄 FR-S580CGB",
+                "unitCost": 954000,
+                "discount": null,
+                "description": "579리터, 베이직형, 냉동213L, 항균입체냉각, 후레쉬베이지"
+            },
+            {
+                "company": "한양",
+                "model": "클라쎄 FR-S580CRB",
+                "unitCost": 1220000,
+                "discount": 15,
+                "description": "579리터, 홈바형, 냉동213L, 항균입체냉각, 후레쉬베이지"
+            },
+            {
+                "company": "현미",
+                "model": "JH-7F",
+                "unitCost": 79000,
+                "discount": null,
+                "description": "화장품냉장고, 7L, 열반도체냉각"
+            },
+            {
+                "company": "히타차",
+                "model": "SCR-0150R",
+                "unitCost": 222000,
+                "discount": null,
+                "description": "화장품냉장고, 9.2L, 시엘, 반도체열전소자냉각, 레드"
+            }
+        ]
+    }
+}

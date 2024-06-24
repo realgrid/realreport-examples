@@ -1,0 +1,92 @@
+{
+  "fields": [
+    { "fieldName": "ID", "dataType": "number", "sample": 1 },
+    { "fieldName": "OrderType", "dataType": "text", "sample": "A" },
+    { "fieldName": "OrderNo", "dataType": "text", "sample": "W01611000007" },
+    { "fieldName": "Process", "dataType": "text", "sample": "생산공정" },
+    { "fieldName": "Workshop", "dataType": "text", "sample": "양품 작업장" },
+    { "fieldName": "ProductNo", "dataType": "text", "sample": "CR02" },
+    { "fieldName": "ProductName", "dataType": "text", "sample": "스마트폰B" },
+    { "fieldName": "Unit", "dataType": "text", "sample": "EA" },
+    { "fieldName": "Quantity", "dataType": "number", "sample": 10 }
+  ],
+  "sample": [
+    {
+      "ID": 1,
+      "OrderType": "A",
+      "OrderNo": "W01611000007",
+      "Process": "생산공정",
+      "Workshop": "양품 작업장",
+      "ProductNo": "CR02",
+      "ProductName": "스마트폰B",
+      "Unit": "EA",
+      "Quantity": 10
+    },
+    {
+      "ID": 2,
+      "OrderType": "A",
+      "OrderNo": "W01611000016",
+      "Process": "생산공정",
+      "Workshop": "양품 작업장",
+      "ProductNo": "CR01",
+      "ProductName": "스마트폰A",
+      "Unit": "EA",
+      "Quantity": 50
+    },
+    {
+      "ID": 3,
+      "OrderType": "A",
+      "OrderNo": "W01611000017",
+      "Process": "생산공정",
+      "Workshop": "양품 작업장",
+      "ProductNo": "CR03",
+      "ProductName": "스마트폰C",
+      "Unit": "EA",
+      "Quantity": 10
+    },
+    {
+      "ID": 4,
+      "OrderType": "A",
+      "OrderNo": "W01611000025",
+      "Process": "생산공정",
+      "Workshop": "양품 작업장",
+      "ProductNo": "CR01",
+      "ProductName": "스마트폰A",
+      "Unit": "EA",
+      "Quantity": 8
+    },
+    {
+      "ID": 5,
+      "OrderType": "B",
+      "OrderNo": "W01611000007",
+      "Process": "생산공정",
+      "Workshop": "양품 작업장",
+      "ProductNo": "CR02",
+      "ProductName": "스마트폰B",
+      "Unit": "EA",
+      "Quantity": 10
+    },
+    {
+      "ID": 6,
+      "OrderType": "B",
+      "OrderNo": "W01611000016",
+      "Process": "생산공정",
+      "Workshop": "양품 작업장",
+      "ProductNo": "CR01",
+      "ProductName": "스마트폰A",
+      "Unit": "EA",
+      "Quantity": 50
+    },
+    {
+      "ID": 7,
+      "OrderType": "B",
+      "OrderNo": "W01611000017",
+      "Process": "생산공정",
+      "Workshop": "양품 작업장",
+      "ProductNo": "CR03",
+      "ProductName": "스마트폰C",
+      "Unit": "EA",
+      "Quantity": 10
+    }
+  ]
+}

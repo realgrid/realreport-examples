@@ -1,0 +1,37 @@
+{
+    "fields": [
+        { "fieldName": "OrderID", "dataType": "number", "sample":10248 },
+        { "fieldName": "ProductName", "dataType": "text", "sample":"현진 커피 밀크" },
+        { "fieldName": "UnitPrice", "dataType": "number", "sample":14000 },
+        { "fieldName": "Quantity", "dataType": "number", "sample":12 },
+        { "fieldName": "Discount", "dataType": "number", "sample":0 },
+        { "fieldName": "ExtendedPrice", "dataType": "number", "sample":168000 }
+    ],
+    "sample": [
+        {
+            "OrderID": 10248,
+            "ProductName": "현진 커피 밀크",
+            "UnitPrice": 14000,
+            "Quantity": 12,
+            "Discount": 0,
+            "ExtendedPrice": 168000
+        },
+        {
+            "OrderID": 10248,
+            "ProductName": "싱가폴 원산 옥수수",
+            "UnitPrice": 10000,
+            "Quantity": 10,
+            "Discount": 0,
+            "ExtendedPrice": 100000
+        },
+        {
+            "OrderID": 10248,
+            "ProductName": "대관령 특제 버터",
+            "UnitPrice": 35000,
+            "Quantity": 5,
+            "Discount": 0,
+            "ExtendedPrice": 175000
+        }
+    ]
+    
+}

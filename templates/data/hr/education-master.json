@@ -1,0 +1,14 @@
+{
+    "fields": [
+        { "fieldName": "Department", "dataType": "text", "sample": "인사팀" },
+        { "fieldName": "Writer", "dataType": "text", "sample": "홍길동" },
+        { "fieldName": "DateOfWriting", "dataType": "text", "sample": "2007/01/02" }
+    ],
+    "sample": [
+        {
+            "Department": "인사팀",
+            "Writer": "홍길동",
+            "DateOfWriting": "2007/01/02"
+        }
+    ]
+}

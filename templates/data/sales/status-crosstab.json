@@ -1,0 +1,15 @@
+{
+    "fields": [
+        { "fieldName": "RegionCode", "dataType": "text", "sample":"01" },
+        { "fieldName": "Region", "dataType": "text", "sample":"서울" },
+        { "fieldName": "City", "dataType": "text", "sample":"서울특별시" },
+        { "fieldName": "CategoryName", "dataType": "text", "sample":"음료" },
+        { "fieldName": "ProductName", "dataType": "text", "sample":"태양 100% 레몬 주스" },
+        { "fieldName": "UnitPrice", "dataType": "text", "sample":250000.0000 },
+        { "fieldName": "Quantity", "dataType": "text", "sample":286 },
+        { "fieldName": "AMOUNT", "dataType": "text", "sample":5018000.0000 }
+    ],
+    "sample": [
+        
+    ]
+}

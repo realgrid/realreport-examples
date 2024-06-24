@@ -1,0 +1,52 @@
+{
+    "fields": [
+        { "fieldName": "code", "dataType": "text", "sample": "DP0000001"},
+        { "fieldName": "name", "dataType": "text", "sample": "TSM Roter A"},
+        { "fieldName": "unit", "dataType": "text", "sample": "EA"},
+        { "fieldName": "quantity", "dataType": "number", "sample": 1},
+        { "fieldName": "unitPrice", "dataType": "number", "sample": 1300000 },
+        { "fieldName": "supplyPrice", "dataType": "number", "sample": 1300000},
+        { "fieldName": "tax", "dataType": "number", "sample": 130000},
+        { "fieldName": "createDate", "dataType": "text", "sample": "2019-01-03"},
+        { "fieldName": "buyerName", "dataType": "text", "sample": "김지민"},
+        { "fieldName": "buyerTel", "dataType": "text", "sample": "010-123-4567"}
+    ], 
+    "sample": [
+        {
+            "code": "DP0000001",
+            "name": "TSM Roter A",
+            "unit": "EA",
+            "quantity": 1,
+            "unitPrice": 1300000,
+            "supplyPrice": 1300000,
+            "tax": 130000,
+            "createDate": "2019-01-03",
+            "buyerName": "김지민",
+            "buyerTel": "010-1234-5678"
+        },
+        {
+            "code": "DP0000002",
+            "name": "TSM Roter B",
+            "unit": "EA",
+            "quantity": 3,
+            "unitPrice": 1700000,
+            "supplyPrice": 5100000,
+            "tax": 510000,
+            "createDate": "2019-11-10",
+            "buyerName": "이성민",
+            "buyerTel": "010-1234-5679"
+        },
+        {
+            "code": "KS0000521",
+            "name": "KS Roter B",
+            "unit": "EA",
+            "quantity": 2,
+            "unitPrice": 1800000,
+            "supplyPrice": 3600000,
+            "tax": 360000,
+            "createDate": "2020-12-17",
+            "buyerName": "최민욱",
+            "buyerTel": "010-1234-5680"
+        }
+    ]
+}

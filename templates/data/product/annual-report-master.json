@@ -1,0 +1,46 @@
+{
+    "fields": [
+        { "fieldName": "연도", "dataType": "text", "sample": "2022" },
+        { "fieldName": "거래처명", "dataType": "text", "sample": "Customer A" },
+        { "fieldName": "기간", "dataType": "text", "sample": "2022년 01월 01일 ~ 2022년 12월 25일" },
+        { "fieldName": "부서", "dataType": "text", "sample": "판매팀" },
+        { "fieldName": "직위", "dataType": "text", "sample": "대리" },
+        { "fieldName": "성명", "dataType": "text", "sample": "홍길동" },
+        { "fieldName": "매출합계", "dataType": "nubmer", "sample": 109530000 },
+        { "fieldName": "매입합계", "dataType": "nubmer", "sample": 82960000 },
+        { "fieldName": "수금합계", "dataType": "nubmer", "sample": 108290000 },
+        { "fieldName": "지급합계", "dataType": "nubmer", "sample": 82800000 },
+        { "fieldName": "미수금액", "dataType": "nubmer", "sample": 1240000 },
+        { "fieldName": "미지급액", "dataType": "nubmer", "sample": 160000 }
+    ],
+    "sample": [
+        {
+            "연도": "2022",
+            "거래처명": "Customer A",
+            "기간": "2022년 01월 01일 ~ 2022년 12월 25일",
+            "부서": "판매팀",
+            "직위": "대리",
+            "성명": "홍길동",
+            "매출합계": 109530000,
+            "매입합계": 82960000,
+            "수금합계": 108290000,
+            "지급합계": 82800000,
+            "미수금액": 1240000,
+            "미지급액": 160000
+        },
+        {
+            "연도": "2022",
+            "거래처명": "Customer B",
+            "기간": "2022년 01월 01일 ~ 2022년 12월 25일",
+            "부서": "판매팀",
+            "직위": "팀장",
+            "성명": "이순신",
+            "매출합계": 122730000,
+            "매입합계": 97700000,
+            "수금합계": 121680000,
+            "지급합계": 97400000,
+            "미수금액": 1050000,
+            "미지급액": 300000
+        }
+    ]
+}

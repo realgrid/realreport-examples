@@ -1,0 +1,1394 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "visible": false
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "visible": false
+        },
+        "reportFooter": {
+            "name": "reportFooter",
+            "visible": false
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "visible": false
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "stack",
+                    "width": "100%",
+                    "height": "144px",
+                    "name": "",
+                    "styles": {
+                        "paddingTop": "10px",
+                        "__tag_": {}
+                    },
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "top": "0px",
+                            "text": "납 품 표 (공급받는자)",
+                            "styles": {
+                                "fontSize": "20px",
+                                "fontWeight": "bold",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "table",
+                            "width": 123,
+                            "name": "",
+                            "right": "0px",
+                            "top": "15px",
+                            "rowCount": 2,
+                            "cellStyles": {
+                                "borderLeft": "solid 1px",
+                                "borderRight": "solid 1px",
+                                "borderTop": "solid 1px",
+                                "borderBottom": "solid 1px"
+                            },
+                            "rows": [
+                                {
+                                    "height": "20px",
+                                    "styles": {
+                                        "backgroundColor": "#ddddddff"
+                                    }
+                                },
+                                {
+                                    "height": "50px"
+                                }
+                            ],
+                            "cells": [],
+                            "colCount": 2,
+                            "columns": [
+                                {
+                                    "width": "25%"
+                                },
+                                {
+                                    "width": "25%"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 0,
+                                    "text": "검수"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 0,
+                                    "text": "검사"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "table",
+                            "data": "delivery-cert-master",
+                            "width": 698,
+                            "name": "",
+                            "left": "0px",
+                            "bottom": "0px",
+                            "rowCount": 5,
+                            "minRowHeight": "20px",
+                            "cellStyles": {
+                                "paddingLeft": "3px",
+                                "paddingRight": "3px",
+                                "borderLeft": "none",
+                                "borderRight": "none",
+                                "borderTop": "none",
+                                "borderBottom": "none"
+                            },
+                            "rows": [{}, {}, {}, {}, {}],
+                            "cells": [
+                                {
+                                    "r": 0,
+                                    "c": 0,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 2,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 0,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 2,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 0,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 2,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 0,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 2,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                }
+                            ],
+                            "colCount": 4,
+                            "columns": [
+                                {
+                                    "width": "15%"
+                                },
+                                {
+                                    "width": "40%"
+                                },
+                                {
+                                    "width": "15%"
+                                },
+                                {
+                                    "width": "30%"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 0,
+                                    "text": "협력회사 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 2,
+                                    "text": "공급받는자 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 3,
+                                    "text": "납품장소 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 4,
+                                    "text": "자재담당 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 1,
+                                    "text": "발행구분 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 2,
+                                    "text": "납품번호 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 3,
+                                    "text": "발행일시 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 4,
+                                    "text": "검사방법 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "RegidentNo",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 0,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Company",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 1,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Supplied",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 2,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Workplace",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 3,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Charge",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 4,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Issue",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 1,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "DeliveryNo",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 2,
+                                    "numberFormat": "",
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "IssueDate",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 3,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Inspection",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 4,
+                                    "text": "Text"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "tableband",
+                    "data": "delivery-cert-detail",
+                    "width": "100%",
+                    "name": "",
+                    "rowsPerPage": 10,
+                    "endRowCount": 10,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "colCount": 5,
+                    "columns": [
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "40%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "20%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "solid 1px #333",
+                            "borderRight": "solid 1px #333",
+                            "borderTop": "solid 1px #333",
+                            "borderBottom": "solid 1px #333"
+                        },
+                        "rows": [
+                            {
+                                "styles": {
+                                    "backgroundColor": "#ddddddff"
+                                }
+                            }
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "colspan": 2
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "항번 Part No."
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "품명"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "납품수량"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Maker Lot No."
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": []
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "paddingLeft": "3px",
+                            "paddingRight": "3px",
+                            "paddingTop": "3px",
+                            "paddingBottom": "",
+                            "borderLeft": "none",
+                            "borderRight": "none",
+                            "borderTop": "none",
+                            "borderBottom": "none"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "${no}",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "No",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Name",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Quantity",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "MakerLotNo",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "stack",
+                    "data": "delivery-cert-master",
+                    "width": "100%",
+                    "height": 100,
+                    "name": "",
+                    "items": [
+                        {
+                            "type": "cbox",
+                            "name": "",
+                            "left": "30px",
+                            "itemGap": 0,
+                            "items": [
+                                {
+                                    "type": "barcode",
+                                    "value": "RegidentNo",
+                                    "width": 216,
+                                    "height": 21,
+                                    "name": "",
+                                    "format": "code39",
+                                    "text": "Cosmos",
+                                    "textAlign": "center",
+                                    "textPosition": "bottom"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "RegidentNo",
+                                    "name": "",
+                                    "text": "Text"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "table",
+                            "width": "149px",
+                            "name": "",
+                            "right": "30px",
+                            "rowCount": 2,
+                            "cellStyles": {
+                                "borderLeft": "solid 1px",
+                                "borderRight": "solid 1px",
+                                "borderTop": "solid 1px",
+                                "borderBottom": "solid 1px"
+                            },
+                            "rows": [
+                                {
+                                    "height": "20px",
+                                    "styles": {
+                                        "backgroundColor": "#ddddddff"
+                                    }
+                                },
+                                {
+                                    "height": "50px"
+                                }
+                            ],
+                            "cells": [
+                                {
+                                    "r": 0,
+                                    "c": 0,
+                                    "rowspan": 2
+                                }
+                            ],
+                            "colCount": 3,
+                            "columns": [
+                                {
+                                    "width": "10%"
+                                },
+                                {
+                                    "width": "25%"
+                                },
+                                {
+                                    "width": "25%"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 0,
+                                    "text": "담당"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 0,
+                                    "text": "K/P"
+                                },
+                                {
+                                    "type": "text",
+                                    "width": 14,
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 0,
+                                    "wrap": true,
+                                    "text": "반품"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "table",
+                            "width": "161px",
+                            "name": "",
+                            "right": "195px",
+                            "rowCount": 2,
+                            "cellStyles": {
+                                "borderLeft": "solid 1px",
+                                "borderRight": "solid 1px",
+                                "borderTop": "solid 1px",
+                                "borderBottom": "solid 1px"
+                            },
+                            "rows": [
+                                {
+                                    "height": "20px"
+                                },
+                                {
+                                    "height": "50px"
+                                }
+                            ],
+                            "cells": [
+                                {
+                                    "r": 0,
+                                    "c": 0,
+                                    "rowspan": 2
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 1,
+                                    "styles": {
+                                        "backgroundColor": "#ddddddff"
+                                    }
+                                }
+                            ],
+                            "colCount": 2,
+                            "columns": [
+                                {
+                                    "width": "30%"
+                                },
+                                {
+                                    "width": "18%"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 0,
+                                    "text": "K/P"
+                                },
+                                {
+                                    "type": "stack",
+                                    "width": 93,
+                                    "height": 66,
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 0,
+                                    "items": [
+                                        {
+                                            "type": "check",
+                                            "name": "",
+                                            "left": "0px",
+                                            "top": "5px",
+                                            "text": "",
+                                            "falseText": ""
+                                        },
+                                        {
+                                            "type": "check",
+                                            "name": "",
+                                            "left": 0,
+                                            "bottom": "6px",
+                                            "text": "",
+                                            "falseText": ""
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "left": "40px",
+                                            "top": "6px",
+                                            "text": "합   격"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "name": "",
+                                            "left": "40px",
+                                            "bottom": "3px",
+                                            "text": "불합격"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "rbox",
+                    "height": 32,
+                    "name": "",
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "shape",
+                            "width": "312px",
+                            "height": 24,
+                            "name": "",
+                            "shape": "hline",
+                            "styles": {
+                                "stroke": "#222222ff",
+                                "strokeWidth": "2",
+                                "strokeDasharray": "3",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "     절 취 선     "
+                        },
+                        {
+                            "type": "shape",
+                            "width": "312px",
+                            "height": 24,
+                            "name": "",
+                            "shape": "hline",
+                            "styles": {
+                                "stroke": "#222222ff",
+                                "strokeWidth": "2",
+                                "strokeDasharray": "3",
+                                "__tag_": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "stack",
+                    "width": "100%",
+                    "height": "144px",
+                    "name": "",
+                    "styles": {
+                        "paddingTop": "10px",
+                        "__tag_": {}
+                    },
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "top": "0px",
+                            "text": "납 품 표 (공급자)",
+                            "styles": {
+                                "fontSize": "20px",
+                                "fontWeight": "bold",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "table",
+                            "width": 123,
+                            "name": "",
+                            "right": "0px",
+                            "top": "15px",
+                            "rowCount": 2,
+                            "cellStyles": {
+                                "borderLeft": "solid 1px",
+                                "borderRight": "solid 1px",
+                                "borderTop": "solid 1px",
+                                "borderBottom": "solid 1px"
+                            },
+                            "rows": [
+                                {
+                                    "height": "20px",
+                                    "styles": {
+                                        "backgroundColor": "#ddddddff"
+                                    }
+                                },
+                                {
+                                    "height": "50px"
+                                }
+                            ],
+                            "cells": [],
+                            "colCount": 2,
+                            "columns": [
+                                {
+                                    "width": "25%"
+                                },
+                                {
+                                    "width": "25%"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 0,
+                                    "text": "검수"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 0,
+                                    "text": "검사"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "table",
+                            "data": "delivery-cert-master",
+                            "width": 698,
+                            "name": "",
+                            "left": "0px",
+                            "bottom": "0px",
+                            "rowCount": 5,
+                            "minRowHeight": "20px",
+                            "cellStyles": {
+                                "paddingLeft": "3px",
+                                "paddingRight": "3px",
+                                "borderLeft": "none",
+                                "borderRight": "none",
+                                "borderTop": "none",
+                                "borderBottom": "none"
+                            },
+                            "rows": [{}, {}, {}, {}, {}],
+                            "cells": [
+                                {
+                                    "r": 0,
+                                    "c": 0,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 0,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 2,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 1,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 0,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 2,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 2,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 0,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 2,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 3,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 0,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 1,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 2,
+                                    "styles": {
+                                        "cellAlign": "right"
+                                    }
+                                },
+                                {
+                                    "r": 4,
+                                    "c": 3,
+                                    "styles": {
+                                        "cellAlign": "left"
+                                    }
+                                }
+                            ],
+                            "colCount": 4,
+                            "columns": [
+                                {
+                                    "width": "15%"
+                                },
+                                {
+                                    "width": "40%"
+                                },
+                                {
+                                    "width": "15%"
+                                },
+                                {
+                                    "width": "30%"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 0,
+                                    "text": "협력회사 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 2,
+                                    "text": "공급받는자 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 3,
+                                    "text": "납품장소 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 0,
+                                    "row": 4,
+                                    "text": "자재담당 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 1,
+                                    "text": "발행구분 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 2,
+                                    "text": "납품번호 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 3,
+                                    "text": "발행일시 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "col": 2,
+                                    "row": 4,
+                                    "text": "검사방법 :"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "RegidentNo",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 0,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Company",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 1,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Supplied",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 2,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Workplace",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 3,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Charge",
+                                    "name": "",
+                                    "col": 1,
+                                    "row": 4,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Issue",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 1,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "DeliveryNo",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 2,
+                                    "numberFormat": "",
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "IssueDate",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 3,
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "Inspection",
+                                    "name": "",
+                                    "col": 3,
+                                    "row": 4,
+                                    "text": "Text"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "tableband",
+                    "data": "delivery-cert-detail",
+                    "width": "100%",
+                    "name": "",
+                    "rowsPerPage": 10,
+                    "endRowCount": 10,
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "colCount": 5,
+                    "columns": [
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "40%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "20%"
+                        }
+                    ],
+                    "header": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "borderLeft": "solid 1px #333",
+                            "borderRight": "solid 1px #333",
+                            "borderTop": "solid 1px #333",
+                            "borderBottom": "solid 1px #333"
+                        },
+                        "rows": [
+                            {
+                                "styles": {
+                                    "backgroundColor": "#ddddddff"
+                                }
+                            }
+                        ],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 0,
+                                "colspan": 2
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "항번 Part No."
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "품명"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "납품수량"
+                            },
+                            {
+                                "type": "text",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Maker Lot No."
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "width": "100%",
+                        "name": null,
+                        "visible": false,
+                        "rowCount": 1,
+                        "cellStyles": {},
+                        "rows": [{}],
+                        "cells": []
+                    },
+                    "dataRow": {
+                        "width": "100%",
+                        "name": null,
+                        "rowCount": 1,
+                        "cellStyles": {
+                            "paddingLeft": "3px",
+                            "paddingRight": "3px",
+                            "paddingTop": "3px",
+                            "paddingBottom": "",
+                            "borderLeft": "none",
+                            "borderRight": "none",
+                            "borderTop": "none",
+                            "borderBottom": "none"
+                        },
+                        "rows": [{}],
+                        "cells": [
+                            {
+                                "r": 0,
+                                "c": 1,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 2,
+                                "styles": {
+                                    "cellAlign": "left"
+                                }
+                            },
+                            {
+                                "r": 0,
+                                "c": 3,
+                                "styles": {
+                                    "cellAlign": "right"
+                                }
+                            }
+                        ],
+                        "items": [
+                            {
+                                "type": "text",
+                                "value": "${no}",
+                                "name": "",
+                                "col": 0,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "No",
+                                "name": "",
+                                "col": 1,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Name",
+                                "name": "",
+                                "col": 2,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "Quantity",
+                                "name": "",
+                                "col": 3,
+                                "row": 0,
+                                "text": "Text"
+                            },
+                            {
+                                "type": "text",
+                                "value": "MakerLotNo",
+                                "name": "",
+                                "col": 4,
+                                "row": 0,
+                                "text": "Text"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "delivery-cert-master": {
+            "type": "simple",
+            "sample": {
+                "RegidentNo": "504-23-456312",
+                "Company": "한국특수플라스틱",
+                "Supplied": "대한 반도체 LCD",
+                "Workplace": "Panel 1공장",
+                "Charge": "PAC1",
+                "Issue": "ePIS",
+                "DeliveryNo": 3000134331,
+                "IssueDate": "2003-09-26 15:36:43",
+                "Inspection": "NO INSPECTION(무검사)"
+            }
+        },
+        "delivery-cert-detail": {
+            "sampleCount": 3,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "No",
+                    "dataType": "text",
+                    "sample": "1002M-0410A",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Name",
+                    "dataType": "text",
+                    "sample": "PACKING *** PVC 0.8T & MO200Q01-A1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "Quantity",
+                    "dataType": "text",
+                    "sample": "220000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "MakerLotNo",
+                    "dataType": "text",
+                    "sample": "",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        }
+    },
+    "guid": "de0769fe-2ce6-47bc-948d-642d0c70d7b2"
+}

@@ -1,0 +1,28 @@
+{
+    "fields": [
+        { "fieldName": "Process", "dataType": "text", "sample": "재고관리" },
+        { "fieldName": "Type", "dataType": "text", "sample": "상품" },
+        { "fieldName": "Base", "dataType": "number", "sample": 50000 },
+        { "fieldName": "Current", "dataType": "number", "sample": 60000 },
+        { "fieldName": "Over", "dataType": "number", "sample": 10000 },
+        { "fieldName": "Comment", "dataType": "text", "sample": "" }
+    ],
+    "sample": [
+        {
+            "Process" : "재고관리",
+            "Type": "상품",
+            "Base": 50000,
+            "Current": 60000,
+            "Over": 10000,
+            "Comment": ""
+        },
+        {
+            "Process" : "재고관리",
+            "Type": "원재료",
+            "Base": 25000,
+            "Current": 28000,
+            "Over": 3000,
+            "Comment": ""
+        }
+    ]
+}

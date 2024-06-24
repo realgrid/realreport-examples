@@ -34,6 +34,12 @@ function previewPopup(reports) {
     }
 }
 
+function webDesignerFrame(iFrameId, reports) {
+    const reportFrame = document.getElementById(iFrameId);
+    reportFrame.classList.remove('hidden');
+    return reportFrame.contentWindow.initWebDesigner(reports);
+}
+
 /**
  *
  * ReportSource = {

@@ -1,0 +1,73 @@
+{
+    "privisional-return-01": {
+        "type": "band",
+        "values": [
+            {
+                "Title": "세금계산서 발행",
+                "Purchase": 48328,
+                "SuppyPrice": 310281358314,
+                "Tax": 31028127373,
+                "TotalPrice": 341320485587
+            },
+            {
+                "Title": "영수증 발행",
+                "Purchase": 1,
+                "SuppyPrice": 1553500,
+                "Tax": 155350,
+                "TotalPrice": 1718850
+            }
+        ]
+    },
+    "privisional-return-02": {
+        "type": "simple",
+        "values": {
+            "count1": 22691,
+            "supplyPrice1": 586039501216,
+            "tax1": 50011408174,
+            "totalPrice1": 635968810390,
+            "count2": 0,
+            "supplyPrice2": 0,
+            "tax2": 0,
+            "totalPrice2": 0,
+            "count3": 22691,
+            "supplyPrice3": 586039501216,
+            "tax3": 50011408174,
+            "totalPrice3": 635968810390,
+            "count4": 411,
+            "supplyPrice4": 85455228083,
+            "tax4": 0,
+            "totalPrice4": 85383228083,
+            "count5": 22250,
+            "supplyPrice5": 500584273133,
+            "tax5": 50011408174,
+            "totalPrice5": 550585582307
+        }
+    },
+    "privisional-return-03": {
+        "type": "band",
+        "values": [
+            {
+                "Title": "비영업용 소형승용차매입및유지",
+                "SuppyPrice": 0,
+                "Tax": 0
+            },
+            {
+                "Title": "연세 사업관 관련 내역",
+                "SuppyPrice": 206300,
+                "Tax": 0
+            },
+            {
+                "Title": "공동매입세역안분내역",
+                "SuppyPrice": 0,
+                "Tax": 0
+            }
+        ]
+    },
+    "privisional-return-date": {
+        "type": "simple",
+        "values": {
+            "fromDate": "2001-01-01",
+            "toDate": "2001-03-30"
+        }
+    }
+}

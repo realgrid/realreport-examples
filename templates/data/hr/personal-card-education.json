@@ -1,0 +1,37 @@
+{
+    "fields": [
+        {"fieldName": "ResidentRegister", "dataType": "text", "sample": "830919-1233487" },
+        {"fieldName": "Category", "dataType": "text","sample": "학력" },
+        {"fieldName": "Brightness", "dataType": "text", "sample": "대방중학교" },
+        {"fieldName": "Department", "dataType": "text", "sample": "" },
+        {"fieldName": "GraduationYear", "dataType": "text", "sample": "1999년2월20일" }
+    ],
+    "sample": [{
+        "ResidentRegister" : "830919-1233487",
+        "Category": "학력",
+        "Brightness" : "대방중학교",
+        "Department" : "",
+        "GraduationYear" : "1999년2월20일"
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category": "학력",
+        "Brightness" : "대방고등학교",
+        "Department" : "",
+        "GraduationYear" : "2002년2월17일"
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category": "학력",
+        "Brightness" : "한국대학교",
+        "Department" : "컴퓨터과",
+        "GraduationYear" : "2007년2월23일"
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category": "학력",
+        "Brightness" : "",
+        "Department" : "",
+        "GraduationYear" : ""
+    }]
+}

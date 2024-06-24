@@ -1,0 +1,25 @@
+{
+    "fields": [
+      { "fieldName": "Title", "dataType": "text", "sample": "세금계산서 발행" },
+      { "fieldName": "Purchase", "dataType": "number", "sample": 48328 },
+      { "fieldName": "SuppyPrice", "dataType": "number", "sample": 310281358314 },
+      { "fieldName": "Tax", "dataType": "number", "sample": 31028127373 },
+      { "fieldName": "TotalPrice", "dataType": "number", "sample": 341320485587 }
+    ],
+    "sample": [
+      {
+        "Title": "세금계산서 발행",
+        "Purchase": 48328,
+        "SuppyPrice": 310281358314,
+        "Tax": 31028127373,
+        "TotalPrice": 341320485587
+      },
+      {
+        "Title": "영수증 발행",
+        "Purchase": 1,
+        "SuppyPrice": 1553500,
+        "Tax": 155350,
+        "TotalPrice": 1718850
+      }
+    ]
+}

@@ -1,0 +1,58 @@
+{
+    "estimate-master": {
+        "type": "band",
+        "values": [
+            {
+                "Customer": "(주)파워엑셀연구소",
+                "Company": "(주)기업연구원",
+                "Pregident": "이응혈",
+                "DevelopmentCorporation": "엑셀개발공사",
+                "Address": "서울시 성동구 성수동 373-15 테크원 1201호",
+                "Tel": "02-468-1234",
+                "Fax": "02-468-1235",
+                "SumAmount": 513000
+            }
+        ]
+    },
+    "estimate-detail": {
+        "type": "band",
+        "values": [
+            {
+                "Customer": "(주)파워엑셀연구소",
+                "Company": "(주)기업연구원",
+                "Pregident": "이응혈",
+                "Item": "파워엑셀",
+                "Standard": "GX*10",
+                "Unit": "EA",
+                "Quantity": 3,
+                "UnitPrice": 50000,
+                "Amount": 150000,
+                "Comment": ""
+            },
+            {
+                "Customer": "(주)파워엑셀연구소",
+                "Company": "(주)기업연구원",
+                "Pregident": "이응혈",
+                "Item": "오픈산전",
+                "Standard": "TX3",
+                "Unit": "권",
+                "Quantity": 5,
+                "UnitPrice": 25000,
+                "Amount": 125000,
+                "Comment": ""
+            },
+            {
+                "Customer": "(주)파워엑셀연구소",
+                "Company": "(주)기업연구원",
+                "Pregident": "이응혈",
+                "Item": "클립아트",
+                "Standard": "LK23",
+                "Unit": "kg",
+                "Quantity": 7,
+                "UnitPrice": 34000,
+                "Amount": 238000,
+                "Comment": ""
+            }
+        ]
+    }
+}

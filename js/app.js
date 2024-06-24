@@ -5,6 +5,7 @@ var realReportLic =
     'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUC/9tdzLD/UUEjA7Am16Mku+6ZGVxDxR7Q=';
 var viewer;
 var editor;
+var reportViewer;
 
 // 미리보기 팝업창 객체
 var windowPreview = null;
@@ -122,6 +123,7 @@ function setEditorModel(sourceType) {
 
     let model = null;
     resetActiveClass(undefined, 'tool-button', 'active', 0);
+
     if (reportViewer && sourceType === 'reportForm') {
         if (reportViewer._reportFormSets) {
             // ES5
@@ -132,7 +134,7 @@ function setEditorModel(sourceType) {
             );
             model = monaco.editor.createModel(value, 'json');
         } else {
-            const value = JSON.stringify(reportViewer.reportForm, null, ' ');
+            const value = JSON.stringify(reportForm, null, ' ');
             model = monaco.editor.createModel(value, 'json');
         }
     }
@@ -146,7 +148,7 @@ function setEditorModel(sourceType) {
             );
             model = monaco.editor.createModel(value, 'json');
         } else {
-            const value = JSON.stringify(reportViewer.dataSet, null, ' ');
+            const value = JSON.stringify(dataSet, null, ' ');
             model = monaco.editor.createModel(value, 'json');
         }
     }
@@ -288,6 +290,8 @@ const makeReport = (serviceReport) => {
 //--------------------------------------------------------------------------------------------------
 // event handlers
 //--------------------------------------------------------------------------------------------------
+var reportForm;
+var dataSet;
 
 // 사이드바에서 리포트 미리보기 메뉴 클릭
 const onClickReportPreviewMenu = async function (event) {
@@ -305,8 +309,11 @@ const onClickReportPreviewMenu = async function (event) {
         // console.log(reports);
 
         // import from preview.js
-        reportViewer = previewFrame('reportFrame', reports);
+        reportViewer = webDesignerFrame('webDesignerFrame', reports);
+        reportForm = reports[0].form;
+        dataSet = reports[0].dataSet;
         setEditorModel('reportForm');
+        hiddenFrame('reportFrame');
         resetActiveClass(
             event.target.parentElement,
             'menu-link-active',
@@ -353,33 +360,60 @@ const onClickPreviewPopup = function (event) {
     });
 };
 
+function hiddenFrame(frameId) {
+    const reportFrame = document.getElementById(frameId);
+    reportFrame.classList.add('hidden');
+}
+
+function webDesignerSample(el) {
+    openTab('reportTab', 'gridTab');
+    reportViewer = webDesignerFrame('webDesignerFrame', certificateReport);
+    reportForm = certificateReport;
+    dataSet = certificateReport.data;
+    setEditorModel('reportForm');
+    hiddenFrame('reportFrame');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+}
+
 function multiReportSample1(el) {
     openTab('reportTab', 'gridTab');
-    reportViewer = previewFrame('reportFrame', [multiSample317]);
+    reportViewer = webDesignerFrame('webDesignerFrame', multiSample317);
+    reportForm = multiSample317;
+    dataSet = multiSample317.dataSet;
     setEditorModel('reportForm');
+    hiddenFrame('reportFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
 }
 
 function multiReportSample2(el) {
     openTab('reportTab', 'gridTab');
-    reportViewer = previewFrame('reportFrame', [multiSample318]);
+    reportViewer = webDesignerFrame('webDesignerFrame', multiSample318);
+    reportForm = multiSample318;
+    dataSet = multiSample318.dataSet;
     setEditorModel('reportForm');
+    hiddenFrame('reportFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
 }
 
 // 복합 출력 샘플 1
 function reportSample1(el) {
     openTab('reportTab', 'gridTab');
-    reportViewer = previewFrame('reportFrame', [sampleReport200]);
+    reportViewer = webDesignerFrame('webDesignerFrame', sampleReport205);
+    reportForm = sampleReport205;
+    dataSet = sampleReport205.dataSet;
     setEditorModel('reportForm');
+    hiddenFrame('reportFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
 }
 
 // 복합 출력 샘플 2
 function reportSample2(el) {
     openTab('reportTab', 'gridTab');
-    reportViewer = previewFrame('reportFrame', [sampleReport205]);
+    reportViewer = webDesignerFrame('webDesignerFrame', sampleReport200);
+    reportForm = sampleReport200;
+    dataSet = sampleReport200.dataSet;
     setEditorModel('reportForm');
+    hiddenFrame('reportFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
 }
 
@@ -391,6 +425,7 @@ function reportSampleComposit(el) {
         sampleReport203,
     ]);
     setEditorModel('reportForm');
+    hiddenFrame('webDesignerFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
 }
 

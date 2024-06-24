@@ -1,0 +1,2063 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15px",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader",
+            "data": "invoice-master",
+            "height": 47,
+            "items": [
+                {
+                    "type": "cbox",
+                    "name": "",
+                    "left": 0,
+                    "top": 3,
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "barcode",
+                            "value": "barcodeNo",
+                            "width": "136px",
+                            "height": 25,
+                            "name": "",
+                            "text": "Cosmos"
+                        },
+                        {
+                            "type": "text",
+                            "value": "barcodeNo",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "data": "invoice-master",
+            "height": 97,
+            "items": [
+                {
+                    "type": "text",
+                    "left": 180,
+                    "top": 11,
+                    "text": "Invoice & Packing List",
+                    "styles": {
+                        "fontSize": "28px",
+                        "fontWeight": "bold",
+                        "__tag_": {}
+                    }
+                },
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "left": "180px",
+                    "top": "50px",
+                    "itemGap": 0,
+                    "styles": {
+                        "fontSize": "14px",
+                        "__tag_": {}
+                    },
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "[ Invoice No. : "
+                        },
+                        {
+                            "type": "text",
+                            "value": "no",
+                            "width": "190px",
+                            "name": "",
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": " ]"
+                        }
+                    ]
+                },
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "right": "5px",
+                    "top": "50px",
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "Invoice Date : "
+                        },
+                        {
+                            "type": "text",
+                            "value": "date",
+                            "name": "",
+                            "text": "Text"
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter",
+            "styles": {
+                "borderTop": "1.5px solid #000",
+                "paddingTop": "5px"
+            },
+            "items": [
+                {
+                    "type": "rbox",
+                    "name": "",
+                    "right": 0,
+                    "itemGap": "10px",
+                    "items": [
+                        {
+                            "type": "rbox",
+                            "name": "",
+                            "itemGap": 0,
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "value": "${page}",
+                                    "name": "",
+                                    "text": "Text"
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "text": "/",
+                                    "styles": {
+                                        "paddingLeft": "3px",
+                                        "paddingRight": "3px"
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "value": "${pages}",
+                                    "name": "",
+                                    "text": "Text"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "Pages"
+                        }
+                    ]
+                },
+                {
+                    "type": "text",
+                    "name": "",
+                    "left": 0,
+                    "text": "· This is Document is signed by electronic signature having the effect of sign original document",
+                    "styles": {
+                        "fontSize": "12px",
+                        "color": "#8a8a8aff"
+                    }
+                }
+            ]
+        },
+        "body": {
+            "itemGap": 0,
+            "items": [
+                {
+                    "type": "simpleband",
+                    "data": "invoice-detail",
+                    "width": "100%",
+                    "name": "",
+                    "detail": {
+                        "type": "detail",
+                        "width": "100%",
+                        "name": ""
+                    },
+                    "groups": [],
+                    "header": {
+                        "type": "stack",
+                        "data": "invoice-master",
+                        "width": "100%",
+                        "name": null,
+                        "items": [
+                            {
+                                "type": "stack",
+                                "width": "100%",
+                                "height": 539,
+                                "name": "",
+                                "left": 4,
+                                "top": 9,
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 0,
+                                        "top": "0px",
+                                        "text": "■ Supplier's Name & Address :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": "350px",
+                                        "top": "0px",
+                                        "text": "■ Notify :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": "0px",
+                                        "top": "72px",
+                                        "text": "■ IRS No. :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "supplierAddress",
+                                        "width": "332px",
+                                        "name": "",
+                                        "left": 8,
+                                        "top": 48,
+                                        "text": "Text",
+                                        "styles": {
+                                            "textAlign": "left",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "rbox",
+                                        "width": "332px",
+                                        "name": "",
+                                        "left": "8px",
+                                        "top": "24px",
+                                        "itemGap": 0,
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "value": "supplierCode",
+                                                "name": "",
+                                                "text": "Text"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "  :  "
+                                            },
+                                            {
+                                                "type": "text",
+                                                "value": "supplierName",
+                                                "name": "",
+                                                "text": "Text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "supplierRegistNo",
+                                        "width": "75px",
+                                        "name": "",
+                                        "left": 72,
+                                        "top": 72,
+                                        "numberFormat": "",
+                                        "text": "Text",
+                                        "styles": {
+                                            "textAlign": "left",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 158,
+                                        "top": 72,
+                                        "text": "■ Tel No. :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "supplierTel",
+                                        "width": 102,
+                                        "name": "",
+                                        "left": 225,
+                                        "top": 72,
+                                        "numberFormat": "",
+                                        "text": "Text",
+                                        "styles": {
+                                            "textAlign": "left",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "rbox",
+                                        "width": "340px",
+                                        "name": "",
+                                        "left": "358px",
+                                        "top": "24px",
+                                        "itemGap": 0,
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "value": "buyerCode",
+                                                "name": "",
+                                                "text": "Text"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "  :  "
+                                            },
+                                            {
+                                                "type": "text",
+                                                "value": "buyerName",
+                                                "name": "",
+                                                "text": "Text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "buyerAddress",
+                                        "width": "340px",
+                                        "name": "",
+                                        "left": "358px",
+                                        "top": 48,
+                                        "text": "Text",
+                                        "styles": {
+                                            "textAlign": "left",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": "0px",
+                                        "top": "72px",
+                                        "text": "■ IRS No. :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "buyerStorage",
+                                        "name": "",
+                                        "left": 482,
+                                        "top": 72,
+                                        "numberFormat": "",
+                                        "text": "Text",
+                                        "styles": {
+                                            "textAlign": "left",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 350,
+                                        "top": 72,
+                                        "text": "■ Storage Location :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "shape",
+                                        "width": "340px",
+                                        "height": "10px",
+                                        "name": "",
+                                        "left": "0px",
+                                        "top": "89px",
+                                        "shape": "hline",
+                                        "styles": {
+                                            "stroke": "black",
+                                            "strokeWidth": 2,
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 0,
+                                        "top": 100,
+                                        "text": "■ Consignee's Name & Address :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "shape",
+                                        "width": "350px",
+                                        "height": "10px",
+                                        "name": "",
+                                        "left": "350px",
+                                        "top": "89px",
+                                        "shape": "hline",
+                                        "styles": {
+                                            "stroke": "black",
+                                            "strokeWidth": 2,
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "rbox",
+                                        "width": "332px",
+                                        "name": "",
+                                        "left": "8px",
+                                        "top": "124px",
+                                        "itemGap": 0,
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "value": "buyerCode",
+                                                "name": "",
+                                                "text": "Text"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "text": "  :  "
+                                            },
+                                            {
+                                                "type": "text",
+                                                "value": "buyerName",
+                                                "name": "",
+                                                "text": "Text"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "buyerAddress",
+                                        "width": "332px",
+                                        "name": "",
+                                        "left": "8px",
+                                        "top": "148px",
+                                        "text": "Text",
+                                        "styles": {
+                                            "textAlign": "left",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 0,
+                                        "top": "178px",
+                                        "text": "■ House B/L :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "shape",
+                                        "width": "340px",
+                                        "height": "10px",
+                                        "name": "",
+                                        "left": "0px",
+                                        "top": "165px",
+                                        "shape": "hline",
+                                        "styles": {
+                                            "stroke": "black",
+                                            "strokeWidth": 2,
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "shape",
+                                        "width": "350px",
+                                        "height": "10px",
+                                        "name": "",
+                                        "left": "350px",
+                                        "top": "165px",
+                                        "shape": "hline",
+                                        "styles": {
+                                            "stroke": "black",
+                                            "strokeWidth": 2,
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": "350px",
+                                        "top": 100,
+                                        "text": "■ Buyer Division :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": "350px",
+                                        "top": "124px",
+                                        "text": "■ Purchaser :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": "350px",
+                                        "top": "148px",
+                                        "text": "■ Delivery To :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "buyerDivision",
+                                        "name": "",
+                                        "left": 468,
+                                        "top": 100,
+                                        "numberFormat": "",
+                                        "text": "Text",
+                                        "styles": {
+                                            "textAlign": "left",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "purchaser",
+                                        "name": "",
+                                        "left": 440,
+                                        "top": 124,
+                                        "numberFormat": "",
+                                        "text": "Text",
+                                        "styles": {
+                                            "textAlign": "left",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "deliveryTo",
+                                        "name": "",
+                                        "left": 445,
+                                        "top": 148,
+                                        "numberFormat": "",
+                                        "text": "Text",
+                                        "styles": {
+                                            "textAlign": "left",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 0,
+                                        "top": "202px",
+                                        "text": "■ Carrier :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 0,
+                                        "top": "230px",
+                                        "text": "■ Forwarder :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "shape",
+                                        "width": "340px",
+                                        "height": "10px",
+                                        "name": "",
+                                        "left": "0px",
+                                        "top": "219px",
+                                        "shape": "hline",
+                                        "styles": {
+                                            "stroke": "black",
+                                            "strokeWidth": 2,
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 350,
+                                        "top": 178,
+                                        "text": "■ Departure :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 350,
+                                        "top": 202,
+                                        "text": "■ Destination :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "houseBL",
+                                        "name": "",
+                                        "left": 89,
+                                        "top": 178,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "carrier",
+                                        "name": "",
+                                        "left": 68,
+                                        "top": 202,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "departure",
+                                        "name": "",
+                                        "left": 437,
+                                        "top": 178,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "destination",
+                                        "name": "",
+                                        "left": 447,
+                                        "top": 202,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 350,
+                                        "top": 230,
+                                        "text": "■ Freight/Voyege  No. :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 0,
+                                        "top": "254px",
+                                        "text": "■ Container :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 0,
+                                        "top": "278px",
+                                        "text": "■ Payment term :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "payTerm",
+                                        "name": "",
+                                        "left": 8,
+                                        "top": 302,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "foward",
+                                        "name": "",
+                                        "left": 87,
+                                        "top": 230,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "container",
+                                        "name": "",
+                                        "left": 87,
+                                        "top": 254,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "flightNo",
+                                        "name": "",
+                                        "left": 491,
+                                        "top": 230,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 350,
+                                        "top": 254,
+                                        "text": "■ ETD :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "etd",
+                                        "name": "",
+                                        "left": 401,
+                                        "top": 254,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 504,
+                                        "top": 254,
+                                        "text": "■ ETA :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "eta",
+                                        "name": "",
+                                        "left": 555,
+                                        "top": 254,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 350,
+                                        "top": 278,
+                                        "text": "■ Delivery term :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "deliveryTerm",
+                                        "name": "",
+                                        "left": "358px",
+                                        "top": 302,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "shape",
+                                        "width": 698,
+                                        "height": "10px",
+                                        "name": "",
+                                        "left": "0px",
+                                        "top": "319px",
+                                        "shape": "hline",
+                                        "styles": {
+                                            "stroke": "black",
+                                            "strokeWidth": 2,
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "shape",
+                                        "width": "350px",
+                                        "height": "10px",
+                                        "name": "",
+                                        "left": 350,
+                                        "top": 219,
+                                        "shape": "hline",
+                                        "styles": {
+                                            "stroke": "black",
+                                            "strokeWidth": 2,
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 0,
+                                        "top": "330px",
+                                        "text": "■ Book Currency :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "currency",
+                                        "name": "",
+                                        "left": 119,
+                                        "top": 330,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 0,
+                                        "top": "355px",
+                                        "text": "■ Remark :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 234,
+                                        "top": 330,
+                                        "text": "■ Currency Rate :",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "currencyRate",
+                                        "name": "",
+                                        "left": 350,
+                                        "top": 330,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "amount",
+                                        "name": "",
+                                        "left": 565,
+                                        "top": 330,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "left": 482,
+                                        "top": 330,
+                                        "text": "■ Book Amt:",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "remark",
+                                        "width": 678,
+                                        "height": 45,
+                                        "name": "",
+                                        "left": 8,
+                                        "top": 376,
+                                        "wrap": true,
+                                        "text": "Text",
+                                        "styles": {
+                                            "textAlign": "left",
+                                            "verticalAlign": "top",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "shape",
+                                        "width": 189,
+                                        "height": "10px",
+                                        "name": "",
+                                        "left": 0,
+                                        "top": 444,
+                                        "shape": "hline",
+                                        "styles": {
+                                            "stroke": "black",
+                                            "strokeWidth": 2,
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "shape",
+                                        "width": 168,
+                                        "height": "10px",
+                                        "name": "",
+                                        "left": 350,
+                                        "top": 444,
+                                        "shape": "hline",
+                                        "styles": {
+                                            "stroke": "black",
+                                            "strokeWidth": 2,
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "height": 24,
+                                        "name": "",
+                                        "left": 196,
+                                        "top": 427,
+                                        "text": "Signature(Request Part)",
+                                        "styles": {
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "shape",
+                                        "width": "340px",
+                                        "height": "10px",
+                                        "name": "",
+                                        "left": "0px",
+                                        "top": "219px",
+                                        "shape": "hline",
+                                        "styles": {
+                                            "stroke": "black",
+                                            "strokeWidth": 2,
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "",
+                                        "height": 24,
+                                        "name": "",
+                                        "left": 528,
+                                        "top": 427,
+                                        "text": "Signature(Purchasing Part)",
+                                        "styles": {
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "table",
+                                        "width": "100%",
+                                        "name": "",
+                                        "bottom": "0px",
+                                        "rowCount": 3,
+                                        "minRowHeight": "20px",
+                                        "cellStyles": {
+                                            "borderLeft": "none",
+                                            "borderRight": "none",
+                                            "borderTop": "none",
+                                            "borderBottom": "none"
+                                        },
+                                        "rows": [{}, {}, {}],
+                                        "cells": [
+                                            {
+                                                "r": 0,
+                                                "c": 0,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 1,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 2,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 3,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 4,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 0,
+                                                "c": 5,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 1,
+                                                "c": 1,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 1,
+                                                "c": 2,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 1,
+                                                "c": 3,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 1,
+                                                "c": 4,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 1,
+                                                "c": 5,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 2,
+                                                "c": 1,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 2,
+                                                "c": 2,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 2,
+                                                "c": 4,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            },
+                                            {
+                                                "r": 2,
+                                                "c": 5,
+                                                "styles": {
+                                                    "cellAlign": "left"
+                                                }
+                                            }
+                                        ],
+                                        "colCount": 6,
+                                        "columns": [
+                                            {
+                                                "width": "4%"
+                                            },
+                                            {
+                                                "width": "5%"
+                                            },
+                                            {
+                                                "width": "8%"
+                                            },
+                                            {
+                                                "width": "10%"
+                                            },
+                                            {
+                                                "width": "5%"
+                                            },
+                                            {
+                                                "width": "8%"
+                                            }
+                                        ],
+                                        "items": [
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 0,
+                                                "row": 0,
+                                                "text": "Seq.",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 1,
+                                                "row": 0,
+                                                "text": "PO No.",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 1,
+                                                "row": 1,
+                                                "text": "Seq No.",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 1,
+                                                "row": 2,
+                                                "text": "Orain",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 2,
+                                                "row": 0,
+                                                "text": "Item Code",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 2,
+                                                "row": 1,
+                                                "text": "Vender Part No.",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 2,
+                                                "row": 2,
+                                                "text": "U/M",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 3,
+                                                "row": 0,
+                                                "text": "Description",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 3,
+                                                "row": 1,
+                                                "text": "Specification",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 4,
+                                                "row": 0,
+                                                "text": "Item Qty",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 4,
+                                                "row": 1,
+                                                "text": "Q/A Flag",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 4,
+                                                "row": 2,
+                                                "text": "Use Code",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 5,
+                                                "row": 0,
+                                                "text": "PR Requester",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 5,
+                                                "row": 1,
+                                                "text": "Unit Price",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "text",
+                                                "name": "",
+                                                "col": 5,
+                                                "row": 2,
+                                                "text": "Amount",
+                                                "styles": {
+                                                    "fontWeight": "bold",
+                                                    "__tag_": {}
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "footer": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "styles": {
+                            "paddingTop": "25px",
+                            "__tag_": {}
+                        },
+                        "items": [
+                            {
+                                "type": "table",
+                                "width": "100%",
+                                "name": "",
+                                "rowCount": 4,
+                                "minRowHeight": "24px",
+                                "cellStyles": {
+                                    "paddingRight": "3px",
+                                    "borderLeft": "solid 1px black",
+                                    "borderRight": "solid 1px black",
+                                    "borderTop": "solid 1px black",
+                                    "borderBottom": "solid 1px black"
+                                },
+                                "rows": [{}, {}, {}, {}],
+                                "cells": [
+                                    {
+                                        "r": 0,
+                                        "c": 0,
+                                        "rowspan": 2
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 2,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 3,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 4,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 5,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 3,
+                                        "c": 0,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 3,
+                                        "c": 1,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 3,
+                                        "c": 2,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 3,
+                                        "c": 3,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 3,
+                                        "c": 4,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 3,
+                                        "c": 5,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    }
+                                ],
+                                "colCount": 6,
+                                "columns": [
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    },
+                                    {
+                                        "width": "20%"
+                                    }
+                                ],
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 0,
+                                        "text": "Total",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 0,
+                                        "text": "Currency",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 0,
+                                        "text": "Package",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 0,
+                                        "text": "Measure",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 0,
+                                        "text": "Gross Weight",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 0,
+                                        "text": "Net Weight",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 2,
+                                        "text": "Invoice Amt",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 2,
+                                        "text": "Free Goods Amt",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 2,
+                                        "text": "Interest Amt",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 2,
+                                        "text": "Inv Total Amt",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 2,
+                                        "text": "Tax Amt",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 2,
+                                        "text": "Tax Include Amt",
+                                        "styles": {
+                                            "fontWeight": "bold",
+                                            "__tag_": {}
+                                        }
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "currency",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 1,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 1,
+                                        "suffix": "cartons",
+                                        "expression": "sum(package)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 1,
+                                        "suffix": "㎡",
+                                        "expression": "sum(measure)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 1,
+                                        "suffix": "kg",
+                                        "expression": "sum(weight)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 1,
+                                        "suffix": "kg",
+                                        "expression": "sum(net_weight)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 3,
+                                        "expression": "sum(amount)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 3,
+                                        "numberFormat": "#,##0.00",
+                                        "expression": "sum(freeAmount)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 3,
+                                        "numberFormat": "#,##0.00",
+                                        "expression": "sum(intAmount)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 3,
+                                        "numberFormat": "#,##0.00",
+                                        "expression": "sum(totalAmount)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 3,
+                                        "numberFormat": "#,##0.00",
+                                        "expression": "sum(taxAmount)"
+                                    },
+                                    {
+                                        "type": "summary",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 3,
+                                        "numberFormat": "#,##0.00",
+                                        "expression": "sum(includeAmount)"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "dataRow": {
+                        "type": "stack",
+                        "width": "100%",
+                        "name": null,
+                        "items": [
+                            {
+                                "type": "table",
+                                "width": "100%",
+                                "name": "",
+                                "bottom": "0px",
+                                "rowCount": 3,
+                                "minRowHeight": "20px",
+                                "cellStyles": {
+                                    "borderLeft": "none",
+                                    "borderRight": "none",
+                                    "borderTop": "none",
+                                    "borderBottom": "none"
+                                },
+                                "rows": [{}, {}, {}],
+                                "cells": [
+                                    {
+                                        "r": 0,
+                                        "c": 0,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 1,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 2,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 3,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 4,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 0,
+                                        "c": 5,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 1,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 2,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 3,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 4,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 1,
+                                        "c": 5,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 2,
+                                        "c": 1,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 2,
+                                        "c": 2,
+                                        "styles": {
+                                            "cellAlign": "left"
+                                        }
+                                    },
+                                    {
+                                        "r": 2,
+                                        "c": 4,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    },
+                                    {
+                                        "r": 2,
+                                        "c": 5,
+                                        "styles": {
+                                            "cellAlign": "right"
+                                        }
+                                    }
+                                ],
+                                "colCount": 6,
+                                "columns": [
+                                    {
+                                        "width": "4%"
+                                    },
+                                    {
+                                        "width": "5%"
+                                    },
+                                    {
+                                        "width": "8%"
+                                    },
+                                    {
+                                        "width": "10%"
+                                    },
+                                    {
+                                        "width": "5%"
+                                    },
+                                    {
+                                        "width": "8%"
+                                    }
+                                ],
+                                "items": [
+                                    {
+                                        "type": "text",
+                                        "value": "seq",
+                                        "name": "",
+                                        "col": 0,
+                                        "row": 0,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "poNo",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 0,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "seqNo",
+                                        "name": "",
+                                        "col": 1,
+                                        "row": 1,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "itemCode",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 0,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "um",
+                                        "name": "",
+                                        "col": 2,
+                                        "row": 2,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "description",
+                                        "name": "",
+                                        "col": 3,
+                                        "row": 0,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "qty",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 0,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "useCode",
+                                        "name": "",
+                                        "col": 4,
+                                        "row": 2,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "unitPrice",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 1,
+                                        "text": "Text"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "value": "amount",
+                                        "name": "",
+                                        "col": 5,
+                                        "row": 2,
+                                        "text": "Text"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "styles": {
+            "fontFamily": "Arial",
+            "__tag_": {}
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "invoice-detail": {
+            "sampleCount": 2,
+            "type": "band",
+            "fields": [
+                {
+                    "fieldName": "invNo",
+                    "dataType": "text",
+                    "sample": "HG020626-72",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "currency",
+                    "dataType": "text",
+                    "sample": "KRW",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "poNo",
+                    "dataType": "text",
+                    "sample": "305248391",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "itemCode",
+                    "dataType": "text",
+                    "sample": "STN-L403TS",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "description",
+                    "dataType": "text",
+                    "sample": "OPTION-STAND",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "useCode",
+                    "dataType": "text",
+                    "sample": "E",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "um",
+                    "dataType": "text",
+                    "sample": "PC",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "seq",
+                    "dataType": "number",
+                    "sample": "1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "package",
+                    "dataType": "number",
+                    "sample": "1",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "measure",
+                    "dataType": "number",
+                    "sample": "0",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "weight",
+                    "dataType": "number",
+                    "sample": "0",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "net_weight",
+                    "dataType": "number",
+                    "sample": "0",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "freeAmount",
+                    "dataType": "number",
+                    "sample": "0",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "intAmount",
+                    "dataType": "number",
+                    "sample": "0",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "taxAmount",
+                    "dataType": "number",
+                    "sample": "118000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "seqNo",
+                    "dataType": "number",
+                    "sample": "2",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "qty",
+                    "dataType": "number",
+                    "sample": "41",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "unitPrice",
+                    "dataType": "number",
+                    "sample": "288000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "amount",
+                    "dataType": "number",
+                    "sample": "11808000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "totalAmount",
+                    "dataType": "number",
+                    "sample": "11808000",
+                    "description": "",
+                    "dateReader": null
+                },
+                {
+                    "fieldName": "includeAmount",
+                    "dataType": "number",
+                    "sample": "11796200",
+                    "description": "",
+                    "dateReader": null
+                }
+            ]
+        },
+        "invoice-master": {
+            "type": "simple",
+            "sample": {
+                "barcodeNo": "KE49 HG020926-72",
+                "no": "HG020926-72",
+                "date": "2004-05-28",
+                "supplierCode": "KE49 ",
+                "supplierName": "HANKOOK CO., LTD.",
+                "supplierAddress": "경기도 수원시 팔달구 덕천3동 376-1",
+                "supplierRegistNo": 1235930084,
+                "supplierTel": "(081)310-3004",
+                "supplierSignature": null,
+                "buyerCode": "C100",
+                "buyerName": "DONGA ELECTRONICS COLTD",
+                "buyerAddress": "서울시 강남구 도곡동 467-14 삼성SEI타워",
+                "buyerStorage": "SL03",
+                "buyerDivision": "KB1       SEC-VD",
+                "buyerSignature": null,
+                "purchaser": null,
+                "deliveryTo": "04:SUWON",
+                "houseBL": null,
+                "carrier": null,
+                "departure": null,
+                "destination": null,
+                "foward": null,
+                "container": null,
+                "payTermCode": 9010,
+                "payTerm": "Cash(대금지불일 현금지급)",
+                "flightNo": null,
+                "etd": null,
+                "eta": null,
+                "deliveryTermCode": null,
+                "deliveryTerm": null,
+                "currency": null,
+                "currencyRate": null,
+                "amount": null
+            }
+        }
+    },
+    "guid": "3d1e9177-7809-43b2-aa98-568c60639031"
+}

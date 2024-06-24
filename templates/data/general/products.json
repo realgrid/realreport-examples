@@ -1,0 +1,761 @@
+{
+    "fields": [
+        {
+            "fieldName": "Category",
+            "sample": "가전제품",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "SubCategory",
+            "sample": "냉장고",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "ProductID",
+            "sample": "15",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "CategoryID",
+            "sample": "DE10",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "Company",
+            "sample": "DDR",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "Model",
+            "sample": "디오스 R-S684NHJ",
+            "dataType": "text"
+        },
+        {
+            "fieldName": "UnitCost",
+            "dataType": "number",
+            "sample": 1138000
+        },
+        {
+            "fieldName": "Discount",
+            "dataType": "number",
+            "sample": 3
+        },
+        {
+            "fieldName": "Description",
+            "dataType": "text",
+            "sample": "676리터\/홈바형\/냉동248L\/균일냉각\/카프리베이지\/초대형사이즈\/10년A\/S\/반품가능"
+        }
+    ],
+    "sample": [
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "DDR",
+            "Model" : "디오스 R-S684NHJ",
+            "UnitCost" : 1138000.0,
+            "Description" : "676리터\/홈바형\/냉동248L\/균일냉각\/카프리베이지\/초대형사이즈\/10년A\/S\/반품가능",
+            "Discount" : null,
+            "ProductId" : "12"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "써니큐",
+            "Model" : "ECR-GD960R1",
+            "UnitCost" : 356000.0,
+            "Description" : "화장품냉장고\/9.6L\/챠빌\/열전소자반도체냉각\/국내최초화장품냉장고\/반품가능",
+            "Discount" : null,
+            "ProductId" : "13"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "써니큐",
+            "Model" : "디오스 R-S684GZS",
+            "UnitCost" : 980000.0,
+            "Description" : "676리터\/베이직형\/냉동248L\/균일냉각\/럭셔리티타늄",
+            "Discount" : 10,
+            "ProductId" : "14"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "써니큐",
+            "Model" : "디오스 R-S554GMJ",
+            "UnitCost" : 809000.0,
+            "Description" : "546리터\/베이직형\/냉동197L\/균일냉각\/카프리베이지",
+            "Discount" : null,
+            "ProductId" : "15"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "써니큐",
+            "Model" : "딤채 DD-1566SD",
+            "UnitCost" : 833000.0,
+            "Description" : "뚜껑식\/156L\/2룸\/냉동X\/와인골드",
+            "Discount" : null,
+            "ProductId" : "16"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "신도라코",
+            "Model" : "다맛 SKR-1669G",
+            "UnitCost" : 699000.0,
+            "Description" : "뚜껑식\/159L\/2룸\/냉동\/골드",
+            "Discount" : 30,
+            "ProductId" : "17"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "EXCO",
+            "Model" : "다맛 SKR-C2173S",
+            "UnitCost" : 860000.0,
+            "Description" : "복합식\/213L\/3룸\/냉동O\/임페리얼실버",
+            "Discount" : 5,
+            "ProductId" : "18"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "코코니",
+            "Model" : "딤채 DC-R1236DFW",
+            "UnitCost" : 776000.0,
+            "Description" : "뚜껑식\/123L\/2룸\/냉동X\/후레쉬화이트",
+            "Discount" : null,
+            "ProductId" : "19"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "팔립스",
+            "Model" : "지펠 SR-S68HSC",
+            "UnitCost" : 964000.0,
+            "Description" : "684리터\/베이직형\/냉동267L\/독립냉각\/크림화이트",
+            "Discount" : 10,
+            "ProductId" : "20"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "팔립스",
+            "Model" : "티타늄지펠 SR-S686FTI",
+            "UnitCost" : 1640000.0,
+            "Description" : "684리터\/홈바형\/냉동267L\/독립냉각\/티타늄",
+            "Discount" : 20,
+            "ProductId" : "21"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "팔립스",
+            "Model" : "지펠 SR-S57ELU",
+            "UnitCost" : 775000.0,
+            "Description" : "567리터\/베이직형\/냉동212L\/나노헬스\/유니버셜베이지",
+            "Discount" : null,
+            "ProductId" : "22"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "한미디어",
+            "Model" : "하우젠 HNR-2120T",
+            "UnitCost" : 1340000.0,
+            "Description" : "뚜껑식\/202L\/2룸\/냉동",
+            "Discount" : null,
+            "ProductId" : "23"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "한술",
+            "Model" : "하우젠 HNR-2117N",
+            "UnitCost" : 1200000.0,
+            "Description" : "뚜껑식\/174L\/2룸\/냉동O\/하와이안카퍼",
+            "Discount" : null,
+            "ProductId" : "24"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "한술",
+            "Model" : "인테리어지펠 SR-T686FSiA",
+            "UnitCost" : 1710000.0,
+            "Description" : "679리터\/홈바형\/냉동267L\/독립냉각\/아쿠아실버",
+            "Discount" : null,
+            "ProductId" : "25"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "한양",
+            "Model" : "클라쎄 FR-S580CRB",
+            "UnitCost" : 1220000.0,
+            "Description" : "579리터\/홈바형\/냉동213L\/항균입체냉각\/후레쉬베이지",
+            "Discount" : 15,
+            "ProductId" : "26"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "한양",
+            "Model" : "클라쎄 FR-S580CGB",
+            "UnitCost" : 954000.0,
+            "Description" : "579리터\/베이직형\/냉동213L\/항균입체냉각\/후레쉬베이지",
+            "Discount" : null,
+            "ProductId" : "27"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "현미",
+            "Model" : "JH-7F",
+            "UnitCost" : 79000.0,
+            "Description" : "화장품냉장고\/7L\/열반도체냉각",
+            "Discount" : null,
+            "ProductId" : "28"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "냉장고",
+            "Company" : "히타차",
+            "Model" : "SCR-0150R",
+            "UnitCost" : 222000.0,
+            "Description" : "화장품냉장고\/9.2L\/시엘\/반도체열전소자냉각\/레드",
+            "Discount" : null,
+            "ProductId" : "29"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "ESUS",
+            "Model" : "플라톤 CN-29Q2B",
+            "UnitCost" : 380000.0,
+            "Description" : "29인치\/4;3비율\/AV,DVD,SVHS\/디지털EYE\/음성다중\/캡션",
+            "Discount" : null,
+            "ProductId" : "41"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "ESUS",
+            "Model" : "명품 CT-29K6",
+            "UnitCost" : 413000.0,
+            "Description" : "29인치\/4;3비율완전평면\/AV,DVD\/고화질디지털콤필터\/자동스테레오\/캡션",
+            "Discount" : null,
+            "ProductId" : "42"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "BROTHERS",
+            "Model" : "엑스캔버스 RN-44NZ20H",
+            "UnitCost" : 1500000.0,
+            "Description" : "44인치\/HD급분리형\/16;9비율\/AV,DVD\/PC직접연결\/캡션\/트윈픽쳐",
+            "Discount" : null,
+            "ProductId" : "43"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "BROTHERS",
+            "Model" : "CVK-20T31",
+            "UnitCost" : 281800.0,
+            "Description" : "비디오비젼\/20인치\/4;3비율\/홈비디오비젼",
+            "Discount" : null,
+            "ProductId" : "44"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "BROTHERS",
+            "Model" : "써머스 DTQ-29U5",
+            "UnitCost" : 370000.0,
+            "Description" : "29인치\/4;3비율\/AV,DVD\/고화질디지털콤필터\/음성다중\/캡션",
+            "Discount" : 10,
+            "ProductId" : "45"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "BTCS",
+            "Model" : "파브 SVP-50L2HXN",
+            "UnitCost" : 4010000.0,
+            "Description" : "50인치\/HD급분리형\/16;9비율\/DVI,AV\/PC직접연결\/캡션\/PIP\/DLP",
+            "Discount" : null,
+            "ProductId" : "46"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "COMPEQ",
+            "Model" : "커플 SMV-15X5N",
+            "UnitCost" : 333000.0,
+            "Description" : "비디오비젼\/15인치\/4;3비율",
+            "Discount" : 20,
+            "ProductId" : "47"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "COMPEQ",
+            "Model" : "TRUE WK-36C10DW",
+            "UnitCost" : 1847000.0,
+            "Description" : "36인치\/HD급분리형\/16;9비율\/AV,SVHS,DVD\/POP",
+            "Discount" : null,
+            "ProductId" : "48"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "COMPEQ",
+            "Model" : "TRUE WK-32HA40DW",
+            "UnitCost" : 1350000.0,
+            "Description" : "32인치\/HD급분리형\/16;9비율\/AV,SVHS,DVD",
+            "Discount" : null,
+            "ProductId" : "49"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "CREATIVES",
+            "Model" : "플라톤 CN-29Q2B",
+            "UnitCost" : 380000.0,
+            "Description" : "29인치\/4;3비율\/AV,DVD,SVHS\/디지털EYE\/음성다중\/캡션",
+            "Discount" : null,
+            "ProductId" : "50"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "CYQVEYS",
+            "Model" : "띠뮤 CK-29K05F",
+            "UnitCost" : 380000.0,
+            "Description" : "29인치\/4;3비율\/DVD,SVHS\/글라스콤필터\/음성다중\/캡션",
+            "Discount" : null,
+            "ProductId" : "51"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "DAENYXYS",
+            "Model" : "명품 CT-29K6",
+            "UnitCost" : 413000.0,
+            "Description" : "29인치\/4;3비율완전평면\/AV,DVD\/고화질디지털콤필터\/자동스테레오\/캡션",
+            "Discount" : null,
+            "ProductId" : "52"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "EISO",
+            "Model" : "플라톤 CN-29Q4B",
+            "UnitCost" : 388000.0,
+            "Description" : "29인치\/4;3비율\/AV,DVD,SVHS\/디지털EYE\/디지털입체음향\/캡션",
+            "Discount" : 10,
+            "ProductId" : "53"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "EISO",
+            "Model" : "띠뮤 CK-29K05F",
+            "UnitCost" : 380000.0,
+            "Description" : "29인치\/4;3비율\/DVD,SVHS\/글라스콤필터\/음성다중\/캡션",
+            "Discount" : null,
+            "ProductId" : "54"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "EPSAN",
+            "Model" : "파브 SPD-42A4SS",
+            "UnitCost" : 4810000.0,
+            "Description" : "42인치\/SD급분리형\/16;9비율\/스탠드형\/DVI\/PC직접연결\/1000cd&3000;1",
+            "Discount" : null,
+            "ProductId" : "55"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "EPSAN",
+            "Model" : "32FD9954",
+            "UnitCost" : 4050000.0,
+            "Description" : "32인치\/HD급분리형\/16;9비율\/벽걸이형\/AV\/600cd&480;1\/PIP",
+            "Discount" : null,
+            "ProductId" : "56"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "EPSAN",
+            "Model" : "베가 KZ-42TS1K(+DAV-S880)",
+            "UnitCost" : 6990000.0,
+            "Description" : "42인치\/HD급분리형\/16;9비율",
+            "Discount" : 10,
+            "ProductId" : "57"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "TV",
+            "Company" : "EPSAN",
+            "Model" : "엑스캔버스 RN-52SZ50H",
+            "UnitCost" : 3820000.0,
+            "Description" : "52인치\/HD급분리형\/16;9비율\/AV,DVD\/PC직접연결\/캡션\/트윈픽쳐\/LCD",
+            "Discount" : null,
+            "ProductId" : "58"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "KUS",
+            "Model" : "하우젠 SEW-3HW124",
+            "UnitCost" : 690900.0,
+            "Description" : "세탁10KG\/건조X\/삶는세탁\/냉온수겸용\/1200rpm\/화이트",
+            "Discount" : 5,
+            "ProductId" : "1"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "KUS",
+            "Model" : "공기방울 DWF-558W",
+            "UnitCost" : 238000.0,
+            "Description" : "5.5kg\/세탁코스5\/저진동저소음\/컴팩트디자인\/라이트그레이",
+            "Discount" : 10,
+            "ProductId" : "10"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "드림 라이즈",
+            "Model" : "수중강타 SEW-3G102S",
+            "UnitCost" : 401000.0,
+            "Description" : "세탁10KG\/파워매직필터\/저소음모터\/낭비방지세탁조\/은모래색",
+            "Discount" : null,
+            "ProductId" : "11"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "펜만",
+            "Model" : "트롬 WD-120X",
+            "UnitCost" : 1030000.0,
+            "Description" : "세탁12KG\/건조X\/삶는세탁\/냉온수겸용\/140L\/1200rpm\/화이트",
+            "Discount" : 10,
+            "ProductId" : "2"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "A5Tech",
+            "Model" : "하우젠 SEW-3HW123",
+            "UnitCost" : 783000.0,
+            "Description" : "세탁10KG\/건조X\/삶는세탁\/냉온수겸용\/1100rpm\/화이트",
+            "Discount" : null,
+            "ProductId" : "3"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "AOPENS",
+            "Model" : "트롬 WD-k105D",
+            "UnitCost" : 920000.0,
+            "Description" : "세탁10KG\/건조X\/삶는세탁\/냉온수겸용\/120L\/1200rpm\/은하수색",
+            "Discount" : null,
+            "ProductId" : "4"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "COMPEQ",
+            "Model" : "하우젠 SEW-3HW125W",
+            "UnitCost" : 837000.0,
+            "Description" : "세탁10KG\/건조X\/삶는세탁\/냉온수겸용\/1200rpm\/화이트",
+            "Discount" : null,
+            "ProductId" : "5"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "FUJATSU",
+            "Model" : "클라쎄DWD-200DR",
+            "UnitCost" : 1220000.0,
+            "Description" : "세탁10KG\/건조4.5KG\/삶는세탁\/냉온수겸용\/82.5L\/1000rpm\/화이트실버",
+            "Discount" : null,
+            "ProductId" : "6"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "INTEN",
+            "Model" : "수중강타 SEW-MA600",
+            "UnitCost" : 310000.0,
+            "Description" : "세탁6kg\/접이식핸들\/파워매직필터\/세탁코스4\/은모래색",
+            "Discount" : null,
+            "ProductId" : "7"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "백두산",
+            "Model" : "공기방울 DWF-107AW",
+            "UnitCost" : 465000.0,
+            "Description" : "10KG\/순백이온\/거름망3개\/살균표시등\/노블골드",
+            "Discount" : null,
+            "ProductId" : "8"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "세탁기",
+            "Company" : "백두산",
+            "Model" : "베이비플러스 CWB0001",
+            "UnitCost" : 149000.0,
+            "Description" : "6kg\/삶는세탁\/전자동세탁\/블루",
+            "Discount" : null,
+            "ProductId" : "9"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "A5Tech",
+            "Model" : "먼지따로 VC-L822X",
+            "UnitCost" : 79500.0,
+            "Description" : "510W\/먼지따로\/다단연장관\/매직브러쉬배기필터 \/골드",
+            "Discount" : null,
+            "ProductId" : "30"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "Absolutes",
+            "Model" : "업그레이드싸이킹 V-C712JN",
+            "UnitCost" : 174900.0,
+            "Description" : "410W\/사이클론\/HEPA필터\/줄꼬임방지\/제팬블루",
+            "Discount" : null,
+            "ProductId" : "31"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "AND",
+            "Model" : "먼지따로 VC-L802A",
+            "UnitCost" : 85000.0,
+            "Description" : "510W\/먼지따로\/투명관필터\/구석청소편리\/매직브러쉬",
+            "Discount" : null,
+            "ProductId" : "32"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "AND",
+            "Model" : "동글이 V-C391T",
+            "UnitCost" : 76000.0,
+            "Description" : "500W\/일반\/회전팍팍\/컴팩트\/배기필터\/자동코드릴\/노즐레드",
+            "Discount" : null,
+            "ProductId" : "33"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "AND",
+            "Model" : "3세대싸이킹 V-C800AJE",
+            "UnitCost" : 344800.0,
+            "Description" : "530W\/사이클론\/HEPA필터\/나노실버향균\/타이탄실버",
+            "Discount" : null,
+            "ProductId" : "34"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "AND",
+            "Model" : "컴팩트싸이킹 V-C712J",
+            "UnitCost" : 163800.0,
+            "Description" : "410W\/사이클론\/HEPA필터\/줄꼬임방지\/제팬블루",
+            "Discount" : null,
+            "ProductId" : "35"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "AND",
+            "Model" : "스팀제트 SC-C101",
+            "UnitCost" : 180000.0,
+            "Description" : "스팀청소기\/LG전자\/스틱형\/살균\/안전마개\/물없음알림",
+            "Discount" : 15,
+            "ProductId" : "36"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "AND",
+            "Model" : "스티미 SAK-2003",
+            "UnitCost" : 79000.0,
+            "Description" : "스팀청소기\/한영전기\/스틱형\/초극세사\/살균\/길이조절",
+            "Discount" : null,
+            "ProductId" : "37"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "AND",
+            "Model" : "CS-200A",
+            "UnitCost" : 39800.0,
+            "Description" : "스팀청소기\/씨쓰리아이디(C3ID)\/스틱형\/살균\/길이조절\/급수램프",
+            "Discount" : null,
+            "ProductId" : "38"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "AMIGOS",
+            "Model" : "Z311A",
+            "UnitCost" : 126000.0,
+            "Description" : "스팀청소기\/일렉트로룩스\/스틱형\/살균\/작동램프\/누수방지",
+            "Discount" : 20,
+            "ProductId" : "39"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "청소기",
+            "Company" : "AOPENS",
+            "Model" : "Z350A",
+            "UnitCost" : 88800.0,
+            "Description" : "스팀청소기\/일렉트로룩스\/핸디형\/살균\/안전마개\/항균작용",
+            "Discount" : null,
+            "ProductId" : "40"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "FUJATSU",
+            "Model" : "케녹스 170IP",
+            "UnitCost" : 245000.0,
+            "Description" : "자동카메라\/4.5배줌\/38~170mm렌즈",
+            "Discount" : null,
+            "ProductId" : "59"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "HOOXS",
+            "Model" : "IS-5000QD (28~140 mm렌즈)",
+            "UnitCost" : 490000.0,
+            "Description" : "자동카메라\/28~140 mm렌즈",
+            "Discount" : 15,
+            "ProductId" : "60"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "HT",
+            "Model" : "Powershot A80",
+            "UnitCost" : 430000.0,
+            "Description" : "디지털카메라\/410만화소\/3배광학줌\/자동및수동\/1.5LCD\/CF카드\/일반배터리\/CCD",
+            "Discount" : null,
+            "ProductId" : "61"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "HT",
+            "Model" : "EOS-66",
+            "UnitCost" : 315000.0,
+            "Description" : "수동카메라\/35~80mm렌즈\/캐논EF마운트",
+            "Discount" : null,
+            "ProductId" : "62"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "HT",
+            "Model" : "CoolPix 3100",
+            "UnitCost" : 296000.0,
+            "Description" : "디지털카메라\/334만화소\/3배광학줌\/자동\/1.5LCD\/CF카드\/전용배터리\/CCD",
+            "Discount" : 10,
+            "ProductId" : "63"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "HT",
+            "Model" : "IXUS V2",
+            "UnitCost" : 376000.0,
+            "Description" : "210만화소\/2배광학줌\/자동\/1.5LCD\/CF카드\/전용배터리\/CCD",
+            "Discount" : null,
+            "ProductId" : "64"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "IMRIS",
+            "Model" : "VPC-MZ3(DSC-MZ3)",
+            "UnitCost" : 335000.0,
+            "Description" : "211만화소\/3배광학줌\/자동및수동\/1.5LCD\/CF카드\/일반배터리\/CCD",
+            "Discount" : null,
+            "ProductId" : "65"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "INTEN",
+            "Model" : "FM-10",
+            "UnitCost" : 315000.0,
+            "Description" : "수동카메라\/35~70mm렌즈\/니콘F마운트",
+            "Discount" : 10,
+            "ProductId" : "66"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "INTEN",
+            "Model" : "DSC-T1",
+            "UnitCost" : 560000.0,
+            "Description" : "디지털카메라\/530만화소\/3배광학줌\/자동\/2.5LCD\/메모리스틱\/전용배터리\/CCD",
+            "Discount" : null,
+            "ProductId" : "67"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "INTEN",
+            "Model" : "F-100",
+            "UnitCost" : 1350000.0,
+            "Description" : "수동카메라\/Body\/니콘F마운트",
+            "Discount" : null,
+            "ProductId" : "68"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "INTEN",
+            "Model" : "PowerShot S50",
+            "UnitCost" : 475000.0,
+            "Description" : "530만화소\/3배광학줌\/자동및수동\/1.8LCD\/CF카드\/전용배터리\/CCD",
+            "Discount" : 20,
+            "ProductId" : "69"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "INTEN",
+            "Model" : "IXUS II",
+            "UnitCost" : 374000.0,
+            "Description" : "330만화소\/2배광학줌\/자동\/1.5LCD\/SD카드+MMC\/전용배터리\/CCD",
+            "Discount" : null,
+            "ProductId" : "70"
+        },
+        {
+            "Category" : "가전제품",
+            "SubCategory" : "카메라",
+            "Company" : "4M",
+            "Model" : "DMC-FZ1",
+            "UnitCost" : 365000.0,
+            "Description" : "210만화소\/12배광학줌\/자동및수동\/1.5LCD\/SD카드+MMC\/전용배터리\/CCD",
+            "Discount" : null,
+            "ProductId" : "71"
+        }
+    ]
+}

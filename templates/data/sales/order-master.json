@@ -1,0 +1,17 @@
+{
+    "orderNo" : "21300-493002",
+    "orderDate" : "2004-12-01",
+    "receiptName": "(주)대한특수플라스틱",
+    "receiptPhone" : "(081)230-3009",
+    "receiptFax" : "(081)230-3008",
+    "receiptContact" : "김대한",
+    "senderName": "대만프라스틱공업(주)",
+    "senderPhone" : "(081)489-2003",
+    "senderFax" : "(081)489-2002",
+    "senderContact" : "이대만",
+    "dueDate" : "2004-12-10",
+    "deliveryTerm" : null,
+    "paymentTerm" : "Cash(대금지불일 현금지급)",
+    "insection" : null,
+    "remark" : null
+}

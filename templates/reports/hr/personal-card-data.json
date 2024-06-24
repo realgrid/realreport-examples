@@ -1,0 +1,179 @@
+{
+    "personal-card-career": {
+        "type": "band",
+        "values": [
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "경력사항",
+                "Employment": "포시에스",
+                "Location": "서울",
+                "YearsOfService": "2년",
+                "ReasonForRetirement": "계약만료",
+                "RetirementDate": "2008-03-12"
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "경력사항",
+                "Employment": "",
+                "Location": "",
+                "YearsOfService": "",
+                "ReasonForRetirement": "",
+                "RetirementDate": ""
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "경력사항",
+                "Employment": "",
+                "Location": "",
+                "YearsOfService": "",
+                "ReasonForRetirement": "",
+                "RetirementDate": ""
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "경력사항",
+                "Employment": "",
+                "Location": "",
+                "YearsOfService": "",
+                "ReasonForRetirement": "",
+                "RetirementDate": ""
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "경력사항",
+                "Employment": "",
+                "Location": "",
+                "YearsOfService": "",
+                "ReasonForRetirement": "",
+                "RetirementDate": ""
+            }
+        ]
+    },
+    "personal-card-education": {
+        "type": "band",
+        "values": [
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "학력",
+                "Brightness": "대방중학교",
+                "Department": "",
+                "GraduationYear": "1999년2월20일"
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "학력",
+                "Brightness": "대방고등학교",
+                "Department": "",
+                "GraduationYear": "2002년2월17일"
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "학력",
+                "Brightness": "한국대학교",
+                "Department": "컴퓨터과",
+                "GraduationYear": "2007년2월23일"
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "학력",
+                "Brightness": "",
+                "Department": "",
+                "GraduationYear": ""
+            }
+        ]
+    },
+    "personal-card-family": {
+        "type": "band",
+        "values": [
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "가족관계",
+                "FamilyName": "김진수",
+                "Relationship": "부",
+                "FamilyGraduationYear": "1950년5월10일",
+                "FamilyAge": 58,
+                "FamilyFinalEducation": "대졸"
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "가족관계",
+                "FamilyName": "이서영",
+                "Relationship": "모",
+                "FamilyGraduationYear": "1956년8월14일",
+                "FamilyAge": 52,
+                "FamilyFinalEducation": "고졸"
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "가족관계",
+                "FamilyName": "김기철",
+                "Relationship": "형",
+                "FamilyGraduationYear": "1982년3월4일",
+                "FamilyAge": 27,
+                "FamilyFinalEducation": "대졸"
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "가족관계",
+                "FamilyName": "",
+                "Relationship": "",
+                "FamilyGraduationYear": "",
+                "FamilyAge": null,
+                "FamilyFinalEducation": ""
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "가족관계",
+                "FamilyName": "",
+                "Relationship": "",
+                "FamilyGraduationYear": "",
+                "FamilyAge": null,
+                "FamilyFinalEducation": ""
+            }
+        ]
+    },
+    "personal-card-guarantor": {
+        "type": "band",
+        "values": [
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "신원보증인",
+                "Guarantor": "김진수",
+                "IdentityRelationship": "부",
+                "IdentityAddress": "서울시 동작구 대방동 13-1"
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "신원보증인",
+                "Guarantor": "",
+                "IdentityRelationship": "",
+                "IdentityAddress": ""
+            },
+            {
+                "ResidentRegister": "830919-1233487",
+                "Category": "신원보증인",
+                "Guarantor": "",
+                "IdentityRelationship": "",
+                "IdentityAddress": ""
+            }
+        ]
+    },
+    "personal-card-profile": {
+        "type": "band",
+        "values": [
+            {
+                "IDPicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3x6ERYm3Hpjv0-h-43hrqspDknKKAUxbIlg&usqp=CAU",
+                "ResidentRegister": "830919-1233487",
+                "Name": "김철수",
+                "FamilyRegister": "서울시 동작구 대방동 13-1",
+                "Postcode": "231-115",
+                "CurrentAddress": "서울시 동작구 대방동 13-1",
+                "Hobby": "게임",
+                "Speciality": "볼링",
+                "DateOfBirth": "1983년9월19일",
+                "PhoneNumber": "02-883-9093",
+                "RushHour": "1시간"
+            }
+        ]
+    }
+}

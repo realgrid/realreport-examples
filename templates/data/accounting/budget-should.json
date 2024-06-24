@@ -1,0 +1,21 @@
+{
+    "fields": [
+        { "fieldName": "Article", "dataType": "text", "sample": "영업비용" },
+        { "fieldName": "Clause", "dataType": "text", "sample": "매출원가" },
+        { "fieldName": "SubClase", "dataType": "text", "sample": "인건비" },
+        { "fieldName": "Item", "dataType": "text", "sample": "직원 인건비" },
+        { "fieldName": "Budget", "dataType": "number", "sample": 1.44710337e8 },
+        { "fieldName": "PrevBudget", "dataType": "number", "sample": 1.44973449e8 },
+        { "fieldName": "Variation", "dataType": "number", "sample": -263112 }
+    ],
+    "sample": [
+        {
+            "Article": "영업비용",
+            "SubClase": "인건비",
+            "Item": "직원 인건비",
+            "Budget": 1.44710337e8,
+            "PrevBudget": 1.44973449e8,
+            "Variation": -263112
+        }
+    ]
+}

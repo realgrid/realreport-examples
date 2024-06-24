@@ -1,0 +1,67 @@
+{
+    "mail-label": {
+        "type": "band",
+        "values": [
+            {
+                "PostalCode": "742-170",
+                "Address": "가장동 78-3 상주시 대한민국",
+                "ContactName": "한석규"
+            },
+            {
+                "PostalCode": "137-060",
+                "Address": "서초구 방배동 883-11 서울특별시 대한민국",
+                "ContactName": "황영순"
+            },
+            {
+                "PostalCode": "157-280",
+                "Address": "강서구 내발산동 318 서울특별시 대한민국",
+                "ContactName": "조자릉"
+            },
+            {
+                "PostalCode": "402-110",
+                "Address": "남구 연수동 208-16 인천광역시 대한민국",
+                "ContactName": "구재석"
+            },
+            {
+                "PostalCode": "302-160",
+                "Address": "서구 도마동 110-6 대전광역시 대한민국",
+                "ContactName": "최영희"
+            },
+            {
+                "PostalCode": "120-121",
+                "Address": "서대문구 남가좌 1동 121 서울특별시 대한민국",
+                "ContactName": "손미선"
+            },
+            {
+                "PostalCode": "150-043",
+                "Address": "영등포구 당산동 3가 16 서울특별시 대한민국",
+                "ContactName": "장선희"
+            },
+            {
+                "PostalCode": "614-103",
+                "Address": "부산진구 당감 3동 611-3 부산광역시 대한민국",
+                "ContactName": "정영일"
+            },
+            {
+                "PostalCode": "140-150",
+                "Address": "용산구 갈월동 116-7 서율특별시 대한민국",
+                "ContactName": "문익한"
+            },
+            {
+                "PostalCode": "604-030",
+                "Address": "사하구 신평동 701-29 부산광역시 대한민국",
+                "ContactName": "문흥미"
+            },
+            {
+                "PostalCode": "21-060",
+                "Address": "구산동 17-111 김해시 대한민국",
+                "ContactName": "이강주"
+            },
+            {
+                "PostalCode": "135-280",
+                "Address": "강남구 대치동 315--11 서울특별시 대한민국",
+                "ContactName": "백광준"
+            }
+        ]
+    }
+}

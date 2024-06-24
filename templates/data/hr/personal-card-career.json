@@ -1,0 +1,56 @@
+{
+    "fields": [
+        {"fieldName": "ResidentRegister", "dataType": "text", "sample": "830919-1233487" },
+        {"fieldName": "Category", "dataType": "text", "sample": "경력사항" },
+        {"fieldName": "Employment", "dataType": "text", "sample": "포시에스" },
+        {"fieldName": "Location", "dataType": "text", "sample": "서울" },
+        {"fieldName": "YearsOfService", "dataType": "text", "sample": "2년" },
+        {"fieldName": "ReasonForRetirement", "dataType": "text","sample": "계약만료" },
+        {"fieldName": "RetirementDate", "dataType": "text","sample": "2008-03-12" }
+    ],
+    "sample": [{
+        "ResidentRegister" : "830919-1233487",
+        "Category" : "경력사항",
+        "Employment" : "포시에스",
+        "Location" : "서울",
+        "YearsOfService" : "2년",
+        "ReasonForRetirement" : "계약만료",
+        "RetirementDate" : "2008-03-12"
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category" : "경력사항",
+        "Employment" : "",
+        "Location" : "",
+        "YearsOfService" : "",
+        "ReasonForRetirement" : "",
+        "RetirementDate" : ""
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category" : "경력사항",
+        "Employment" : "",
+        "Location" : "",
+        "YearsOfService" : "",
+        "ReasonForRetirement" : "",
+        "RetirementDate" : ""
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category" : "경력사항",
+        "Employment" : "",
+        "Location" : "",
+        "YearsOfService" : "",
+        "ReasonForRetirement" : "",
+        "RetirementDate" : ""
+    },
+    {
+        "ResidentRegister" : "830919-1233487",
+        "Category" : "경력사항",
+        "Employment" : "",
+        "Location" : "",
+        "YearsOfService" : "",
+        "ReasonForRetirement" : "",
+        "RetirementDate" : ""
+    }]
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

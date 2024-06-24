@@ -1,0 +1,48 @@
+{
+  "fields": [
+    { "fieldName": "orderNo", "dataType": "text", "sample": "21300-493002" },
+    { "fieldName": "item", "dataType": "text", "sample": "LB018Q01-A1" },
+    { "fieldName": "standard", "dataType": "text", "sample": "EPS M50" },
+    { "fieldName": "unit", "dataType": "text", "sample": "BOX" },
+    { "fieldName": "quantity", "dataType": "number", "sample": 510 },
+    { "fieldName": "unitPrice", "dataType": "number", "sample": 3300 },
+    { "fieldName": "amount", "dataType": "number", "sample": 902000 },
+    { "fieldName": "tax", "dataType": "number", "sample": 90200 },
+    { "fieldName": "remark", "dataType": "text", "sample": null }
+  ],
+  "sample": [
+    {
+      "orderNo": "21300-493002",
+      "item": "MQ200Q01-A1",
+      "standard": "EPS M50",
+      "unit": "BOX",
+      "quantity": 220,
+      "unitPrice": 4100,
+      "amount": 902000,
+      "tax": 90200,
+      "remark": null
+    },
+    {
+      "orderNo": "21300-493002",
+      "item": "CUSHIN-L/R",
+      "standard": "PG19HS",
+      "unit": "BOX",
+      "quantity": 1300,
+      "unitPrice": 2500,
+      "amount": 3250000,
+      "tax": 325000,
+      "remark": null
+    },
+    {
+      "orderNo": "21300-493002",
+      "item": "LB018Q01",
+      "standard": "EPS M50",
+      "unit": "BOX",
+      "quantity": 510,
+      "unitPrice": 3300,
+      "amount": 1683000,
+      "tax": 168300,
+      "remark": null
+    }
+  ]
+}

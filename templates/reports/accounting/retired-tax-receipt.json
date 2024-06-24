@@ -1,0 +1,2624 @@
+{
+    "name": "reportRoot",
+    "paperSize": "A4",
+    "paperWidth": "210mm",
+    "paperHeight": "297mm",
+    "marginLeft": "12mm",
+    "marginRight": "12mm",
+    "marginTop": "15mm",
+    "marginBottom": "15mm",
+    "page": {
+        "name": "reportPage",
+        "pageHeader": {
+            "name": "pageHeader"
+        },
+        "reportHeader": {
+            "name": "reportHeader",
+            "styles": {
+                "border": "solid 1px",
+                "__tag_": {},
+                "paddingTop": "10px",
+                "paddingBottom": "10px"
+            },
+            "items": [
+                {
+                    "type": "rbox",
+                    "width": 156,
+                    "name": "",
+                    "left": "40px",
+                    "itemGap": 0,
+                    "styles": {
+                        "border": "solid 1px",
+                        "__tag_": {}
+                    },
+                    "items": [
+                        {
+                            "type": "text",
+                            "width": "40px",
+                            "height": "40px",
+                            "name": "",
+                            "multiLine": true,
+                            "text": "  관 리<br>  번 호",
+                            "styles": {
+                                "verticalAlign": "middle",
+                                "borderRight": "solid 1px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": ""
+                        }
+                    ]
+                },
+                {
+                    "type": "cbox",
+                    "name": "",
+                    "itemGap": 0,
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "퇴직소득원천징수영수증/지급조서",
+                            "styles": {
+                                "fontSize": "14px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "text": "(발행자 보고용)",
+                            "styles": {
+                                "fontSize": "14px",
+                                "__tag_": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "table",
+                    "width": "205px",
+                    "name": "",
+                    "right": "3px",
+                    "rowCount": 3,
+                    "cellStyles": {},
+                    "rows": [{}, {}, {}],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "colspan": 2
+                        },
+                        {
+                            "r": 0,
+                            "c": 2,
+                            "colspan": 2
+                        },
+                        {
+                            "r": 1,
+                            "c": 0,
+                            "colspan": 2
+                        },
+                        {
+                            "r": 1,
+                            "c": 2,
+                            "colspan": 2
+                        }
+                    ],
+                    "colCount": 4,
+                    "columns": [
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "25%"
+                        },
+                        {
+                            "width": "15%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "거주구분"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 1,
+                            "text": "내외국인"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 2,
+                            "text": "거주지국"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "거주자:1 / 비거주자:2"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "text": "내국인:1 / 외국인:2"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 2,
+                            "text": ""
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 2,
+                            "text": "거주지국코드"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 2,
+                            "text": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "reportFooter": {
+            "name": "reportFooter"
+        },
+        "pageFooter": {
+            "name": "pageFooter"
+        },
+        "body": {
+            "itemGap": "-1px",
+            "items": [
+                {
+                    "type": "table",
+                    "data": "retire-tax-receipt",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 6,
+                    "minRowHeight": "22px",
+                    "cellStyles": {},
+                    "rows": [{}, {}, {}, {}, {}, {}],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "rowspan": 3,
+                            "styles": {
+                                "borderLeft": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 2,
+                            "colspan": 4,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 0,
+                            "rowspan": 2,
+                            "styles": {
+                                "borderLeft": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 2,
+                            "colspan": 3,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 0,
+                            "colspan": 2,
+                            "styles": {
+                                "borderLeft": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 2,
+                            "colspan": 3,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderRight": "solid 1px"
+                            }
+                        }
+                    ],
+                    "colCount": 5,
+                    "columns": [
+                        {
+                            "width": "10%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "28%"
+                        },
+                        {
+                            "width": "17%"
+                        },
+                        {
+                            "width": "30%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "multiLine": true,
+                            "text": "징수<br>의무자",
+                            "styles": {
+                                "textAlign": "center",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 3,
+                            "text": "소득자"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 0,
+                            "text": "1. 법인명 (상호)"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 1,
+                            "text": "3. 사업자등록번호"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 2,
+                            "text": "5. 소재지 (주소)"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 3,
+                            "text": "6. 성 명"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 4,
+                            "text": "8. 주 소"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 0,
+                            "text": "2. 대표자 (성명)"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 1,
+                            "text": "4. 주민(법인)등록번호"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 3,
+                            "text": "7. 주민등록번호"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "companyName",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "registration",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "address",
+                            "name": "",
+                            "col": 2,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "employeeName",
+                            "name": "",
+                            "col": 2,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "employeeAddress",
+                            "name": "",
+                            "col": 2,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "presidentName",
+                            "name": "",
+                            "col": 4,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "presidentRRN",
+                            "name": "",
+                            "col": 4,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "employeeRRN",
+                            "name": "",
+                            "col": 4,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 5,
+                            "text": "9. 귀속년도"
+                        },
+                        {
+                            "type": "rbox",
+                            "name": "",
+                            "col": 2,
+                            "row": 5,
+                            "itemGap": 0,
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "data": "",
+                                    "value": "imputedFromDate",
+                                    "width": "65px",
+                                    "name": "",
+                                    "text": "1999.12.31",
+                                    "styles": {
+                                        "textAlign": "left",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "text": "부터",
+                                    "styles": {
+                                        "paddingRight": "3px",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "data": "",
+                                    "value": "imputedToDate",
+                                    "width": "65px",
+                                    "name": "",
+                                    "text": "Text",
+                                    "styles": {
+                                        "textAlign": "left",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "text": "까지"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "table",
+                    "data": "retire-tax-receipt",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 7,
+                    "minRowHeight": "22px",
+                    "cellStyles": {},
+                    "rows": [{}, {}, {}, {}, {}, {}, {}],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "rowspan": 7,
+                            "styles": {
+                                "cellAlign": "center",
+                                "borderLeft": "solid 1px",
+                                "borderTop": "solid 1px",
+                                "borderBottom": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderTop": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 2,
+                            "styles": {
+                                "borderTop": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 3,
+                            "styles": {
+                                "borderTop": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 4,
+                            "styles": {
+                                "borderTop": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 5,
+                            "styles": {
+                                "borderRight": "solid 1px",
+                                "borderTop": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 5,
+                            "styles": {
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 5,
+                            "styles": {
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderBottom": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderBottom": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderBottom": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 4,
+                            "styles": {
+                                "borderBottom": "solid 1px"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "solid 1px",
+                                "borderBottom": "solid 1px"
+                            }
+                        }
+                    ],
+                    "colCount": 6,
+                    "columns": [
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "15%"
+                        },
+                        {
+                            "width": "25%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "multiLine": true,
+                            "text": "지<br>급<br>처<br>별<br>소<br>득<br>명<br>세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 0,
+                            "text": "10. 지급처 구분"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "주(현)"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 0,
+                            "text": "종(전)"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 0,
+                            "text": "종(전)"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 0,
+                            "text": "합계"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "name": "",
+                            "col": 1,
+                            "row": 1,
+                            "text": "11. 지급처명"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 2,
+                            "text": "12. 사업자등록번호"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 3,
+                            "text": "13. 법정퇴직급여"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 4,
+                            "text": "14. 명예퇴직수당 등"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 6,
+                            "text": "16. 계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 5,
+                            "text": "15. 퇴직보험금 등"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevWorkplace",
+                            "name": "",
+                            "col": 3,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevRegistration",
+                            "name": "",
+                            "col": 3,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "currSalary",
+                            "name": "",
+                            "col": 2,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevSalary",
+                            "name": "",
+                            "col": 3,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "currBonus",
+                            "name": "",
+                            "col": 2,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevBonus",
+                            "name": "",
+                            "col": 3,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "currConstructive",
+                            "name": "",
+                            "col": 2,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "data": "",
+                            "value": "currTotal",
+                            "name": "",
+                            "col": 2,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevTotal",
+                            "name": "",
+                            "col": 3,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalIncome",
+                            "name": "",
+                            "col": 5,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalConstructive",
+                            "name": "",
+                            "col": 5,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalBonus",
+                            "name": "",
+                            "col": 5,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalSalary",
+                            "name": "",
+                            "col": 5,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 1,
+                            "text": ""
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 2,
+                            "text": ""
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 3,
+                            "text": ""
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 4,
+                            "text": ""
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 5,
+                            "text": ""
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 6,
+                            "text": ""
+                        }
+                    ]
+                },
+                {
+                    "type": "table",
+                    "data": "retire-tax-receipt",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 5,
+                    "cellStyles": {},
+                    "rows": [
+                        {
+                            "height": "25px"
+                        },
+                        {
+                            "height": "25px"
+                        },
+                        {
+                            "height": "25px"
+                        },
+                        {
+                            "height": "15px"
+                        },
+                        {
+                            "height": "15px"
+                        }
+                    ],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "colspan": 2,
+                            "styles": {
+                                "borderLeft": "1px solid",
+                                "borderTop": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 2,
+                            "colspan": 4,
+                            "styles": {
+                                "borderTop": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 6,
+                            "colspan": 4,
+                            "styles": {
+                                "borderTop": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 10,
+                            "rowspan": 5,
+                            "styles": {
+                                "borderRight": "1px solid",
+                                "borderTop": "1px solid",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 0,
+                            "rowspan": 4,
+                            "styles": {
+                                "borderLeft": "1px solid",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 1,
+                            "rowspan": 2,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 2,
+                            "rowspan": 2,
+                            "styles": {
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 3,
+                            "rowspan": 2,
+                            "styles": {
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 4,
+                            "rowspan": 2,
+                            "styles": {
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "center"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 6,
+                            "rowspan": 2,
+                            "styles": {
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 7,
+                            "rowspan": 2,
+                            "styles": {
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 8,
+                            "rowspan": 2,
+                            "styles": {
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 5,
+                            "styles": {
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 9,
+                            "styles": {
+                                "borderBottom": "1px solid"
+                            }
+                        }
+                    ],
+                    "colCount": 11,
+                    "columns": [
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "8%"
+                        },
+                        {
+                            "width": "8%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "6%"
+                        },
+                        {
+                            "width": "8%"
+                        },
+                        {
+                            "width": "8%"
+                        },
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "6%"
+                        },
+                        {
+                            "width": "21%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "width": 25,
+                            "name": "",
+                            "col": 0,
+                            "row": 1,
+                            "wrap": true,
+                            "text": "근속년수"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "법정퇴직급여"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 6,
+                            "row": 0,
+                            "text": "법정이외 퇴직급여"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 10,
+                            "row": 0,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 1,
+                            "text": "근무지구분"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 2,
+                            "text": "17. 주(현) 근무지"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 3,
+                            "text": "18. 종(전) 근무지"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "text": "입사일"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 1,
+                            "text": "퇴사일"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 1,
+                            "text": "근속년"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 1,
+                            "text": "근속월"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 3,
+                            "text": "중복월수",
+                            "styles": {
+                                "fontSize": "11px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtJoin",
+                            "name": "",
+                            "col": 2,
+                            "row": 2,
+                            "text": "1999.01.01",
+                            "styles": {
+                                "fontSize": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtRetire",
+                            "name": "",
+                            "col": 3,
+                            "row": 2,
+                            "text": "1999.12.31",
+                            "styles": {
+                                "fontSize": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtYear",
+                            "name": "",
+                            "col": 4,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtMonth",
+                            "name": "",
+                            "col": 5,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevIncourtJoin",
+                            "name": "",
+                            "col": 2,
+                            "row": 3,
+                            "text": "Text",
+                            "styles": {
+                                "fontSize": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevIncourtRetire",
+                            "name": "",
+                            "col": 3,
+                            "row": 3,
+                            "text": "Text",
+                            "styles": {
+                                "fontSize": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevIncourtYear",
+                            "name": "",
+                            "col": 4,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtDuplicate",
+                            "name": "",
+                            "col": 5,
+                            "row": 4,
+                            "text": "Text",
+                            "styles": {
+                                "fontSize": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 6,
+                            "row": 1,
+                            "text": "입사일"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 7,
+                            "row": 1,
+                            "text": "퇴사일"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 8,
+                            "row": 1,
+                            "text": "근속년"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 9,
+                            "row": 1,
+                            "text": "근속월"
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtJoin",
+                            "name": "",
+                            "col": 6,
+                            "row": 2,
+                            "text": "Text",
+                            "styles": {
+                                "fontSize": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtRetire",
+                            "name": "",
+                            "col": 7,
+                            "row": 2,
+                            "text": "Text",
+                            "styles": {
+                                "fontSize": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtYear",
+                            "name": "",
+                            "col": 8,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtMonth",
+                            "name": "",
+                            "col": 9,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 9,
+                            "row": 3,
+                            "text": "중복월수",
+                            "styles": {
+                                "fontSize": "11px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtDuplicate",
+                            "name": "",
+                            "col": 9,
+                            "row": 4,
+                            "text": "Text",
+                            "styles": {
+                                "fontSize": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevOffcourtYear",
+                            "name": "",
+                            "col": 8,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevIncourtRetire",
+                            "name": "",
+                            "col": 7,
+                            "row": 3,
+                            "text": "Text",
+                            "styles": {
+                                "fontSize": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": "prevOffcourtJoin",
+                            "name": "",
+                            "col": 6,
+                            "row": 3,
+                            "text": "Text",
+                            "styles": {
+                                "fontSize": "10px",
+                                "__tag_": {}
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "text": "계산내용"
+                        }
+                    ]
+                },
+                {
+                    "type": "table",
+                    "data": "retire-tax-receipt",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 8,
+                    "minRowHeight": "22px",
+                    "cellStyles": {},
+                    "rows": [{}, {}, {}, {}, {}, {}, {}, {}],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "rowspan": 8,
+                            "styles": {
+                                "borderLeft": "1px solid",
+                                "borderTop": "",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 4,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 5,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 6,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 7,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid",
+                                "borderBottom": "1px solid"
+                            }
+                        }
+                    ],
+                    "colCount": 5,
+                    "columns": [
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "27%"
+                        },
+                        {
+                            "width": "27%"
+                        },
+                        {
+                            "width": "21%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "multiLine": true,
+                            "text": "정<br>산<br>명<br>세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 0,
+                            "text": "19. 퇴직급여액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 1,
+                            "text": "20. 퇴직소득공제"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 2,
+                            "text": "21. 퇴직소득과세표준"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 3,
+                            "text": "22. 연평균과세표준"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 4,
+                            "text": "23. 연평균산출세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 5,
+                            "text": "24. 산출세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 6,
+                            "text": "25. 세액공제"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 7,
+                            "text": "26. 결정세액"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalSalary",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtIncomeDeduct",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtStandard",
+                            "name": "",
+                            "col": 2,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtAvgStandard",
+                            "name": "",
+                            "col": 2,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtAvgCalculated",
+                            "name": "",
+                            "col": 2,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtCalculated",
+                            "name": "",
+                            "col": 2,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtTaxDeduct",
+                            "name": "",
+                            "col": 2,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtSettledTax",
+                            "name": "",
+                            "col": 2,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtSalary",
+                            "name": "",
+                            "col": 3,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtIncomeDeduct",
+                            "name": "",
+                            "col": 3,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtStandard",
+                            "name": "",
+                            "col": 3,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incourtAvgStandard",
+                            "name": "",
+                            "col": 3,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtAvgCalculated",
+                            "name": "",
+                            "col": 3,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtCalculated",
+                            "name": "",
+                            "col": 3,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtTaxDeduct",
+                            "name": "",
+                            "col": 3,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "offcourtSettledTax",
+                            "name": "",
+                            "col": 3,
+                            "row": 7,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "currTotal",
+                            "name": "",
+                            "col": 4,
+                            "row": 0,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "sumIncomeDeduct",
+                            "name": "",
+                            "col": 4,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "sumStandard",
+                            "name": "",
+                            "col": 4,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "sumAvgStandard",
+                            "name": "",
+                            "col": 4,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "sumAvgCalculated",
+                            "name": "",
+                            "col": 4,
+                            "row": 4,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "sumCalculated",
+                            "name": "",
+                            "col": 4,
+                            "row": 5,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "sumTaxDeduct",
+                            "name": "",
+                            "col": 4,
+                            "row": 6,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "sumSattledTax",
+                            "name": "",
+                            "col": 4,
+                            "row": 7,
+                            "text": "Text"
+                        }
+                    ]
+                },
+                {
+                    "type": "table",
+                    "data": "retire-tax-receipt",
+                    "width": "100%",
+                    "name": "",
+                    "rowCount": 4,
+                    "minRowHeight": "22px",
+                    "cellStyles": {},
+                    "rows": [{}, {}, {}, {}],
+                    "cells": [
+                        {
+                            "r": 0,
+                            "c": 0,
+                            "rowspan": 4,
+                            "styles": {
+                                "borderLeft": "1px solid",
+                                "borderTop": "1px solid",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 1,
+                            "styles": {
+                                "borderTop": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 2,
+                            "styles": {
+                                "borderTop": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 3,
+                            "styles": {
+                                "borderTop": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 4,
+                            "styles": {
+                                "borderTop": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 0,
+                            "c": 5,
+                            "styles": {
+                                "borderRight": "1px solid",
+                                "borderTop": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 1,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right"
+                            }
+                        },
+                        {
+                            "r": 2,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid",
+                                "borderTop": ""
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 1,
+                            "styles": {
+                                "cellAlign": "left",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 2,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 3,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 4,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderBottom": "1px solid"
+                            }
+                        },
+                        {
+                            "r": 3,
+                            "c": 5,
+                            "styles": {
+                                "cellAlign": "right",
+                                "borderRight": "1px solid",
+                                "borderTop": "",
+                                "borderBottom": "1px solid"
+                            }
+                        }
+                    ],
+                    "colCount": 6,
+                    "columns": [
+                        {
+                            "width": "5%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "20%"
+                        },
+                        {
+                            "width": "15%"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 0,
+                            "row": 0,
+                            "multiLine": true,
+                            "text": "납<br>부<br>명<br>세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 0,
+                            "text": "구분"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 1,
+                            "text": "27. 결정세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 2,
+                            "text": "28. 종(전)근무지 기납부세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 1,
+                            "row": 3,
+                            "text": "29. 차감원천징수세액"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 2,
+                            "row": 0,
+                            "text": "소득세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 3,
+                            "row": 0,
+                            "text": "주민세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 4,
+                            "row": 0,
+                            "text": "농어촌특별세"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "col": 5,
+                            "row": 0,
+                            "text": "계"
+                        },
+                        {
+                            "type": "text",
+                            "value": "sumSattledTax",
+                            "name": "",
+                            "col": 2,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prepaidIncomeTax",
+                            "name": "",
+                            "col": 2,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "incomeTax",
+                            "name": "",
+                            "col": 2,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "regidentTax",
+                            "name": "",
+                            "col": 3,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prepaidRegidentTax",
+                            "name": "",
+                            "col": 3,
+                            "row": 2,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "calcRegidentTax",
+                            "name": "",
+                            "col": 3,
+                            "row": 1,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "totalTax",
+                            "name": "",
+                            "col": 5,
+                            "row": 3,
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "value": "prepaidTotalTax",
+                            "name": "",
+                            "col": 5,
+                            "row": 2,
+                            "text": "Text"
+                        }
+                    ]
+                },
+                {
+                    "type": "stack",
+                    "width": "100%",
+                    "height": 108,
+                    "name": "",
+                    "styles": {
+                        "border": "solid 1px",
+                        "__tag_": {}
+                    },
+                    "items": [
+                        {
+                            "type": "text",
+                            "name": "",
+                            "top": "10px",
+                            "text": "위의 원천징수액(퇴직소득)을 영수(지급)합니다."
+                        },
+                        {
+                            "type": "text",
+                            "data": "retire-tax-receipt",
+                            "value": "receptDate",
+                            "name": "",
+                            "top": "35px",
+                            "text": "Text"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "top": "60px",
+                            "text": "징수 보고 의무자                                        ( 서명 또는 인 )"
+                        },
+                        {
+                            "type": "text",
+                            "name": "",
+                            "left": "150px",
+                            "bottom": "10px",
+                            "text": "귀하"
+                        }
+                    ]
+                },
+                {
+                    "type": "stack",
+                    "width": "100%",
+                    "height": 80,
+                    "name": "",
+                    "styles": {
+                        "border": "solid 1px",
+                        "__tag_": {}
+                    },
+                    "items": [
+                        {
+                            "type": "cbox",
+                            "name": "",
+                            "left": 0,
+                            "top": "0px",
+                            "itemGap": 0,
+                            "items": [
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "left": 0,
+                                    "text": "1. 본 서식은 퇴직금중간정산을 계산하고, 실제 퇴직식에 법정퇴직금이외의 퇴직급을 수령한 경우에 사용합니다. "
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "left": 0,
+                                    "text": "2. 거지주국과 거주지국코드는 외국인에 해당하는 경우에 한하여 기재하며, 국가표준화기구(ISO)가 정한 국가별 ISO코드중 국명약어 및 국가코드를 기재합니다.",
+                                    "styles": {
+                                        "fontSize": "9px",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "left": 0,
+                                    "text": "3. 원천징수의무자는 지급일이 속하는 연도의 다음연도 2월말일(휴업 또는 폐업한 경우에는 휴업일 또는 폐업일이 속하는 달의 다음 달 말일)까지 지급조서를 제출합니다.",
+                                    "styles": {
+                                        "fontSize": "9px",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "left": 0,
+                                    "text": "4. (14)란에는 공무원의 경우는 명예퇴직수당을 기재하며, 근로기준법 제31조의 규정에 의한 퇴직자의 경우는 통상퇴직금외 추가로 받는 퇴직급여를 기재합니다.",
+                                    "styles": {
+                                        "fontSize": "9px",
+                                        "__tag_": {}
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "",
+                                    "left": 0,
+                                    "text": "5. (29)차감원천징수액이 소액부징수에 해당하는 경우 \"0\"으로 기재합니다.",
+                                    "styles": {
+                                        "fontSize": "9px",
+                                        "__tag_": {}
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "styles": {
+            "fontFamily": "Tahoma",
+            "fontSize": "12px",
+            "__tag_": {}
+        }
+    },
+    "assets": {
+        "/": []
+    },
+    "data": {
+        "retire-tax-receipt": {
+            "type": "simple",
+            "sample": {
+                "companyName": "가나다 유통 주식회사",
+                "registration": "123-12-1234567",
+                "presidentName": "홍길동",
+                "presidentRRN": "720101-1234567",
+                "address": "서울특별시 종로구 종료1가 1번지",
+                "employeeName": "김아름",
+                "employeeRRN": "981231-1234567",
+                "employeeAddress": "경기도 수원시 팔달구 고등동 67-1",
+                "imputedFromDate": "2004/01/01",
+                "imputedToDate": "2004/12/31",
+                "reduceFromDate": "2004/01/01",
+                "reduceToDate": "2004/12/31",
+                "issuedDate": "2004/12/31",
+                "receptDate": "2005년 04월 15일",
+                "prevWorkplace": null,
+                "prevRegistration": null,
+                "prevSalary": null,
+                "prevBonus": null,
+                "prevTotal": null,
+                "currSalary": 19555190,
+                "currBonus": 16470000,
+                "currInsurance": null,
+                "currTotal": 36025190,
+                "totalSalary": 36025190,
+                "totalBonus": 16470000,
+                "totalInsurance": null,
+                "totalIncome": 36025190,
+                "incourtJoin": "2001-03-22",
+                "incourtRetire": "2004-12-31",
+                "incourtYear": 4,
+                "incourtMonth": 46,
+                "incourtDuplicate": null,
+                "offcourtJoin": "1981-11-23",
+                "offcourtYear": 24,
+                "offcourtMonth": 278,
+                "offcourtDuplicate": null,
+                "prevIncourtJoin": null,
+                "prevIncourtRetire": null,
+                "prevIncourtYear": null,
+                "prevIncourtMonth": null,
+                "prevIncourtDuplicate": null,
+                "prevOffcourtJoin": null,
+                "prevOffcourtYear": null,
+                "prevOffcourtMonth": null,
+                "prevOffcourtDuplicate": null,
+                "incourtIncomeDeduct": 10977595,
+                "incourtStandard": 8577595,
+                "incourtAvgStandard": 2144398,
+                "incourtAvgCalculated": 192995,
+                "incourtCalculated": 771980,
+                "incourtTaxDeduct": 192995,
+                "incourtSettledTax": 578985,
+                "offcourtSalary": 16470000,
+                "offcourtIncomeDeduct": 11835000,
+                "offcourtStandard": 4635000,
+                "offcourtAvgStandard": 193125,
+                "offcourtAvgCalculated": 17381,
+                "offcourtCalculated": 417144,
+                "offcourtTaxDeduct": 104286,
+                "offcourtSettledTax": 312858,
+                "sumIncomeDeduct": 22812595,
+                "sumStandard": 13212595,
+                "sumAvgStandard": 2337523,
+                "sumAvgCalculated": 210376,
+                "sumCalculated": 1189124,
+                "sumTaxDeduct": 297281,
+                "sumSattledTax": 891843,
+                "calcRegidentTax": 89184,
+                "prepaidIncomeTax": null,
+                "prepaidRegidentTax": null,
+                "prepaidTotalTax": null,
+                "incomeTax": 891840,
+                "regidentTax": 89180,
+                "totalTax": 981020
+            }
+        }
+    },
+    "guid": "a64c9b30-8a4d-4012-9680-ac6c642c4a56"
+}

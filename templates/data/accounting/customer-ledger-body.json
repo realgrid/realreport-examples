@@ -1,0 +1,256 @@
+{
+    "fields": [
+        { "fieldName": "TranDate", "dataType": "text", "sample": "2008-06-06" },
+        { "fieldName": "Item", "dataType": "text", "sample": "공산품" },
+        { "fieldName": "SupplierCode", "dataType": "text", "sample": "35" },
+        { "fieldName": "SupplierName", "dataType": "text", "sample": "경일물산" },
+        { "fieldName": "Briefs", "dataType": "text", "sample": "공산품 구매/영수번호: 2008-00222" },
+        { "fieldName": "Buy", "dataType": "number", "sample": 92500 },
+        { "fieldName": "Pay", "dataType": "number", "sample": 0 }
+    ],
+    "sample": [
+        {
+            "TranDate": "2008-06-06",
+            "Item": "공산품",
+            "SupplierCode": "35",
+            "SupplierName": "경일물산",
+            "Briefs": "공산품 구매/영수번호: 2008-00222",
+            "Buy": 92500,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-10",
+            "Item": "공산품",
+            "SupplierCode": "35",
+            "SupplierName": "경일물산",
+            "Briefs": "공산품 구매/영수번호: 2008-00267",
+            "Buy": 171770,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-11",
+            "Item": "공산품",
+            "SupplierCode": "35",
+            "SupplierName": "경일물산",
+            "Briefs": "공산품 구매/영수번호: 2008-00268",
+            "Buy": 28960,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-05-01",
+            "Item": "쌀",
+            "SupplierCode": "36",
+            "SupplierName": "경주쌀상회",
+            "Briefs": "쌀 구매/영수번호: 2008-00060",
+            "Buy": 859000,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-05-03",
+            "Item": "쌀",
+            "SupplierCode": "36",
+            "SupplierName": "경주쌀상회",
+            "Briefs": "쌀 구매/영수번호: 2008-00061",
+            "Buy": 68000,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-05-09",
+            "Item": "쌀",
+            "SupplierCode": "36",
+            "SupplierName": "경주쌀상회",
+            "Briefs": "쌀 구매/영수번호: 2008-00077",
+            "Buy": 542000,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-05-15",
+            "Item": "쌀",
+            "SupplierCode": "36",
+            "SupplierName": "경주쌀상회",
+            "Briefs": "쌀 구매/영수번호: 2008-00133",
+            "Buy": 983500,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-05-21",
+            "Item": "쌀",
+            "SupplierCode": "36",
+            "SupplierName": "경주쌀상회",
+            "Briefs": "쌀 대금 입금",
+            "Buy": 0,
+            "Pay": 2424000
+        },
+        {
+            "TranDate": "2008-05-22",
+            "Item": "쌀",
+            "SupplierCode": "36",
+            "SupplierName": "경주쌀상회",
+            "Briefs": "쌀 구매/영수번호: 2008-00161",
+            "Buy": 891500,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-05-31",
+            "Item": "쌀",
+            "SupplierCode": "36",
+            "SupplierName": "경주쌀상회",
+            "Briefs": "쌀 구매/영수번호: 2008-00201",
+            "Buy": 124000,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-04",
+            "Item": "쌀",
+            "SupplierCode": "36",
+            "SupplierName": "경주쌀상회",
+            "Briefs": "쌀 대금 입금",
+            "Buy": 0,
+            "Pay": 1044000
+        },
+        {
+            "TranDate": "2008-05-27",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00218",
+            "Buy": 796000,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-05-28",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00219",
+            "Buy": 408000,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-05-29",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00220",
+            "Buy": 1080500,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-05-31",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00597",
+            "Buy": 4221800,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-04",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00269",
+            "Buy": 1860000,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-05",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00271",
+            "Buy": 1700500,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-05",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00270",
+            "Buy": 1109000,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-11",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 대금 입금",
+            "Buy": 0,
+            "Pay": 2970600
+        },
+        {
+            "TranDate": "2008-06-13",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00272",
+            "Buy": 213750,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-15",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00273",
+            "Buy": 211850,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-17",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 대금 입금",
+            "Buy": 0,
+            "Pay": 7306550
+        },
+        {
+            "TranDate": "2008-06-17",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00302",
+            "Buy": 2555750,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-18",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00303",
+            "Buy": 526000,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-19",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00304",
+            "Buy": 2439700,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-20",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00305",
+            "Buy": 621000,
+            "Pay": 0
+        },
+        {
+            "TranDate": "2008-06-25",
+            "Item": "수산",
+            "SupplierCode": "37",
+            "SupplierName": "국제수산",
+            "Briefs": "수산 구매/영수번호: 2008-00306",
+            "Buy": 1702300,
+            "Pay": 0
+        }
+    ]
+}
