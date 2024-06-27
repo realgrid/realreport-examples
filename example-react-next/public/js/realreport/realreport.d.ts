@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.9.0
-* commit bcd8d0b
+* RealReport v1.9.1
+* commit c4ea274
 
 * Copyright (C) 2013-2024 WooriTech Inc.
 	https://real-report.com
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.9.0
+* RealReport Core v1.9.1
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit bc11ef2f13fe4761f6f7f9459c9d8b0ad53d0310
+* commit e944ba9c7ac33f1e7d9570f6e27e1c3636170b6a
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -1518,6 +1518,31 @@ declare class AssetManager extends EventAware$1 {
     private $_addHighchart;
 }
 
+/** @internal */
+declare class DatetimeReader {
+    static readonly Formats: string[];
+    static readonly Default: DatetimeReader;
+    static initialize(): void;
+    private _format;
+    private _type;
+    private _parser;
+    constructor(format: string);
+    /** format */
+    get format(): string;
+    set format(value: string);
+    /** amText */
+    get amText(): string;
+    set amText(value: string);
+    /** pmText */
+    get pmText(): string;
+    set pmText(value: string);
+    /** baseYear */
+    get baseYear(): number;
+    set baseYear(value: number);
+    toDate(value: string): Date;
+    private parse;
+}
+
 interface IReportDataProvider {
     designTime?: boolean;
     preparePrint(ctx: PrintContext): void;
@@ -1582,7 +1607,25 @@ declare abstract class LinkableReportData extends ReportData$1 {
     save(target: object): void;
     protected abstract _doDataFetched(fetchedData: unknown): void;
 }
+type SimpleDataValueType = {
+    [key: string]: any;
+};
+interface ISimpleDataField {
+    fieldName: string;
+    dataType?: 'string' | 'number' | 'boolean' | 'array' | 'object';
+    source?: string;
+    expression?: string;
+    format?: string;
+    description?: string;
+    sample?: any;
+    dateReader?: DatetimeReader;
+    width?: number;
+    children?: any;
+}
 interface ISimpleData extends IReportData {
+    getField(index: number): ISimpleDataField;
+    getFields(): ISimpleDataField[];
+    getFieldByName(fieldName: string): ISimpleDataField;
     getValues(): any;
     getSaveValues(): any;
 }
@@ -1591,44 +1634,47 @@ interface ISimpleData extends IReportData {
  */
 declare class SimpleData extends LinkableReportData implements ISimpleData {
     private _isObj;
-    private _values;
-    constructor(name: string, values: any, link?: IReportDataLink);
+    private _fields;
+    private _linkedValues;
+    private _embeddedValues;
+    private get _values();
+    private set _values(value);
+    constructor(name: string, values: SimpleDataValueType, link?: IReportDataLink, fields?: ISimpleDataField[], dp?: IReportDataProvider);
     /**
      * TODO: array index
      */
     getValue(path?: string): any;
     getValues(): any;
-    get sample(): any;
+    get sample(): SimpleDataValueType;
+    get rowCount(): number;
+    get fields(): ISimpleDataField[];
+    get fieldCount(): number;
     setSample(values: any): void;
     getFieldNames(): string[];
+    getFields(): ISimpleDataField[];
+    getField(index: number): ISimpleDataField;
+    getFieldByName(fieldName: string): ISimpleDataField;
+    getFieldIndex(field: string): number;
+    indexOfField(field: ISimpleDataField): number;
+    setField(index: number, field: ISimpleDataField): void;
+    getSaveFields(): ISimpleDataField[];
+    getNextFieldName(prefix?: string): string;
+    addField(index: number, field: ISimpleDataField): boolean;
+    removeField(field: ISimpleDataField): boolean;
+    dateToStr(field: ISimpleDataField, v: Date): string;
+    /**
+     * 특정 모드의 데이터를 일회성으로 조작하기 위한 편의성 메서드 (callback 실행 후 모드는 원복됨)
+     */
+    runInMode(mode: LinkableReportData['mode'], callback: (() => void) | Promise<void>): void;
+    readValue(field: ISimpleDataField, value: any): any;
     getSaveType(): string;
     getSaveValues(): any;
     protected _doDataFetched(fetchedData: unknown): void;
-}
-
-/** @internal */
-declare class DatetimeReader {
-    static readonly Formats: string[];
-    static readonly Default: DatetimeReader;
-    static initialize(): void;
-    private _format;
-    private _type;
-    private _parser;
-    constructor(format: string);
-    /** format */
-    get format(): string;
-    set format(value: string);
-    /** amText */
-    get amText(): string;
-    set amText(value: string);
-    /** pmText */
-    get pmText(): string;
-    set pmText(value: string);
-    /** baseYear */
-    get baseYear(): number;
-    set baseYear(value: number);
-    toDate(value: string): Date;
-    private parse;
+    setSource(source: SimpleDataValueType): void;
+    private $_isSimpleValueType;
+    private $_parseValue;
+    private $_createField;
+    private $_createFields;
 }
 
 /**@internal */
@@ -5535,6 +5581,40 @@ declare class I18nManager extends EventAware$1 {
     private $_fireDefaultLanguageChanged;
 }
 
+type FontSource = {
+    name: string;
+    source: string;
+    fontWeight: FontWeight;
+    format: FontFormat;
+};
+type UserFontSource = {
+    name: string;
+    source: string;
+    fontWeight: FontWeight;
+};
+type FontWeight = 'normal' | 'bold';
+type FontFormat = 'truetype' | 'opentype' | 'woff';
+/**
+ * FontManager 폰트 관련 리소스 관리
+ * 폰트 관련 리소스를 base64로 보관하고 가져다 사용할 수 있도록 작성
+ */
+declare class FontManager extends EventAware$1 {
+    static readonly FONT_ADDED = "onFontManagerFontAdded";
+    static readonly FONT_REMOVED = "onFontManagerFontRemoved";
+    private _fontSources;
+    constructor();
+    protected _doDispose(): void;
+    get fonts(): FontSource[];
+    get fontNames(): string[];
+    registerFonts(fontSources?: UserFontSource[]): Promise<void>;
+    getFonts(name: string, weight?: FontWeight): FontSource[];
+    getFontsByWeight(weight: FontWeight): FontSource[];
+    private $_convertFontWeight;
+    private $_convertFontType;
+    private $_fireFontAdded;
+    private $_fireFontRemoved;
+}
+
 declare enum PaperSize {
     A0 = "A0",
     A1 = "A1",
@@ -5748,6 +5828,7 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     private _data;
     private _designData;
     private _i18n;
+    private _fontManager;
     designTag: any;
     models: Record<number, ReportItem>;
     private _designTime;
@@ -5799,6 +5880,13 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     get designData(): DesignDataManager;
     /** i18n */
     get i18n(): I18nManager;
+    /** fontManager */
+    get fontManager(): FontManager;
+    /**
+     * Setter Injection인 이유는 리소스는 외부에서 한번만 생성후에 관리한다.
+     * 새로운 리포트 모델을 생성할 때 폰트관련 리소스는 외부 정보이므로 주입받아서 사용하자.
+     */
+    set fontManager(fontManager: FontManager);
     /** canUndo */
     get canUndo(): boolean;
     /** canRedo */
@@ -9243,9 +9331,9 @@ declare class PrintContainer extends VisualContainer$1 {
 }
 
 interface PdfFont {
-    file: string;
     name: string;
     content: string;
+    file?: string;
     style?: 'normal' | 'italic';
     weight?: 'normal' | 'bold';
 }

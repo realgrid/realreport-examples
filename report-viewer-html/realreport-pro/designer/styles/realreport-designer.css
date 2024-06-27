@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.9.0
+RealReport Designer v1.9.1
 Copyright (C) 2013-2024 WooriTech Inc.
 All Rights Reserved.
 */
@@ -3972,35 +3972,6 @@ input[data-rrproperty]::-webkit-inner-spin-button {
     position: sticky;
     left: 0;
 }
-.rrd-band-field-table-mover {
-    width: 21px;
-    min-width: 10px;
-    height: 21px;
-    background: transparent url('/assets/images/json-row-mover.png') no-repeat
-        center center;
-    background-size: 13px;
-    /* cursor: move; */
-    border: none;
-}
-.rrd-band-field-table-mover:hover {
-    background: transparent url('/assets/images/json-row-mover-active.png')
-        no-repeat center center;
-    background-size: 13px;
-}
-.rrd-band-field-table-menu {
-    width: 21px;
-    height: 21px;
-    background: transparent url('/assets/images/json-row-menu.png') no-repeat
-        center center;
-    background-size: 13px;
-    cursor: pointer;
-    border: none;
-}
-.rrd-band-field-table-menu:hover {
-    background: transparent url('/assets/images/json-row-menu-active.png')
-        no-repeat center center;
-    background-size: 13px;
-}
 .rrd-band-field-table tr td span,
 .rrd-simple-field-table tr td span {
     display: inline-block;
@@ -4142,34 +4113,6 @@ input[data-rrproperty]::-webkit-inner-spin-button {
     text-align: center;
     position: sticky;
     left: 0;
-}
-.rrd-band-data-sample-mover {
-    width: 21px;
-    height: 21px;
-    background: transparent url('/assets/images/json-row-mover.png') no-repeat
-        center center;
-    background-size: 13px;
-    cursor: move;
-    border: none;
-}
-.rrd-band-data-sample-mover:hover {
-    background: transparent url('/assets/images/json-row-mover-active.png')
-        no-repeat center center;
-    background-size: 13px;
-}
-.rrd-band-data-sample-menu {
-    width: 21px;
-    height: 21px;
-    background: transparent url('/assets/images/json-row-menu.png') no-repeat
-        center center;
-    background-size: 13px;
-    cursor: pointer;
-    border: none;
-}
-.rrd-band-data-sample-menu:hover {
-    background: transparent url('/assets/images/json-row-menu-active.png')
-        no-repeat center center;
-    background-size: 13px;
 }
 .rrd-band-data-sample tr td span {
     display: inline-block;

@@ -1,9 +1,20 @@
 import style from '../css/Report.module.css';
-import { HiChevronDoubleLeft, HiChevronDoubleRight, HiChevronLeft, HiChevronRight, HiPlusSm, HiMinusSm } from 'react-icons/hi';
-import { BsPrinter } from "react-icons/bs";
-import { VscFilePdf } from "react-icons/vsc";
-import { CgArrowsShrinkH, CgArrowsShrinkV, CgArrowsExpandLeft } from "react-icons/cg";
-import { TiArrowLoop } from "react-icons/ti";
+import {
+    HiChevronDoubleLeft,
+    HiChevronDoubleRight,
+    HiChevronLeft,
+    HiChevronRight,
+    HiPlusSm,
+    HiMinusSm,
+} from 'react-icons/hi';
+import { BsPrinter } from 'react-icons/bs';
+import { VscFilePdf } from 'react-icons/vsc';
+import {
+    CgArrowsShrinkH,
+    CgArrowsShrinkV,
+    CgArrowsExpandLeft,
+} from 'react-icons/cg';
+import { TiArrowLoop } from 'react-icons/ti';
 import { useEffect, useRef, useState } from 'react';
 
 function Toolbar({ viewer, compositeViewer }) {
@@ -15,16 +26,17 @@ function Toolbar({ viewer, compositeViewer }) {
     // 배율 인풋창
     const setInputValue = function () {
         if (viewer) setScale(`${Math.trunc(viewer.zoom * 100)}%`);
-        if (compositeViewer) setScale(`${Math.trunc(compositeViewer.zoom * 100)}%`);
-        input.current.value = scale
-    }
+        if (compositeViewer)
+            setScale(`${Math.trunc(compositeViewer.zoom * 100)}%`);
+        input.current.value = scale;
+    };
 
     // 페이지 인풋창
     const setPageInputValue = function () {
         if (viewer) setPage(viewer.page);
         if (compositeViewer) setPage(compositeViewer.page);
         pageInput.current.value = page;
-    }
+    };
 
     const onClickZoomIn10 = function () {
         if (viewer) {
@@ -35,7 +47,7 @@ function Toolbar({ viewer, compositeViewer }) {
             compositeViewer.zoomIn();
             setInputValue();
         }
-    }
+    };
 
     const onClickZoomOut10 = function () {
         if (viewer) {
@@ -46,7 +58,7 @@ function Toolbar({ viewer, compositeViewer }) {
             compositeViewer.zoomOut();
             setInputValue();
         }
-    }
+    };
 
     const onClickZoom100 = function () {
         if (viewer) {
@@ -57,7 +69,7 @@ function Toolbar({ viewer, compositeViewer }) {
             compositeViewer.zoom = 1;
             setInputValue();
         }
-    }
+    };
 
     const onClickFitToHeight = function () {
         if (viewer) {
@@ -68,7 +80,7 @@ function Toolbar({ viewer, compositeViewer }) {
             compositeViewer.fitToHeight();
             setInputValue();
         }
-    }
+    };
 
     const onClickFitToWidth = function () {
         if (viewer) {
@@ -79,7 +91,7 @@ function Toolbar({ viewer, compositeViewer }) {
             compositeViewer.fitToWidth();
             setInputValue();
         }
-    }
+    };
 
     const onClickFitToPage = function () {
         if (viewer) {
@@ -90,7 +102,7 @@ function Toolbar({ viewer, compositeViewer }) {
             compositeViewer.fitToPage();
             setInputValue();
         }
-    }
+    };
 
     const onClickFirstPage = function () {
         if (viewer) {
@@ -101,7 +113,7 @@ function Toolbar({ viewer, compositeViewer }) {
             compositeViewer.first();
             setPageInputValue();
         }
-    }
+    };
 
     const onClickLastPage = function () {
         if (viewer) {
@@ -112,7 +124,7 @@ function Toolbar({ viewer, compositeViewer }) {
             compositeViewer.last();
             setPageInputValue();
         }
-    }
+    };
 
     const onClickPrevPage = function () {
         if (viewer) {
@@ -123,7 +135,7 @@ function Toolbar({ viewer, compositeViewer }) {
             compositeViewer.prev();
             setPageInputValue();
         }
-    }
+    };
 
     const onClickNextPage = function () {
         if (viewer) {
@@ -134,121 +146,161 @@ function Toolbar({ viewer, compositeViewer }) {
             compositeViewer.next();
             setPageInputValue();
         }
-    }
+    };
 
     const onClickExportImg = function (imageType) {
         if (viewer) {
             viewer.exportImage({
                 type: imageType,
-                fileName: "sample-report"
-            })
+                fileName: 'sample-report',
+            });
         }
-    }
+    };
 
     const onClickExportDoc = function (type) {
         if (viewer) {
             viewer.exportDocument({ type });
         }
-    }
+    };
 
     const printReport = function () {
-        viewer.print()
-    }
+        viewer.print();
+    };
 
     async function base64convert(url, split) {
         const data = await fetch(url);
         const blob = await data.blob();
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             const reader = new FileReader();
             reader.readAsDataURL(blob);
             reader.onloadend = () => {
                 const base64data = reader.result;
                 resolve(split ? base64data.split(',')[1] : base64data);
-            }
+            };
         });
     }
     // pdf
     const onClickExportPdf = function () {
-        base64convert('/js/pdffonts/NanumGothic.otf', true).then(regularFont => {
-            base64convert('/js/pdffonts/NanumGothicBold.otf', true).then(boldFont => {
-                const fonts = [{
-                    name: 'regular',
-                    content: regularFont,
-                    style: 'normal',
-                    weight: 'normal',
-                },
-                {
-                    name: 'bold',
-                    content: boldFont,
-                    style: 'normal',
-                    weight: 'bold',
-                }];
+        base64convert('/js/pdffonts/PretendardGOV-Regular.otf', true).then(
+            (regularFont) => {
+                base64convert('/js/pdffonts/PretendardGOV-Bold.otf', true).then(
+                    (boldFont) => {
+                        const fonts = [
+                            {
+                                name: 'regular',
+                                content: regularFont,
+                                style: 'normal',
+                                weight: 'normal',
+                            },
+                            {
+                                name: 'bold',
+                                content: boldFont,
+                                style: 'normal',
+                                weight: 'bold',
+                            },
+                        ];
 
-                if (viewer) {
-                    viewer.exportPdf({ fonts, filename: 'sample-report', preview: false });
-                }
-            });
-        });
-    }
+                        if (viewer) {
+                            viewer.exportPdf({
+                                fonts,
+                                filename: 'sample-report',
+                                preview: false,
+                            });
+                        }
+                    },
+                );
+            },
+        );
+    };
 
     useEffect(() => {
         setInputValue();
         setPageInputValue();
-    }, [viewer, compositeViewer])
+    }, [viewer, compositeViewer]);
 
     return (
         <div className={style.toolbarHeader}>
             <div className={style.toolbar}>
                 <div className={style.toolbarContainer}>
-                    <div className={style.toolbarButton} onClick={onClickZoomOut10}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickZoomOut10}
+                    >
                         <HiMinusSm className={style.toolbarIcon} />
                     </div>
                     <div className={style.toolbarButton}>
                         <input
-                            type='text'
+                            type="text"
                             className={style.buttonInput}
                             value={scale}
                             ref={input}
                             onChange={() => setInputValue}
                         />
                     </div>
-                    <div className={style.toolbarButton} onClick={onClickZoomIn10}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickZoomIn10}
+                    >
                         <HiPlusSm className={style.toolbarIcon} />
                     </div>
-                    <div className={style.toolbarButton} onClick={onClickZoom100}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickZoom100}
+                    >
                         <TiArrowLoop className={style.toolbarIcon} />
                     </div>
-                    <div className={style.toolbarButton} onClick={onClickFitToWidth}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickFitToWidth}
+                    >
                         <CgArrowsShrinkH className={style.toolbarIcon} />
                     </div>
-                    <div className={style.toolbarButton} onClick={onClickFitToHeight}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickFitToHeight}
+                    >
                         <CgArrowsShrinkV className={style.toolbarIcon} />
                     </div>
-                    <div className={style.toolbarButton} onClick={onClickFitToPage}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickFitToPage}
+                    >
                         <CgArrowsExpandLeft className={style.toolbarIcon} />
                     </div>
                 </div>
                 <div className={style.toolbarContainer}>
-                    <div className={style.toolbarButton} onClick={onClickFirstPage}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickFirstPage}
+                    >
                         <HiChevronDoubleLeft className={style.toolbarIcon} />
                     </div>
-                    <div className={style.toolbarButton} onClick={onClickPrevPage}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickPrevPage}
+                    >
                         <HiChevronLeft className={style.toolbarIcon} />
                     </div>
                     <div className={style.toolbarButton}>
                         <input
-                            type='text'
+                            type="text"
                             className={style.buttonInput}
                             value={page}
                             ref={pageInput}
                             onChange={() => setPageInputValue}
                         />
                     </div>
-                    <div className={style.toolbarButton} onClick={onClickNextPage}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickNextPage}
+                    >
                         <HiChevronRight className={style.toolbarIcon} />
                     </div>
-                    <div className={style.toolbarButton} onClick={onClickLastPage}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickLastPage}
+                    >
                         <HiChevronDoubleRight className={style.toolbarIcon} />
                     </div>
                 </div>
@@ -256,36 +308,63 @@ function Toolbar({ viewer, compositeViewer }) {
                     <div className={style.toolbarButton} onClick={printReport}>
                         <BsPrinter className={style.toolbarIcon} />
                     </div>
-                    <div className={style.toolbarButton} onClick={onClickExportPdf}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={onClickExportPdf}
+                    >
                         <VscFilePdf className={style.toolbarIcon} />
                     </div>
-                    <div className={style.toolbarButton} onClick={() => onClickExportImg('png')}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={() => onClickExportImg('png')}
+                    >
                         <span className={style.toolbarButtonText}>png</span>
                     </div>
-                    <div className={style.toolbarButton} onClick={() => onClickExportImg('jpeg')}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={() => onClickExportImg('jpeg')}
+                    >
                         <span className={style.toolbarButtonText}>jpeg</span>
                     </div>
-                    <div className={style.toolbarButton} onClick={() => onClickExportDoc('hwp')}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={() => onClickExportDoc('hwp')}
+                    >
                         <span className={style.toolbarButtonText}>hwp</span>
                     </div>
-                    <div className={style.toolbarButton} onClick={() => onClickExportDoc('docx')}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={() => onClickExportDoc('docx')}
+                    >
                         <span className={style.toolbarButtonText}>docx</span>
                     </div>
-                    <div className={style.toolbarButton} onClick={() => onClickExportDoc('pptx')}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={() => onClickExportDoc('pptx')}
+                    >
                         <span className={style.toolbarButtonText}>pptx</span>
                     </div>
-                    <div className={style.toolbarButton} onClick={() => onClickExportImg('gif')}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={() => onClickExportImg('gif')}
+                    >
                         <span className={style.toolbarButtonText}>gif</span>
                     </div>
-                    <div className={style.toolbarButton} onClick={() => onClickExportImg('tif')}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={() => onClickExportImg('tif')}
+                    >
                         <span className={style.toolbarButtonText}>tif</span>
                     </div>
-                    <div className={style.toolbarButton} onClick={() => onClickExportImg('tiff')}>
+                    <div
+                        className={style.toolbarButton}
+                        onClick={() => onClickExportImg('tiff')}
+                    >
                         <span className={style.toolbarButtonText}>tiff</span>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 export default Toolbar;
