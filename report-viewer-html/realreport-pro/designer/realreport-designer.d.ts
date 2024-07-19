@@ -3688,6 +3688,7 @@ declare class PrintContext extends Base {
     private _compositePageCount;
     private _compositePage;
     private _language;
+    private _editable;
     detailRows: number[];
     noValueCallback: boolean;
     preview: boolean;
@@ -3802,6 +3803,15 @@ declare class PrintContext extends Base {
      */
     get language(): string;
     set language(value: string);
+    /**
+     * editable
+     */
+    get editable(): boolean;
+    set editable(value: boolean);
+    /**
+     * 편집 가능한 리포트인지 판별하기 위해 선언
+     */
+    get isEditable(): boolean;
     preparePrint(report?: Report_2): void;
     preparePage(page: number, allPage: number): void;
     setDetailPage(count: number, page: number): void;
@@ -3878,6 +3888,7 @@ declare enum PropCategory {
     LINK = "link",
     EVENT = "event",
     I18N = "internationalization",
+    EDITING = "editing",
     SECTION = "section",
     EDITOR = "editor",
     REPORT = "report",
@@ -4785,6 +4796,8 @@ declare class Report_2 extends EventAware implements IEditCommandStackOwner, IPr
     get dirty(): boolean;
     /** reportItemRegistry */
     get reportItemRegistry(): ReportItemRegistry;
+    /** editing */
+    get editing(): ReportEditableObject<ReportRootItem>;
     load(src: any): Report_2;
     setSaveTagging(tag: string): Report_2;
     save(pageOnly?: boolean): object;
@@ -5015,6 +5028,27 @@ declare interface ReportDesignerOptions {
         reportId: string;
         message: any;
     } | null>;
+}
+
+/**
+ * 리포트 최상단에서 편집가능 객체 속성 구현
+ */
+declare class ReportEditableObject<T extends ReportItem> extends ReportItemObject<T> {
+    static readonly PROP_EDITABLE = "editable";
+    static readonly PROP_TYPE = "type";
+    static readonly PROPINFOS: IPropInfo[];
+    private _editable;
+    get editable(): boolean;
+    set editable(value: boolean);
+    get pathLabel(): string;
+    get displayPath(): string;
+    get level(): number;
+    constructor(item: T);
+    getSaveLabel(): string;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+    getEditProps(): IPropInfo[];
+    getPropDomain(prop: IPropInfo): any[];
 }
 
 /* Excluded from this release type: ReportElement */
@@ -5604,12 +5638,12 @@ declare abstract class ReportItem extends ReportPageItem {
     unfold(): boolean;
     isI18nFieldValid(): boolean;
     getLanguageFieldValue(language: string, field: string): string;
-    protected _foldedChanged(): void;
     get marqueeParent(): ReportItem;
     get printable(): boolean;
     isReadOnlyProperty(prop: IPropInfo): boolean;
     protected _sizable(): boolean;
     protected _boundable(): boolean;
+    protected _foldedChanged(): void;
     /**
      * 리포트 아이템 생성 시, 수행할 초기화 작업을 정의한다.
      *
@@ -5743,8 +5777,59 @@ declare class ReportItemElementMap extends Base {
     private _reportItemElements;
     constructor();
     add<T extends ReportItem>(itemElement: ReportItemElement<T>): void;
-    getItemElementByModel<T extends ReportItem>(model: ReportItem): ReportItemElement<T> | undefined;
+    getItemElements(): ReportItemElement<ReportItem>[];
+    getItemElementByModelHash<T extends ReportItem>(hash: string): ReportItemElement<T> | undefined;
     getBandElementByModel<T extends DataBand>(model: DataBand): BandElement<T> | undefined;
+}
+
+/**
+ * 특정 속성 카테고리에서 자식 스타일 정보를 하위로 생성해야할 때 사용
+ */
+declare abstract class ReportItemObject<T extends ReportItem> extends ReportPageItem implements ReportObject {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: any[];
+    private _item;
+    private _styles;
+    constructor(item: T);
+    get outlineParent(): IOutlineSource | undefined;
+    get outlineExpandable(): boolean;
+    get outlineLabel(): string;
+    getSaveType(): string;
+    canRemoveFrom(): boolean;
+    abstract getSaveLabel(): string;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    getPlaceHolder(prop: IPropInfo): string;
+    getPropDomain(prop: IPropInfo): any[];
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getStyle(style: string): string;
+    setStyle(style: string, value: string): void;
+    getStyleProperty(prop: string): any;
+    setStyleProperty(prop: string, value: any): void;
+    isChildProp(prop: string): boolean;
+    getSubStyleProperty(prop: string, style: string): any;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    get item(): T;
+    get page(): ReportPage;
+    get report(): Report_2;
+    get styles(): Styles;
+    set styles(value: Styles);
+    defaultInit(): void;
+    load(loader: IReportLoader, source: ReportSource): void;
+    save(target: ReportTarget): boolean;
+    isCollection(): boolean;
+    protected _doDefaultInit(): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _getSubStyle(prop: string, style: string): any;
+    protected _setSubStyle(prop: string, style: string, value: any): void;
+    protected _changed(prop: string, newValue: unknown, oldValue: unknown): void;
 }
 
 /**
@@ -6095,6 +6180,7 @@ declare abstract class ReportPageItem extends Base implements ISelectionSource, 
      */
     get marqueeParent(): ReportItem;
     get printable(): boolean;
+    get printEditable(): boolean;
     isAncestorOf(item: ReportPageItem): boolean;
     getProps(): any;
     setProps(src: any): void;
@@ -6142,11 +6228,13 @@ declare class ReportRootItem extends ReportGroupItem {
     static readonly PROP_MARGIN_RIGHT = "marginRight";
     static readonly PROP_MARGIN_TOP = "marginTop";
     static readonly PROP_MARGIN_BOTTOM = "marginBottom";
+    static readonly PROP_EDITING = "editing";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     private _report;
     private _type;
     private _maxPageCount;
+    private _editing;
     constructor(report: Report_2, name?: string);
     get report(): Report_2;
     /** type */
@@ -6194,6 +6282,8 @@ declare class ReportRootItem extends ReportGroupItem {
     /** marginBottom */
     get marginBottom(): ValueString;
     set marginBottom(value: ValueString);
+    /** editing */
+    get editing(): ReportEditableObject<ReportRootItem>;
     get outlineLabel(): string;
     get pathLabel(): string;
     get displayPath(): string;

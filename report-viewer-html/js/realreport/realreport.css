@@ -1,5 +1,5 @@
 /* 
-RealReport v1.9.1
+RealReport v1.9.2
 Copyright (C) 2013-2024 WooriTech Inc.
 All Rights Reserved.
 */
@@ -85,6 +85,18 @@ All Rights Reserved.
 
 .rr-text-edit:focus-visible {
     outline: none;
+}
+
+.rr-text-area-editor::-webkit-scrollbar {
+    width: 2px;
+}
+
+.rr-text-area-editor::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.rr-text-area-editor::-webkit-scrollbar-thumb {
+    background: #d2d2d2; 
 }
 
 .rr-design-box {
@@ -435,6 +447,14 @@ All Rights Reserved.
         border: none !important;
         box-shadow: none !important;
     }
+
+    .rr-editable-marker {
+        display: none;
+    }
+
+    .rr-text[data-editable] span {
+        min-width: none;
+    }
 }
 
 .rr-stack-container {
@@ -471,6 +491,10 @@ All Rights Reserved.
     background: #ddd;
     color: #777;
     border: 1px solid #aaa;
+}
+
+.rr-text[data-editable] span {
+    min-width: 20px;
 }
 
 .rr-summary {

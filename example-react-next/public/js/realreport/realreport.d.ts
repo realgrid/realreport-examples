@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.9.1
-* commit c4ea274
+* RealReport v1.9.2
+* commit d23570a
 
 * Copyright (C) 2013-2024 WooriTech Inc.
 	https://real-report.com
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.9.1
+* RealReport Core v1.9.2
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit e944ba9c7ac33f1e7d9570f6e27e1c3636170b6a
+* commit e334d25e406b0ee0b242fb863bd5c1a5cba46226
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -1076,6 +1076,7 @@ declare enum PropCategory {
     LINK = "link",
     EVENT = "event",
     I18N = "internationalization",
+    EDITING = "editing",
     SECTION = "section",
     EDITOR = "editor",
     REPORT = "report",
@@ -5219,35 +5220,506 @@ declare enum ReportItemType {
 }
 
 /**
- * Report Item들에 대한 정보를 한곳에 모아서 등록해놓고 용이하게 꺼내쓰기 위해 작성
+ * 특정 속성 카테고리에서 자식 스타일 정보를 하위로 생성해야할 때 사용
  */
-declare class ReportItemRegistry extends Base$1 {
-    private readonly _masterBandItemTypes;
-    private _reportItemFlatMap;
-    constructor();
-    add(item: ReportItem): void;
-    remove(item: ReportItem | ReportPageItem): void;
-    getItems(type?: ReportItemType): ReportItem[];
-    getItemCount(type: ReportItemType): number;
-    /**
-     * 가장 최상위에 있는 밴드의 이름들을 반환해주기 위해 작성
-     * @returns 가장 최상위 위치에 있는 밴드의 이름들을 모아서 반환
-     */
-    getRootBandItemNames(): string[];
-    getSubBandsByMasterName(masterName: string): DataBand[];
-    getItemType(item: ReportItem): ReportItemType | undefined;
-    private $_removeChildItems;
+declare abstract class ReportItemObject<T extends ReportItem> extends ReportPageItem implements ReportObject {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: any[];
+    private _item;
+    private _styles;
+    constructor(item: T);
+    get outlineParent(): IOutlineSource | undefined;
+    get outlineExpandable(): boolean;
+    get outlineLabel(): string;
+    getSaveType(): string;
+    canRemoveFrom(): boolean;
+    abstract getSaveLabel(): string;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    getPlaceHolder(prop: IPropInfo): string;
+    getPropDomain(prop: IPropInfo): any[];
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getStyle(style: string): string;
+    setStyle(style: string, value: string): void;
+    getStyleProperty(prop: string): any;
+    setStyleProperty(prop: string, value: any): void;
+    isChildProp(prop: string): boolean;
+    getSubStyleProperty(prop: string, style: string): any;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    get item(): T;
+    get page(): ReportPage;
+    get report(): Report;
+    get styles(): Styles;
+    set styles(value: Styles);
+    defaultInit(): void;
+    load(loader: IReportLoader, source: ReportSource): void;
+    save(target: ReportTarget): boolean;
+    isCollection(): boolean;
+    protected _doDefaultInit(): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _getSubStyle(prop: string, style: string): any;
+    protected _setSubStyle(prop: string, style: string, value: any): void;
+    protected _changed(prop: string, newValue: unknown, oldValue: unknown): void;
 }
 
-declare class SubBandPage extends ReportPage {
-    constructor(report: Report, name?: string);
-    static readonly $_ctor: string;
-    get outlineLabel(): string;
-    protected _addSectionModel(): void;
+/**
+ * 다국어 관련 속성 구현
+ */
+declare class I18nObject<T extends ReportItem> extends ReportItemObject<T> {
+    static readonly PROP_FIELD = "field";
+    static readonly PROPINFOS: IPropInfo[];
+    private _field;
+    get field(): string;
+    set field(value: string);
+    get pathLabel(): string;
+    get displayPath(): string;
+    get level(): number;
+    constructor(item: T);
+    getSaveLabel(): string;
+    load(loader: IReportLoader, source: ReportSource): void;
+    save(target: ReportTarget): boolean;
+    getEditProps(): IPropInfo[];
+    getPropDomain(prop: IPropInfo): any[];
+}
+
+/**
+ * 편집가능 객체 속성 구현
+ */
+declare class EditableObject<T extends ReportItem> extends ReportItemObject<T> {
+    static readonly PROP_EDITABLE = "editable";
+    static readonly PROP_TYPE = "type";
+    static readonly PROPINFOS: IPropInfo[];
+    private _editable;
+    private _type;
+    get editable(): boolean;
+    set editable(value: boolean);
+    get type(): EditType;
+    set type(value: EditType);
+    get pathLabel(): string;
+    get displayPath(): string;
+    get level(): number;
+    constructor(item: T);
+    getSaveLabel(): string;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+    getEditProps(): IPropInfo[];
+    getPropDomain(prop: IPropInfo): any[];
+}
+
+/**
+ * 한 줄 혹은 여러줄의 텍스트를 표시한다.
+ * value 속성으로 지정된 data 위치가 타당하면 그 값을, 아니면 text 속성으로 지정한 문자열을 표시한다.
+ */
+declare abstract class TextItemBase extends ReportItem {
+    static readonly PROP_WRAP = "wrap";
+    static readonly PROP_MULTI_LINE = "multiLine";
+    static readonly PROP_BOOLEAN_FORMAT = "booleanFormat";
+    static readonly PROP_NUMBER_FORMAT = "numberFormat";
+    static readonly PROP_DATE_FORMAT = "dateFormat";
+    static readonly PROP_TEXT_FORMAT = "textFormat";
+    static readonly PROP_TEXT_PREFIX = "prefix";
+    static readonly PROP_TEXT_SUFFIX = "suffix";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    private _wrap;
+    private _multiLine;
+    private _booleanFormat;
+    private _numberFormat;
+    private _dateFormat;
+    private _textFormat;
+    private _prefix;
+    private _suffix;
+    constructor(name: string);
+    /**
+     * wrap
+     */
+    get wrap(): boolean;
+    set wrap(value: boolean);
+    /**
+     * multiLine
+     * true면 '<br>'이나 '\n', '\r\n'으로 줄을 나눠 표시한다.
+     */
+    get multiLine(): boolean;
+    set multiLine(value: boolean);
+    /**
+     * booleanFormat
+     */
+    get booleanFormat(): string;
+    set booleanFormat(value: string);
+    /**
+     * numberFormat
+     */
+    get numberFormat(): string;
+    set numberFormat(value: string);
+    /**
+     * dateFormat
+     */
+    get dateFormat(): string;
+    set dateFormat(value: string);
+    /**
+     * 세미콜론(;)으로 구분하여 왼쪽에는 String.prototype.replace의 첫 번째 매개변수,
+     * 오른쪽에는 두 번째 매개변수와 같은 타입으로 지정
+     * 예) Mr. 홍길동: `'([A-Za-z]*); Mr\. \$1'`,
+     * 예) 사업자번호: '(\\d{3})(\\d{2})(\\d{5});$1-$2-$3'
+     */
+    get textFormat(): string;
+    set textFormat(value: string);
+    /**
+     * 접두어.
+     * expression을 이용해서 표현할 수도 있지만,
+     * 이 속성으로 설정하면 text와 다른 스타일을 적용할 수 있다.
+     */
+    get prefix(): string;
+    set prefix(value: string);
+    /**
+     * 접미어.
+     * expression을 이용해서 표현할 수도 있지만,
+     * 이 속성으로 설정하면 text와 다른 스타일을 적용할 수 있다.
+     */
+    get suffix(): string;
+    set suffix(value: string);
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
     protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _ignoreItems(): boolean;
+    protected _doSave(target: object): void;
+    protected _doApplyStyle(prop: string, value: string, target: CSSStyleDeclaration): boolean;
+    canRotate(): boolean;
+    canLink(): boolean;
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    getPrintValue(dp: IReportDataProvider, row: number): any;
+}
+/**
+ * 고정된 텍스트나 데이터 필드의 값을 출력하는 아이템.
+ */
+declare class TextItem extends TextItemBase {
+    static readonly PROP_MULTI_LINE = "multiLine";
+    static readonly PROP_TEXT = "text";
+    static readonly PROP_ON_GET_CONTEXT_VALUE = "onGetContextValue";
+    static readonly PROP_I18N = "internationalization";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Text";
+    private _text;
+    private _editing;
+    private _i18nObject;
+    private _contextValueCallback;
+    private _onGetContextValue;
+    private _contextValueCallbackFunc;
+    private _contextValueCallbackDelegate;
+    constructor(name: string, text?: string);
+    /**
+     * text
+     */
+    get text(): string;
+    set text(value: string);
+    /**
+     * editing
+     * - 텍스트를 미리보기 시점에 수정가능하게 하는 속성
+     */
+    get editing(): EditableObject<TextItem>;
+    get internationalization(): I18nObject<TextItem>;
+    /**
+     * onGetContextValue
+     */
+    get onGetContextValue(): string;
+    set onGetContextValue(value: string);
+    /**
+     * contextValueCallback
+     */
+    get contextValueCallback(): ContextValueCallback;
+    set contextValueCallback(value: ContextValueCallback);
+    get printEditable(): boolean;
+    getSaveType(): string;
+    get outlineLabel(): string;
+    get designText(): string;
+    get pathLabel(): string;
+    isContextValue(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    protected _isI18nFieldExist(): boolean;
+}
+
+/**
+ * html 속성으로 지정한 문자열을 dom의 innerHtml로 설정한다.
+ * 문자열에 포함된 '${value}'나 '@{value}'는 연결된 field의 값으로 대체되고,
+ * 나머지 '${xxx}', '@{xxx}'는 'xxx' 필드의 값으로 대체된다.
+ */
+declare class HtmlItem extends ReportItem {
+    static readonly ALLOWED_TAGS: string[];
+    static readonly PROP_HTML = "html";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Html";
+    private _html;
+    private _tokens;
+    constructor(name: string);
+    get html(): string;
+    set html(value: string);
+    getHtml(ctx: PrintContext): string;
+    getSaveType(): string;
+    get outlineLabel(): string;
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canRotate(): boolean;
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    getRowContextValue(value: string, ctx: PrintContext): string | number;
+    private $_getTokenValue;
+    private $_parse;
+    private $_parseValues;
+}
+
+declare abstract class ChartObject<T extends ReportGroupItem> extends ReportItem {
+    static readonly PROPINFOS: IPropInfo[];
+    private _chart;
+    constructor(chart: T, name?: string);
+    get chart(): T;
+    canHide(): boolean;
+    getWrapper(): object;
+    get page(): ReportPage;
+    get report(): Report;
+    get dataParent(): ReportGroupItem;
+    get marqueeParent(): ReportItem;
+    getSaveType(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: any): void;
+    protected _isDefaultVisible(): boolean;
+    protected _getPropsWrapper(target: any, excludes?: string[], names?: {
+        [key: string]: string;
+    }): any;
+}
+declare abstract class ChartTextObject<T extends ReportGroupItem> extends ChartObject<T> {
+    static readonly PROP_TEXT = "text";
+    static readonly PROPINFOS: IPropInfo[];
+    private _text;
+    constructor(chart: T);
+    /** text */
+    get text(): string;
+    set text(value: string);
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    getWrapper(): object;
+}
+declare abstract class ChartSeries<T extends ReportGroupItem> extends ChartObject<T> {
+    static readonly PROP_SERIES_ID = "id";
+    static readonly PROP_DESIGN_VISIBLE = "designVisible";
+    static readonly PROP_VALUE_FIELD = "valueField";
+    static readonly PROP_VALUES = "values";
+    static readonly PROPINFOS: IPropInfo[];
+    private _id;
+    private _designVisible;
+    private _valueField;
+    private _values;
+    constructor(chart: T);
+    getPropDomain(prop: IPropInfo): any[];
+    abstract get seriesType(): string;
+    /**
+     * id
+     */
+    get id(): string;
+    set id(value: string);
+    /**
+     * design visible
+     */
+    get designVisible(): boolean;
+    set designVisible(value: boolean);
+    /**
+     * valueField
+     **/
+    get valueField(): string;
+    set valueField(value: string);
+    /**
+     * valueField가 지정되면 이 속성은 무시된다.
+     */
+    get values(): number[];
+    set values(value: number[]);
+    hasValuesProp(): boolean;
+    getValues(ctx: PrintContext, dp: IReportDataProvider): any[];
+    getSaveType(): string;
+    get displayPath(): string;
+    get outlineLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
 }
+declare abstract class ChartSeriesCollection<T extends ReportGroupItem> extends ReportItemCollection<ChartSeries<T>> {
+    private _chart;
+    protected _series: ChartSeries<T>[];
+    constructor(chart?: T);
+    get outlineParent(): IOutlineSource;
+    get outlineLabel(): string;
+    get outlineExpandable(): boolean;
+    get outlineItems(): IOutlineSource[];
+    get owner(): ReportItem;
+    /** chart */
+    get chart(): T;
+    /** count */
+    get count(): number;
+    get items(): ReportPageItem[];
+    get visibleCount(): number;
+    load(loader: IReportLoader, src: any): void;
+    save(target: any): void;
+    get(index: number): ChartSeries<T>;
+    indexOf(series: ChartSeries<T>): number;
+    add(loader: IReportLoader, series: ChartSeries<T> | ConfigObject$1, index?: number): ChartSeries<T>;
+    addAll(loader: IReportLoader, series: (ChartSeries<T> | ConfigObject$1)[], index?: number): boolean;
+    removeAt(index: number): boolean;
+    remove(series: ChartSeries<T>): boolean;
+    clear(): boolean;
+    select(series: ChartSeries<T>): void;
+    getSaveType(): string;
+    get page(): ReportPage;
+    get displayPath(): string;
+    get level(): number;
+    isAncestorOf(item: ReportPageItem): boolean;
+    protected abstract _createSeries(loader: IReportLoader, src: any): ChartSeries<T>;
+    protected abstract _seriesChanged(series: ChartSeries<T>): void;
+    private $_add;
+    private $_invalidateSeries;
+    private $_seriesChanged;
+    protected _doMoveItem(from: number, to: number): boolean;
+}
+
+declare const I_EMAIL_ITEM_DSCIRIMINATOR: "I_EMAIL_ITEM";
+interface IEmailItem extends ReportItem {
+    discriminator: typeof I_EMAIL_ITEM_DSCIRIMINATOR;
+}
+
+declare class EmailFooterItems extends ColumnBoxContainer implements IEmailItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly INHERITED_PROPINFO_NAMES: string[];
+    static readonly STYLE_PROPS: string[];
+    static readonly INHERITED_STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    private _itemsHorizontalAlign;
+    discriminator: "I_EMAIL_ITEM";
+    constructor(name: string);
+    get itemsHorizontalAlign(): Align;
+    set itemsHorizontalAlign(value: Align);
+    get outlineLabel(): string;
+    get outlineParent(): IOutlineSource;
+    canResize(dir: ResizeDirection): boolean;
+    canMove(): boolean;
+    protected _boundable(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _doAfterLoad(loader: IReportLoader, src: any): void;
+    protected _doAfterSave(target: object): void;
+    protected _doItemAdded(item: ReportItem, index: number): void;
+}
+
+declare class EmailFooter extends ReportFooter implements IEmailItem {
+    static readonly $_ctor: string;
+    private _footerItems;
+    discriminator: "I_EMAIL_ITEM";
+    constructor();
+    get footerItems(): ReportItem[];
+    get itemsContainer(): EmailFooterItems;
+    get itemsAlign(): BoxItemsAlign;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    canResize(dir: ResizeDirection): boolean;
+    protected _ignoreItems(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+declare class EmailPage extends ReportPage implements IEmailItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly INHERITED_PROPINFO_NAMES: string[];
+    static readonly STYLE_PROPS: string[];
+    static readonly INHERITED_STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    discriminator: "I_EMAIL_ITEM";
+    constructor(report: Report);
+    get emailFooter(): EmailFooter;
+    get outlineItems(): IOutlineSource[];
+    protected _createPageBody(): PageBody;
+    protected _createReportFooter(): ReportFooter;
+    protected _getReportFooterSourceFieldName(): string;
+    getPropDomain(prop: IPropInfo): any[];
+    getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doAfterLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+declare class EmailPageBody extends PageBody implements IEmailItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly INHERITED_PROPINFO_NAMES: string[];
+    static readonly STYLE_PROPS: string[];
+    static readonly INHERITED_STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    discriminator: "I_EMAIL_ITEM";
+    constructor();
+    protected _createPageBodyItems(): PageBodyItems;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+declare class EmailRootItem extends ReportRootItem {
+    static readonly PROP_WIDTH = "width";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly INHERITED_PROPINFO_NAMES: string[];
+    static readonly $_ctor: string;
+    constructor(email: Email);
+    get width(): ValueString;
+    set width(value: ValueString);
+    get outlineLabel(): string;
+    getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    private $_checkReportType;
+}
+declare class Email extends Report {
+    get root(): EmailRootItem;
+    get page(): EmailPage;
+    get body(): EmailPageBody;
+    protected _createReportRootItem(report: Report): ReportRootItem;
+    protected _createReportInfo(report: Report): ReportInfo;
+    protected _createReportLoader(): IReportLoader;
+    protected _createReportPage(report: Report): ReportPage;
+}
+
+declare class TableBandGroupSectionElement<T extends TableBandRowGroupSection> extends TableElement<T> {
+    constructor(doc: Document, model: T, name: string);
+    applyGroupStyles(tr: HTMLTableRowElement): void;
+    protected _needDesignBox(): boolean;
+    protected _createCellElement(doc: Document, cell: TableCellItem): TableCellElementBase;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+}
+interface ITableGroupPrintInfo extends IGroupPrintInfo {
+    view: TableBandGroupSectionElement<TableBandRowGroupHeader | TableBandRowGroupFooter>;
+    needNextPage: boolean;
+}
+type TableBandPrintRow = BandPrintRow | ITableGroupPrintInfo;
 
 type LanguageCode = keyof typeof ISO_639_LANGUAGES;
 declare const ISO_639_LANGUAGES: {
@@ -5581,6 +6053,233 @@ declare class I18nManager extends EventAware$1 {
     private $_fireDefaultLanguageChanged;
 }
 
+interface EditableItem {
+    reportItemElement: ReportItemView;
+    targetElement: HTMLElement;
+    markerElement: HTMLElement;
+    oldValue: string;
+    newValue: string;
+}
+type EditableItemInfo = {
+    name: string;
+    oldValue: string;
+    newValue: string;
+};
+/**
+ * 리얼리포트 출력후에도 내용 수정이 가능한 아이템들의 정보를 저장하고 관리한다.
+ */
+declare class PrintEditableItemManager extends Base$1 {
+    private _editableItems;
+    constructor();
+    addEditableItem(itemView: ReportItemView, targetElement: HTMLElement, markerElement: HTMLElement): void;
+    updateEditableItem(markerElement: HTMLElement, newValue: string): void;
+    getEditableItems(): EditableItemInfo[];
+    nextItem(currentElement: HTMLElement): EditableItem | undefined;
+    prevItem(currentElement: HTMLElement): EditableItem | undefined;
+    private $_getMarkerElementIndex;
+}
+
+interface IPrintReport {
+    report: Report;
+    data: IReportDataProvider;
+}
+interface IPreviewOptions {
+    debug?: boolean;
+    async?: boolean;
+    pageMark?: boolean;
+    optimize?: boolean;
+    pageDelay?: number;
+    noScroll?: boolean;
+    noIndicator?: boolean;
+    singlePage?: boolean;
+    singlePageOptions?: ISinglePageOptions;
+    align?: Align;
+    paging?: boolean;
+    language?: string;
+    editable?: boolean;
+    callback?: PrintPageCallback;
+    endCallback?: PrintEndCallback;
+}
+interface IPrintOptions {
+    report: Report | (Report | IPrintReport)[];
+    data: IReportDataProvider;
+    preview?: boolean;
+    id?: string;
+    previewOptions?: IPreviewOptions;
+}
+interface ISinglePageOptions {
+    border: boolean;
+}
+declare class PrintContainer extends VisualContainer$1 {
+    static readonly CLASS_NAME = "rr-report-container";
+    static readonly PREVIEW_CLASS = "rr-report-preview";
+    static readonly PRINT_SIZE = "--rr-print-size";
+    private static readonly MARKER_CLASS;
+    private static readonly PRINT_INDICATOR_CLASS;
+    private static readonly PRINT_BACK_CLASS;
+    static readonly SCROLL_END = "onScrollEnd";
+    static setMarkerElementsVisible(pages: PrintPage[], visible: boolean): void;
+    private _pageGap;
+    private _zoom;
+    private _align;
+    private _styles;
+    traceMode: boolean;
+    onZoomed: (scale: number) => void;
+    private _context;
+    private _errorView;
+    private _indicator;
+    private _reportView;
+    private _reportViews;
+    private _contexts;
+    private _pages;
+    private _preview;
+    private _previewId;
+    private _options;
+    private _printMode;
+    private _pageToGo?;
+    private _printEditLayer;
+    private _printEditableItemManager;
+    constructor(containerId: string | HTMLDivElement);
+    protected _doDispose(): void;
+    /** pageCount */
+    get pageCount(): number;
+    /** page */
+    get page(): number;
+    set page(value: number);
+    /** zoom */
+    get zoom(): number;
+    set zoom(value: number);
+    get pages(): PrintPage[];
+    get isPrinted(): boolean;
+    get align(): Align;
+    set align(value: Align);
+    /**
+     * Report 에서 사용
+     */
+    get ReportItemRegistry(): ReportItemRegistry;
+    /**
+     * Composite Report 에서 사용
+     */
+    get ReportItemRegistries(): ReportItemRegistry[];
+    /**
+     * printEditableItemManager
+     */
+    get printEditableItemManager(): PrintEditableItemManager;
+    print(options: IPrintOptions): void;
+    printSingle(options: IPrintOptions): void;
+    printAll(options: IPrintOptions): void;
+    private $_printAll;
+    getPrintHtml(): string;
+    /** page */
+    getCurrentPage(scrollHeight: number, scrollTop: number): number;
+    loadAsyncLoadableElements(): Promise<void>;
+    setStyles(styles: any): void;
+    fitToWidth(): void;
+    fitToHeight(): void;
+    fitToPage(): void;
+    /**
+     * Multi 리포트이면서 가로로 시작하는 양식은 따로 설정이 필요함
+     * @returns 멀티 페이지이면서 첫번째 페이지가 가로양식으로 시작할 경우
+     */
+    needPrintScale(): boolean;
+    /**
+     * containerDiv의 크기에 맞춰 previewer의 위치를 재조정한다.
+     */
+    resetPreviewer(): void;
+    get printing(): boolean;
+    protected _doPrepareContainer(doc: Document, dom: HTMLElement): void;
+    protected _render(timestamp: number): void;
+    protected _doResized(): void;
+    private $_showError;
+    private $_createIndicator;
+    private $_refreshContextValues;
+    private $_replacePages;
+    private $_refreshHtmlItemValue;
+    private $_printReport;
+    private $_printPageless;
+    private $_getContainer;
+    private $_getPreviewer;
+    private $_getPageHeight;
+    private $_getPrintBack;
+    private $_removeBackContainer;
+    private $_resetPreviewer;
+    private $_buildOutput;
+    private $_buildNoPagingOutput;
+    private $_setFrontBackLayer;
+    /**
+     * 서브 밴드 페이지들은 다른 페이지들에 연결해서 사용되기 때문에 우선적으로 뷰를 준비한다.
+     */
+    private $_prepareSubPageViews;
+    /**
+     * unitpost 한장 요약 HTML 요청으로 singlePage 별도 메서드로 분리
+     */
+    private $_prepareSinglePage;
+    private $_setSinglePage;
+    private $_setSinglePageStyles;
+    private $_isReportFooter;
+    private $_setPrintMode;
+    private $_getScaleSize;
+    /**
+     * 각 인쇄 영역 Container Style 설정
+     */
+    private $_setPageContainerStyle;
+    private $_setLandscapePageStyle;
+    private $_setPrintScaleStyle;
+    private $_setUnvisibleDom;
+    private $_layoutFloatings;
+    private $_setLanguageContext;
+    /**
+     * 출력 옵션 검증
+     * @throws 출력 옵션이 유효하지 않을 경우 에러 발생
+     */
+    private $_validatePrintOptions;
+    private $_validateReportOption;
+    private $_createReportView;
+    private $_instanceofIPrintReport;
+    private $_addContainerEventListener;
+    /**
+     * 한 페이지당 수정가능한 아이템 정보를 찾아서 정보를 최신화 시킨다.
+     */
+    private $_addEditableItems;
+    protected _fireScrollEnd: () => void;
+}
+
+interface PdfFont {
+    name: string;
+    content: string;
+    file?: string;
+    style?: 'normal' | 'italic';
+    weight?: 'normal' | 'bold';
+}
+interface PdfPermissions {
+    printing?: 'lowResolution' | 'highResolution';
+    modifying?: boolean;
+    copying?: boolean;
+    annotating?: boolean;
+    fillingForms?: boolean;
+    contentAccessibility?: boolean;
+    documentAssembly?: boolean;
+}
+
+declare enum CCITTScheme {
+    GROUP_3 = "g3",
+    GROUP_3_2D = "g3-2d",
+    GROUP_4 = "g4"
+}
+
+interface ITiffOptions {
+    dpi?: number;
+    grayscale?: boolean;
+    encoding?: CCITTScheme;
+}
+
+interface ImageExportOptions {
+    type?: 'png' | 'jpeg' | 'jpg' | 'gif' | 'tif' | 'tiff';
+    fileName?: string;
+    zipName?: string;
+    tiff?: ITiffOptions;
+}
+
 type FontSource = {
     name: string;
     source: string;
@@ -5613,6 +6312,58 @@ declare class FontManager extends EventAware$1 {
     private $_convertFontType;
     private $_fireFontAdded;
     private $_fireFontRemoved;
+}
+
+/**
+ * Report Item들에 대한 정보를 한곳에 모아서 등록해놓고 용이하게 꺼내쓰기 위해 작성
+ */
+declare class ReportItemRegistry extends Base$1 {
+    private readonly _masterBandItemTypes;
+    private _reportItemFlatMap;
+    constructor();
+    add(item: ReportItem): void;
+    remove(item: ReportItem | ReportPageItem): void;
+    getItems(type?: ReportItemType): ReportItem[];
+    getItemCount(type: ReportItemType): number;
+    /**
+     * 가장 최상위에 있는 밴드의 이름들을 반환해주기 위해 작성
+     * @returns 가장 최상위 위치에 있는 밴드의 이름들을 모아서 반환
+     */
+    getRootBandItemNames(): string[];
+    getSubBandsByMasterName(masterName: string): DataBand[];
+    getItemType(item: ReportItem): ReportItemType | undefined;
+    private $_removeChildItems;
+}
+
+declare class SubBandPage extends ReportPage {
+    constructor(report: Report, name?: string);
+    static readonly $_ctor: string;
+    get outlineLabel(): string;
+    protected _addSectionModel(): void;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _ignoreItems(): boolean;
+    protected _doSave(target: object): void;
+}
+
+/**
+ * 리포트 최상단에서 편집가능 객체 속성 구현
+ */
+declare class ReportEditableObject<T extends ReportItem> extends ReportItemObject<T> {
+    static readonly PROP_EDITABLE = "editable";
+    static readonly PROP_TYPE = "type";
+    static readonly PROPINFOS: IPropInfo[];
+    private _editable;
+    get editable(): boolean;
+    set editable(value: boolean);
+    get pathLabel(): string;
+    get displayPath(): string;
+    get level(): number;
+    constructor(item: T);
+    getSaveLabel(): string;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+    getEditProps(): IPropInfo[];
+    getPropDomain(prop: IPropInfo): any[];
 }
 
 declare enum PaperSize {
@@ -5725,11 +6476,13 @@ declare class ReportRootItem extends ReportGroupItem {
     static readonly PROP_MARGIN_RIGHT = "marginRight";
     static readonly PROP_MARGIN_TOP = "marginTop";
     static readonly PROP_MARGIN_BOTTOM = "marginBottom";
+    static readonly PROP_EDITING = "editing";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     private _report;
     private _type;
     private _maxPageCount;
+    private _editing;
     constructor(report: Report, name?: string);
     get report(): Report;
     /** type */
@@ -5777,6 +6530,8 @@ declare class ReportRootItem extends ReportGroupItem {
     /** marginBottom */
     get marginBottom(): ValueString;
     set marginBottom(value: ValueString);
+    /** editing */
+    get editing(): ReportEditableObject<ReportRootItem>;
     get outlineLabel(): string;
     get pathLabel(): string;
     get displayPath(): string;
@@ -5895,6 +6650,8 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     get dirty(): boolean;
     /** reportItemRegistry */
     get reportItemRegistry(): ReportItemRegistry;
+    /** editing */
+    get editing(): ReportEditableObject<ReportRootItem>;
     load(src: any): Report;
     setSaveTagging(tag: string): Report;
     save(pageOnly?: boolean): object;
@@ -6622,6 +7379,8 @@ declare class PageBodyElement extends ReportElement {
 
 /** @internal */
 declare class PageItemContainerElement extends BoundedContainerElement<PageItemContainer> {
+    static readonly FRONT_CONTAINER_CLASS = "rr-front-container";
+    static readonly BACK_CONTAINER_CLASS = "rr-back-container";
     private _emptySize;
     private _findable;
     constructor(doc: Document, model: PageItemContainer, name: string, emptySize?: boolean);
@@ -6831,188 +7590,12 @@ declare class ReportView extends LayerElement$1 implements IImageContainer {
     protected onReportCommandStackChanged(report: Report, cmd: EditCommand$1): void;
 }
 
-/**
- * 다국어 관련 속성 구현
- */
-declare class I18nObject<T extends ReportItem> extends ReportPageItem implements ReportObject {
-    static readonly PROP_FIELD = "field";
-    static readonly PROPINFOS: IPropInfo[];
-    private _item;
-    private _field;
-    get field(): string;
-    set field(value: string);
-    get page(): ReportPage;
-    get report(): Report;
-    get pathLabel(): string;
-    get displayPath(): string;
-    get level(): number;
-    get styles(): Styles;
-    constructor(item: T);
-    get outlineParent(): IOutlineSource | undefined;
-    get outlineExpandable(): boolean;
-    get outlineLabel(): string;
-    getSaveType(): string;
-    canRemoveFrom(): boolean;
-    getSaveLabel(): string;
-    load(loader: IReportLoader, source: ReportSource): void;
-    save(target: ReportTarget): boolean;
-    defaultInit(): void;
-    isCollection(): boolean;
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    getSubStyleProps(prop: string): IPropInfo[];
-    getPlaceHolder(prop: IPropInfo): string;
-    getPropDomain(prop: IPropInfo): any[];
-    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getStyle(style: string): string;
-    setStyle(style: string, value: string): void;
-    getStyleProperty(prop: string): any;
-    setStyleProperty(prop: string, value: any): void;
-    isChildProp(prop: string): boolean;
-    getSubStyleProperty(prop: string, style: string): any;
-    setSubStyleProperty(prop: string, style: string, value: any): void;
-    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    protected _changed(prop: string, newValue: unknown, oldValue: unknown): void;
-}
-
-/**
- * 한 줄 혹은 여러줄의 텍스트를 표시한다.
- * value 속성으로 지정된 data 위치가 타당하면 그 값을, 아니면 text 속성으로 지정한 문자열을 표시한다.
- */
-declare abstract class TextItemBase extends ReportItem {
-    static readonly PROP_WRAP = "wrap";
-    static readonly PROP_MULTI_LINE = "multiLine";
-    static readonly PROP_BOOLEAN_FORMAT = "booleanFormat";
-    static readonly PROP_NUMBER_FORMAT = "numberFormat";
-    static readonly PROP_DATE_FORMAT = "dateFormat";
-    static readonly PROP_TEXT_FORMAT = "textFormat";
-    static readonly PROP_TEXT_PREFIX = "prefix";
-    static readonly PROP_TEXT_SUFFIX = "suffix";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: string[];
-    private _wrap;
-    private _multiLine;
-    private _booleanFormat;
-    private _numberFormat;
-    private _dateFormat;
-    private _textFormat;
-    private _prefix;
-    private _suffix;
-    constructor(name: string);
-    /**
-     * wrap
-     */
-    get wrap(): boolean;
-    set wrap(value: boolean);
-    /**
-     * multiLine
-     * true면 '<br>'이나 '\n', '\r\n'으로 줄을 나눠 표시한다.
-     */
-    get multiLine(): boolean;
-    set multiLine(value: boolean);
-    /**
-     * booleanFormat
-     */
-    get booleanFormat(): string;
-    set booleanFormat(value: string);
-    /**
-     * numberFormat
-     */
-    get numberFormat(): string;
-    set numberFormat(value: string);
-    /**
-     * dateFormat
-     */
-    get dateFormat(): string;
-    set dateFormat(value: string);
-    /**
-     * 세미콜론(;)으로 구분하여 왼쪽에는 String.prototype.replace의 첫 번째 매개변수,
-     * 오른쪽에는 두 번째 매개변수와 같은 타입으로 지정
-     * 예) Mr. 홍길동: `'([A-Za-z]*); Mr\. \$1'`,
-     * 예) 사업자번호: '(\\d{3})(\\d{2})(\\d{5});$1-$2-$3'
-     */
-    get textFormat(): string;
-    set textFormat(value: string);
-    /**
-     * 접두어.
-     * expression을 이용해서 표현할 수도 있지만,
-     * 이 속성으로 설정하면 text와 다른 스타일을 적용할 수 있다.
-     */
-    get prefix(): string;
-    set prefix(value: string);
-    /**
-     * 접미어.
-     * expression을 이용해서 표현할 수도 있지만,
-     * 이 속성으로 설정하면 text와 다른 스타일을 적용할 수 있다.
-     */
-    get suffix(): string;
-    set suffix(value: string);
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _doApplyStyle(prop: string, value: string, target: CSSStyleDeclaration): boolean;
-    canRotate(): boolean;
-    canLink(): boolean;
-    canAdoptDragSource(source: any): boolean;
-    adoptDragSource(source: any): IDropResult;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    getPrintValue(dp: IReportDataProvider, row: number): any;
-}
-/**
- * 고정된 텍스트나 데이터 필드의 값을 출력하는 아이템.
- */
-declare class TextItem extends TextItemBase {
-    static readonly PROP_MULTI_LINE = "multiLine";
-    static readonly PROP_TEXT = "text";
-    static readonly PROP_ON_GET_CONTEXT_VALUE = "onGetContextValue";
-    static readonly PROP_I18N = "internationalization";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Text";
-    private _text;
-    private _i18nObject;
-    private _contextValueCallback;
-    private _onGetContextValue;
-    private _contextValueCallbackFunc;
-    private _contextValueCallbackDelegate;
-    constructor(name: string, text?: string);
-    /**
-     * text
-     */
-    get text(): string;
-    set text(value: string);
-    get internationalization(): I18nObject<TextItem>;
-    /**
-     * onGetContextValue
-     */
-    get onGetContextValue(): string;
-    set onGetContextValue(value: string);
-    /**
-     * contextValueCallback
-     */
-    get contextValueCallback(): ContextValueCallback;
-    set contextValueCallback(value: ContextValueCallback);
-    getSaveType(): string;
-    get outlineLabel(): string;
-    get designText(): string;
-    get pathLabel(): string;
-    isContextValue(): boolean;
-    protected _getEditProps(): IPropInfo[];
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _isI18nFieldExist(): boolean;
-}
-
 /** @internal */
 declare abstract class TextItemElementBase<T extends TextItemBase> extends ReportItemElement<T> {
     static readonly CLASS_NAME = "rr-text";
     static readonly CLASS_LIST: string;
     static readonly SPAN = "_rr_span_";
+    get span(): HTMLSpanElement;
     private _span;
     protected _text: string;
     constructor(doc: Document, model: T, name: string);
@@ -7027,42 +7610,6 @@ declare abstract class TextItemElementBase<T extends TextItemBase> extends Repor
     protected _getText(m: TextItemBase, v: any): string;
     protected abstract _getPrintText(ctx: PrintContext, m: T): string;
     protected abstract _getDesignText2(m: T, system: boolean): string;
-}
-
-/**
- * html 속성으로 지정한 문자열을 dom의 innerHtml로 설정한다.
- * 문자열에 포함된 '${value}'나 '@{value}'는 연결된 field의 값으로 대체되고,
- * 나머지 '${xxx}', '@{xxx}'는 'xxx' 필드의 값으로 대체된다.
- */
-declare class HtmlItem extends ReportItem {
-    static readonly ALLOWED_TAGS: string[];
-    static readonly PROP_HTML = "html";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: string[];
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Html";
-    private _html;
-    private _tokens;
-    constructor(name: string);
-    get html(): string;
-    set html(value: string);
-    getHtml(ctx: PrintContext): string;
-    getSaveType(): string;
-    get outlineLabel(): string;
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    canRotate(): boolean;
-    canAdoptDragSource(source: any): boolean;
-    adoptDragSource(source: any): IDropResult;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    getRowContextValue(value: string, ctx: PrintContext): string | number;
-    private $_getTokenValue;
-    private $_parse;
-    private $_parseValues;
 }
 
 /** @internal */
@@ -7092,23 +7639,10 @@ declare class ReportItemElementMap extends Base$1 {
     private _reportItemElements;
     constructor();
     add<T extends ReportItem>(itemElement: ReportItemElement<T>): void;
-    getItemElementByModel<T extends ReportItem>(model: ReportItem): ReportItemElement<T> | undefined;
+    getItemElements(): ReportItemElement<ReportItem>[];
+    getItemElementByModelHash<T extends ReportItem>(hash: string): ReportItemElement<T> | undefined;
     getBandElementByModel<T extends DataBand>(model: DataBand): BandElement<T> | undefined;
 }
-
-declare class TableBandGroupSectionElement<T extends TableBandRowGroupSection> extends TableElement<T> {
-    constructor(doc: Document, model: T, name: string);
-    applyGroupStyles(tr: HTMLTableRowElement): void;
-    protected _needDesignBox(): boolean;
-    protected _createCellElement(doc: Document, cell: TableCellItem): TableCellElementBase;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
-}
-interface ITableGroupPrintInfo extends IGroupPrintInfo {
-    view: TableBandGroupSectionElement<TableBandRowGroupHeader | TableBandRowGroupFooter>;
-    needNextPage: boolean;
-}
-type TableBandPrintRow = BandPrintRow | ITableGroupPrintInfo;
 
 declare class SimpleBandGroupSectionElement<T extends SimpleBandRowGroupSection> extends StackContainerElement<T> {
     constructor(doc: Document, model: T, name: string);
@@ -7146,6 +7680,7 @@ declare class PrintContext extends Base$1 {
     private _compositePageCount;
     private _compositePage;
     private _language;
+    private _editable;
     detailRows: number[];
     noValueCallback: boolean;
     preview: boolean;
@@ -7260,6 +7795,15 @@ declare class PrintContext extends Base$1 {
      */
     get language(): string;
     set language(value: string);
+    /**
+     * editable
+     */
+    get editable(): boolean;
+    set editable(value: boolean);
+    /**
+     * 편집 가능한 리포트인지 판별하기 위해 선언
+     */
+    get isEditable(): boolean;
     preparePrint(report?: Report): void;
     preparePage(page: number, allPage: number): void;
     setDetailPage(count: number, page: number): void;
@@ -7491,6 +8035,7 @@ declare abstract class ReportPageItem extends Base$1 implements ISelectionSource
      */
     get marqueeParent(): ReportItem;
     get printable(): boolean;
+    get printEditable(): boolean;
     isAncestorOf(item: ReportPageItem): boolean;
     getProps(): any;
     setProps(src: any): void;
@@ -7957,12 +8502,12 @@ declare abstract class ReportItem extends ReportPageItem {
     unfold(): boolean;
     isI18nFieldValid(): boolean;
     getLanguageFieldValue(language: string, field: string): string;
-    protected _foldedChanged(): void;
     get marqueeParent(): ReportItem;
     get printable(): boolean;
     isReadOnlyProperty(prop: IPropInfo): boolean;
     protected _sizable(): boolean;
     protected _boundable(): boolean;
+    protected _foldedChanged(): void;
     /**
      * 리포트 아이템 생성 시, 수행할 초기화 작업을 정의한다.
      *
@@ -8260,120 +8805,6 @@ declare abstract class CellContainer extends ReportGroupItem {
     protected _removeItem(item: ReportItem): number;
     protected abstract _prepareCellGroup(item: ReportItem): CellGroup;
     protected _unprepareCellGroup(item: ReportItem): CellGroup;
-}
-
-declare abstract class ChartObject<T extends ReportGroupItem> extends ReportItem {
-    static readonly PROPINFOS: IPropInfo[];
-    private _chart;
-    constructor(chart: T, name?: string);
-    get chart(): T;
-    canHide(): boolean;
-    getWrapper(): object;
-    get page(): ReportPage;
-    get report(): Report;
-    get dataParent(): ReportGroupItem;
-    get marqueeParent(): ReportItem;
-    getSaveType(): string;
-    protected _getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: any): void;
-    protected _isDefaultVisible(): boolean;
-    protected _getPropsWrapper(target: any, excludes?: string[], names?: {
-        [key: string]: string;
-    }): any;
-}
-declare abstract class ChartTextObject<T extends ReportGroupItem> extends ChartObject<T> {
-    static readonly PROP_TEXT = "text";
-    static readonly PROPINFOS: IPropInfo[];
-    private _text;
-    constructor(chart: T);
-    /** text */
-    get text(): string;
-    set text(value: string);
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    getWrapper(): object;
-}
-declare abstract class ChartSeries<T extends ReportGroupItem> extends ChartObject<T> {
-    static readonly PROP_SERIES_ID = "id";
-    static readonly PROP_DESIGN_VISIBLE = "designVisible";
-    static readonly PROP_VALUE_FIELD = "valueField";
-    static readonly PROP_VALUES = "values";
-    static readonly PROPINFOS: IPropInfo[];
-    private _id;
-    private _designVisible;
-    private _valueField;
-    private _values;
-    constructor(chart: T);
-    getPropDomain(prop: IPropInfo): any[];
-    abstract get seriesType(): string;
-    /**
-     * id
-     */
-    get id(): string;
-    set id(value: string);
-    /**
-     * design visible
-     */
-    get designVisible(): boolean;
-    set designVisible(value: boolean);
-    /**
-     * valueField
-     **/
-    get valueField(): string;
-    set valueField(value: string);
-    /**
-     * valueField가 지정되면 이 속성은 무시된다.
-     */
-    get values(): number[];
-    set values(value: number[]);
-    hasValuesProp(): boolean;
-    getValues(ctx: PrintContext, dp: IReportDataProvider): any[];
-    getSaveType(): string;
-    get displayPath(): string;
-    get outlineLabel(): string;
-    protected _getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-declare abstract class ChartSeriesCollection<T extends ReportGroupItem> extends ReportItemCollection<ChartSeries<T>> {
-    private _chart;
-    protected _series: ChartSeries<T>[];
-    constructor(chart?: T);
-    get outlineParent(): IOutlineSource;
-    get outlineLabel(): string;
-    get outlineExpandable(): boolean;
-    get outlineItems(): IOutlineSource[];
-    get owner(): ReportItem;
-    /** chart */
-    get chart(): T;
-    /** count */
-    get count(): number;
-    get items(): ReportPageItem[];
-    get visibleCount(): number;
-    load(loader: IReportLoader, src: any): void;
-    save(target: any): void;
-    get(index: number): ChartSeries<T>;
-    indexOf(series: ChartSeries<T>): number;
-    add(loader: IReportLoader, series: ChartSeries<T> | ConfigObject$1, index?: number): ChartSeries<T>;
-    addAll(loader: IReportLoader, series: (ChartSeries<T> | ConfigObject$1)[], index?: number): boolean;
-    removeAt(index: number): boolean;
-    remove(series: ChartSeries<T>): boolean;
-    clear(): boolean;
-    select(series: ChartSeries<T>): void;
-    getSaveType(): string;
-    get page(): ReportPage;
-    get displayPath(): string;
-    get level(): number;
-    isAncestorOf(item: ReportPageItem): boolean;
-    protected abstract _createSeries(loader: IReportLoader, src: any): ChartSeries<T>;
-    protected abstract _seriesChanged(series: ChartSeries<T>): void;
-    private $_add;
-    private $_invalidateSeries;
-    private $_seriesChanged;
-    protected _doMoveItem(from: number, to: number): boolean;
 }
 
 /**
@@ -9079,6 +9510,9 @@ declare enum LinkTarget {
     PARENT = "_parent",
     TOP = "_top"
 }
+declare enum EditType {
+    TEXT = "text"
+}
 declare enum PaperOrientation {
     PORTRAIT = "portrait",
     LANDSCAPE = "landscape"
@@ -9178,298 +9612,6 @@ declare enum SectionInherit {
     NONE = "none",
     HEAD = "head",
     PREVIOUS = "previous"
-}
-
-interface IPrintReport {
-    report: Report;
-    data: IReportDataProvider;
-}
-interface IPreviewOptions {
-    debug?: boolean;
-    async?: boolean;
-    pageMark?: boolean;
-    optimize?: boolean;
-    pageDelay?: number;
-    noScroll?: boolean;
-    noIndicator?: boolean;
-    singlePage?: boolean;
-    singlePageOptions?: ISinglePageOptions;
-    align?: Align;
-    paging?: boolean;
-    language?: string;
-    callback?: PrintPageCallback;
-    endCallback?: PrintEndCallback;
-}
-interface IPrintOptions {
-    report: Report | (Report | IPrintReport)[];
-    data: IReportDataProvider;
-    preview?: boolean;
-    id?: string;
-    previewOptions?: IPreviewOptions;
-}
-interface ISinglePageOptions {
-    border: boolean;
-}
-declare class PrintContainer extends VisualContainer$1 {
-    static readonly CLASS_NAME = "rr-report-container";
-    static readonly PREVIEW_CLASS = "rr-report-preview";
-    static readonly PRINT_SIZE = "--rr-print-size";
-    private static readonly MARKER_CLASS;
-    private static readonly PRINT_INDICATOR_CLASS;
-    private static readonly PRINT_BACK_CLASS;
-    static readonly SCROLL_END = "onScrollEnd";
-    private _pageGap;
-    private _zoom;
-    private _align;
-    private _styles;
-    traceMode: boolean;
-    onZoomed: (scale: number) => void;
-    private _context;
-    private _errorView;
-    private _indicator;
-    private _reportView;
-    private _reportViews;
-    private _contexts;
-    private _pages;
-    private _preview;
-    private _previewId;
-    private _options;
-    private _printMode;
-    private _pageToGo?;
-    constructor(containerId: string | HTMLDivElement);
-    protected _doDispose(): void;
-    /** pageCount */
-    get pageCount(): number;
-    /** page */
-    get page(): number;
-    set page(value: number);
-    /** zoom */
-    get zoom(): number;
-    set zoom(value: number);
-    get pages(): PrintPage[];
-    get isPrinted(): boolean;
-    get align(): Align;
-    set align(value: Align);
-    /**
-     * Report 에서 사용
-     */
-    get ReportItemRegistry(): ReportItemRegistry;
-    /**
-     * Composite Report 에서 사용
-     */
-    get ReportItemRegistries(): ReportItemRegistry[];
-    print(options: IPrintOptions): void;
-    printSingle(options: IPrintOptions): void;
-    printAll(options: IPrintOptions): void;
-    private $_printAll;
-    getPrintHtml(): string;
-    loadAsyncLoadableElements(): Promise<void>;
-    setStyles(styles: any): void;
-    fitToWidth(): void;
-    fitToHeight(): void;
-    fitToPage(): void;
-    /**
-     * Multi 리포트이면서 가로로 시작하는 양식은 따로 설정이 필요함
-     * @returns 멀티 페이지이면서 첫번째 페이지가 가로양식으로 시작할 경우
-     */
-    needPrintScale(): boolean;
-    /**
-     * containerDiv의 크기에 맞춰 previewer의 위치를 재조정한다.
-     */
-    resetPreviewer(): void;
-    get printing(): boolean;
-    protected _doPrepareContainer(doc: Document, dom: HTMLElement): void;
-    protected _render(timestamp: number): void;
-    protected _doResized(): void;
-    private $_showError;
-    private $_createIndicator;
-    private $_refreshContextValues;
-    private $_replacePages;
-    private $_refreshHtmlItemValue;
-    private $_printReport;
-    private $_printPageless;
-    private $_getContainer;
-    private $_getPreviewer;
-    private $_getPageHeight;
-    private $_getPrintBack;
-    private $_removeBackContainer;
-    private $_resetPreviewer;
-    private $_buildOutput;
-    private $_buildNoPagingOutput;
-    private $_setFrontBackLayer;
-    /**
-     * 서브 밴드 페이지들은 다른 페이지들에 연결해서 사용되기 때문에 우선적으로 뷰를 준비한다.
-     */
-    private $_prepareSubPageViews;
-    /**
-     * unitpost 한장 요약 HTML 요청으로 singlePage 별도 메서드로 분리
-     */
-    private $_prepareSinglePage;
-    private $_setSinglePage;
-    private $_setSinglePageStyles;
-    private $_isReportFooter;
-    private $_setPrintMode;
-    private $_getScaleSize;
-    /**
-     * 각 인쇄 영역 Container Style 설정
-     */
-    private $_setPageContainerStyle;
-    private $_setLandscapePageStyle;
-    private $_setPrintScaleStyle;
-    private $_setUnvisibleDom;
-    private $_layoutFloatings;
-    private $_setLanguageContext;
-    /**
-     * 출력 옵션 검증
-     * @throws 출력 옵션이 유효하지 않을 경우 에러 발생
-     */
-    private $_validatePrintOptions;
-    private $_validateReportOption;
-    private $_createReportView;
-    private $_instanceofIPrintReport;
-    protected _fireScrollEnd: () => void;
-}
-
-interface PdfFont {
-    name: string;
-    content: string;
-    file?: string;
-    style?: 'normal' | 'italic';
-    weight?: 'normal' | 'bold';
-}
-interface PdfPermissions {
-    printing?: 'lowResolution' | 'highResolution';
-    modifying?: boolean;
-    copying?: boolean;
-    annotating?: boolean;
-    fillingForms?: boolean;
-    contentAccessibility?: boolean;
-    documentAssembly?: boolean;
-}
-
-declare enum CCITTScheme {
-    GROUP_3 = "g3",
-    GROUP_3_2D = "g3-2d",
-    GROUP_4 = "g4"
-}
-
-interface ITiffOptions {
-    dpi?: number;
-    grayscale?: boolean;
-    encoding?: CCITTScheme;
-}
-
-interface ImageExportOptions {
-    type?: 'png' | 'jpeg' | 'jpg' | 'gif' | 'tif' | 'tiff';
-    fileName?: string;
-    zipName?: string;
-    tiff?: ITiffOptions;
-}
-
-declare const I_EMAIL_ITEM_DSCIRIMINATOR: "I_EMAIL_ITEM";
-interface IEmailItem extends ReportItem {
-    discriminator: typeof I_EMAIL_ITEM_DSCIRIMINATOR;
-}
-
-declare class EmailFooterItems extends ColumnBoxContainer implements IEmailItem {
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly INHERITED_PROPINFO_NAMES: string[];
-    static readonly STYLE_PROPS: string[];
-    static readonly INHERITED_STYLE_PROPS: string[];
-    static readonly $_ctor: string;
-    private _itemsHorizontalAlign;
-    discriminator: "I_EMAIL_ITEM";
-    constructor(name: string);
-    get itemsHorizontalAlign(): Align;
-    set itemsHorizontalAlign(value: Align);
-    get outlineLabel(): string;
-    get outlineParent(): IOutlineSource;
-    canResize(dir: ResizeDirection): boolean;
-    canMove(): boolean;
-    protected _boundable(): boolean;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _doAfterLoad(loader: IReportLoader, src: any): void;
-    protected _doAfterSave(target: object): void;
-    protected _doItemAdded(item: ReportItem, index: number): void;
-}
-
-declare class EmailFooter extends ReportFooter implements IEmailItem {
-    static readonly $_ctor: string;
-    private _footerItems;
-    discriminator: "I_EMAIL_ITEM";
-    constructor();
-    get footerItems(): ReportItem[];
-    get itemsContainer(): EmailFooterItems;
-    get itemsAlign(): BoxItemsAlign;
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    canResize(dir: ResizeDirection): boolean;
-    protected _ignoreItems(): boolean;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-
-declare class EmailPage extends ReportPage implements IEmailItem {
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly INHERITED_PROPINFO_NAMES: string[];
-    static readonly STYLE_PROPS: string[];
-    static readonly INHERITED_STYLE_PROPS: string[];
-    static readonly $_ctor: string;
-    discriminator: "I_EMAIL_ITEM";
-    constructor(report: Report);
-    get emailFooter(): EmailFooter;
-    get outlineItems(): IOutlineSource[];
-    protected _createPageBody(): PageBody;
-    protected _createReportFooter(): ReportFooter;
-    protected _getReportFooterSourceFieldName(): string;
-    getPropDomain(prop: IPropInfo): any[];
-    getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doAfterLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-
-declare class EmailPageBody extends PageBody implements IEmailItem {
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly INHERITED_PROPINFO_NAMES: string[];
-    static readonly STYLE_PROPS: string[];
-    static readonly INHERITED_STYLE_PROPS: string[];
-    static readonly $_ctor: string;
-    discriminator: "I_EMAIL_ITEM";
-    constructor();
-    protected _createPageBodyItems(): PageBodyItems;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-
-declare class EmailRootItem extends ReportRootItem {
-    static readonly PROP_WIDTH = "width";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly INHERITED_PROPINFO_NAMES: string[];
-    static readonly $_ctor: string;
-    constructor(email: Email);
-    get width(): ValueString;
-    set width(value: ValueString);
-    get outlineLabel(): string;
-    getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    private $_checkReportType;
-}
-declare class Email extends Report {
-    get root(): EmailRootItem;
-    get page(): EmailPage;
-    get body(): EmailPageBody;
-    protected _createReportRootItem(report: Report): ReportRootItem;
-    protected _createReportInfo(report: Report): ReportInfo;
-    protected _createReportLoader(): IReportLoader;
-    protected _createReportPage(report: Report): ReportPage;
 }
 
 /**
@@ -43612,6 +43754,11 @@ type PreviewOptions = {
      * @defaultValue `기본으로 설정된 언어 key`
      */
     language?: string;
+    /**
+     * 미리보기에서 편집 가능한 리포트로 설정
+     * @defaultValue `undefined`
+     */
+    editable?: boolean;
     /**
      * 페이지 없이 출력하는 옵션. false인 경우 페이지 구분 없이 출력합니다.
      * @defaultValue `true`

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RealReport Web Designer</title>
+    <!-- 웹 디자이너 스타일 -->
+    <link href="./styles/realreport-designer.css" rel="stylesheet" />
+
+    <!-- 템플릿을 사용하는경우 -->
+    <script type="text/javascript" src="./templates/assetTemplates.js"></script>
+    <script type="text/javascript" src="./templates/dataTemplates.js"></script>
+    <script type="text/javascript" src="./templates/reportTemplates.js"></script>
+
+    <!-- PDF 라이브러리 -->
+    <script type="text/javascript" src="./js/pdfkit.js"></script>
+
+    <!-- 웹디자이너 라이브러리 -->
+    <script type="text/javascript" src="./js/realreport-designer.js"></script>
+
+    <!-- 리포트 양식 -->
+    <script type="text/javascript" src="./forms/orderList.js"></script>
+    <script type="text/javascript" src="./forms/warehouseInventory.js"></script>
+
+    <!-- 예제 화면 웹 디자이너 실행 관련 코드 -->
+    <script type="text/javascript" src="./js/index.js"></script>
+
+    <!-- 예제 화면 스타일 -->
+    <link href="./styles/index.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="root-container">
+        <div id="btns" class="button-container">
+            <a href="https://real-report.com/docs/web-designer/01-start" target="_blank" style="text-decoration: none;">
+                <p>RealReport Web Designer</p>
+            </a>
+            <button onclick="loadReportForm(orderListReport)">발주서</button>
+            <button onclick="loadReportForm(warehouseInventoryReport)">품목별재고정보</button>
+        </div>
+
+        <!-- 웹 디자이너가 렌더링될 컨테이너 -->
+        <div id="designer"></div>
+    </div>
+</body>
+
+</html>

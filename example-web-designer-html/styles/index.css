@@ -1,0 +1,42 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+p {
+    font-weight: bold;
+    color: black;
+}
+.root-container {
+    display: flex;
+    height: 100vh;
+}
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: #f2f6fd;
+    border-bottom: 1px solid #e9e8e8;
+}
+.button-container button {
+    text-align: left;
+    padding: 6px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+#designer {
+    flex-grow: 1;
+    padding: 6px;
+    border: 1px dashed #19478a;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    margin: 10px;
+    overflow: auto;
+}
