@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.9.2
-* commit d23570a
+* RealReport v1.9.3
+* commit c4ea274
 
 * Copyright (C) 2013-2024 WooriTech Inc.
 	https://real-report.com
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.9.2
+* RealReport Core v1.9.3
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit e334d25e406b0ee0b242fb863bd5c1a5cba46226
+* commit 91fd0621edacdc2db9f742493fcb46ba3bc6567b
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -1397,7 +1397,7 @@ type TreeItemSource = {
     iconType?: TreeItemIconType;
     children?: TreeItemSource[];
 };
-type TreeItemIconType = 'group' | 'report' | 'asset' | 'favorite' | 'bandData' | 'simpleData' | 'language';
+type TreeItemIconType = 'group' | 'report' | 'reportFolder' | 'asset' | 'favorite' | 'bandData' | 'simpleData' | 'language';
 
 /**
  * Asset item base.
@@ -1792,6 +1792,7 @@ declare abstract class BandData extends LinkableReportData {
     indexOfField(field: IBandDataField): number;
     setField(index: number, field: IBandDataField): void;
     getSaveFields(): IBandDataField[];
+    getSaveValues(): any[];
     getNextFieldName(prefix?: string): string;
     getFieldNames(): string[];
     addField(index: number, field: IBandDataField): boolean;
@@ -1804,6 +1805,7 @@ declare abstract class BandData extends LinkableReportData {
     abstract getFieldValues(field: string | number, rows?: number[]): any[];
     get isBand(): boolean;
     preparePrint(ctx: PrintContext, design: boolean): void;
+    protected _getSampleValues(): any[];
     protected _readRows(): void;
     protected _prepareCalcField(fields: IBandDataField[], fieldMap: any, calcField: IBandDataField, index: number, node: ExpressionNode$1): void;
 }
@@ -1831,6 +1833,7 @@ declare class BandArrayData extends BandData implements IBandData {
     get sample(): any[];
     getValues(): any[];
     setValues(vals: any[]): void;
+    getFieldSample(): any[];
     setSource(source: any[]): void;
     /**
      * 특정 모드의 데이터를 일회성으로 조작하기 위한 편의성 메서드 (callback 실행 후 모드는 원복됨)
@@ -1839,6 +1842,7 @@ declare class BandArrayData extends BandData implements IBandData {
     getSaveType(): string;
     protected _doDataFetched(fetchedData: unknown): void;
     private $_cloneRow;
+    protected _getSampleValues(): any[];
     protected _readRows(): void;
     protected _prepareCalcField(fields: IBandDataField[], fieldMap: any, calcField: IBandDataField, index: number, node: ExpressionNode$1): void;
 }
@@ -1889,6 +1893,7 @@ declare class DesignDataManager extends EventAware$1 implements IReportDataProvi
 }
 
 interface IOutlineSource {
+    hash: number;
     outlineParent: IOutlineSource;
     outlineExpandable: boolean;
     outlineItems?: IOutlineSource[];
@@ -2843,6 +2848,7 @@ declare class DataBandCollection extends ReportGroupItem {
     get owner(): DataBand;
     protected _getChildPropInfos(item: ReportItem): IPropInfo[];
     getSaveType(): string;
+    canFold(): boolean;
     get outlineLabel(): string;
     get designLevel(): number;
     get marqueeParent(): ReportItem;
@@ -3143,6 +3149,7 @@ declare class TableBand extends DataBand {
     setPrinting(ctx: PrintContext, pr: number, trows?: number): void;
     getSaveType(): string;
     get outlineLabel(): string;
+    canFold(): boolean;
     get isBand(): boolean;
     protected _ignoreItems(): boolean;
     protected _getEditProps(): IPropInfo[];
@@ -3424,6 +3431,7 @@ declare class SimpleBand extends DataBand {
     get outlineLabel(): string;
     get isBand(): boolean;
     protected _ignoreItems(): boolean;
+    canFold(): boolean;
     protected _getEditProps(): IPropInfo[];
     isAncestorOf(item: ReportPageItem): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
@@ -3754,6 +3762,8 @@ declare abstract class BandElement<T extends DataBand> extends ReportGroupItemEl
     abstract getLines(): ReportItemView[];
     abstract printRow(ctx: PrintContext, row: number): any;
     getSibling(item: ReportItemView, delta: number): ReportItemView;
+    findMasterBand(band: DataBand): DataBand;
+    getBandLevel(masterBand: DataBand, band: DataBand): string;
     abstract addMasterRow(page: HTMLDivElement, headerView: any, rowView: any, x: number, y: number): number;
     abstract prepareAsync(doc: Document, ctx: PrintContext, width: number, subRows: number[], masterRow: number): BandPrintInfo<any>;
     abstract prepareSubBand(doc: Document, ctx: PrintContext, width: number, dataRows: number[]): BandPrintInfo<any>;
@@ -3762,6 +3772,7 @@ declare abstract class BandElement<T extends DataBand> extends ReportGroupItemEl
     protected _getPrev(item: ReportItemView): ReportItemView;
     private $_prepareDetailDataBand;
     private $_prepareDetailBandGroup;
+    private $_setBandLevel;
 }
 
 /**
@@ -6837,6 +6848,34 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
 }
 
 /**
+ * ItemAddSection
+ */
+declare class ItemAddSection<S extends PageSection> extends PageSection {
+    static readonly $_ctor: string;
+    static readonly PROPINFOS: IPropInfo[];
+    private _targetSection;
+    constructor(target: S);
+    get targetSection(): S;
+    get pathLabel(): string;
+    canResize(dir: ResizeDirection): boolean;
+    canFold(): boolean;
+    protected _getStyleProps(): string[];
+    protected _getEditProps(): IPropInfo[];
+    canContainsBand(): boolean;
+    canContainsBandGroup(): boolean;
+}
+/**
+ * BodyItemAddSection
+ */
+declare class BodyItemAddSection extends ItemAddSection<PageBody> {
+    static readonly $_ctor: string;
+    constructor(target: PageBody);
+    get pathLabel(): string;
+    get outlineLabel(): string;
+    protected _doItemAdded(item: ReportItem, index: number): void;
+}
+
+/**
  * 리포트 페이지 모델. 하나 이상의 section들로 구성된다.
  *
  * 1. band는 body의 최상위 항목으로만 추가될 수 있다. 즉, 다른 항목의 자식이 될 수 없다.
@@ -6881,6 +6920,7 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
     saveTag: string;
     private _loading;
     private _removing;
+    private _addItemSection;
     constructor(report: Report, name?: string);
     addListener(listener: object): IEventAware;
     removeListener(listener: object): IEventAware;
@@ -6918,6 +6958,11 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
      */
     get body(): PageBody;
     set body(section: PageBody);
+    /**
+     * addItemSection
+     */
+    get addItemSection(): ItemAddSection<PageBody>;
+    set addItemSection(section: ItemAddSection<PageBody>);
     get backContainer(): PageItemContainer;
     set backContainer(section: PageItemContainer);
     /**
@@ -7250,6 +7295,16 @@ declare class PageFooterElement extends InheritableSectionElement<PageFooter> {
     protected _isContexable(): boolean;
     protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
 }
+/** @internal */
+declare class BodyItemAddSectionElement extends SectionElement<ItemAddSection<PageSection>> {
+    constructor(doc: Document, model?: BodyItemAddSection);
+    protected _doDispose(): void;
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+    protected _isContexable(): boolean;
+    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _doSizeChanged(): void;
+}
 
 /**
  * @internal
@@ -7410,16 +7465,19 @@ interface PageViewOptions {
     reportFooterEnabled?: boolean;
     pageHeaderEnabled?: boolean;
     pageFooterEnabled?: boolean;
+    addBodyItemSectionEnabled?: boolean;
 }
 /** @internal */
 declare class PageView extends LayerElement$1 {
     private static readonly DEFAULT_PAGE_VIEW_OPTIONS;
+    private static readonly PAGE_BOTTOM_GAP;
     private _model;
     private _reportHeaderView?;
     private _reportFooterView?;
     private _pageHeaderView?;
     private _pageFooterView?;
     private _bodyView;
+    private _addBodyItemSectionView;
     private _backView?;
     private _frontView?;
     private _sections;
@@ -7442,6 +7500,8 @@ declare class PageView extends LayerElement$1 {
     get pageFooterView(): PageFooterElement;
     /** bodyView */
     get bodyView(): PageBodyElement;
+    /** addItemElement */
+    get addItemSectionElement(): BodyItemAddSectionElement;
     /** backFloatingView */
     get backFloatingView(): PageItemContainerElement;
     /** frontFloatingView */
@@ -7567,6 +7627,8 @@ declare class ReportView extends LayerElement$1 implements IImageContainer {
     protected _layoutPageBorders(rReport: Rectangle$1, rPage: Rectangle$1): void;
     private $_layout;
     protected _afterLayout(ctx: PrintContext, bounds: Rectangle$1): void;
+    $_setRectPageViews(ctx: PrintContext, pageViews: PageView[], bounds: Rectangle$1, size: Size$1): void;
+    $_getOverflowHeight(): number;
     $_afterRender(ctx: PrintContext): void;
     $_createElement(item: ReportItem): ReportElement;
     /**

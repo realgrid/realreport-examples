@@ -36,7 +36,7 @@ body {
     color: #1c1e21;
     font-size: 20px;
     position: relative;
-    bottom: 9px;
+    bottom: 5px;
     margin-left: 10px;
     margin-right: 5px;
 }
@@ -50,9 +50,9 @@ body {
 }
 
 .headerIcon {
-    width: 50px;
+    width: 35px;
     position: relative;
-    top: 13px;
+    top: 8px;
 }
 
 .viewContainer {
