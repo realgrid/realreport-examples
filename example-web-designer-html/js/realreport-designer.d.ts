@@ -131,6 +131,7 @@ declare class BandArrayData extends BandData implements IBandData {
     get sample(): any[];
     getValues(): any[];
     setValues(vals: any[]): void;
+    getFieldSample(): any[];
     setSource(source: any[]): void;
     /**
      * 특정 모드의 데이터를 일회성으로 조작하기 위한 편의성 메서드 (callback 실행 후 모드는 원복됨)
@@ -139,8 +140,17 @@ declare class BandArrayData extends BandData implements IBandData {
     getSaveType(): string;
     protected _doDataFetched(fetchedData: unknown): void;
     private $_cloneRow;
+    protected _getSampleValues(): any[];
     protected _readRows(): void;
     protected _prepareCalcField(fields: IBandDataField[], fieldMap: any, calcField: IBandDataField, index: number, node: ExpressionNode): void;
+}
+
+declare interface BandBorders {
+    border: string;
+    borderLeft: string;
+    borderRight: string;
+    borderTop: string;
+    borderBottom: string;
 }
 
 declare class BandCollectionElement extends ReportGroupItemElement<DataBandCollection> {
@@ -171,6 +181,7 @@ declare abstract class BandData extends LinkableReportData {
     indexOfField(field: IBandDataField): number;
     setField(index: number, field: IBandDataField): void;
     getSaveFields(): IBandDataField[];
+    getSaveValues(): any[];
     getNextFieldName(prefix?: string): string;
     getFieldNames(): string[];
     addField(index: number, field: IBandDataField): boolean;
@@ -183,6 +194,7 @@ declare abstract class BandData extends LinkableReportData {
     abstract getFieldValues(field: string | number, rows?: number[]): any[];
     get isBand(): boolean;
     preparePrint(ctx: PrintContext, design: boolean): void;
+    protected _getSampleValues(): any[];
     protected _readRows(): void;
     protected _prepareCalcField(fields: IBandDataField[], fieldMap: any, calcField: IBandDataField, index: number, node: ExpressionNode): void;
 }
@@ -207,6 +219,7 @@ declare class BandDataView extends Base implements IBandDataView {
 declare abstract class BandElement<T extends DataBand> extends ReportGroupItemElement<T> {
     static readonly END_ROW_MESSAGE_CLASS = "rr-end-row-message";
     static readonly END_ROW_CLASS = "rr-end-row";
+    static readonly BORDER_CONTAINER = "rr-band-border-container";
     abstract get rowView(): ReportGroupItemView;
     private _needFooterView;
     get needFooterView(): boolean;
@@ -214,6 +227,8 @@ declare abstract class BandElement<T extends DataBand> extends ReportGroupItemEl
     abstract getLines(): ReportItemView[];
     abstract printRow(ctx: PrintContext, row: number): any;
     getSibling(item: ReportItemView, delta: number): ReportItemView;
+    findMasterBand(band: DataBand): DataBand;
+    getBandLevel(masterBand: DataBand, band: DataBand): string;
     abstract addMasterRow(page: HTMLDivElement, headerView: any, rowView: any, x: number, y: number): number;
     abstract prepareAsync(doc: Document, ctx: PrintContext, width: number, subRows: number[], masterRow: number): BandPrintInfo<any>;
     abstract prepareSubBand(doc: Document, ctx: PrintContext, width: number, dataRows: number[]): BandPrintInfo<any>;
@@ -222,6 +237,7 @@ declare abstract class BandElement<T extends DataBand> extends ReportGroupItemEl
     protected _getPrev(item: ReportItemView): ReportItemView;
     private $_prepareDetailDataBand;
     private $_prepareDetailBandGroup;
+    private $_setBandLevel;
 }
 
 declare class BandFooterPrintInfo {
@@ -335,6 +351,10 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
      */
     setBandBoundPosition(ctx: PrintContext, model: BandModel, div: HTMLDivElement): void;
     setBandPrevIndex(index: number): void;
+    createBorderContaienr(doc: Document, y: number, w: number, name: string, tModel: string): HTMLDivElement;
+    setBorderContainerStyle(borderContainer: HTMLDivElement, styles: {
+        [x: string]: string;
+    }): void;
     protected _setX(dom: HTMLElement, x: number): void;
     protected _setY(dom: HTMLElement, y: number): void;
     protected _setPos(dom: HTMLElement, x: number, y: number): void;
@@ -387,6 +407,26 @@ declare interface BandTemplate {
 }
 
 /* Excluded from this release type: Base */
+
+/**
+ * BodyItemAddSection
+ */
+declare class BodyItemAddSection extends ItemAddSection<PageBody> {
+    static readonly $_ctor: string;
+    constructor(target: PageBody);
+    get pathLabel(): string;
+    get outlineLabel(): string;
+    protected _doItemAdded(item: ReportItem, index: number): void;
+}
+
+/* Excluded from this release type: BodyItemAddSectionElement */
+
+declare interface BorderWidths {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+}
 
 /**
  * 자식들의 위치를 지정할 수 있는 container.
@@ -532,7 +572,7 @@ declare abstract class ChartAxisCollection<T extends ChartItem, C = unknown> ext
     abstract getChartConfig(context: PrintContext): C[];
     abstract getSaveLabel(): string;
     defaultInit(): void;
-    load(loader: IReportLoader, source: ReportSource): void;
+    load(loader: IReportLoader, source: ReportSource$1): void;
     save(target: ReportTarget): boolean;
     get(index: number): ChartAxis<T, C>;
     indexOf(axis: ChartAxis<T, C>): number;
@@ -548,7 +588,7 @@ declare abstract class ChartAxisCollection<T extends ChartItem, C = unknown> ext
     isAncestorOf(item: ReportPageItem): boolean;
     getCollectionLabel(): string;
     protected _doMoveItem(from: number, to: number): boolean;
-    protected abstract _createAxis(loader: IReportLoader, src: ReportSource): ChartAxis<T, C>;
+    protected abstract _createAxis(loader: IReportLoader, src: ReportSource$1): ChartAxis<T, C>;
     protected abstract _axesChanged(): void;
     protected _doDefaultInit(): void;
     private $_invalidateAxes;
@@ -567,7 +607,7 @@ declare abstract class ChartDataObject<T extends ChartItem, C = unknown> extends
     protected _getEditProps(): IPropInfo[];
     getPropDomain(prop: IPropInfo): any[];
     getPlaceHolder(prop: IPropInfo): string;
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
 }
 
@@ -648,14 +688,14 @@ declare abstract class ChartObject<T extends ChartItem, C = unknown> extends Rep
     get styles(): Styles;
     set styles(value: Styles);
     defaultInit(): void;
-    load(loader: IReportLoader, source: ReportSource): void;
+    load(loader: IReportLoader, source: ReportSource$1): void;
     save(target: ReportTarget): boolean;
     abstract getChartConfig(context: PrintContext): C;
     get dataParent(): ReportGroupItem;
     get marqueeParent(): ReportItem;
     isCollection(): boolean;
     protected _doDefaultInit(): void;
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
@@ -797,7 +837,7 @@ declare abstract class ChartSeriesCollection<T extends ChartItem, C = unknown> e
     abstract getChartConfig(context: PrintContext): C[];
     getSaveLabel(): string;
     defaultInit(): void;
-    load(loader: IReportLoader, source: ReportSource): void;
+    load(loader: IReportLoader, source: ReportSource$1): void;
     save(target: ReportTarget): boolean;
     get(index: number): ChartSeries<T, C>;
     indexOf(series: ChartSeries<T, C>): number;
@@ -814,7 +854,7 @@ declare abstract class ChartSeriesCollection<T extends ChartItem, C = unknown> e
     isAncestorOf(item: ReportPageItem): boolean;
     getCollectionLabel(): string;
     protected _doMoveItem(from: number, to: number): boolean;
-    protected abstract _createSeries(loader: IReportLoader, src: ReportSource): ChartSeries<T, C>;
+    protected abstract _createSeries(loader: IReportLoader, src: ReportSource$1): ChartSeries<T, C>;
     protected abstract _seriesChanged(): void;
     protected _doDefaultInit(): void;
     private $_invalidateSeriesList;
@@ -845,7 +885,7 @@ declare abstract class ChartTextObject<T extends ChartItem, C = unknown> extends
     set text(value: string);
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
 }
 
@@ -1009,6 +1049,7 @@ declare class CrosstabBandTitle extends ReportItem {
     /** text */
     get text(): string;
     set text(value: string);
+    get page(): ReportPage;
     protected _getEditProps(): any[];
     protected _getStyleProps(): string[];
     protected _doLoad(loader: IReportLoader, src: any): void;
@@ -1230,6 +1271,7 @@ declare class CrosstabNullValue extends ReportItem {
     /** text */
     get text(): string;
     set text(value: string);
+    get page(): ReportPage;
     protected _getEditProps(): any[];
     protected _getStyleProps(): string[];
     protected _doLoad(loader: IReportLoader, src: any): void;
@@ -1634,6 +1676,9 @@ declare abstract class DataBand extends ReportGroupItem {
     getMin(field: string, count: number, rows?: number[]): number;
     getMax(field: string, count: number, rows?: number[]): number;
     getAvg(field: string, count: number, rows?: number[]): number;
+    getBandBorders(): BandBorders;
+    getBandBorderWidths(): BorderWidths;
+    hasBorder(): boolean;
     getPropDomain(prop: IPropInfo): any[];
     /**
      * 출력시 사용되는 밴드의 정보를 초기값으로 초기화
@@ -1678,6 +1723,7 @@ declare class DataBandCollection extends ReportGroupItem {
     get owner(): DataBand;
     protected _getChildPropInfos(item: ReportItem): IPropInfo[];
     getSaveType(): string;
+    canFold(): boolean;
     get outlineLabel(): string;
     get designLevel(): number;
     get marqueeParent(): ReportItem;
@@ -2705,7 +2751,7 @@ declare interface IBandData extends IReportData {
 
 declare interface IBandDataField {
     fieldName: string;
-    dataType?: "text" | "number" | "bool" | "datetime";
+    dataType?: "text" | "number" | "bool" | "array" | "datetime";
     source?: string;
     expression?: string;
     format?: string;
@@ -2822,6 +2868,7 @@ declare abstract class InheritableSectionElement<T extends InheritableSection> e
 }
 
 declare interface IOutlineSource {
+    hash: number;
     outlineParent: IOutlineSource;
     outlineExpandable: boolean;
     outlineItems?: IOutlineSource[];
@@ -2918,11 +2965,6 @@ declare interface IReportAssetItem {
     data: string;
 }
 
-declare interface IReportBody {
-    id?: string;
-    body?: Record<string, any>;
-}
-
 declare interface IReportData {
     name: string;
     isBand: boolean;
@@ -3005,20 +3047,11 @@ declare interface IReportDesignerOptions {
     /** action bar에서 클릭 대신 아이템 아이콘을 drag해서 생성 */
     dragInsert?: boolean;
     /** callbacks */
-    getReportListCallback?: () => Promise<IReportInfo[]>;
-    getReportCallback?: (reportId: string) => Promise<IReportBody>;
-    saveReportCallback?: (report: Report_2, reportId: string) => Promise<SaveCallbackResponse | null>;
+    getReportListCallback?: () => Promise<ReportListSource>;
+    getReportCallback?: (reportId: string) => Promise<IReportSource>;
+    saveReportCallback?: (report: Record<string, any>, reportId: string, reportContext: ReportContext) => Promise<SaveCallbackResponse | null>;
     getOptionsCallback?: () => Promise<Partial<IReportDesignerOptions>>;
     saveOptionsCallback?: (options: IReportDesignerOptions) => Promise<string | null>;
-}
-
-declare interface IReportInfo {
-    id: string;
-    group?: string;
-    name: string;
-    author?: string;
-    description?: string;
-    thumbnail?: string;
 }
 
 /**
@@ -3027,8 +3060,8 @@ declare interface IReportInfo {
 declare interface IReportLoader {
     getCreator(type: string): (name: string) => ReportItem;
     createItem(type: any): ReportItem;
-    createRealChartAxis(collection: RCAxisCollection, src: ReportSource): RCAxis;
-    createRealChartSeries(collection: RCSeriesCollection, src: ReportSource): RCSeries;
+    createRealChartAxis(collection: RCAxisCollection, src: ReportSource$1): RCAxis;
+    createRealChartSeries(collection: RCSeriesCollection, src: ReportSource$1): RCSeries;
     createHichartSeries(chart: HichartItem, src: any): HichartSeries;
 }
 
@@ -3039,9 +3072,9 @@ declare interface IReportResponse {
 }
 
 declare interface IReportServer {
-    getReportList(): Promise<IReportInfo[]>;
-    getReport(id: string): Promise<IReportBody>;
-    saveReport?(report: Report_2, id?: string): Promise<IReportResponse | null>;
+    getReportList(): Promise<ReportListSource>;
+    getReport(id: string): Promise<IReportSource>;
+    saveReport?(report: Record<string, any>, id: string, reportContext: ReportContext): Promise<IReportResponse | null>;
     getDataGroups(parent?: string): Promise<string[]>;
     getDataList(group: string): Promise<IReportDataInfo[]>;
     getData?(id: string): Promise<IReportDataInfo>;
@@ -3049,6 +3082,11 @@ declare interface IReportServer {
     getAssetList(group: string): Promise<IReportAssetItem[]>;
     getOptions?(): Promise<Partial<IReportDesignerOptions>>;
     saveOptions?: (options: IReportDesignerOptions) => Promise<string>;
+}
+
+declare interface IReportSource {
+    id?: string;
+    source?: Record<string, any>;
 }
 
 declare interface ISelectionSource {
@@ -3392,6 +3430,24 @@ declare interface ITableGroupPrintInfo extends IGroupPrintInfo {
     needNextPage: boolean;
 }
 
+/**
+ * ItemAddSection
+ */
+declare class ItemAddSection<S extends PageSection> extends PageSection {
+    static readonly $_ctor: string;
+    static readonly PROPINFOS: IPropInfo[];
+    private _targetSection;
+    constructor(target: S);
+    get targetSection(): S;
+    get pathLabel(): string;
+    canResize(dir: ResizeDirection): boolean;
+    canFold(): boolean;
+    protected _getStyleProps(): string[];
+    protected _getEditProps(): IPropInfo[];
+    canContainsBand(): boolean;
+    canContainsBandGroup(): boolean;
+}
+
 declare enum ItemMoveType {
     INNER = "inner",
     OUTER = "outer"
@@ -3581,6 +3637,7 @@ declare interface PageViewOptions {
     reportFooterEnabled?: boolean;
     pageHeaderEnabled?: boolean;
     pageFooterEnabled?: boolean;
+    addBodyItemSectionEnabled?: boolean;
 }
 
 /**
@@ -3688,6 +3745,7 @@ declare class PrintContext extends Base {
     private _compositePageCount;
     private _compositePage;
     private _language;
+    private _editable;
     detailRows: number[];
     noValueCallback: boolean;
     preview: boolean;
@@ -3802,6 +3860,15 @@ declare class PrintContext extends Base {
      */
     get language(): string;
     set language(value: string);
+    /**
+     * editable
+     */
+    get editable(): boolean;
+    set editable(value: boolean);
+    /**
+     * 편집 가능한 리포트인지 판별하기 위해 선언
+     */
+    get isEditable(): boolean;
     preparePrint(report?: Report_2): void;
     preparePage(page: number, allPage: number): void;
     setDetailPage(count: number, page: number): void;
@@ -3878,6 +3945,7 @@ declare enum PropCategory {
     LINK = "link",
     EVENT = "event",
     I18N = "internationalization",
+    EDITING = "editing",
     SECTION = "section",
     EDITOR = "editor",
     REPORT = "report",
@@ -3913,6 +3981,7 @@ declare enum PropCategory {
     TOOLTIP = "tooltip",
     CROSSHAIR = "crosshair",
     OPTIONS = "options",
+    BODY = "body",
     CREDITS = "credits",
     STYLES = "Styles",
     EMAIL_FORM_INFO = "email form info",
@@ -3970,8 +4039,8 @@ export declare class R2Server implements IReportServer {
     getDataList(group: string): Promise<IReportDataInfo[]>;
     getData(id: string): Promise<IReportDataInfo>;
     getReportGroups(): Promise<string[]>;
-    getReportList(group?: string): Promise<IReportInfo[]>;
-    getReport(id: string): Promise<IReportBody>;
+    getReportList(group?: string): Promise<ReportListSource>;
+    getReport(id: string): Promise<IReportSource>;
     getOptions(): Promise<Partial<IReportDesignerOptions>>;
     saveOptions(options: IReportDesignerOptions): Promise<string>;
     saveReport(report: Report_2, id?: string): Promise<IReportResponse | null>;
@@ -3993,6 +4062,7 @@ declare abstract class RCAxis<C = RCAxisConfig> extends ChartAxis<RealChartItem,
     static readonly PROP_MIN_VALUE = "minValue";
     static readonly PROP_STRICT_MAX = "strictMax";
     static readonly PROP_STRICT_MIN = "strictMin";
+    static readonly PROP_START_ANGLE = "startAngle";
     static readonly PROP_TITLE = "title";
     static readonly PROP_LABEL = "label";
     static readonly PROP_GRID = "grid";
@@ -4004,6 +4074,7 @@ declare abstract class RCAxis<C = RCAxisConfig> extends ChartAxis<RealChartItem,
     private _minValue;
     private _strictMax;
     private _strictMin;
+    private _startAngle;
     private _title;
     private _label;
     private _grid;
@@ -4021,6 +4092,8 @@ declare abstract class RCAxis<C = RCAxisConfig> extends ChartAxis<RealChartItem,
     set maxValue(value: number);
     get minValue(): number;
     set minValue(value: number);
+    get startAngle(): number;
+    set startAngle(value: number);
     get strictMax(): number;
     set strictMax(value: number);
     get strictMin(): number;
@@ -4051,6 +4124,7 @@ declare interface RCAxisConfigBase {
     name?: string;
     maxValue?: number;
     minValue?: number;
+    startAngle?: number;
     marginFar?: number;
     marginNear?: number;
     maxPadding?: number;
@@ -4058,7 +4132,7 @@ declare interface RCAxisConfigBase {
     label?: RCAxisLabelConfig;
     grid?: RCAxisGridConfig;
     line?: RCAxisLineConfig;
-    tick?: RCAxisGridConfig;
+    tick?: RCAxisTickConfig;
     crosshair?: RCAxisCorssHairConfig;
 }
 
@@ -4095,7 +4169,7 @@ declare class RCAxisGrid extends RCAxisObject<RCAxisGridConfig> {
     getSaveLabel(): string;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
 }
 
@@ -4124,8 +4198,9 @@ declare class RCAxisLabel extends RCAxisTextObject<RCAxisLabelConfig> {
     getCollapsedPropCategories(): string[];
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
+    getPropDomain(prop: IPropInfo): any[];
 }
 
 declare enum RCAxisLabelAutoArrange {
@@ -4200,7 +4275,7 @@ declare class RCAxisTick extends RCAxisObject<RCAxisTickConfig> {
     getSaveLabel(): string;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
 }
 
@@ -4224,13 +4299,21 @@ declare class RCAxisTitle extends RCAxisTextObject<RCAxisTitleConfig> {
 declare interface RCAxisTitleConfig {
     text: string;
     visible?: boolean;
-    align?: number;
+    align?: RCAxisTitleConfigAlign;
     gap?: number;
     offset?: number;
-    rotation?: number;
+    rotation?: RCAxisTitleConfigRotation;
     backgroundStyle?: RCSvgStyles;
     style?: RCSvgStyles;
 }
+
+declare enum RCAxisTitleConfigAlign {
+    MIDDLE = "middle",
+    START = "start",
+    END = "end"
+}
+
+declare type RCAxisTitleConfigRotation = 0 | 90 | 270 | -90 | -270;
 
 declare type RCAxisType = 'category' | 'linear' | 'log' | 'time';
 
@@ -4246,6 +4329,28 @@ declare type RCBarSeriesConfig = {
     belowStyle?: RCSvgStyles;
 } & RCSeriesPointConfig & RCSeriesConfigBase;
 
+declare class RCBody extends ChartObject<RealChartItem, RCBodyConfig> {
+    static readonly PROP_CIRCULAR = "circular";
+    static readonly PROPINFOS: IPropInfo[];
+    private _circular;
+    constructor(chart: RealChartItem);
+    get circular(): boolean;
+    set circular(value: boolean);
+    getChartConfig(context: PrintContext): RCBodyConfig;
+    getSaveLabel(): string;
+    protected _doDefaultInit(): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
+    protected _doSave(target: ReportTarget): void;
+}
+
+/**
+ *  Body
+ */
+declare type RCBodyConfig = {
+    circular?: boolean;
+};
+
 declare interface RCCategoryAxisConfig extends RCAxisConfigBase {
     type: 'category';
     categories: string[];
@@ -4256,6 +4361,7 @@ declare interface RCCategoryAxisConfig extends RCAxisConfigBase {
  * RealChart
  */
 declare type RCConfig = {
+    polar: boolean;
     inverted?: boolean;
     title?: RCTitleConfig;
     subtitle?: RCSubtitleConfig;
@@ -4264,6 +4370,7 @@ declare type RCConfig = {
     xAxis: RCAxisConfig[];
     yAxis: RCAxisConfig[];
     series: RCSeriesConfig[];
+    body?: RCBodyConfig;
 };
 
 declare type RCCreditsConfig = {
@@ -4280,7 +4387,7 @@ declare type RCCreditsConfig = {
 
 declare class RCLegend extends ChartObject<RealChartItem, RCLegendConfig> {
     static readonly PROP_ALIGN_BASE = "alignBase";
-    static readonly PROP_ALIGN_BASE_DEFAULT_VALUE = RCLegendAlignBase.PLOT;
+    static readonly PROP_ALIGN_BASE_DEFAULT_VALUE = RCLegendAlignBase.BODY;
     static readonly PROP_GAP = "gap";
     static readonly PROP_GAP_DEFAULT_VALUE = 6;
     static readonly PROP_ITEM_GAP = "itemGap";
@@ -4350,14 +4457,15 @@ declare class RCLegend extends ChartObject<RealChartItem, RCLegendConfig> {
     getSubStyleProps(prop: string): IPropInfo[];
     protected _getSubStyle(prop: string, style: string): any;
     protected _setSubStyle(prop: string, style: string, value: any): void;
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
+    getPropDomain(prop: IPropInfo): any[];
 }
 
 declare enum RCLegendAlignBase {
     CHART = "chart",
     PARENT = "parent",
-    PLOT = "plot"
+    BODY = "body"
 }
 
 declare type RCLegendConfig = {
@@ -4395,7 +4503,7 @@ declare enum RCLegendLocation {
     BOTTOM = "bottom",
     LEFT = "left",
     RIGHT = "right",
-    PLOT = "plot"
+    BODY = "body"
 }
 
 declare interface RCLinearAxisConfig extends RCAxisConfigBase {
@@ -4435,7 +4543,7 @@ declare class RCOptions extends ChartObject<RealChartItem, RCOptionsConfig> {
     getSaveLabel(): string;
     protected _doDefaultInit(): void;
     protected _getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
 }
 
@@ -4487,7 +4595,7 @@ declare abstract class RCSeries<C = RCSeriesConfig> extends ChartSeries<RealChar
 
 declare class RCSeriesCollection extends ChartSeriesCollection<RealChartItem, RCSeriesConfig> {
     getChartConfig(context: PrintContext): RCSeriesConfig[];
-    protected _createSeries(loader: IReportLoader, src: ReportSource): RCSeries;
+    protected _createSeries(loader: IReportLoader, src: ReportSource$1): RCSeries;
     protected _seriesChanged(): void;
 }
 
@@ -4528,6 +4636,18 @@ declare interface RCSeriesPointLabelConfig {
     visible?: boolean;
     text?: string;
     style?: RCSvgStyles;
+    offset?: number;
+    position?: RCSeriesPointLabelPosition;
+}
+
+declare enum RCSeriesPointLabelPosition {
+    AUTO = "auto",
+    FOOT = "foot",
+    HEAD = "head",
+    INSIDE = "inside",
+    INSIDEFIRST = "insideFirst",
+    OUTSIDE = "outside",
+    OUTSIDEFIRST = "outsideFirst"
 }
 
 declare interface RCSeriesTooltipConfig {
@@ -4601,7 +4721,7 @@ declare class RCXAxisCollection extends RCAxisCollection {
     get direction(): RCAxisDirection;
     get displayPath(): string;
     getSaveLabel(): string;
-    protected _createAxis(loader: IReportLoader, src: ReportSource): RCAxis;
+    protected _createAxis(loader: IReportLoader, src: ReportSource$1): RCAxis;
     protected _axesChanged(): void;
 }
 
@@ -4610,7 +4730,7 @@ declare class RCYAxisCollection extends RCAxisCollection {
     get direction(): RCAxisDirection;
     get displayPath(): string;
     getSaveLabel(): string;
-    protected _createAxis(loader: IReportLoader, src: ReportSource): RCAxis;
+    protected _createAxis(loader: IReportLoader, src: ReportSource$1): RCAxis;
     protected _axesChanged(): void;
 }
 
@@ -4627,6 +4747,8 @@ declare class RealChartItem extends ChartItem<RCConfig> {
     static readonly PROP_SUBTITLE = "subtitle";
     static readonly PROP_LEGEND = "legend";
     static readonly PROP_OPTIONS = "options";
+    static readonly PROP_POLAR = "polar";
+    static readonly PROP_BODY = "body";
     static readonly PROPINFOS: IPropInfo[];
     static readonly STYLE_PROPS: string[];
     static readonly $_ctor: string;
@@ -4639,6 +4761,8 @@ declare class RealChartItem extends ChartItem<RCConfig> {
     private _subtitle;
     private _legend;
     private _options;
+    private _body;
+    private _polar;
     constructor(name: string);
     get outlineLabel(): string;
     get outlineItems(): IOutlineSource[];
@@ -4652,6 +4776,9 @@ declare class RealChartItem extends ChartItem<RCConfig> {
     get subtitle(): RCSubtitle;
     get legend(): RCLegend;
     get options(): RCOptions;
+    get polar(): boolean;
+    set polar(value: boolean);
+    get body(): RCBody;
     addNewXAxis(type: RCAxisType): RCAxis;
     addNewYAxis(type: RCAxisType): RCAxis;
     addAxis(axis: RCAxis): void;
@@ -4671,7 +4798,7 @@ declare class RealChartItem extends ChartItem<RCConfig> {
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _doLoad(loader: IReportLoader, src: ReportSource): void;
+    protected _doLoad(loader: IReportLoader, src: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
     canAddTo(group: ReportGroupItem): boolean;
 }
@@ -4785,6 +4912,8 @@ declare class Report_2 extends EventAware implements IEditCommandStackOwner, IPr
     get dirty(): boolean;
     /** reportItemRegistry */
     get reportItemRegistry(): ReportItemRegistry;
+    /** editing */
+    get editing(): ReportEditableObject<ReportRootItem>;
     load(src: any): Report_2;
     setSaveTagging(tag: string): Report_2;
     save(pageOnly?: boolean): object;
@@ -4969,6 +5098,11 @@ declare class Report_2 extends EventAware implements IEditCommandStackOwner, IPr
     protected _fireAlert(item: ReportItem, message: string): void;
 }
 
+declare type ReportContext = {
+    name: string;
+    isModified: boolean;
+};
+
 declare abstract class ReportData extends Base {
     private _name;
     private _dp;
@@ -5001,20 +5135,54 @@ export declare class ReportDesigner {
 }
 
 declare interface ReportDesignerOptions {
+    /**
+     * asset panel 표시 여부
+     * @default true
+     */
     showAssetPanel?: boolean;
+    /**
+     * data panel 표시 여부
+     * @default true
+     */
     showDataPanel?: boolean;
+    /**
+     * script panel 표시 여부
+     * @default true
+     */
     showScriptPanel?: boolean;
-    showStockAsset?: boolean;
-    showStockData?: boolean;
-    showServerAsset?: boolean;
-    showServerData?: boolean;
+    /**
+     * 왼쪽 아이템바에서 클릭 대신 아이템 아이콘을 drag해서 생성할지 여부
+     * @default true
+     */
     dragInsert?: boolean;
-    getReportListCallback?: () => Promise<IReportInfo[]>;
-    getReportCallback?: (reportId: string) => Promise<IReportBody>;
-    saveReportCallback?: (report: Report_2, reportId: string) => Promise<{
+    /** callbacks */
+    getReportListCallback?: () => Promise<ReportListSource>;
+    getReportCallback?: (reportId: string) => Promise<IReportSource>;
+    saveReportCallback?: (report: Record<string, any>, reportId?: string) => Promise<{
         reportId: string;
         message: any;
     } | null>;
+}
+
+/**
+ * 리포트 최상단에서 편집가능 객체 속성 구현
+ */
+declare class ReportEditableObject<T extends ReportItem> extends ReportItemObject<T> {
+    static readonly PROP_EDITABLE = "editable";
+    static readonly PROP_TYPE = "type";
+    static readonly PROPINFOS: IPropInfo[];
+    private _editable;
+    get editable(): boolean;
+    set editable(value: boolean);
+    get pathLabel(): string;
+    get displayPath(): string;
+    get level(): number;
+    constructor(item: T);
+    getSaveLabel(): string;
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
+    protected _doSave(target: ReportTarget): void;
+    getEditProps(): IPropInfo[];
+    getPropDomain(prop: IPropInfo): any[];
 }
 
 /* Excluded from this release type: ReportElement */
@@ -5152,6 +5320,12 @@ declare abstract class ReportGroupItem extends ReportItem {
 /* Excluded from this release type: ReportGroupItemElement */
 
 declare type ReportGroupItemView = ReportGroupItemElement<ReportGroupItem>;
+
+declare type ReportGroupSource = {
+    type: 'group';
+    name: string;
+    children: ReportListSource;
+};
 
 /**
  * Report header model.
@@ -5604,12 +5778,12 @@ declare abstract class ReportItem extends ReportPageItem {
     unfold(): boolean;
     isI18nFieldValid(): boolean;
     getLanguageFieldValue(language: string, field: string): string;
-    protected _foldedChanged(): void;
     get marqueeParent(): ReportItem;
     get printable(): boolean;
     isReadOnlyProperty(prop: IPropInfo): boolean;
     protected _sizable(): boolean;
     protected _boundable(): boolean;
+    protected _foldedChanged(): void;
     /**
      * 리포트 아이템 생성 시, 수행할 초기화 작업을 정의한다.
      *
@@ -5727,7 +5901,7 @@ declare abstract class ReportItemCollectionItem extends ReportPageItem {
     get collection(): ReportItemCollection<any>;
     get level(): number;
     protected _doLoad(src: any): void;
-    protected _doAfterLoad(src: ReportSource): void;
+    protected _doAfterLoad(src: ReportSource$1): void;
     protected _doSave(target: any): void;
     protected _doAfterSave(target: ReportTarget): void;
     protected abstract _getStyleProps(): string[];
@@ -5743,8 +5917,59 @@ declare class ReportItemElementMap extends Base {
     private _reportItemElements;
     constructor();
     add<T extends ReportItem>(itemElement: ReportItemElement<T>): void;
-    getItemElementByModel<T extends ReportItem>(model: ReportItem): ReportItemElement<T> | undefined;
+    getItemElements(): ReportItemElement<ReportItem>[];
+    getItemElementByModelHash<T extends ReportItem>(hash: string): ReportItemElement<T> | undefined;
     getBandElementByModel<T extends DataBand>(model: DataBand): BandElement<T> | undefined;
+}
+
+/**
+ * 특정 속성 카테고리에서 자식 스타일 정보를 하위로 생성해야할 때 사용
+ */
+declare abstract class ReportItemObject<T extends ReportItem> extends ReportPageItem implements ReportObject {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: any[];
+    private _item;
+    private _styles;
+    constructor(item: T);
+    get outlineParent(): IOutlineSource | undefined;
+    get outlineExpandable(): boolean;
+    get outlineLabel(): string;
+    getSaveType(): string;
+    canRemoveFrom(): boolean;
+    abstract getSaveLabel(): string;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    getPlaceHolder(prop: IPropInfo): string;
+    getPropDomain(prop: IPropInfo): any[];
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getStyle(style: string): string;
+    setStyle(style: string, value: string): void;
+    getStyleProperty(prop: string): any;
+    setStyleProperty(prop: string, value: any): void;
+    isChildProp(prop: string): boolean;
+    getSubStyleProperty(prop: string, style: string): any;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    get item(): T;
+    get page(): ReportPage;
+    get report(): Report_2;
+    get styles(): Styles;
+    set styles(value: Styles);
+    defaultInit(): void;
+    load(loader: IReportLoader, source: ReportSource$1): void;
+    save(target: ReportTarget): boolean;
+    isCollection(): boolean;
+    protected _doDefaultInit(): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
+    protected _doSave(target: ReportTarget): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _getSubStyle(prop: string, style: string): any;
+    protected _setSubStyle(prop: string, style: string, value: any): void;
+    protected _changed(prop: string, newValue: unknown, oldValue: unknown): void;
 }
 
 /**
@@ -5811,13 +6036,15 @@ declare type ReportItemView = ReportItemElement<ReportItem>;
 
 declare type ReportItemVisibleCallback = (ctx: PrintContext, item: ReportItem, row: number, value: any) => boolean;
 
+declare type ReportListSource = (ReportGroupSource | ReportSource)[];
+
 declare interface ReportObject {
     /**
      * 속성 불러오기
      * @param loader 리포트 속성 로더
      * @param source 리포트 속성을 불러올 소스
      */
-    load(loader: IReportLoader, source: ReportSource): void;
+    load(loader: IReportLoader, source: ReportSource$1): void;
     /**
      * 속성 저장하기
      * @param target 리포트 속성을 저장할 타겟
@@ -5886,6 +6113,7 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
     saveTag: string;
     private _loading;
     private _removing;
+    private _addItemSection;
     constructor(report: Report_2, name?: string);
     addListener(listener: object): IEventAware;
     removeListener(listener: object): IEventAware;
@@ -5923,6 +6151,11 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
      */
     get body(): PageBody;
     set body(section: PageBody);
+    /**
+     * addItemSection
+     */
+    get addItemSection(): ItemAddSection<PageBody>;
+    set addItemSection(section: ItemAddSection<PageBody>);
     get backContainer(): PageItemContainer;
     set backContainer(section: PageItemContainer);
     /**
@@ -6095,6 +6328,7 @@ declare abstract class ReportPageItem extends Base implements ISelectionSource, 
      */
     get marqueeParent(): ReportItem;
     get printable(): boolean;
+    get printEditable(): boolean;
     isAncestorOf(item: ReportPageItem): boolean;
     getProps(): any;
     setProps(src: any): void;
@@ -6142,11 +6376,13 @@ declare class ReportRootItem extends ReportGroupItem {
     static readonly PROP_MARGIN_RIGHT = "marginRight";
     static readonly PROP_MARGIN_TOP = "marginTop";
     static readonly PROP_MARGIN_BOTTOM = "marginBottom";
+    static readonly PROP_EDITING = "editing";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     private _report;
     private _type;
     private _maxPageCount;
+    private _editing;
     constructor(report: Report_2, name?: string);
     get report(): Report_2;
     /** type */
@@ -6194,6 +6430,8 @@ declare class ReportRootItem extends ReportGroupItem {
     /** marginBottom */
     get marginBottom(): ValueString;
     set marginBottom(value: ValueString);
+    /** editing */
+    get editing(): ReportEditableObject<ReportRootItem>;
     get outlineLabel(): string;
     get pathLabel(): string;
     get displayPath(): string;
@@ -6206,9 +6444,9 @@ declare class ReportRootItem extends ReportGroupItem {
 }
 
 declare interface ReportServer {
-    getReportList(): Promise<IReportInfo[]>;
-    getReport(id: string): Promise<IReportBody>;
-    saveReport?(report: Report_2, id?: string): Promise<IReportResponse | null>;
+    getReportList(): Promise<ReportListSource>;
+    getReport(id: string): Promise<IReportSource>;
+    saveReport?(report: Record<string, any>, id?: string): Promise<IReportResponse | null>;
     getDataGroups(parent?: string): Promise<string[]>;
     getDataList(group: string): Promise<IReportDataInfo[]>;
     getData?(id: string): Promise<IReportDataInfo>;
@@ -6216,7 +6454,13 @@ declare interface ReportServer {
     getAssetList(group: string): Promise<IReportAssetItem[]>;
 }
 
-declare type ReportSource = Record<string, unknown> | Record<string, unknown>[];
+declare type ReportSource$1 = Record<string, unknown> | Record<string, unknown>[];
+
+declare type ReportSource = {
+    type: 'report';
+    id: string;
+    name: string;
+};
 
 declare type ReportTarget = Record<string, unknown> | Record<string, unknown>[];
 
@@ -6314,7 +6558,9 @@ declare class SimpleBand extends DataBand {
     get outlineLabel(): string;
     get isBand(): boolean;
     protected _ignoreItems(): boolean;
+    canFold(): boolean;
     protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
     isAncestorOf(item: ReportPageItem): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
@@ -6745,6 +6991,8 @@ declare class TableBand extends DataBand {
     setPrinting(ctx: PrintContext, pr: number, trows?: number): void;
     getSaveType(): string;
     get outlineLabel(): string;
+    canFold(): boolean;
+    protected _getStyleProps(): string[];
     get isBand(): boolean;
     protected _ignoreItems(): boolean;
     protected _getEditProps(): IPropInfo[];
@@ -7606,7 +7854,7 @@ declare abstract class TextItemBase extends ReportItem {
 
 /* Excluded from this release type: TextItemElementBase */
 
-declare type TreeItemIconType = 'group' | 'report' | 'asset' | 'favorite' | 'bandData' | 'simpleData' | 'language';
+declare type TreeItemIconType = 'group' | 'report' | 'reportFolder' | 'asset' | 'favorite' | 'bandData' | 'simpleData' | 'language';
 
 declare type TreeItemSource = {
     name: string;
