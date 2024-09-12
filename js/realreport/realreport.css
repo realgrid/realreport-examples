@@ -1,5 +1,5 @@
 /* 
-RealReport v1.9.3
+RealReport v1.9.4
 Copyright (C) 2013-2024 WooriTech Inc.
 All Rights Reserved.
 */
@@ -1144,7 +1144,7 @@ All Rights Reserved.
     font-family: var(--rct-font-family);
     font-size: var(--rct-font-size);
     color: #000;
-    /* background-color: white; */
+    /* background-color: #fff; */
     /* word-break: break-all;
     word-wrap: break-word; */
     -webkit-touch-callout: default;
@@ -1166,7 +1166,7 @@ All Rights Reserved.
 }
 
 /** palette */
-.rct-root {
+:root, .rct-root {
     --color-1: #0098ff;
     --color-2: #66d0ff;
     --color-3: #ff5c35;
@@ -1276,11 +1276,11 @@ All Rights Reserved.
 .rct-control[data-theme='real'] {
 	--rct-background: #264653;
 }
-.rct-root {
+:root, .rct-root {
     --rct-font-family: AppleSDGothicNeo-Light, "HelveticaNeue", "Malgun Gothic", "맑은 고딕", sans-serif;
     --rct-font-size: 16px;
 
-    --rct-focus-stroke: black;
+    --rct-focus-stroke: #000;
     --rct-focus-stroke-width: 2px;
     --rct-text-fill: #333;
 
@@ -1293,14 +1293,14 @@ All Rights Reserved.
     --rct-axis-line-stroke: #aaa;
     --rct-axis-baseline-stroke: #333;
     --rct-axis-tick-stroke: #555;
-    --rct-axis-label-fill: #555;
+    --rct-axis-label-fill: #333;
     --rct-axis-grid-line-stroke: #ddd;
     --rct-axis-grid-line-stroke-start: none;
     --rct-axis-grid-line-stroke-end: none;
     --rct-axis-grid-line-stroke-width: 1px;
     --rct-axis-scrollbar-track-fill: #fdfdfd;
     --rct-axis-scrollbar-track-stroke: #aaa;
-    --rct-axis-scrollbar-thumb-fill: lightgray;
+    --rct-axis-scrollbar-thumb-fill: #d3d3d3;
     --rct-axis-scrollbar-rx: 4px;
     
     --rct-legend-background: none;
@@ -1315,6 +1315,9 @@ All Rights Reserved.
     --rct-point-label-stroke: none;
     --rct-point-label-fill: #333;
 
+    --rct-point-label-line-stroke-width: 1px;
+    --rct-point-label-line-stroke: #585;
+
     --rct-credits-fill: #777;
 
     /* polar */
@@ -1324,7 +1327,7 @@ All Rights Reserved.
 
     /* linear gauge */
     --rct-linear-gauge-background-fill: #eee;
-    --rct-linear-gauge-value-fill: green;
+    --rct-linear-gauge-value-fill: #008000;
     --rct-linear-gauge-band-tick-labels-stroke: #333;
     --rct-linear-gauge-group-label-fill: #333;
     /** bullet gauge */
@@ -1343,9 +1346,9 @@ All Rights Reserved.
     --rct-gauge-scale-tick: #555;
     --rct-gauge-scale-tick-labels-stroke: #333;
     /* clock gauge */
-    --rct-clock-gauge-face-fill: white;
+    --rct-clock-gauge-face-fill: #fff;
     --rct-clock-gauge-rim-fill: #eee;
-    --rct-clock-gauge-rim-stroke: gray;
+    --rct-clock-gauge-rim-stroke: #808080;
     --rct-clock-gauge-tick-stroke: #333;
     --rct-clock-gauge-minor-tick-stroke: #555;
     --rct-clock-gauge-tick-label-fill: #333;
@@ -1355,11 +1358,11 @@ All Rights Reserved.
     /** series navigator */
     --rct-navigator-handle-color: #0098ff; 
     --rct-navigator-handle-hover-color: #55c;
-    --rct-navigator-track-fill: lightgray;
+    --rct-navigator-track-fill: #d3d3d3;
     --rct-navigator-thumb-fill:#0098ff;
 }
 .rct-root[data-theme='dark'] {
-    --rct-focus-stroke: yellow;
+    --rct-focus-stroke: #ccc;
     --rct-text-fill: #fff;
 
     --rct-title-fill: #fff;
@@ -1469,13 +1472,13 @@ All Rights Reserved.
 
 /** label */
 .rct-label-dark {
-    fill: black;
+    fill: #000;
 }
 .rct-label-light {
-    fill: white;
+    fill: #fff;
 }
 .rct-label-background {
-    fill: lightgray;
+    fill: #d3d3d3;
 }
 
 /** button */
@@ -1504,7 +1507,7 @@ All Rights Reserved.
 /** title */
 .rct-title {
     margin-bottom: 10px;
-    font-size: 24px;
+    font-size: 22px;
     fill: var(--rct-title-fill);
 }
 .rct-title-background {
@@ -1512,7 +1515,7 @@ All Rights Reserved.
 }
 .rct-subtitle {
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 15px;
     fill: var(--rct-subtitle-fill);
 }
 .rct-subtitle-background {
@@ -1524,6 +1527,7 @@ All Rights Reserved.
     fill: var(--rct-legend-fill);
     stroke: none;
     padding: 3px 6px;
+    font-size: 14px;
 }
 .rct-legend-background {
     fill: var(--rct-legend-background);
@@ -1532,7 +1536,7 @@ All Rights Reserved.
 }
 .rct-legend-item-label[data-hidden] {
     fill: var(--rct-legend-item-disabled);
-    text-decoration: var(--rct-legend-item-disabled-decoration)
+    text-decoration: var(--rct-legend-item-disabled-decoration);
 }
 /* .rct-legend-item-marker {
     stroke: none;
@@ -1541,19 +1545,31 @@ All Rights Reserved.
     fill: #aaa !important;
     stroke: #aaa !important;
 }
+.rct-legend-item-marker[data-hidden] path[data-fill] {
+    fill: #aaa !important;
+}
 
-/** plot area */
+/** body */
 .rct-body-background {
     stroke: var(--rct-body-background-stroke);
     fill: none;
+    shape-rendering: crispEdges;
 }
 .rct-body-background[data-polar] {
     stroke: none;
 }
+.rct-empty-view {
+    fill: #fcfcff;
+    stroke: #eee;
+}
+.rct-empty-view-label {
+    fill: #777;
+    font-size: 1.4em;
+}
 
 /** axis */
 .rct-axis-title {
-    font-size: 16px;
+    font-size: 15px;
     fill: var(--rct-axis-title-fill);
 }
 .rct-axis-title-background {
@@ -1562,30 +1578,33 @@ All Rights Reserved.
 .rct-axis-line {
     stroke: var(--rct-axis-line-stroke);
     stroke-width: 1px;
+    shape-rendering: crispEdges;
 }
 .rct-axis-baseline {
     stroke: var(--rct-axis-baseline-stroke);
     stroke-width: 1px;
+    shape-rendering: crispEdges;
 }
 .rct-axis-tick {
     stroke: var(--rct-axis-tick-stroke);
     stroke-width: 1px;
+    shape-rendering: crispEdges;
 }
 .rct-axis-labels {
     font-size: 14px;
     fill: var(--rct-axis-label-fill);
 }
-/* .rct-axis-grid {
-    stroke: var(--rct-axis-grid-stroke);
-    stroke-width: 1px;
-} */
+.rct-axis-grid {
+    fill: none;
+}
 .rct-axis-grid-line {
     stroke: var(--rct-axis-grid-line-stroke);
     stroke-width: var(--rct-axis-grid-line-stroke-width);
+    shape-rendering: crispEdges;
 }
 .rct-axis-break {
     stroke: #aaa;
-    fill: white;
+    fill: #fff;
     fill-opacity: 0.9;
 }
 .rct-axis-guide-label {
@@ -1594,11 +1613,13 @@ All Rights Reserved.
 .rct-axis-guide-line {
     stroke: #555;
     stroke-width: 2px;
+    shape-rendering: crispEdges;
 }
 .rct-axis-guide-range {
     stroke: none;
     fill: #0088ff;
     fill-opacity: 0.2;
+    shape-rendering: crispEdges;
 }
 .rct-axis-scrollbar-track {
     fill: var(--rct-axis-scrollbar-track-fill);
@@ -1616,6 +1637,9 @@ All Rights Reserved.
 }
 .rct-polar-xaxis-sector-line {
     stroke: #555;
+}
+.rct-polar-axis-grids {
+    fill: none;
 }
 .rct-polar-xaxis-grid-line {
     stroke: var(--rct-polar-xaxis-grid-line-stroke)
@@ -1681,7 +1705,7 @@ All Rights Reserved.
 }
 
 .rct-series-trendline {
-    stroke: red;
+    stroke: #ff0000;
     stroke-width: 2px;
     stroke-linejoin: round;
     fill: none;
@@ -1780,21 +1804,34 @@ All Rights Reserved.
     transition-property: opacity;
     transition-duration: 0.7s;
 }
-.rct-series[data-unfocus] {
-    opacity: 0.2;
+.rct-series[data-unhover] {
+    opacity: 0.2 !important;
 }
-.rct-series .rct-point[data-focus] {
+.rct-point[data-unhover] {
+    opacity: 0.2 !important;
+}
+.rct-series .rct-point[data-focus], .rct-point[data-unfocus] {
     stroke: var(--rct-focus-stroke) !important;
-    stroke-width: var(--rct-focus-stroke-width);
-    filter: brightness(115%);
+    stroke-width: var(--rct-focus-stroke-width) !important;
+    filter: brightness(115%) !important;
+    opacity: 1 !important;
+}
+/** data point hover */
+.rct-point-unhover {
+    opacity: 0.3;
+    transition: opacity 0.7s;
+}
+.rct-point-hover {
+    opacity: inherit;
+    transition: opacity 0.7s;
 }
 .rct-point-labels {
     opacity: inherit;
     transition-property: opacity;
     transition-duration: 0.7s;
 }
-.rct-point-labels[data-unfocus] {
-    opacity: 0.3;
+.rct-point-labels[data-unhover] {
+    opacity: 0.3 !important;
 }
 
 /** rct-point 대신 여기에 지정해야 outline에 반영된다. */
@@ -1809,7 +1846,8 @@ All Rights Reserved.
     opacity: 1;
 }
 .rct-point-label-lines {
-    stroke: #585;
+    stroke-width: var(--rct-point-label-line-stroke-width);
+    stroke: var(--rct-point-label-line-stroke);
     fill: none;
 }
 
@@ -1820,7 +1858,7 @@ All Rights Reserved.
 
 /** circlebar series */
 .rct-circlebar-series .rct-point {
-    stroke: white;
+    stroke: #fff;
 }
 
 /** barrange series */
@@ -1834,14 +1872,6 @@ All Rights Reserved.
 }
 .rct-line-series .rct-point {
     stroke-dasharray: none;
-}
-.rct-line-series .rct-point[data-focus] {
-    stroke: #0088ff20 !important; 
-    stroke-width: 9px !important;
-    opacity: inherit !important;
-    /** TODO: 아래가 적용되지 않고 있다 */
-    transition-property: opacity;
-    transition-duration: 0.7s;
 }
 .rct-line-series-flag {
     font-weight: bold;
@@ -1880,6 +1910,9 @@ All Rights Reserved.
 .rct-scatter-series {
     fill-opacity: 0.7;
 }
+.rct-scatter-series .rct-point[data-focus] {
+    fill-opacity: 0.9;
+}
 
 /** boxplot series */
 .rct-boxplot-series {
@@ -1902,7 +1935,7 @@ All Rights Reserved.
     stroke-dasharray: 2;
 }
 .rct-boxplot-series .rct-point[data-focus] .rct-boxplot-point-stem {
-    stroke: black;
+    stroke: #000;
     stroke-dasharray: none;
     stroke-width: 2px;
 }
@@ -1971,6 +2004,9 @@ All Rights Reserved.
 .rct-lollipop-series {
     stroke-width: 3px;
 }
+.rct-lollipop-point-bar {
+    shape-rendering: crispEdges;
+}
 .rct-lollipop-point-marker {
     stroke: none;
 }
@@ -1986,6 +2022,9 @@ All Rights Reserved.
 /** dumbbell series */
 .rct-dumbbell-series {
     stroke-width: 3px;
+}
+.rct-dumbbell-point-bar {
+    shape-rendering: crispEdges;
 }
 .rct-dumbbell-point-marker {
     stroke: none;
@@ -2009,7 +2048,7 @@ All Rights Reserved.
 
 /** histogram */
 .rct-histogram-series .rct-point {
-    stroke: white;
+    stroke: #fff;
 }
 
 /** vector series */
@@ -2027,12 +2066,12 @@ All Rights Reserved.
 
 /** treemap series */
 .rct-treemap-series .rct-point {
-    stroke: white;
+    stroke: #fff;
 }
 
 /** pie series */
 .rct-pie-series .rct-point {
-    stroke: white;
+    stroke: #fff;
 }
 .rct-pie-series-inner {
     font-size: 20px;
@@ -2041,10 +2080,10 @@ All Rights Reserved.
 
 /** funnel series */
 .rct-funnel-series .rct-point {
-    stroke: white;
+    stroke: #fff;
 }
 .rct-funnel-series .rct-point[data-focus] {
-    stroke: black;
+    stroke: #000;
     stroke-width: 2px;
 }
 
@@ -2080,7 +2119,7 @@ All Rights Reserved.
     font-size: 20px;
 }
 .rct-circle-gauge-pin {
-    fill: white;
+    fill: #fff;
     stroke: #333;
     stroke-width: 3px;
 }
@@ -2112,7 +2151,7 @@ All Rights Reserved.
     font-size: 1em;
 }
 .rct-clock-gauge-pin {
-    fill: white;
+    fill: #fff;
     stroke: #333;
     stroke-width: 3px;
 }
@@ -2201,10 +2240,10 @@ All Rights Reserved.
     opacity: 0.9;
 }
 .rct-tooltip-back {
-    fill: white;
+    fill: #fff;
 }
 .rct-tooltip-tail {
-    fill: white;
+    fill: #fff;
 }
 .rct-tooltip-text {
     fill: #333;
@@ -2227,6 +2266,7 @@ All Rights Reserved.
     fill: none;
     stroke-width: 1;
     stroke: #80808080;
+    shape-rendering: crispEdges;
 }
 .rct-crosshair-bar {
     stroke: none;
@@ -2251,8 +2291,9 @@ All Rights Reserved.
     display: none;
 }
 .rct-navigator-back {
-    fill: white;
+    fill: #fff;
     stroke: #f0f0f0;
+    shape-rendering: crispEdges;
 }
 .rct-navigator-mask {
     fill: #4488cc20;
@@ -2266,7 +2307,6 @@ All Rights Reserved.
     fill: var(--rct-navigator-handle-hover-color);
     stroke: var(--rct-navigator-handle-hover-color);
 }
-
 .rct-navigator-track {
     fill: var(--rct-navigator-track-fill);
     stroke: var(--rct-navigator-track-fill);

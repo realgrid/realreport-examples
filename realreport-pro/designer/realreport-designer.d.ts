@@ -145,6 +145,14 @@ declare class BandArrayData extends BandData implements IBandData {
     protected _prepareCalcField(fields: IBandDataField[], fieldMap: any, calcField: IBandDataField, index: number, node: ExpressionNode): void;
 }
 
+declare interface BandBorders {
+    border: string;
+    borderLeft: string;
+    borderRight: string;
+    borderTop: string;
+    borderBottom: string;
+}
+
 declare class BandCollectionElement extends ReportGroupItemElement<DataBandCollection> {
     constructor(doc: Document, model: DataBandCollection);
     protected _doDispose(): void;
@@ -211,6 +219,7 @@ declare class BandDataView extends Base implements IBandDataView {
 declare abstract class BandElement<T extends DataBand> extends ReportGroupItemElement<T> {
     static readonly END_ROW_MESSAGE_CLASS = "rr-end-row-message";
     static readonly END_ROW_CLASS = "rr-end-row";
+    static readonly BORDER_CONTAINER = "rr-band-border-container";
     abstract get rowView(): ReportGroupItemView;
     private _needFooterView;
     get needFooterView(): boolean;
@@ -342,6 +351,10 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
      */
     setBandBoundPosition(ctx: PrintContext, model: BandModel, div: HTMLDivElement): void;
     setBandPrevIndex(index: number): void;
+    createBorderContaienr(doc: Document, y: number, w: number, name: string, tModel: string): HTMLDivElement;
+    setBorderContainerStyle(borderContainer: HTMLDivElement, styles: {
+        [x: string]: string;
+    }): void;
     protected _setX(dom: HTMLElement, x: number): void;
     protected _setY(dom: HTMLElement, y: number): void;
     protected _setPos(dom: HTMLElement, x: number, y: number): void;
@@ -407,6 +420,13 @@ declare class BodyItemAddSection extends ItemAddSection<PageBody> {
 }
 
 /* Excluded from this release type: BodyItemAddSectionElement */
+
+declare interface BorderWidths {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+}
 
 /**
  * 자식들의 위치를 지정할 수 있는 container.
@@ -1029,6 +1049,7 @@ declare class CrosstabBandTitle extends ReportItem {
     /** text */
     get text(): string;
     set text(value: string);
+    get page(): ReportPage;
     protected _getEditProps(): any[];
     protected _getStyleProps(): string[];
     protected _doLoad(loader: IReportLoader, src: any): void;
@@ -1250,6 +1271,7 @@ declare class CrosstabNullValue extends ReportItem {
     /** text */
     get text(): string;
     set text(value: string);
+    get page(): ReportPage;
     protected _getEditProps(): any[];
     protected _getStyleProps(): string[];
     protected _doLoad(loader: IReportLoader, src: any): void;
@@ -1654,6 +1676,9 @@ declare abstract class DataBand extends ReportGroupItem {
     getMin(field: string, count: number, rows?: number[]): number;
     getMax(field: string, count: number, rows?: number[]): number;
     getAvg(field: string, count: number, rows?: number[]): number;
+    getBandBorders(): BandBorders;
+    getBandBorderWidths(): BorderWidths;
+    hasBorder(): boolean;
     getPropDomain(prop: IPropInfo): any[];
     /**
      * 출력시 사용되는 밴드의 정보를 초기값으로 초기화
@@ -2726,7 +2751,7 @@ declare interface IBandData extends IReportData {
 
 declare interface IBandDataField {
     fieldName: string;
-    dataType?: "text" | "number" | "bool" | "datetime";
+    dataType?: "text" | "number" | "bool" | "array" | "datetime";
     source?: string;
     expression?: string;
     format?: string;
@@ -3024,7 +3049,7 @@ declare interface IReportDesignerOptions {
     /** callbacks */
     getReportListCallback?: () => Promise<ReportListSource>;
     getReportCallback?: (reportId: string) => Promise<IReportSource>;
-    saveReportCallback?: (report: Record<string, any>, reportId: string) => Promise<SaveCallbackResponse | null>;
+    saveReportCallback?: (report: Record<string, any>, reportId: string, reportContext: ReportContext) => Promise<SaveCallbackResponse | null>;
     getOptionsCallback?: () => Promise<Partial<IReportDesignerOptions>>;
     saveOptionsCallback?: (options: IReportDesignerOptions) => Promise<string | null>;
 }
@@ -3049,7 +3074,7 @@ declare interface IReportResponse {
 declare interface IReportServer {
     getReportList(): Promise<ReportListSource>;
     getReport(id: string): Promise<IReportSource>;
-    saveReport?(report: Record<string, any>, id?: string): Promise<IReportResponse | null>;
+    saveReport?(report: Record<string, any>, id: string, reportContext: ReportContext): Promise<IReportResponse | null>;
     getDataGroups(parent?: string): Promise<string[]>;
     getDataList(group: string): Promise<IReportDataInfo[]>;
     getData?(id: string): Promise<IReportDataInfo>;
@@ -3956,6 +3981,7 @@ declare enum PropCategory {
     TOOLTIP = "tooltip",
     CROSSHAIR = "crosshair",
     OPTIONS = "options",
+    BODY = "body",
     CREDITS = "credits",
     STYLES = "Styles",
     EMAIL_FORM_INFO = "email form info",
@@ -4036,6 +4062,7 @@ declare abstract class RCAxis<C = RCAxisConfig> extends ChartAxis<RealChartItem,
     static readonly PROP_MIN_VALUE = "minValue";
     static readonly PROP_STRICT_MAX = "strictMax";
     static readonly PROP_STRICT_MIN = "strictMin";
+    static readonly PROP_START_ANGLE = "startAngle";
     static readonly PROP_TITLE = "title";
     static readonly PROP_LABEL = "label";
     static readonly PROP_GRID = "grid";
@@ -4047,6 +4074,7 @@ declare abstract class RCAxis<C = RCAxisConfig> extends ChartAxis<RealChartItem,
     private _minValue;
     private _strictMax;
     private _strictMin;
+    private _startAngle;
     private _title;
     private _label;
     private _grid;
@@ -4064,6 +4092,8 @@ declare abstract class RCAxis<C = RCAxisConfig> extends ChartAxis<RealChartItem,
     set maxValue(value: number);
     get minValue(): number;
     set minValue(value: number);
+    get startAngle(): number;
+    set startAngle(value: number);
     get strictMax(): number;
     set strictMax(value: number);
     get strictMin(): number;
@@ -4094,6 +4124,7 @@ declare interface RCAxisConfigBase {
     name?: string;
     maxValue?: number;
     minValue?: number;
+    startAngle?: number;
     marginFar?: number;
     marginNear?: number;
     maxPadding?: number;
@@ -4101,7 +4132,7 @@ declare interface RCAxisConfigBase {
     label?: RCAxisLabelConfig;
     grid?: RCAxisGridConfig;
     line?: RCAxisLineConfig;
-    tick?: RCAxisGridConfig;
+    tick?: RCAxisTickConfig;
     crosshair?: RCAxisCorssHairConfig;
 }
 
@@ -4169,6 +4200,7 @@ declare class RCAxisLabel extends RCAxisTextObject<RCAxisLabelConfig> {
     protected _getStyleProps(): string[];
     protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
+    getPropDomain(prop: IPropInfo): any[];
 }
 
 declare enum RCAxisLabelAutoArrange {
@@ -4267,13 +4299,21 @@ declare class RCAxisTitle extends RCAxisTextObject<RCAxisTitleConfig> {
 declare interface RCAxisTitleConfig {
     text: string;
     visible?: boolean;
-    align?: number;
+    align?: RCAxisTitleConfigAlign;
     gap?: number;
     offset?: number;
-    rotation?: number;
+    rotation?: RCAxisTitleConfigRotation;
     backgroundStyle?: RCSvgStyles;
     style?: RCSvgStyles;
 }
+
+declare enum RCAxisTitleConfigAlign {
+    MIDDLE = "middle",
+    START = "start",
+    END = "end"
+}
+
+declare type RCAxisTitleConfigRotation = 0 | 90 | 270 | -90 | -270;
 
 declare type RCAxisType = 'category' | 'linear' | 'log' | 'time';
 
@@ -4289,6 +4329,28 @@ declare type RCBarSeriesConfig = {
     belowStyle?: RCSvgStyles;
 } & RCSeriesPointConfig & RCSeriesConfigBase;
 
+declare class RCBody extends ChartObject<RealChartItem, RCBodyConfig> {
+    static readonly PROP_CIRCULAR = "circular";
+    static readonly PROPINFOS: IPropInfo[];
+    private _circular;
+    constructor(chart: RealChartItem);
+    get circular(): boolean;
+    set circular(value: boolean);
+    getChartConfig(context: PrintContext): RCBodyConfig;
+    getSaveLabel(): string;
+    protected _doDefaultInit(): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
+    protected _doSave(target: ReportTarget): void;
+}
+
+/**
+ *  Body
+ */
+declare type RCBodyConfig = {
+    circular?: boolean;
+};
+
 declare interface RCCategoryAxisConfig extends RCAxisConfigBase {
     type: 'category';
     categories: string[];
@@ -4299,6 +4361,7 @@ declare interface RCCategoryAxisConfig extends RCAxisConfigBase {
  * RealChart
  */
 declare type RCConfig = {
+    polar: boolean;
     inverted?: boolean;
     title?: RCTitleConfig;
     subtitle?: RCSubtitleConfig;
@@ -4307,6 +4370,7 @@ declare type RCConfig = {
     xAxis: RCAxisConfig[];
     yAxis: RCAxisConfig[];
     series: RCSeriesConfig[];
+    body?: RCBodyConfig;
 };
 
 declare type RCCreditsConfig = {
@@ -4323,7 +4387,7 @@ declare type RCCreditsConfig = {
 
 declare class RCLegend extends ChartObject<RealChartItem, RCLegendConfig> {
     static readonly PROP_ALIGN_BASE = "alignBase";
-    static readonly PROP_ALIGN_BASE_DEFAULT_VALUE = RCLegendAlignBase.PLOT;
+    static readonly PROP_ALIGN_BASE_DEFAULT_VALUE = RCLegendAlignBase.BODY;
     static readonly PROP_GAP = "gap";
     static readonly PROP_GAP_DEFAULT_VALUE = 6;
     static readonly PROP_ITEM_GAP = "itemGap";
@@ -4395,12 +4459,13 @@ declare class RCLegend extends ChartObject<RealChartItem, RCLegendConfig> {
     protected _setSubStyle(prop: string, style: string, value: any): void;
     protected _doLoad(loader: IReportLoader, source: ReportSource$1): void;
     protected _doSave(target: ReportTarget): void;
+    getPropDomain(prop: IPropInfo): any[];
 }
 
 declare enum RCLegendAlignBase {
     CHART = "chart",
     PARENT = "parent",
-    PLOT = "plot"
+    BODY = "body"
 }
 
 declare type RCLegendConfig = {
@@ -4438,7 +4503,7 @@ declare enum RCLegendLocation {
     BOTTOM = "bottom",
     LEFT = "left",
     RIGHT = "right",
-    PLOT = "plot"
+    BODY = "body"
 }
 
 declare interface RCLinearAxisConfig extends RCAxisConfigBase {
@@ -4571,6 +4636,18 @@ declare interface RCSeriesPointLabelConfig {
     visible?: boolean;
     text?: string;
     style?: RCSvgStyles;
+    offset?: number;
+    position?: RCSeriesPointLabelPosition;
+}
+
+declare enum RCSeriesPointLabelPosition {
+    AUTO = "auto",
+    FOOT = "foot",
+    HEAD = "head",
+    INSIDE = "inside",
+    INSIDEFIRST = "insideFirst",
+    OUTSIDE = "outside",
+    OUTSIDEFIRST = "outsideFirst"
 }
 
 declare interface RCSeriesTooltipConfig {
@@ -4670,6 +4747,8 @@ declare class RealChartItem extends ChartItem<RCConfig> {
     static readonly PROP_SUBTITLE = "subtitle";
     static readonly PROP_LEGEND = "legend";
     static readonly PROP_OPTIONS = "options";
+    static readonly PROP_POLAR = "polar";
+    static readonly PROP_BODY = "body";
     static readonly PROPINFOS: IPropInfo[];
     static readonly STYLE_PROPS: string[];
     static readonly $_ctor: string;
@@ -4682,6 +4761,8 @@ declare class RealChartItem extends ChartItem<RCConfig> {
     private _subtitle;
     private _legend;
     private _options;
+    private _body;
+    private _polar;
     constructor(name: string);
     get outlineLabel(): string;
     get outlineItems(): IOutlineSource[];
@@ -4695,6 +4776,9 @@ declare class RealChartItem extends ChartItem<RCConfig> {
     get subtitle(): RCSubtitle;
     get legend(): RCLegend;
     get options(): RCOptions;
+    get polar(): boolean;
+    set polar(value: boolean);
+    get body(): RCBody;
     addNewXAxis(type: RCAxisType): RCAxis;
     addNewYAxis(type: RCAxisType): RCAxis;
     addAxis(axis: RCAxis): void;
@@ -5013,6 +5097,11 @@ declare class Report_2 extends EventAware implements IEditCommandStackOwner, IPr
     protected _fireCellMerged(cell: TableCell): void;
     protected _fireAlert(item: ReportItem, message: string): void;
 }
+
+declare type ReportContext = {
+    name: string;
+    isModifed: boolean;
+};
 
 declare abstract class ReportData extends Base {
     private _name;
@@ -6471,6 +6560,7 @@ declare class SimpleBand extends DataBand {
     protected _ignoreItems(): boolean;
     canFold(): boolean;
     protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
     isAncestorOf(item: ReportPageItem): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
@@ -6902,6 +6992,7 @@ declare class TableBand extends DataBand {
     getSaveType(): string;
     get outlineLabel(): string;
     canFold(): boolean;
+    protected _getStyleProps(): string[];
     get isBand(): boolean;
     protected _ignoreItems(): boolean;
     protected _getEditProps(): IPropInfo[];
