@@ -5100,7 +5100,7 @@ declare class Report_2 extends EventAware implements IEditCommandStackOwner, IPr
 
 declare type ReportContext = {
     name: string;
-    isModifed: boolean;
+    isModified: boolean;
 };
 
 declare abstract class ReportData extends Base {
