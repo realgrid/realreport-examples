@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.9.4
-* commit f81613c
+* RealReport v1.9.5
+* commit 4bb6a66
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2024 WooriTech Inc.
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.9.4
+* RealReport Core v1.9.5
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit 8239402f0d47181a735208f664f905b6fad990b7
+* commit e88b584c70e85181058cdae17b2d0eeef6db21b3
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -211,7 +211,7 @@ declare class DragTracker$1 extends Base$1 {
     activate(): void;
     deactivate(): void;
     start(eventTarget: HTMLElement, x: number, y: number, shift: boolean, alt: boolean): boolean;
-    drag(eventTarget: HTMLElement, x: number, y: number): boolean;
+    drag(eventTarget: HTMLElement, x: number, y: number, meta: boolean): boolean;
     cancel(): void;
     drop(eventTarget: HTMLElement, x: number, y: number): void;
     end(): void;
@@ -227,7 +227,7 @@ declare class DragTracker$1 extends Base$1 {
     protected _doActivate(): void;
     protected _doDeactivate(): void;
     protected _doStart(eventTarget: HTMLElement, x: number, y: number, shfit: boolean, alt: boolean): boolean;
-    protected _doDrag(eventTarget: HTMLElement, x: number, y: number): boolean;
+    protected _doDrag(eventTarget: HTMLElement, x: number, y: number, meta: boolean): boolean;
     protected _doCanceled(x: number, y: number): void;
     protected _canAccept(eventTarget: HTMLElement, x: number, y: number): boolean;
     protected _doCompleted(eventTarget: HTMLElement, x: number, y: number): void;
@@ -5764,7 +5764,7 @@ declare class EmailPageBody extends PageBody implements IEmailItem {
     discriminator: "I_EMAIL_ITEM";
     constructor();
     protected _createPageBodyItems(): PageBodyItems;
-    protected _getEditProps(): IPropInfo[];
+    protected _getEditProps(): any[];
     protected _getStyleProps(): string[];
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
@@ -6226,6 +6226,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private _pageToGo?;
     private _printEditLayer;
     private _printEditableItemManager;
+    private _floatingLayoutAction;
     constructor(containerId: string | HTMLDivElement);
     protected _doDispose(): void;
     /** pageCount */
@@ -6243,11 +6244,11 @@ declare class PrintContainer extends VisualContainer$1 {
     /**
      * Report 에서 사용
      */
-    get ReportItemRegistry(): ReportItemRegistry;
+    get reportItemRegistry(): ReportItemRegistry | null;
     /**
      * Composite Report 에서 사용
      */
-    get ReportItemRegistries(): ReportItemRegistry[];
+    get reportItemRegistries(): ReportItemRegistry[];
     /**
      * printEditableItemManager
      */
@@ -6328,9 +6329,6 @@ declare class PrintContainer extends VisualContainer$1 {
      * 한 페이지당 수정가능한 아이템 정보를 찾아서 정보를 최신화 시킨다.
      */
     private $_addEditableItems;
-    /**
-     * 보더가 적용될 컨테이너를 생성하고 보더 너비만큼 반환한다.
-     */
     private $_addBorderContainer;
     protected _fireScrollEnd: () => void;
 }
@@ -43822,13 +43820,16 @@ declare class GridReportViewer extends ReportViewer {
 declare class ReportCompositeViewer extends ReportViewBase {
     private _reportFormSets?;
     private _reports;
-    constructor(container: string | HTMLDivElement, formSets: ReportFormSets, options?: ReportOptions);
+    private _reportViewPrinter;
+    constructor(container: string | HTMLDivElement, formSets?: ReportFormSets, options?: ReportOptions);
+    set formSets(formSets: ReportFormSets);
     /**
      * container에 formsset을 preview로 렌더링 합니다.
      * 매핑 정보
      *   - form -> report
      */
     preview(options?: PreviewOptions): void;
+    print(options: PrintOptions): Promise<void>;
     exportPdf(options: PDFExportOptions): Promise<void>;
     exportImage(imageOptions: ImageExportOptions): void;
     exportDocument(options: DocExportOptions): void;

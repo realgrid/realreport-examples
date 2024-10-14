@@ -28,24 +28,31 @@ export default {
       },
     },
   },
-  methods: {},
+  methods: {
+    reportPreview() {
+      if (!this.reports) return;
+      this.compositeViewer.formSets = this.reports;
+      this.compositeViewer.zoom = 1;
+      this.compositeViewer.preview({ async: true, pageMark: false, noScroll: true });
+    }
+  },
+  watch: {
+    reports: {
+      handler: function () {
+        this.reportPreview();
+      },
+    },
+  },
   mounted() {
+
     /**
      * - ReportCompositeViewer 데이터 모양 만들기
      * {@link https://real-report.com/docs/guide/viewer/composite-report}
      */
-    const formSets = this.reports.map((report, index) => {
-      return {
-        form: report,
-        dataSet: this.datas[index],
-      };
-    });
-
     this.reportContainer = this.$refs.reportCompositeViewer;
-    this.compositeViewer = new ReportCompositeViewer(this.reportContainer, formSets);
+    this.compositeViewer = new ReportCompositeViewer(this.reportContainer);
     this.$emit('setViewerHandler', this.compositeViewer);
     this.compositeViewer.zoom = 1;
-    this.compositeViewer.preview({ async: true, pageMark: false, noScroll: true });
   },
 };
 </script>

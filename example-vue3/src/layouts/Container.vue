@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Sidebar :report="report" :data="data" @setReportHandler="setReport" />
+    <Sidebar :report="report" :data="data" @setReportHandler="setReport" @setCompositeReportHandler="setCompositeReport" />
     <div class="main">
       <div class="main-content">
         <Toolbar :viewer="reportViewer" :pageCount="pageCount" :report="report" @setViewerZoomHandler="setViewerZoom"/>
@@ -55,6 +55,10 @@ export default {
       this.report = report;
       this.data = data;
       this.type = type;
+    },
+    setCompositeReport(reports) {
+      this.report = reports;
+      this.type = 'compositeViewer'
     },
     setViewer(viewer) {
       this.reportViewer = viewer;

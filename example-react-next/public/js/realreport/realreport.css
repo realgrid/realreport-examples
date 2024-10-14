@@ -1,5 +1,5 @@
 /* 
-RealReport v1.9.4
+RealReport v1.9.5
 Copyright (C) 2013-2024 WooriTech Inc.
 All Rights Reserved.
 */
@@ -1316,7 +1316,7 @@ All Rights Reserved.
     --rct-point-label-fill: #333;
 
     --rct-point-label-line-stroke-width: 1px;
-    --rct-point-label-line-stroke: #585;
+    --rct-point-label-line-stroke: #55855560;
 
     --rct-credits-fill: #777;
 
@@ -1538,14 +1538,21 @@ All Rights Reserved.
     fill: var(--rct-legend-item-disabled);
     text-decoration: var(--rct-legend-item-disabled-decoration);
 }
-/* .rct-legend-item-marker {
-    stroke: none;
-} */
+.rct-legend-item-label[data-empty] {
+    fill: var(--rct-legend-item-disabled);
+}
 .rct-legend-item-marker[data-hidden] {
     fill: #aaa !important;
     stroke: #aaa !important;
 }
 .rct-legend-item-marker[data-hidden] path[data-fill] {
+    fill: #aaa !important;
+}
+.rct-legend-item-marker[data-empty] {
+    fill: #aaa !important;
+    stroke: #aaa !important;
+}
+.rct-legend-item-marker[data-empty] path[data-fill] {
     fill: #aaa !important;
 }
 
