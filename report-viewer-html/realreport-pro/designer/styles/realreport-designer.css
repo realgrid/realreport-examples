@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.9.5
+RealReport Designer v1.9.6
 Copyright (C) 2013-2024 WooriTech Inc.
 All Rights Reserved.
 */
@@ -815,6 +815,11 @@ All Rights Reserved.
   border-bottom: 1px solid lightgray;
 }
 
+.rr-table.rr-crosstab thead tr td {
+  font-size: 10px;
+  border: 1px solid #aaa;
+}
+
 .rr-crosstab-field-cell {
   text-align: center;
 }
@@ -875,6 +880,10 @@ All Rights Reserved.
   border-radius: 3px;
 }
 
+.rr-crosstab {
+  font-size: 10px;
+}
+
 .rr-crosstab-head {
   padding: 2px 1px !important;
   font-size: 10px;
@@ -884,7 +893,6 @@ All Rights Reserved.
 
 .rr-crosstab-value {
   padding: 1px 1px !important;
-  font-size: 10px;
   text-align: right;
 }
 
@@ -5342,7 +5350,8 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   min-width: 10px;
 }
 .rr-property-indent-mark {
-  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMTIiIGZpbGw9IiM4Njg2QjkiLz4KPC9zdmc+Cg==") no-repeat center / contain;
+  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMTIiIGZpbGw9IiM4Njg2QjkiLz4KPC9zdmc+Cg==")
+    no-repeat center / contain;
 }
 .rr-property-row-content input[type="checkbox"] {
   display: flex;
@@ -5554,11 +5563,11 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 }
 
 /* edit layer 영역 */
-.rr-edit-marquee-item:not([style*="left: 0"]):not([style*="top: 0"]):not(
+/* .rr-edit-marquee-item:not([style*="left: 0"]):not([style*="top: 0"]):not(
     [data-target^="series"]
   ) {
   display: none;
-}
+} */
 
 .rr-edit-marquee.rr-bandgroup-marquee
   > .rr-edit-marquee-item[style*="left: 0"]:not([style*="top: 0"]) {

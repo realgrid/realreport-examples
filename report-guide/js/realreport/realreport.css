@@ -1,5 +1,5 @@
 /* 
-RealReport v1.9.5
+RealReport v1.9.6
 Copyright (C) 2013-2024 WooriTech Inc.
 All Rights Reserved.
 */
@@ -813,6 +813,11 @@ All Rights Reserved.
   border-bottom: 1px solid lightgray;
 }
 
+.rr-table.rr-crosstab thead tr td {
+  font-size: 10px;
+  border: 1px solid #aaa;
+}
+
 .rr-crosstab-field-cell {
   text-align: center;
 }
@@ -873,6 +878,10 @@ All Rights Reserved.
   border-radius: 3px;
 }
 
+.rr-crosstab {
+  font-size: 10px;
+}
+
 .rr-crosstab-head {
   padding: 2px 1px !important;
   font-size: 10px;
@@ -882,7 +891,6 @@ All Rights Reserved.
 
 .rr-crosstab-value {
   padding: 1px 1px !important;
-  font-size: 10px;
   text-align: right;
 }
 
