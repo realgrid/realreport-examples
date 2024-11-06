@@ -1,4 +1,4 @@
-// 아래 라이선스는 유효기간 2024년 12월 31일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
+// 아래 라이선스는 유효기간 2025년 2월 6일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
 var realReportLic =
     'upVcPE+wPOn1V3OcjC3PuAUt7xtLcP5XVzS0GnpZwpnbdxrzWi3SH8gD17wvi7BNc3vsxq2SxIjBPPfNGfMHzUuCVeNUotmaJ21W+hLN+SUO5+/xJSE3Low/NvmdQ9UD0QeIbtyyIEH9YLxChWwJkg==';
 let designer;
