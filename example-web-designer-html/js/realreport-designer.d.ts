@@ -484,22 +484,6 @@ declare enum BoxItemsAlign {
     END = "end"
 }
 
-declare class CellCollection {
-    private _band;
-    private _filters;
-    private _cells;
-    constructor(band: CrosstabBand);
-    get count(): number;
-    getKey(index: number, field: number): any;
-    getCell(index: number): CrosstabCell;
-    getCells(start?: number, end?: number): CrosstabCell[];
-    setFilters(filters: IFilter[]): void;
-    build(data: BandArrayData): void;
-    private $_collectRows;
-    private $_sortRows;
-    private $_buildCells;
-}
-
 /**
  * CellGroup들만을 자식으로 갖는다.
  */
@@ -955,8 +939,6 @@ declare class ColumnBoxContainerElement extends BoxContainerElement<ColumnBoxCon
     getRight(view: ReportItemView): ReportItemView;
 }
 
-/* Excluded from this release type: ColumnCollection */
-
 declare type ConfigObject = {
     [key: string]: any;
 };
@@ -964,13 +946,14 @@ declare type ConfigObject = {
 /**
  * Crosstab band.
  *
- * 1. rowFields + columnFields 로 정렬하고 그룹핑해서 cellCollection에 저장한다.
+ * 1. rowFields + columnFields 로 정렬하고 그룹핑해서 CrosstabCellCollection에 저장한다.
  */
 declare class CrosstabBand extends ReportGroupItem {
     static readonly PROP_TITLE = "title";
     static readonly PROP_NULL_VALUE = "nullValue";
     static readonly PROP_MAX_ROW_COUNT = "maxRowCount";
     static readonly PROP_NO_SPLIT = "noSplit";
+    static readonly PROP_VALUES_ON_ROWS = "valuesOnRows";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     static isFieldCell(item: ReportPageItem): boolean;
@@ -978,6 +961,7 @@ declare class CrosstabBand extends ReportGroupItem {
     static getBandOf(cell: CrosstabFieldCell): CrosstabBand;
     private _maxRowCount;
     private _noSplit;
+    private _valuesOnRows;
     private _title;
     private _nullValue;
     private _rowFields;
@@ -1000,6 +984,11 @@ declare class CrosstabBand extends ReportGroupItem {
     get noSplit(): boolean;
     set noSplit(value: boolean);
     /**
+     * true면 value fields 정보를 행 기준으로 표시한다.
+     */
+    get valuesOnRows(): boolean;
+    set valuesOnRows(value: boolean);
+    /**
      * title
      */
     get title(): CrosstabBandTitle;
@@ -1014,9 +1003,9 @@ declare class CrosstabBand extends ReportGroupItem {
     get columnFields(): CrosstabColumnFieldCollection;
     /** valueFields */
     get valueFields(): CrosstabValueFieldCollection;
-    get rows(): RowCollection;
+    get rows(): CrosstabRowCollection;
     get bandData(): BandArrayData;
-    get columns(): ColumnCollection;
+    get columns(): CrosstabColumnCollection;
     containsField(field: string): boolean;
     getRowField(index: number): CrosstabField;
     getColumnField(index: number): CrosstabColumnField;
@@ -1030,6 +1019,7 @@ declare class CrosstabBand extends ReportGroupItem {
     get isBand(): boolean;
     protected _datable(): boolean;
     protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
     isAncestorOf(item: ReportPageItem): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: any): void;
@@ -1070,6 +1060,27 @@ declare class CrosstabCell {
     getValue(data: IBandData, field: number, exp: string): number;
 }
 
+declare class CrosstabCellCollection {
+    private _band;
+    private _filters;
+    private _cells;
+    constructor(band: CrosstabBand);
+    get count(): number;
+    getKey(index: number, field: number): any;
+    getCell(index: number): CrosstabCell;
+    getCells(start?: number, end?: number): CrosstabCell[];
+    setFilters(filters: IFilter[]): void;
+    build(data: BandArrayData): void;
+    private $_getUniqFieldDatas;
+    /**
+     * 넘어온 데이터대로 정렬순서를 정의한다.
+     */
+    private $_recursiveSort;
+    private $_collectRows;
+    private $_sortRows;
+    private $_buildCells;
+}
+
 declare class CrosstabColumn {
     static readonly $_ctor: string;
     hash: number;
@@ -1095,6 +1106,8 @@ declare class CrosstabColumn {
     ancestorByLevel(level: number): CrosstabColumn;
     ancestorByVlevel(level: number): CrosstabColumn;
 }
+
+/* Excluded from this release type: CrosstabColumnCollection */
 
 declare class CrosstabColumnField extends CrosstabField {
     static readonly PROPINFOS: IPropInfo[];
@@ -1187,13 +1200,18 @@ declare abstract class CrosstabFieldCollection<T extends CrosstabField> extends 
 }
 
 declare class CrosstabFieldHeader extends ReportItem {
+    static readonly PROP_TEXT = "text";
     static readonly PROP_SUFFIX = "suffix";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
+    private _text;
     private _suffix;
     private _field;
     constructor(field: CrosstabField, source: any);
     get field(): CrosstabField;
+    /** text */
+    get text(): string;
+    set text(value: string);
     /** suffix */
     get suffix(): string;
     set suffix(value: string);
@@ -1211,11 +1229,17 @@ declare class CrosstabFieldHeader extends ReportItem {
  * row field 설정이 column field 설정보다 우선하고, column field 설정이 value field 설정보다 우선한다.
  */
 declare class CrosstabFieldSummary extends ReportItem {
+    static readonly POSITIONS: readonly ["start", "last"];
+    static readonly PROP_POSITION = "position";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
+    private _position;
     private _field;
     private _header;
     constructor(field: CrosstabField, source: any);
+    /** position */
+    get position(): FieldSummaryPosition;
+    set position(value: FieldSummaryPosition);
     get field(): CrosstabField;
     get header(): CrosstabFieldSummaryHeader;
     get page(): ReportPage;
@@ -1282,6 +1306,17 @@ declare abstract class CrosstabRowBase {
     abstract slice(count: number): any[];
     abstract getValue(index: number): any;
     abstract getColumnCell(column: CrosstabColumn): CrosstabCell;
+}
+
+declare class CrosstabRowCollection {
+    private _band;
+    private _rows;
+    constructor(band: CrosstabBand);
+    get rowCount(): number;
+    getRow(index: number): CrosstabRowBase;
+    build(data: BandArrayData, cells: CrosstabCellCollection): void;
+    private $_collectRows;
+    private $_collectSummaryRows;
 }
 
 declare class CrosstabRowField extends CrosstabField {
@@ -1960,6 +1995,8 @@ declare class EndRowMarker {
 /* Excluded from this release type: ExpressionNode */
 
 /* Excluded from this release type: ExpressionRuntime */
+
+declare type FieldSummaryPosition = 'start' | 'last';
 
 /* Excluded from this release type: FieldValueRuntime */
 
@@ -2740,6 +2777,7 @@ declare interface IBandData extends IReportData {
     getField(index: number): IBandDataField;
     getFields(): IBandDataField[];
     getFieldByName(fieldName: string): IBandDataField;
+    getFieldIndex(fieldName: string): number;
     containsField(fieldName: string): boolean;
     getRowValue(row: number, field: string | number): any;
     getFieldValues(field: string | number): any[];
@@ -4938,6 +4976,7 @@ declare class Report_2 extends EventAware implements IEditCommandStackOwner, IPr
     getEditHistory(all?: boolean): EditCommand[];
     getCommand(id: number): EditCommand;
     itemByName(name: string): ReportItem;
+    itemOf(hash: string): ReportItem;
     defaultInit(item: ReportItem, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     addItem(parent: ReportGroupItem, item: ReportItem, index?: number): boolean;
     moveCollectionItem(collection: ReportItemCollection<any>, from: number, to: number): void;
@@ -5123,9 +5162,9 @@ declare enum ReportDataLinkFormat {
 
 export declare class ReportDesigner {
     private readonly _core;
-    constructor(containerId: string | HTMLDivElement, options?: ReportDesignerOptions, server?: ReportServer, licenseKey?: string);
+    constructor(containerId: string | HTMLDivElement, options?: ReportDesignerOptions, server?: IReportServer, licenseKey?: string);
     get designMode(): boolean;
-    set designMode(value: boolean);
+    set designMode(mode: boolean);
     set defaultFont(fontName: string);
     loadReport(source: any, options?: ReportOptions): void;
     setReportTemplates(templates: UserReportCategoryTemplate[]): Promise<void>;
@@ -6025,6 +6064,7 @@ declare enum ReportItemType {
     HTML = "html",
     HTMLVIEW = "htmlview",
     SVG = "svg",
+    SIGN = "sign",
     REALCHART = "realchart",
     HICHART = "hichart",
     PAGE = "page"
@@ -6102,6 +6142,7 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
     private _pageIndex;
     private _events;
     private _nameMap;
+    private _hashMap;
     private _reportHeader;
     private _reportFooter;
     private _pageHeader;
@@ -6201,6 +6242,7 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
     get marginBottom(): ValueString;
     set marginBottom(value: ValueString);
     getItem(name: string): ReportItem;
+    itemOf(hash: string): ReportItem;
     removeItems(commands: EditCommandStack, items: ReportPageItem[]): number;
     search(page: number, key: string, options: FindOptions, results: FindResult[]): void;
     /**
@@ -6443,17 +6485,6 @@ declare class ReportRootItem extends ReportGroupItem {
     protected _doSave(target: object): void;
 }
 
-declare interface ReportServer {
-    getReportList(): Promise<ReportListSource>;
-    getReport(id: string): Promise<IReportSource>;
-    saveReport?(report: Record<string, any>, id?: string): Promise<IReportResponse | null>;
-    getDataGroups(parent?: string): Promise<string[]>;
-    getDataList(group: string): Promise<IReportDataInfo[]>;
-    getData?(id: string): Promise<IReportDataInfo>;
-    getAssetGroups(parent?: string): Promise<string[]>;
-    getAssetList(group: string): Promise<IReportAssetItem[]>;
-}
-
 declare type ReportSource$1 = Record<string, unknown> | Record<string, unknown>[];
 
 declare type ReportSource = {
@@ -6499,17 +6530,6 @@ declare namespace ResizeDirection {
     function isTop(dir: ResizeDirection): boolean;
     function isEdge(dir: ResizeDirection): boolean;
     function isIn(dir: ResizeDirection, ...dirs: ResizeDirection[]): boolean;
-}
-
-declare class RowCollection {
-    private _band;
-    private _rows;
-    constructor(band: CrosstabBand);
-    get rowCount(): number;
-    getRow(index: number): CrosstabRowBase;
-    build(data: BandArrayData, cells: CellCollection): void;
-    private $_collectRows;
-    private $_collectSummaryRows;
 }
 
 declare type SaveCallbackResponse = {

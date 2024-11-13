@@ -1,5 +1,5 @@
 /* 
-RealReport v1.9.6
+RealReport v1.9.7
 Copyright (C) 2013-2024 WooriTech Inc.
 All Rights Reserved.
 */
@@ -487,8 +487,7 @@ All Rights Reserved.
   margin: 0;
   padding: 0;
   text-align: center;
-  /** 상위에서 지정할 수 있도록 여기에 font-size를 지정하지 말 것. */
-  line-height: 1.35em;
+  line-height: normal;
 }
 
 .rr-text[data-design]:hover {
@@ -529,12 +528,10 @@ All Rights Reserved.
   color: #777;
   border: 1px solid #aaa;
 }
-
 .rr-image[data-empty] span:before {
   content: "[IMAGE]";
   white-space: nowrap;
 }
-
 .rr-image[data-design]:hover {
   background-color: rgba(111, 111, 0, 0.1);
 }
@@ -548,24 +545,62 @@ All Rights Reserved.
   color: #777;
   border: 1px solid #aaa;
 }
-
 .rr-svg[data-empty] span:before {
   content: "[ SVG ]";
   white-space: nowrap;
 }
-
 .rr-svg[data-design]:hover {
   background-color: rgba(111, 111, 0, 0.1);
+}
+
+.rr-sign:not([data-design]) {
+  cursor: pointer;
+}
+/* .rr-sign[data-empty] {
+  display: table;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background: #ddd;
+  color: #777;
+  border: 1px solid #aaa;
+}
+.rr-sign[data-empty] span:before {
+  content: "[Sign]";
+  white-space: nowrap;
+} */
+.rr-sign[data-design] {
+  background-color: #f0f0f0;
+}
+.rr-sign[data-design]:before {
+  content: "[서 명]";
+  white-space: nowrap;
+  color: #040;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+}
+.rr-sign[data-design] img {
+  display: none;
+}
+.rr-sign[data-design]:hover {
+  background-color: rgba(111, 111, 0, 0.1);
+}
+.rr-sign img {
+  box-sizing: border-box;
+  padding: 10px;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .rr-bar {
   overflow: hidden;
 }
-
 .rr-bar-bar {
   background-color: green;
 }
-
 .rr-bar-bar[data-design] {
   background-color: transparent;
 }
@@ -650,6 +685,21 @@ All Rights Reserved.
 
 .rr-bandgroupcell[data-empty]:hover {
   background-color: rgba(111, 111, 0, 0.1);
+}
+
+.rr-sign-panel {
+  padding: 10px;
+  border: 1px solid gray;
+  background: #f8f8ff;
+}
+.rr-sign-panel-title {
+  font-size: 1.2em;
+}
+.rr-sign-panel-body {
+  border: 1px solid #999;
+}
+.rr-sign-panel button {
+  padding: 4px 8px;
 }
 
 /** design */
