@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.9.6
-* commit 84bc433
+* RealReport v1.9.7
+* commit 73232c0
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2024 WooriTech Inc.
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.9.6
+* RealReport Core v1.9.7
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit 4c49ccb4b6a29006d0fcd4cc9a8e4430adcba9b2
+* commit f6b69f598859223f8b188f4a9cc9baa6812cef09
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -730,7 +730,6 @@ declare abstract class VisualContainer$1 extends EventAware$1 implements VisualT
     protected _layoutChildren(bounds: Rectangle$1): void;
     protected _doLayout(bounds: Rectangle$1): void;
     protected _doAfterRender(): void;
-    protected _doPrepareRender(bounds: Rectangle$1): void;
     protected _doRenderHtml(bounds: Rectangle$1): void;
     protected _doDrawContainer(bounds: Rectangle$1): void;
     protected _drawElement(element: VisualElement$1): void;
@@ -799,7 +798,7 @@ declare abstract class VisualElement$1 extends EventAware$1 {
     private _dirty;
     private _hovered;
     private _className;
-    private _nodraw;
+    protected _nodraw: boolean;
     constructor(doc: Document, name?: string, callback?: VisualElementCallback);
     protected _doDispose(): void;
     /** positionable */
@@ -888,6 +887,7 @@ declare abstract class VisualElement$1 extends EventAware$1 {
     contains(element: VisualElement$1): boolean;
     getAncestor(cls: any): VisualElement$1;
     addDom(dom: Element): void;
+    insertDom(dom: Element, elt: VisualElement$1): void;
     addChild(child: VisualElement$1): boolean;
     protected _getParentDom(): HTMLElement;
     insertChild(index: number, child: VisualElement$1): boolean;
@@ -5342,6 +5342,7 @@ declare enum ReportItemType {
     HTML = "html",
     HTMLVIEW = "htmlview",
     SVG = "svg",
+    SIGN = "sign",
     REALCHART = "realchart",
     HICHART = "hichart",
     PAGE = "page"
@@ -5535,10 +5536,12 @@ declare class TextItem extends TextItemBase {
     static readonly PROP_ON_GET_CONTEXT_VALUE = "onGetContextValue";
     static readonly PROP_I18N = "internationalization";
     static readonly PROP_MERGE_RULE = "mergeRule";
+    static readonly PROP_RICH = "rich";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     static readonly ITEM_TYPE = "Text";
     private _text;
+    private _rich;
     private _editing;
     private _i18nObject;
     private _mergeRule;
@@ -5552,6 +5555,11 @@ declare class TextItem extends TextItemBase {
      */
     get text(): string;
     set text(value: string);
+    /**
+     * rich
+     */
+    get rich(): boolean;
+    set rich(value: boolean);
     /**
      * editing
      * - 텍스트를 미리보기 시점에 수정가능하게 하는 속성
@@ -6274,9 +6282,9 @@ declare class PrintContainer extends VisualContainer$1 {
     private _pageToGo?;
     private _printEditLayer;
     private _printEditableItemManager;
+    private _signPanel;
     private _floatingLayoutAction;
     constructor(containerId: string | HTMLDivElement);
-    protected _doDispose(): void;
     /** pageCount */
     get pageCount(): number;
     /** page */
@@ -6378,7 +6386,8 @@ declare class PrintContainer extends VisualContainer$1 {
      */
     private $_addEditableItems;
     private $_addBorderContainer;
-    protected _fireScrollEnd: () => void;
+    protected _scrollEndHandler: () => void;
+    private $_clickHandler;
 }
 
 interface PdfFont {
@@ -6813,6 +6822,7 @@ declare class Report extends EventAware$1 implements IEditCommandStackOwner, IPr
     getEditHistory(all?: boolean): EditCommand$1[];
     getCommand(id: number): EditCommand$1;
     itemByName(name: string): ReportItem;
+    itemOf(hash: string): ReportItem;
     defaultInit(item: ReportItem, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     addItem(parent: ReportGroupItem, item: ReportItem, index?: number): boolean;
     moveCollectionItem(collection: ReportItemCollection<any>, from: number, to: number): void;
@@ -7035,6 +7045,7 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
     private _pageIndex;
     private _events;
     private _nameMap;
+    private _hashMap;
     private _reportHeader;
     private _reportFooter;
     private _pageHeader;
@@ -7134,6 +7145,7 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
     get marginBottom(): ValueString;
     set marginBottom(value: ValueString);
     getItem(name: string): ReportItem;
+    itemOf(hash: string): ReportItem;
     removeItems(commands: EditCommandStack$1, items: ReportPageItem[]): number;
     search(page: number, key: string, options: FindOptions, results: FindResult[]): void;
     /**
@@ -7580,7 +7592,7 @@ declare class PageItemContainerElement extends BoundedContainerElement<PageItemC
 }
 
 type PrintPageCallback = (ctx: PrintContext, page: PrintPage, pageNo: number) => void;
-type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => Promise<void>;
+type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => void;
 declare class PageSectionGuard extends ReportItemElement<ReportPage> {
     get guardLabel(): string;
 }
@@ -43869,6 +43881,7 @@ declare class ReportCompositeViewer extends ReportViewBase {
     private _reportFormSets?;
     private _reports;
     private _reportViewPrinter;
+    private _isPreview;
     constructor(container: string | HTMLDivElement, formSets?: ReportFormSets, options?: ReportOptions);
     set formSets(formSets: ReportFormSets);
     /**

@@ -4976,6 +4976,7 @@ declare class Report_2 extends EventAware implements IEditCommandStackOwner, IPr
     getEditHistory(all?: boolean): EditCommand[];
     getCommand(id: number): EditCommand;
     itemByName(name: string): ReportItem;
+    itemOf(hash: string): ReportItem;
     defaultInit(item: ReportItem, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     addItem(parent: ReportGroupItem, item: ReportItem, index?: number): boolean;
     moveCollectionItem(collection: ReportItemCollection<any>, from: number, to: number): void;
@@ -5161,9 +5162,9 @@ declare enum ReportDataLinkFormat {
 
 export declare class ReportDesigner {
     private readonly _core;
-    constructor(containerId: string | HTMLDivElement, options?: ReportDesignerOptions, server?: ReportServer, licenseKey?: string);
+    constructor(containerId: string | HTMLDivElement, options?: ReportDesignerOptions, server?: IReportServer, licenseKey?: string);
     get designMode(): boolean;
-    set designMode(value: boolean);
+    set designMode(mode: boolean);
     set defaultFont(fontName: string);
     loadReport(source: any, options?: ReportOptions): void;
     setReportTemplates(templates: UserReportCategoryTemplate[]): Promise<void>;
@@ -6063,6 +6064,7 @@ declare enum ReportItemType {
     HTML = "html",
     HTMLVIEW = "htmlview",
     SVG = "svg",
+    SIGN = "sign",
     REALCHART = "realchart",
     HICHART = "hichart",
     PAGE = "page"
@@ -6140,6 +6142,7 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
     private _pageIndex;
     private _events;
     private _nameMap;
+    private _hashMap;
     private _reportHeader;
     private _reportFooter;
     private _pageHeader;
@@ -6239,6 +6242,7 @@ declare class ReportPage extends ReportGroupItem implements IEventAware {
     get marginBottom(): ValueString;
     set marginBottom(value: ValueString);
     getItem(name: string): ReportItem;
+    itemOf(hash: string): ReportItem;
     removeItems(commands: EditCommandStack, items: ReportPageItem[]): number;
     search(page: number, key: string, options: FindOptions, results: FindResult[]): void;
     /**
@@ -6479,17 +6483,6 @@ declare class ReportRootItem extends ReportGroupItem {
     canResize(dir: ResizeDirection): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
-}
-
-declare interface ReportServer {
-    getReportList(): Promise<ReportListSource>;
-    getReport(id: string): Promise<IReportSource>;
-    saveReport?(report: Record<string, any>, id?: string): Promise<IReportResponse | null>;
-    getDataGroups(parent?: string): Promise<string[]>;
-    getDataList(group: string): Promise<IReportDataInfo[]>;
-    getData?(id: string): Promise<IReportDataInfo>;
-    getAssetGroups(parent?: string): Promise<string[]>;
-    getAssetList(group: string): Promise<IReportAssetItem[]>;
 }
 
 declare type ReportSource$1 = Record<string, unknown> | Record<string, unknown>[];
