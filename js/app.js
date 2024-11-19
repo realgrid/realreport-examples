@@ -375,6 +375,16 @@ function webDesignerSample(el) {
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
 }
 
+function signSample(el) {
+    openTab('reportTab', 'gridTab');
+    reportViewer = webDesignerFrame('webDesignerFrame', signReport);
+    reportForm = certificateReport;
+    dataSet = certificateReport.data;
+    setEditorModel('reportForm');
+    hiddenFrame('reportFrame');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+}
+
 function crossTabSample(el) {
     openTab('reportTab', 'gridTab');
     reportViewer = webDesignerFrame('webDesignerFrame', crossTabSmaple);
