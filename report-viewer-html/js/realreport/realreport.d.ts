@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.9.7
-* commit 73232c0
+* RealReport v1.9.8
+* commit 9bde74a
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2024 WooriTech Inc.
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.9.7
+* RealReport Core v1.9.8
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit f6b69f598859223f8b188f4a9cc9baa6812cef09
+* commit 9301fb09b32f2116449406ada55d7b6f276c1408
 */
 type ConfigObject$1 = {
     [key: string]: any;
@@ -6381,6 +6381,7 @@ declare class PrintContainer extends VisualContainer$1 {
     private $_createReportView;
     private $_instanceofIPrintReport;
     private $_addContainerEventListener;
+    private $_addEditableItemToManager;
     /**
      * 한 페이지당 수정가능한 아이템 정보를 찾아서 정보를 최신화 시킨다.
      */
@@ -7710,6 +7711,7 @@ declare class PrintPage {
     background: HTMLDivElement;
     contents: HTMLDivElement[];
     foreground: HTMLDivElement;
+    reportIndex: number;
 }
 
 /** @internal */
@@ -43891,7 +43893,16 @@ declare class ReportCompositeViewer extends ReportViewBase {
      */
     preview(options?: PreviewOptions): void;
     print(options: PrintOptions): Promise<void>;
+    /**
+     * 리포트를 PDF파일로 다운로드 합니다.
+     * @param options PDFExportOptions
+     */
     exportPdf(options: PDFExportOptions): Promise<void>;
+    /**
+     * 리포트를 Blob 형식으로 내보내기 합니다.
+     * @param options PDFExportBlobOptions
+     */
+    exportPdfBlob(options: PDFExportBlobOptions): Promise<Blob>;
     exportImage(imageOptions: ImageExportOptions): void;
     exportDocument(options: DocExportOptions): void;
     private _checkReportFormSet;
@@ -44036,5 +44047,6 @@ type PDFExportOptions = {
     pdfVersion: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 };
 type PDFExportBlobOptions = Omit<PDFExportOptions, 'filename' | 'preview'>;
+declare const ZOOM_ERROR_MESSAGE = "\uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778 \uACBD\uC6B0\uB9CC \uB0B4\uBCF4\uB0B4\uAE30\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4. \uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.";
 
-export { GridReportItemSource, GridReportLayout, GridReportViewer, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer };
+export { GridReportItemSource, GridReportLayout, GridReportViewer, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE };

@@ -3964,6 +3964,7 @@ declare class PrintPage {
     background: HTMLDivElement;
     contents: HTMLDivElement[];
     foreground: HTMLDivElement;
+    reportIndex: number;
 }
 
 declare enum PrintUnit {
