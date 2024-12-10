@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.9.8
-* commit 9bde74a
+* RealReport v1.9.9
+* commit ed0d485
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2024 WooriTech Inc.
@@ -9,10 +9,10 @@
 */
 
 /** 
-* RealReport Core v1.9.8
+* RealReport Core v1.9.9
 * Copyright (C) 2013-2024 WooriTech Inc.
 * All Rights Reserved.
-* commit 9301fb09b32f2116449406ada55d7b6f276c1408
+* commit 53564e6d88d6b2b8c939ea179af9d29728b1a5dd
 */
 type ConfigObject$1 = {
     [key: string]: any;
