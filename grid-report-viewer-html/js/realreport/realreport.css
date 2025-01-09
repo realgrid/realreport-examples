@@ -1,6 +1,6 @@
 /* 
-RealReport v1.9.9
-Copyright (C) 2013-2024 WooriTech Inc.
+RealReport v1.10.0
+Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
 @charset "UTF-8";
@@ -52,9 +52,34 @@ All Rights Reserved.
   box-shadow: rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
+.rr-messagebar {
+  background-color: #e6e6e6;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  font-size: 14px;
+}
+
+.rr-messagebar[data-level="info"] {
+  background-color: #cef8e0;
+}
+
+.rr-messagebar[data-level="error"] {
+  background-color: #ffebe7;
+}
+
+.rr-messagebar[data-level="warn"] {
+  background-color: #ffeccc;
+}
+
+.rr-messagebar-close {
+  cursor: pointer;
+}
+
 .rr-page {
-  /* border: 1px dashed lightgray; */
   border: 1px solid #e0e0e0a0;
+}
+
+.rr-sheet-page {
+  border: 1px dashed #b5deff;
 }
 
 .rr-page-border-horz {
@@ -64,7 +89,6 @@ All Rights Reserved.
   box-sizing: border-box;
   border-top: 1px dashed #aaaaff80;
 }
-
 .rr-page-border-vert {
   pointer-events: none;
   position: absolute;
@@ -77,24 +101,24 @@ All Rights Reserved.
   border: 1px solid #555;
   border-radius: 0;
 }
-
 .rr-text-edit:focus {
   border: 1px solid #555;
   border-radius: 0;
 }
-
 .rr-text-edit:focus-visible {
   outline: none;
+}
+.rr-text-edit::selection {
+  background-color: #0078D7;
+  color: white;
 }
 
 .rr-text-area-editor::-webkit-scrollbar {
   width: 2px;
 }
-
 .rr-text-area-editor::-webkit-scrollbar-track {
   background-color: transparent;
 }
-
 .rr-text-area-editor::-webkit-scrollbar-thumb {
   background: #d2d2d2;
 }
@@ -104,7 +128,6 @@ All Rights Reserved.
   font-style: italic;
   font-size: 8pt;
 }
-
 .rr-design-box[data-vis="false"] {
   border: 1px solid #eee;
   background: none;
@@ -126,7 +149,6 @@ All Rights Reserved.
   font-style: italic;
   font-size: 8pt;
 }
-
 .rr-design-back[data-folded] {
   background-color: #00880010;
   border: 1px dashed #00880080;
@@ -214,9 +236,11 @@ All Rights Reserved.
 
 .rr-focus-view {
   box-sizing: content-box !important;
-  /* border: 1px solid rgba(33, 33, 127, 0.7); */
   border: 2px solid rgba(33, 33, 127, 0.7);
   pointer-events: none;
+}
+.rr-focus-view[data-ghost] {
+  border-style: dashed;
 }
 
 .rr-focus-handle {
@@ -247,12 +271,12 @@ All Rights Reserved.
   background-color: rgba(33, 127, 33, 0.7);
 }
 
-.rr-focus-handle[data-disabled="true"] {
+.rr-focus-handle[data-disabled] {
   cursor: inherit;
   background-color: rgba(188, 188, 188);
 }
 
-.rr-focus-handle[data-hidden="true"] {
+.rr-focus-handle[data-hidden] { 
   visibility: hidden;
 }
 
@@ -489,17 +513,16 @@ All Rights Reserved.
   text-align: center;
   line-height: normal;
 }
-
 .rr-text[data-design]:hover {
   background-color: rgba(111, 111, 0, 0.1);
 }
-
-.rr-text[data-empty] {
-  background: #ddd;
-  color: #777;
-  border: 1px solid #aaa;
+.rr-text[data-empty]:before {
+  color: #999;
+  text-align: center;
+  content: "[TEXT]";
+  display: table;
+  width: 100%;
 }
-
 .rr-text[data-editable] span {
   min-width: 20px;
 }
@@ -509,25 +532,29 @@ All Rights Reserved.
   margin: 0;
   padding: 0;
 }
-
 .rr-summary[data-design]:hover {
   background-color: rgba(111, 111, 0, 0.1);
 }
-
 .rr-summary[data-error="1"] {
   color: red;
   font-weight: bold;
 }
-
-.rr-image[data-empty] {
-  display: table;
-  margin: 0;
-  padding: 0;
+.rr-summary[data-empty]:before {
+  color: #999;
   text-align: center;
-  background: #ddd;
-  color: #777;
-  border: 1px solid #aaa;
+  content: "[SUMMARY]";
+  display: table;
+  width: 100%;
 }
+
+.rr-html[data-empty]:before {
+  color: #999;
+  text-align: center;
+  content: "[HTML]";
+  display: table;
+  width: 100%;
+}
+
 .rr-image[data-empty] span:before {
   content: "[IMAGE]";
   white-space: nowrap;
@@ -556,23 +583,10 @@ All Rights Reserved.
 .rr-sign:not([data-design]) {
   cursor: pointer;
 }
-/* .rr-sign[data-empty] {
-  display: table;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  background: #ddd;
-  color: #777;
-  border: 1px solid #aaa;
-}
-.rr-sign[data-empty] span:before {
-  content: "[Sign]";
-  white-space: nowrap;
-} */
 .rr-sign[data-design] {
   background-color: #f0f0f0;
 }
-.rr-sign[data-design]:before {
+.rr-sign[data-empty]:before {
   content: "[서 명]";
   white-space: nowrap;
   color: #040;
@@ -582,15 +596,36 @@ All Rights Reserved.
   transform: translate(-50%, -50%);
   font-size: 15px;
 }
-.rr-sign[data-design] img {
-  display: none;
-}
 .rr-sign[data-design]:hover {
   background-color: rgba(111, 111, 0, 0.1);
 }
 .rr-sign img {
   box-sizing: border-box;
-  padding: 10px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.rr-stamp:not([data-design]) {
+  cursor: pointer;
+}
+.rr-stamp[data-design] {
+  background-color: #f0f0f0;
+}
+.rr-stamp[data-empty]:before {
+  content: "[도 장]";
+  white-space: nowrap;
+  color: #040;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+}
+.rr-stamp[data-design]:hover {
+  background-color: rgba(111, 111, 0, 0.1);
+}
+.rr-stamp img {
+  box-sizing: border-box;
   object-fit: contain;
   pointer-events: none;
 }
@@ -687,6 +722,9 @@ All Rights Reserved.
   background-color: rgba(111, 111, 0, 0.1);
 }
 
+.rr-sign-layer {
+  background-color: #00008810;
+}
 .rr-sign-panel {
   padding: 10px;
   border: 1px solid gray;
@@ -699,6 +737,21 @@ All Rights Reserved.
   border: 1px solid #999;
 }
 .rr-sign-panel button {
+  padding: 4px 8px;
+}
+
+.rr-stamp-panel {
+  padding: 10px;
+  border: 1px solid gray;
+  background: #f8f8ff;
+}
+.rr-stamp-panel-title {
+  font-size: 1.2em;
+}
+.rr-stamp-panel-body {
+  border: 1px solid #999;
+}
+.rr-stamp-panel button {
   padding: 4px 8px;
 }
 
@@ -785,7 +838,7 @@ All Rights Reserved.
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0px 4px 0px 4px;
+  padding: 1px 4px 0px 4px;
   /* min-width: 50px; */
   white-space: nowrap;
   cursor: pointer;
@@ -808,7 +861,6 @@ All Rights Reserved.
 }
 
 .rr-section-head[data-design][data-selected],
-.rr-section-head.rr-band-head[data-design],
 .rr-section-head.rr-detailband-head[data-selected],
 .rr-section-head.rr-band-header-head[data-selected],
 .rr-section-head.rr-band-footer-head[data-selected],
@@ -825,16 +877,21 @@ All Rights Reserved.
   color: #4f4f4f;
   color: #ffffff;
 }
+
 .rr-section-head.rr-page-head {
   background-color: #a2d2ff;
   color: #3a3a3a;
   border: 1px solid #3596f0;
 }
-
 .rr-section-head.rr-back-head,
 .rr-section-head.rr-front-head {
   background-color: #828282;
   color: #ffffff;
+}
+.rr-section-head.rr-sheet-head {
+  background-color: #a2d2ff;
+  color: #008;
+  border: 1px solid #3596f0;
 }
 
 .rr-band-col {
@@ -871,12 +928,10 @@ All Rights Reserved.
 .rr-crosstab-field-cell {
   text-align: center;
 }
-
 .rr-crosstab-head {
   text-align: center;
   background-color: #f0f0f0;
 }
-
 .rr-crosstab-section-table tr td {
   position: relative;
   margin: 0 !important;
@@ -889,12 +944,10 @@ All Rights Reserved.
   color: gray;
   white-space: nowrap;
 }
-
 .rr-crosstab-field-container {
   background-color: #efefef;
   border: 1px solid lightgray;
 }
-
 .rr-crosstab-field-container[data-empty="1"]::before {
   content: "[Fields]";
   color: #040;
@@ -903,15 +956,12 @@ All Rights Reserved.
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 .rr-crosstab-field {
   padding: 2px 2px;
 }
-
 .rr-crosstab-field:hover {
   background-color: #ddd;
 }
-
 .rr-crosstab-field-arrow {
   box-sizing: border-box;
   margin-left: 4px;
@@ -921,29 +971,24 @@ All Rights Reserved.
   color: #555;
   border: 1px solid transparent;
 }
-
 .rr-crosstab-field-arrow:hover {
   color: black;
   border: 1px solid #555;
   border-radius: 3px;
 }
-
 .rr-crosstab {
   font-size: 10px;
 }
-
 .rr-crosstab-head {
   padding: 2px 1px !important;
   font-size: 10px;
   text-align: center;
   background-color: "#f0f0f0";
 }
-
 .rr-crosstab-value {
   padding: 1px 1px !important;
   text-align: right;
 }
-
 .rr-crosstab-null {
   background-color: #efefef;
 }
@@ -1031,11 +1076,19 @@ All Rights Reserved.
   font-size: 14px;
 }
 
-.rr-band-designer {
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #f8f8f8;
-  border: 1px solid gray;
+/* tableband designer */
+.rr-band-designer,
+.rr-table-designer {
+  padding: 0;
+  border: none;
+  background: white;
+  resize: both;
+  overflow: hidden;
+}
+
+.rr-band-designer-title,
+.rr-table-designer-title {
+  padding: 10px !important;
 }
 
 .rr-band-designer span[data-title="1"] {
@@ -1081,21 +1134,38 @@ All Rights Reserved.
   white-space: nowrap;
   cursor: pointer;
 }
-
 .rr-edit-marquee-item:hover {
-  background-color: #444455ff;
+  background-color: #555566ff;
 }
-
 .rr-edit-marquee-item[data-select] {
   background-color: #0088ddb0;
 }
-
 .rr-edit-marquee-item[data-focus] {
   background-color: #0044eeb0;
 }
-
 .rr-edit-marquee-item[data-cellselect] {
   background-color: #000000b0;
+}
+
+.rr-edit-marquee-line {
+  position: absolute;
+  border-left: 1px dashed #777;
+}
+.rr-edit-marquee-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 8px solid #999;
+}
+.rr-edit-marquee-label {
+  position: absolute;
+  color: #555;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  /* cursor: pointer; */
+  pointer-events: all;
 }
 
 .rr-edit-marquee-tracker {
@@ -1163,11 +1233,401 @@ All Rights Reserved.
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
+.rr-excel-root {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+  font-size: 15px;
+}
+.rr-excel-report-view {
+  background-color: white;
+  box-shadow: rgba(60, 64, 67, 0.05) 4px 4px 6px 1px;
+}
+
+.rr-excel-item-halo {
+  border: 2px dashed #00000018;
+  border-radius: 4px;
+  font-size: 10px;
+  line-height: 1.1em;
+  color: #00000040;
+  /* text-align: right; */
+  transition: all 0.3s ease;
+}
+.rr-excel-item-halo-tag span {
+  color: #ffbbbb80;
+}
+.rr-excel-item-halo:hover {
+  border-color: #0088ff80;
+  border-style: solid;
+  color: #0088ff80;
+}
+.rr-excel-item-halo:hover .rr-excel-item-halo-tag span {
+  color: #ffbbbb;
+}
+
+.rr-sheet-table tr td {
+  position: relative;
+  margin: 0 !important;
+  padding: 0 2px;
+  border-spacing: 0 !important;
+  box-sizing: border-box !important;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  white-space: pre;
+}
+
+.rr-sheet-design-table tr {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.rr-sheet-design-table tr td {
+  border: 1px solid #ddd;
+  overflow: hidden;
+}
+.rr-sheet-design-table tr td:hover {
+  background-color: rgba(0, 127, 255, 0.1);
+}
+
+.rr-sheet-design-table tr td[data-elock], td[data-elock]:hover {
+  color: #d0d0e0 !important;
+  font-size: 0.6em !important;
+  font-style: italic !important;
+  text-align: right !important;
+  vertical-align: top !important;
+  background: #aabbff10;
+}
+.rr-sheet-design-table tr td[data-elock="1"], td[data-elock="1"]:hover {
+  background: #aabbff20;
+}
+.rr-sheet-design-table tr td[data-elock="2"], td[data-elock="2"]:hover {
+  background: #aabbff30;
+}
+.rr-sheet-design-table tr td[data-elock="3"], td[data-elock="3"]:hover {
+  background: #aabbff40;
+}
+.rr-sheet-design-table tr td[data-elock="4"], td[data-elock="4"]:hover {
+  background: #aabbff50;
+}
+
+.rr-sheet-design-table tr td[data-edummy] {
+  color: #d0d0d0 !important;
+  font-size: 0.7em !important;
+  font-style: italic !important;
+  text-align: right !important;
+  vertical-align: top !important;
+  background: #f8f8f8;
+}
+
+.rr-sheet-design-table .rr-excel-hidden-item {
+  padding: 0 4px;
+  background-color: #aabbff15;
+  border-color: #ccc;
+  color: #abf;
+  font-size: 10px;
+  font-style: italic;
+}
+
+.rr-sheet-design-table tr td[data-type="text"][data-empty]:before {
+  color: #aaa;
+  text-align: center;
+  content: "[TEXT]";
+  font-size: 0.9em;
+  display: inline-table;
+  width: 100%;
+  /** #2111 */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rr-sheet-design-table tr td[data-type="summary"][data-empty]:before {
+  color: #aaa;
+  text-align: center;
+  content: "[SUMMARY]";
+  font-size: 0.9em;
+  display: inline-table;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rr-sheet-design-table tr td[data-type="image"][data-empty] {
+  margin: 0;
+  padding: 0;
+  background: #f8f8f8;
+}
+.rr-sheet-design-table tr td[data-type="image"][data-empty]:before {
+  display: table;
+  content: "[IMAGE]";
+  white-space: nowrap;
+  text-align: center;
+  font-size: 0.9em;
+  color: #999;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.rr-sheet-design-table tr td[data-type="image"][data-empty] div {
+  display: none;
+}
+
+.rr-sheet-design-table tr td[data-type="sign"][data-empty] {
+  margin: 0;
+  padding: 0;
+  background: #f8f8f8;
+}
+.rr-sheet-design-table tr td[data-type="sign"][data-empty]:before {
+  display: table;
+  content: "[서 명]";
+  white-space: nowrap;
+  text-align: center;
+  font-size: 0.9em;
+  color: #999;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.rr-sheet-design-table tr td[data-type="sign"][data-empty] div {
+  display: none;
+}
+
+.rr-sheet-design-table tr td[data-type="stamp"][data-empty] {
+  margin: 0;
+  padding: 0;
+  background: #f8f8f8;
+}
+.rr-sheet-design-table tr td[data-type="stamp"][data-empty]:before {
+  display: table;
+  content: "[도 장]";
+  white-space: nowrap;
+  text-align: center;
+  font-size: 0.9em;
+  color: #999;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.rr-sheet-design-table tr td[data-type="stamp"][data-empty] div {
+  display: none;
+}
+
+.rr-sheet-top-header,
+.rr-sheet-corner-header,
+.rr-sheet-col-header, 
+.rr-sheet-row-header {
+  background: #e5e7eb;
+}
+
+.rr-sheet-header {
+  border: none;
+}
+.rr-sheet-header tr {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.rr-sheet-header tr td:hover {
+  background-color: #74aee5a8;
+  color: black;
+}
+
+.rr-sheet-header tr td[data-focused] {
+  background-color: #e0f2fe;
+}
+
+.rr-sheet-header tr td[data-hselect] {
+  background-color: #74aee5a8;
+}
+.rr-sheet-header tr td[data-hselect]:hover {
+  background-color: #74aee5a8;
+}
+
+.rr-sheet-row-header {
+  border-right: 1px solid #ccc;
+}
+.rr-sheet-rowheader tr td {
+  box-sizing: border-box; 
+  border: 1px solid #ccc;
+  border-left: none;
+  background-color: white;
+  color: #555;
+  text-align: center;
+  font-size: 13px;
+}
+
+.rr-sheet-colheader tr td {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-top: none;
+  background-color: white;
+  color: #555;
+  font-size: 12px;
+  text-align: center;
+}
+
+.rr-sheet-header-select {
+  pointer-events: none;
+  border-width: 2px;
+  border-color: rgba(33, 33, 127, 0.6);
+  background-color: rgba(33, 33, 127, 0.1);
+}
+.rr-sheet-header-select[data-row] {
+  border-left-style: solid;
+  border-top-style: solid;
+  border-bottom-style: solid;
+}
+.rr-sheet-header-select[data-col] {
+  border-left-style: solid;
+  border-right-style: solid;
+}
+
+/** sheet edtitor **/
+.rr-sheet-editor-header {
+  border: none;
+}
+.rr-sheet-editor-header tr td {
+  background-color: #f0f0f0;
+  border: 1px solid #aaa;
+  padding: 0;
+}
+.rr-sheet-editor-title {
+  background-color: #dde;
+  box-sizing: border-box;
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+}
+.rr-sheet-editor-header tr td {
+  background-color: #eee;
+  border-color: #aaa;
+}
+.rr-sheet-editor-header tr td[data-selected] {
+  background-color: #77ccff40;
+}
+.rr-sheet-editor-colheader tr td {
+  border-top: none !important;
+  color: #555;
+  font-size: 12px;
+  text-align: center;
+}
+.rr-sheet-editor-colheader tr td:first-child {
+    border-left: none !important;
+}
+.rr-sheet-editor-rowheader tr td {
+  border-left: none !important;
+  color: #555;
+  text-align: center;
+  font-size: 13px;
+}
+.rr-sheet-editor-rowheader tr td:first-child {
+    border-top: none;
+}
+.rr-sheet-editor-header tr td:hover {
+    background-color: #0088ff40;
+    color: black;
+}
+.rr-sheet-editor-table tr td {
+  background-color: white;
+}
+.rr-sheet-editor-table tr:first-child td {
+  border-top: none !important;
+}
+.rr-sheet-editor-table tr td:first-child {
+  border-left: none !important;
+}
+.rr-sheet-editor-select {
+  border: 2px solid #0088ff;
+  background-color: #0088ff10;
+}
+.rr-sheet-editor-select[data-type="col"] {
+  border-top: none;
+  border-bottom: none;
+}
+.rr-sheet-editor-select[data-type="row"] {
+  border-left: none;
+  border-right: none;
+}
+
+.rr-sheet-editor-table tr td[data-type="sign"][data-empty] {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.rr-sheet-editor-table tr td[data-type="sign"][data-empty]:before {
+  display: table;
+  content: "서 명";
+  white-space: nowrap;
+  text-align: center;
+  color: #777;
+  width: 100%;
+}
+.rr-sheet-editor-table tr td[data-type="sign"][data-empty] div {
+  display: none;
+}
+.rr-sheet-editor-table tr td[data-type="stamp"][data-empty] {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.rr-sheet-editor-table tr td[data-type="stamp"][data-empty]:before {
+  display: table;
+  content: "도 장";
+  white-space: nowrap;
+  text-align: center;
+  color: #777;
+  width: 100%;
+}
+.rr-sheet-editor-table tr td[data-type="stamp"][data-empty] div {
+  display: none;
+}
+
+.rr-sheet-borders-popup {
+  display: none;
+  width: max-content;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid var(--rrd-light-theme-primary-color-7);
+  color: #3a3a3a;
+  border-radius: 2px;
+  z-index: 5;
+}
+
+.rr-sheet-borders-popup [data-active] {
+  background: var(--rrd-light-theme-primary-color-3);
+}
+
+.rr-border-svg-container {
+  display : flex;
+  flex-direction : column;
+  align-items : center;
+  gap : 2px;
+  padding : 2px;
+  border-radius : 2px;
+  cursor : pointer;
+}
+.rr-border-svg-container:hover {
+  background: var(--rrd-light-theme-primary-color-3); 
+}
+
+.rr-border-direction-icons-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  stroke-width: 1.5px;
+  stroke: var(--light-theme-icon-color);
+  cursor: pointer;
+}
+
+.rr-border-direction-icons-container:hover {
+  background: var(--rrd-light-theme-primary-color-4);
+}
+
 @keyframes fade-out {
   from {
     opacity: 1;
   }
-
   to {
     opacity: 0;
   }
@@ -1195,6 +1655,22 @@ All Rights Reserved.
   height: 100px;
 }
 
+.rr-confirm-dlg {
+    border: 2px solid black;
+    padding: 1rem;
+}
+
+.rr-confirm-dlg p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.rr-confirm-dlg button {
+    padding: 1px 6px;
+    background: rgb(239, 239, 239);
+    border: 1px solid black;
+    font-size: 13px;
+}
 
 /* RealChart Style */
 

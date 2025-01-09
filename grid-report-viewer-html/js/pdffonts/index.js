@@ -12,10 +12,10 @@ async function base64convert (url, split) {
     });
 }
 
-var malgun = async () => {
-    return await base64convert('./malgun.ttf', true);
+var nanum = async () => {
+    return await base64convert('./NanumGothic.otf', true);
 }
 
-var malgunBold = async () => {
-    return await base64convert('./malgunbd.ttf', true);
+var nanumBold = async () => {
+    return await base64convert('./NanumGothicBold.otf', true);
 }
