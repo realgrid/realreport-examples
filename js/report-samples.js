@@ -3819,8 +3819,8 @@ var signReport = {
                                     data: 'estimate-detail',
                                     width: '100%',
                                     name: '',
-                                    masterFields: 'Cumstomer, Company',
-                                    keyFields: 'Cumstomer, Company',
+                                    masterFields: 'Customer, Company',
+                                    keyFields: 'Customer, Company',
                                     rowsPerPage: 25,
                                     repeatDetailFooter: true,
                                     endRowCount: 25,
@@ -4574,6 +4574,7 @@ var signReport = {
                     },
                 ],
             },
+            styles: { fontFamily: 'NanumGothic' },
         },
         assets: { '/': [] },
         data: {
