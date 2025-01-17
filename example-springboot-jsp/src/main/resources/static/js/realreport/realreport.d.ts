@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.0
-* commit f09cf1a
+* RealReport v1.10.1
+* commit adfd58a
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.10.0
+* RealReport Core v1.10.1
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 376c78047308924c5f7eba00728f7b76370b99d7
+* commit df9f36f8ce85540c89c6bff947ccff5bb0be423f
 */
 
 
@@ -1852,6 +1852,8 @@ declare class DesignDataManager extends EventAware$1 implements IReportDataProvi
     save(target: object, options?: ReportSaveOptions): void;
     getFieldIndex(data: string, field: string): number;
     updateField(data: BandData, index: number, field: IBandDataField): void;
+    addField(data: BandArrayData, index: number, field: IBandDataField): void;
+    removeField(data: BandArrayData, field: IBandDataField): void;
     renameData(data: IReportData, newName: string): void;
     private $_register;
     private $_unregister;
@@ -2233,6 +2235,7 @@ declare abstract class DataBand extends ReportGroupItem {
      * 출력시 사용되는 밴드의 정보를 초기값으로 초기화
      */
     resetBandPrintingValue(): void;
+    getNextSiblingsOf(detail: DataBand): ReportItem[];
     abstract containsInSection(item: ReportItem): boolean;
     get designLevel(): number;
     get dataDominant(): boolean;
@@ -6438,7 +6441,7 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     onI18nManagerFieldAdded(i18n: I18nManager, field: string): void;
     onI18nManagerFieldRemoved(i18n: I18nManager, field: string): void;
     onI18nManagerDefaultLanguageChanged(i18n: I18nManager, language: string): void;
-    onDesignDataManagerDataAdded(dm: DesignDataManager, data: IReportData, silent: boolean): void;
+    onDesignDataManagerDataAdded(dm: DesignDataManager, data: IReportData, silent: boolean, index: number): void;
     onDesignDataManagerDataRemoved(dm: DesignDataManager, data: IReportData): void;
     onDesignDataManagerDataUpdated(dm: DesignDataManager, data: IReportData): void;
     onDesignDataManagerNameChanged(dm: DesignDataManager, data: IReportData, oldName: string): void;
@@ -8402,6 +8405,8 @@ declare abstract class ExcelDataBandSection extends ExcelGroupItem {
     canDelete(): boolean;
     canMove(): boolean;
     validateChildProp(item: ExcelItems, prop: string, value: number): number;
+    getRowPushedItems(row: number): ExcelItems[];
+    getRowPulledItems(row: number): ExcelItems[];
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
 }
