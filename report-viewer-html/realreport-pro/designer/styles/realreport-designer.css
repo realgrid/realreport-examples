@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.10.0
+RealReport Designer v1.10.2
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -547,6 +547,16 @@ All Rights Reserved.
   content: "[SUMMARY]";
   display: table;
   width: 100%;
+}
+
+.rr-text-band .rr-text-band-body[data-empty]:before {
+  background-color: #00000008;
+  color: #777;
+  text-align: center;
+  content: "[TEXT BAND]";
+  display: table;
+  width: 100%;
+  padding: 2px;
 }
 
 .rr-html[data-empty]:before {
@@ -3422,28 +3432,21 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 /* Designer Style */
 
 .rrd-root {
-  --rrd-font-family: "Malgun Gothic", "맑은 고딕", AppleSDGothicNeo-Light,
-    sans-serif;
-
+  --rrd-font-family: "Malgun Gothic", "맑은 고딕", AppleSDGothicNeo-Light, sans-serif;
   --rrd-panel-header-color: #4e4e80;
-
   --rrd-dialog-background: #333842;
   --rrd-dialog-title-background: #7474c1;
   --rrd-dialog-bottom-background: #f0f0f0;
   --rrd-dialog-invalid-color: #ff4d4f;
-
   --rrd-script-editor-background: #282c34;
   --rrd-tool-item-border-radius: 3px;
   --rrd-tool-item-edit-padding-horz: 8px;
   --rrd-tool-item-select-background-color: #fcfcfc;
-
   --rrd-focus-bg-color: #4daaff;
   --rrd-marquee-bg-color: #55adff;
   --rrd-marquee-cellselect-bg-color: #49a7ff;
   --rrd-marquee-focus-bg-color: #0083ff;
-
   --rrd-preview-border-color: lightgray;
-
   --rrd-hover-opacity: 0.8;
   --rrd-radius: 4px;
 
@@ -4982,10 +4985,14 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 .rrd-band-field-table-label {
   flex: 1 1 auto;
   padding: 2px 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .rrd-band-data-sample-head {
   flex: 1 1 auto;
   padding: 2px 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* Data Field, Sample 테이블 헤더 영역은 고정 처리 */

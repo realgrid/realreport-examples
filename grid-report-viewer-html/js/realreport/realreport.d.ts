@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.1
-* commit adfd58a
+* RealReport v1.10.2
+* commit eba6b8c
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.10.1
+* RealReport Core v1.10.2
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit df9f36f8ce85540c89c6bff947ccff5bb0be423f
+* commit 4cdcb307bd96df72a34275cc094312196b9849ee
 */
 
 
@@ -1905,26 +1905,13 @@ declare abstract class DataBandRowGroup extends ReportGroupItem {
     protected _doSave(target: object): void;
     getPropDomain(prop: IPropInfo): any[];
 }
-interface BandBorders {
-    border: string;
-    borderLeft: string;
-    borderRight: string;
-    borderTop: string;
-    borderBottom: string;
-}
-interface BorderWidths {
-    left: number;
-    right: number;
-    top: number;
-    bottom: number;
-}
 /**
  * Data band base class.
  *
  * [제한 사항]
  * 1. detail band는 multi columns 불가. (TODO: master가 multi column이 아니면 가능하지 않을까?)
  */
-declare abstract class DataBand extends ReportGroupItem {
+declare abstract class DataBand extends ReportBandItem {
     static readonly PROP_DATA_BAND_MASTER_FIELDS = "masterFields";
     static readonly PROP_DATA_BAND_KEY_FIELDS = "keyFields";
     static readonly PROP_DATA_BAND_ROWS_PER_MASTER = "rowsPerMaster";
@@ -2227,9 +2214,6 @@ declare abstract class DataBand extends ReportGroupItem {
     getMin(field: string, count: number, rows?: number[]): number;
     getMax(field: string, count: number, rows?: number[]): number;
     getAvg(field: string, count: number, rows?: number[]): number;
-    getBandBorders(): BandBorders;
-    getBandBorderWidths(): BorderWidths;
-    hasBorder(): boolean;
     getPropDomain(prop: IPropInfo): any[];
     /**
      * 출력시 사용되는 밴드의 정보를 초기값으로 초기화
@@ -2242,9 +2226,6 @@ declare abstract class DataBand extends ReportGroupItem {
     protected _datable(): boolean;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
-    canAddTo(group: ReportGroupItem): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    canPageBreak(): boolean;
     protected _canChildData(): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
@@ -3252,15 +3233,11 @@ declare abstract class SimpleBandSection extends StackContainer {
     static readonly PROP_SIMPLE_BAND_SECTION_REPEAT = "repeat";
     static readonly PROPINFOS: IPropInfo[];
     static readonly PROP_FIELD = "field";
-    private _repeat;
     private _child_field;
     private _band;
     constructor(band: SimpleBand);
     /** band */
     get band(): SimpleBand;
-    /** repeat */
-    get repeat(): boolean;
-    set repeat(value: boolean);
     /**
      * field
      */
@@ -3276,8 +3253,8 @@ declare abstract class SimpleBandSection extends StackContainer {
 }
 declare class SimpleBandHeader extends SimpleBandSection {
     static readonly $_ctor: string;
-    constructor(band: SimpleBand);
     get outlineLabel(): string;
+    get pathLabel(): string;
 }
 declare class SimpleBandFooter extends SimpleBandSection {
     static readonly PROP_ATTACH_TO_BODY = "attachToBody";
@@ -3285,6 +3262,7 @@ declare class SimpleBandFooter extends SimpleBandSection {
     static readonly $_ctor: string;
     private _attachToBody;
     /**
+     * 두 컬럼 이상의 밴드에서,
      * true면 multi column 모드일 때 마지막 컬럼의 마지막 행에 붙여서 출력하고,
      * false면 모든 컬럼의 가장 아래쪽에 붙여서 출력한다.
      *
@@ -3293,6 +3271,7 @@ declare class SimpleBandFooter extends SimpleBandSection {
     get attachToBody(): boolean;
     set attachToBody(value: boolean);
     get outlineLabel(): string;
+    get pathLabel(): string;
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
@@ -3307,6 +3286,7 @@ declare class SimpleBandRow extends SimpleBandSection {
     get blankItems(): ReportItem[];
     canBlank(item: ReportItem, row: number): boolean;
     get outlineLabel(): string;
+    get pathLabel(): string;
     get dataDominant(): boolean;
     get isDataRowContainer(): boolean;
     protected _getChildPropInfos(item: ReportItem): IPropInfo[];
@@ -3326,11 +3306,13 @@ declare class SimpleBandRowGroupHeader extends SimpleBandRowGroupSection {
     static readonly $_ctor: string;
     constructor(group: SimpleBandRowGroup);
     get outlineLabel(): string;
+    get pathLabel(): string;
 }
 declare class SimpleBandRowGroupFooter extends SimpleBandRowGroupSection {
     static readonly $_ctor: string;
     constructor(group: SimpleBandRowGroup);
     get outlineLabel(): string;
+    get pathLabel(): string;
 }
 declare class SimpleBandRowGroup extends DataBandRowGroup {
     static readonly PROPINFOS: IPropInfo[];
@@ -3351,6 +3333,8 @@ declare class SimpleBandRowGroup extends DataBandRowGroup {
     get report(): ReportBase;
     get collection(): SimpleBandRowGroupCollection;
     get dataParent(): ReportGroupItem;
+    get outlineLabel(): string;
+    get displayPath(): string;
     protected _ignoreItems(): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
@@ -3670,6 +3654,7 @@ declare abstract class ReportItemElement<T extends ReportItem = ReportItem> exte
     layoutContent(ctx: PrintContextBase): void;
     protected _doMeasureFolded(hintWidth: number, hintHeight: number): Size$1;
     protected _doLayoutFolded(): void;
+    protected _getStyleTarget(dom: HTMLElement): HTMLElement;
     protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
     private $_setRotation;
     protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
@@ -3756,7 +3741,13 @@ declare abstract class ReportGroupItemElement<T extends ReportGroupItem = Report
     protected _doPrint(doc: Document, ctx: PrintContext): void;
 }
 type ReportGroupItemView = ReportGroupItemElement<ReportGroupItem>;
-declare abstract class BandElement<T extends DataBand = DataBand> extends ReportGroupItemElement<T> {
+declare abstract class BandItemElement<T extends ReportBandItem = ReportBandItem> extends ReportGroupItemElement<T> {
+    abstract getLines(): ReportItemElement[];
+    getSibling(item: ReportItemElement, delta: number): ReportItemElement;
+    protected _getNext(item: ReportItemElement): ReportItemElement;
+    protected _getPrev(item: ReportItemElement): ReportItemElement;
+}
+declare abstract class BandElement<T extends DataBand = DataBand> extends BandItemElement<T> {
     static readonly END_ROW_MESSAGE_CLASS = "rr-end-row-message";
     static readonly END_ROW_CLASS = "rr-end-row";
     static readonly BORDER_CONTAINER = "rr-band-border-container";
@@ -3764,17 +3755,13 @@ declare abstract class BandElement<T extends DataBand = DataBand> extends Report
     private _needFooterView;
     get needFooterView(): boolean;
     set needFooterView(value: boolean);
-    abstract getLines(): ReportItemElement[];
     abstract printRow(ctx: PrintContext, row: number): any;
-    getSibling(item: ReportItemElement, delta: number): ReportItemElement;
     findMasterBand(band: DataBand): DataBand;
     getBandLevel(masterBand: DataBand, band: DataBand): string;
     abstract addMasterRow(page: HTMLDivElement, headerView: any, rowView: any, x: number, y: number): number;
     abstract prepareAsync(doc: Document, ctx: PrintContext, width: number, subRows: number[], masterRow: number): BandPrintInfo<any>;
     abstract prepareSubBand(doc: Document, ctx: PrintContext, width: number, dataRows: number[]): BandPrintInfo<any>;
     protected _prepareDetail(doc: Document, ctx: PrintContext, band: DataBand, details: DataBandCollection, detailViews: BandCollectionElement, masterBandRow: number, rows: BandPrintRow[], width: number): void;
-    protected _getNext(item: ReportItemElement): ReportItemElement;
-    protected _getPrev(item: ReportItemElement): ReportItemElement;
     private $_prepareDetailDataBand;
     private $_prepareDetailBandGroup;
     private $_setBandLevel;
@@ -5315,6 +5302,7 @@ declare enum ReportItemType {
     BANDCELL = "bandcell",
     CROSSTAB = "crosstab",
     DATALIST = "datalist",
+    TEXTBAND = "textband",
     FLOATING = "floating",
     SHAPE = "shape",
     BARCODE = "barcode",
@@ -7090,6 +7078,11 @@ declare class ReportPage extends ReportPageBase {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _createRemoveItemsCommand(items: ReportPageItem[]): ReportEditCommand;
     afterLayout(printing: boolean): void;
+    /**
+     * ReportPage는 따로 visible 속성을 설정하지 않으므로 reportItem.isPrintable을 사용하지 않는다.
+     * @returns
+     */
+    isPrintable(context: PrintContextBase): boolean;
     protected _initSections(): ReportGroupItem[];
     protected _createPageBody(): PageBody;
     protected _createReportFooter(): ReportFooter;
@@ -7468,6 +7461,9 @@ declare class PageBodyElement extends ReportElement {
      */
     private $_createSubBandPrintRows;
     private $_createSubBandPrintLines;
+    /**
+     */
+    private $_prepareTextBandElement;
     private $_isLastChild;
 }
 
@@ -11330,6 +11326,12 @@ declare class ReportView extends ReportViewBase$1<Report> implements IImageConta
     findElementOf(dom: HTMLElement): ReportElement;
     getElementOf(model: ReportPageItem): ReportElement;
     getItemBoundingRect(element: VisualElement$1, rotated?: boolean): Rectangle$1;
+    /**
+     * onGetVisible 설정에 의해 출력 가능한 페이지의 시작 Index를 반환한다.
+     * @param fromIndex 검색을 시작해야할 페이지 인덱스 정보
+     * @returns
+     */
+    getVisiblePageIndex(ctx: PrintContext, fromIndex?: number): number;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _resetPages(model: Report): void;
     protected _createEmptyView(doc: Document): VisualElement$1;
@@ -11412,6 +11414,83 @@ interface ISimpleGroupPrintInfo extends IGroupPrintInfo {
 }
 type SimpleBandPrintRow = BandPrintRow | ISimpleGroupPrintInfo;
 
+declare abstract class TextBandSection extends StackContainer {
+    static readonly PROP_REPEAT = "repeat";
+    static readonly PROPINFOS: IPropInfo[];
+    private _repeat;
+    private _band;
+    constructor(band: TextBand);
+    /** band */
+    get band(): TextBand;
+    /** repeat */
+    get repeat(): boolean;
+    set repeat(value: boolean);
+    get designLevel(): number;
+    get marqueeParent(): ReportItem;
+    protected _datable(): boolean;
+    canCopy(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+declare class TextBandHeader extends TextBandSection {
+    static readonly $_ctor: string;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+}
+declare class TextBandFooter extends TextBandSection {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+/**
+ * 페이지를 넘길 수 있는 멀티 라인 텍스트 아이템.
+ */
+declare class TextBand extends ReportBandItem {
+    static readonly PROP_TEXT = "text";
+    static readonly PROP_LINE_SEPARATORS = "lineSeparators";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Text Band";
+    private _text;
+    private _lineSeparators;
+    private _header;
+    private _footer;
+    prevHead: boolean;
+    rowIndex: number;
+    _pr: number;
+    _pageNo: number;
+    constructor(name: string);
+    /** header */
+    get header(): TextBandHeader;
+    /** footer */
+    get footer(): TextBandFooter;
+    /** text */
+    get text(): string;
+    set text(value: string);
+    /** html */
+    get lineSeparators(): string;
+    set lineSeparators(value: string);
+    getText(v: any): string;
+    getDesignText(): string;
+    isEmpty(): boolean;
+    get outlineLabel(): string;
+    getSaveType(): string;
+    protected _valueable(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    canAdoptDragSource(source: any): boolean;
+    canAdd(item: ReportItem): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
 interface AsyncLoadable {
     loadAsync(ctx: PrintContextBase): Promise<void>;
 }
@@ -11465,7 +11544,7 @@ declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base$1
     private _tags;
     private _bandSave;
     async: boolean;
-    band: DataBand | CrosstabBand;
+    band: DataBand | CrosstabBand | TextBand;
     pages: PrintPage[];
     floatings: HTMLDivElement[];
     reportCount: number;
@@ -11525,6 +11604,7 @@ declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base$1
      * page count.
      */
     get pageCount(): number;
+    set pageCount(count: number);
     /**
      * page index.
      */
@@ -11563,7 +11643,6 @@ declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base$1
     preparePrint(report?: R): void;
     preparePage(page: number, allPage: number): void;
     setDetailPage(count: number, page: number): void;
-    finishPrint(pageCount: number): void;
     setCompositePageCount(compostePageCount: number): void;
     getUserData(): any;
     getCurrentValue(prop: string): any;
@@ -11601,6 +11680,10 @@ declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base$1
     loadAsyncLoadableElements(): Promise<void[]>;
     getPrintValue(m: ReportItem): any;
     getPrintLinkValue(m: ReportItem): any;
+    /**
+     * PrintContext에서 초기화가 필요한 속성들을 설정한다.
+     */
+    initialize(): void;
 }
 type ContextValueCallback = (ctx: PrintContextBase) => any;
 declare class PageBreaker {
@@ -11890,16 +11973,18 @@ interface ISelectionSource {
     canSelectedWith(other: ISelectionSource): boolean;
     canMakeSnippet(): boolean;
 }
-declare enum DropResultType {
-    PROP = "prop",
-    ITEM = "item"
+interface ReportItemBorders {
+    border: string;
+    borderLeft: string;
+    borderRight: string;
+    borderTop: string;
+    borderBottom: string;
 }
-interface IDropResult {
-    type: DropResultType;
-    prop?: string;
-    value?: any;
-    hintWidth?: number;
-    hintHeight?: number;
+interface ReportItemBorderWidths {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
 }
 /**
  * Report page 구성 요소 기반 클래스.
@@ -12214,6 +12299,7 @@ declare abstract class ReportItem extends ReportPageItem {
      */
     get width(): ValueString;
     set width(value: ValueString);
+    protected _validateWidth(value: ValueString): ValueString;
     /**
      * height
      */
@@ -12449,6 +12535,9 @@ declare abstract class ReportItem extends ReportPageItem {
      * @returns 리포트 아이템 표시 여부
      */
     isPrintable(context: PrintContextBase): boolean;
+    getItemBorders(): ReportItemBorders;
+    getItemBorderWidths(): ReportItemBorderWidths;
+    hasItemBorder(): boolean;
     get marqueeParent(): ReportItem;
     get printable(): boolean;
     isReadOnlyProperty(prop: IPropInfo): boolean;
@@ -12607,6 +12696,11 @@ declare abstract class ReportGroupItem extends ReportItem {
     private $_childChanged;
     protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
     protected _setOutlineOrders(start: number, ...items: ReportPageItem[]): void;
+}
+declare abstract class ReportBandItem extends ReportGroupItem {
+    canAddTo(group: ReportGroupItem): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    canPageBreak(): boolean;
 }
 declare abstract class ReportItemCollectionItem extends ReportPageItem {
     private _collection;
@@ -13722,6 +13816,17 @@ declare enum SectionInherit {
     NONE = "none",
     HEAD = "head",
     PREVIOUS = "previous"
+}
+declare enum DropResultType {
+    PROP = "prop",
+    ITEM = "item"
+}
+interface IDropResult {
+    type: DropResultType;
+    prop?: string;
+    value?: any;
+    hintWidth?: number;
+    hintHeight?: number;
 }
 
 declare abstract class PrintContainerBase extends VisualContainer$1 {

@@ -395,6 +395,16 @@ function crossTabSample(el) {
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
 }
 
+function editableSample(el) {
+    openTab('reportTab', 'gridTab');
+    reportViewer = webDesignerFrame('webDesignerFrame', editableReport);
+    reportForm = editableReport;
+    dataSet = editableReport.dataSet;
+    setEditorModel('reportForm');
+    hiddenFrame('reportFrame');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+}
+
 function multiReportSample1(el) {
     openTab('reportTab', 'gridTab');
     reportViewer = webDesignerFrame('webDesignerFrame', multiSample317);

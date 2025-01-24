@@ -4940,3 +4940,261 @@ var signReport = {
         },
     },
 };
+
+var editableReport = {
+    form: {
+        report: {
+            name: 'reportRoot',
+            type: 'report',
+            paperSize: 'A4',
+            paperWidth: '210mm',
+            paperHeight: '297mm',
+            marginLeft: '12mm',
+            marginRight: '12mm',
+            marginTop: '15mm',
+            marginBottom: '15mm',
+            editing: { editable: true },
+        },
+        page: {
+            name: 'reportPage',
+            pageHeader: {
+                name: 'pageHeader',
+                items: [
+                    {
+                        type: 'text',
+                        value: '${date}',
+                        name: '',
+                        right: 0,
+                        dateFormat: 'yyyy/MM/dd',
+                        text: '',
+                    },
+                ],
+            },
+            reportHeader: { name: 'reportHeader' },
+            reportFooter: { name: 'reportFooter' },
+            pageFooter: {
+                name: 'pageFooter',
+                items: [
+                    {
+                        type: 'text',
+                        value: '${pages}',
+                        width: 37,
+                        name: '',
+                        right: 0,
+                        text: '',
+                        styles: { textAlign: 'left' },
+                    },
+                    { type: 'text', name: '', right: '38px', text: '/' },
+                    {
+                        type: 'text',
+                        value: '${page}',
+                        name: '',
+                        right: '45px',
+                        text: 'Text',
+                        styles: { textAlign: 'right' },
+                    },
+                ],
+            },
+            body: {
+                itemGap: 4,
+                items: [
+                    {
+                        type: 'simpleband',
+                        data: 'mail-label',
+                        width: '100%',
+                        name: '',
+                        sectionCount: 2,
+                        sectionGap: 50,
+                        rowsPerPage: 6,
+                        detail: { type: 'details', width: '100%', name: '' },
+                        groups: [],
+                        header: {
+                            type: 'stack',
+                            name: 'bandHeader',
+                            width: 350.4960629921259,
+                        },
+                        footer: {
+                            type: 'stack',
+                            name: 'bandPageFooter',
+                            width: '100%',
+                        },
+                        dataRow: {
+                            type: 'stack',
+                            name: 'bandrow',
+                            width: '100%',
+                            onGetStyles: '',
+                            styles: {
+                                paddingRight: 'px',
+                                paddingBottom: '30px',
+                            },
+                            styleCallback: null,
+                            items: [
+                                {
+                                    type: 'stack',
+                                    width: '100%',
+                                    height: 105,
+                                    name: '',
+                                    styles: {
+                                        paddingLeft: '10px',
+                                        paddingTop: '10px',
+                                        paddingRight: '10px',
+                                        paddingBottom: '10px',
+                                        border: '1px solid',
+                                    },
+                                    items: [
+                                        {
+                                            type: 'text',
+                                            value: 'PostalCode',
+                                            width: '100%',
+                                            name: '',
+                                            top: '0px',
+                                            text: 'Text',
+                                            editing: {
+                                                editable: true,
+                                                type: 'text',
+                                            },
+                                            styles: {
+                                                fontSize: '15px',
+                                                textAlign: 'left',
+                                                paddingLeft: '16px',
+                                            },
+                                        },
+                                        {
+                                            type: 'text',
+                                            value: 'Address',
+                                            width: '100%',
+                                            name: '',
+                                            top: '30px',
+                                            text: 'Text',
+                                            editing: {
+                                                editable: true,
+                                                type: 'text',
+                                            },
+                                            styles: {
+                                                fontSize: '15px',
+                                                textAlign: 'right',
+                                                paddingRight: '16px',
+                                            },
+                                        },
+                                        {
+                                            type: 'text',
+                                            value: 'ContactName',
+                                            width: '100%',
+                                            name: '',
+                                            bottom: '0px',
+                                            text: 'Text',
+                                            editing: {
+                                                editable: true,
+                                                type: 'text',
+                                            },
+                                            styles: {
+                                                fontSize: '15px',
+                                                fontWeight: 'bold',
+                                                textAlign: 'right',
+                                                paddingRight: '16px',
+                                            },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        styles: { paddingRight: 'px', paddingBottom: '30px' },
+                    },
+                ],
+            },
+        },
+        assets: { '/': [] },
+        data: {
+            'mail-label': {
+                type: 'band',
+                fields: [
+                    {
+                        fieldName: 'PostalCode',
+                        dataType: 'text',
+                        sample: '742-170',
+                        dateReader: null,
+                    },
+                    {
+                        fieldName: 'Address',
+                        dataType: 'text',
+                        sample: '가장동 78-3 상주시 대한민국',
+                        dateReader: null,
+                    },
+                    {
+                        fieldName: 'ContactName',
+                        dataType: 'text',
+                        sample: '한석규',
+                        dateReader: null,
+                    },
+                ],
+            },
+        },
+    },
+    dataSet: {
+        'mail-label': {
+            type: 'band',
+            values: [
+                {
+                    PostalCode: '742-170',
+                    Address: '가장동 78-3 상주시 대한민국',
+                    ContactName: '한석규',
+                },
+                {
+                    PostalCode: '137-060',
+                    Address: '서초구 방배동 883-11 서울특별시 대한민국',
+                    ContactName: '황영순',
+                },
+                {
+                    PostalCode: '157-280',
+                    Address: '강서구 내발산동 318 서울특별시 대한민국',
+                    ContactName: '조자릉',
+                },
+                {
+                    PostalCode: '402-110',
+                    Address: '남구 연수동 208-16 인천광역시 대한민국',
+                    ContactName: '구재석',
+                },
+                {
+                    PostalCode: '302-160',
+                    Address: '서구 도마동 110-6 대전광역시 대한민국',
+                    ContactName: '최영희',
+                },
+                {
+                    PostalCode: '120-121',
+                    Address: '서대문구 남가좌 1동 121 서울특별시 대한민국',
+                    ContactName: '손미선',
+                },
+                {
+                    PostalCode: '150-043',
+                    Address: '영등포구 당산동 3가 16 서울특별시 대한민국',
+                    ContactName: '장선희',
+                },
+                {
+                    PostalCode: '614-103',
+                    Address: '부산진구 당감 3동 611-3 부산광역시 대한민국',
+                    ContactName: '정영일',
+                },
+                {
+                    PostalCode: '140-150',
+                    Address: '용산구 갈월동 116-7 서율특별시 대한민국',
+                    ContactName: '문익한',
+                },
+                {
+                    PostalCode: '604-030',
+                    Address: '사하구 신평동 701-29 부산광역시 대한민국',
+                    ContactName: '문흥미',
+                },
+                {
+                    PostalCode: '21-060',
+                    Address: '구산동 17-111 김해시 대한민국',
+                    ContactName: '이강주',
+                },
+                {
+                    PostalCode: '135-280',
+                    Address: '강남구 대치동 315--11 서울특별시 대한민국',
+                    ContactName: '백광준',
+                },
+            ],
+        },
+    },
+};

@@ -1,5 +1,5 @@
 /* 
-RealReport v1.10.1
+RealReport v1.10.2
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -545,6 +545,16 @@ All Rights Reserved.
   content: "[SUMMARY]";
   display: table;
   width: 100%;
+}
+
+.rr-text-band .rr-text-band-body[data-empty]:before {
+  background-color: #00000008;
+  color: #777;
+  text-align: center;
+  content: "[TEXT BAND]";
+  display: table;
+  width: 100%;
+  padding: 2px;
 }
 
 .rr-html[data-empty]:before {
