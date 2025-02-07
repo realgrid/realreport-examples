@@ -1,8 +1,8 @@
 // import './templates/index.js';
 
-// 아래 라이선스는 유효기간 2025년 2월 6일 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
+// 아래 라이선스는 유효기간 2025년 5월 31일 까지 localhost,127.0.0.1,realreport.co.kr,real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
 var realReportLic =
-    'upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/sTXJR8Yw8Y0WXyjOMqbrgvr3+iyFPC2UvWntFnlQAvG/WiN+dO0JtjVohH/45jQUC/9tdzLD/UUEjA7Am16Mku+6ZGVxDxR7Q=';
+    'upVcPE+wPOn1V3OcjC3PuAUt7xtLcP5XVzS0GnpZwpnbdxrzWi3SH9lnNreNwRub/31bQcGrnP/Nq/NkIKx9AkkSD8KWTVlm9aI3507Qm2POAklYqFD9ZGXyjOMqbrgvr3+iyFPC2UvKqt1f0nYq0Fe/mONIYEy4CkGU/2dJ94leC1UWt2Y/gOPSfHZhPA2TCr/ODTGzdoYBrs4Ui2AU8g==';
 var viewer;
 var editor;
 var reportViewer;
