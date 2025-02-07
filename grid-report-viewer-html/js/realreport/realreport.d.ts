@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.2
-* commit eba6b8c
+* RealReport v1.10.3
+* commit 7791abc
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.10.2
+* RealReport Core v1.10.3
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 4cdcb307bd96df72a34275cc094312196b9849ee
+* commit 9251a246de9d33c2eff359b31f01de9eb48a9bb4
 */
 
 
@@ -7471,6 +7471,7 @@ declare class PageBodyElement extends ReportElement {
 declare class PageItemContainerElement extends BoundedContainerElement<PageItemContainer> {
     static readonly FRONT_CONTAINER_CLASS = "rr-front-container";
     static readonly BACK_CONTAINER_CLASS = "rr-back-container";
+    static isDomInFrontBackLayer(dom: HTMLElement): boolean;
     private _emptySize;
     private _findable;
     constructor(doc: Document, model: PageItemContainer, styleName: string, emptySize?: boolean);
@@ -8114,9 +8115,167 @@ declare class HichartMarquee extends EditMarquee<HichartItemElement> {
     private $_prepareSeries;
 }
 
+declare abstract class TextBandSection extends StackContainer {
+    static readonly PROP_REPEAT = "repeat";
+    static readonly PROPINFOS: IPropInfo[];
+    private _repeat;
+    private _band;
+    constructor(band: TextBand);
+    /** band */
+    get band(): TextBand;
+    /** repeat */
+    get repeat(): boolean;
+    set repeat(value: boolean);
+    get designLevel(): number;
+    get marqueeParent(): ReportItem;
+    protected _datable(): boolean;
+    canCopy(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+declare class TextBandHeader extends TextBandSection {
+    static readonly $_ctor: string;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+}
+declare class TextBandFooter extends TextBandSection {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+type TextBandLine = {
+    r: IRect;
+    line: string;
+};
+/**
+ * 페이지를 넘길 수 있는 멀티 라인 텍스트 아이템.
+ */
+declare class TextBand extends ReportBandItem {
+    static readonly PROP_TEXT = "text";
+    static readonly PROP_LINE_SEPARATORS = "lineSeparators";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Text Band";
+    private _text;
+    private _lineSeparators;
+    private _editing;
+    private _header;
+    private _footer;
+    prevHead: boolean;
+    rowIndex: number;
+    _pr: number;
+    _pageNo: number;
+    constructor(name: string);
+    /** header */
+    get header(): TextBandHeader;
+    /** footer */
+    get footer(): TextBandFooter;
+    /** text */
+    get text(): string;
+    set text(value: string);
+    /** html */
+    get lineSeparators(): string;
+    set lineSeparators(value: string);
+    /**
+     * editing
+     * - 텍스트를 미리보기 시점에 수정가능하게 하는 속성
+     */
+    get editing(): EditableObject<TextBand>;
+    getText(v: any): string;
+    getDesignText(): string;
+    isEmpty(): boolean;
+    get outlineLabel(): string;
+    getSaveType(): string;
+    protected _valueable(): boolean;
+    protected _ignoreItems(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    canAdoptDragSource(source: any): boolean;
+    canAdd(item: ReportItem): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+/**
+ * Report Editable 속성 관련하여 수정가능한 영역 표시를 위해 작성
+ */
+declare class EditableMarker extends VisualElement$1 {
+    static readonly CLASS_NAME = "rr-editable-marker";
+    static readonly DEFAULT_BACKGROUND_COLOR = "#0ea5e9";
+    private $_originalValue;
+    get originalValue(): string;
+    set originalValue(value: string);
+    constructor(doc: Document);
+    get isLayer(): boolean;
+    protected _initDom(doc: Document, dom: HTMLElement): void;
+    setOriginalValue(value: string): void;
+    setMarkerSize(width: number, height: number): void;
+}
+
+declare class TextBandSectionElement extends StackContainerElement<TextBandSection> {
+    constructor(doc: Document, model: TextBandSection, styleName: string);
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+    protected _needDesignBox(): boolean;
+    protected _needContentBox(): boolean;
+    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+}
+/** @internal */
+declare class TextBandElement extends BandItemElement<TextBand> {
+    static readonly CLASS_NAME = "rr-textband";
+    static readonly HEADER_CLASS = "rr-band-header";
+    static readonly FOOTER_CLASS = "rr-band-footer";
+    static readonly BODY_CLASS = "rr-textband-body";
+    static parseLines(span: HTMLSpanElement, text: string): TextBandLine[];
+    private _bodyView;
+    private _headerView;
+    private _footerView;
+    private _headViews;
+    private _hBody;
+    private _lines;
+    private _editableMarkers;
+    constructor(doc: Document, model: TextBand);
+    get headerView(): TextBandSectionElement;
+    /** footerView */
+    get footerView(): TextBandSectionElement;
+    prepareAsync(doc: Document, ctx: PrintContext, width: number): TextBandPrintInfo;
+    addEditableMarker(): EditableMarker;
+    get debugLabel(): string;
+    isDom(dom: Element): boolean;
+    protected _getCssSelector(): string;
+    protected _needDesignBox(): boolean;
+    protected _getDesignText(): string;
+    getLines(): ReportItemElement[];
+    protected _getStyleTarget(dom: HTMLElement): HTMLElement;
+    protected _doMeasure(ctx: PrintContextBase, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContextBase): void;
+    private $_getPrintText;
+    private $_prepareHeads;
+}
+declare class TextBandPrintInfo {
+    band: TextBand;
+    bandView: TextBandElement;
+    headerView: TextBandSectionElement;
+    footerView: TextBandSectionElement;
+    text: string;
+    lines: TextBandLine[];
+    bandCellWidth: number;
+    bandCellHeight: number;
+    isEnded(): boolean;
+    getNextPage(doc: Document, ctx: PrintContext, pageWidth: number, parent: HTMLDivElement): HTMLDivElement;
+    protected _createPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
+}
+
 declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     group: BandGroup;
-    bands: BandPrintInfo<any>[];
+    bands: BandPrintInfo<any>[] | TextBandPrintInfo[];
     left: string;
     gap: number;
     isEnded(): boolean;
@@ -11413,83 +11572,6 @@ interface ISimpleGroupPrintInfo extends IGroupPrintInfo {
     view: SimpleBandGroupSectionElement<SimpleBandRowGroupHeader | SimpleBandRowGroupFooter>;
 }
 type SimpleBandPrintRow = BandPrintRow | ISimpleGroupPrintInfo;
-
-declare abstract class TextBandSection extends StackContainer {
-    static readonly PROP_REPEAT = "repeat";
-    static readonly PROPINFOS: IPropInfo[];
-    private _repeat;
-    private _band;
-    constructor(band: TextBand);
-    /** band */
-    get band(): TextBand;
-    /** repeat */
-    get repeat(): boolean;
-    set repeat(value: boolean);
-    get designLevel(): number;
-    get marqueeParent(): ReportItem;
-    protected _datable(): boolean;
-    canCopy(): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    protected _getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-declare class TextBandHeader extends TextBandSection {
-    static readonly $_ctor: string;
-    get outlineLabel(): string;
-    get pathLabel(): string;
-}
-declare class TextBandFooter extends TextBandSection {
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    protected _getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-/**
- * 페이지를 넘길 수 있는 멀티 라인 텍스트 아이템.
- */
-declare class TextBand extends ReportBandItem {
-    static readonly PROP_TEXT = "text";
-    static readonly PROP_LINE_SEPARATORS = "lineSeparators";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: string[];
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Text Band";
-    private _text;
-    private _lineSeparators;
-    private _header;
-    private _footer;
-    prevHead: boolean;
-    rowIndex: number;
-    _pr: number;
-    _pageNo: number;
-    constructor(name: string);
-    /** header */
-    get header(): TextBandHeader;
-    /** footer */
-    get footer(): TextBandFooter;
-    /** text */
-    get text(): string;
-    set text(value: string);
-    /** html */
-    get lineSeparators(): string;
-    set lineSeparators(value: string);
-    getText(v: any): string;
-    getDesignText(): string;
-    isEmpty(): boolean;
-    get outlineLabel(): string;
-    getSaveType(): string;
-    protected _valueable(): boolean;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    canAdoptDragSource(source: any): boolean;
-    canAdd(item: ReportItem): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
 
 interface AsyncLoadable {
     loadAsync(ctx: PrintContextBase): Promise<void>;
