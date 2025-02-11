@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.10.2
+RealReport Designer v1.10.3
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -4002,9 +4002,9 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   background-color: var(--rrd-light-theme-primary-color-2);
   box-shadow: inset 0 -1px 0 0 var(--rrd-preview-border-color);
 }
-.rrd-headerbar[data-app-mode="preview"] #app_mode_preview,
-.rrd-headerbar[data-app-mode="preview"] #app_mode_preview2,
-.rrd-headerbar[data-app-mode="preview"] #app_mode_email_preview {
+.rrd-headerbar[data-app-mode="preview"] #header_bar_report_preview_mode,
+.rrd-headerbar[data-app-mode="preview"] #header_bar_email_preview_mode,
+.rrd-headerbar[data-app-mode="preview"] #header_bar_sheet_preview_mode {
   margin-left: 8px;
   padding: 3px 10px;
   border-radius: 3px;
@@ -4072,9 +4072,10 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 .rrd-actionbar[data-app-mode="preview"] {
   margin-top: -1px;
 }
-.rrd-actionbar #design_group,
-.rrd-actionbar #report_item_group,
-.rrd-actionbar #sheet_item_group {
+.rrd-actionbar #item_bar_design_group,
+.rrd-actionbar #item_bar_report_group,
+.rrd-actionbar #item_bar_email_group,
+.rrd-actionbar #item_bar_sheet_group {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
   grid-auto-rows: auto;
@@ -4084,16 +4085,16 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   padding: 10px;
 }
 /* TODO: R2-744 해결전 임시방편으로 적용함. 이후 수정 예정 */
-.rrd-actionbar #report_item_group > button,
-.rrd-actionbar #sheet_item_group > button {
+.rrd-actionbar #item_bar_report_group > button,
+.rrd-actionbar #item_bar_sheet_group > button {
   background-color: var(--rrd-light-theme-primary-color-8);
 }
 /* TODO: R2-744 해결전 임시방편으로 적용함. 이후 수정 예정 */
-.rrd-actionbar #report_item_group > button:hover,
-.rrd-actionbar #sheet_item_group > button:hover {
+.rrd-actionbar #item_bar_report_group > button:hover,
+.rrd-actionbar #item_bar_sheet_group > button:hover {
   background-color: var(--rrd-light-theme-primary-color-9);
 }
-.rrd-actionbar #design_group {
+.rrd-actionbar #item_bar_design_group {
   background-color: var(--rrd-light-theme-primary-color-9);
 }
 .rrd-actionbar .rrd-tool-button {
