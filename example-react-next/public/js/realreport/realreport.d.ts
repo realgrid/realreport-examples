@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.3
-* commit 7791abc
+* RealReport v1.10.4
+* commit 560699a
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.10.3
+* RealReport Core v1.10.4
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 9251a246de9d33c2eff359b31f01de9eb48a9bb4
+* commit f8009ee1c49638603fa7227836c820a59e19a28f
 */
 
 
@@ -7488,8 +7488,6 @@ declare class PageItemContainerElement extends BoundedContainerElement<PageItemC
     protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
 }
 
-type PrintPageCallback = (ctx: PrintContext, page: PrintPage, pageNo: number) => void;
-type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => void;
 declare class PageSectionGuard extends ReportItemElement<ReportPage> {
     get guardLabel(): string;
 }
@@ -7789,6 +7787,7 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
     private $_getDownPages;
     private $_setGroupFooterPB;
     private $_addBorderContainer;
+    protected _createPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
 }
 /**
  * @internal
@@ -7796,6 +7795,7 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
  * 1. 한 행(복수 tr 가능)은 페이지를 넘어갈 수 없다. 현재 상태에서 넘치면 다음 페이지에 출력한다.
  **/
 declare class TableBandElement extends BandElement<TableBand> implements ITable {
+    static readonly CLASS_NAME = "rr-tableband";
     static readonly HEADER_CLASS = "-rrp-tableband-header";
     static readonly FOOTER_CLASS = "-rrp-tableband-footer";
     static readonly ROW_CLASS = "-rrp-tableband-row";
@@ -8131,6 +8131,9 @@ declare abstract class TextBandSection extends StackContainer {
     protected _datable(): boolean;
     canCopy(): boolean;
     canResize(dir: ResizeDirection): boolean;
+    /**
+     * TextBand Header, Footer는 기본 visible이 false로 따로 처리함
+     */
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
@@ -8139,12 +8142,14 @@ declare class TextBandHeader extends TextBandSection {
     static readonly $_ctor: string;
     get outlineLabel(): string;
     get pathLabel(): string;
+    canDelete(): boolean;
 }
 declare class TextBandFooter extends TextBandSection {
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     get outlineLabel(): string;
     get pathLabel(): string;
+    canDelete(): boolean;
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
@@ -8195,10 +8200,15 @@ declare class TextBand extends ReportBandItem {
     getSaveType(): string;
     protected _valueable(): boolean;
     protected _ignoreItems(): boolean;
+    /**
+     * ReportGroupItem은 onGetValue 이벤트를 사용하지 않는 설정이 기본설정
+     * TextBand는 Text 속성에 값 하나만 연결해서 사용하기 때문에 onGetValue를 사용할 수 있도록 설정한다.
+     */
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
     canAdoptDragSource(source: any): boolean;
     canAdd(item: ReportItem): boolean;
+    canRemove(item: ReportItem): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
 }
@@ -13911,6 +13921,67 @@ interface IDropResult {
     hintHeight?: number;
 }
 
+type SignLine = Array<{
+    x: number;
+    y: number;
+    w: number;
+    t: number;
+}>;
+interface ISignResult {
+    width: number;
+    height: number;
+    lines: SignLine[];
+}
+
+interface IStampResult {
+    data: string;
+}
+
+interface IPrintReport {
+    report: Report;
+    data: IReportDataProvider;
+}
+interface ISinglePageOptions {
+    border: boolean;
+}
+interface IItemPrintInfo {
+    reportName: string;
+    name: string;
+    data?: string;
+    row?: number;
+    field?: string;
+    value?: number;
+}
+type PrintPageCallback = (ctx: PrintContext, page: PrintPage, pageNo: number) => void;
+type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => void;
+type SignCallback = (item: IItemPrintInfo, sign: ISignResult) => void;
+type StampCallback = (item: IItemPrintInfo, stamp: IStampResult) => void;
+interface IPreviewOptions {
+    debug?: boolean;
+    async?: boolean;
+    pageMark?: boolean;
+    optimize?: boolean;
+    pageDelay?: number;
+    noScroll?: boolean;
+    noIndicator?: boolean;
+    singlePage?: boolean;
+    singlePageOptions?: ISinglePageOptions;
+    align?: Align;
+    paging?: boolean;
+    language?: string;
+    editable?: boolean;
+    callback?: PrintPageCallback;
+    endCallback?: PrintEndCallback;
+    signCallback?: SignCallback;
+    stampCallback?: StampCallback;
+}
+interface IPrintOptions {
+    report: Report | (Report | IPrintReport)[];
+    data: IReportDataProvider;
+    preview?: boolean;
+    id?: string;
+    previewOptions?: IPreviewOptions;
+}
 declare abstract class PrintContainerBase extends VisualContainer$1 {
     static readonly CLASS_NAME = "rr-report-container";
     static readonly PREVIEW_CLASS = "rr-report-preview";
@@ -13977,37 +14048,6 @@ declare class PrintEditableItemManager extends Base$1 {
     private $_getMarkerElementIndex;
 }
 
-interface IPrintReport {
-    report: Report;
-    data: IReportDataProvider;
-}
-interface IPreviewOptions {
-    debug?: boolean;
-    async?: boolean;
-    pageMark?: boolean;
-    optimize?: boolean;
-    pageDelay?: number;
-    noScroll?: boolean;
-    noIndicator?: boolean;
-    singlePage?: boolean;
-    singlePageOptions?: ISinglePageOptions;
-    align?: Align;
-    paging?: boolean;
-    language?: string;
-    editable?: boolean;
-    callback?: PrintPageCallback;
-    endCallback?: PrintEndCallback;
-}
-interface IPrintOptions {
-    report: Report | (Report | IPrintReport)[];
-    data: IReportDataProvider;
-    preview?: boolean;
-    id?: string;
-    previewOptions?: IPreviewOptions;
-}
-interface ISinglePageOptions {
-    border: boolean;
-}
 declare class PrintContainer extends PrintContainerBase {
     static setMarkerElementsVisible(pages: PrintPage[], visible: boolean): void;
     private _pageGap;
