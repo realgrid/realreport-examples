@@ -1,14 +1,18 @@
 {
-    "name": "reportRoot",
-    "paperSize": "A4",
-    "paperWidth": "210mm",
-    "paperHeight": "297mm",
-    "marginLeft": "12mm",
-    "marginRight": "12mm",
-    "marginTop": "15mm",
-    "marginBottom": "15mm",
+    "report": {
+        "name": "reportRoot",
+        "type": "report",
+        "paperSize": "A4",
+        "paperWidth": "210mm",
+        "paperHeight": "297mm",
+        "marginLeft": "12mm",
+        "marginRight": "12mm",
+        "marginTop": "15mm",
+        "marginBottom": "15mm"
+    },
     "page": {
         "name": "reportPage",
+        "type": "report",
         "pageHeader": {
             "name": "pageHeader"
         },
@@ -40,7 +44,7 @@
                             "styles": {
                                 "paddingLeft": "3px",
                                 "paddingRight": "3px",
-                                "__tag_": {}
+                                "_tag_": {}
                             }
                         },
                         {
@@ -63,7 +67,7 @@
                     "name": "",
                     "rowsPerPage": 1,
                     "detail": {
-                        "type": "detail",
+                        "type": "details",
                         "width": "100%",
                         "name": "",
                         "items": [
@@ -77,7 +81,7 @@
                                 "repeatDetailHeader": true,
                                 "maxEndRowCount": 22,
                                 "detail": {
-                                    "type": "detail",
+                                    "type": "details",
                                     "width": "100%",
                                     "name": ""
                                 },
@@ -99,8 +103,9 @@
                                 "header": {
                                     "width": "100%",
                                     "name": null,
-                                    "rowCount": 2,
-                                    "minRowHeight": "35px",
+                                    "rowCount": 3,
+                                    "fixed": false,
+                                    "minRowHeight": "10px",
                                     "cellStyles": {
                                         "borderLeft": "none",
                                         "borderRight": "none",
@@ -109,6 +114,9 @@
                                     },
                                     "rows": [
                                         {},
+                                        {
+                                            "height": "10px"
+                                        },
                                         {
                                             "height": "40px"
                                         }
@@ -120,7 +128,7 @@
                                             "colspan": 4
                                         },
                                         {
-                                            "r": 1,
+                                            "r": 2,
                                             "c": 0,
                                             "styles": {
                                                 "backgroundColor": "#2b2b2b",
@@ -130,31 +138,28 @@
                                             }
                                         },
                                         {
-                                            "r": 1,
+                                            "r": 2,
                                             "c": 1,
                                             "styles": {
                                                 "backgroundColor": "#2b2b2b",
-                                                "borderLeft": "",
                                                 "borderRight": "1px solid #2b2b2b",
                                                 "borderTop": "2px solid #2b2b2b"
                                             }
                                         },
                                         {
-                                            "r": 1,
+                                            "r": 2,
                                             "c": 2,
                                             "styles": {
                                                 "backgroundColor": "#2b2b2b",
-                                                "borderLeft": "",
                                                 "borderRight": "1px solid #2b2b2b",
                                                 "borderTop": "2px solid #2b2b2b"
                                             }
                                         },
                                         {
-                                            "r": 1,
+                                            "r": 2,
                                             "c": 3,
                                             "styles": {
                                                 "backgroundColor": "#2b2b2b",
-                                                "borderLeft": "",
                                                 "borderRight": "2px solid #2b2b2b",
                                                 "borderTop": "2px solid #2b2b2b"
                                             }
@@ -165,161 +170,146 @@
                                             "type": "text",
                                             "name": "",
                                             "col": 1,
-                                            "row": 1,
+                                            "row": 2,
                                             "text": "총 판매개수",
                                             "styles": {
                                                 "fontSize": "16px",
                                                 "fontWeight": "700",
                                                 "color": "white",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
                                             "type": "text",
                                             "name": "",
                                             "col": 2,
-                                            "row": 1,
+                                            "row": 2,
                                             "text": "판매가격",
                                             "styles": {
                                                 "fontSize": "16px",
                                                 "fontWeight": "700",
                                                 "color": "white",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
                                             "type": "text",
                                             "name": "",
                                             "col": 3,
-                                            "row": 1,
+                                            "row": 2,
                                             "text": "총 판매가격",
                                             "styles": {
                                                 "fontSize": "16px",
                                                 "fontWeight": "700",
                                                 "color": "white",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
                                             "type": "text",
                                             "name": "",
                                             "col": 0,
-                                            "row": 1,
+                                            "row": 2,
                                             "text": "상품명",
                                             "styles": {
                                                 "fontSize": "16px",
                                                 "fontWeight": "700",
                                                 "color": "white",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
-                                            "type": "cbox",
+                                            "type": "realchart",
+                                            "data": "sales-performance-detail",
                                             "width": "100%",
-                                            "name": "",
+                                            "height": "250px",
                                             "col": 0,
                                             "row": 0,
-                                            "itemGap": 4,
-                                            "items": [
+                                            "xAxes": [
                                                 {
-                                                    "type": "space",
-                                                    "name": "",
-                                                    "size": 10
-                                                },
-                                                {
-                                                    "type": "hichart",
-                                                    "width": "100%",
-                                                    "height": 205,
-                                                    "name": "",
-                                                    "plotBorderColor": "",
+                                                    "type": "category",
+                                                    "startAngle": 0,
                                                     "title": {
-                                                        "visible": true,
-                                                        "styles": {},
-                                                        "text": "상품별 판매 현황",
-                                                        "x": 0
-                                                    },
-                                                    "subtitle": {
                                                         "visible": false,
-                                                        "styles": {},
-                                                        "text": "Subtitle",
-                                                        "x": 0
+                                                        "text": "Axis title"
                                                     },
-                                                    "xAxis": {
-                                                        "visible": true,
-                                                        "styles": {},
-                                                        "categoryField": "상품명",
-                                                        "title": {
-                                                            "visible": false,
-                                                            "styles": {
-                                                                "color": "#000",
-                                                                "__tag_": {}
-                                                            },
-                                                            "text": "상품명"
-                                                        },
-                                                        "labels": {
-                                                            "visible": true,
-                                                            "styles": {},
-                                                            "rotation": 0,
-                                                            "staggerLines": 0,
-                                                            "step": 3
+                                                    "label": {
+                                                        "styles": {
+                                                            "fontSize": "12px"
                                                         }
                                                     },
-                                                    "yAxis": {
-                                                        "visible": true,
-                                                        "styles": {},
-                                                        "title": {
-                                                            "visible": true,
-                                                            "styles": {
-                                                                "color": "#000",
-                                                                "__tag_": {}
-                                                            },
-                                                            "text": "총 판매액"
-                                                        },
-                                                        "labels": {
-                                                            "visible": true,
-                                                            "styles": {},
-                                                            "rotation": 0,
-                                                            "staggerLines": 0,
-                                                            "step": 0
-                                                        }
-                                                    },
-                                                    "legend": {
+                                                    "grid": {
                                                         "visible": false,
-                                                        "styles": {},
-                                                        "align": "center",
-                                                        "verticalAlign": "bottom",
-                                                        "layout": "horizontal"
+                                                        "endVisible": false
                                                     },
-                                                    "series": [
-                                                        {
-                                                            "type": "column",
-                                                            "visible": true,
-                                                            "styles": {},
-                                                            "valueField": "총판매가격",
-                                                            "values": [8, 6, 2, 4, 2],
-                                                            "color": "#f96969",
-                                                            "showInLegend": true,
-                                                            "dataLabels": {
-                                                                "visible": false,
-                                                                "styles": {},
-                                                                "rotation": 0,
-                                                                "borderRadius": 0,
-                                                                "borderWidth": 0,
-                                                                "padding": 5
-                                                            }
-                                                        }
-                                                    ],
-                                                    "styles": {
-                                                        "border": "2px solid #2b2b2b",
-                                                        "__tag_": {}
-                                                    }
-                                                },
-                                                {
-                                                    "type": "space",
-                                                    "name": "",
-                                                    "size": 10
+                                                    "line": {
+                                                        "visible": false
+                                                    },
+                                                    "tick": {
+                                                        "visible": false
+                                                    },
+                                                    "crosshair": {
+                                                        "visible": false
+                                                    },
+                                                    "categories": ["a", "b", "c", "d", "e"],
+                                                    "categoryField": "상품명"
                                                 }
-                                            ]
+                                            ],
+                                            "yAxes": [
+                                                {
+                                                    "type": "linear",
+                                                    "startAngle": 0,
+                                                    "title": {
+                                                        "text": "총 판매가격"
+                                                    },
+                                                    "grid": {
+                                                        "startVisible": true,
+                                                        "endVisible": true
+                                                    },
+                                                    "line": {
+                                                        "visible": false
+                                                    },
+                                                    "tick": {
+                                                        "visible": false
+                                                    },
+                                                    "crosshair": {
+                                                        "visible": false
+                                                    }
+                                                }
+                                            ],
+                                            "seriesCollection": [
+                                                {
+                                                    "valueField": "총판매가격",
+                                                    "values": [3, 5, 6, 4, 6],
+                                                    "type": "bar",
+                                                    "name": "bar",
+                                                    "color": "#f96969",
+                                                    "pointLabel": {
+                                                        "styles": {
+                                                            "fontSize": "10px"
+                                                        },
+                                                        "offset": 4,
+                                                        "position": "auto",
+                                                        "numberSymbols": "k,M,G,T,P,E"
+                                                    }
+                                                }
+                                            ],
+                                            "title": {
+                                                "text": "상품별 판매 현황"
+                                            },
+                                            "subtitle": {
+                                                "visible": false,
+                                                "text": "Subtitle"
+                                            },
+                                            "body": {
+                                                "circular": true
+                                            },
+                                            "legend": {
+                                                "visible": false
+                                            },
+                                            "styles": {
+                                                "border": "2px solid #2b2b2b"
+                                            }
                                         }
                                     ]
                                 },
@@ -327,6 +317,7 @@
                                     "width": "100%",
                                     "name": null,
                                     "rowCount": 1,
+                                    "fixed": false,
                                     "cellStyles": {},
                                     "rows": [
                                         {
@@ -371,7 +362,8 @@
                                                 "backgroundColor": "#2b2b2b",
                                                 "borderRight": "2px solid #2b2b2b",
                                                 "borderTop": "2px solid #2b2b2b",
-                                                "borderBottom": "2px solid #2b2b2b"
+                                                "borderBottom": "2px solid #2b2b2b",
+                                                "cellAlign": "right"
                                             }
                                         }
                                     ],
@@ -385,9 +377,10 @@
                                             "suffix": "원",
                                             "expression": "Sum(총판매가격)",
                                             "styles": {
-                                                "fontWeight": "700",
+                                                "fontWeight": "bold",
                                                 "color": "#ffffff",
-                                                "__tag_": {}
+                                                "_tag_": {},
+                                                "fontSize": "16px"
                                             }
                                         },
                                         {
@@ -400,7 +393,7 @@
                                                 "fontSize": "16px",
                                                 "fontWeight": "700",
                                                 "color": "#ffffff",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         }
                                     ]
@@ -409,6 +402,7 @@
                                     "width": "100%",
                                     "name": null,
                                     "rowCount": 1,
+                                    "fixed": false,
                                     "cellStyles": {},
                                     "rows": [
                                         {
@@ -430,30 +424,30 @@
                                             "r": 0,
                                             "c": 1,
                                             "styles": {
-                                                "borderLeft": "",
                                                 "borderRight": "1px solid #2b2b2b",
                                                 "borderTop": "1px solid #2b2b2b",
-                                                "borderBottom": "1px solid #2b2b2b"
+                                                "borderBottom": "1px solid #2b2b2b",
+                                                "cellAlign": "right"
                                             }
                                         },
                                         {
                                             "r": 0,
                                             "c": 2,
                                             "styles": {
-                                                "borderLeft": "",
                                                 "borderRight": "1px solid #2b2b2b",
                                                 "borderTop": "1px solid #2b2b2b",
-                                                "borderBottom": "1px solid #2b2b2b"
+                                                "borderBottom": "1px solid #2b2b2b",
+                                                "cellAlign": "right"
                                             }
                                         },
                                         {
                                             "r": 0,
                                             "c": 3,
                                             "styles": {
-                                                "borderLeft": "",
                                                 "borderRight": "2px solid #2b2b2b",
                                                 "borderTop": "1px solid #2b2b2b",
-                                                "borderBottom": "1px solid #2b2b2b"
+                                                "borderBottom": "1px solid #2b2b2b",
+                                                "cellAlign": "right"
                                             }
                                         }
                                     ],
@@ -468,7 +462,7 @@
                                             "text": "Text",
                                             "styles": {
                                                 "fontSize": "16px",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -481,7 +475,7 @@
                                             "text": "Text",
                                             "styles": {
                                                 "fontSize": "16px",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -494,7 +488,7 @@
                                             "text": "Text",
                                             "styles": {
                                                 "fontSize": "16px",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -506,7 +500,7 @@
                                             "text": "Text",
                                             "styles": {
                                                 "fontSize": "16px",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         }
                                     ]
@@ -547,13 +541,13 @@
                                         "styles": {
                                             "fontSize": "30px",
                                             "fontWeight": "700",
-                                            "__tag_": {}
+                                            "_tag_": {}
                                         }
                                     },
                                     {
                                         "type": "space",
                                         "name": "",
-                                        "size": 15
+                                        "size": "10px"
                                     },
                                     {
                                         "type": "table",
@@ -561,6 +555,7 @@
                                         "width": "100%",
                                         "name": "",
                                         "rowCount": 1,
+                                        "fixed": false,
                                         "minRowHeight": "30px",
                                         "cellStyles": {
                                             "borderLeft": "1px solid #2b2b2b",
@@ -633,7 +628,7 @@
                                                     "fontSize": "16px",
                                                     "fontWeight": "700",
                                                     "color": "#ffffff",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -646,7 +641,7 @@
                                                     "fontSize": "16px",
                                                     "fontWeight": "700",
                                                     "color": "#ffffff",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -658,7 +653,7 @@
                                                 "text": "Text",
                                                 "styles": {
                                                     "fontSize": "16px",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -670,7 +665,7 @@
                                                 "text": "Text",
                                                 "styles": {
                                                     "fontSize": "16px",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             }
                                         ]
@@ -678,7 +673,7 @@
                                     {
                                         "type": "space",
                                         "name": "",
-                                        "size": 15
+                                        "size": "10px"
                                     }
                                 ]
                             }
@@ -693,7 +688,6 @@
     },
     "data": {
         "sales-performance-master": {
-            "sampleCount": 1,
             "type": "band",
             "fields": [
                 {
@@ -734,7 +728,6 @@
             ]
         },
         "sales-performance-detail": {
-            "sampleCount": 20,
             "type": "band",
             "fields": [
                 {
@@ -781,5 +774,5 @@
             ]
         }
     },
-    "guid": "3779883c-ecac-4adf-9ce1-ce2450438c66"
+    "guid": "04a9da93-d074-4d1d-8953-1a5b4ba30eeb"
 }

@@ -9345,6 +9345,8 @@ declare interface RCSeriesPointLabelConfig {
     style?: RCSvgStyles;
     offset?: number;
     position?: RCSeriesPointLabelPosition;
+    numberFormat?: string;
+    numberSymbols?: string;
 }
 
 declare enum RCSeriesPointLabelPosition {

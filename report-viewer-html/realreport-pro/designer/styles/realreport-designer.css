@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.10.4
+RealReport Designer v1.10.5
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -2407,6 +2407,7 @@ All Rights Reserved.
 /** bar series */
 .rct-bar-series {
     fill-opacity: 1;
+    stroke-width: 0;
 }
 
 /** circlebar series */
@@ -2638,6 +2639,16 @@ All Rights Reserved.
 .rct-funnel-series .rct-point[data-focus] {
     stroke: #000;
     stroke-width: 2px;
+}
+
+/** wordcloud series */
+.rct-wordcloud-series .rct-point[data-focus] {
+    filter: none !important;
+}
+.rct-wordcloud-series .rct-point[data-focus] text {
+    filter: brightness(80%) !important;
+    stroke: #777 !important;
+    stroke-width: 0px;
 }
 
 /** gauge */
