@@ -1,20 +1,24 @@
 {
-    "name": "reportRoot",
-    "paperSize": "A4",
-    "paperWidth": "210mm",
-    "paperHeight": "297mm",
-    "marginLeft": "12mm",
-    "marginRight": "12mm",
-    "marginTop": "15mm",
-    "marginBottom": "15mm",
+    "report": {
+        "name": "reportRoot",
+        "type": "report",
+        "paperSize": "A4",
+        "paperWidth": "210mm",
+        "paperHeight": "297mm",
+        "marginLeft": "12mm",
+        "marginRight": "12mm",
+        "marginTop": "15mm",
+        "marginBottom": "15mm"
+    },
     "page": {
         "name": "reportPage",
+        "type": "report",
         "pageHeader": {
             "name": "pageHeader"
         },
         "reportHeader": {
             "name": "reportHeader",
-            "height": 93,
+            "height": 80,
             "items": [
                 {
                     "type": "text",
@@ -22,7 +26,7 @@
                     "styles": {
                         "fontSize": "30px",
                         "fontWeight": "bold",
-                        "__tag_": {}
+                        "_tag_": {}
                     }
                 },
                 {
@@ -40,7 +44,7 @@
                             "text": "영업기간:",
                             "styles": {
                                 "paddingRight": "3px",
-                                "__tag_": {}
+                                "_tag_": {}
                             }
                         },
                         {
@@ -55,7 +59,7 @@
                             "styles": {
                                 "paddingLeft": "3px",
                                 "paddingRight": "3px",
-                                "__tag_": {}
+                                "_tag_": {}
                             }
                         },
                         {
@@ -78,41 +82,82 @@
             "itemGap": 0,
             "items": [
                 {
-                    "type": "hichart",
-                    "width": "100%",
-                    "height": 270,
-                    "name": "",
+                    "type": "realchart",
                     "data": "graph-chart",
+                    "width": "100%",
+                    "height": "300px",
+                    "xAxes": [
+                        {
+                            "type": "category",
+                            "startAngle": 0,
+                            "title": {
+                                "visible": false,
+                                "text": "Axis title"
+                            },
+                            "grid": {
+                                "visible": false,
+                                "endVisible": false
+                            },
+                            "line": {
+                                "visible": false
+                            },
+                            "tick": {
+                                "visible": false
+                            },
+                            "crosshair": {
+                                "visible": false
+                            },
+                            "categories": ["음료", "조미료", "과자", "유제품", "곡류"],
+                            "categoryField": "CategoryName"
+                        }
+                    ],
+                    "yAxes": [
+                        {
+                            "type": "linear",
+                            "startAngle": 0,
+                            "title": {
+                                "text": "판매량"
+                            },
+                            "grid": {
+                                "startVisible": true,
+                                "endVisible": true
+                            },
+                            "line": {
+                                "visible": false
+                            },
+                            "tick": {
+                                "visible": false
+                            },
+                            "crosshair": {
+                                "visible": false
+                            }
+                        }
+                    ],
+                    "seriesCollection": [
+                        {
+                            "valueField": "Amount",
+                            "values": [5, 8, 10, 2, 4],
+                            "type": "bar",
+                            "name": "분류",
+                            "pointLabel": {
+                                "offset": 4,
+                                "position": "auto"
+                            }
+                        }
+                    ],
                     "title": {
                         "text": "분류별 실적"
                     },
-                    "xAxis": {
-                        "title": {
-                            "visible": false,
-                            "text": "Labels"
-                        },
-                        "categoryField": "CategoryName"
+                    "subtitle": {
+                        "visible": false,
+                        "text": "Subtitle"
                     },
-                    "yAxis": {
-                        "title": {
-                            "text": "Amount"
-                        }
+                    "body": {
+                        "circular": false
                     },
-                    "legend": {
-                        "align": "center",
-                        "verticalAlign": "bottom",
-                        "layout": "horizontal"
-                    },
-                    "series": [
-                        {
-                            "type": "column",
-                            "valueField": "Amount",
-                            "values": [3, 4, 7, 2, 4]
-                        }
-                    ],
                     "styles": {
                         "border": "1px solid #a0a0a0",
-                        "__tag_": {}
+                        "_tag_": {}
                     }
                 },
                 {
@@ -125,9 +170,8 @@
                     "data": "graph-table",
                     "width": "100%",
                     "name": "",
-                    "repeatDetailHeader": false,
                     "detail": {
-                        "type": "detail",
+                        "type": "details",
                         "width": "100%",
                         "name": "",
                         "visible": false
@@ -156,6 +200,7 @@
                                 "width": "100%",
                                 "visible": false,
                                 "rowCount": 1,
+                                "fixed": false,
                                 "cellStyles": {},
                                 "rows": [{}],
                                 "cells": []
@@ -164,7 +209,13 @@
                                 "name": "groupFooter",
                                 "width": "100%",
                                 "rowCount": 1,
-                                "cellStyles": {},
+                                "fixed": false,
+                                "cellStyles": {
+                                    "borderLeft": "",
+                                    "borderRight": "",
+                                    "borderTop": "",
+                                    "borderBottom": ""
+                                },
                                 "rows": [{}],
                                 "cells": [
                                     {
@@ -172,7 +223,8 @@
                                         "c": 0,
                                         "styles": {
                                             "borderRight": "none",
-                                            "borderTop": ""
+                                            "borderTop": "none",
+                                            "borderBottom": "none"
                                         }
                                     },
                                     {
@@ -181,9 +233,8 @@
                                         "colspan": 2,
                                         "styles": {
                                             "cellAlign": "left",
-                                            "borderLeft": "",
                                             "borderRight": "none",
-                                            "borderTop": "solid #999933"
+                                            "borderTop": "2px solid #3a3a3a"
                                         }
                                     },
                                     {
@@ -192,7 +243,7 @@
                                         "styles": {
                                             "cellAlign": "right",
                                             "borderLeft": "none",
-                                            "borderTop": "solid #999933"
+                                            "borderTop": "2px solid #3a3a3a"
                                         }
                                     }
                                 ],
@@ -206,8 +257,7 @@
                                         "styles": {
                                             "fontFamily": "Arial",
                                             "fontWeight": "bold",
-                                            "color": "#030691ff",
-                                            "__tag_": {}
+                                            "_tag_": {}
                                         }
                                     },
                                     {
@@ -219,7 +269,7 @@
                                         "styles": {
                                             "fontFamily": "Tahoma",
                                             "fontWeight": "bold",
-                                            "__tag_": {}
+                                            "_tag_": {}
                                         }
                                     }
                                 ]
@@ -230,6 +280,7 @@
                         "name": "bandHeader",
                         "width": "100%",
                         "rowCount": 1,
+                        "fixed": false,
                         "cellStyles": {},
                         "rows": [{}],
                         "cells": [],
@@ -239,10 +290,10 @@
                                 "name": "",
                                 "col": 0,
                                 "row": 0,
-                                "text": "Category",
+                                "text": "분류",
                                 "styles": {
                                     "fontWeight": "bold",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             },
                             {
@@ -250,11 +301,11 @@
                                 "name": "",
                                 "col": 1,
                                 "row": 0,
-                                "text": "Product",
+                                "text": "상품명",
                                 "styles": {
                                     "fontFamily": "Tahoma",
                                     "fontWeight": "bold",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             },
                             {
@@ -262,11 +313,11 @@
                                 "name": "",
                                 "col": 2,
                                 "row": 0,
-                                "text": "Quantity",
+                                "text": "수량",
                                 "styles": {
                                     "fontFamily": "Tahoma",
                                     "fontWeight": "bold",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             },
                             {
@@ -274,11 +325,11 @@
                                 "name": "",
                                 "col": 3,
                                 "row": 0,
-                                "text": "Amount",
+                                "text": "\b판매량",
                                 "styles": {
                                     "fontFamily": "Tahoma",
                                     "fontWeight": "bold",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             }
                         ]
@@ -287,6 +338,7 @@
                         "name": "bandFooter",
                         "width": "100%",
                         "rowCount": 1,
+                        "fixed": false,
                         "cellStyles": {},
                         "rows": [{}],
                         "cells": [
@@ -318,8 +370,7 @@
                                 "styles": {
                                     "fontFamily": "Arial",
                                     "fontWeight": "bold",
-                                    "color": "#a80213ff",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             },
                             {
@@ -331,7 +382,7 @@
                                 "styles": {
                                     "fontFamily": "Tahoma",
                                     "fontWeight": "bold",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             }
                         ]
@@ -340,6 +391,7 @@
                         "name": "dataRow",
                         "width": "100%",
                         "rowCount": 1,
+                        "fixed": false,
                         "cellStyles": {},
                         "rows": [{}],
                         "cells": [
@@ -348,9 +400,7 @@
                                 "c": 0,
                                 "styles": {
                                     "cellAlign": "left",
-                                    "borderRight": "none",
-                                    "borderTop": "",
-                                    "borderBottom": ""
+                                    "borderRight": "none"
                                 }
                             },
                             {
@@ -385,7 +435,7 @@
                                 "text": "Text",
                                 "styles": {
                                     "paddingLeft": "3px",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             },
                             {
@@ -397,7 +447,7 @@
                                 "text": "Text",
                                 "styles": {
                                     "paddingLeft": "3px",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             },
                             {
@@ -409,7 +459,7 @@
                                 "text": "Text",
                                 "styles": {
                                     "paddingRight": "3px",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             },
                             {
@@ -421,7 +471,7 @@
                                 "text": "Text",
                                 "styles": {
                                     "paddingRight": "3px",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             },
                             {
@@ -435,7 +485,7 @@
                                 "text": "Text",
                                 "styles": {
                                     "fontFamily": "Tahoma",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 },
                                 "styleCallback": null
                             },
@@ -448,7 +498,7 @@
                                 "text": "Text",
                                 "styles": {
                                     "fontFamily": "Tahoma",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             },
                             {
@@ -460,7 +510,7 @@
                                 "text": "Text",
                                 "styles": {
                                     "fontFamily": "Arial",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             },
                             {
@@ -472,7 +522,7 @@
                                 "text": "Text",
                                 "styles": {
                                     "fontFamily": "Arial",
-                                    "__tag_": {}
+                                    "_tag_": {}
                                 }
                             }
                         ]
@@ -486,7 +536,6 @@
     },
     "data": {
         "graph-chart": {
-            "sampleCount": 10,
             "type": "band",
             "fields": [
                 {
@@ -521,7 +570,6 @@
         },
         "graph-table": {
             "type": "band",
-            "sampleCount": 10,
             "fields": [
                 {
                     "fieldName": "CategoryID",
@@ -568,5 +616,5 @@
             ]
         }
     },
-    "guid": "cd417bbe-9dc1-4766-a39e-ed41845a3267"
+    "guid": "abfd48b4-5402-4570-9887-0f259a2bff1a"
 }

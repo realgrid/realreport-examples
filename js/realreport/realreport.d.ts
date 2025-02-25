@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.4
-* commit 560699a
+* RealReport v1.10.5
+* commit a444fe9
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.10.4
+* RealReport Core v1.10.5
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit f8009ee1c49638603fa7227836c820a59e19a28f
+* commit 403686a369abfa9615d088153e3f90decdd8cd21
 */
 
 
@@ -4673,6 +4673,8 @@ interface RCSeriesPointLabelConfig {
     style?: RCSvgStyles;
     offset?: number;
     position?: RCSeriesPointLabelPosition;
+    numberFormat?: string;
+    numberSymbols?: string;
 }
 interface RCSeriesTooltipConfig {
     visible?: boolean;
@@ -48187,10 +48189,6 @@ type ErrorParams = {
     msg?: string;
 };
 
-interface DocExportOptions {
-    type: string;
-    filename?: string;
-}
 /**
  * ReportViewer base class
  */
@@ -48204,7 +48202,7 @@ declare abstract class ReportViewBase {
     abstract preview(options: PreviewOptions): void;
     abstract exportPdf(options: PDFExportOptions): Promise<void>;
     abstract exportImage(imageOptions: ImageExportOptions): void;
-    abstract exportDocument(options: DocExportOptions): void;
+    abstract exportDocument(options: DocumentExportOptions): void;
     /**
      * 컨테이너의 상태를 체크하기 위한 조건과 조건에 맞을 경우의 에러 처리코드를 넘겨 줍니다.
      * checker.is 가 true이면 errorParams로 error() 를 실행 합니다.
@@ -48267,7 +48265,7 @@ declare class ReportViewer extends ReportViewBase {
      */
     exportPdf(options: PDFExportOptions): Promise<void>;
     /**
-     * 리포트를 Blob 형식으로 내보내기 합니다.
+     * 리포트를 Pdf 파일 변환 후 Blob 데이터로 반환
      * @param options PDFExportOptions
      */
     exportPdfBlob(options: PDFExportBlobOptions): Promise<Blob>;
@@ -48277,10 +48275,20 @@ declare class ReportViewer extends ReportViewBase {
      */
     exportImage(imageOptions: ImageExportOptions): Promise<void>;
     /**
+     * 리포트를 이미지로 변환 후 Blob 배열 형식으로 반환
+     * @param imageOptions
+     */
+    exportImageBlob(imageOptions?: ImageExportBlobOptions): Promise<Blob[]>;
+    /**
      * 문서 내보내기 함수
      * @param options
      */
-    exportDocument(options?: DocExportOptions): Promise<void>;
+    exportDocument(options?: DocumentExportOptions): Promise<void>;
+    /**
+     * 리포트를 문서 파일 형식의 Blob 데이터로 반환
+     * @param options
+     */
+    exportDocumentBlob(options?: DocumentExportBlobOptions): Promise<Blob>;
     /**
      * 이메일 HTML 내보내기 함수
      */
@@ -48389,7 +48397,7 @@ declare class ReportCompositeViewer extends ReportViewBase {
      */
     exportPdfBlob(options: PDFExportBlobOptions): Promise<Blob>;
     exportImage(imageOptions: ImageExportOptions): void;
-    exportDocument(options: DocExportOptions): void;
+    exportDocument(options: DocumentExportOptions): void;
     private _checkReportFormSet;
 }
 
@@ -48528,10 +48536,24 @@ type PDFExportOptions = {
     /**
      * 권한에 따른 기능을 제한 할 수 있습니다.
      */
-    permissions: PdfPermissions;
-    pdfVersion: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
+    permissions?: PdfPermissions;
+    pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 };
 type PDFExportBlobOptions = Omit<PDFExportOptions, 'filename' | 'preview'>;
+interface DocumentExportOptions {
+    type: string;
+    filename?: string;
+}
+type DocumentExportBlobOptions = Pick<DocumentExportOptions, 'type'>;
+type ImageExportBlobOptions = Pick<ImageExportOptions, 'type' | 'tiff'>;
+/**
+ * DEFAULT EXPORT OPTIONS
+ */
+declare const DOC_EXPORT_DEFAULT_OPTIONS: DocumentExportOptions;
+declare const IMG_EXPORT_DEFAULT_OPTIONS: ImageExportOptions;
+/**
+ * CONSTANT ERROR MESSAGE
+ */
 declare const ZOOM_ERROR_MESSAGE = "\uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778 \uACBD\uC6B0\uB9CC \uB0B4\uBCF4\uB0B4\uAE30\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4. \uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.";
 
-export { GridReportItemSource, GridReportLayout, GridReportViewer, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE };
+export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, GridReportItemSource, GridReportLayout, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE };

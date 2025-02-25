@@ -1,15 +1,19 @@
 {
-    "name": "reportRoot",
-    "paperOrientation": "landscape",
-    "paperSize": "A4",
-    "paperWidth": "210mm",
-    "paperHeight": "297mm",
-    "marginLeft": "12mm",
-    "marginRight": "12mm",
-    "marginTop": "5mm",
-    "marginBottom": "10mm",
+    "report": {
+        "name": "reportRoot",
+        "type": "report",
+        "paperOrientation": "landscape",
+        "paperSize": "A4",
+        "paperWidth": "210mm",
+        "paperHeight": "297mm",
+        "marginLeft": "12mm",
+        "marginRight": "12mm",
+        "marginTop": "5mm",
+        "marginBottom": "10mm"
+    },
     "page": {
         "name": "reportPage",
+        "type": "report",
         "pageHeader": {
             "name": "pageHeader",
             "visible": false
@@ -36,7 +40,7 @@
                     "name": "",
                     "rowsPerPage": 1,
                     "detail": {
-                        "type": "detail",
+                        "type": "details",
                         "width": "100%",
                         "name": "",
                         "items": [
@@ -48,7 +52,7 @@
                                 "masterFields": "연도, 거래처명",
                                 "keyFields": "연도, 거래처명",
                                 "detail": {
-                                    "type": "detail",
+                                    "type": "details",
                                     "width": "100%",
                                     "name": ""
                                 },
@@ -83,6 +87,7 @@
                                     "width": "100%",
                                     "name": null,
                                     "rowCount": 3,
+                                    "fixed": false,
                                     "cellStyles": {},
                                     "rows": [{}, {}, {}],
                                     "cells": [
@@ -117,7 +122,6 @@
                                             "styles": {
                                                 "backgroundColor": "#fffcde",
                                                 "borderLeft": "none",
-                                                "borderTop": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -127,7 +131,6 @@
                                             "styles": {
                                                 "backgroundColor": "#fffcde",
                                                 "borderLeft": "1px solid #000",
-                                                "borderTop": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -137,7 +140,6 @@
                                             "styles": {
                                                 "backgroundColor": "#fffcde",
                                                 "borderLeft": "1px solid #000",
-                                                "borderTop": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -147,7 +149,6 @@
                                             "styles": {
                                                 "backgroundColor": "#fffcde",
                                                 "borderLeft": "1px solid #000",
-                                                "borderTop": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -157,7 +158,6 @@
                                             "styles": {
                                                 "backgroundColor": "#fffcde",
                                                 "borderLeft": "1px solid #000",
-                                                "borderTop": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -167,7 +167,6 @@
                                             "styles": {
                                                 "backgroundColor": "#fffcde",
                                                 "borderLeft": "1px solid #000",
-                                                "borderTop": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -177,7 +176,6 @@
                                             "styles": {
                                                 "backgroundColor": "#fffcde",
                                                 "borderLeft": "1px solid #000",
-                                                "borderTop": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -188,7 +186,6 @@
                                                 "backgroundColor": "#fffcde",
                                                 "borderLeft": "1px solid #000",
                                                 "borderRight": "none",
-                                                "borderTop": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         }
@@ -202,7 +199,7 @@
                                             "text": "⊙ 월별 매입 및 매출 현황",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -213,7 +210,7 @@
                                             "text": "구분",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -224,7 +221,7 @@
                                             "text": "매출액",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -235,7 +232,7 @@
                                             "text": "수금액",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -246,7 +243,7 @@
                                             "text": "미수금액",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -257,7 +254,7 @@
                                             "text": "매입액",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -268,7 +265,7 @@
                                             "text": "지급액",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -279,7 +276,7 @@
                                             "text": "미지급액",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -290,137 +287,130 @@
                                             "text": "비고",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
-                                            "type": "rbox",
+                                            "type": "realchart",
                                             "width": "100%",
-                                            "name": "",
+                                            "height": "200px",
                                             "col": 0,
                                             "row": 0,
-                                            "itemGap": "0px",
-                                            "items": [
+                                            "xAxes": [
                                                 {
-                                                    "type": "hichart",
-                                                    "width": "100%",
-                                                    "height": "170px",
-                                                    "name": "",
-                                                    "plotBorderColor": "#cccccc",
+                                                    "type": "category",
+                                                    "startAngle": 0,
                                                     "title": {
                                                         "visible": false,
-                                                        "styles": {},
-                                                        "text": "Title",
-                                                        "x": 0
+                                                        "text": "Axis title"
                                                     },
-                                                    "subtitle": {
-                                                        "visible": true,
-                                                        "styles": {},
-                                                        "text": "(단위: 천원)",
-                                                        "align": "right",
-                                                        "x": 0
-                                                    },
-                                                    "xAxis": {
-                                                        "visible": true,
-                                                        "styles": {},
-                                                        "categoryField": "월",
-                                                        "title": {
-                                                            "visible": false,
-                                                            "styles": {},
-                                                            "text": "Labels"
-                                                        },
-                                                        "labels": {
-                                                            "visible": true,
-                                                            "styles": {},
-                                                            "staggerLines": 0,
-                                                            "step": 0
-                                                        }
-                                                    },
-                                                    "yAxis": {
+                                                    "grid": {
                                                         "visible": false,
-                                                        "styles": {},
-                                                        "title": {
-                                                            "visible": true,
-                                                            "styles": {},
-                                                            "text": "Values"
-                                                        },
-                                                        "labels": {
-                                                            "visible": true,
-                                                            "styles": {},
-                                                            "staggerLines": 0,
-                                                            "step": 0
-                                                        }
+                                                        "endVisible": false
                                                     },
-                                                    "legend": {
-                                                        "visible": true,
-                                                        "styles": {},
-                                                        "align": "left",
-                                                        "verticalAlign": "top",
-                                                        "layout": "horizontal",
-                                                        "floating": true,
-                                                        "shadow": false
+                                                    "line": {
+                                                        "visible": false
                                                     },
-                                                    "series": [
-                                                        {
-                                                            "type": "line",
-                                                            "name": "매출액",
-                                                            "visible": true,
-                                                            "styles": {},
-                                                            "valueField": "매출액",
-                                                            "values": [5, 6, 8, 2, 8],
-                                                            "showInLegend": true,
-                                                            "dataLabels": {
-                                                                "visible": true,
-                                                                "styles": {
-                                                                    "color": "#91d400",
-                                                                    "__tag_": {}
-                                                                },
-                                                                "verticalAlign": "bottom",
-                                                                "rotation": 0,
-                                                                "borderRadius": 0,
-                                                                "borderWidth": 0,
-                                                                "padding": 5
-                                                            },
-                                                            "lineWidth": 3,
-                                                            "lineColor": "#91d400",
-                                                            "": {
-                                                                "visible": true,
-                                                                "styles": {},
-                                                                "fillColor": "#91d400"
-                                                            }
-                                                        },
-                                                        {
-                                                            "type": "line",
-                                                            "name": "매입액",
-                                                            "visible": true,
-                                                            "styles": {},
-                                                            "valueField": "매입액",
-                                                            "values": [8, 7, 3, 8, 7],
-                                                            "showInLegend": true,
-                                                            "dataLabels": {
-                                                                "visible": true,
-                                                                "styles": {
-                                                                    "color": "#439c03",
-                                                                    "__tag_": {}
-                                                                },
-                                                                "verticalAlign": "top",
-                                                                "rotation": 0,
-                                                                "borderRadius": 0,
-                                                                "borderWidth": 0,
-                                                                "padding": 5
-                                                            },
-                                                            "lineWidth": 3,
-                                                            "lineColor": "#439c03",
-                                                            "": {
-                                                                "visible": true,
-                                                                "styles": {},
-                                                                "symbol": "circle",
-                                                                "fillColor": "#439c03"
-                                                            }
-                                                        }
-                                                    ]
+                                                    "tick": {
+                                                        "visible": false
+                                                    },
+                                                    "crosshair": {
+                                                        "visible": false
+                                                    },
+                                                    "categories": ["a", "b", "c", "d", "e"],
+                                                    "categoryField": "월"
                                                 }
-                                            ]
+                                            ],
+                                            "yAxes": [
+                                                {
+                                                    "type": "linear",
+                                                    "minValue": 0,
+                                                    "startAngle": 0,
+                                                    "title": {
+                                                        "visible": false,
+                                                        "text": "Axis title"
+                                                    },
+                                                    "label": {
+                                                        "visible": false
+                                                    },
+                                                    "grid": {
+                                                        "startVisible": true,
+                                                        "endVisible": true
+                                                    },
+                                                    "line": {
+                                                        "visible": false
+                                                    },
+                                                    "tick": {
+                                                        "visible": false
+                                                    },
+                                                    "crosshair": {
+                                                        "visible": false
+                                                    }
+                                                }
+                                            ],
+                                            "seriesCollection": [
+                                                {
+                                                    "styles": {
+                                                        "stroke": "#91d400"
+                                                    },
+                                                    "valueField": "매출액",
+                                                    "values": [6, 7, 7, 5, 3],
+                                                    "type": "line",
+                                                    "name": "매출액",
+                                                    "color": "#91d400",
+                                                    "marker": {
+                                                        "styles": {
+                                                            "fill": "#91d400"
+                                                        },
+                                                        "shape": "circle"
+                                                    },
+                                                    "pointLabel": {
+                                                        "styles": {
+                                                            "fill": "#91d400"
+                                                        },
+                                                        "offset": 4,
+                                                        "position": "auto"
+                                                    }
+                                                },
+                                                {
+                                                    "styles": {
+                                                        "stroke": "#439c03"
+                                                    },
+                                                    "valueField": "매입액",
+                                                    "values": [5, 5, 8, 2, 7],
+                                                    "type": "line",
+                                                    "name": "매입액",
+                                                    "color": "#439c03",
+                                                    "marker": {
+                                                        "styles": {
+                                                            "fill": "#439c03"
+                                                        },
+                                                        "shape": "circle"
+                                                    },
+                                                    "pointLabel": {
+                                                        "styles": {
+                                                            "fill": "#439c03"
+                                                        },
+                                                        "offset": 4,
+                                                        "position": "foot"
+                                                    }
+                                                }
+                                            ],
+                                            "title": {
+                                                "visible": false,
+                                                "text": "Title"
+                                            },
+                                            "subtitle": {
+                                                "visible": false,
+                                                "text": "Subtitle"
+                                            },
+                                            "body": {
+                                                "circular": true
+                                            },
+                                            "legend": {
+                                                "alignBase": "chart",
+                                                "location": "left"
+                                            }
                                         }
                                     ]
                                 },
@@ -428,6 +418,7 @@
                                     "width": "100%",
                                     "name": null,
                                     "rowCount": 1,
+                                    "fixed": false,
                                     "cellStyles": {},
                                     "rows": [{}],
                                     "cells": [
@@ -523,7 +514,7 @@
                                             "styles": {
                                                 "fontWeight": "bold",
                                                 "color": "#fff",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -536,7 +527,7 @@
                                             "styles": {
                                                 "fontWeight": "bold",
                                                 "color": "#628c55",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -548,7 +539,7 @@
                                             "expression": "sum(수금액)* 1000",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -560,7 +551,7 @@
                                             "expression": "sum(미수금액) * 1000",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -573,7 +564,7 @@
                                             "styles": {
                                                 "fontWeight": "bold",
                                                 "color": "#628c55",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -585,7 +576,7 @@
                                             "expression": "sum(지급액)* 1000",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -597,7 +588,7 @@
                                             "expression": "sum(미지급액)* 1000",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         }
                                     ]
@@ -606,6 +597,7 @@
                                     "width": "100%",
                                     "name": null,
                                     "rowCount": 1,
+                                    "fixed": false,
                                     "cellStyles": {},
                                     "rows": [{}],
                                     "cells": [
@@ -624,7 +616,6 @@
                                                 "cellAlign": "right",
                                                 "paddingRight": "10px",
                                                 "borderLeft": "1px solid #000",
-                                                "borderRight": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -635,7 +626,6 @@
                                                 "cellAlign": "right",
                                                 "paddingRight": "10px",
                                                 "borderLeft": "1px solid #000",
-                                                "borderRight": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -646,7 +636,6 @@
                                                 "cellAlign": "right",
                                                 "paddingRight": "10px",
                                                 "borderLeft": "1px solid #000",
-                                                "borderRight": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -657,7 +646,6 @@
                                                 "cellAlign": "right",
                                                 "paddingRight": "10px",
                                                 "borderLeft": "1px solid #000",
-                                                "borderRight": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -668,7 +656,6 @@
                                                 "cellAlign": "right",
                                                 "paddingRight": "10px",
                                                 "borderLeft": "1px solid #000",
-                                                "borderRight": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -679,7 +666,6 @@
                                                 "cellAlign": "right",
                                                 "paddingRight": "10px",
                                                 "borderLeft": "1px solid #000",
-                                                "borderRight": "",
                                                 "borderBottom": "1px solid #000"
                                             }
                                         },
@@ -733,7 +719,7 @@
                                             "text": "Text",
                                             "styles": {
                                                 "color": "#628c55",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -767,7 +753,7 @@
                                             "text": "Text",
                                             "styles": {
                                                 "color": "#628c55",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         },
                                         {
@@ -779,7 +765,7 @@
                                             "text": "Text",
                                             "styles": {
                                                 "fontWeight": "bold",
-                                                "__tag_": {}
+                                                "_tag_": {}
                                             }
                                         }
                                     ]
@@ -794,7 +780,7 @@
                         "name": null,
                         "styles": {
                             "paddingBottom": "15px",
-                            "__tag_": {}
+                            "_tag_": {}
                         },
                         "items": [
                             {
@@ -802,6 +788,7 @@
                                 "width": "100%",
                                 "name": "",
                                 "rowCount": 2,
+                                "fixed": false,
                                 "minRowHeight": "24px",
                                 "cellStyles": {},
                                 "rows": [
@@ -941,7 +928,7 @@
                                         "styles": {
                                             "fontSize": "24px",
                                             "fontWeight": "bold",
-                                            "__tag_": {}
+                                            "_tag_": {}
                                         }
                                     },
                                     {
@@ -952,7 +939,7 @@
                                         "text": "담    당",
                                         "styles": {
                                             "fontWeight": "bold",
-                                            "__tag_": {}
+                                            "_tag_": {}
                                         }
                                     }
                                 ]
@@ -981,6 +968,7 @@
                                         "width": "100%",
                                         "name": "",
                                         "rowCount": 2,
+                                        "fixed": false,
                                         "minRowHeight": "24px",
                                         "cellStyles": {},
                                         "rows": [{}, {}],
@@ -1121,7 +1109,7 @@
                                                 "text": "연      도",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1132,7 +1120,7 @@
                                                 "text": "거래처명",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1160,7 +1148,7 @@
                                                 "text": "기      간",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1171,7 +1159,7 @@
                                                 "text": "부서/직위",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1190,7 +1178,7 @@
                                                 "text": "성명",
                                                 "styles": {
                                                     "fontWeight": "bolder",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1246,6 +1234,7 @@
                                         "width": "100%",
                                         "name": "",
                                         "rowCount": 2,
+                                        "fixed": false,
                                         "minRowHeight": "24px",
                                         "cellStyles": {},
                                         "rows": [{}, {}],
@@ -1446,7 +1435,7 @@
                                                 "styles": {
                                                     "fontWeight": "bold",
                                                     "color": "#284f63",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 },
                                                 "styleCallback": null
                                             },
@@ -1462,7 +1451,7 @@
                                                 "styles": {
                                                     "fontWeight": "bold",
                                                     "color": "#4e89a9",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1474,7 +1463,7 @@
                                                 "styles": {
                                                     "fontWeight": "bold",
                                                     "color": "#fff",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1486,7 +1475,7 @@
                                                 "styles": {
                                                     "fontWeight": "bold",
                                                     "color": "#fff",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1498,7 +1487,7 @@
                                                 "text": "Text",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1510,7 +1499,7 @@
                                                 "text": "Text",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1521,7 +1510,7 @@
                                                 "text": "미지급액",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1532,7 +1521,7 @@
                                                 "text": "미수금액",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1544,7 +1533,7 @@
                                                 "text": "Text",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1556,7 +1545,7 @@
                                                 "text": "Text",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1567,7 +1556,7 @@
                                                 "text": "지급합계",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1578,7 +1567,7 @@
                                                 "text": "수금합계",
                                                 "styles": {
                                                     "fontWeight": "bold",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1591,7 +1580,7 @@
                                                 "styles": {
                                                     "fontWeight": "bold",
                                                     "color": "#91d400",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1604,7 +1593,7 @@
                                                 "styles": {
                                                     "fontWeight": "bold",
                                                     "color": "#439c03",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1616,7 +1605,7 @@
                                                 "styles": {
                                                     "fontWeight": "bold",
                                                     "color": "#fff",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             },
                                             {
@@ -1628,7 +1617,7 @@
                                                 "styles": {
                                                     "fontWeight": "bold",
                                                     "color": "#fff",
-                                                    "__tag_": {}
+                                                    "_tag_": {}
                                                 }
                                             }
                                         ]
@@ -1647,7 +1636,6 @@
     "data": {
         "annual-report-detail": {
             "type": "band",
-            "sampleCount": 12,
             "fields": [
                 {
                     "fieldName": "연도",
@@ -1727,7 +1715,6 @@
         },
         "annual-report-master": {
             "type": "band",
-            "sampleCount": 1,
             "fields": [
                 {
                     "fieldName": "연도",
@@ -1816,5 +1803,5 @@
             ]
         }
     },
-    "guid": "25bebda2-8372-41be-aba8-2e4e54a31d65"
+    "guid": "6a0a016a-cf37-4ee6-ac15-87a64d61ac6b"
 }

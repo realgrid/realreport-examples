@@ -27,21 +27,24 @@ var reportTemplates = [
                 thumbnail: 'templates/reports/general/master-detail.png',
                 file: 'templates/reports/general/master-detail.json',
                 dataFile: 'templates/reports/general/master-detail-data.json',
-                description: '테이블 형태의 마스터와 테이블 밴드 형태의 디테일로 구성된 리포트입니다',
+                description:
+                    '테이블 형태의 마스터와 테이블 밴드 형태의 디테일로 구성된 리포트입니다',
             },
             {
                 name: 'Group',
                 thumbnail: 'templates/reports/general/group.png',
                 file: 'templates/reports/general/group.json',
                 dataFile: 'templates/reports/general/group-data.json',
-                description: '하나의 테이블 밴드에서 그룹핑이 설정된 리포트입니다.',
+                description:
+                    '하나의 테이블 밴드에서 그룹핑이 설정된 리포트입니다.',
             },
             {
                 name: 'Label',
                 thumbnail: 'templates/reports/general/mail-label.png',
                 file: 'templates/reports/general/mail-label.json',
                 dataFile: 'templates/reports/general/mail-label-data.json',
-                description: '심플 밴드에서 2개 컬럼으로 구성된 메일 라벨 서식 리포트입니다.',
+                description:
+                    '심플 밴드에서 2개 컬럼으로 구성된 메일 라벨 서식 리포트입니다.',
             },
             {
                 name: 'Graph',
@@ -87,7 +90,8 @@ var reportTemplates = [
                 name: '납품표',
                 thumbnail: 'templates/reports/sales/delivery-certification.png',
                 file: 'templates/reports/sales/delivery-certification.json',
-                dataFile: 'templates/reports/sales/delivery-certification-data.json',
+                dataFile:
+                    'templates/reports/sales/delivery-certification-data.json',
                 description: '납품표 예제 리포트입니다.',
             },
             {
@@ -111,39 +115,37 @@ var reportTemplates = [
             },
             {
                 name: '생산/재고 일일 보고',
-                thumbnail: 'templates/reports/production/product-stock-report.png',
+                thumbnail:
+                    'templates/reports/production/product-stock-report.png',
                 file: 'templates/reports/production/product-stock-report.json',
-                dataFile: 'templates/reports/production/product-stock-report-data.json',
+                dataFile:
+                    'templates/reports/production/product-stock-report-data.json',
                 description: '생산/재고 일일 보고 예제 리포트입니다.',
             },
             {
                 name: '자재 청구/투입 현황',
                 thumbnail: 'templates/reports/production/material-input.png',
                 file: 'templates/reports/production/material-input.json',
-                dataFile: 'templates/reports/production/material-input-data.json',
+                dataFile:
+                    'templates/reports/production/material-input-data.json',
                 description: '자재 청구/투입 현황 예제 리포트입니다.',
             },
             {
                 name: '연간 매입매출 보고서',
-                thumbnail: 'templates/reports/production/annual-sales-report.png',
+                thumbnail:
+                    'templates/reports/production/annual-sales-report.png',
                 file: 'templates/reports/production/annual-sales-report.json',
-                dataFile: 'templates/reports/production/annual-sales-report-data.json',
+                dataFile:
+                    'templates/reports/production/annual-sales-report-data.json',
                 description: '연간 매입매출 보고서 예제 리포트입니다.',
             },
             {
                 name: '지점별 판매실적',
-                thumbnail: 'templates/reports/production/sales-performance-by-branch.png',
+                thumbnail:
+                    'templates/reports/production/sales-performance-by-branch.png',
                 file: 'templates/reports/production/sales-performance-by-branch.json',
-                data: [
-                    {
-                        name: 'sales-performance-master',
-                        file: 'templates/reports/production/sales-performance-master.json',
-                    },
-                    {
-                        name: 'sales-performance-detail',
-                        file: 'templates/reports/production/sales-performance-detail.json',
-                    },
-                ],
+                dataFile:
+                    'templates/reports/production/sales-performance-by-branch-data.json',
                 description: '지점별 판매실적 예제 리포트입니다.',
             },
         ],
@@ -156,7 +158,8 @@ var reportTemplates = [
                 category: 'HR',
                 thumbnail: 'templates/reports/hr/monthly-working-report.png',
                 file: 'templates/reports/hr/monthly-working-report.json',
-                dataFile: 'templates/reports/hr/monthly-working-report-data.json',
+                dataFile:
+                    'templates/reports/hr/monthly-working-report-data.json',
                 description: '근태 관리 대장 예제 리포트입니다.',
             },
             {
@@ -202,9 +205,11 @@ var reportTemplates = [
             {
                 name: '직원 급여 관리',
                 category: 'HR',
-                thumbnail: 'templates/reports/hr/employee-salary-management.png',
+                thumbnail:
+                    'templates/reports/hr/employee-salary-management.png',
                 file: 'templates/reports/hr/employee-salary-management.json',
-                dataFile: 'templates/reports/hr/employee-salary-management-data.json',
+                dataFile:
+                    'templates/reports/hr/employee-salary-management-data.json',
                 description: '직원 급여 관리 예제 리포트입니다.',
             },
         ],
@@ -216,28 +221,35 @@ var reportTemplates = [
                 name: '거래처별 원장',
                 thumbnail: 'templates/reports/accounting/customer-ladger.png',
                 file: 'templates/reports/accounting/customer-ladger.json',
-                dataFile: 'templates/reports/accounting/customer-ladger-data.json',
+                dataFile:
+                    'templates/reports/accounting/customer-ladger-data.json',
                 description: '거래처별 원장 예제 리포트입니다.',
             },
             {
                 name: '근로소득 원청징수 영수증',
-                thumbnail: 'templates/reports/accounting/earned-tax-receipt.png',
+                thumbnail:
+                    'templates/reports/accounting/earned-tax-receipt.png',
                 file: 'templates/reports/accounting/earned-tax-receipt.json',
-                dataFile: 'templates/reports/accounting/earned-tax-receipt.json',
+                dataFile:
+                    'templates/reports/accounting/earned-tax-receipt.json',
                 description: '근로소득 원청징수 영수증 예제 리포트입니다.',
             },
             {
                 name: '퇴직 원천징수 영수증',
-                thumbnail: 'templates/reports/accounting/retired-tax-receipt.png',
+                thumbnail:
+                    'templates/reports/accounting/retired-tax-receipt.png',
                 file: 'templates/reports/accounting/retired-tax-receipt.json',
-                dataFile: 'templates/reports/accounting/retired-tax-receipt-data.json',
+                dataFile:
+                    'templates/reports/accounting/retired-tax-receipt-data.json',
                 description: '퇴직 원천징수 영수증 예제 리포트입니다.',
             },
             {
                 name: '예정신고 매입/매출 현황',
-                thumbnail: 'templates/reports/accounting/provisional-return.png',
+                thumbnail:
+                    'templates/reports/accounting/provisional-return.png',
                 file: 'templates/reports/accounting/provisional-return.json',
-                dataFile: 'templates/reports/accounting/provisional-return-data.json',
+                dataFile:
+                    'templates/reports/accounting/provisional-return-data.json',
                 description: '예정신고 매입/매출 현황 예제 리포트입니다.',
             },
             {
@@ -258,14 +270,16 @@ var reportTemplates = [
                 name: '근로소득 원천징수 영수부',
                 thumbnail: 'templates/reports/accounting/earned-tax-report.png',
                 file: 'templates/reports/accounting/earned-tax-report.json',
-                dataFile: 'templates/reports/accounting/earned-tax-report-data.json',
+                dataFile:
+                    'templates/reports/accounting/earned-tax-report-data.json',
                 description: '근로소득 원천징수 영수부 예제 리포트입니다.',
             },
             {
                 name: '매입 부가세 내역',
                 thumbnail: 'templates/reports/accounting/purchase-surtax.png',
                 file: 'templates/reports/accounting/purchase-surtax.json',
-                dataFile: 'templates/reports/accounting/purchase-surtax-data.json',
+                dataFile:
+                    'templates/reports/accounting/purchase-surtax-data.json',
                 description: '매입 부가세 내역 예제 리포트입니다.',
             },
         ],
