@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import style from '../css/Report.module.css';
-import { ReportViewer } from 'realreport';
+import { ReportViewer, getVersion } from 'realreport';
 
 const Viewer = ({ report, setViewer }) => {
     const reportRef = useRef(null);
@@ -8,6 +8,10 @@ const Viewer = ({ report, setViewer }) => {
     useEffect(() => {
         const viewer = new ReportViewer(reportRef.current);
         setViewer(viewer);
+
+        if (viewer) {
+            console.log(getVersion());
+        }
 
         const pageCallback = (ctx, page, pageNo) => {
             console.log(`${pageNo} 페이지 미리보기 완료`);
