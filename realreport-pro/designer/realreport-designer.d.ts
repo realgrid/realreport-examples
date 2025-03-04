@@ -260,7 +260,7 @@ declare class BandDataSortView extends Base implements IBandDataSortView {
     private _source;
     private _fieldMap;
     private _view;
-    constructor(data: IBandData);
+    constructor(data: IReportData);
     get rowCount(): number;
     sort(field: string, direction: DataDirection): this;
     getRowValue(row: number, field: string): any;
@@ -8390,7 +8390,7 @@ declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base {
      * 로드가 필요한 Elements에 대한 비동기 처리
      */
     loadAsyncLoadableElements(): Promise<void[]>;
-    getPrintValue(m: ReportItem): any;
+    getPrintValue(item: ReportItem): any;
     getPrintLinkValue(m: ReportItem): any;
     /**
      * PrintContext에서 초기화가 필요한 속성들을 설정한다.
