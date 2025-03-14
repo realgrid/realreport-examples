@@ -2585,13 +2585,17 @@ declare class EditableMarker extends VisualElement {
 declare class EditableObject<T extends ReportItem> extends ReportItemObject<T> {
     static readonly PROP_EDITABLE = "editable";
     static readonly PROP_TYPE = "type";
+    static readonly PROP_MAX_LENGTH = "maxLength";
     static readonly PROPINFOS: IPropInfo[];
     private _editable;
     private _type;
+    private _maxLength;
     get editable(): boolean;
     set editable(value: boolean);
     get type(): EditType;
     set type(value: EditType);
+    get maxLength(): number;
+    set maxLength(value: number);
     get pathLabel(): string;
     get displayPath(): string;
     get level(): number;
@@ -10421,7 +10425,13 @@ declare class ReportDesigner_2 extends VisualContainer {
     private _fontHandler;
     private _fontSizeHandler;
     private _colorPickerHandler;
+    /**
+     * 툴바에서 폰트 색상을 설정하는 함수
+     */
     private $_setFontColor;
+    /**
+     * 툴바에서 배경 색상을 설정하는 함수
+     */
     private $_setBackgroundColor;
     private $_setPropertyColor;
     private $_processBlur;
