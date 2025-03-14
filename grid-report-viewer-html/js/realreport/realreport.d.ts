@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.6
-* commit 9f2f147
+* RealReport v1.10.7
+* commit 6b881ee
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.10.6
+* RealReport Core v1.10.7
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 3c339f64357f690dd8595ecbc4ae93a1a3efe81c
+* commit 9e096f7b8c53056ea447585ec5c76eb0f44d449f
 */
 
 
@@ -5156,13 +5156,17 @@ declare class I18nObject<T extends ReportItem> extends ReportItemObject<T> {
 declare class EditableObject<T extends ReportItem> extends ReportItemObject<T> {
     static readonly PROP_EDITABLE = "editable";
     static readonly PROP_TYPE = "type";
+    static readonly PROP_MAX_LENGTH = "maxLength";
     static readonly PROPINFOS: IPropInfo[];
     private _editable;
     private _type;
+    private _maxLength;
     get editable(): boolean;
     set editable(value: boolean);
     get type(): EditType;
     set type(value: EditType);
+    get maxLength(): number;
+    set maxLength(value: number);
     get pathLabel(): string;
     get displayPath(): string;
     get level(): number;
@@ -48203,6 +48207,7 @@ declare abstract class ReportViewBase {
     abstract exportPdf(options: PDFExportOptions): Promise<void>;
     abstract exportImage(imageOptions: ImageExportOptions): void;
     abstract exportDocument(options: DocumentExportOptions): void;
+    protected abstract _setReportForm(data: ReportForm | ReportForm | ReportFormSets): void;
     /**
      * 컨테이너의 상태를 체크하기 위한 조건과 조건에 맞을 경우의 에러 처리코드를 넘겨 줍니다.
      * checker.is 가 true이면 errorParams로 error() 를 실행 합니다.
@@ -48233,7 +48238,12 @@ declare abstract class ReportViewBase {
     fitToHeight(): void;
     fitToPage(): void;
     fitToWidth(): void;
+    open(source: string | ReportForm | ReportFormSet | (string | ReportFormSet)[], options?: PreviewOptions & {
+        preview?: boolean;
+    }): Promise<void>;
     private $_checkL;
+    private $_isReportSource;
+    private $_isReportFormSet;
 }
 
 /**
@@ -48247,6 +48257,7 @@ declare class ReportViewer extends ReportViewBase {
     private _isPaging;
     private _reportViewPrinter;
     constructor(container: string | HTMLDivElement, reportForm?: ReportForm, dataSet?: ReportDataSet, options?: ReportOptions);
+    protected _setReportForm(data: ReportForm | ReportForm[]): void;
     get reportForm(): ReportForm;
     set reportForm(form: ReportForm);
     get report(): Report | Email;
@@ -48378,6 +48389,7 @@ declare class ReportCompositeViewer extends ReportViewBase {
     private _reportViewPrinter;
     private _isPreview;
     constructor(container: string | HTMLDivElement, formSets?: ReportFormSets, options?: ReportOptions);
+    protected _setReportForm(data: ReportFormSet | ReportFormSets): void;
     set formSets(formSets: ReportFormSets);
     /**
      * container에 formsset을 preview로 렌더링 합니다.

@@ -260,7 +260,7 @@ declare class BandDataSortView extends Base implements IBandDataSortView {
     private _source;
     private _fieldMap;
     private _view;
-    constructor(data: IBandData);
+    constructor(data: IReportData);
     get rowCount(): number;
     sort(field: string, direction: DataDirection): this;
     getRowValue(row: number, field: string): any;
@@ -2585,13 +2585,17 @@ declare class EditableMarker extends VisualElement {
 declare class EditableObject<T extends ReportItem> extends ReportItemObject<T> {
     static readonly PROP_EDITABLE = "editable";
     static readonly PROP_TYPE = "type";
+    static readonly PROP_MAX_LENGTH = "maxLength";
     static readonly PROPINFOS: IPropInfo[];
     private _editable;
     private _type;
+    private _maxLength;
     get editable(): boolean;
     set editable(value: boolean);
     get type(): EditType;
     set type(value: EditType);
+    get maxLength(): number;
+    set maxLength(value: number);
     get pathLabel(): string;
     get displayPath(): string;
     get level(): number;
@@ -8390,7 +8394,7 @@ declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base {
      * 로드가 필요한 Elements에 대한 비동기 처리
      */
     loadAsyncLoadableElements(): Promise<void[]>;
-    getPrintValue(m: ReportItem): any;
+    getPrintValue(item: ReportItem): any;
     getPrintLinkValue(m: ReportItem): any;
     /**
      * PrintContext에서 초기화가 필요한 속성들을 설정한다.
@@ -9345,6 +9349,8 @@ declare interface RCSeriesPointLabelConfig {
     style?: RCSvgStyles;
     offset?: number;
     position?: RCSeriesPointLabelPosition;
+    numberFormat?: string;
+    numberSymbols?: string;
 }
 
 declare enum RCSeriesPointLabelPosition {
@@ -10419,7 +10425,13 @@ declare class ReportDesigner_2 extends VisualContainer {
     private _fontHandler;
     private _fontSizeHandler;
     private _colorPickerHandler;
+    /**
+     * 툴바에서 폰트 색상을 설정하는 함수
+     */
     private $_setFontColor;
+    /**
+     * 툴바에서 배경 색상을 설정하는 함수
+     */
     private $_setBackgroundColor;
     private $_setPropertyColor;
     private $_processBlur;
