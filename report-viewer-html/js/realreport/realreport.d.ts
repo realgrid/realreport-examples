@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.7
-* commit 6b881ee
+* RealReport v1.10.8
+* commit 0768ad2
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.10.7
+* RealReport Core v1.10.8
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 9e096f7b8c53056ea447585ec5c76eb0f44d449f
+* commit 6c0c5d23702c300ef96d24412f74b94f56bb8404
 */
 
 
@@ -1291,6 +1291,7 @@ declare enum PropCategory {
     EVENT = "event",
     I18N = "internationalization",
     EDITING = "editing",
+    CHECK = "check",
     SECTION = "section",
     EDITOR = "editor",
     REPORT = "report",
@@ -5151,7 +5152,7 @@ declare class I18nObject<T extends ReportItem> extends ReportItemObject<T> {
 }
 
 /**
- * 편집가능 객체 속성 구현
+ * 텍스트 관련 편집가능 객체 속성 구현
  */
 declare class EditableObject<T extends ReportItem> extends ReportItemObject<T> {
     static readonly PROP_EDITABLE = "editable";
@@ -14028,30 +14029,40 @@ declare abstract class PrintContainerBase extends VisualContainer$1 {
     $_keydownHandler: (ev: KeyboardEvent) => boolean;
 }
 
+type EditableItemValue = string | number | boolean;
 interface EditableItem {
     reportItemElement: ReportItemView;
     targetElement: HTMLElement;
     markerElement: HTMLElement;
-    oldValue: string;
-    newValue: string;
-}
-type EditableItemInfo = {
     name: string;
-    oldValue: string;
-    newValue: string;
+    item: string;
+    originalValue: EditableItemValue;
+    value: EditableItemValue;
+}
+type EditableItemMeta = {
+    name: string;
+    value: EditableItemValue;
 };
 /**
  * 리얼리포트 출력후에도 내용 수정이 가능한 아이템들의 정보를 저장하고 관리한다.
  */
 declare class PrintEditableItemManager extends Base$1 {
+    static readonly FOCUSED_ITEMS: string[];
     private _editableItems;
     constructor();
+    get canFocusedItems(): EditableItem[];
     addEditableItem(itemView: ReportItemView, targetElement: HTMLElement, markerElement: HTMLElement): void;
     updateEditableItem(markerElement: HTMLElement, newValue: string): void;
-    getEditableItems(): EditableItemInfo[];
+    getEditableItems(): EditableItemMeta[];
     nextItem(currentElement: HTMLElement): EditableItem | undefined;
     prevItem(currentElement: HTMLElement): EditableItem | undefined;
-    private $_getMarkerElementIndex;
+    /**
+     * 포커스 가능한 아이템중에서 현재 선택된 아이템 인덱스 정보
+     * @param element 현재 선택된 요소
+     * @returns 포커스 가능한 아이템 목록에서 현재 선택된 아이템 인덱스
+     */
+    private $_getFoucsedElementIndex;
+    private $_convertValue;
 }
 
 declare class PrintContainer extends PrintContainerBase {
@@ -14164,7 +14175,7 @@ declare class PrintContainer extends PrintContainerBase {
     private $_validateReportOption;
     private $_createReportView;
     private $_instanceofIPrintReport;
-    private $_addContainerEventListener;
+    private $_addMarkerEventListener;
     private $_addEditableItemToManager;
     /**
      * 한 페이지당 수정가능한 아이템 정보를 찾아서 정보를 최신화 시킨다.
