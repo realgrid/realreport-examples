@@ -365,41 +365,12 @@ function hiddenFrame(frameId) {
     reportFrame.classList.add('hidden');
 }
 
-function webDesignerSample(el) {
+function sampleReport(el) {
+    const form = window[el.id];
     openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', certificateReport);
-    reportForm = certificateReport;
-    dataSet = certificateReport.data;
-    setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
-    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
-}
-
-function signSample(el) {
-    openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', signReport);
-    reportForm = certificateReport;
-    dataSet = certificateReport.data;
-    setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
-    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
-}
-
-function crossTabSample(el) {
-    openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', crossTabSmaple);
-    reportForm = crossTabSmaple;
-    dataSet = crossTabSmaple.data;
-    setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
-    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
-}
-
-function editableSample(el) {
-    openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', editableReport);
-    reportForm = editableReport;
-    dataSet = editableReport.dataSet;
+    reportViewer = webDesignerFrame('webDesignerFrame', form);
+    reportForm = form;
+    dataSet = form.data;
     setEditorModel('reportForm');
     hiddenFrame('reportFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
