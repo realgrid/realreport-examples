@@ -2553,15 +2553,18 @@ declare interface EditableItem {
     reportItemElement: ReportItemView;
     targetElement: HTMLElement;
     markerElement: HTMLElement;
-    oldValue: string;
-    newValue: string;
+    name: string;
+    item: string;
+    originalValue: EditableItemValue;
+    value: EditableItemValue;
 }
 
-declare type EditableItemInfo = {
+declare type EditableItemMeta = {
     name: string;
-    oldValue: string;
-    newValue: string;
+    value: EditableItemValue;
 };
+
+declare type EditableItemValue = string | number | boolean;
 
 /**
  * Report Editable 속성 관련하여 수정가능한 영역 표시를 위해 작성
@@ -2580,7 +2583,7 @@ declare class EditableMarker extends VisualElement {
 }
 
 /**
- * 편집가능 객체 속성 구현
+ * 텍스트 관련 편집가능 객체 속성 구현
  */
 declare class EditableObject<T extends ReportItem> extends ReportItemObject<T> {
     static readonly PROP_EDITABLE = "editable";
@@ -8154,7 +8157,7 @@ declare class PrintContainer extends PrintContainerBase {
     private $_validateReportOption;
     private $_createReportView;
     private $_instanceofIPrintReport;
-    private $_addContainerEventListener;
+    private $_addMarkerEventListener;
     private $_addEditableItemToManager;
     /**
      * 한 페이지당 수정가능한 아이템 정보를 찾아서 정보를 최신화 시킨다.
@@ -8406,14 +8409,22 @@ declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base {
  * 리얼리포트 출력후에도 내용 수정이 가능한 아이템들의 정보를 저장하고 관리한다.
  */
 declare class PrintEditableItemManager extends Base {
+    static readonly FOCUSED_ITEMS: string[];
     private _editableItems;
     constructor();
+    get canFocusedItems(): EditableItem[];
     addEditableItem(itemView: ReportItemView, targetElement: HTMLElement, markerElement: HTMLElement): void;
     updateEditableItem(markerElement: HTMLElement, newValue: string): void;
-    getEditableItems(): EditableItemInfo[];
+    getEditableItems(): EditableItemMeta[];
     nextItem(currentElement: HTMLElement): EditableItem | undefined;
     prevItem(currentElement: HTMLElement): EditableItem | undefined;
-    private $_getMarkerElementIndex;
+    /**
+     * 포커스 가능한 아이템중에서 현재 선택된 아이템 인덱스 정보
+     * @param element 현재 선택된 요소
+     * @returns 포커스 가능한 아이템 목록에서 현재 선택된 아이템 인덱스
+     */
+    private $_getFoucsedElementIndex;
+    private $_convertValue;
 }
 
 declare type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => void;
@@ -8457,6 +8468,7 @@ declare enum PropCategory {
     EVENT = "event",
     I18N = "internationalization",
     EDITING = "editing",
+    CHECK = "check",
     SECTION = "section",
     EDITOR = "editor",
     REPORT = "report",
@@ -15877,4 +15889,3 @@ declare namespace ResizeDirection {
     function isEdge(dir: ResizeDirection): boolean;
     function isIn(dir: ResizeDirection, ...dirs: ResizeDirection[]): boolean;
 }
-
