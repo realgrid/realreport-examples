@@ -440,8 +440,8 @@
          * */
         const onClickExportPdf = function () {
             const zoomSclae = viewer.zoom
-            base64convert('/js/pdffonts/PretendardGOV-Regular.otf', true).then(regularFont => {
-                base64convert('/js/pdffonts/PretendardGOV-Bold.otf', true).then(async boldFont => {
+            base64convert('/js/pdffonts/NanumGothic.otf', true).then(regularFont => {
+                base64convert('/js/pdffonts/NanumGothicBold.otf', true).then(async boldFont => {
                     const fonts = [{
                         name: 'regular',
                         content: regularFont,
