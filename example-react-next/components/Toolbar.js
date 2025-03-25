@@ -173,9 +173,9 @@ function Toolbar({ viewer, compositeViewer }) {
     }
     // pdf
     const onClickExportPdf = function () {
-        base64convert('/js/pdffonts/PretendardGOV-Regular.otf', true).then(
+        base64convert('/js/pdffonts/NanumGothic.otf', true).then(
             (regularFont) => {
-                base64convert('/js/pdffonts/PretendardGOV-Bold.otf', true).then(
+                base64convert('/js/pdffonts/NanumGothicBold.otf', true).then(
                     (boldFont) => {
                         const fonts = [
                             {

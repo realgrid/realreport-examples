@@ -24,7 +24,10 @@
                         "name": "",
                         "right": 0,
                         "dateFormat": "yyyy/MM/dd",
-                        "text": ""
+                        "text": "",
+                        "styles": {
+                            "fontFamily": "Arial"
+                        }
                     }
                 ]
             },
@@ -211,6 +214,9 @@
                         }
                     }
                 ]
+            },
+            "styles": {
+                "fontFamily": "NanumGothic"
             }
         },
         "assets": {

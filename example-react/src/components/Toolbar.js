@@ -180,38 +180,50 @@ function Toolbar({ viewer, compositeViewer }) {
             };
         });
     }
-    // pdf
-    const onClickExportPdf = function () {
-        base64convert('/js/pdffonts/PretendardGOV-Regular.otf', true).then(
-            (regularFont) => {
-                base64convert('/js/pdffonts/PretendardGOV-Bold.otf', true).then(
-                    (boldFont) => {
-                        const fonts = [
-                            {
-                                name: 'regular',
-                                content: regularFont,
-                                style: 'normal',
-                                weight: 'normal',
-                            },
-                            {
-                                name: 'bold',
-                                content: boldFont,
-                                style: 'normal',
-                                weight: 'bold',
-                            },
-                        ];
 
-                        if (viewer) {
-                            viewer.exportPdf({
-                                fonts,
-                                filename: 'sample-report',
-                                preview: false,
-                            });
-                        }
-                    },
-                );
+    // pdf
+    const onClickExportPdf = async function () {
+        const base64Fonts = await Promise.all([
+            base64convert('/js/pdffonts/NanumGothic.otf', true),
+            base64convert('/js/pdffonts/NanumGothicBold.otf', true),
+            base64convert('/js/pdffonts/ArialMt.ttf', true),
+            base64convert('/js/pdffonts/ArialMtBold.otf', true),
+        ]);
+
+        const fonts = [
+            {
+                name: 'NanumGothic',
+                content: base64Fonts[0],
+                style: 'normal',
+                weight: 'normal',
             },
-        );
+            {
+                name: 'NanumGothic',
+                content: base64Fonts[1],
+                style: 'normal',
+                weight: 'bold',
+            },
+            {
+                name: 'Arial',
+                content: base64Fonts[2],
+                style: 'normal',
+                weight: 'normal',
+            },
+            {
+                name: 'Arial',
+                content: base64Fonts[3],
+                style: 'normal',
+                weight: 'bold',
+            },
+        ];
+
+        if (viewer) {
+            viewer.exportPdf({
+                fonts,
+                filename: 'sample-report',
+                preview: false,
+            });
+        }
     };
 
     useEffect(() => {

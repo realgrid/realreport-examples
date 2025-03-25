@@ -50,12 +50,12 @@ var initWebDesigner = function (reports) {
             [
                 {
                     name: 'Pretendard',
-                    source: 'js/pdffonts/PretendardGOV-Regular.otf',
+                    source: 'js/pdffonts/NanumGothic.otf',
                     fontWeight: 'normal',
                 },
                 {
                     name: 'Pretendard',
-                    source: 'js/pdffonts/PretendardGOV-Bold.otf',
+                    source: 'js/pdffonts/NanumGothicBold.otf',
                     fontWeight: 'bold',
                 },
             ],

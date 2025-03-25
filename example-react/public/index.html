@@ -1,50 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  <!--
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <meta
+            name="description"
+            content="Web site created using create-react-app"
+        />
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+        <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        <link
+            rel="preload"
+            href="./js/pdffonts/NanumGothic.otf"
+            as="font"
+            type="font/otf"
+        />
+        <link
+            rel="preload"
+            href="./js/pdffonts/NanumGothicBold.otf"
+            as="font"
+            type="font/otf"
+        />
+        <link
+            rel="preload"
+            href="./js/pdffonts/ArialMt.ttf"
+            as="font"
+            type="font/ttf"
+        />
+        <link
+            rel="preload"
+            href="./js/pdffonts/ArialMtBold.otf"
+            as="font"
+            type="font/otf"
+        />
+        <style>
+            @font-face {
+                font-family: 'NanumGothic';
+                src: url('./js/pdffonts/NanumGothic.otf') format('opentype');
+                font-style: normal;
+                font-weight: normal;
+            }
+            @font-face {
+                font-family: 'NanumGothic';
+                src: url('./js/pdffonts/NanumGothicBold.otf') format('opentype');
+                font-style: normal;
+                font-weight: bold;
+            }
+        </style>
+        <!-- 리얼리포트 스타일 적용 -->
+        <link href="./css/realreport.css" rel="stylesheet" />
+        <!-- 하이차트 스타일 적용 -->
+        <link href="./css/highcharts.css" rel="stylesheet" />
+        <script>
+            /**
+             * RealReport를 사용하기 위해 라이선스가 필요합니다. https://service.realgrid.com 에서 무료 라이선스를 발급 받을 수 있습니다.
+             * - 아래 라이선스는 유효기간 2025년 5월 31일 까지 까지 localhost, 127.0.0.1 또는 demo.real-report.com, demo.realreport.co.kr 도메인에서 사용할 수 있는 라이선스 입니다.
+             */
+            var realReportLic =
+                'upVcPE+wPOn1V3OcjC3PuAUt7xtLcP5XVzS0GnpZwpnbdxrzWi3SH9lnNreNwRub/31bQcGrnP/Nq/NkIKx9AkkSD8KWTVlm9aI3507Qm2POAklYqFD9ZGXyjOMqbrgvr3+iyFPC2UvKqt1f0nYq0Fe/mONIYEy4CkGU/2dJ94leC1UWt2Y/gOPSfHZhPA2TCr/ODTGzdoYBrs4Ui2AU8g==';
+        </script>
+        <!-- pdfkit 사용 -->
+        <script src="./js/pdfkit.js"></script>
+        <!-- highcharts 사용 -->
+        <script src="./js/highcharts/highcharts.js"></script>
+        <script src="./js/highcharts/highcharts-more.js"></script>
+        <title>Real Report</title>
+    </head>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-  <!-- 리얼리포트 스타일 적용 -->
-  <link href='./css/realreport.css' rel='stylesheet' />
-  <!-- 하이차트 스타일 적용 -->
-  <link href='./css/highcharts.css' rel='stylesheet' />
-  <script>
-    /**
-     * RealReport를 사용하기 위해 라이선스가 필요합니다. https://service.realgrid.com 에서 무료 라이선스를 발급 받을 수 있습니다.
-     * - 아래 라이선스는 유효기간 2025년 2월 6일 까지 까지 localhost, 127.0.0.1 또는 real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
-     */
-    var realReportLic = "upVcPE+wPOkcfqywe+clVN+UVTCvO3is+83EYTz6U/ufti7oHFstjC3QMBxzmMIozyXlaBz8ES1IVaBfqOuLyTQR9hbhIVddJ5pkitVHVM3wqa5ueAwSF8q/Q/nqT35UsqOdgUX2HtMO5+/xJSE3Li/4+GS3wQkOkxValpjT3ck=";
-  </script>
-  <!-- pdfkit 사용 -->
-  <script src="./js/pdfkit.js"></script>
-  <!-- highcharts 사용 -->
-  <script src="./js/highcharts/highcharts.js"></script>
-  <script src="./js/highcharts/highcharts-more.js"></script>
-  <title>Real Report</title>
-</head>
-
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-  <!--
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>
+        <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -53,7 +85,5 @@
 
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-</body>
-
+    --></body>
 </html>

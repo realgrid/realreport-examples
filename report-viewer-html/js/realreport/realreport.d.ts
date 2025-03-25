@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.8
-* commit ea21639
+* RealReport v1.10.9
+* commit 538f493
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -9,6 +9,14 @@
 */
 
 import { Cvfo, Style } from 'exceljs';
+
+/** 
+* RealReport Core v1.10.9
+* Copyright (C) 2013-2025 WooriTech Inc.
+* All Rights Reserved.
+* commit 093b5927f1b650b2f8349a56e887c119ce1c43d2
+*/
+
 
 type ConfigObject$1 = {
     [key: string]: any;

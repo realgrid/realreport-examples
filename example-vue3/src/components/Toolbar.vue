@@ -183,8 +183,8 @@ export default {
       });
     },
     onClickExportPdf() {
-      this.base64convert('/pdffonts/PretendardGOV-Regular.otf', true).then((regularFont) => {
-        this.base64convert('/pdffonts/PretendardGOV-Bold.otf', true).then((boldFont) => {
+      this.base64convert('/pdffonts/NanumGothic.otf', true).then((regularFont) => {
+        this.base64convert('/pdffonts/NanumGothicBold.otf', true).then((boldFont) => {
           const fonts = [
             {
               name: 'regular',

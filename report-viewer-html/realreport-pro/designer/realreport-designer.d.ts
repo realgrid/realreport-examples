@@ -15889,3 +15889,4 @@ declare namespace ResizeDirection {
     function isEdge(dir: ResizeDirection): boolean;
     function isIn(dir: ResizeDirection, ...dirs: ResizeDirection[]): boolean;
 }
+
