@@ -6053,6 +6053,34 @@ declare interface IContextMenuOwner {
     registerContextMenu(menuKey: string, contextMenus: MenuItem[]): void;
 }
 
+/**
+ * 복붙한 아이템의 정보
+ */
+declare interface ICopiedAndPastedItem {
+    /**
+     * 복사한 아이템의 정보
+     */
+    target: ICopyTargetItem[];
+    /**
+     * 붙여넣은 아이템
+     */
+    pastedItem: ReportItem[];
+    pastedTarget: ReportPageItem;
+    /**
+     * 붙여넣은 횟수
+     */
+    pastedCount: number;
+}
+
+/**
+ * 복사한 아이템의 정보
+ */
+declare interface ICopyTargetItem {
+    left: number;
+    top: number;
+    text?: string;
+}
+
 declare interface ICsvDataInfo {
     /**
      * 컬럼들의 이름이 표시되는 행 번호. 행은 1부터 시작.
@@ -10640,6 +10668,7 @@ declare class ReportEditor extends ReportEditorBase<PrintContext> implements IRe
     get tableBandDesigner(): TableBandDesigner;
     get simpleBandDesigner(): SimpleBandDesigner;
     get editContianer(): LayerElement;
+    get reportItemClipboardManager(): ReportItemClipboardManager;
     showAlert(item: ReportItem, message: string): void;
     findDropTarget(source: any, target: HTMLElement): {
         target: HTMLElement;
@@ -11642,6 +11671,58 @@ declare interface ReportItemBorderWidths {
     right: number;
     top: number;
     bottom: number;
+}
+
+/**
+ * 복사 붙여넣기 시 복사 또는 붙여넗기한 아이템들을 관리하는 매니저
+ */
+declare class ReportItemClipboardManager extends EventAware {
+    static readonly OFFSET_X = 12;
+    static readonly OFFSET_Y = 12;
+    /**
+     * 복사한 아이템
+     */
+    private _copiedItems;
+    /**
+     * 붙여넣기한 아이템 정보
+     */
+    private _copiedAndPastedItems;
+    /**
+     * 붙여넣기한 아이템
+     */
+    private _pastedItems;
+    /**
+     * 붙여넣은 컨테이너
+     */
+    private _pasteTarget;
+    /**
+     * 붙여넣은 컨테이너가 바뀌었는지 확인
+     */
+    private _chagedParent;
+    get copiedItems(): ReportItem[];
+    get pastedItems(): ReportItem[];
+    get copiedAndPastedItems(): ICopiedAndPastedItem[];
+    /**
+     * 복사한 아이템을 저장
+     */
+    addCopiedItems(items: ReportItem[]): void;
+    /**
+     * 붙여넣기한 아이템을 저장
+     */
+    addPastedItems(copyTarget: ICopyTargetItem[], pastedItems: ReportItem[]): void;
+    /**
+     * 붙여넣기 한 아이템의 위치를 반환
+     */
+    getPastedItemPosition(item: ReportItem): ICopyTargetItem | null;
+    /**
+     * 아이템의 위치를 반환
+     */
+    private $_getPosition;
+    /**
+     * 몇번째 붙여넣기 된 아이템인지 번호와 함께 text반환
+     * 예) Text Copy-1
+     */
+    private $_getText;
 }
 
 declare abstract class ReportItemCollection<T extends ReportPageItem = ReportPageItem> extends ReportPageItem {
@@ -14644,6 +14725,8 @@ declare class TableCell extends ReportItemCollectionItem {
     private static readonly styleProps;
     private _colspan;
     private _rowspan;
+    private _oldColspan;
+    private _oldRowspan;
     private _applyEndStyles;
     private _styleCallback;
     private _onGetStyles;
@@ -14667,11 +14750,15 @@ declare class TableCell extends ReportItemCollectionItem {
      */
     get colspan(): number;
     set colspan(value: number);
+    get oldColspan(): number;
+    set oldColspan(value: number);
     /**
      * row span
      */
     get rowspan(): number;
     set rowspan(value: number);
+    get oldRowspan(): number;
+    set oldRowspan(value: number);
     /**
      * true면 span 됐을 때 마지막 셀에 해당하는 tableRowStyles, tableColumnStyles를 적용한다.
      * autoMerge된 셀의 rowspan은 적용되지 않는다.
@@ -14685,6 +14772,7 @@ declare class TableCell extends ReportItemCollectionItem {
     get onGetStyles(): string;
     set onGetStyles(value: string);
     adoptDragSource(source: any): IDropResult;
+    resetSelection(): void;
     get itemType(): string;
     get collection(): TableCellCollection;
     get page(): ReportPageBase;
@@ -15117,6 +15205,7 @@ declare class TableSelection implements ISelectionSource {
     getCells(ignoreHiddens: boolean): TableCell[];
     resizeTo(cell: TableCell): boolean;
     resizeBy(dx: number, dy: number): boolean;
+    softEquals(cell: TableCell): boolean;
     equals(cell: TableCell): boolean;
 }
 
