@@ -115,9 +115,7 @@
                                             "borderTop": "none",
                                             "borderBottom": "none"
                                         },
-                                        "rows": [
-                                            {}
-                                        ],
+                                        "rows": [{}],
                                         "cells": [
                                             {
                                                 "r": 0,
@@ -242,9 +240,7 @@
                                         "width": "100%",
                                         "rowCount": 1,
                                         "cellStyles": {},
-                                        "rows": [
-                                            {}
-                                        ],
+                                        "rows": [{}],
                                         "cells": [
                                             {
                                                 "r": 0,
@@ -276,11 +272,7 @@
                                                     "borderTop": "none",
                                                     "borderBottom": "none"
                                                 },
-                                                "rows": [
-                                                    {},
-                                                    {},
-                                                    {}
-                                                ],
+                                                "rows": [{}, {}, {}],
                                                 "cells": [
                                                     {
                                                         "r": 0,
@@ -430,9 +422,7 @@
                                             "borderRight": "none",
                                             "borderTop": "none"
                                         },
-                                        "rows": [
-                                            {}
-                                        ],
+                                        "rows": [{}],
                                         "cells": [
                                             {
                                                 "r": 0,
@@ -1123,8 +1113,7 @@
                 ]
             },
             "styles": {
-                "fontFamily": "Tahoma",
-                "__tag_": {}
+                "fontFamily": "NaunmGothic"
             }
         },
         "assets": {

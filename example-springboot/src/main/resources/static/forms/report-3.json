@@ -181,7 +181,8 @@
                         "col": 0,
                         "row": 0,
                         "wrap": true,
-                        "text": "결재",
+                        "multiLine": true,
+                        "text": "결\n재",
                         "styles": {
                           "fontWeight": "bold",
                           "color": "#f0f0f0"
@@ -1218,6 +1219,9 @@
                 "text": "OOO 어린이집"
               }
             ]
+          },
+          "styles": {
+              "fontFamily": "NaunmGothic"
           }
         },
         "assets": {

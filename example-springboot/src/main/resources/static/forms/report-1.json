@@ -208,6 +208,9 @@
                         }
                     }
                 ]
+            },
+            "styles": {
+                "fontFamily": "NaunmGothic"
             }
         },
         "assets": {
