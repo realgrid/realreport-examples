@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.10
-* commit af1aa8a
+* RealReport v1.10.12
+* commit 0fb7a69
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.10.10
+* RealReport Core v1.10.12
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit ef3434c2162d8ba3652120e3e21777baf61e3148
+* commit 7f1eff2f92ad5960b14bb330722321a7a7e1c271
 */
 
 
@@ -175,7 +175,7 @@ declare class EditCommandStack$1 extends EventAware$1 {
 /**@internal */
 declare abstract class ExpressionRuntime$1 extends Base$1 {
     constructor();
-    isIdentifier(token: string): number;
+    isIdentifier(token: string, isValue?: boolean): number;
     evaluateIdentifier(idKey: number): void;
     evaluateIndexerI(idKey: number, index: number): any;
     evaluateIndexerS(idKey: number, index: string, capital: boolean): any;
@@ -1641,7 +1641,7 @@ declare class DataBandSummaryRuntime extends ExpressionRuntime$1 {
     setGroup(group: IBandRowGroup): DataBandSummaryRuntime;
     setRows(rows: number[], masterRow?: number): DataBandSummaryRuntime;
     setRowCount(count: number): DataBandSummaryRuntime;
-    isIdentifier(token: string): number;
+    isIdentifier(token: string, isValue: boolean): number;
     evaluateIdentifier(idKey: number): any;
     evaluateFunc(idKey: number, param: string): any;
     private $_getRows;
@@ -1974,6 +1974,7 @@ declare abstract class DataBand extends ReportBandItem {
     getMin(field: string, count: number, rows?: number[]): number;
     getMax(field: string, count: number, rows?: number[]): number;
     getAvg(field: string, count: number, rows?: number[]): number;
+    getGroupField(field: string, count: number, rows?: number[]): string;
     getPropDomain(prop: IPropInfo): any[];
     /**
      * 출력시 사용되는 밴드의 정보를 초기값으로 초기화
@@ -2002,6 +2003,7 @@ declare abstract class DataBand extends ReportBandItem {
     private $_getSum;
     private $_getMin;
     private $_getMax;
+    private $_getGroupField;
     protected _createDataBandCollection(): DataBandCollection;
 }
 declare abstract class TableLikeBand extends DataBand {
@@ -5487,34 +5489,111 @@ declare class ColumnBoxContainer extends BoxContainer {
     canResizeChild(item: ReportItem, dir: ResizeDirection): boolean;
 }
 
+/** @internal */
+declare abstract class BoundedContainerElement<T extends BoundedContainer> extends ReportGroupItemElement<T> {
+    constructor(doc: Document, model: T);
+    protected _prepareChild(child: ReportElement): void;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _layoutItem(ctx: PrintContext, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
+    protected _layoutChild(ctx: PrintContext, child: ReportElement, x: number, y: number, width: number, height: number): void;
+}
+
+/** @internal */
+declare abstract class StackContainerElement<T extends StackContainer> extends BoundedContainerElement<T> {
+    constructor(doc: Document, model: T);
+    get debugLabel(): string;
+    protected _doSetStyles(model: ReportItem, dom: HTMLElement): void;
+    protected _getPrev(item: ReportItemView): ReportItemView;
+    protected _getNext(item: ReportItemView): ReportItemView;
+    getUpper(item: ReportItemView): ReportItemView;
+    getLower(item: ReportItemView): ReportItemView;
+    private $_getSorted;
+}
+
 /**
- * expression 속성에 summary 수식을 지정한다.
+ * ItemAddSection
  */
-declare class SummaryItem extends TextItemBase {
-    static readonly PROP_EXPRESSION = "expression";
-    static readonly PROPINFOS: IPropInfo[];
+declare class ItemAddSection<S extends PageSection> extends PageSection {
     static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Summary";
-    private _expression;
-    private _exprNode;
-    constructor(name: string);
-    /**
-     * expression
-     */
-    get expression(): string;
-    set expression(value: string);
-    getSummary(runtime: DataBandSummaryRuntime): any;
-    getSaveType(): string;
-    canAddToFrontContainer(): boolean;
-    canAddToBackContainer(): boolean;
-    get designText(): string;
-    get outlineLabel(): string;
+    static readonly PROPINFOS: IPropInfo[];
+    private _targetSection;
+    constructor(target: S);
+    get targetSection(): S;
     get pathLabel(): string;
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    canResize(dir: ResizeDirection): boolean;
+    canFold(): boolean;
+    protected _getStyleProps(): string[];
     protected _getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    getDesignText2(system: boolean): string;
+    canContainsBand(): boolean;
+    canContainsBandGroup(): boolean;
+}
+/**
+ * BodyItemAddSection
+ */
+declare class BodyItemAddSection extends ItemAddSection<PageBody> {
+    static readonly $_ctor: string;
+    constructor(target: PageBody);
+    get pathLabel(): string;
+    get outlineLabel(): string;
+    protected _doItemAdded(item: ReportItem, index: number): void;
+}
+
+/** @internal */
+declare abstract class SectionElement<T extends PageSection> extends StackContainerElement<T> {
+    constructor(doc: Document, model: T);
+    get dom(): HTMLDivElement;
+    protected _needDesignBox(): boolean;
+    protected _isContexable(): boolean;
+    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
+}
+/** @internal */
+declare class ReportHeaderElement extends SectionElement<ReportHeader> {
+    constructor(doc: Document, model?: ReportHeader);
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+}
+/** @internal */
+declare class ReportFooterElement extends SectionElement<ReportFooter> {
+    static readonly STYLE_NAME = "rr-report-footer rr-group-element";
+    static isFooter: (div: HTMLElement) => boolean;
+    constructor(doc: Document, model?: ReportFooter);
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+}
+declare abstract class InheritableSectionElement<T extends InheritableSection> extends SectionElement<T> {
+    static readonly CLONE_CLASS = "rr-section-clone";
+    private _baseModel;
+    setBase(base: T): void;
+    protected _getModel(): T;
+    protected _setDesignContent(empty: boolean, designView: HTMLDivElement): void;
+}
+/** @internal */
+declare class PageHeaderElement extends InheritableSectionElement<PageHeader> {
+    constructor(doc: Document, model?: PageHeader);
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+    protected _isContexable(): boolean;
+    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
+}
+/** @internal */
+declare class PageFooterElement extends InheritableSectionElement<PageFooter> {
+    constructor(doc: Document, model?: PageFooter);
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+    protected _isContexable(): boolean;
+    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+}
+/** @internal */
+declare class BodyItemAddSectionElement extends SectionElement<ItemAddSection<PageSection>> {
+    constructor(doc: Document, model?: BodyItemAddSection);
+    get debugLabel(): string;
+    protected _getCssSelector(): string;
+    protected _isContexable(): boolean;
+    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _doSizeChanged(): void;
 }
 
 /**
@@ -5589,6 +5668,1958 @@ declare class BarcodeItem extends ReportItem {
     protected _getStyleProps(): string[];
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
+}
+
+declare enum FormulaConverterErrorCode {
+    UNKNOWN_ERROR = "UNKNOWN_ERROR",
+    UNKNOWN_TOKEN = "UNKNOWN_TOKEN",
+    FORBIDDEN_BAND_REF = "FORBIDDEN_BAND_REF",
+    FORBIDDEN_DETAIL_BAND_REF = "FORBIDDEN_DETAIL_BAND_REF",
+    BAND_NOT_FOUND = "BAND_NOT_FOUND"
+}
+declare abstract class FormulaConverterError extends Error {
+    code: FormulaConverterErrorCode;
+    constructor(message: string, code: FormulaConverterErrorCode);
+}
+
+interface IExcelDataBar {
+    color: string;
+    width: string;
+    value: any;
+}
+interface IExcellImage {
+    image: string;
+    width: number;
+    height?: number;
+}
+interface IExcelCell {
+    info?: IExcelRenderInfo;
+    r: number;
+    c: number;
+    rModel?: number;
+    row?: number;
+    rowSpan?: number;
+    colSpan?: number;
+    value?: any;
+    format?: string;
+    formula?: string;
+    preparedFormula?: string;
+    formulaConversionError?: FormulaConverterError;
+    formulaDependencyList?: IExcelCell[];
+    formulaExecOrder?: number;
+    annotation?: string;
+    link?: string;
+    image?: IExcellImage;
+    spark?: any;
+    style?: Styles;
+    rotation?: number | 'vertical';
+    dr?: number;
+    bar?: IExcelDataBar;
+    cbandGroup?: IExcelBandGroupContext;
+    cband?: IExcelBandContext;
+}
+type IExcelBandExcelMatrix = IExcelCell[];
+interface IExcelBandGroupContext {
+    dataRow: IExcelBandExcelMatrix;
+    footer: IExcelBandExcelMatrix;
+    row: number;
+    level: number;
+    value: any;
+    parent: IExcelBandGroupContext;
+    children: IExcelBandGroupContext[];
+}
+interface IExcelBandContext {
+    name: string;
+    dataName: string;
+    masterValues: any;
+    parentBand: IExcelBandContext;
+    header: IExcelBandExcelMatrix;
+    dataRow: IExcelBandExcelMatrix;
+    footer: IExcelBandExcelMatrix;
+    detailIndex?: number;
+    detailBands: IExcelBandContext[];
+    designTimeRowIndex: number;
+    designTimeColIndex: number;
+    designTimeRowCount: number;
+    designTimeColCount: number;
+    runRows: number;
+    bandGroups?: IExcelBandGroupContext[];
+}
+interface IExcelRenderInfo {
+    row: number;
+    col: number;
+    rowCount?: number;
+    /**
+     * 해당 아이템이 출력해야하는 행 수
+     */
+    runRows: number;
+    colCount?: number;
+    band?: IExcelBandContext;
+    box?: boolean;
+    sign?: any;
+    stamp?: any;
+    /**
+     * 아이템이 출력해야 할 정확한 행 위치
+     */
+    r?: number;
+    cells: IExcelCell | IExcelCell[];
+    hCells?: IExcelCell[];
+}
+interface IConditionalFormattingBaseRule {
+    priority: number;
+    style?: Partial<Style>;
+}
+interface IConditionalFormattingOptions {
+    ref: string;
+    rules: ConditionalFormattingRule[];
+}
+type ConditionalFormattingRule = IDataBarRuleType;
+type BarAxisPosition = 'auto' | 'middle' | 'none';
+type BarAxisDirection = 'context' | 'leftToRight' | 'rightToLeft';
+interface IBarColor {
+    argb: string;
+}
+interface IDataBarRuleType extends IConditionalFormattingBaseRule {
+    type: 'dataBar';
+    gradient?: boolean;
+    minLength?: number;
+    maxLength?: number;
+    showValue?: boolean;
+    border?: boolean;
+    negativeBarColorSameAsPositive?: boolean;
+    negativeBarBorderColorSameAsPositive?: boolean;
+    axisPosition?: BarAxisPosition;
+    direction?: BarAxisDirection;
+    cfvo?: Cvfo[];
+    color?: IBarColor;
+}
+
+type BarcodeOutput = 'image' | 'font';
+interface IImageRect {
+    width: number;
+    height: number;
+}
+declare class ExcelBarcodeItem extends BarcodeItem {
+    static readonly PROP_OUTPUT = "output";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    private _row;
+    private _col;
+    private _rowSpan;
+    private _colSpan;
+    private _image;
+    private _output;
+    _saveRow: number;
+    _saveCol: number;
+    private _imageRect;
+    get row(): number;
+    set row(value: number);
+    /**
+     * col
+     */
+    get col(): number;
+    set col(value: number);
+    /**
+     * rowSpan
+     */
+    get rowSpan(): number;
+    set rowSpan(value: number);
+    /**
+     * colSpan
+     */
+    get colSpan(): number;
+    set colSpan(value: number);
+    get image(): string;
+    set image(value: string);
+    get output(): BarcodeOutput;
+    set output(value: BarcodeOutput);
+    get imageRect(): IImageRect;
+    set imageRect(value: IImageRect);
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    getBounds(): {
+        r: number;
+        c: number;
+        rows: number;
+        cols: number;
+    };
+    write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    get marqueeParent(): ReportItem;
+    protected _getEditProps(): IPropInfo[];
+    canFold(): boolean;
+    canSized(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+/**
+ * databand나 box 그룹의 빈 셀에 자동으로 추가 삭제된다.
+ * outline에 표시되지 않는다.
+ */
+declare class ExcelGhostItem extends ExcelItem {
+    static readonly PROPINFOS: IPropInfo[];
+    private _owner;
+    constructor(owner: ReportGroupItem);
+    get owner(): ReportGroupItem;
+    rowSpan: number;
+    colSpan: number;
+    getColLen(): number;
+    getRowLen(): number;
+    get page(): ReportPageBase;
+    get pathLabel(): string;
+    get removable(): boolean;
+    canFold(): boolean;
+    canMove(): boolean;
+    canCopy(): boolean;
+    getRow(): number;
+    getCol(): number;
+    protected _getEditProps(): IPropInfo[];
+    adoptDragSource(source: any): IDropResult;
+    canDelete(): boolean;
+}
+
+declare class ExcelTextItem extends TextItem {
+    static readonly PROP_FORMULA = "formula";
+    static readonly PROP_MERGE_COLS = "mergeCols";
+    static readonly PROP_FORMAT = "format";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    static createFrom(src: ExcelItems | ExcelGhostItem, text: string, name?: string): ExcelTextItem;
+    private _row;
+    private _col;
+    private _rowSpan;
+    private _colSpan;
+    private _formula;
+    private _mergeCols;
+    private _format;
+    _saveRow: number;
+    _saveCol: number;
+    _cells: IExcelCell[];
+    /**
+     * row
+     */
+    get row(): number;
+    set row(value: number);
+    /**
+     * ccol
+     */
+    get col(): number;
+    set col(value: number);
+    /**
+     * rowSpan
+     */
+    get rowSpan(): number;
+    set rowSpan(value: number);
+    /**
+     * colSpan
+     */
+    get colSpan(): number;
+    set colSpan(value: number);
+    /**
+     * formula
+     */
+    get formula(): string;
+    set formula(value: string);
+    /**
+     * mergeCols
+     */
+    get mergeCols(): number;
+    set mergeCols(value: number);
+    /**
+     * format
+     */
+    get format(): string;
+    set format(value: string);
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    getBounds(): {
+        r: number;
+        c: number;
+        rows: number;
+        cols: number;
+    };
+    write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    moveFormula(colOffset: number, rowOffset: number): void;
+    get marqueeParent(): ReportItem;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    canFold(): boolean;
+    canSized(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    needDesignBorder(): boolean;
+    getDesignText2(system: boolean): string;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    protected _getPrintText(ctx: ExcelPrintContext): string;
+    private $_getPrintValue;
+}
+
+/**
+ * Excel data bar 아이템.
+ * https://www.ablebits.com/office-addins-blog/data-bars-excel/
+ */
+declare class ExcelBarItem extends ExcelTextItem {
+    static readonly DEFAULT_BAR_COLOR = "#4ba4ff";
+    static readonly PROP_BAR_COLOR = "barColor";
+    static readonly PROP_TEXT_VISIBLE = "textVisible";
+    static readonly PROP_MIN_VALUE = "minValue";
+    static readonly PROP_MAX_VALUE = "maxValue";
+    static readonly PROP_POSITION = "position";
+    static readonly PROP_BAR_STYLES = "barStyles";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    private _barColor;
+    private _textVisible;
+    private _minValue;
+    private _maxValue;
+    private _position;
+    private _color;
+    private _barWidth;
+    /**
+     * min value.
+     */
+    get minValue(): number;
+    set minValue(value: number);
+    /**
+     * max value.
+     **/
+    get maxValue(): number;
+    set maxValue(value: number);
+    /**
+     * position
+     */
+    get position(): number;
+    set position(value: number);
+    /**
+     * color
+     */
+    get color(): Style;
+    set color(value: Style);
+    /**
+     * text visible
+     */
+    get textVisible(): boolean;
+    set textVisible(value: boolean);
+    /**
+     * bar color
+     */
+    get barColor(): string;
+    set barColor(value: string);
+    /**
+     * bar width
+     */
+    get barWidth(): string;
+    set barWidth(value: string);
+    getPosition(v: number): number;
+    getBarWidth(ctx: ExcelPrintContext, v: number): string;
+    write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    getSaveType(): string;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+declare class ExcelReportRootItem extends ReportRootItem {
+    static readonly PROP_PAPER_LINE = "paperLine";
+    static readonly PROPINFOS: IPropInfo[];
+    private _paperLine;
+    /**
+     * paperLine
+     * - 시트 리포트에서 종이 영역 라인의 표시여부 결정
+     */
+    get paperLine(): boolean;
+    set paperLine(value: boolean);
+    getEditProps(): IPropInfo[];
+}
+
+declare abstract class SheetCollectionItem extends ReportItemCollectionItem {
+    private static readonly STYLE_PROPS;
+    _index: number;
+    remove(): void;
+    abstract get itemType(): string;
+    get collection(): SheetItemCollection;
+    /**
+     * index
+     */
+    get index(): number;
+    get page(): ReportPageBase;
+    protected _getStyleProps(): string[];
+}
+declare abstract class SheetItemCollection<C extends SheetCollectionItem = SheetCollectionItem> extends ReportItemCollection<C> {
+    sheet: Sheet;
+    protected _items: C[];
+    constructor(sheet: Sheet);
+    init(count: number): void;
+    load(source: any): void;
+    save(target: any): void;
+    add(item: C, index: number): C;
+    append(item: C): C;
+    remove(item: C): C;
+    removeAt(index: number): C;
+    contains(item: C): boolean;
+    get owner(): ReportPageItem;
+    get count(): number;
+    get items(): ReportPageItem[];
+    get(index: number): C;
+    indexOf(item: C): number;
+    protected _doMoveItem(from: number, to: number): boolean;
+    get outlineParent(): IOutlineSource;
+    get outlineExpandable(): boolean;
+    get page(): ReportPageBase;
+    get level(): number;
+    get displayPath(): string;
+    abstract get outlineLabel(): string;
+    abstract getSaveType(): string;
+    protected abstract _createItem(source: any): C;
+    protected _resetIndices(from: number): void;
+}
+/**
+ * sheet column info.
+ */
+declare class SheetColumn extends SheetCollectionItem {
+    static readonly PROP_COL = "col";
+    static readonly PROP_WIDTH = "width";
+    static readonly PROPINFOS: IPropInfo[];
+    private _col;
+    private _width;
+    /**
+     * width
+     */
+    get col(): number;
+    set col(value: number);
+    /**
+     * width
+     */
+    get width(): number;
+    set width(value: number);
+    equals(other: any): boolean;
+    get itemType(): string;
+    get outlineLabel(): string;
+    get displayPath(): string;
+    getCollectionLabel(): string;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    protected _doLoad(src: any): void;
+    protected _doSave(target: any): void;
+}
+declare class SheetColumnCollection extends SheetItemCollection<SheetColumn> {
+    findColumn(col: number): SheetColumn;
+    get outlineLabel(): string;
+    get outlineItems(): IOutlineSource[];
+    getPropertySources(): IPropertySource[];
+    getSaveType(): string;
+    protected _createItem(source: any): SheetColumn;
+}
+/**
+ * sheet row info.
+ */
+declare class SheetRow extends SheetCollectionItem {
+    static readonly PROP_ROW = "row";
+    static readonly PROP_HEIGHT = "height";
+    static readonly PROPINFOS: IPropInfo[];
+    private _row;
+    private _height;
+    /**
+     * row
+     */
+    get row(): number;
+    set row(value: number);
+    /**
+     * height
+     */
+    get height(): number;
+    set height(value: number);
+    equals(other: any): boolean;
+    get itemType(): string;
+    get outlineLabel(): string;
+    get displayPath(): string;
+    getCollectionLabel(): string;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    protected _doLoad(src: any): void;
+    protected _doSave(target: any): void;
+}
+declare class SheetRowCollection extends SheetItemCollection<SheetRow> {
+    findRow(row: number): SheetRow;
+    get outlineLabel(): string;
+    get outlineItems(): IOutlineSource[];
+    getPropertySources(): IPropertySource[];
+    getSaveType(): string;
+    protected _createItem(source: any): SheetRow;
+}
+interface ISheetOptions {
+    colCount?: number;
+    rowCount?: number;
+}
+interface ISheetOwner {
+    sheetColCountChanged(count: number, oldCount: number): void;
+    sheetRowCountChanged(count: number, oldCount: number): void;
+}
+/**
+ * A sheet design model.
+ */
+declare class Sheet extends ReportGroupItem {
+    static readonly PROP_SHEET_NAME = "sheetName";
+    static readonly PROP_COLUMNS = "columns";
+    static readonly PROP_ROWS = "rows";
+    static readonly PROP_COL_COUNT = "colCount";
+    static readonly PROP_ROW_COUNT = "rowCount";
+    static readonly PROP_COLUMN_WIDTH = "columnWidth";
+    static readonly PROP_AUTO_ROW_HEIGHT = "autoRowHeight";
+    static readonly PROP_ROW_HEIGHT = "rowHeight";
+    static readonly PROPINFOS: IPropInfo[];
+    private _sheetName;
+    private _colCount;
+    private _rowCount;
+    private _columnWidth;
+    private _autoRowHeight;
+    private _rowHeight;
+    private _owner;
+    private _columns;
+    private _rows;
+    private _colWidths;
+    private _rowHeights;
+    private _conditionalFormatting;
+    private _conditionalFormattingRef;
+    constructor(owner?: ISheetOwner, options?: ISheetOptions);
+    get outlineItems(): IOutlineSource[];
+    /**
+     * sheetName
+     */
+    get sheetName(): string;
+    set sheetName(value: string);
+    /**
+     * design-time 컬럼 갯수.
+     */
+    get colCount(): number;
+    set colCount(value: number);
+    protected _validateColCount(count: number): number;
+    /**
+     * design-time row 갯수.
+     */
+    get rowCount(): number;
+    set rowCount(value: number);
+    protected _validateRowCount(count: number): number;
+    /**
+     * default column width.
+     */
+    get columnWidth(): number;
+    set columnWidth(value: number);
+    /**
+     * default row height.
+     */
+    get rowHeight(): number;
+    set rowHeight(value: number);
+    getRowHeight(): number;
+    /**
+     * true로 지정되면 명시적으로 높이가 설정되지 않은 행의 높이가 출력 시에 내용에 따라 자동 결정된다.
+     */
+    get autoRowHeight(): boolean;
+    set autoRowHeight(value: boolean);
+    get columns(): SheetColumnCollection;
+    get rows(): SheetRowCollection;
+    get isEmpty(): boolean;
+    get conditionalFormatting(): IConditionalFormattingOptions[];
+    get conditionalFormattingRef(): string[];
+    addConditionalRef(ref: string): void;
+    createColumn(): SheetColumn;
+    createRow(): SheetRow;
+    columnAt(index: number): SheetColumn;
+    addColumn(column: SheetColumn, index: number): void;
+    removeColumn(column: SheetColumn): void;
+    moveColumn(column: SheetColumn, newIndex: number): void;
+    rowAt(index: number): SheetRow;
+    addRow(row: SheetRow, index: number): void;
+    removeRow(row: SheetRow): void;
+    moveRow(row: SheetRow, newIndex: number): void;
+    getColWidths(): number[];
+    getRowHeights(): number[];
+    getCellWidth(col: number, span: number): number;
+    getCellHeight(row: number, span: number): number;
+    setConditionalFormatting(options: IConditionalFormattingOptions): void;
+    getCD(): IConditionalFormattingOptions[];
+    getSaveType(): string;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    canDelete(): boolean;
+    canSized(): boolean;
+    canRotate(): boolean;
+    needDesignBorder(): boolean;
+    needDesignWidth(): boolean;
+    needDesignHeight(): boolean;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    protected _doDefaultInit(loader: IReportLoader, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    protected _doPrepareLayout(printing: boolean): void;
+    private $_resetColWidths;
+    private $_resetRowHeights;
+}
+
+declare class ExcelReport extends ReportBase<ExcelPage> {
+    static readonly GHOST_POS_CHANGED = "onReportGhostPosChanged";
+    setSaveTagging(tag: string): ExcelReport;
+    itemByName(name: string): ReportItem;
+    itemOf(hash: string): ReportItem;
+    addItem(parent: ReportGroupItem, item: ExcelItems, index?: number): boolean;
+    alignItems(itemList: ReportPageItem[], align: 'left' | 'center' | 'right'): void;
+    moveItemBy(item: ExcelItems, dr: number, dc: number): void;
+    moveItem(item: ExcelItems, r: number, c: number): void;
+    checkPasteTo(target: ReportPageItem): string;
+    protected _doSaveItem(item: ReportItem, obj: any, clipboard: boolean): boolean;
+    /**
+     * 1. 빈 셀이나 group 아이템이 아닌 아이템 위치에서만 붙어녛기 할 수 있다.
+     * 2. 붙어녛기할 item들 중 대상 parent의 범위를 벗어난 경우 전체 붙여넣기가 취소된다.
+     * 3. 붙여넣기 될 위치에 붙여넣기할 아이템과 범위가 일부 겹치는 아이템이 포함된 경우 전체 붙여넣기가 취소된다.
+     * 4. 붙여넣기 될 위치가 빈 셀이 아닌 경우 overwrite될 기존 item은 제거된다.
+     */
+    pasteItems(sources: string, target: ReportPageItem): ReportItem[];
+    validateSheetName(sheet: Sheet, newName: string): void;
+    get type(): ReportType;
+    get root(): ExcelReportRootItem;
+    protected _createReportLoader(): IReportLoader;
+    setItemProperty(item: ReportPageItem, prop: string, value: any): void;
+    prepareLayout(page?: number): void;
+    afterLayout(): void;
+    protected _createPage(): ExcelPage;
+    protected _createReportRootItem(report: ReportBase): ExcelReportRootItem;
+    private $_isGroupItemExist;
+    private $_getExistItems;
+    /**
+     * 복사한 아이템중 가장 왼쪽, 상단에 위치한 row, col 정보와 붙여넣기 할 위치의 row, col 차이를 구한다.
+     */
+    private $_getPasteDistance;
+    onPageGhostPosChanged(page: ExcelPage, item: ExcelGhostItem): void;
+}
+
+type ExcelRootItems = ExcelItems | ExcelBox | ExcelDataBand;
+declare class ExcelPageBodyItems extends ReportGroupItem implements IExcelGroupItem {
+    static readonly $_ctor: string;
+    private _ghost;
+    constructor(name: string);
+    getItemPasteInfo(item: ExcelItems): {
+        error?: string;
+        deletes?: ExcelItems[];
+    };
+    get ghost(): ExcelGhostItem;
+    getRow(): number;
+    getCol(): number;
+    getMoveType(item: ReportItem): ItemMoveType;
+    get outlineLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    canResize(dir: ResizeDirection): boolean;
+    canMove(): boolean;
+    canCopy(): boolean;
+    canDelete(): boolean;
+    canContainsBand(): boolean;
+    protected _ignoreItems(): boolean;
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
+    protected _doPrepareLayout(printing: boolean): void;
+}
+declare class ExcelPageBody extends PageBodyBase {
+    static readonly $_ctor: string;
+    get page(): ExcelPage;
+    get itemsContainer(): ExcelPageBodyItems;
+    protected _createPageBodyItems(): ExcelPageBodyItems;
+}
+/**
+ * Design-time sheet model.
+ * item map을 유지한다.
+ */
+declare class DesignSheet extends Sheet {
+    private _itemRows;
+    private _dirty;
+    private _maxCol;
+    private _maxRow;
+    private _minRow;
+    get minRow(): number;
+    getColumn(col: number, create?: boolean): SheetColumn;
+    getRow(row: number, create?: boolean): SheetRow;
+    /**
+     * undo에서 바로 반영되도록 컬럼 객체 생성과 너비 변경을 command 하나로 실행한다. #1865
+     */
+    setColumnWidth(col: number, width: number): SheetColumn;
+    /**
+     * undo에서 바로 반영되도록 행 객체 생성과 높이 변경을 command 하나로 실행한다. #1865
+     */
+    setRowHeight(row: number, height: number): SheetRow;
+    getItem(row: number, col: number): ExcelItems;
+    getItems(r1: number, c1: number, r2: number, c2: number): ExcelItems[];
+    isBlank(row: number, col: number): boolean;
+    containsRect(r1: number, c1: number, r2: number, c2: number): boolean;
+    canResizeAt(item: ExcelItems | ExcelGroupItems, dir: ResizeDirection): boolean;
+    canResizeTo(item: ExcelItems | ExcelGroupItems, dir: ResizeDirection): boolean;
+    canFill(item: ExcelItems | ExcelGroupItems, r1: number, c1: number, r2: number, c2: number): boolean;
+    _getRootItemsIn(r1: number, c1: number, r2: number, c2: number): ExcelRootItems[];
+    canMerge(items: ExcelItems[], r1: number, c1: number, r2: number, c2: number): boolean;
+    private $_containsRect;
+    canMoveTo(item: ExcelItems, r: number, c: number): boolean;
+    canFillItem(item: ExcelItems): boolean;
+    canRowMerge(item: ExcelItems): boolean;
+    getEmptyRows(): number[];
+    protected _validateColCount(count: number): number;
+    protected _validateRowCount(count: number): number;
+    _fillItems(items: ExcelItems[], check: boolean, force: boolean): void;
+    _itemsLoaded(items: ExcelItems[]): void;
+    _itemAdded(item: ExcelItems): void;
+    _itemsAdded(items: ExcelItems[]): void;
+    _itemRemoved(item: ExcelItems): void;
+    _itemsRemoved(items: ExcelItems[]): void;
+    _itemsCleared(): void;
+    _itemChanged(item: ExcelItems, prop: string): void;
+    private $_setItem;
+}
+interface IBandExpand {
+    /**
+     * 가장 가까운 아이템의 row.
+     */
+    /**
+     * band와의 간격.
+     */
+    offset: number;
+    /**
+     * 밀려난 아이템들.
+     */
+    items: ExcelRootItems[];
+}
+interface IBandStretch {
+    offset: number;
+    items: ExcelRootItems[];
+}
+declare class ExcelPage extends ReportPageBase implements ISheetOwner {
+    static readonly GHOST_POS_CHANGED = "onPageGhostPosChanged";
+    static readonly SHEET_OPTIONS: ISheetOptions;
+    private _sheet;
+    private _body;
+    _noEvent: boolean;
+    constructor(report: ExcelReport);
+    sheetColCountChanged(count: number, oldCount: number): void;
+    sheetRowCountChanged(count: number, oldCount: number): void;
+    get sheet(): DesignSheet;
+    get body(): ExcelPageBody;
+    get type(): ReportPageType;
+    set type(v: ReportPageType);
+    get report(): ExcelReport;
+    itemAt(row: number, col: number): ExcelItems;
+    /**
+     * box의 경우 rowCount, colCount가 다른 item들과 겹치지 않도록 조정해야 한다.
+     * row 개수를 최대한 유지한다.
+     * box는 최상위에만 추가 가능하다.
+     */
+    _checkBoxSize(box: ExcelBox): boolean;
+    _checkColSpan(item: ExcelItems, value: number): number;
+    _checkRowSpan(item: ExcelItems, value: number): number;
+    getItems(r1: number, c1: number, r2?: number, c2?: number): ExcelItems[];
+    isEmpty(r1: number, c1?: number, r2?: number, c2?: number): boolean;
+    canDeleteRows(r1: number, r2?: number): boolean;
+    canDeleteCols(c1: number, c2?: number): boolean;
+    canAddAt(r: number, c: number, item: ExcelItems): boolean;
+    /**
+     * (preview나 export에서 동적으로 행 수가 결정되는 - 현재는 data band가 유일)
+     * data band 추가나, band section 행들 추가 시 필요한 만큼 sheet 행들을 삽입한다.
+     * 행이 삽입되므로 밴드를 추가하련 행 아래쪽 아이템들의 위치가 아래쪽으로 조정된다.
+     */
+    expandBand(band: ExcelItems, oldRows: number, stretch: IBandStretch): IBandExpand;
+    collapseBand(save: IBandExpand): void;
+    /**
+     * 밴드를 추가하려는 행 이전부터 시작되어 밴드와 교차될 아이템들을 오른쪽으로 밀어낸다.
+     */
+    stretchBand(band: ExcelItems, oldCols: number, oldRows: number): IBandStretch;
+    shrinkBand(save: IBandStretch): void;
+    insertSheetRow(row: number, undoCallback?: EditCommandCallback): void;
+    appendSheetRows(count: number): void;
+    deleteSheetRows(row: number, count: number, undoCallback?: EditCommandCallback): void;
+    insertSheetColumn(col: number, undoCallback?: EditCommandCallback): void;
+    deleteSheetColumns(col: number, count: number, undoCallback?: EditCommandCallback): void;
+    private $_refillSheet;
+    /**
+     * drag&drop이나 ghost셀에 아이템이 생성 추가될 때 셀 위치를 고려해서 기본 속성 재설정.
+     */
+    checkItemInit(item: ExcelItems): boolean;
+    alignItems(itemList: ReportPageItem[], align: 'left' | 'center' | 'right'): EditCommand$1[];
+    canMerge(items: ExcelItems[]): {
+        items: ExcelItems[];
+        mergeItem: ExcelItems;
+        itemRows: number[];
+        itemCols: number[];
+    };
+    mergeItems(items: ExcelItems[]): EditCommand$1[];
+    getPageLabel(): string;
+    protected _initSections(): ReportGroupItem[];
+    getPasteTarget(): ReportGroupItem;
+    getRemoveCommand(item: ReportPageItem): EditCommand$1;
+    canResize(dir: ResizeDirection): boolean;
+    needDesignWidth(): boolean;
+    needDesignHeight(): boolean;
+    protected _boundable(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doSave(target: object): void;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doPrepareLayout(printing: boolean): void;
+    afterLayout(printing: boolean): void;
+    protected _doItemAdded(item: ReportItem, index: number): void;
+    protected _createRemoveItemsCommand(items: ReportPageItem[]): ReportEditCommand;
+    removeItems(commands: EditCommandStack$1, items: ReportPageItem[]): void;
+    protected _fireItemAdded(item: ReportPageItem, index: number, silent: boolean): void;
+    protected _fireItemsAdded(items: ReportPageItem[], index: number): void;
+    protected _fireItemRemoved(item: ReportPageItem, oldParent: ReportGroupItem): void;
+    protected _fireItemsRemoved(items: ReportPageItem[]): void;
+    protected _fireItemChanged(item: ReportPageItem, prop: string, value: any, oldValue: any): void;
+    private $_items;
+}
+
+/**
+ * 아이템이 지정되지 않은 셀들을 dummy 아이템으로 채운다.
+ */
+declare class ExcelBox extends ExcelGroupItem {
+    static readonly PROP_COL_COUNT = "colCount";
+    static readonly PROP_ROW_COUNT = "rowCount";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    colSpan: number;
+    rowSpan: number;
+    private _row;
+    private _col;
+    private _colCount;
+    private _rowCount;
+    /**
+     * row
+     */
+    get row(): number;
+    set row(value: number);
+    /**
+     * col
+     */
+    get col(): number;
+    set col(value: number);
+    /**
+     * colCount
+     */
+    get colCount(): number;
+    set colCount(value: number);
+    _setColCount(value: number): boolean;
+    /**
+     * rowCount
+     */
+    get rowCount(): number;
+    set rowCount(value: number);
+    _setRowCount(value: number): boolean;
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    getBounds(): {
+        r: number;
+        c: number;
+        rows: number;
+        cols: number;
+    };
+    getMarqueeColLen(): number;
+    getMarqueeRowLen(): number;
+    canExpand(rows: number, cols: number): boolean;
+    insertColumn(col: number): void;
+    deleteColumn(col: number): void;
+    insertRow(row: number): void;
+    deleteRow(row: number): void;
+    fillTexts(): void;
+    write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    protected _getInitCellStyles(): {
+        borderLeft: string;
+        borderRight: string;
+        borderTop: string;
+        borderBottom: string;
+    };
+    getSaveType(): string;
+    get outlineLabel(): string;
+    get outlineItems(): IOutlineSource[];
+    canFold(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    validateChildProp(item: ExcelItems, prop: string, value: number): number;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    /**
+     * Box 자체에 설정한 외곽선 보더 스타일을 셀 스타일에 반영한다.
+     * 박스 아이템에 설정한 스타일은 외곽선 설정으로 외곽선이 포함된 셀들은 다른 스타일 설정을 무시하고 외곽선 보더 스타일로 설정된다.
+     */
+    private $_applyBoxBorderStyle;
+}
+
+/**
+ * design-time에 databand나 box 그룹의 빈 셀에 자동으로 추가 삭제되는 임시 item이다.
+ * 저장 모델이 아니므로 속성이 없고((row, col) 위치 정보만 readonly로 표시한다),
+ * outline에 표시되지 않는다.
+ */
+declare class ExcelDummyItem extends ExcelItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    constructor(parent: ExcelGroupItem, row: number, col: number);
+    rowSpan: number;
+    colSpan: number;
+    getColLen(): number;
+    getRowLen(): number;
+    getSaveType(): string;
+    get outlineLabel(): string;
+    get removable(): boolean;
+    get marqueeParent(): ReportItem;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canFold(): boolean;
+    canDelete(): boolean;
+    adoptDragSource(source: any): IDropResult;
+}
+
+declare class ExcelImageItem extends ImageItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    private _row;
+    private _col;
+    private _rowSpan;
+    private _colSpan;
+    _saveRow: number;
+    _saveCol: number;
+    /**
+     * row
+     */
+    get row(): number;
+    set row(value: number);
+    /**
+     * col
+     */
+    get col(): number;
+    set col(value: number);
+    /**
+     * rowSpan
+     */
+    get rowSpan(): number;
+    set rowSpan(value: number);
+    /**
+     * colSpan
+     */
+    get colSpan(): number;
+    set colSpan(value: number);
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    getBounds(): {
+        r: number;
+        c: number;
+        rows: number;
+        cols: number;
+    };
+    write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    get marqueeParent(): ReportItem;
+    protected _getEditProps(): IPropInfo[];
+    canSized(): boolean;
+    canFold(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    needDesignBorder(): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+/**
+ * 사인 이미지를 표시한다.
+ * 클릭하면 사인 panel이 표시된다.
+ */
+declare class SignItem extends ReportItem {
+    static readonly PROP_LINE_SCALE = "lineScale";
+    static readonly PROP_PRESERVE = "preserve";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Sign";
+    private _prevserve;
+    private _lineScale;
+    /**
+     * sign image의 line 두께 정도를 지정한다.
+     * 기본값 1이면 1~5 사이의 값과 이 속성값을 곱한 두께로 사인 이미지를 그린다.
+     */
+    get lineScale(): number;
+    set lineScale(value: number);
+    /**
+     * sign panel을 열 때 기존 sign을 유지한다.
+     */
+    get preserve(): boolean;
+    set preserve(value: boolean);
+    getSaveType(): string;
+    get outlineLabel(): string;
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canRotate(): boolean;
+    canAdoptDragSource(source: any): boolean;
+}
+
+declare class ExcelSignItem extends SignItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    private _row;
+    private _col;
+    private _rowSpan;
+    private _colSpan;
+    _saveRow: number;
+    _saveCol: number;
+    /**
+     * row
+     */
+    get row(): number;
+    set row(value: number);
+    /**
+     * col
+     */
+    get col(): number;
+    set col(value: number);
+    /**
+     * rowSpan
+     */
+    get rowSpan(): number;
+    set rowSpan(value: number);
+    /**
+     * colSpan
+     */
+    get colSpan(): number;
+    set colSpan(value: number);
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    getBounds(): {
+        r: number;
+        c: number;
+        rows: number;
+        cols: number;
+    };
+    write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    get marqueeParent(): ReportItem;
+    protected _getEditProps(): IPropInfo[];
+    canSized(): boolean;
+    canFold(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    needDesignBorder(): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+/**
+ * 도장 이미지를 표시한다.
+ * 클릭하면 도장 panel이 표시된다.
+ */
+declare class StampItem extends ReportItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Stamp";
+    getSaveType(): string;
+    get outlineLabel(): string;
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canRotate(): boolean;
+    canAdoptDragSource(source: any): boolean;
+}
+
+declare class ExcelStampItem extends StampItem {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    private _row;
+    private _col;
+    private _rowSpan;
+    private _colSpan;
+    _saveRow: number;
+    _saveCol: number;
+    /**
+     * row
+     */
+    get row(): number;
+    set row(value: number);
+    /**
+     * col
+     */
+    get col(): number;
+    set col(value: number);
+    /**
+     * rowSpan
+     */
+    get rowSpan(): number;
+    set rowSpan(value: number);
+    /**
+     * colSpan
+     */
+    get colSpan(): number;
+    set colSpan(value: number);
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    getBounds(): {
+        r: number;
+        c: number;
+        rows: number;
+        cols: number;
+    };
+    write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    get marqueeParent(): ReportItem;
+    protected _getEditProps(): IPropInfo[];
+    canSized(): boolean;
+    canFold(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    needDesignBorder(): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+declare class ExcelSummaryItem extends SummaryItem {
+    static readonly PROP_FORMAT = "format";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    private _row;
+    private _col;
+    private _rowSpan;
+    private _colSpan;
+    private _format;
+    _saveRow: number;
+    _saveCol: number;
+    /**
+     * row
+     */
+    get row(): number;
+    set row(value: number);
+    /**
+     * ccol
+     */
+    get col(): number;
+    set col(value: number);
+    /**
+     * rowSpan
+     */
+    get rowSpan(): number;
+    set rowSpan(value: number);
+    /**
+     * colSpan
+     */
+    get colSpan(): number;
+    set colSpan(value: number);
+    /**
+     * format
+     */
+    get format(): string;
+    set format(value: string);
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    getBounds(): {
+        r: number;
+        c: number;
+        rows: number;
+        cols: number;
+    };
+    write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    get marqueeParent(): ReportItem;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    canSized(): boolean;
+    canFold(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    needDesignBorder(): boolean;
+    protected _doSave(target: object): void;
+}
+
+type ExcelItems = ExcelTextItem | ExcelSummaryItem | ExcelImageItem | ExcelDataBand | ExcelBox | ExcelDummyItem | ExcelBarcodeItem | ExcelBarItem | ExcelSignItem | ExcelStampItem;
+type ExcelGroupItems = ExcelGroupItem | ExcelDataBand | ExcelDataBandCollection;
+type ExcelGroups = ExcelBox | ExcelDataBand | ExcelDataBandRowGroup;
+interface IExcelGroupItem {
+    getItemPasteInfo(item: ExcelItems): {
+        error?: string;
+        deletes?: ExcelItems[];
+    };
+}
+declare abstract class ExcelGroupItem extends ReportGroupItem implements IExcelGroupItem {
+    static readonly PROP_CELL_STYLES = "cellStyles";
+    static readonly PROPINFOS: IPropInfo[];
+    private static readonly STYLES;
+    static readonly CELL_STYLES: string[];
+    private static readonly CELL_STYLE_MAP;
+    private _cellStyles;
+    _saveRow: number;
+    _saveCol: number;
+    private _needCheckDummy;
+    private _colLen;
+    private _dummyRows;
+    constructor(name: string);
+    getSubStyleProps(prop: string): IPropInfo[];
+    protected _getSubStyle(prop: string, style: string): any;
+    protected _setSubStyle(prop: string, style: string, value: any): void;
+    getItemPasteInfo(item: ExcelItems): {
+        error?: string;
+        deletes?: ExcelItems[];
+    };
+    /** cellStyles */
+    get cellStyles(): Styles;
+    set cellStyles(value: Styles);
+    abstract getRow(): number;
+    abstract getCol(): number;
+    validateChildProp(item: ExcelItems, prop: string, value: number): number;
+    getDummies(): ExcelDummyItem[];
+    getFillItems(): ReportItem[];
+    getColItems(col: number, all?: boolean): ExcelItems[];
+    getColRangeItems(c1: number, c2?: number): ExcelItems[];
+    /**
+     * band나 box의 col count가 줄어들 때 col span이 줄어드는 아이템들.
+     */
+    getColTrimmedItems(count: number): ExcelItems[];
+    /**
+     * col count가 감소할 때 col span이 줄어드는 아이템들을 리턴한다.
+     */
+    getColShrinkedItems(count: number): ExcelItems[];
+    /**
+     * 컬럼이 삽입될 때 col span이 늘어나는 아이템들.
+     */
+    getColSpannedItems(col: number): ExcelItems[];
+    /**
+     * 컬럼이 삭제될 때 col span이 줄어드는 아이템들을 리턴한다.
+     */
+    getColContractedItems(col: number): ExcelItems[];
+    /**
+     * 컬럼이 삽입될 때 column이 밀리는 아이템들을 리턴한다.
+     */
+    getColPushedItems(col: number): ExcelItems[];
+    /**
+     * 컬럼이 삭제될 때 column이 올라오는 아이템들을 리턴한다.
+     */
+    getColPulledItems(col: number): ExcelItems[];
+    getRowItems(row: number, all?: boolean): ExcelItems[];
+    getRowRangeItems(r1: number, r2?: number): ExcelItems[];
+    /**
+     * band section이나 box의 row count가 줄어들 때 row span이 줄어드는 아이템들.
+     */
+    getRowTrimmedItems(count: number): ExcelItems[];
+    /**
+     * row count가 감소할 때 row span이 줄어드는 아이템들을 리턴한다.
+     */
+    getRowShrinkedItems(count: number): ExcelItems[];
+    /**
+     * 행이 삽입될 때 row span이 늘어나는 아이템들을 리턴한다.
+     */
+    getRowSpannedItems(row: number): ExcelItems[];
+    /**
+     * 행이 삭제될 때 row span이 줄어드는 아이템들을 리턴한다.
+     */
+    getRowContractedItems(row: number): ExcelItems[];
+    /**
+     * 행이 삽입될 때 row가 밀리는 아이템들을 리턴한다.
+     */
+    getRowPushedItems(row: number): ExcelItems[];
+    /**
+     * 행이 삭제될 때 row가 올라오는 아이템들을 리턴한다.
+     */
+    getRowPulledItems(row: number): ExcelItems[];
+    getHiddenText(): string;
+    fillStyle(styles: Styles, fillStyle: any): void;
+    setNeedCheckDummy(): void;
+    findOf(hash: string): ReportPageItem;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    protected _savePropsOf(target: object, infos: IPropInfo[]): void;
+    canFold(): boolean;
+    canSized(): boolean;
+    canRotate(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    canAdd(item: ReportItem): boolean;
+    needDesignBorder(): boolean;
+    needDesignHeight(): boolean;
+    needDesignWidth(): boolean;
+    protected _doItemAdded(item: ReportItem, index: number): void;
+    protected _doItemRemoved(item: ReportItem, index: number): void;
+    protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
+    protected _doPrepareLayout(printing: boolean): void;
+    abstract getColLen(): number;
+    abstract getRowLen(): number;
+    abstract getFillCols(): number;
+    abstract getFillRows(): number;
+    protected _doInitGroup(): void;
+    protected _saveCellStyles(saveTarget: Object): void;
+    protected _getInitCellStyles(): Styles;
+    private $_refreshDummies;
+}
+
+declare abstract class ExcelItem extends ReportItem {
+    static readonly PROP_ROW = "row";
+    static readonly PROP_COL = "col";
+    static readonly PROP_ROWSPAN = "rowSpan";
+    static readonly PROP_COLSPAN = "colSpan";
+    static readonly PROP_COLS = "cols";
+    static readonly PROP_ROWS = "rows";
+    static readonly PROPINFOS: IPropInfo[];
+    static setItemCols(item: ExcelItems, col: number, span: number): void;
+    static setItemRows(item: ExcelItems, row: number, span: number): void;
+    static getDisplayBounds(item: ExcelItems, p: ExcelGroupItem): {
+        r1: number;
+        c1: number;
+        r2: number;
+        c2: number;
+    };
+    static isIntersecting(item: ExcelItems, r1: number, c1: number, r2: number, c2: number, p?: ExcelGroupItem): boolean;
+    static isContained(item: ExcelItems, r1: number, c1: number, r2: number, c2: number, p?: ExcelGroupItem): boolean;
+    static createRenderInfo(info: any): IExcelRenderInfo;
+    private _row;
+    private _col;
+    _saveRow: number;
+    _saveCol: number;
+    /**
+     * row
+     */
+    get row(): number;
+    set row(value: number);
+    /**
+     * ccol
+     */
+    get col(): number;
+    set col(value: number);
+    getCol(): number;
+    getRow(): number;
+    abstract getColLen(): number;
+    abstract getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    getBounds(): {
+        r: number;
+        c: number;
+        rows: number;
+        cols: number;
+    };
+    write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    needDesignBorder(): boolean;
+    canFold(): boolean;
+    canSized(): boolean;
+}
+
+/**
+ * band group/detail container에 항목이 없을 때 컨테이너 영역을 차지하는 임시 item.
+ */
+declare class ExcelBandFillItem extends ExcelItem {
+    owner: ReportPageItem;
+    fill: {
+        r: number;
+        c: number;
+        rows: number;
+        cols: number;
+    };
+    constructor(owner: ReportPageItem);
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+}
+declare abstract class ExcelDataBandSection extends ExcelGroupItem {
+    static readonly PROP_ROW_COUNT = "rowCount";
+    static readonly PROP_MIN_ROW_HEIGHT = "minRowHeight";
+    static readonly PROP_FIXED = "fixed";
+    static readonly PROPINFOS: IPropInfo[];
+    private static readonly STYLE_PROPS;
+    private _rowCount;
+    private _minRowHeight;
+    private _fixed;
+    _row: number;
+    private _band;
+    private _minRowHeightDim;
+    _runRow: number;
+    constructor(band: ExcelDataBand);
+    get outlineItems(): IOutlineSource[];
+    get row(): number;
+    /** band */
+    get band(): ExcelDataBand;
+    /**
+     * 행 수.<br/>
+     */
+    get rowCount(): number;
+    set rowCount(value: number);
+    /** @internal */
+    _setRowCount(value: number): void;
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    write(ctx: ExcelPrintContext, group: IBandRowGroup): IExcelCell[];
+    trimItems(colCount: number): void;
+    get marqueeParent(): ReportItem;
+    getMoveType(item: ReportItem): ItemMoveType;
+    protected _getChildPropInfos(item: ReportItem): IPropInfo[];
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    canAdd(item: ReportItem): boolean;
+    canCopy(): boolean;
+    canDelete(): boolean;
+    canMove(): boolean;
+    validateChildProp(item: ExcelItems, prop: string, value: number): number;
+    getRowPushedItems(row: number): ExcelItems[];
+    getRowPulledItems(row: number): ExcelItems[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+declare class ExcelDataBandHeader extends ExcelDataBandSection {
+    static readonly $_ctor: string;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    protected _getInitCellStyles(): {
+        textAlign: string;
+        fontWeight: string;
+        backgroundColor: string;
+        border: string;
+    };
+    getHiddenText(): string;
+}
+declare class ExcelDataBandFooter extends ExcelDataBandSection {
+    static readonly $_ctor: string;
+    protected _getInitCellStyles(): {
+        backgroundColor: string;
+    };
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    getHiddenText(): string;
+}
+declare class ExcelDataBandDataRow extends ExcelDataBandSection {
+    static readonly $_ctor: string;
+    _runRowCount: number;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    getHiddenText(): string;
+    writeAll(ctx: ExcelPrintContext, drows?: number[]): IExcelCell[];
+    writeRow(ctx: ExcelPrintContext, drow: number, col: number): IExcelCell[];
+    private $_writeRow;
+}
+declare abstract class ExcelDataBandRowGroupSection extends ExcelDataBandSection {
+    group: ExcelDataBandRowGroup;
+    constructor(group: ExcelDataBandRowGroup);
+    get page(): ReportPageBase;
+    getCol(): number;
+    getRow(): number;
+}
+declare class ExcelDataBandRowGroupHeader extends ExcelDataBandRowGroupSection {
+    static readonly PROPINFOS: IPropInfo[];
+    _row: number;
+    static readonly $_ctor: string;
+    get outlineLabel(): string;
+    get row(): number;
+    get outlineParent(): IOutlineSource;
+    get pathLabel(): string;
+    get marqueeParent(): ReportItem;
+    getHiddenText(): string;
+    getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    prepareLayout(printing: boolean): void;
+}
+declare class ExcelDataBandRowGroupFooter extends ExcelDataBandRowGroupSection {
+    static readonly PROPINFOS: IPropInfo[];
+    _row: number;
+    static readonly $_ctor: string;
+    get outlineLabel(): string;
+    get outlineParent(): IOutlineSource;
+    get row(): number;
+    get pathLabel(): string;
+    get marqueeParent(): ReportItem;
+    getHiddenText(): string;
+    getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    prepareLayout(printing: boolean): void;
+}
+declare class ExcelDataBandRowGroup extends DataBandRowGroup {
+    static readonly PASTE_TYPE = "_row_group_paste_";
+    static readonly PROPINFOS: IPropInfo[];
+    private static readonly STYLE_PROPS;
+    private _collection;
+    private _header;
+    private _footer;
+    _row: number;
+    _col: number;
+    constructor(collection: ExcelDataBandRowGroupCollection);
+    _initSections(): void;
+    get band(): ExcelDataBand;
+    /** header */
+    get header(): ExcelDataBandRowGroupHeader;
+    /** footer */
+    get footer(): ExcelDataBandRowGroupFooter;
+    get row(): number;
+    set row(row: number);
+    get col(): number;
+    set col(col: number);
+    getFillItems(): ReportItem[];
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    getMarqueeColLen(): number;
+    getMarqueeRowLen(): number;
+    getHiddenText(): string;
+    trimItems(colCount: number): void;
+    get page(): ReportPageBase;
+    get report(): ReportBase;
+    get collection(): ExcelDataBandRowGroupCollection;
+    get outlineParent(): IOutlineSource;
+    get marqueeParent(): ReportItem;
+    canSized(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    getCollectionLabel(): string;
+    get dataParent(): ReportGroupItem;
+    get outlineLabel(): string;
+    get displayPath(): string;
+    protected _ignoreItems(): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    protected _changed(prop: string, newValue: any, oldValue: any): void;
+    protected _doPrepareLayout(printing: boolean): void;
+}
+declare class ExcelDataBandRowGroupCollection extends ReportItemCollection<ExcelDataBandRowGroup> {
+    static readonly $_ctor: string;
+    private _band;
+    private _groups;
+    _fills: ExcelBandFillItem[];
+    _row: number;
+    constructor(band?: ExcelDataBand);
+    get band(): ExcelDataBand;
+    load(loader: IReportLoader, src: any): void;
+    save(target: any): void;
+    add(group: ExcelDataBandRowGroup | ConfigObject$1, index?: number): ExcelDataBandRowGroup;
+    addAll(groups: (ExcelDataBandRowGroup | ConfigObject$1)[], index?: number): boolean;
+    removeAt(index: number): boolean;
+    remove(group: ExcelDataBandRowGroup): boolean;
+    clear(): boolean;
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    prepareLayout(printing: boolean): void;
+    prepareGroups(): ExcelDataBandRowGroup[];
+    getFillItems(): ReportPageItem[];
+    get owner(): ExcelDataBand;
+    get count(): number;
+    get items(): ReportPageItem[];
+    get(index: number): ExcelDataBandRowGroup;
+    indexOf(group: ExcelDataBandRowGroup): number;
+    protected _doMoveItem(from: number, to: number): boolean;
+    get outlineParent(): IOutlineSource;
+    get outlineExpandable(): boolean;
+    get outlineLabel(): string;
+    get outlineItems(): IOutlineSource[];
+    getSaveType(): string;
+    get page(): ReportPageBase;
+    get displayPath(): string;
+    get level(): number;
+    get marqueeParent(): ReportItem;
+    canDelete(): boolean;
+    canMove(): boolean;
+    private $_add;
+    private $_invalidateGroups;
+    private $_groupChanged;
+}
+declare class ExcelDataBandRowGroupContainer extends ExcelDataBandSection {
+    protected _doPrepareLayout(printing: boolean): void;
+    getRowLen(): number;
+    getHiddenText(): string;
+    getFillItems(): ReportItem[];
+}
+/**
+ * 데이터밴드의 영역 중 아이템이 지정되지 않은 셀들에 표시되는 item.
+ * 모든 셀을 포함하는 하나의 아이템으로 지정된다.
+ * 밴드 단위로 표시된다.
+ * 다른 아이템을 추가하거나, 셀을 선택할 수 없다.
+ */
+declare class ExcelDataBand extends TableLikeBand {
+    static readonly PROP_DESIGN_VISIBLE = "designVisible";
+    static readonly PROP_COL_COUNT = "colCount";
+    static readonly PROP_GROUPS = "groups";
+    static readonly PROP_END_ROW_MERGED = "endRowMerged";
+    static readonly PROPINFOS: IPropInfo[];
+    private static readonly STYLE_PROPS;
+    static readonly DEFAULT_COL_COUNT = 5;
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE: string;
+    private _designVisible;
+    colSpan: number;
+    rowSpan: number;
+    private _row;
+    private _col;
+    private _colCount;
+    private _endRowMerged;
+    private _header;
+    private _footer;
+    private _dataRow;
+    private _groupContainer;
+    private _groups;
+    private _sections;
+    _needReset: boolean;
+    _runRow: number;
+    _saveRow: number;
+    _saveCol: number;
+    _saveRowSpan: number;
+    constructor(name: string);
+    get outlineItems(): IOutlineSource[];
+    /**
+     * false이면 visible이 false인 header, dataRow, footer, 항목이 없는 groups, details일 때 표시되는 container가 표시되지 않는다.
+     * 즉, 각 섹션들이 행을 차지하지 않는다.
+     * [주의] 이 속성과 무관하게 미리보기나 출력은 동일하도록 구현해야 한다.
+     *       즉, 이 밴드 바로 아래 붙어있는 아이템은 속성과 상관없이 밴드 바로 다음에 붙어서 출력돼야 한다.
+     */
+    get designVisible(): boolean;
+    set designVisible(value: boolean);
+    /**
+     * master
+     */
+    get master(): ExcelDataBand;
+    set master(band: ExcelDataBand);
+    /**
+     * row
+     */
+    get row(): number;
+    set row(value: number);
+    /**
+     * col
+     */
+    get col(): number;
+    set col(value: number);
+    /** colCount */
+    get colCount(): number;
+    set colCount(value: number);
+    /** @internal */
+    _setColCount(value: number): void;
+    /**
+     * true면 end row 행들을 하나로 묶어서 표시한다. #760
+     */
+    get endRowMerged(): boolean;
+    set endRowMerged(value: boolean);
+    /**
+     * group container.
+     * for design only
+     */
+    get groupContainer(): ExcelDataBandRowGroupContainer;
+    /** groups */
+    get groups(): ExcelDataBandRowGroupCollection;
+    /** header */
+    get header(): ExcelDataBandHeader;
+    /** footer */
+    get footer(): ExcelDataBandFooter;
+    /** dataRow */
+    get dataRow(): ExcelDataBandDataRow;
+    get root(): ExcelDataBand;
+    get detail(): ExcelDataBandCollection;
+    getFillItems(): ReportItem[];
+    getCol(): number;
+    getRow(): number;
+    getColLen(): number;
+    getRowLen(): number;
+    getFillCols(): number;
+    getFillRows(): number;
+    getBounds(): {
+        r: number;
+        c: number;
+        rows: number;
+        cols: number;
+    };
+    getMarqueeColLen(): number;
+    getMarqueeRowLen(): number;
+    getGroup(index: number): ExcelDataBandRowGroup;
+    getColItems(col: number, all?: boolean): ExcelItems[];
+    getColRangeItems(c1: number, c2?: number): ExcelItems[];
+    /**
+     * band col count가 줄어들 때 col span이 줄어드는 아이템들.
+     */
+    getColTrimmedItems(count: number): ExcelItems[];
+    /**
+     * band col count가 감소할 때 col span이 줄어드는 아이템들을 리턴한다.
+     */
+    getColShrinkedItems(count: number): ExcelItems[];
+    /**
+     * band 컬럼이 삽입될 때 col span이 늘어나는 아이템들.
+     */
+    getColSpannedItems(col: number): ExcelItems[];
+    /**
+     * 컬럼이 삭제될 때 col span이 줄어드는 아이템들을 리턴한다.
+     */
+    getColContractedItems(col: number): ExcelItems[];
+    /**
+     * band 컬럼이 삽입될 때 column이 밀리는 아이템들을 리턴한다.
+     */
+    getColPushedItems(col: number): ExcelItems[];
+    /**
+     * band 컬럼이 삭제될 때 column이 올라오는 아이템들을 리턴한다.
+     */
+    getColPulledItems(col: number): ExcelItems[];
+    getHiddenText(): string;
+    getLockCells(): {
+        r: number;
+        c: number;
+    }[];
+    write(ctx: ExcelPrintContext, drows?: number[]): IExcelRenderInfo;
+    getSaveType(): string;
+    get outlineLabel(): string;
+    outlineVisible(child: IOutlineSource): boolean;
+    canFold(): boolean;
+    canSized(): boolean;
+    needDesignBorder(): boolean;
+    needDesignHeight(): boolean;
+    needDesignWidth(): boolean;
+    get isBand(): boolean;
+    protected _ignoreItems(): boolean;
+    protected _createDataBandCollection(): DataBandCollection;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    isAncestorOf(item: ReportPageItem): boolean;
+    findOf(hash: string): ReportPageItem;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    protected _doPrepareIndices(ctx: PrintContextBase): void;
+    getNextDetailRows(dataView: BandDataSortView, from?: number): number[];
+    containsInSection(item: ReportItem): boolean;
+    protected _changed(prop: string, value: any, oldValue: any): void;
+    protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
+    protected _doItemAdded(item: ReportItem, index: number): void;
+    protected _doItemsAdded(items: ReportItem[]): void;
+    protected _doItemRemoved(item: ReportItem, index: number): void;
+    protected _doItemsRemoved(items: ReportItem[]): void;
+    protected _doItemsCleared(): void;
+    protected _doPrepareLayout(printing: boolean): void;
+    prepareLayout(printing: boolean): void;
+    private $_buildDefaultCtx;
+    private $_groupChanged;
+    $_resetRows(): void;
+    setNeedCheckDummy(): void;
+}
+declare class ExcelDataBandCollection extends DataBandCollection implements IExcelGroupItem {
+    _row: number;
+    _fills: ExcelBandFillItem[];
+    getItemPasteInfo(item: ExcelItems): {
+        error?: string;
+        deletes?: ExcelItems[];
+    };
+    get band(): ExcelDataBand;
+    getCol(): number;
+    getRow(): number;
+    getBandsLen(): number;
+    getRowLen(): number;
+    getColLen(): number;
+    getFillRows(): number;
+    getFillCols(): number;
+    getHiddenText(): string;
+    getFillItems(): ReportItem[];
+    get isChildPropContainer(): boolean;
+    get row(): number;
+    get marqueeParent(): ReportItem;
+    canFold(): boolean;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    protected _doItemAdded(item: ReportItem, index: number): void;
+    protected _doItemsAdded(items: ReportItem[]): void;
+    protected _doItemRemoved(item: ReportItem, index: number): void;
+    protected _doItemsCleared(): void;
+    protected _doItemsRemoved(items: ReportItem[]): void;
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
+    protected _doPrepareLayout(printing: boolean): void;
+    _resetPositions(): void;
+}
+
+declare abstract class ExcelTableElementBase extends ReportElement {
+    needEnd: number;
+    private _colgroup;
+    private _thead;
+    private _tbody;
+    constructor(doc: Document, needEnd?: number);
+    protected _createDom(doc: Document): HTMLElement;
+    protected _initDom(doc: Document, dom: HTMLElement): void;
+    get trows(): HTMLCollectionOf<HTMLTableRowElement>;
+    getCell(r: number, c: number): HTMLTableCellElement;
+    protected _calcRowPoints(): number[];
+    protected _calcColPoints(): number[];
+    protected _setTableStyle(table: HTMLTableElement): void;
+    protected _prepareCols(doc: Document, widths: number[]): void;
+    protected _prepareHeads(doc: Document, count: number): HTMLTableSectionElement;
+    protected _prepareRows(doc: Document, count: number): HTMLCollectionOf<HTMLTableRowElement>;
+}
+declare abstract class ExcelTableElement extends ExcelTableElementBase {
+    measure(ctx: PrintContextBase, hintWidth: number, hintHeight: number): Size$1;
+    protected _setSizeStyle(css: CSSStyleDeclaration): void;
+}
+
+/**
+ * @private
+ */
+declare class ExcelSheetView extends ExcelTableElement {
+    private _model;
+    private _modelDirty;
+    private _minCol;
+    private _maxCol;
+    private _minRow;
+    private _maxRow;
+    private _zoom;
+    private _xOff;
+    private _yOff;
+    private _rowPts;
+    private _colPts;
+    get model(): DesignSheet;
+    get zoom(): number;
+    setModel(sheet: DesignSheet): void;
+    setModelDirty(): void;
+    isModelDirty(): boolean;
+    fillCell(row: number, col: number, rows: number, cols: number): void;
+    getFirst(): HTMLTableCellElement;
+    getLast(): HTMLTableCellElement;
+    getLeft(row: number, col: number, skipLock: boolean): HTMLTableCellElement;
+    getRight(row: number, col: number, skipLock: boolean): HTMLTableCellElement;
+    getUpper(row: number, col: number, skipLock: boolean): HTMLTableCellElement;
+    getLower(row: number, col: number, skipLock: boolean): HTMLTableCellElement;
+    getTableCell(item: ExcelItems | ExcelGroupItems): HTMLTableCellElement;
+    resetExtents(): void;
+    getExtents(zoom?: number): {
+        zoom: number;
+        colPoints: number[];
+        rowPoints: number[];
+    };
+    getRangeRect(r1: number, c1: number, rows: number, cols: number): IRect;
+    getCellRect(r: number, c: number): IRect;
+    getItemRect(item: ExcelItems | ExcelGroupItem): IRect;
+    getMarqueeRect(item: ExcelGroups): IRect;
+    setCellContentHeight(cell: HTMLTableCellElement): void;
+    /**
+     * Image일 경우 고정 높이를 설정해야 함
+     */
+    setCellFixedHeight(cell: HTMLTableCellElement): void;
+    protected _getCssSelector(): string;
+    protected _doMeasure(ctx: PrintContextBase, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContextBase): void;
+    protected _prepareTable(doc: Document, sheet: DesignSheet): void;
+    private $_prepareTableRow;
+    private $_prepareCells;
+}
+
+/**
+ * @private
+ */
+declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
+    sheetView: ExcelSheetView;
+    getItemCell(item: ExcelItems | ExcelGroupItems): HTMLTableCellElement;
+    getCell(row: number, col: number): HTMLTableCellElement;
+    getItemRect(item: ExcelItems | ExcelGroupItem): IRect;
+    getMarqueeRect(item: ExcelGroups): IRect;
+    setCellHeight(cell: HTMLTableCellElement): void;
+    setCellFixedHeight(cell: HTMLTableCellElement): void;
+    setConditionalFormatting(options: IConditionalFormattingOptions): void;
+}
+/**
+ * @private
+ */
+declare abstract class ExcelReportItemElement<T extends ReportItem = ReportItem> extends ReportItemElement<T> {
+    static readonly HIDDEN_GROUP = "rr-excel-hidden-item";
+    static readonly HALO_TAG = "rr-excel-item-halo-tag";
+    protected _initDom(doc: Document, dom: HTMLElement): void;
+    findElementOf(dom: HTMLElement): this;
+    protected _setCell(ctx: ExcelPrintContext, td: HTMLTableCellElement, value: any, empty: boolean): void;
+    /**
+     * 특정 아이템에 다른 컨텐츠를 구성할때 override 해서 구성한다.
+     * @param div td의 첫번째 container div 요소
+     * @param content 설정되어야 할 content
+     * @returns
+     */
+    protected _setCellContent(div: HTMLDivElement, content: any): void;
+    protected _applyModelStyle(cell: HTMLTableCellElement, row: number, col: number): void;
+    private $_setBindMarker;
+}
+/**
+ * @private
+ */
+declare abstract class ExcelReportGroupItemElementBase<T extends ReportGroupItem = ReportGroupItem> extends ReportGroupItemElement<T> {
+    private _haloView;
+    setHaloVisible(value: boolean): void;
+    isHalo(dom: HTMLElement): boolean;
+    protected _initDom(doc: Document, dom: HTMLElement): void;
+    _isDesignVisible(): boolean;
+    protected _doMeasure(ctx: ExcelPrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    getHiddenView(dom: HTMLElement): VisualElement$1;
+    protected _getHiddenContextMenu(cell: HTMLTableCellElement): string;
+    protected _getHaloText(model: ExcelItems | ExcelDataBandRowGroup): string;
+    protected _doLayoutContent(ctx: ExcelPrintContext): void;
+    protected _layoutItem(ctx: ExcelPrintContext, child: ReportElement, model: ExcelItems, x: number, y: number, width: number, height: number): void;
+    protected _createHalo(doc: Document, lefted: boolean): HTMLElement;
+    protected _resetCells(td: HTMLTableCellElement, rowCount: number, colCount: number): void;
+}
+
+/**
+ * expression 속성에 summary 수식을 지정한다.
+ */
+declare class SummaryItem extends TextItemBase {
+    static readonly PROP_EXPRESSION = "expression";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Summary";
+    private _expression;
+    private _exprNode;
+    constructor(name: string);
+    /**
+     * expression
+     */
+    get expression(): string;
+    set expression(value: string);
+    getSummary(runtime: DataBandSummaryRuntime, ctx: PrintContext | ExcelPrintContext): any;
+    getSaveType(): string;
+    canAddToFrontContainer(): boolean;
+    canAddToBackContainer(): boolean;
+    get designText(): string;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    getDesignText2(system: boolean): string;
 }
 
 /**
@@ -6579,34 +8610,6 @@ interface IOutlineSource {
 }
 
 /**
- * ItemAddSection
- */
-declare class ItemAddSection<S extends PageSection> extends PageSection {
-    static readonly $_ctor: string;
-    static readonly PROPINFOS: IPropInfo[];
-    private _targetSection;
-    constructor(target: S);
-    get targetSection(): S;
-    get pathLabel(): string;
-    canResize(dir: ResizeDirection): boolean;
-    canFold(): boolean;
-    protected _getStyleProps(): string[];
-    protected _getEditProps(): IPropInfo[];
-    canContainsBand(): boolean;
-    canContainsBandGroup(): boolean;
-}
-/**
- * BodyItemAddSection
- */
-declare class BodyItemAddSection extends ItemAddSection<PageBody> {
-    static readonly $_ctor: string;
-    constructor(target: PageBody);
-    get pathLabel(): string;
-    get outlineLabel(): string;
-    protected _doItemAdded(item: ReportItem, index: number): void;
-}
-
-/**
  */
 declare class PageItemContainer extends BoundedContainer {
     static readonly PROP_INHERIT = "inherit";
@@ -7019,85 +9022,6 @@ declare class PageFooter extends InheritableSection {
     get outlineLabel(): string;
     get pathLabel(): string;
     canResize(dir: ResizeDirection): boolean;
-}
-
-/** @internal */
-declare abstract class BoundedContainerElement<T extends BoundedContainer> extends ReportGroupItemElement<T> {
-    constructor(doc: Document, model: T);
-    protected _prepareChild(child: ReportElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _layoutItem(ctx: PrintContext, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
-    protected _layoutChild(ctx: PrintContext, child: ReportElement, x: number, y: number, width: number, height: number): void;
-}
-
-/** @internal */
-declare abstract class StackContainerElement<T extends StackContainer> extends BoundedContainerElement<T> {
-    constructor(doc: Document, model: T);
-    get debugLabel(): string;
-    protected _doSetStyles(model: ReportItem, dom: HTMLElement): void;
-    protected _getPrev(item: ReportItemView): ReportItemView;
-    protected _getNext(item: ReportItemView): ReportItemView;
-    getUpper(item: ReportItemView): ReportItemView;
-    getLower(item: ReportItemView): ReportItemView;
-    private $_getSorted;
-}
-
-/** @internal */
-declare abstract class SectionElement<T extends PageSection> extends StackContainerElement<T> {
-    constructor(doc: Document, model: T);
-    get dom(): HTMLDivElement;
-    protected _needDesignBox(): boolean;
-    protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
-}
-/** @internal */
-declare class ReportHeaderElement extends SectionElement<ReportHeader> {
-    constructor(doc: Document, model?: ReportHeader);
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-}
-/** @internal */
-declare class ReportFooterElement extends SectionElement<ReportFooter> {
-    static readonly STYLE_NAME = "rr-report-footer rr-group-element";
-    static isFooter: (div: HTMLElement) => boolean;
-    constructor(doc: Document, model?: ReportFooter);
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-}
-declare abstract class InheritableSectionElement<T extends InheritableSection> extends SectionElement<T> {
-    static readonly CLONE_CLASS = "rr-section-clone";
-    private _baseModel;
-    setBase(base: T): void;
-    protected _getModel(): T;
-    protected _setDesignContent(empty: boolean, designView: HTMLDivElement): void;
-}
-/** @internal */
-declare class PageHeaderElement extends InheritableSectionElement<PageHeader> {
-    constructor(doc: Document, model?: PageHeader);
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-    protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
-}
-/** @internal */
-declare class PageFooterElement extends InheritableSectionElement<PageFooter> {
-    constructor(doc: Document, model?: PageFooter);
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-    protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-}
-/** @internal */
-declare class BodyItemAddSectionElement extends SectionElement<ItemAddSection<PageSection>> {
-    constructor(doc: Document, model?: BodyItemAddSection);
-    get debugLabel(): string;
-    protected _getCssSelector(): string;
-    protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    protected _doSizeChanged(): void;
 }
 
 /**
@@ -8113,1922 +10037,6 @@ declare class BandGroupMarquee extends EditMarquee<BandGroupElement> {
     private $_getTrackers;
 }
 
-declare enum FormulaConverterErrorCode {
-    UNKNOWN_ERROR = "UNKNOWN_ERROR",
-    UNKNOWN_TOKEN = "UNKNOWN_TOKEN",
-    FORBIDDEN_BAND_REF = "FORBIDDEN_BAND_REF",
-    FORBIDDEN_DETAIL_BAND_REF = "FORBIDDEN_DETAIL_BAND_REF",
-    BAND_NOT_FOUND = "BAND_NOT_FOUND"
-}
-declare abstract class FormulaConverterError extends Error {
-    code: FormulaConverterErrorCode;
-    constructor(message: string, code: FormulaConverterErrorCode);
-}
-
-interface IExcelDataBar {
-    color: string;
-    width: string;
-    value: any;
-}
-interface IExcellImage {
-    image: string;
-    width: number;
-    height?: number;
-}
-interface IExcelCell {
-    info?: IExcelRenderInfo;
-    r: number;
-    c: number;
-    rModel?: number;
-    row?: number;
-    rowSpan?: number;
-    colSpan?: number;
-    value?: any;
-    format?: string;
-    formula?: string;
-    preparedFormula?: string;
-    formulaConversionError?: FormulaConverterError;
-    formulaDependencyList?: IExcelCell[];
-    formulaExecOrder?: number;
-    annotation?: string;
-    link?: string;
-    image?: IExcellImage;
-    spark?: any;
-    style?: Styles;
-    rotation?: number | 'vertical';
-    dr?: number;
-    bar?: IExcelDataBar;
-    cbandGroup?: IExcelBandGroupContext;
-    cband?: IExcelBandContext;
-}
-type IExcelBandExcelMatrix = IExcelCell[];
-interface IExcelBandGroupContext {
-    dataRow: IExcelBandExcelMatrix;
-    footer: IExcelBandExcelMatrix;
-    row: number;
-    level: number;
-    value: any;
-    parent: IExcelBandGroupContext;
-    children: IExcelBandGroupContext[];
-}
-interface IExcelBandContext {
-    name: string;
-    dataName: string;
-    masterValues: any;
-    parentBand: IExcelBandContext;
-    header: IExcelBandExcelMatrix;
-    dataRow: IExcelBandExcelMatrix;
-    footer: IExcelBandExcelMatrix;
-    detailIndex?: number;
-    detailBands: IExcelBandContext[];
-    designTimeRowIndex: number;
-    designTimeColIndex: number;
-    designTimeRowCount: number;
-    designTimeColCount: number;
-    runRows: number;
-    bandGroups?: IExcelBandGroupContext[];
-}
-interface IExcelRenderInfo {
-    row: number;
-    col: number;
-    rowCount?: number;
-    runRows?: number;
-    colCount?: number;
-    band?: IExcelBandContext;
-    box?: boolean;
-    sign?: any;
-    stamp?: any;
-    r?: number;
-    cells: IExcelCell | IExcelCell[];
-    hCells?: IExcelCell[];
-}
-interface IConditionalFormattingBaseRule {
-    priority: number;
-    style?: Partial<Style>;
-}
-interface IConditionalFormattingOptions {
-    ref: string;
-    rules: ConditionalFormattingRule[];
-}
-type ConditionalFormattingRule = IDataBarRuleType;
-type BarAxisPosition = 'auto' | 'middle' | 'none';
-type BarAxisDirection = 'context' | 'leftToRight' | 'rightToLeft';
-interface IBarColor {
-    argb: string;
-}
-interface IDataBarRuleType extends IConditionalFormattingBaseRule {
-    type: 'dataBar';
-    gradient?: boolean;
-    minLength?: number;
-    maxLength?: number;
-    showValue?: boolean;
-    border?: boolean;
-    negativeBarColorSameAsPositive?: boolean;
-    negativeBarBorderColorSameAsPositive?: boolean;
-    axisPosition?: BarAxisPosition;
-    direction?: BarAxisDirection;
-    cfvo?: Cvfo[];
-    color?: IBarColor;
-}
-
-declare abstract class ExcelItem extends ReportItem {
-    static readonly PROP_ROW = "row";
-    static readonly PROP_COL = "col";
-    static readonly PROP_ROWSPAN = "rowSpan";
-    static readonly PROP_COLSPAN = "colSpan";
-    static readonly PROP_COLS = "cols";
-    static readonly PROP_ROWS = "rows";
-    static readonly PROPINFOS: IPropInfo[];
-    static setItemCols(item: ExcelItems, col: number, span: number): void;
-    static setItemRows(item: ExcelItems, row: number, span: number): void;
-    static getDisplayBounds(item: ExcelItems, p: ExcelGroupItem): {
-        r1: number;
-        c1: number;
-        r2: number;
-        c2: number;
-    };
-    static isIntersecting(item: ExcelItems, r1: number, c1: number, r2: number, c2: number, p?: ExcelGroupItem): boolean;
-    static isContained(item: ExcelItems, r1: number, c1: number, r2: number, c2: number, p?: ExcelGroupItem): boolean;
-    static createRenderInfo(info: any): IExcelRenderInfo;
-    private _row;
-    private _col;
-    _saveRow: number;
-    _saveCol: number;
-    /**
-     * row
-     */
-    get row(): number;
-    set row(value: number);
-    /**
-     * ccol
-     */
-    get col(): number;
-    set col(value: number);
-    getCol(): number;
-    getRow(): number;
-    abstract getColLen(): number;
-    abstract getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    getBounds(): {
-        r: number;
-        c: number;
-        rows: number;
-        cols: number;
-    };
-    write(ctx: ExcelPrintContext): IExcelRenderInfo;
-    needDesignBorder(): boolean;
-    canFold(): boolean;
-    canSized(): boolean;
-}
-
-/**
- * band group/detail container에 항목이 없을 때 컨테이너 영역을 차지하는 임시 item.
- */
-declare class ExcelBandFillItem extends ExcelItem {
-    owner: ReportPageItem;
-    fill: {
-        r: number;
-        c: number;
-        rows: number;
-        cols: number;
-    };
-    constructor(owner: ReportPageItem);
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-}
-declare abstract class ExcelDataBandSection extends ExcelGroupItem {
-    static readonly PROP_ROW_COUNT = "rowCount";
-    static readonly PROP_MIN_ROW_HEIGHT = "minRowHeight";
-    static readonly PROP_FIXED = "fixed";
-    static readonly PROPINFOS: IPropInfo[];
-    private static readonly STYLE_PROPS;
-    private _rowCount;
-    private _minRowHeight;
-    private _fixed;
-    _row: number;
-    private _band;
-    private _minRowHeightDim;
-    _runRow: number;
-    constructor(band: ExcelDataBand);
-    get outlineItems(): IOutlineSource[];
-    get row(): number;
-    /** band */
-    get band(): ExcelDataBand;
-    /**
-     * 행 수.<br/>
-     */
-    get rowCount(): number;
-    set rowCount(value: number);
-    /** @internal */
-    _setRowCount(value: number): void;
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    write(ctx: ExcelPrintContext, group: IBandRowGroup): IExcelCell[];
-    trimItems(colCount: number): void;
-    get marqueeParent(): ReportItem;
-    getMoveType(item: ReportItem): ItemMoveType;
-    protected _getChildPropInfos(item: ReportItem): IPropInfo[];
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    canAdd(item: ReportItem): boolean;
-    canCopy(): boolean;
-    canDelete(): boolean;
-    canMove(): boolean;
-    validateChildProp(item: ExcelItems, prop: string, value: number): number;
-    getRowPushedItems(row: number): ExcelItems[];
-    getRowPulledItems(row: number): ExcelItems[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-declare class ExcelDataBandHeader extends ExcelDataBandSection {
-    static readonly $_ctor: string;
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    protected _getInitCellStyles(): {
-        textAlign: string;
-        fontWeight: string;
-        backgroundColor: string;
-        border: string;
-    };
-    getHiddenText(): string;
-}
-declare class ExcelDataBandFooter extends ExcelDataBandSection {
-    static readonly $_ctor: string;
-    protected _getInitCellStyles(): {
-        backgroundColor: string;
-    };
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    getHiddenText(): string;
-}
-declare class ExcelDataBandDataRow extends ExcelDataBandSection {
-    static readonly $_ctor: string;
-    _runRowCount: number;
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    getHiddenText(): string;
-    writeAll(ctx: ExcelPrintContext, drows?: number[]): IExcelCell[];
-    writeRow(ctx: ExcelPrintContext, drow: number, col: number): IExcelCell[];
-    private $_writeRow;
-}
-declare abstract class ExcelDataBandRowGroupSection extends ExcelDataBandSection {
-    group: ExcelDataBandRowGroup;
-    constructor(group: ExcelDataBandRowGroup);
-    get page(): ReportPageBase;
-    getCol(): number;
-    getRow(): number;
-}
-declare class ExcelDataBandRowGroupHeader extends ExcelDataBandRowGroupSection {
-    static readonly PROPINFOS: IPropInfo[];
-    _row: number;
-    static readonly $_ctor: string;
-    get outlineLabel(): string;
-    get row(): number;
-    get outlineParent(): IOutlineSource;
-    get pathLabel(): string;
-    get marqueeParent(): ReportItem;
-    getHiddenText(): string;
-    getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    prepareLayout(printing: boolean): void;
-}
-declare class ExcelDataBandRowGroupFooter extends ExcelDataBandRowGroupSection {
-    static readonly PROPINFOS: IPropInfo[];
-    _row: number;
-    static readonly $_ctor: string;
-    get outlineLabel(): string;
-    get outlineParent(): IOutlineSource;
-    get row(): number;
-    get pathLabel(): string;
-    get marqueeParent(): ReportItem;
-    getHiddenText(): string;
-    getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    prepareLayout(printing: boolean): void;
-}
-declare class ExcelDataBandRowGroup extends DataBandRowGroup {
-    static readonly PASTE_TYPE = "_row_group_paste_";
-    static readonly PROPINFOS: IPropInfo[];
-    private static readonly STYLE_PROPS;
-    private _collection;
-    private _header;
-    private _footer;
-    _row: number;
-    _col: number;
-    constructor(collection: ExcelDataBandRowGroupCollection);
-    _initSections(): void;
-    get band(): ExcelDataBand;
-    /** header */
-    get header(): ExcelDataBandRowGroupHeader;
-    /** footer */
-    get footer(): ExcelDataBandRowGroupFooter;
-    get row(): number;
-    set row(row: number);
-    get col(): number;
-    set col(col: number);
-    getFillItems(): ReportItem[];
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    getMarqueeColLen(): number;
-    getMarqueeRowLen(): number;
-    getHiddenText(): string;
-    trimItems(colCount: number): void;
-    get page(): ReportPageBase;
-    get report(): ReportBase;
-    get collection(): ExcelDataBandRowGroupCollection;
-    get outlineParent(): IOutlineSource;
-    get marqueeParent(): ReportItem;
-    canSized(): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    getCollectionLabel(): string;
-    get dataParent(): ReportGroupItem;
-    get outlineLabel(): string;
-    get displayPath(): string;
-    protected _ignoreItems(): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _changed(prop: string, newValue: any, oldValue: any): void;
-    protected _doPrepareLayout(printing: boolean): void;
-}
-declare class ExcelDataBandRowGroupCollection extends ReportItemCollection<ExcelDataBandRowGroup> {
-    static readonly $_ctor: string;
-    private _band;
-    private _groups;
-    _fills: ExcelBandFillItem[];
-    _row: number;
-    constructor(band?: ExcelDataBand);
-    get band(): ExcelDataBand;
-    load(loader: IReportLoader, src: any): void;
-    save(target: any): void;
-    add(group: ExcelDataBandRowGroup | ConfigObject$1, index?: number): ExcelDataBandRowGroup;
-    addAll(groups: (ExcelDataBandRowGroup | ConfigObject$1)[], index?: number): boolean;
-    removeAt(index: number): boolean;
-    remove(group: ExcelDataBandRowGroup): boolean;
-    clear(): boolean;
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    prepareLayout(printing: boolean): void;
-    prepareGroups(): ExcelDataBandRowGroup[];
-    getFillItems(): ReportPageItem[];
-    get owner(): ExcelDataBand;
-    get count(): number;
-    get items(): ReportPageItem[];
-    get(index: number): ExcelDataBandRowGroup;
-    indexOf(group: ExcelDataBandRowGroup): number;
-    protected _doMoveItem(from: number, to: number): boolean;
-    get outlineParent(): IOutlineSource;
-    get outlineExpandable(): boolean;
-    get outlineLabel(): string;
-    get outlineItems(): IOutlineSource[];
-    getSaveType(): string;
-    get page(): ReportPageBase;
-    get displayPath(): string;
-    get level(): number;
-    get marqueeParent(): ReportItem;
-    canDelete(): boolean;
-    canMove(): boolean;
-    private $_add;
-    private $_invalidateGroups;
-    private $_groupChanged;
-}
-declare class ExcelDataBandRowGroupContainer extends ExcelDataBandSection {
-    protected _doPrepareLayout(printing: boolean): void;
-    getRowLen(): number;
-    getHiddenText(): string;
-    getFillItems(): ReportItem[];
-}
-/**
- * 데이터밴드의 영역 중 아이템이 지정되지 않은 셀들에 표시되는 item.
- * 모든 셀을 포함하는 하나의 아이템으로 지정된다.
- * 밴드 단위로 표시된다.
- * 다른 아이템을 추가하거나, 셀을 선택할 수 없다.
- */
-declare class ExcelDataBand extends TableLikeBand {
-    static readonly PROP_DESIGN_VISIBLE = "designVisible";
-    static readonly PROP_COL_COUNT = "colCount";
-    static readonly PROP_GROUPS = "groups";
-    static readonly PROP_END_ROW_MERGED = "endRowMerged";
-    static readonly PROPINFOS: IPropInfo[];
-    private static readonly STYLE_PROPS;
-    static readonly DEFAULT_COL_COUNT = 5;
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE: string;
-    private _designVisible;
-    colSpan: number;
-    rowSpan: number;
-    private _row;
-    private _col;
-    private _colCount;
-    private _endRowMerged;
-    private _header;
-    private _footer;
-    private _dataRow;
-    private _groupContainer;
-    private _groups;
-    private _sections;
-    _needReset: boolean;
-    _runRow: number;
-    _saveRow: number;
-    _saveCol: number;
-    _saveRowSpan: number;
-    constructor(name: string);
-    get outlineItems(): IOutlineSource[];
-    /**
-     * false이면 visible이 false인 header, dataRow, footer, 항목이 없는 groups, details일 때 표시되는 container가 표시되지 않는다.
-     * 즉, 각 섹션들이 행을 차지하지 않는다.
-     * [주의] 이 속성과 무관하게 미리보기나 출력은 동일하도록 구현해야 한다.
-     *       즉, 이 밴드 바로 아래 붙어있는 아이템은 속성과 상관없이 밴드 바로 다음에 붙어서 출력돼야 한다.
-     */
-    get designVisible(): boolean;
-    set designVisible(value: boolean);
-    /**
-     * master
-     */
-    get master(): ExcelDataBand;
-    set master(band: ExcelDataBand);
-    /**
-     * row
-     */
-    get row(): number;
-    set row(value: number);
-    /**
-     * col
-     */
-    get col(): number;
-    set col(value: number);
-    /** colCount */
-    get colCount(): number;
-    set colCount(value: number);
-    /** @internal */
-    _setColCount(value: number): void;
-    /**
-     * true면 end row 행들을 하나로 묶어서 표시한다. #760
-     */
-    get endRowMerged(): boolean;
-    set endRowMerged(value: boolean);
-    /**
-     * group container.
-     * for design only
-     */
-    get groupContainer(): ExcelDataBandRowGroupContainer;
-    /** groups */
-    get groups(): ExcelDataBandRowGroupCollection;
-    /** header */
-    get header(): ExcelDataBandHeader;
-    /** footer */
-    get footer(): ExcelDataBandFooter;
-    /** dataRow */
-    get dataRow(): ExcelDataBandDataRow;
-    get root(): ExcelDataBand;
-    get detail(): ExcelDataBandCollection;
-    getFillItems(): ReportItem[];
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    getBounds(): {
-        r: number;
-        c: number;
-        rows: number;
-        cols: number;
-    };
-    getMarqueeColLen(): number;
-    getMarqueeRowLen(): number;
-    getGroup(index: number): ExcelDataBandRowGroup;
-    getColItems(col: number, all?: boolean): ExcelItems[];
-    getColRangeItems(c1: number, c2?: number): ExcelItems[];
-    /**
-     * band col count가 줄어들 때 col span이 줄어드는 아이템들.
-     */
-    getColTrimmedItems(count: number): ExcelItems[];
-    /**
-     * band col count가 감소할 때 col span이 줄어드는 아이템들을 리턴한다.
-     */
-    getColShrinkedItems(count: number): ExcelItems[];
-    /**
-     * band 컬럼이 삽입될 때 col span이 늘어나는 아이템들.
-     */
-    getColSpannedItems(col: number): ExcelItems[];
-    /**
-     * 컬럼이 삭제될 때 col span이 줄어드는 아이템들을 리턴한다.
-     */
-    getColContractedItems(col: number): ExcelItems[];
-    /**
-     * band 컬럼이 삽입될 때 column이 밀리는 아이템들을 리턴한다.
-     */
-    getColPushedItems(col: number): ExcelItems[];
-    /**
-     * band 컬럼이 삭제될 때 column이 올라오는 아이템들을 리턴한다.
-     */
-    getColPulledItems(col: number): ExcelItems[];
-    getHiddenText(): string;
-    getLockCells(): {
-        r: number;
-        c: number;
-    }[];
-    write(ctx: ExcelPrintContext, drows?: number[]): IExcelRenderInfo;
-    getSaveType(): string;
-    get outlineLabel(): string;
-    outlineVisible(child: IOutlineSource): boolean;
-    canFold(): boolean;
-    canSized(): boolean;
-    needDesignBorder(): boolean;
-    needDesignHeight(): boolean;
-    needDesignWidth(): boolean;
-    get isBand(): boolean;
-    protected _ignoreItems(): boolean;
-    protected _createDataBandCollection(): DataBandCollection;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    isAncestorOf(item: ReportPageItem): boolean;
-    findOf(hash: string): ReportPageItem;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _doPrepareIndices(ctx: PrintContextBase): void;
-    getNextDetailRows(dataView: BandDataSortView, from?: number): number[];
-    containsInSection(item: ReportItem): boolean;
-    protected _changed(prop: string, value: any, oldValue: any): void;
-    protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
-    protected _doItemAdded(item: ReportItem, index: number): void;
-    protected _doItemsAdded(items: ReportItem[]): void;
-    protected _doItemRemoved(item: ReportItem, index: number): void;
-    protected _doItemsRemoved(items: ReportItem[]): void;
-    protected _doItemsCleared(): void;
-    protected _doPrepareLayout(printing: boolean): void;
-    prepareLayout(printing: boolean): void;
-    private $_buildDefaultCtx;
-    private $_groupChanged;
-    $_resetRows(): void;
-    setNeedCheckDummy(): void;
-}
-declare class ExcelDataBandCollection extends DataBandCollection implements IExcelGroupItem {
-    _row: number;
-    _fills: ExcelBandFillItem[];
-    getItemPasteInfo(item: ExcelItems): {
-        error?: string;
-        deletes?: ExcelItems[];
-    };
-    get band(): ExcelDataBand;
-    getCol(): number;
-    getRow(): number;
-    getBandsLen(): number;
-    getRowLen(): number;
-    getColLen(): number;
-    getFillRows(): number;
-    getFillCols(): number;
-    getHiddenText(): string;
-    getFillItems(): ReportItem[];
-    get isChildPropContainer(): boolean;
-    get row(): number;
-    get marqueeParent(): ReportItem;
-    canFold(): boolean;
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    protected _doItemAdded(item: ReportItem, index: number): void;
-    protected _doItemsAdded(items: ReportItem[]): void;
-    protected _doItemRemoved(item: ReportItem, index: number): void;
-    protected _doItemsCleared(): void;
-    protected _doItemsRemoved(items: ReportItem[]): void;
-    canAdoptDragSource(source: any): boolean;
-    adoptDragSource(source: any): IDropResult;
-    protected _doPrepareLayout(printing: boolean): void;
-    _resetPositions(): void;
-}
-
-/**
- * databand나 box 그룹의 빈 셀에 자동으로 추가 삭제된다.
- * outline에 표시되지 않는다.
- */
-declare class ExcelGhostItem extends ExcelItem {
-    static readonly PROPINFOS: IPropInfo[];
-    private _owner;
-    constructor(owner: ReportGroupItem);
-    get owner(): ReportGroupItem;
-    rowSpan: number;
-    colSpan: number;
-    getColLen(): number;
-    getRowLen(): number;
-    get page(): ReportPageBase;
-    get pathLabel(): string;
-    get removable(): boolean;
-    canFold(): boolean;
-    canMove(): boolean;
-    canCopy(): boolean;
-    getRow(): number;
-    getCol(): number;
-    protected _getEditProps(): IPropInfo[];
-    adoptDragSource(source: any): IDropResult;
-    canDelete(): boolean;
-}
-
-/**
- * 아이템이 지정되지 않은 셀들을 dummy 아이템으로 채운다.
- */
-declare class ExcelBox extends ExcelGroupItem {
-    static readonly PROP_COL_COUNT = "colCount";
-    static readonly PROP_ROW_COUNT = "rowCount";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    colSpan: number;
-    rowSpan: number;
-    private _row;
-    private _col;
-    private _colCount;
-    private _rowCount;
-    /**
-     * row
-     */
-    get row(): number;
-    set row(value: number);
-    /**
-     * col
-     */
-    get col(): number;
-    set col(value: number);
-    /**
-     * colCount
-     */
-    get colCount(): number;
-    set colCount(value: number);
-    _setColCount(value: number): boolean;
-    /**
-     * rowCount
-     */
-    get rowCount(): number;
-    set rowCount(value: number);
-    _setRowCount(value: number): boolean;
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    getBounds(): {
-        r: number;
-        c: number;
-        rows: number;
-        cols: number;
-    };
-    getMarqueeColLen(): number;
-    getMarqueeRowLen(): number;
-    canExpand(rows: number, cols: number): boolean;
-    insertColumn(col: number): void;
-    deleteColumn(col: number): void;
-    insertRow(row: number): void;
-    deleteRow(row: number): void;
-    fillTexts(): void;
-    write(ctx: ExcelPrintContext): IExcelRenderInfo;
-    protected _getInitCellStyles(): {
-        borderLeft: string;
-        borderRight: string;
-        borderTop: string;
-        borderBottom: string;
-    };
-    getSaveType(): string;
-    get outlineLabel(): string;
-    get outlineItems(): IOutlineSource[];
-    canFold(): boolean;
-    protected _getEditProps(): IPropInfo[];
-    validateChildProp(item: ExcelItems, prop: string, value: number): number;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    /**
-     * Box 자체에 설정한 외곽선 보더 스타일을 셀 스타일에 반영한다.
-     * 박스 아이템에 설정한 스타일은 외곽선 설정으로 외곽선이 포함된 셀들은 다른 스타일 설정을 무시하고 외곽선 보더 스타일로 설정된다.
-     */
-    private $_applyBoxBorderStyle;
-}
-
-declare abstract class SheetCollectionItem extends ReportItemCollectionItem {
-    private static readonly STYLE_PROPS;
-    _index: number;
-    remove(): void;
-    abstract get itemType(): string;
-    get collection(): SheetItemCollection;
-    /**
-     * index
-     */
-    get index(): number;
-    get page(): ReportPageBase;
-    protected _getStyleProps(): string[];
-}
-declare abstract class SheetItemCollection<C extends SheetCollectionItem = SheetCollectionItem> extends ReportItemCollection<C> {
-    sheet: Sheet;
-    protected _items: C[];
-    constructor(sheet: Sheet);
-    init(count: number): void;
-    load(source: any): void;
-    save(target: any): void;
-    add(item: C, index: number): C;
-    append(item: C): C;
-    remove(item: C): C;
-    removeAt(index: number): C;
-    contains(item: C): boolean;
-    get owner(): ReportPageItem;
-    get count(): number;
-    get items(): ReportPageItem[];
-    get(index: number): C;
-    indexOf(item: C): number;
-    protected _doMoveItem(from: number, to: number): boolean;
-    get outlineParent(): IOutlineSource;
-    get outlineExpandable(): boolean;
-    get page(): ReportPageBase;
-    get level(): number;
-    get displayPath(): string;
-    abstract get outlineLabel(): string;
-    abstract getSaveType(): string;
-    protected abstract _createItem(source: any): C;
-    protected _resetIndices(from: number): void;
-}
-/**
- * sheet column info.
- */
-declare class SheetColumn extends SheetCollectionItem {
-    static readonly PROP_COL = "col";
-    static readonly PROP_WIDTH = "width";
-    static readonly PROPINFOS: IPropInfo[];
-    private _col;
-    private _width;
-    /**
-     * width
-     */
-    get col(): number;
-    set col(value: number);
-    /**
-     * width
-     */
-    get width(): number;
-    set width(value: number);
-    equals(other: any): boolean;
-    get itemType(): string;
-    get outlineLabel(): string;
-    get displayPath(): string;
-    getCollectionLabel(): string;
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    protected _doLoad(src: any): void;
-    protected _doSave(target: any): void;
-}
-declare class SheetColumnCollection extends SheetItemCollection<SheetColumn> {
-    findColumn(col: number): SheetColumn;
-    get outlineLabel(): string;
-    get outlineItems(): IOutlineSource[];
-    getPropertySources(): IPropertySource[];
-    getSaveType(): string;
-    protected _createItem(source: any): SheetColumn;
-}
-/**
- * sheet row info.
- */
-declare class SheetRow extends SheetCollectionItem {
-    static readonly PROP_ROW = "row";
-    static readonly PROP_HEIGHT = "height";
-    static readonly PROPINFOS: IPropInfo[];
-    private _row;
-    private _height;
-    /**
-     * row
-     */
-    get row(): number;
-    set row(value: number);
-    /**
-     * height
-     */
-    get height(): number;
-    set height(value: number);
-    equals(other: any): boolean;
-    get itemType(): string;
-    get outlineLabel(): string;
-    get displayPath(): string;
-    getCollectionLabel(): string;
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    protected _doLoad(src: any): void;
-    protected _doSave(target: any): void;
-}
-declare class SheetRowCollection extends SheetItemCollection<SheetRow> {
-    findRow(row: number): SheetRow;
-    get outlineLabel(): string;
-    get outlineItems(): IOutlineSource[];
-    getPropertySources(): IPropertySource[];
-    getSaveType(): string;
-    protected _createItem(source: any): SheetRow;
-}
-interface ISheetOptions {
-    colCount?: number;
-    rowCount?: number;
-}
-interface ISheetOwner {
-    sheetColCountChanged(count: number, oldCount: number): void;
-    sheetRowCountChanged(count: number, oldCount: number): void;
-}
-/**
- * A sheet design model.
- */
-declare class Sheet extends ReportGroupItem {
-    static readonly PROP_SHEET_NAME = "sheetName";
-    static readonly PROP_COLUMNS = "columns";
-    static readonly PROP_ROWS = "rows";
-    static readonly PROP_COL_COUNT = "colCount";
-    static readonly PROP_ROW_COUNT = "rowCount";
-    static readonly PROP_COLUMN_WIDTH = "columnWidth";
-    static readonly PROP_AUTO_ROW_HEIGHT = "autoRowHeight";
-    static readonly PROP_ROW_HEIGHT = "rowHeight";
-    static readonly PROPINFOS: IPropInfo[];
-    private _sheetName;
-    private _colCount;
-    private _rowCount;
-    private _columnWidth;
-    private _autoRowHeight;
-    private _rowHeight;
-    private _owner;
-    private _columns;
-    private _rows;
-    private _colWidths;
-    private _rowHeights;
-    private _conditionalFormatting;
-    private _conditionalFormattingRef;
-    constructor(owner?: ISheetOwner, options?: ISheetOptions);
-    get outlineItems(): IOutlineSource[];
-    /**
-     * sheetName
-     */
-    get sheetName(): string;
-    set sheetName(value: string);
-    /**
-     * design-time 컬럼 갯수.
-     */
-    get colCount(): number;
-    set colCount(value: number);
-    protected _validateColCount(count: number): number;
-    /**
-     * design-time row 갯수.
-     */
-    get rowCount(): number;
-    set rowCount(value: number);
-    protected _validateRowCount(count: number): number;
-    /**
-     * default column width.
-     */
-    get columnWidth(): number;
-    set columnWidth(value: number);
-    /**
-     * default row height.
-     */
-    get rowHeight(): number;
-    set rowHeight(value: number);
-    getRowHeight(): number;
-    /**
-     * true로 지정되면 명시적으로 높이가 설정되지 않은 행의 높이가 출력 시에 내용에 따라 자동 결정된다.
-     */
-    get autoRowHeight(): boolean;
-    set autoRowHeight(value: boolean);
-    get columns(): SheetColumnCollection;
-    get rows(): SheetRowCollection;
-    get isEmpty(): boolean;
-    get conditionalFormatting(): IConditionalFormattingOptions[];
-    get conditionalFormattingRef(): string[];
-    addConditionalRef(ref: string): void;
-    createColumn(): SheetColumn;
-    createRow(): SheetRow;
-    columnAt(index: number): SheetColumn;
-    addColumn(column: SheetColumn, index: number): void;
-    removeColumn(column: SheetColumn): void;
-    moveColumn(column: SheetColumn, newIndex: number): void;
-    rowAt(index: number): SheetRow;
-    addRow(row: SheetRow, index: number): void;
-    removeRow(row: SheetRow): void;
-    moveRow(row: SheetRow, newIndex: number): void;
-    getColWidths(): number[];
-    getRowHeights(): number[];
-    getCellWidth(col: number, span: number): number;
-    getCellHeight(row: number, span: number): number;
-    setConditionalFormatting(options: IConditionalFormattingOptions): void;
-    getCD(): IConditionalFormattingOptions[];
-    getSaveType(): string;
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    canDelete(): boolean;
-    canSized(): boolean;
-    canRotate(): boolean;
-    needDesignBorder(): boolean;
-    needDesignWidth(): boolean;
-    needDesignHeight(): boolean;
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    protected _doDefaultInit(loader: IReportLoader, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _doPrepareLayout(printing: boolean): void;
-    private $_resetColWidths;
-    private $_resetRowHeights;
-}
-
-type ExcelRootItems = ExcelItems | ExcelBox | ExcelDataBand;
-declare class ExcelPageBodyItems extends ReportGroupItem implements IExcelGroupItem {
-    static readonly $_ctor: string;
-    private _ghost;
-    constructor(name: string);
-    getItemPasteInfo(item: ExcelItems): {
-        error?: string;
-        deletes?: ExcelItems[];
-    };
-    get ghost(): ExcelGhostItem;
-    getRow(): number;
-    getCol(): number;
-    getMoveType(item: ReportItem): ItemMoveType;
-    get outlineLabel(): string;
-    protected _getEditProps(): IPropInfo[];
-    canResize(dir: ResizeDirection): boolean;
-    canMove(): boolean;
-    canCopy(): boolean;
-    canDelete(): boolean;
-    canContainsBand(): boolean;
-    protected _ignoreItems(): boolean;
-    canAdoptDragSource(source: any): boolean;
-    adoptDragSource(source: any): IDropResult;
-    protected _doPrepareLayout(printing: boolean): void;
-}
-declare class ExcelPageBody extends PageBodyBase {
-    static readonly $_ctor: string;
-    get page(): ExcelPage;
-    get itemsContainer(): ExcelPageBodyItems;
-    protected _createPageBodyItems(): ExcelPageBodyItems;
-}
-/**
- * Design-time sheet model.
- * item map을 유지한다.
- */
-declare class DesignSheet extends Sheet {
-    private _itemRows;
-    private _dirty;
-    private _maxCol;
-    private _maxRow;
-    private _minRow;
-    get minRow(): number;
-    getColumn(col: number, create?: boolean): SheetColumn;
-    getRow(row: number, create?: boolean): SheetRow;
-    /**
-     * undo에서 바로 반영되도록 컬럼 객체 생성과 너비 변경을 command 하나로 실행한다. #1865
-     */
-    setColumnWidth(col: number, width: number): SheetColumn;
-    /**
-     * undo에서 바로 반영되도록 행 객체 생성과 높이 변경을 command 하나로 실행한다. #1865
-     */
-    setRowHeight(row: number, height: number): SheetRow;
-    getItem(row: number, col: number): ExcelItems;
-    getItems(r1: number, c1: number, r2: number, c2: number): ExcelItems[];
-    isBlank(row: number, col: number): boolean;
-    containsRect(r1: number, c1: number, r2: number, c2: number): boolean;
-    canResizeAt(item: ExcelItems | ExcelGroupItems, dir: ResizeDirection): boolean;
-    canResizeTo(item: ExcelItems | ExcelGroupItems, dir: ResizeDirection): boolean;
-    canFill(item: ExcelItems | ExcelGroupItems, r1: number, c1: number, r2: number, c2: number): boolean;
-    _getRootItemsIn(r1: number, c1: number, r2: number, c2: number): ExcelRootItems[];
-    canMerge(items: ExcelItems[], r1: number, c1: number, r2: number, c2: number): boolean;
-    private $_containsRect;
-    canMoveTo(item: ExcelItems, r: number, c: number): boolean;
-    canFillItem(item: ExcelItems): boolean;
-    canRowMerge(item: ExcelItems): boolean;
-    getEmptyRows(): number[];
-    protected _validateColCount(count: number): number;
-    protected _validateRowCount(count: number): number;
-    _fillItems(items: ExcelItems[], check: boolean, force: boolean): void;
-    _itemsLoaded(items: ExcelItems[]): void;
-    _itemAdded(item: ExcelItems): void;
-    _itemsAdded(items: ExcelItems[]): void;
-    _itemRemoved(item: ExcelItems): void;
-    _itemsRemoved(items: ExcelItems[]): void;
-    _itemsCleared(): void;
-    _itemChanged(item: ExcelItems, prop: string): void;
-    private $_setItem;
-}
-interface IBandExpand {
-    /**
-     * 가장 가까운 아이템의 row.
-     */
-    /**
-     * band와의 간격.
-     */
-    offset: number;
-    /**
-     * 밀려난 아이템들.
-     */
-    items: ExcelRootItems[];
-}
-interface IBandStretch {
-    offset: number;
-    items: ExcelRootItems[];
-}
-declare class ExcelPage extends ReportPageBase implements ISheetOwner {
-    static readonly GHOST_POS_CHANGED = "onPageGhostPosChanged";
-    static readonly SHEET_OPTIONS: ISheetOptions;
-    private _sheet;
-    private _body;
-    _noEvent: boolean;
-    constructor(report: ExcelReport);
-    sheetColCountChanged(count: number, oldCount: number): void;
-    sheetRowCountChanged(count: number, oldCount: number): void;
-    get sheet(): DesignSheet;
-    get body(): ExcelPageBody;
-    get type(): ReportPageType;
-    set type(v: ReportPageType);
-    get report(): ExcelReport;
-    itemAt(row: number, col: number): ExcelItems;
-    /**
-     * box의 경우 rowCount, colCount가 다른 item들과 겹치지 않도록 조정해야 한다.
-     * row 개수를 최대한 유지한다.
-     * box는 최상위에만 추가 가능하다.
-     */
-    _checkBoxSize(box: ExcelBox): boolean;
-    _checkColSpan(item: ExcelItems, value: number): number;
-    _checkRowSpan(item: ExcelItems, value: number): number;
-    getItems(r1: number, c1: number, r2?: number, c2?: number): ExcelItems[];
-    isEmpty(r1: number, c1?: number, r2?: number, c2?: number): boolean;
-    canDeleteRows(r1: number, r2?: number): boolean;
-    canDeleteCols(c1: number, c2?: number): boolean;
-    canAddAt(r: number, c: number, item: ExcelItems): boolean;
-    /**
-     * (preview나 export에서 동적으로 행 수가 결정되는 - 현재는 data band가 유일)
-     * data band 추가나, band section 행들 추가 시 필요한 만큼 sheet 행들을 삽입한다.
-     * 행이 삽입되므로 밴드를 추가하련 행 아래쪽 아이템들의 위치가 아래쪽으로 조정된다.
-     */
-    expandBand(band: ExcelItems, oldRows: number, stretch: IBandStretch): IBandExpand;
-    collapseBand(save: IBandExpand): void;
-    /**
-     * 밴드를 추가하려는 행 이전부터 시작되어 밴드와 교차될 아이템들을 오른쪽으로 밀어낸다.
-     */
-    stretchBand(band: ExcelItems, oldCols: number, oldRows: number): IBandStretch;
-    shrinkBand(save: IBandStretch): void;
-    insertSheetRow(row: number, undoCallback?: EditCommandCallback): void;
-    appendSheetRows(count: number): void;
-    deleteSheetRows(row: number, count: number, undoCallback?: EditCommandCallback): void;
-    insertSheetColumn(col: number, undoCallback?: EditCommandCallback): void;
-    deleteSheetColumns(col: number, count: number, undoCallback?: EditCommandCallback): void;
-    private $_refillSheet;
-    /**
-     * drag&drop이나 ghost셀에 아이템이 생성 추가될 때 셀 위치를 고려해서 기본 속성 재설정.
-     */
-    checkItemInit(item: ExcelItems): boolean;
-    alignItems(itemList: ReportPageItem[], align: 'left' | 'center' | 'right'): EditCommand$1[];
-    canMerge(items: ExcelItems[]): {
-        items: ExcelItems[];
-        mergeItem: ExcelItems;
-        itemRows: number[];
-        itemCols: number[];
-    };
-    mergeItems(items: ExcelItems[]): EditCommand$1[];
-    getPageLabel(): string;
-    protected _initSections(): ReportGroupItem[];
-    getPasteTarget(): ReportGroupItem;
-    getRemoveCommand(item: ReportPageItem): EditCommand$1;
-    canResize(dir: ResizeDirection): boolean;
-    needDesignWidth(): boolean;
-    needDesignHeight(): boolean;
-    protected _boundable(): boolean;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doSave(target: object): void;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doPrepareLayout(printing: boolean): void;
-    afterLayout(printing: boolean): void;
-    protected _doItemAdded(item: ReportItem, index: number): void;
-    protected _createRemoveItemsCommand(items: ReportPageItem[]): ReportEditCommand;
-    removeItems(commands: EditCommandStack$1, items: ReportPageItem[]): void;
-    protected _fireItemAdded(item: ReportPageItem, index: number, silent: boolean): void;
-    protected _fireItemsAdded(items: ReportPageItem[], index: number): void;
-    protected _fireItemRemoved(item: ReportPageItem, oldParent: ReportGroupItem): void;
-    protected _fireItemsRemoved(items: ReportPageItem[]): void;
-    protected _fireItemChanged(item: ReportPageItem, prop: string, value: any, oldValue: any): void;
-    private $_items;
-}
-
-declare class ExcelReportRootItem extends ReportRootItem {
-    static readonly PROP_PAPER_LINE = "paperLine";
-    static readonly PROPINFOS: IPropInfo[];
-    private _paperLine;
-    /**
-     * paperLine
-     * - 시트 리포트에서 종이 영역 라인의 표시여부 결정
-     */
-    get paperLine(): boolean;
-    set paperLine(value: boolean);
-    getEditProps(): IPropInfo[];
-}
-
-declare class ExcelReport extends ReportBase<ExcelPage> {
-    static readonly GHOST_POS_CHANGED = "onReportGhostPosChanged";
-    setSaveTagging(tag: string): ExcelReport;
-    itemByName(name: string): ReportItem;
-    itemOf(hash: string): ReportItem;
-    addItem(parent: ReportGroupItem, item: ExcelItems, index?: number): boolean;
-    alignItems(itemList: ReportPageItem[], align: 'left' | 'center' | 'right'): void;
-    moveItemBy(item: ExcelItems, dr: number, dc: number): void;
-    moveItem(item: ExcelItems, r: number, c: number): void;
-    checkPasteTo(target: ReportPageItem): string;
-    protected _doSaveItem(item: ReportItem, obj: any, clipboard: boolean): boolean;
-    /**
-     * 1. 빈 셀이나 group 아이템이 아닌 아이템 위치에서만 붙어녛기 할 수 있다.
-     * 2. 붙어녛기할 item들 중 대상 parent의 범위를 벗어난 경우 전체 붙여넣기가 취소된다.
-     * 3. 붙여넣기 될 위치에 붙여넣기할 아이템과 범위가 일부 겹치는 아이템이 포함된 경우 전체 붙여넣기가 취소된다.
-     * 4. 붙여넣기 될 위치가 빈 셀이 아닌 경우 overwrite될 기존 item은 제거된다.
-     */
-    pasteItems(sources: string, target: ReportPageItem): ReportItem[];
-    validateSheetName(sheet: Sheet, newName: string): void;
-    get type(): ReportType;
-    get root(): ExcelReportRootItem;
-    protected _createReportLoader(): IReportLoader;
-    setItemProperty(item: ReportPageItem, prop: string, value: any): void;
-    prepareLayout(page?: number): void;
-    afterLayout(): void;
-    protected _createPage(): ExcelPage;
-    protected _createReportRootItem(report: ReportBase): ExcelReportRootItem;
-    private $_isGroupItemExist;
-    private $_getExistItems;
-    /**
-     * 복사한 아이템중 가장 왼쪽, 상단에 위치한 row, col 정보와 붙여넣기 할 위치의 row, col 차이를 구한다.
-     */
-    private $_getPasteDistance;
-    onPageGhostPosChanged(page: ExcelPage, item: ExcelGhostItem): void;
-}
-
-/**
- * @private
- */
-declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
-    sheetView: ExcelSheetView;
-    getItemCell(item: ExcelItems | ExcelGroupItems): HTMLTableCellElement;
-    getCell(row: number, col: number): HTMLTableCellElement;
-    getItemRect(item: ExcelItems | ExcelGroupItem): IRect;
-    getMarqueeRect(item: ExcelGroups): IRect;
-    setCellHeight(cell: HTMLTableCellElement): void;
-    setCellFixedHeight(cell: HTMLTableCellElement): void;
-    setConditionalFormatting(options: IConditionalFormattingOptions): void;
-}
-/**
- * @private
- */
-declare abstract class ExcelReportItemElement<T extends ReportItem = ReportItem> extends ReportItemElement<T> {
-    static readonly HIDDEN_GROUP = "rr-excel-hidden-item";
-    static readonly HALO_TAG = "rr-excel-item-halo-tag";
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    findElementOf(dom: HTMLElement): this;
-    protected _setCell(ctx: ExcelPrintContext, td: HTMLTableCellElement, value: any, empty: boolean): void;
-    /**
-     * 특정 아이템에 다른 컨텐츠를 구성할때 override 해서 구성한다.
-     * @param div td의 첫번째 container div 요소
-     * @param content 설정되어야 할 content
-     * @returns
-     */
-    protected _setCellContent(div: HTMLDivElement, content: any): void;
-    protected _applyModelStyle(cell: HTMLTableCellElement, row: number, col: number): void;
-    private $_setBindMarker;
-}
-/**
- * @private
- */
-declare abstract class ExcelReportGroupItemElementBase<T extends ReportGroupItem = ReportGroupItem> extends ReportGroupItemElement<T> {
-    private _haloView;
-    setHaloVisible(value: boolean): void;
-    isHalo(dom: HTMLElement): boolean;
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    _isDesignVisible(): boolean;
-    protected _doMeasure(ctx: ExcelPrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    getHiddenView(dom: HTMLElement): VisualElement$1;
-    protected _getHiddenContextMenu(cell: HTMLTableCellElement): string;
-    protected _getHaloText(model: ExcelItems | ExcelDataBandRowGroup): string;
-    protected _doLayoutContent(ctx: ExcelPrintContext): void;
-    protected _layoutItem(ctx: ExcelPrintContext, child: ReportElement, model: ExcelItems, x: number, y: number, width: number, height: number): void;
-    protected _createHalo(doc: Document, lefted: boolean): HTMLElement;
-    protected _resetCells(td: HTMLTableCellElement, rowCount: number, colCount: number): void;
-}
-
-type BarcodeOutput = 'image' | 'font';
-interface IImageRect {
-    width: number;
-    height: number;
-}
-declare class ExcelBarcodeItem extends BarcodeItem {
-    static readonly PROP_OUTPUT = "output";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    private _row;
-    private _col;
-    private _rowSpan;
-    private _colSpan;
-    private _image;
-    private _output;
-    _saveRow: number;
-    _saveCol: number;
-    private _imageRect;
-    get row(): number;
-    set row(value: number);
-    /**
-     * col
-     */
-    get col(): number;
-    set col(value: number);
-    /**
-     * rowSpan
-     */
-    get rowSpan(): number;
-    set rowSpan(value: number);
-    /**
-     * colSpan
-     */
-    get colSpan(): number;
-    set colSpan(value: number);
-    get image(): string;
-    set image(value: string);
-    get output(): BarcodeOutput;
-    set output(value: BarcodeOutput);
-    get imageRect(): IImageRect;
-    set imageRect(value: IImageRect);
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    getBounds(): {
-        r: number;
-        c: number;
-        rows: number;
-        cols: number;
-    };
-    write(ctx: ExcelPrintContext): IExcelRenderInfo;
-    get marqueeParent(): ReportItem;
-    protected _getEditProps(): IPropInfo[];
-    canFold(): boolean;
-    canSized(): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-
-declare class ExcelTextItem extends TextItem {
-    static readonly PROP_FORMULA = "formula";
-    static readonly PROP_MERGE_COLS = "mergeCols";
-    static readonly PROP_FORMAT = "format";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: string[];
-    static readonly $_ctor: string;
-    static createFrom(src: ExcelItems | ExcelGhostItem, text: string, name?: string): ExcelTextItem;
-    private _row;
-    private _col;
-    private _rowSpan;
-    private _colSpan;
-    private _formula;
-    private _mergeCols;
-    private _format;
-    _saveRow: number;
-    _saveCol: number;
-    _cells: IExcelCell[];
-    /**
-     * row
-     */
-    get row(): number;
-    set row(value: number);
-    /**
-     * ccol
-     */
-    get col(): number;
-    set col(value: number);
-    /**
-     * rowSpan
-     */
-    get rowSpan(): number;
-    set rowSpan(value: number);
-    /**
-     * colSpan
-     */
-    get colSpan(): number;
-    set colSpan(value: number);
-    /**
-     * formula
-     */
-    get formula(): string;
-    set formula(value: string);
-    /**
-     * mergeCols
-     */
-    get mergeCols(): number;
-    set mergeCols(value: number);
-    /**
-     * format
-     */
-    get format(): string;
-    set format(value: string);
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    getBounds(): {
-        r: number;
-        c: number;
-        rows: number;
-        cols: number;
-    };
-    write(ctx: ExcelPrintContext): IExcelRenderInfo;
-    moveFormula(colOffset: number, rowOffset: number): void;
-    get marqueeParent(): ReportItem;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    canFold(): boolean;
-    canSized(): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    needDesignBorder(): boolean;
-    getDesignText2(system: boolean): string;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _getPrintText(ctx: ExcelPrintContext): string;
-    private $_getPrintValue;
-}
-
-/**
- * Excel data bar 아이템.
- * https://www.ablebits.com/office-addins-blog/data-bars-excel/
- */
-declare class ExcelBarItem extends ExcelTextItem {
-    static readonly DEFAULT_BAR_COLOR = "#4ba4ff";
-    static readonly PROP_BAR_COLOR = "barColor";
-    static readonly PROP_TEXT_VISIBLE = "textVisible";
-    static readonly PROP_MIN_VALUE = "minValue";
-    static readonly PROP_MAX_VALUE = "maxValue";
-    static readonly PROP_POSITION = "position";
-    static readonly PROP_BAR_STYLES = "barStyles";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: string[];
-    static readonly $_ctor: string;
-    private _barColor;
-    private _textVisible;
-    private _minValue;
-    private _maxValue;
-    private _position;
-    private _color;
-    private _barWidth;
-    /**
-     * min value.
-     */
-    get minValue(): number;
-    set minValue(value: number);
-    /**
-     * max value.
-     **/
-    get maxValue(): number;
-    set maxValue(value: number);
-    /**
-     * position
-     */
-    get position(): number;
-    set position(value: number);
-    /**
-     * color
-     */
-    get color(): Style;
-    set color(value: Style);
-    /**
-     * text visible
-     */
-    get textVisible(): boolean;
-    set textVisible(value: boolean);
-    /**
-     * bar color
-     */
-    get barColor(): string;
-    set barColor(value: string);
-    /**
-     * bar width
-     */
-    get barWidth(): string;
-    set barWidth(value: string);
-    getPosition(v: number): number;
-    getBarWidth(ctx: ExcelPrintContext, v: number): string;
-    write(ctx: ExcelPrintContext): IExcelRenderInfo;
-    getSaveType(): string;
-    get outlineLabel(): string;
-    get pathLabel(): string;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-
-/**
- * design-time에 databand나 box 그룹의 빈 셀에 자동으로 추가 삭제되는 임시 item이다.
- * 저장 모델이 아니므로 속성이 없고((row, col) 위치 정보만 readonly로 표시한다),
- * outline에 표시되지 않는다.
- */
-declare class ExcelDummyItem extends ExcelItem {
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    constructor(parent: ExcelGroupItem, row: number, col: number);
-    rowSpan: number;
-    colSpan: number;
-    getColLen(): number;
-    getRowLen(): number;
-    getSaveType(): string;
-    get outlineLabel(): string;
-    get removable(): boolean;
-    get marqueeParent(): ReportItem;
-    protected _getEditProps(): IPropInfo[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    canFold(): boolean;
-    canDelete(): boolean;
-    adoptDragSource(source: any): IDropResult;
-}
-
-declare class ExcelImageItem extends ImageItem {
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    private _row;
-    private _col;
-    private _rowSpan;
-    private _colSpan;
-    _saveRow: number;
-    _saveCol: number;
-    /**
-     * row
-     */
-    get row(): number;
-    set row(value: number);
-    /**
-     * col
-     */
-    get col(): number;
-    set col(value: number);
-    /**
-     * rowSpan
-     */
-    get rowSpan(): number;
-    set rowSpan(value: number);
-    /**
-     * colSpan
-     */
-    get colSpan(): number;
-    set colSpan(value: number);
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    getBounds(): {
-        r: number;
-        c: number;
-        rows: number;
-        cols: number;
-    };
-    write(ctx: ExcelPrintContext): IExcelRenderInfo;
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    get marqueeParent(): ReportItem;
-    protected _getEditProps(): IPropInfo[];
-    canSized(): boolean;
-    canFold(): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    needDesignBorder(): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-
-/**
- * 사인 이미지를 표시한다.
- * 클릭하면 사인 panel이 표시된다.
- */
-declare class SignItem extends ReportItem {
-    static readonly PROP_LINE_SCALE = "lineScale";
-    static readonly PROP_PRESERVE = "preserve";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: string[];
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Sign";
-    private _prevserve;
-    private _lineScale;
-    /**
-     * sign image의 line 두께 정도를 지정한다.
-     * 기본값 1이면 1~5 사이의 값과 이 속성값을 곱한 두께로 사인 이미지를 그린다.
-     */
-    get lineScale(): number;
-    set lineScale(value: number);
-    /**
-     * sign panel을 열 때 기존 sign을 유지한다.
-     */
-    get preserve(): boolean;
-    set preserve(value: boolean);
-    getSaveType(): string;
-    get outlineLabel(): string;
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    canRotate(): boolean;
-    canAdoptDragSource(source: any): boolean;
-}
-
-declare class ExcelSignItem extends SignItem {
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    private _row;
-    private _col;
-    private _rowSpan;
-    private _colSpan;
-    _saveRow: number;
-    _saveCol: number;
-    /**
-     * row
-     */
-    get row(): number;
-    set row(value: number);
-    /**
-     * col
-     */
-    get col(): number;
-    set col(value: number);
-    /**
-     * rowSpan
-     */
-    get rowSpan(): number;
-    set rowSpan(value: number);
-    /**
-     * colSpan
-     */
-    get colSpan(): number;
-    set colSpan(value: number);
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    getBounds(): {
-        r: number;
-        c: number;
-        rows: number;
-        cols: number;
-    };
-    write(ctx: ExcelPrintContext): IExcelRenderInfo;
-    get marqueeParent(): ReportItem;
-    protected _getEditProps(): IPropInfo[];
-    canSized(): boolean;
-    canFold(): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    needDesignBorder(): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-
-/**
- * 도장 이미지를 표시한다.
- * 클릭하면 도장 panel이 표시된다.
- */
-declare class StampItem extends ReportItem {
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: string[];
-    static readonly $_ctor: string;
-    static readonly ITEM_TYPE = "Stamp";
-    getSaveType(): string;
-    get outlineLabel(): string;
-    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    canRotate(): boolean;
-    canAdoptDragSource(source: any): boolean;
-}
-
-declare class ExcelStampItem extends StampItem {
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    private _row;
-    private _col;
-    private _rowSpan;
-    private _colSpan;
-    _saveRow: number;
-    _saveCol: number;
-    /**
-     * row
-     */
-    get row(): number;
-    set row(value: number);
-    /**
-     * col
-     */
-    get col(): number;
-    set col(value: number);
-    /**
-     * rowSpan
-     */
-    get rowSpan(): number;
-    set rowSpan(value: number);
-    /**
-     * colSpan
-     */
-    get colSpan(): number;
-    set colSpan(value: number);
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    getBounds(): {
-        r: number;
-        c: number;
-        rows: number;
-        cols: number;
-    };
-    write(ctx: ExcelPrintContext): IExcelRenderInfo;
-    get marqueeParent(): ReportItem;
-    protected _getEditProps(): IPropInfo[];
-    canSized(): boolean;
-    canFold(): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    needDesignBorder(): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-
-declare class ExcelSummaryItem extends SummaryItem {
-    static readonly PROP_FORMAT = "format";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    private _row;
-    private _col;
-    private _rowSpan;
-    private _colSpan;
-    private _format;
-    _saveRow: number;
-    _saveCol: number;
-    /**
-     * row
-     */
-    get row(): number;
-    set row(value: number);
-    /**
-     * ccol
-     */
-    get col(): number;
-    set col(value: number);
-    /**
-     * rowSpan
-     */
-    get rowSpan(): number;
-    set rowSpan(value: number);
-    /**
-     * colSpan
-     */
-    get colSpan(): number;
-    set colSpan(value: number);
-    /**
-     * format
-     */
-    get format(): string;
-    set format(value: string);
-    getCol(): number;
-    getRow(): number;
-    getColLen(): number;
-    getRowLen(): number;
-    getFillCols(): number;
-    getFillRows(): number;
-    getBounds(): {
-        r: number;
-        c: number;
-        rows: number;
-        cols: number;
-    };
-    write(ctx: ExcelPrintContext): IExcelRenderInfo;
-    get marqueeParent(): ReportItem;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    canSized(): boolean;
-    canFold(): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    needDesignBorder(): boolean;
-    protected _doSave(target: object): void;
-}
-
-type ExcelItems = ExcelTextItem | ExcelSummaryItem | ExcelImageItem | ExcelDataBand | ExcelBox | ExcelDummyItem | ExcelBarcodeItem | ExcelBarItem | ExcelSignItem | ExcelStampItem;
-type ExcelGroupItems = ExcelGroupItem | ExcelDataBand | ExcelDataBandCollection;
-type ExcelGroups = ExcelBox | ExcelDataBand | ExcelDataBandRowGroup;
-interface IExcelGroupItem {
-    getItemPasteInfo(item: ExcelItems): {
-        error?: string;
-        deletes?: ExcelItems[];
-    };
-}
-declare abstract class ExcelGroupItem extends ReportGroupItem implements IExcelGroupItem {
-    static readonly PROP_CELL_STYLES = "cellStyles";
-    static readonly PROPINFOS: IPropInfo[];
-    private static readonly STYLES;
-    static readonly CELL_STYLES: string[];
-    private static readonly CELL_STYLE_MAP;
-    private _cellStyles;
-    _saveRow: number;
-    _saveCol: number;
-    private _needCheckDummy;
-    private _colLen;
-    private _dummyRows;
-    constructor(name: string);
-    getSubStyleProps(prop: string): IPropInfo[];
-    protected _getSubStyle(prop: string, style: string): any;
-    protected _setSubStyle(prop: string, style: string, value: any): void;
-    getItemPasteInfo(item: ExcelItems): {
-        error?: string;
-        deletes?: ExcelItems[];
-    };
-    /** cellStyles */
-    get cellStyles(): Styles;
-    set cellStyles(value: Styles);
-    abstract getRow(): number;
-    abstract getCol(): number;
-    validateChildProp(item: ExcelItems, prop: string, value: number): number;
-    getDummies(): ExcelDummyItem[];
-    getFillItems(): ReportItem[];
-    getColItems(col: number, all?: boolean): ExcelItems[];
-    getColRangeItems(c1: number, c2?: number): ExcelItems[];
-    /**
-     * band나 box의 col count가 줄어들 때 col span이 줄어드는 아이템들.
-     */
-    getColTrimmedItems(count: number): ExcelItems[];
-    /**
-     * col count가 감소할 때 col span이 줄어드는 아이템들을 리턴한다.
-     */
-    getColShrinkedItems(count: number): ExcelItems[];
-    /**
-     * 컬럼이 삽입될 때 col span이 늘어나는 아이템들.
-     */
-    getColSpannedItems(col: number): ExcelItems[];
-    /**
-     * 컬럼이 삭제될 때 col span이 줄어드는 아이템들을 리턴한다.
-     */
-    getColContractedItems(col: number): ExcelItems[];
-    /**
-     * 컬럼이 삽입될 때 column이 밀리는 아이템들을 리턴한다.
-     */
-    getColPushedItems(col: number): ExcelItems[];
-    /**
-     * 컬럼이 삭제될 때 column이 올라오는 아이템들을 리턴한다.
-     */
-    getColPulledItems(col: number): ExcelItems[];
-    getRowItems(row: number, all?: boolean): ExcelItems[];
-    getRowRangeItems(r1: number, r2?: number): ExcelItems[];
-    /**
-     * band section이나 box의 row count가 줄어들 때 row span이 줄어드는 아이템들.
-     */
-    getRowTrimmedItems(count: number): ExcelItems[];
-    /**
-     * row count가 감소할 때 row span이 줄어드는 아이템들을 리턴한다.
-     */
-    getRowShrinkedItems(count: number): ExcelItems[];
-    /**
-     * 행이 삽입될 때 row span이 늘어나는 아이템들을 리턴한다.
-     */
-    getRowSpannedItems(row: number): ExcelItems[];
-    /**
-     * 행이 삭제될 때 row span이 줄어드는 아이템들을 리턴한다.
-     */
-    getRowContractedItems(row: number): ExcelItems[];
-    /**
-     * 행이 삽입될 때 row가 밀리는 아이템들을 리턴한다.
-     */
-    getRowPushedItems(row: number): ExcelItems[];
-    /**
-     * 행이 삭제될 때 row가 올라오는 아이템들을 리턴한다.
-     */
-    getRowPulledItems(row: number): ExcelItems[];
-    getHiddenText(): string;
-    fillStyle(styles: Styles, fillStyle: any): void;
-    setNeedCheckDummy(): void;
-    findOf(hash: string): ReportPageItem;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _savePropsOf(target: object, infos: IPropInfo[]): void;
-    canFold(): boolean;
-    canSized(): boolean;
-    canRotate(): boolean;
-    canResize(dir: ResizeDirection): boolean;
-    canAdd(item: ReportItem): boolean;
-    needDesignBorder(): boolean;
-    needDesignHeight(): boolean;
-    needDesignWidth(): boolean;
-    protected _doItemAdded(item: ReportItem, index: number): void;
-    protected _doItemRemoved(item: ReportItem, index: number): void;
-    protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
-    protected _doPrepareLayout(printing: boolean): void;
-    abstract getColLen(): number;
-    abstract getRowLen(): number;
-    abstract getFillCols(): number;
-    abstract getFillRows(): number;
-    protected _doInitGroup(): void;
-    protected _saveCellStyles(saveTarget: Object): void;
-    protected _getInitCellStyles(): Styles;
-    private $_refreshDummies;
-}
-
-declare abstract class ExcelTableElementBase extends ReportElement {
-    needEnd: number;
-    private _colgroup;
-    private _thead;
-    private _tbody;
-    constructor(doc: Document, needEnd?: number);
-    protected _createDom(doc: Document): HTMLElement;
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    get trows(): HTMLCollectionOf<HTMLTableRowElement>;
-    getCell(r: number, c: number): HTMLTableCellElement;
-    protected _calcRowPoints(): number[];
-    protected _calcColPoints(): number[];
-    protected _setTableStyle(table: HTMLTableElement): void;
-    protected _prepareCols(doc: Document, widths: number[]): void;
-    protected _prepareHeads(doc: Document, count: number): HTMLTableSectionElement;
-    protected _prepareRows(doc: Document, count: number): HTMLCollectionOf<HTMLTableRowElement>;
-}
-declare abstract class ExcelTableElement extends ExcelTableElementBase {
-    measure(ctx: PrintContextBase, hintWidth: number, hintHeight: number): Size$1;
-    protected _setSizeStyle(css: CSSStyleDeclaration): void;
-}
-
-/**
- * @private
- */
-declare class ExcelSheetView extends ExcelTableElement {
-    private _model;
-    private _modelDirty;
-    private _minCol;
-    private _maxCol;
-    private _minRow;
-    private _maxRow;
-    private _zoom;
-    private _xOff;
-    private _yOff;
-    private _rowPts;
-    private _colPts;
-    get model(): DesignSheet;
-    get zoom(): number;
-    setModel(sheet: DesignSheet): void;
-    setModelDirty(): void;
-    isModelDirty(): boolean;
-    fillCell(row: number, col: number, rows: number, cols: number): void;
-    getFirst(): HTMLTableCellElement;
-    getLast(): HTMLTableCellElement;
-    getLeft(row: number, col: number, skipLock: boolean): HTMLTableCellElement;
-    getRight(row: number, col: number, skipLock: boolean): HTMLTableCellElement;
-    getUpper(row: number, col: number, skipLock: boolean): HTMLTableCellElement;
-    getLower(row: number, col: number, skipLock: boolean): HTMLTableCellElement;
-    getTableCell(item: ExcelItems | ExcelGroupItems): HTMLTableCellElement;
-    resetExtents(): void;
-    getExtents(zoom?: number): {
-        zoom: number;
-        colPoints: number[];
-        rowPoints: number[];
-    };
-    getRangeRect(r1: number, c1: number, rows: number, cols: number): IRect;
-    getCellRect(r: number, c: number): IRect;
-    getItemRect(item: ExcelItems | ExcelGroupItem): IRect;
-    getMarqueeRect(item: ExcelGroups): IRect;
-    setCellContentHeight(cell: HTMLTableCellElement): void;
-    /**
-     * Image일 경우 고정 높이를 설정해야 함
-     */
-    setCellFixedHeight(cell: HTMLTableCellElement): void;
-    protected _getCssSelector(): string;
-    protected _doMeasure(ctx: PrintContextBase, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContextBase): void;
-    protected _prepareTable(doc: Document, sheet: DesignSheet): void;
-    private $_prepareTableRow;
-    private $_prepareCells;
-}
-
 /**
  * @private
  */
@@ -10534,6 +10542,7 @@ declare class FieldListManager extends VisualElement$1 {
     private _moveFieldEnabled;
     private _onSearchFieldRefresh;
     private _saveOrderWhenFieldOrderChanged;
+    private _fieldsLabelElement;
     constructor(doc: Document, name: string, label: string);
     protected _doDispose(): void;
     get fieldContainer(): HTMLDivElement;
@@ -10546,6 +10555,7 @@ declare class FieldListManager extends VisualElement$1 {
     get firstFieldElement(): Element;
     get lastFieldElement(): Element;
     get selectedElement(): HTMLElement;
+    get fieldsLabelElement(): Element;
     get isSorting(): boolean;
     get isSearching(): boolean;
     set sortEnabled(value: boolean);
@@ -10572,6 +10582,7 @@ declare class FieldListManager extends VisualElement$1 {
     getFieldsByOriginalOrder(): FieldElementInfo[];
     close(): void;
     refreshUpDownBtn(): void;
+    refreshFieldsLabel(): void;
     focusSearchField(): void;
     scrollToFirstField(): void;
     scrollToLastField(): void;
@@ -11743,6 +11754,10 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     protected _resetRowIndex(row: BandPrintInfo<SimpleBand | TableBand | BandGroup>): void;
     protected _prepareDetailBandPrintNext(ctx: PrintContextBase, band: DataBand, row: BandPrintInfo<SimpleBand | TableBand | BandGroup>, rows: BandPrintRow[], rowsPerPage: number): void;
     protected _isNextRowDataRow(rows: BandPrintRow[]): boolean;
+    /**
+     * 밴드 디테일 영역에서 SummaryItem 계산을 위한 데이터 준비
+     */
+    protected _prepareBandDetailSummary(ctx: PrintContext, band: DataBand): void;
 }
 declare class PrintContext extends PrintContextBase<Report> {
     get reportView(): ReportView;
@@ -48354,6 +48369,7 @@ declare class ReportViewer extends ReportViewBase {
     private _reportDataProvider;
     private _isPaging;
     private _reportViewPrinter;
+    private _reportViewExporter;
     constructor(container: string | HTMLDivElement, reportForm?: ReportForm, dataSet?: ReportDataSet, options?: ReportOptions);
     protected _setReportForm(data: ReportForm | ReportForm[]): void;
     get reportForm(): ReportForm;
@@ -48402,6 +48418,11 @@ declare class ReportViewer extends ReportViewBase {
      * 이메일 HTML 내보내기 함수
      */
     exportEmailHtml(): Promise<string>;
+    /**
+     * 배열로 넘긴 데이터를 기반으로 여러 파일로 분리해서 문서파일을 다운로드한다.
+     * @param options
+     */
+    exportDocumentsFromData({ fileName, reportForm, dataSets, type, }: DocumentsExportFromDataOptions): Promise<void>;
     private _checkReport;
     /**
      * API 링크가 있는 데이터는 받아온 후에 사용자가 넘겨준 데이터에서 교체한다.
@@ -48656,6 +48677,12 @@ interface DocumentExportOptions {
 }
 type DocumentExportBlobOptions = Pick<DocumentExportOptions, 'type'>;
 type ImageExportBlobOptions = Pick<ImageExportOptions, 'type' | 'tiff'>;
+interface DocumentsExportFromDataOptions {
+    fileName: string;
+    reportForm: ReportForm;
+    dataSets: ReportDataSet[];
+    type: 'hwp' | 'docx' | 'pptx';
+}
 /**
  * DEFAULT EXPORT OPTIONS
  */
@@ -48666,4 +48693,4 @@ declare const IMG_EXPORT_DEFAULT_OPTIONS: ImageExportOptions;
  */
 declare const ZOOM_ERROR_MESSAGE = "\uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778 \uACBD\uC6B0\uB9CC \uB0B4\uBCF4\uB0B4\uAE30\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4. \uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.";
 
-export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, GridReportItemSource, GridReportLayout, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE };
+export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, GridReportItemSource, GridReportLayout, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE };

@@ -527,6 +527,10 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     protected _resetRowIndex(row: BandPrintInfo<SimpleBand | TableBand | BandGroup>): void;
     protected _prepareDetailBandPrintNext(ctx: PrintContextBase, band: DataBand, row: BandPrintInfo<SimpleBand | TableBand | BandGroup>, rows: BandPrintRow[], rowsPerPage: number): void;
     protected _isNextRowDataRow(rows: BandPrintRow[]): boolean;
+    /**
+     * 밴드 디테일 영역에서 SummaryItem 계산을 위한 데이터 준비
+     */
+    protected _prepareBandDetailSummary(ctx: PrintContext, band: DataBand): void;
 }
 
 declare type BandPrintRow = number | BandFooterPrintInfo | BandPrintInfo<any> | EndRowMarker;
@@ -2008,6 +2012,7 @@ declare abstract class DataBand extends ReportBandItem {
     getMin(field: string, count: number, rows?: number[]): number;
     getMax(field: string, count: number, rows?: number[]): number;
     getAvg(field: string, count: number, rows?: number[]): number;
+    getGroupField(field: string, count: number, rows?: number[]): string;
     getPropDomain(prop: IPropInfo): any[];
     /**
      * 출력시 사용되는 밴드의 정보를 초기값으로 초기화
@@ -2036,6 +2041,7 @@ declare abstract class DataBand extends ReportBandItem {
     private $_getSum;
     private $_getMin;
     private $_getMax;
+    private $_getGroupField;
     protected _createDataBandCollection(): DataBandCollection;
 }
 
@@ -4906,6 +4912,7 @@ declare class FieldListManager extends VisualElement {
     private _moveFieldEnabled;
     private _onSearchFieldRefresh;
     private _saveOrderWhenFieldOrderChanged;
+    private _fieldsLabelElement;
     constructor(doc: Document, name: string, label: string);
     protected _doDispose(): void;
     get fieldContainer(): HTMLDivElement;
@@ -4918,6 +4925,7 @@ declare class FieldListManager extends VisualElement {
     get firstFieldElement(): Element;
     get lastFieldElement(): Element;
     get selectedElement(): HTMLElement;
+    get fieldsLabelElement(): Element;
     get isSorting(): boolean;
     get isSearching(): boolean;
     set sortEnabled(value: boolean);
@@ -4944,6 +4952,7 @@ declare class FieldListManager extends VisualElement {
     getFieldsByOriginalOrder(): FieldElementInfo[];
     close(): void;
     refreshUpDownBtn(): void;
+    refreshFieldsLabel(): void;
     focusSearchField(): void;
     scrollToFirstField(): void;
     scrollToLastField(): void;
@@ -6382,12 +6391,18 @@ declare interface IExcelRenderInfo {
     row: number;
     col: number;
     rowCount?: number;
-    runRows?: number;
+    /**
+     * 해당 아이템이 출력해야하는 행 수
+     */
+    runRows: number;
     colCount?: number;
     band?: IExcelBandContext;
     box?: boolean;
     sign?: any;
     stamp?: any;
+    /**
+     * 아이템이 출력해야 할 정확한 행 위치
+     */
     r?: number;
     cells: IExcelCell | IExcelCell[];
     hCells?: IExcelCell[];
@@ -14045,7 +14060,7 @@ declare class SummaryItem extends TextItemBase {
      */
     get expression(): string;
     set expression(value: string);
-    getSummary(runtime: DataBandSummaryRuntime): any;
+    getSummary(runtime: DataBandSummaryRuntime, ctx: PrintContext | ExcelPrintContext): any;
     getSaveType(): string;
     canAddToFrontContainer(): boolean;
     canAddToBackContainer(): boolean;
