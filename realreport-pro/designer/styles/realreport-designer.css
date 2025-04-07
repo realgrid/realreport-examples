@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.10.10
+RealReport Designer v1.10.12
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -553,6 +553,11 @@ border: 1px dotted #00000020; */
   width: 100%;
 }
 
+.qrcode-empty:before {
+  content: "[QR]";
+  white-space: nowrap;
+}
+
 .rr-text-band .rr-text-band-body[data-empty]:before {
   background-color: #00000008;
   color: #777;
@@ -571,6 +576,16 @@ border: 1px dotted #00000020; */
   width: 100%;
 }
 
+.rr-image[data-empty][data-design] {
+  display: table;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #f0f0f0;
+  color: #777;
+  border: 1px solid rgba(191, 191, 191, 0.3);
+}
+
 .rr-image[data-empty] span:before {
   content: "[IMAGE]";
   white-space: nowrap;
@@ -580,14 +595,14 @@ border: 1px dotted #00000020; */
   background-color: rgba(111, 111, 0, 0.1);
 }
 
-.rr-svg[data-empty] {
+.rr-svg[data-empty][data-design] {
   display: table;
   margin: 0;
   padding: 0;
   text-align: center;
-  background: #ddd;
+  background-color: #f0f0f0;
   color: #777;
-  border: 1px solid #aaa;
+  border: 1px solid rgba(191, 191, 191, 0.3);
 }
 
 .rr-svg[data-empty] span:before {
@@ -7180,13 +7195,20 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 /** 아이템 마커 */
 .rr-image[data-empty] span::before,
 .rr-svg[data-empty] span:before, 
-.rr-sign[data-empty] span:before {
+.rr-sign[data-empty] span:before,
+.qrcode-empty:before {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 .rr-content-box div[data-empty][data-design] span::after {
+  content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTkiIHZpZXdCb3g9IjAgMCAyMCAxOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTkuMTI3OTcgMy4xMzc2NkM5LjUxIDIuNDU2NjcgMTAuNDkwMiAyLjQ1NjY3IDEwLjg3MjMgMy4xMzc2NUwxNi40OTI2IDEzLjE1NjNDMTYuODY2NSAxMy44MjI4IDE2LjM4NDcgMTQuNjQ1NSAxNS42MjA0IDE0LjY0NTVINC4zNzk4QzMuNjE1NDggMTQuNjQ1NSAzLjEzMzcxIDEzLjgyMjggMy41MDc2NiAxMy4xNTYyTDkuMTI3OTcgMy4xMzc2NloiIGZpbGw9IiNGRkNEMDAiLz4KPGxpbmUgeDE9IjEwIiB5MT0iNi4zMzMwMSIgeDI9IjEwIiB5Mj0iMTEuMDgzIiBzdHJva2U9ImJsYWNrIi8+CjxjaXJjbGUgY3g9IjEwIiBjeT0iMTIuNSIgcj0iMC41IiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K");
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.rr-content-box [data-design] .qrcode-empty::after {
   content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTkiIHZpZXdCb3g9IjAgMCAyMCAxOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTkuMTI3OTcgMy4xMzc2NkM5LjUxIDIuNDU2NjcgMTAuNDkwMiAyLjQ1NjY3IDEwLjg3MjMgMy4xMzc2NUwxNi40OTI2IDEzLjE1NjNDMTYuODY2NSAxMy44MjI4IDE2LjM4NDcgMTQuNjQ1NSAxNS42MjA0IDE0LjY0NTVINC4zNzk4QzMuNjE1NDggMTQuNjQ1NSAzLjEzMzcxIDEzLjgyMjggMy41MDc2NiAxMy4xNTYyTDkuMTI3OTcgMy4xMzc2NloiIGZpbGw9IiNGRkNEMDAiLz4KPGxpbmUgeDE9IjEwIiB5MT0iNi4zMzMwMSIgeDI9IjEwIiB5Mj0iMTEuMDgzIiBzdHJva2U9ImJsYWNrIi8+CjxjaXJjbGUgY3g9IjEwIiBjeT0iMTIuNSIgcj0iMC41IiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K");
   position: absolute;
   top: 0;
