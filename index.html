@@ -101,12 +101,12 @@
                 <ul class="menu-list menu-list-block" id="sidebarUl">
                   <!-- 이곳에 리포트 사이드바 생성 -->
                   <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:sampleReport(this);" id="signReport">
-                      <span>견적서 (서명)</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
                     <a class="menu-link menu-link-active" onclick="javascript:sampleReport(this);" id="certificateReport">
                       <span>재직증명서</span>
+                      <span class="toolbar-icon icon preview-popup-png"></span>
+                    </a>
+                    <a class="menu-link" onclick="javascript:sampleReport(this);" id="signReport">
+                      <span>견적서 (서명)</span>
                       <span class="toolbar-icon icon preview-popup-png"></span>
                     </a>
                     <a class="menu-link" onclick="javascript:sampleReport(this);" id="crossTabSmaple">
@@ -119,6 +119,17 @@
                     </a>
                     <a class="menu-link" onclick="javascript:sampleReport(this);" id="multiLanguageReport">
                       <span>다국어 개인정보 동의서</span>
+                      <span class="toolbar-icon icon preview-popup-png"></span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-list-item">
+                <span class="menu-head">지도 연동 데모</span>
+                <ul class="menu-list menu-list-block" id="sidebarUl">
+                  <li class="menu-list-item">
+                    <a class="menu-link" onclick="javascript:mapReport(this);" id="naverMap">
+                      <span>NAVER 지도 연동</span>
                       <span class="toolbar-icon icon preview-popup-png"></span>
                     </a>
                   </li>
@@ -317,6 +328,7 @@
   <script src="/js/monaco-editor/min/vs/editor/editor.main.js"></script>
 
   <script defer src="/js/report-samples.js"></script>
+  <script defer src="/js/report-samples-map.js"></script>
   <script defer src="/js/report-samples-multi.js"></script>
   <script defer src="/js/grid-report-samples.js"></script>
   <script defer src="/js/preview.js"></script>
