@@ -189,7 +189,7 @@
                                                 class="toolbar-icon icon preview-pdf-png"
                                             ></div>
                                         </a>
-                                        <a
+                                        <!-- <a
                                             class="toolbar-icon-button mobile-hidden"
                                             onclick="onClickExportDoc('hwp');"
                                         >
@@ -204,13 +204,13 @@
                                             <div
                                                 class="toolbar-icon icon preview-docx-png"
                                             ></div>
-                                        </a>
+                                        </a> -->
                                         <!-- <a class="toolbar-icon-button mobile-hidden" onclick="onClickExportDoc('pptx');">
                                         <div class="toolbar-icon icon preview-pptx-png"></div>
                                     </a> -->
                                     </div>
-                                    <span class="vertical-separator"></span>
-                                    <div class="toolbar-items mobile-gap">
+                                    <!-- <span class="vertical-separator"></span> -->
+                                    <!-- <div class="toolbar-items mobile-gap">
                                         <a
                                             class="toolbar-icon-button"
                                             onclick="onClickExportImage('png');"
@@ -251,7 +251,7 @@
                                                 class="toolbar-icon icon preview-tiffg4-png"
                                             ></div>
                                         </a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -639,7 +639,6 @@
              * 💡 https://real-report.com/docs/api/ReportViewer#exportpdf
              * */
             const onClickExportPdf = function () {
-                const zoomSclae = viewer.zoom;
                 base64convert('/js/pdffonts/NanumGothic.otf', true).then(
                     (regularFont) => {
                         base64convert(
@@ -681,7 +680,6 @@
                                 };
                                 viewer.zoom = 1;
                                 viewer.exportPdf(options);
-                                viewer.zoom = zoomSclae;
                             }
                         });
                     },
