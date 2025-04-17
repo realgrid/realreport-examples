@@ -365,14 +365,14 @@ function hiddenFrame(frameId) {
     reportFrame.classList.add('hidden');
 }
 
-function sampleReport(el) {
+function mapReport(el) {
     const form = window[el.id];
     openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', form);
+    reportViewer = reportFrame('reportFrame', form);
     reportForm = form;
     dataSet = form.data;
     setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
+    hiddenFrame('webDesignerFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
 }
 

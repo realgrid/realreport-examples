@@ -1,611 +1,819 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>RealReport Print Preview</title>
+        <link rel="shortcut icon" href="#" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RealReport Print Preview</title>
-    <link rel="shortcut icon" href="#">
+        <link href="css/preview.css" rel="stylesheet" />
+        <!-- 하이차트의 기본 스타일 변경하려면 아래 파일을 수정하면 됩니다. -->
+        <!-- <link href='js/highcharts/highcharts.css' rel='stylesheet' /> -->
+        <link href="js/realreport/realreport.css" rel="stylesheet" />
+        <script
+            type="text/javascript"
+            src="js/highcharts/highcharts.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="js/highcharts/highcharts-more.js"
+        ></script>
+        <script type="text/javascript" src="js/pdfkit.js"></script>
+        <script type="text/javascript" src="datas/salary-data.js"></script>
+        <script type="text/javascript" src="forms/salary.js"></script>
+        <script
+            type="text/javascript"
+            src="js/realreport/realreport.js"
+        ></script>
 
-    <link href="css/preview.css" rel="stylesheet">
-    <!-- 하이차트의 기본 스타일 변경하려면 아래 파일을 수정하면 됩니다. -->
-    <!-- <link href='js/highcharts/highcharts.css' rel='stylesheet' /> -->
-    <link href='js/realreport/realreport.css' rel='stylesheet' />
-    <script type="text/javascript" src="js/highcharts/highcharts.js"></script>
-    <script type="text/javascript" src="js/highcharts/highcharts-more.js"></script>
-    <script type="text/javascript" src="js/pdfkit.js"></script>
-    <script type="text/javascript" src="datas/salary-data.js"></script>
-    <script type="text/javascript" src="forms/salary.js"></script>
-    <script type="text/javascript" src='js/realreport/realreport.js'></script>
-</head>
+        <!-- 네이버 지도 API -->
+        <script
+            type="text/javascript"
+            src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=q096ieut17"
+        ></script>
+    </head>
 
-<body>
-    <div class="root">
-        <div class="container">
-            <div class="main">
-                <div class="main-content">
-                    <div class="preview-toolbar">
-                        <div class="toolbar-scrolller">
-                            <div class="toolbar-left">
-                                <div class="toolbar-items">
-                                    <a class="toolbar-icon-button" onclick="onClickZoomOut10();">
-                                        <div class="toolbar-icon icon preview-zoomout-png"></div>
-                                    </a>
-                                    <input part="input" type="text" value="100%" id="inputZoomScale"
-                                        aria-label="Zoom Scale" class="mobile-hidden">
-                                    <a class="toolbar-icon-button" onclick="onClickZoomIn10();">
-                                        <div class="toolbar-icon icon preview-zoomin-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button" onclick="onClickZoom100();">
-                                        <div class="toolbar-icon icon preview-100-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button" onclick="onClickFitToWidth();">
-                                        <div class="toolbar-icon icon preview-fit-to-width-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button" onclick="onClickFitToHeight();">
-                                        <div class="toolbar-icon icon preview-fit-to-height-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button" onclick="onClickFitToPage();">
-                                        <div class="toolbar-icon icon preview-fit-to-page-png"></div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="toolbar-center">
-                                <div class="toolbar-items">
-                                    <a class="toolbar-icon-button mobile-hidden" onclick="onClickFirstPage();">
-                                        <div class="toolbar-icon icon preview-first-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button mobile-hidden" onclick="onClickPrevPage();">
-                                        <div class="toolbar-icon icon preview-prev-png"></div>
-                                    </a>
-                                    <div class="toolbar-item mobile-hidden">
-                                        <input part="input" type="text" value="1" id="inputPageNumber"
-                                            aria-label="Page number">
-                                        <span style="margin: 0 4px;">/</span>
-                                        <span style="margin: 0 4px;" id="totalpage">1</span>
+    <body>
+        <div class="root">
+            <div class="container">
+                <div class="main">
+                    <div class="main-content">
+                        <div class="preview-toolbar">
+                            <div class="toolbar-scrolller">
+                                <div class="toolbar-left">
+                                    <div class="toolbar-items">
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickZoomOut10();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-zoomout-png"
+                                            ></div>
+                                        </a>
+                                        <input
+                                            part="input"
+                                            type="text"
+                                            value="100%"
+                                            id="inputZoomScale"
+                                            aria-label="Zoom Scale"
+                                            class="mobile-hidden"
+                                        />
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickZoomIn10();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-zoomin-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickZoom100();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-100-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickFitToWidth();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-fit-to-width-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickFitToHeight();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-fit-to-height-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickFitToPage();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-fit-to-page-png"
+                                            ></div>
+                                        </a>
                                     </div>
-                                    <a class="toolbar-icon-button mobile-hidden" onclick="onClickNextPage();">
-                                        <div class="toolbar-icon icon preview-next-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button mobile-hidden" onclick="onClickLastPage();">
-                                        <div class="toolbar-icon icon preview-last-png"></div>
-                                    </a>
                                 </div>
-                            </div>
-                            <div class="toolbar-right">
-                                <div id="printPopup" class="toolbar-items mobile-gap">
-                                    <a class="toolbar-icon-button" onclick="onClickPrintPopup()">
-                                        <div class="toolbar-icon icon preview-print-png"></div>
-                                    </a>
+                                <div class="toolbar-center">
+                                    <div class="toolbar-items">
+                                        <a
+                                            class="toolbar-icon-button mobile-hidden"
+                                            onclick="onClickFirstPage();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-first-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button mobile-hidden"
+                                            onclick="onClickPrevPage();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-prev-png"
+                                            ></div>
+                                        </a>
+                                        <div class="toolbar-item mobile-hidden">
+                                            <input
+                                                part="input"
+                                                type="text"
+                                                value="1"
+                                                id="inputPageNumber"
+                                                aria-label="Page number"
+                                            />
+                                            <span style="margin: 0 4px">/</span>
+                                            <span
+                                                style="margin: 0 4px"
+                                                id="totalpage"
+                                                >1</span
+                                            >
+                                        </div>
+                                        <a
+                                            class="toolbar-icon-button mobile-hidden"
+                                            onclick="onClickNextPage();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-next-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button mobile-hidden"
+                                            onclick="onClickLastPage();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-last-png"
+                                            ></div>
+                                        </a>
+                                    </div>
                                 </div>
-                                <span class="vertical-separator"></span>
-                                <div class="toolbar-items mobile-gap">
-                                    <a class="toolbar-icon-button mobile-hidden" onclick="onClickPrintHiddenFrame()">
-                                        <div class="toolbar-icon icon preview-print-png"></div>
-                                    </a>
-                                </div>
-                                <span class="vertical-separator mobile-hidden"></span>
-                                <div class="toolbar-items mobile-gap">
-                                    <a class="toolbar-icon-button" onclick="onClickExportPdf();">
-                                        <div class="toolbar-icon icon preview-pdf-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button mobile-hidden" onclick="onClickExportDoc('hwp');">
-                                        <div class="toolbar-icon icon preview-hwp-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button mobile-hidden" onclick="onClickExportDoc('docx');">
-                                        <div class="toolbar-icon icon preview-docx-png"></div>
-                                    </a>
-                                    <!-- <a class="toolbar-icon-button mobile-hidden" onclick="onClickExportDoc('pptx');">
+                                <div class="toolbar-right">
+                                    <div
+                                        id="printPopup"
+                                        class="toolbar-items mobile-gap"
+                                    >
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickPrintPopup()"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-print-png"
+                                            ></div>
+                                        </a>
+                                    </div>
+                                    <span class="vertical-separator"></span>
+                                    <div class="toolbar-items mobile-gap">
+                                        <a
+                                            class="toolbar-icon-button mobile-hidden"
+                                            onclick="onClickPrintHiddenFrame()"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-print-png"
+                                            ></div>
+                                        </a>
+                                    </div>
+                                    <span
+                                        class="vertical-separator mobile-hidden"
+                                    ></span>
+                                    <div class="toolbar-items mobile-gap">
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickExportPdf();"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-pdf-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button mobile-hidden"
+                                            onclick="onClickExportDoc('hwp');"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-hwp-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button mobile-hidden"
+                                            onclick="onClickExportDoc('docx');"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-docx-png"
+                                            ></div>
+                                        </a>
+                                        <!-- <a class="toolbar-icon-button mobile-hidden" onclick="onClickExportDoc('pptx');">
                                         <div class="toolbar-icon icon preview-pptx-png"></div>
                                     </a> -->
-                                </div>
-                                <span class="vertical-separator"></span>
-                                <div class="toolbar-items mobile-gap">
-                                    <a class="toolbar-icon-button" onclick="onClickExportImage('png');">
-                                        <div class="toolbar-icon icon preview-png-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button" onclick="onClickExportImage('jpeg');">
-                                        <div class="toolbar-icon icon preview-jpeg-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button" onclick="onClickExportImage('gif');">
-                                        <div class="toolbar-icon icon preview-gif-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button mobile-hidden"
-                                        onclick="onClickExportImage('tiff', 'g3');">
-                                        <div class="toolbar-icon icon preview-tiffg3-png"></div>
-                                    </a>
-                                    <a class="toolbar-icon-button mobile-hidden"
-                                        onclick="onClickExportImage('tiff', 'g4');">
-                                        <div class="toolbar-icon icon preview-tiffg4-png"></div>
-                                    </a>
+                                    </div>
+                                    <span class="vertical-separator"></span>
+                                    <div class="toolbar-items mobile-gap">
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickExportImage('png');"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-png-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickExportImage('jpeg');"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-jpeg-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button"
+                                            onclick="onClickExportImage('gif');"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-gif-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button mobile-hidden"
+                                            onclick="onClickExportImage('tiff', 'g3');"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-tiffg3-png"
+                                            ></div>
+                                        </a>
+                                        <a
+                                            class="toolbar-icon-button mobile-hidden"
+                                            onclick="onClickExportImage('tiff', 'g4');"
+                                        >
+                                            <div
+                                                class="toolbar-icon icon preview-tiffg4-png"
+                                            ></div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="scroller">
-                        <div id="realreport"></div>
+                        <div class="scroller">
+                            <div id="realreport"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script type="text/javascript">
-        // 아래 라이선스는 유효기간 2025년 5월 31일 까지 localhost,127.0.0.1,realreport.co.kr,real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
-        var realReportLic = "upVcPE+wPOn1V3OcjC3PuAUt7xtLcP5XVzS0GnpZwpnbdxrzWi3SH9lnNreNwRub/31bQcGrnP/Nq/NkIKx9AkkSD8KWTVlm9aI3507Qm2POAklYqFD9ZGXyjOMqbrgvr3+iyFPC2UvKqt1f0nYq0Fe/mONIYEy4CkGU/2dJ94leC1UWt2Y/gOPSfHZhPA2TCr/ODTGzdoYBrs4Ui2AU8g==";
-        // RealReport가 위치할 컨테이너 요소의 id
-        var containerId = 'realreport';
-        // RealReport Viewer 객체 변수
-        var viewer;
+        <script type="text/javascript">
+            // 아래 라이선스는 유효기간 2025년 5월 31일 까지 localhost,127.0.0.1,realreport.co.kr,real-report.com 도메인에서 사용할 수 있는 라이선스 입니다.
+            var realReportLic =
+                'upVcPE+wPOn1V3OcjC3PuAUt7xtLcP5XVzS0GnpZwpnbdxrzWi3SH9lnNreNwRub/31bQcGrnP/Nq/NkIKx9AkkSD8KWTVlm9aI3507Qm2POAklYqFD9ZGXyjOMqbrgvr3+iyFPC2UvKqt1f0nYq0Fe/mONIYEy4CkGU/2dJ94leC1UWt2Y/gOPSfHZhPA2TCr/ODTGzdoYBrs4Ui2AU8g==';
+            // RealReport가 위치할 컨테이너 요소의 id
+            var containerId = 'realreport';
+            // RealReport Viewer 객체 변수
+            var viewer;
 
-        //--------------------------------------------------------------------------------------------------
-        // public methods
-        //--------------------------------------------------------------------------------------------------
+            //--------------------------------------------------------------------------------------------------
+            // public methods
+            //--------------------------------------------------------------------------------------------------
 
-        var hidePrintPopup = function () {
-            const popupBtn = document.getElementById("printPopup");
-            popupBtn.style.display = 'none';
-        }
-        /**
-         * 리포트 컨테이너 및 viewer 객체를 초기화 하는 함수 
-         * */
-        var clearReport = function () {
-            const container = document.getElementById(containerId);
-            container.innerHTML = '';
-            delete viewer;
-        }
+            var hidePrintPopup = function () {
+                const popupBtn = document.getElementById('printPopup');
+                popupBtn.style.display = 'none';
+            };
+            /**
+             * 리포트 컨테이너 및 viewer 객체를 초기화 하는 함수
+             * */
+            var clearReport = function () {
+                const container = document.getElementById(containerId);
+                container.innerHTML = '';
+                delete viewer;
+            };
 
-        const setHtml = function (id, value, prefix, surfix) {
-            if (id) {
-                const el = document.getElementById(id);
-                if (el) el.innerHTML = `${prefix}${value}${surfix}`;
-            }
-        }
-
-        const setTotalPage = function (id) {
-            if (viewer) {
-                setHtml(id, viewer.pageCount, '', '');
-            }
-        }
-
-        /**
-         * 리포트 미리보기 실행
-         * */
-        var previewReport = function (reports) {
-            clearReport();
-            // 여러 양식을 하나의 미리보기로 출력 하기 위해 report 객체를 변수로 넘겨준다.
-            if (Array.isArray(reports) && reports.length > 1) {
-                // 여러 양식 리포트는 ReportCompositeViewer 객체를 이용한다.
-                // 생성 인자는 컨테이너Id와 report객체
-                // 도움말 참조 💡 https://real-report.com/docs/api/ReportCompositeViewer
-                viewer = new RealReport.ReportCompositeViewer(containerId, reports);
-            } else {
-                // 단일 양식 리포트는 ReportViewer 객체를 이용한다.
-                // 생성인자는 컨테이너Id, 리포트 양식, 데이터
-                // 도움말 참조 💡 https://real-report.com/docs/api/ReportViewer
-                viewer = new RealReport.ReportViewer(containerId, reports[0].form, reports[0].dataSet);
-            }
-
-            // async: true인 경우 매 페이지가 미리보기될때 마다 호출되는 콜백 함수
-            const pageCallback = (ctx, page, pageNo) => {
-                console.log(`${pageNo} 페이지 미리보기 완료`);
-            }
-
-            // async: true인 경우 모든 페이지의 미리보기가 완료될때 호출되는 콜백 함수
-            const endCallback = (ctx, pages) => {
-                console.log('모든 페이지 미리보기 완료');
-                setTotalPage('totalpage');
-                setZoomScaleInputValue('inputZoomScale');
-                setPageInputValue('inputPageNumber');
-                if (window.innerWidth < 768) {
-                    viewer.fitToWidth();
-                    viewer.zoom = viewer.zoom - 0.01;
+            const setHtml = function (id, value, prefix, surfix) {
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) el.innerHTML = `${prefix}${value}${surfix}`;
                 }
-            }
+            };
 
-            // 미리보기 함수 preview() 호출
-            // 호출 인자는 PreviewOptions로 자세한 속성은 도움말 참조
-            // 💡 https://real-report.com/docs/api/ReportViewer#preview
-            if (viewer) viewer.preview({
-                async: true,
-                pageMark: false,
-                noScroll: true,
-                callback: pageCallback,
-                endCallback: endCallback,
-            });
+            const setTotalPage = function (id) {
+                if (viewer) {
+                    setHtml(id, viewer.pageCount, '', '');
+                }
+            };
 
-            return viewer;
-        }
-
-        /**
-         * RealGrid 리포트 미리보기 실행
-         * 도움말 참조 💡 https://real-report.com/docs/api/GridReportViewer#preview
-         * */
-        var previewGridReport = function (grid, options) {
-            clearReport();
-
-            if (grid) {
-                viewer = new RealReport.GridReportViewer(containerId, grid, options);
-            }
-
-            const pageCallback = (ctx, page, pageNo) => {
-                console.log(`${pageNo} 페이지 미리보기 완료`);
-            }
-
-            const endCallback = (ctx, pages) => {
-                console.log('모든 페이지 미리보기 완료');
-                setTotalPage('totalpage');
-                setPageInputValue('inputPageNumber');
-                setZoomScaleInputValue('inputZoomScale');
-            }
-
-            if (viewer) viewer.preview({
-                async: true,
-                pageMark: false,
-                noScroll: true,
-                callback: pageCallback,
-                endCallback,
-            });
-
-            return viewer;
-        }
-
-        /**
-         * 인쇄를 위해 별도 페이지로 미리보기 하는 방법
-         * 도움말 참조 💡 https://real-report.com/docs/api/ReportViewer#print
-         * */
-        var printPopup = function () {
-            if (viewer) {
-                const w = Math.min(screen.width, 1024);
-                const h = Math.min(screen.height, 768);
-                const x = (screen.width - w) / 2;
-                const y = (screen.height - h) / 2;
-                const win = window.open('./print.html', 'print', "left=" + x + ",top=" + y + ",width=" + w + ",height=" + h);
-
-                // 페이지가 로드된 다음 즉시 프린트 실행
-                win.addEventListener('DOMContentLoaded', function (e) {
-                    const dom = win.document.getElementById('realreport');
-                    dom.innerHTML = viewer.reportHtml;
-                    // 실제 프린트 함수 호출 (아래 주석 제거)
-                    win.print();
-                });
-
-                // 프린트한 다음 팝업창 닫기
-                win.addEventListener('afterprint', function (e) {
-                    win.close();
-                });
-            }
-        }
-
-
-        var initPreviewReport = function (reports) {
-            clearReport();
-            viewer = new RealReport.ReportViewer(containerId, reports[0].form, reports[0].dataSet);
-            // async: true인 경우 매 페이지가 미리보기될때 마다 호출되는 콜백 함수
-            const pageCallback = (ctx, page, pageNo) => {
-                console.log(`${pageNo} 페이지 미리보기 완료`);
-            }
-
-            // async: true인 경우 모든 페이지의 미리보기가 완료될때 호출되는 콜백 함수
-            const endCallback = (ctx, pages) => {
-                setTotalPage('totalpage');
-                setZoomScaleInputValue('inputZoomScale');
-                setPageInputValue('inputPageNumber');
-                if (window.innerWidth > 1024) {
-                    viewer.fitToHeight();
+            /**
+             * 리포트 미리보기 실행
+             * */
+            var previewReport = function (reports, isMap) {
+                clearReport();
+                // 여러 양식을 하나의 미리보기로 출력 하기 위해 report 객체를 변수로 넘겨준다.
+                if (Array.isArray(reports) && reports.length > 1) {
+                    // 여러 양식 리포트는 ReportCompositeViewer 객체를 이용한다.
+                    // 생성 인자는 컨테이너Id와 report객체
+                    // 도움말 참조 💡 https://real-report.com/docs/api/ReportCompositeViewer
+                    viewer = new RealReport.ReportCompositeViewer(
+                        containerId,
+                        reports,
+                    );
                 } else {
-                    viewer.fitToWidth();
-                    viewer.zoom = viewer.zoom - 0.01;
+                    // 단일 양식 리포트는 ReportViewer 객체를 이용한다.
+                    // 생성인자는 컨테이너Id, 리포트 양식, 데이터
+                    // 도움말 참조 💡 https://real-report.com/docs/api/ReportViewer
+                    viewer = new RealReport.ReportViewer(
+                        containerId,
+                        reports.form,
+                        reports.dataSet,
+                    );
                 }
-            }
 
-            if (viewer) viewer.preview({
-                async: true,
-                pageMark: false,
-                noScroll: true,
-                callback: pageCallback,
-                endCallback: endCallback,
-            });
+                // async: true인 경우 매 페이지가 미리보기될때 마다 호출되는 콜백 함수
+                const pageCallback = (ctx, page, pageNo) => {
+                    console.log(`${pageNo} 페이지 미리보기 완료`);
+                };
 
-            return viewer;
-        }
-        //--------------------------------------------------------------------------------------------------
-        // 이벤트 핸들링
-        //--------------------------------------------------------------------------------------------------
-
-        /**
-         * z 비율 만큼 확대 또는 축소
-         * 💡 https://real-report.com/docs/api/ReportViewer#zoom
-         * */
-        const onClickZoom = (z) => {
-            if (viewer) {
-                viewer.zoom = z;
-            }
-        }
-
-        /**
-         * 미리보기 화면 10% 확대
-         * 💡 https://real-report.com/docs/api/ReportViewer#zoomin
-         * */
-        const onClickZoomIn10 = function () {
-            if (viewer) {
-                viewer.zoomIn();
-                setZoomScaleInputValue('inputZoomScale');
-            }
-        }
-
-        /**
-         * 미리보기 화면 10% 축소
-         * 💡 https://real-report.com/docs/api/ReportViewer#zoomout
-         * */
-        const onClickZoomOut10 = function () {
-            if (viewer) {
-                viewer.zoomOut();
-                setZoomScaleInputValue('inputZoomScale');
-            }
-        }
-
-        /**
-         * 미리보기 화면 1:1 비율
-         * 💡 https://real-report.com/docs/api/ReportViewer#zoomout
-         * */
-        const onClickZoom100 = function () {
-            if (viewer) {
-                viewer.zoom = 1;
-                setZoomScaleInputValue('inputZoomScale');
-            }
-        }
-
-        /**
-         * 미리보기 페이지 크기를 컨테이너 높이에 맞게 조정
-         * 💡 https://real-report.com/docs/api/ReportViewer#fittoheight
-         * */
-        const onClickFitToHeight = function () {
-            if (viewer) {
-                viewer.fitToHeight();
-                setZoomScaleInputValue('inputZoomScale');
-            }
-        }
-
-        /**
-         * 미리보기 페이지 크기를 컨테이너 너비에 맞게 조정
-         * 💡 https://real-report.com/docs/api/ReportViewer#fittowidth
-         * */
-        const onClickFitToWidth = function () {
-            if (viewer) {
-                viewer.fitToWidth();
-                setZoomScaleInputValue('inputZoomScale');
-            }
-        }
-
-        /**
-         * 미리보기 페이지 크기를 컨테이너 너비와 높이에 맞게 조정
-         * 💡 https://real-report.com/docs/api/ReportViewer#fittopage
-         * */
-        const onClickFitToPage = function () {
-            if (viewer) {
-                viewer.fitToPage();
-                setZoomScaleInputValue('inputZoomScale');
-            }
-        }
-
-        /**
-         * 첫 번째 페이지로 이동
-         * 💡 https://real-report.com/docs/api/ReportViewer#first
-         * */
-        const onClickFirstPage = function () {
-            if (viewer) {
-                viewer.first();
-                setPageInputValue('inputPageNumber');
-            }
-        }
-
-        /**
-         * 마지막 페이지로 이동
-         * 💡 https://real-report.com/docs/api/ReportViewer#last
-         * */
-        const onClickLastPage = function () {
-            if (viewer) {
-                viewer.last();
-                setPageInputValue('inputPageNumber');
-            }
-        }
-
-        /**
-         * 이전 페이지로 이동
-         * 💡 https://real-report.com/docs/api/ReportViewer#prev
-         * */
-        const onClickPrevPage = function () {
-            if (viewer) {
-                viewer.prev();
-                setPageInputValue('inputPageNumber');
-            }
-        }
-
-        /**
-         * 다음 페이지로 이동
-         * 💡 https://real-report.com/docs/api/ReportViewer#next
-         * */
-        const onClickNextPage = function () {
-            if (viewer) {
-                viewer.next();
-                setPageInputValue('inputPageNumber');
-            }
-        }
-
-        /**
-         * PDF 내보내기
-         * 💡 https://real-report.com/docs/api/ReportViewer#exportpdf
-         * */
-        const onClickExportPdf = function () {
-            const zoomSclae = viewer.zoom
-            base64convert('/js/pdffonts/NanumGothic.otf', true).then(regularFont => {
-                base64convert('/js/pdffonts/NanumGothicBold.otf', true).then(async boldFont => {
-                    const fonts = [{
-                        name: 'regular',
-                        content: regularFont,
-                        style: 'normal',
-                        weight: 'normal',
-                    },
-                    {
-                        name: 'bold',
-                        content: boldFont,
-                        style: 'normal',
-                        weight: 'bold',
-                    }];
-
-                    if (viewer) {
-                        const options = {
-                            fonts,
-                            filename: 'sample-report',
-                            preview: false,
-                            // ownerPassword: '!QAZXSW2', // 소유자 암호
-                            // userPassword: '1qazxsw2', // 사용자 암호
-                            permissions: {
-                                printing: 'highResolution', // 'lowResolution' | 'highResolution' 인쇄 허용 여부
-                                modifying: true, // 파일 수정 허용 여부
-                                copying: true, // 텍스트 또는 그래픽 복사 허용 여부
-                                annotating: true, // 주석 및 양식 작성 허용 여부
-                                fillingForms: true, // 양식 작성 및 서명 허용 여부
-                                contentAccessibility: true, // 접근성을 위한 텍스트 복사 허용 여부
-                                documentAssembly: true,
-                            },
-                            pdfVersion: '1.7ext3'  // '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3'
-                        }
-                        viewer.zoom = 1
-                        viewer.exportPdf(options)
-                        viewer.zoom = zoomSclae
+                // async: true인 경우 모든 페이지의 미리보기가 완료될때 호출되는 콜백 함수
+                const endCallback = (ctx, pages) => {
+                    console.log('모든 페이지 미리보기 완료');
+                    setTotalPage('totalpage');
+                    setZoomScaleInputValue('inputZoomScale');
+                    setPageInputValue('inputPageNumber');
+                    if (window.innerWidth < 768) {
+                        viewer.fitToWidth();
+                        viewer.zoom = viewer.zoom - 0.01;
                     }
+
+                    if (reports?.form?.report?.name === 'duam') {
+                        var container = document.getElementById('daum');
+                        var options = {
+                            center: new kakao.maps.LatLng(37.3871, 127.1134),
+                            level: 3,
+                        };
+                        var map = new kakao.maps.Map(container, options);
+
+                        var markerPosition = new kakao.maps.LatLng(
+                            37.3871,
+                            127.1134,
+                        );
+                        var marker = new kakao.maps.Marker({
+                            position: markerPosition,
+                        });
+                        marker.setMap(map);
+                    }
+
+                    if (reports?.form?.report?.name === 'naver') {
+                        var mapOptions = {
+                            center: new naver.maps.LatLng(
+                                37.392020,
+                                127.078172,
+                            ),
+                            zoom: 18,
+                        };
+
+                        var map = new naver.maps.Map('map', mapOptions);
+
+                        const marker = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(
+                                37.392020,
+                                127.078172,
+                            ),
+                            map: map,
+                            title: '(주)우리테크인터내셔날',
+                        });
+                    }
+                };
+
+                // 미리보기 함수 preview() 호출
+                // 호출 인자는 PreviewOptions로 자세한 속성은 도움말 참조
+                // 💡 https://real-report.com/docs/api/ReportViewer#preview
+                if (viewer)
+                    viewer.preview({
+                        async: true,
+                        pageMark: false,
+                        noScroll: true,
+                        callback: pageCallback,
+                        endCallback: endCallback,
+                    });
+
+                return viewer;
+            };
+
+            /**
+             * RealGrid 리포트 미리보기 실행
+             * 도움말 참조 💡 https://real-report.com/docs/api/GridReportViewer#preview
+             * */
+            var previewGridReport = function (grid, options) {
+                clearReport();
+
+                if (grid) {
+                    viewer = new RealReport.GridReportViewer(
+                        containerId,
+                        grid,
+                        options,
+                    );
+                }
+
+                const pageCallback = (ctx, page, pageNo) => {
+                    console.log(`${pageNo} 페이지 미리보기 완료`);
+                };
+
+                const endCallback = (ctx, pages) => {
+                    console.log('모든 페이지 미리보기 완료');
+                    setTotalPage('totalpage');
+                    setPageInputValue('inputPageNumber');
+                    setZoomScaleInputValue('inputZoomScale');
+                };
+
+                if (viewer)
+                    viewer.preview({
+                        async: true,
+                        pageMark: false,
+                        noScroll: true,
+                        callback: pageCallback,
+                        endCallback,
+                    });
+
+                return viewer;
+            };
+
+            /**
+             * 인쇄를 위해 별도 페이지로 미리보기 하는 방법
+             * 도움말 참조 💡 https://real-report.com/docs/api/ReportViewer#print
+             * */
+            var printPopup = function () {
+                if (viewer) {
+                    const w = Math.min(screen.width, 1024);
+                    const h = Math.min(screen.height, 768);
+                    const x = (screen.width - w) / 2;
+                    const y = (screen.height - h) / 2;
+                    const win = window.open(
+                        './print.html',
+                        'print',
+                        'left=' +
+                            x +
+                            ',top=' +
+                            y +
+                            ',width=' +
+                            w +
+                            ',height=' +
+                            h,
+                    );
+
+                    // 페이지가 로드된 다음 즉시 프린트 실행
+                    win.addEventListener('DOMContentLoaded', function (e) {
+                        const dom = win.document.getElementById('realreport');
+                        dom.innerHTML = viewer.reportHtml;
+                        // 실제 프린트 함수 호출 (아래 주석 제거)
+                        win.print();
+                    });
+
+                    // 프린트한 다음 팝업창 닫기
+                    win.addEventListener('afterprint', function (e) {
+                        win.close();
+                    });
+                }
+            };
+
+            var initPreviewReport = function (reports) {
+                clearReport();
+                viewer = new RealReport.ReportViewer(
+                    containerId,
+                    reports[0].form,
+                    reports[0].dataSet,
+                );
+                // async: true인 경우 매 페이지가 미리보기될때 마다 호출되는 콜백 함수
+                const pageCallback = (ctx, page, pageNo) => {
+                    console.log(`${pageNo} 페이지 미리보기 완료`);
+                };
+
+                // async: true인 경우 모든 페이지의 미리보기가 완료될때 호출되는 콜백 함수
+                const endCallback = (ctx, pages) => {
+                    setTotalPage('totalpage');
+                    setZoomScaleInputValue('inputZoomScale');
+                    setPageInputValue('inputPageNumber');
+                    if (window.innerWidth > 1024) {
+                        viewer.fitToHeight();
+                    } else {
+                        viewer.fitToWidth();
+                        viewer.zoom = viewer.zoom - 0.01;
+                    }
+                };
+
+                if (viewer)
+                    viewer.preview({
+                        async: true,
+                        pageMark: false,
+                        noScroll: true,
+                        callback: pageCallback,
+                        endCallback: endCallback,
+                    });
+
+                return viewer;
+            };
+            //--------------------------------------------------------------------------------------------------
+            // 이벤트 핸들링
+            //--------------------------------------------------------------------------------------------------
+
+            /**
+             * z 비율 만큼 확대 또는 축소
+             * 💡 https://real-report.com/docs/api/ReportViewer#zoom
+             * */
+            const onClickZoom = (z) => {
+                if (viewer) {
+                    viewer.zoom = z;
+                }
+            };
+
+            /**
+             * 미리보기 화면 10% 확대
+             * 💡 https://real-report.com/docs/api/ReportViewer#zoomin
+             * */
+            const onClickZoomIn10 = function () {
+                if (viewer) {
+                    viewer.zoomIn();
+                    setZoomScaleInputValue('inputZoomScale');
+                }
+            };
+
+            /**
+             * 미리보기 화면 10% 축소
+             * 💡 https://real-report.com/docs/api/ReportViewer#zoomout
+             * */
+            const onClickZoomOut10 = function () {
+                if (viewer) {
+                    viewer.zoomOut();
+                    setZoomScaleInputValue('inputZoomScale');
+                }
+            };
+
+            /**
+             * 미리보기 화면 1:1 비율
+             * 💡 https://real-report.com/docs/api/ReportViewer#zoomout
+             * */
+            const onClickZoom100 = function () {
+                if (viewer) {
+                    viewer.zoom = 1;
+                    setZoomScaleInputValue('inputZoomScale');
+                }
+            };
+
+            /**
+             * 미리보기 페이지 크기를 컨테이너 높이에 맞게 조정
+             * 💡 https://real-report.com/docs/api/ReportViewer#fittoheight
+             * */
+            const onClickFitToHeight = function () {
+                if (viewer) {
+                    viewer.fitToHeight();
+                    setZoomScaleInputValue('inputZoomScale');
+                }
+            };
+
+            /**
+             * 미리보기 페이지 크기를 컨테이너 너비에 맞게 조정
+             * 💡 https://real-report.com/docs/api/ReportViewer#fittowidth
+             * */
+            const onClickFitToWidth = function () {
+                if (viewer) {
+                    viewer.fitToWidth();
+                    setZoomScaleInputValue('inputZoomScale');
+                }
+            };
+
+            /**
+             * 미리보기 페이지 크기를 컨테이너 너비와 높이에 맞게 조정
+             * 💡 https://real-report.com/docs/api/ReportViewer#fittopage
+             * */
+            const onClickFitToPage = function () {
+                if (viewer) {
+                    viewer.fitToPage();
+                    setZoomScaleInputValue('inputZoomScale');
+                }
+            };
+
+            /**
+             * 첫 번째 페이지로 이동
+             * 💡 https://real-report.com/docs/api/ReportViewer#first
+             * */
+            const onClickFirstPage = function () {
+                if (viewer) {
+                    viewer.first();
+                    setPageInputValue('inputPageNumber');
+                }
+            };
+
+            /**
+             * 마지막 페이지로 이동
+             * 💡 https://real-report.com/docs/api/ReportViewer#last
+             * */
+            const onClickLastPage = function () {
+                if (viewer) {
+                    viewer.last();
+                    setPageInputValue('inputPageNumber');
+                }
+            };
+
+            /**
+             * 이전 페이지로 이동
+             * 💡 https://real-report.com/docs/api/ReportViewer#prev
+             * */
+            const onClickPrevPage = function () {
+                if (viewer) {
+                    viewer.prev();
+                    setPageInputValue('inputPageNumber');
+                }
+            };
+
+            /**
+             * 다음 페이지로 이동
+             * 💡 https://real-report.com/docs/api/ReportViewer#next
+             * */
+            const onClickNextPage = function () {
+                if (viewer) {
+                    viewer.next();
+                    setPageInputValue('inputPageNumber');
+                }
+            };
+
+            /**
+             * PDF 내보내기
+             * 💡 https://real-report.com/docs/api/ReportViewer#exportpdf
+             * */
+            const onClickExportPdf = function () {
+                const zoomSclae = viewer.zoom;
+                base64convert('/js/pdffonts/NanumGothic.otf', true).then(
+                    (regularFont) => {
+                        base64convert(
+                            '/js/pdffonts/NanumGothicBold.otf',
+                            true,
+                        ).then(async (boldFont) => {
+                            const fonts = [
+                                {
+                                    name: 'regular',
+                                    content: regularFont,
+                                    style: 'normal',
+                                    weight: 'normal',
+                                },
+                                {
+                                    name: 'bold',
+                                    content: boldFont,
+                                    style: 'normal',
+                                    weight: 'bold',
+                                },
+                            ];
+
+                            if (viewer) {
+                                const options = {
+                                    fonts,
+                                    filename: 'sample-report',
+                                    preview: false,
+                                    // ownerPassword: '!QAZXSW2', // 소유자 암호
+                                    // userPassword: '1qazxsw2', // 사용자 암호
+                                    permissions: {
+                                        printing: 'highResolution', // 'lowResolution' | 'highResolution' 인쇄 허용 여부
+                                        modifying: true, // 파일 수정 허용 여부
+                                        copying: true, // 텍스트 또는 그래픽 복사 허용 여부
+                                        annotating: true, // 주석 및 양식 작성 허용 여부
+                                        fillingForms: true, // 양식 작성 및 서명 허용 여부
+                                        contentAccessibility: true, // 접근성을 위한 텍스트 복사 허용 여부
+                                        documentAssembly: true,
+                                    },
+                                    pdfVersion: '1.7ext3', // '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3'
+                                };
+                                viewer.zoom = 1;
+                                viewer.exportPdf(options);
+                                viewer.zoom = zoomSclae;
+                            }
+                        });
+                    },
+                );
+            };
+
+            /**
+             * HWP, DOCX, PPTX 문서 내보내기
+             * 💡 https://real-report.com/docs/api/ReportViewer#exportdocument
+             * */
+            const onClickExportDoc = function (type) {
+                if (viewer) {
+                    viewer.exportDocument({ type });
+                }
+            };
+
+            /**
+             * PNG, JPEG, GIF, TIF, TIFF 이미지 내보내기 함수
+             * 💡 https://real-report.com/docs/api/ReportViewer#exportimage
+             * */
+            const onClickExportImage = function (type, encoding, fileName) {
+                if (viewer) {
+                    var originZoom = viewer.zoom;
+                    viewer.zoom = 1;
+                    var options = { type };
+                    if (encoding) options.tiff = { encoding };
+                    if (fileName) options.fileName = fileName;
+                    viewer.exportImage(options);
+                    viewer.zoom = originZoom;
+                }
+            };
+
+            /**
+             * 숨겨진 iFrame을 이용해 미리보기 상태에서 바로 출력
+             * */
+            const onClickPrintHiddenFrame = function () {
+                if (viewer) {
+                    function closePrint() {
+                        document.body.removeChild(this.__container__);
+                    }
+
+                    function setPrint() {
+                        this.contentWindow.__container__ = this;
+                        this.contentWindow.onbeforeunload = closePrint;
+                        this.contentWindow.onafterprint = closePrint;
+                        const dom =
+                            this.contentWindow.document.getElementById(
+                                'realreport',
+                            );
+                        dom.innerHTML = viewer.reportHtml;
+
+                        setTimeout(() => {
+                            this.contentWindow.focus(); // Required for IE
+                            this.contentWindow.print();
+                        }, 1);
+                    }
+
+                    function printPage(sURL) {
+                        var oHideFrame = document.createElement('iframe');
+                        oHideFrame.onload = setPrint;
+                        oHideFrame.style.position = '';
+                        oHideFrame.style.right = '0';
+                        oHideFrame.style.bottom = '0';
+                        oHideFrame.style.width = '0';
+                        oHideFrame.style.height = '0';
+                        oHideFrame.style.border = '0';
+                        oHideFrame.src = sURL;
+                        document.body.appendChild(oHideFrame);
+                    }
+
+                    printPage('./print.html');
+                }
+            };
+
+            const onClickPrintPopup = function () {
+                printPopup();
+            };
+
+            //--------------------------------------------------------------------------------------------------
+            // private methods
+            //--------------------------------------------------------------------------------------------------
+
+            const zoom = document.getElementById('inputZoomScale');
+            zoom.addEventListener('change', (e) => {
+                let zoom = e.target.value;
+                if (zoom.endsWith('%')) zoom = zoom.replace('%', '');
+                if (!isNaN(zoom)) {
+                    viewer.zoom = zoom / 100;
+                    setZoomScaleInputValue('inputZoomScale');
+                }
+            });
+
+            const page = document.getElementById('inputPageNumber');
+            page.addEventListener('change', (e) => {
+                const page = e.target.value;
+                if (!isNaN(page)) {
+                    viewer.page = page;
+                    setPageInputValue('inputPageNumber');
+                }
+            });
+
+            const setInputValue = function (id, value, prefix, surfix) {
+                if (id) {
+                    const input = document.getElementById(id);
+                    if (input)
+                        input.value = `${prefix || ''}${value}${surfix || ''}`;
+                }
+            };
+
+            const setZoomScaleInputValue = function (id) {
+                setInputValue(id, Math.trunc(viewer.zoom * 100), '', '%');
+            };
+
+            const setPageInputValue = function (id) {
+                if (viewer) {
+                    setInputValue(id, viewer.page);
+                }
+            };
+
+            async function base64convert(url, split) {
+                const data = await fetch(url);
+                const blob = await data.blob();
+
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = () => {
+                        const base64data = reader.result;
+                        resolve(split ? base64data.split(',')[1] : base64data);
+                    };
                 });
-            });
-        }
-
-        /**
-         * HWP, DOCX, PPTX 문서 내보내기
-         * 💡 https://real-report.com/docs/api/ReportViewer#exportdocument
-         * */
-        const onClickExportDoc = function (type) {
-            if (viewer) {
-                viewer.exportDocument({ type });
             }
-        }
-
-        /**
-         * PNG, JPEG, GIF, TIF, TIFF 이미지 내보내기 함수
-         * 💡 https://real-report.com/docs/api/ReportViewer#exportimage
-         * */
-        const onClickExportImage = function (type, encoding, fileName) {
-            if (viewer) {
-                var originZoom = viewer.zoom;
-                viewer.zoom = 1;
-                var options = { type };
-                if (encoding) options.tiff = { encoding };
-                if (fileName) options.fileName = fileName;
-                viewer.exportImage(options);
-                viewer.zoom = originZoom;
-            }
-        }
-
-        /**
-         * 숨겨진 iFrame을 이용해 미리보기 상태에서 바로 출력
-         * */
-        const onClickPrintHiddenFrame = function () {
-            if (viewer) {
-                function closePrint() {
-                    document.body.removeChild(this.__container__);
-                }
-
-                function setPrint() {
-                    this.contentWindow.__container__ = this;
-                    this.contentWindow.onbeforeunload = closePrint;
-                    this.contentWindow.onafterprint = closePrint;
-                    const dom = this.contentWindow.document.getElementById('realreport');
-                    dom.innerHTML = viewer.reportHtml;
-
-                    setTimeout(() => {
-                        this.contentWindow.focus(); // Required for IE
-                        this.contentWindow.print();
-                    }, 1);
-                }
-
-                function printPage(sURL) {
-                    var oHideFrame = document.createElement("iframe");
-                    oHideFrame.onload = setPrint;
-                    oHideFrame.style.position = "";
-                    oHideFrame.style.right = "0";
-                    oHideFrame.style.bottom = "0";
-                    oHideFrame.style.width = "0";
-                    oHideFrame.style.height = "0";
-                    oHideFrame.style.border = "0";
-                    oHideFrame.src = sURL;
-                    document.body.appendChild(oHideFrame);
-                }
-
-                printPage('./print.html');
-            }
-        }
-
-        const onClickPrintPopup = function () {
-            printPopup();
-        }
-
-
-        //--------------------------------------------------------------------------------------------------
-        // private methods
-        //--------------------------------------------------------------------------------------------------
-
-        const zoom = document.getElementById('inputZoomScale');
-        zoom.addEventListener('change', (e) => {
-            let zoom = e.target.value;
-            if (zoom.endsWith('%')) zoom = zoom.replace('%', '');
-            if (!isNaN(zoom)) {
-                viewer.zoom = zoom / 100;
-                setZoomScaleInputValue('inputZoomScale');
-            }
-        })
-
-        const page = document.getElementById('inputPageNumber');
-        page.addEventListener('change', (e) => {
-            const page = e.target.value;
-            if (!isNaN(page)) {
-                viewer.page = page;
-                setPageInputValue('inputPageNumber');
-            }
-        })
-
-        const setInputValue = function (id, value, prefix, surfix) {
-            if (id) {
-                const input = document.getElementById(id);
-                if (input) input.value = `${prefix || ''}${value}${surfix || ''}`;
-            }
-        }
-
-        const setZoomScaleInputValue = function (id) {
-            setInputValue(id, Math.trunc(viewer.zoom * 100), '', '%');
-        }
-
-        const setPageInputValue = function (id) {
-            if (viewer) {
-                setInputValue(id, viewer.page);
-            }
-        };
-
-        async function base64convert(url, split) {
-            const data = await fetch(url);
-            const blob = await data.blob();
-
-            return new Promise(resolve => {
-                const reader = new FileReader();
-                reader.readAsDataURL(blob);
-                reader.onloadend = () => {
-                    const base64data = reader.result;
-                    resolve(split ? base64data.split(',')[1] : base64data);
-                }
-            });
-        }
-
-    </script>
-</body>
-
+        </script>
+    </body>
 </html>

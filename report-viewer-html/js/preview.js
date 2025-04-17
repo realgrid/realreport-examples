@@ -40,6 +40,12 @@ function webDesignerFrame(iFrameId, reports) {
     return reportFrame.contentWindow.initWebDesigner(reports);
 }
 
+function reportFrame(iFrameId, reports) {
+    const reportFrame = document.getElementById(iFrameId);
+    reportFrame.classList.remove('hidden');
+    return reportFrame.contentWindow.previewReport(reports);
+}
+
 /**
  *
  * ReportSource = {
