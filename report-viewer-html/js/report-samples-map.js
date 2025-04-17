@@ -24,6 +24,7 @@ var naverMap = {
                 items: [
                     {
                         type: 'text',
+                        width: '100%',
                         text: 'NAVER 지도 API',
                         styles: {
                             fontSize: '30px',
@@ -68,6 +69,14 @@ var naverMap = {
                         ],
                         cells: [
                             {
+                                r: 2,
+                                c: 1,
+                                styles: {
+                                    paddingTop: '4px',
+                                    paddingBottom: '4px',
+                                },
+                            },
+                            {
                                 r: 4,
                                 c: 1,
                                 styles: {
@@ -85,7 +94,7 @@ var naverMap = {
                             },
                         ],
                         styles: {
-                            fontSize: '16px',
+                            fontSize: '14px',
                         },
                         items: [
                             {
@@ -95,6 +104,9 @@ var naverMap = {
                                 col: 0,
                                 row: 0,
                                 text: '\b상호명',
+                                styles: {
+                                    fontWeight: 'bold',
+                                },
                             },
                             {
                                 type: 'text',
@@ -103,6 +115,9 @@ var naverMap = {
                                 col: 0,
                                 row: 1,
                                 text: '주소',
+                                styles: {
+                                    fontWeight: 'bold',
+                                },
                             },
                             {
                                 type: 'text',
@@ -111,6 +126,9 @@ var naverMap = {
                                 col: 0,
                                 row: 3,
                                 text: '문의',
+                                styles: {
+                                    fontWeight: 'bold',
+                                },
                             },
                             {
                                 type: 'text',
@@ -156,6 +174,9 @@ var naverMap = {
                                 col: 0,
                                 row: 4,
                                 text: '\b오시는 길',
+                                styles: {
+                                    fontWeight: 'bold',
+                                },
                             },
                             {
                                 type: 'htmlView',
@@ -165,6 +186,9 @@ var naverMap = {
                                 col: 1,
                                 row: 4,
                                 html: '<div id="map" style="width:100%;height:100%;"></div>',
+                                styles: {
+                                    fontWeight: 'bold',
+                                },
                             },
                             {
                                 type: 'text',
@@ -175,6 +199,9 @@ var naverMap = {
                                 wrap: true,
                                 multiLine: true,
                                 text: '제품\n홈페이지',
+                                styles: {
+                                    fontWeight: 'bold',
+                                },
                             },
                             {
                                 type: 'cbox',
