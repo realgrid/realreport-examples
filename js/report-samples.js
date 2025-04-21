@@ -6689,7 +6689,7 @@ var multiLanguageReport = {
     assets: { '/': [] },
     data: {},
     i18n: {
-        languages: ['ko', 'en', 'ja'],
+        languages: ['en', 'ko', 'ja'],
         defaultLanguage: 'en',
         fields: [
             'field',
