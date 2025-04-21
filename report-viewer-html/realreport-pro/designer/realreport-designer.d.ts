@@ -14649,6 +14649,7 @@ declare abstract class TableBase extends CellContainer {
      */
     get fixed(): boolean;
     set fixed(value: boolean);
+    get spans(): TableCellSpan[][];
     abstract getCellWidths(): DimensionCollection;
     abstract getColumn(col: number): TableColumnBase;
     getRow(index: number): TableRow;
@@ -15205,6 +15206,7 @@ declare class TableSelection implements ISelectionSource {
     cols: number;
     rows: number;
     private _cell;
+    private _lastCell;
     constructor(cell: TableCell, cols: number, rows: number);
     get table(): TableBase;
     get cell(): TableCell;
@@ -15220,6 +15222,8 @@ declare class TableSelection implements ISelectionSource {
     getCells(ignoreHiddens: boolean): TableCell[];
     resizeTo(cell: TableCell): boolean;
     resizeBy(dx: number, dy: number): boolean;
+    resize(): boolean;
+    getSize(foc: TableCell): number[];
     softEquals(cell: TableCell): boolean;
     equals(cell: TableCell): boolean;
 }

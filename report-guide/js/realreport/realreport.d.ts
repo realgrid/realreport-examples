@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.12
-* commit 0fb7a69
+* RealReport v1.10.13
+* commit 7e732c1
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.10.12
+* RealReport Core v1.10.13
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 7f1eff2f92ad5960b14bb330722321a7a7e1c271
+* commit 8da5d41f9034dfc777f1254773858fcb8feebbb7
 */
 
 
@@ -2235,6 +2235,7 @@ declare class TableSelection implements ISelectionSource {
     cols: number;
     rows: number;
     private _cell;
+    private _lastCell;
     constructor(cell: TableCell$1, cols: number, rows: number);
     get table(): TableBase;
     get cell(): TableCell$1;
@@ -2250,6 +2251,8 @@ declare class TableSelection implements ISelectionSource {
     getCells(ignoreHiddens: boolean): TableCell$1[];
     resizeTo(cell: TableCell$1): boolean;
     resizeBy(dx: number, dy: number): boolean;
+    resize(): boolean;
+    getSize(foc: TableCell$1): number[];
     softEquals(cell: TableCell$1): boolean;
     equals(cell: TableCell$1): boolean;
 }
@@ -2284,7 +2287,7 @@ declare class TableCellCollection extends ReportItemCollection<TableCell$1> {
     getAt(row: number, col: number): TableCell$1;
     indexOf(item: TableCell$1): number;
     getRectangle(from: TableCell$1, to: TableCell$1): IRect;
-    getRectangleCells(from: TableCell$1, to: TableCell$1, ignoreHiddens?: boolean): TableCell$1[];
+    getRectangleCells(from: TableCell$1, to: TableCell$1): TableCell$1[];
     /**
      * table rowCount, colCount 변경 시 table에서도 호출한다.
      * rowCount, colCount가 줄어들어도 기존 cell들은 제거하지 않는다.
@@ -2423,6 +2426,7 @@ declare abstract class TableBase extends CellContainer {
      */
     get fixed(): boolean;
     set fixed(value: boolean);
+    get spans(): TableCellSpan[][];
     abstract getCellWidths(): DimensionCollection;
     abstract getColumn(col: number): TableColumnBase;
     getRow(index: number): TableRow;
