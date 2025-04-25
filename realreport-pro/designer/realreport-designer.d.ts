@@ -579,6 +579,9 @@ declare class BarcodeItem extends ReportItem {
     static readonly PROP_TEXT_ALIGN = "textAlign";
     static readonly PROP_FLAT = "flat";
     static readonly PROP_LAST_CHAR = "lastChar";
+    /** Barcode를 표현할 수 있는 영역의 최소 크기 (한 변 기준, px단위) */
+    static readonly BARCODE_WIDTH_MIN_SIZE = 50;
+    static readonly BARCODE_HEIGHT_MIN_SIZE = 15;
     static readonly PROPINFOS: IPropInfo[];
     static readonly STYLE_PROPS: string[];
     static readonly $_ctor: string;
@@ -1301,6 +1304,7 @@ declare class CrosstabBand extends ReportGroupItem {
     get rows(): CrosstabRowCollection;
     get bandData(): BandArrayData;
     get columns(): CrosstabColumnCollection;
+    canAddField(field: string): boolean;
     containsField(field: string): boolean;
     getRowField(index: number): CrosstabField;
     getColumnField(index: number): CrosstabColumnField;
@@ -1676,6 +1680,7 @@ declare class CrosstabValueField extends CrosstabField {
     get itemType(): string;
     getCollectionLabel(): string;
     getEditProps(): IPropInfo[];
+    getPropDomain(prop: IPropInfo): any;
     protected _doLoad(src: any): void;
     protected _doSave(target: object): void;
 }
@@ -4865,8 +4870,9 @@ declare class ExcelTextItem extends TextItem {
     getDesignText2(system: boolean): string;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
-    protected _getPrintText(ctx: ExcelPrintContext): string;
+    protected _getPrintText(ctx: ExcelPrintContext, getValue?: (ctx: ExcelPrintContext) => string): string;
     private $_getPrintValue;
+    private $_getOriginValue;
 }
 
 /* Excluded from this release type: ExpressionNode */
@@ -6315,7 +6321,9 @@ declare interface IExcelCell {
     rowSpan?: number;
     colSpan?: number;
     value?: any;
+    originValue?: string;
     format?: string;
+    numberFormat?: string;
     formula?: string;
     preparedFormula?: string;
     formulaConversionError?: FormulaConverterError;
@@ -15500,6 +15508,7 @@ declare abstract class TextItemBase extends ReportItem {
     set suffix(value: string);
     getText(v: any): string;
     getDesignText2(system: boolean): string;
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
     protected _doLoad(loader: IReportLoader, src: any): void;

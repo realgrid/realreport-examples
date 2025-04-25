@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.10.13
+RealReport Designer v1.10.14
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -555,6 +555,11 @@ border: 1px dotted #00000020; */
 
 .qrcode-empty:before {
   content: "[QR]";
+  white-space: nowrap;
+}
+
+.barcode-empty:before {
+  content: "[BARCODE]";
   white-space: nowrap;
 }
 
@@ -1400,6 +1405,7 @@ border-bottom: 1px solid #ccc; */
   width: 100%;
   position: absolute;
   top: 50%;
+  left: 0;
   transform: translateY(-50%);
 }
 
@@ -3586,27 +3592,26 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 	color: #6b6b6b;
 }
 
-.rr-color-picker-pallete-palletes,
-.rr-color-picker-pallete-custom-colors {
+.rr-color-picker-palette-palettes-list,
+.rr-color-picker-palette-custom-colors {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     position: relative;
     gap: 5px;
 }
 
-.rr-color-picker-pallete-palletes div,
-.rr-color-picker-pallete-custom-colors div {
+.rr-color-picker-palette-palettes-list div,
+.rr-color-picker-palette-custom-colors div {
     aspect-ratio: 1 / 1;
     border-radius: 3px;
     cursor: pointer;
 }
 
-.rr-color-picker-pallete-custom-colors div {
+.rr-color-picker-palette-custom-colors div {
 	border: 1px solid #dadce0;
 }
 
-.rr-color-picker-pallete-custom-label {
-	padding-top: 9px;
+.rr-color-picker-palette-label {
 	font-size: 12px;
 	display: flex;
 	align-items: center;
@@ -3614,8 +3619,30 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 	color: #717171;
 }
 
-.rr-color-picker-pallete-custom-colors {
+.rr-color-picker-palette-palettes .rr-color-picker-palette-label {
+	padding-top: 9px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+
+.rr-color-picker-palette-palettes .rr-color-picker-palette-label.on + .rr-color-picker-palette-palettes-list {
+	display: grid;
+}
+
+.rr-color-picker-palette-palettes .rr-color-picker-palette-label.on svg {
+	transform: rotate(180deg);
+}
+
+.rr-color-picker-palette-custom-colors,
+.rr-color-picker-palette-palettes-list {
 	padding-top: 5px;
+}
+
+.rr-color-picker-palette-palettes-list {
+	display: none;
 }
 
 .rr-color-picker-color-info {
@@ -3780,17 +3807,17 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 	background: var(--rrd-primary-btn-bg-hover);
 }
 
-.rr-color-picker-pallete-eye-dropper {
+.rr-color-picker-palette-eye-dropper {
 	display: flex;
 	align-items: center;
 	transition: background 0.3s ease;
 }
 
-.rr-color-picker-pallete-eye-dropper:hover {
+.rr-color-picker-palette-eye-dropper:hover {
 	background: #e7e7e7;
 }
 
-.rr-color-picker-pallete-eye-dropper svg {
+.rr-color-picker-palette-eye-dropper svg {
 	width: 100%;
 	aspect-ratio: 1 / 1;
 	height: auto;
@@ -7195,7 +7222,8 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 .rr-image[data-empty] span::before,
 .rr-svg[data-empty] span:before, 
 .rr-sign[data-empty] span:before,
-.qrcode-empty:before {
+.qrcode-empty:before,
+.barcode-empty:before {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -7207,7 +7235,8 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   top: 0;
   right: 0;
 }
-.rr-content-box [data-design] .qrcode-empty::after {
+.rr-content-box [data-design] .qrcode-empty::after,
+.rr-content-box [data-design] .barcode-empty::after {
   content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTkiIHZpZXdCb3g9IjAgMCAyMCAxOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTkuMTI3OTcgMy4xMzc2NkM5LjUxIDIuNDU2NjcgMTAuNDkwMiAyLjQ1NjY3IDEwLjg3MjMgMy4xMzc2NUwxNi40OTI2IDEzLjE1NjNDMTYuODY2NSAxMy44MjI4IDE2LjM4NDcgMTQuNjQ1NSAxNS42MjA0IDE0LjY0NTVINC4zNzk4QzMuNjE1NDggMTQuNjQ1NSAzLjEzMzcxIDEzLjgyMjggMy41MDc2NiAxMy4xNTYyTDkuMTI3OTcgMy4xMzc2NloiIGZpbGw9IiNGRkNEMDAiLz4KPGxpbmUgeDE9IjEwIiB5MT0iNi4zMzMwMSIgeDI9IjEwIiB5Mj0iMTEuMDgzIiBzdHJva2U9ImJsYWNrIi8+CjxjaXJjbGUgY3g9IjEwIiBjeT0iMTIuNSIgcj0iMC41IiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K");
   position: absolute;
   top: 0;

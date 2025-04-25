@@ -1,5 +1,5 @@
 /* 
-RealReport v1.10.13
+RealReport v1.10.14
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -551,6 +551,11 @@ border: 1px dotted #00000020; */
 
 .qrcode-empty:before {
   content: "[QR]";
+  white-space: nowrap;
+}
+
+.barcode-empty:before {
+  content: "[BARCODE]";
   white-space: nowrap;
 }
 
@@ -1396,6 +1401,7 @@ border-bottom: 1px solid #ccc; */
   width: 100%;
   position: absolute;
   top: 50%;
+  left: 0;
   transform: translateY(-50%);
 }
 
