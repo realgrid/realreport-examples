@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.10.14
+RealReport Designer v1.10.15
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -514,6 +514,10 @@ border: 1px dotted #00000020; */
   line-height: normal;
 }
 
+.rr-text > span {
+  pointer-events: none;
+}
+
 .rr-text[data-design]:hover {
   background-color: rgba(111, 111, 0, 0.1);
 }
@@ -563,7 +567,7 @@ border: 1px dotted #00000020; */
   white-space: nowrap;
 }
 
-.rr-text-band .rr-text-band-body[data-empty]:before {
+.rr-text-band .rr-textband-body[data-empty]:before {
   background-color: #00000008;
   color: #777;
   text-align: center;
@@ -5126,6 +5130,7 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 .rrd-simple-field-table tr td {
   background-color: var(--rrd-light-theme-primary-color-2);
   white-space: nowrap;
+  padding: 3px 5px;
 }
 .rrd-band-field-table tr:nth-child(2n + 1) td,
 .rrd-simple-field-table tr:nth-child(2n + 1) td {
@@ -5257,6 +5262,7 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 }
 
 .rrd-band-data-sample-header {
+  height: 30px;
   padding: 4px 4px;
   background-color: var(--rrd-light-theme-primary-color-3);
   color: #333;
@@ -5354,16 +5360,18 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   color: var(--light-theme-light-text-color);
 }
 
-.rrd-band-data-sample td,
-.rrd-band-data-sample th {
-  border-right: 1px solid #6e778655;
-  border-bottom: 1px solid #6e778655;
+.rrd-band-data-sample td {
   padding: 3px 5px;
 }
 .rrd-band-data-sample th {
   background-color: var(--rrd-light-theme-primary-color-3);
   text-align: center;
-  padding: 0px;
+  padding-top: 2px;
+}
+.rrd-band-data-sample td,
+.rrd-band-data-sample th {
+  border-right: 1px solid #6e778655;
+  border-bottom: 1px solid #6e778655;
 }
 .rrd-band-field-table {
   background-color: var(--rrd-light-theme-primary-color-2);
@@ -5449,6 +5457,17 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   border: 1px solid var(--rrd-light-theme-primary-color-9);
   border-radius: 2px;
   outline: none;
+}
+
+.rrd-band-sample-view-remove-btn {
+  cursor: pointer;
+}
+
+.rrd-band-sample-view-remove-btn,
+.rrd-band-field-table-remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* .rrd-simple-data-header {

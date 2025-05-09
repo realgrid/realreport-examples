@@ -1,5 +1,5 @@
 /* 
-RealReport v1.10.14
+RealReport v1.10.15
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -510,6 +510,10 @@ border: 1px dotted #00000020; */
   line-height: normal;
 }
 
+.rr-text > span {
+  pointer-events: none;
+}
+
 .rr-text[data-design]:hover {
   background-color: rgba(111, 111, 0, 0.1);
 }
@@ -559,7 +563,7 @@ border: 1px dotted #00000020; */
   white-space: nowrap;
 }
 
-.rr-text-band .rr-text-band-body[data-empty]:before {
+.rr-text-band .rr-textband-body[data-empty]:before {
   background-color: #00000008;
   color: #777;
   text-align: center;

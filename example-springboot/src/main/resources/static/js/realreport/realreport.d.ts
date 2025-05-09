@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.10.14
-* commit 607b3b6
+* RealReport v1.10.15
+* commit a45d0f8
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.10.14
+* RealReport Core v1.10.15
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit b0b7c34b900d29783fc98130d89d28b596b703a7
+* commit 48aa52d23107827c53f40755f9ca9526f5d39a58
 */
 
 
@@ -11894,6 +11894,8 @@ declare class BandArrayData extends BandData implements IBandData {
     _internalValues(): any[];
     getValues(): any[];
     setValues(vals: any[]): void;
+    removeValueAt(index: number): boolean;
+    insertValueAt(values: any, index: number): void;
     clearValues(): void;
     getFieldSample(): any[];
     setLinkSource(source: any[]): void;
