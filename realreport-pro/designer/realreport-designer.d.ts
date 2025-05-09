@@ -179,6 +179,8 @@ declare class BandArrayData extends BandData implements IBandData {
     _internalValues(): any[];
     getValues(): any[];
     setValues(vals: any[]): void;
+    removeValueAt(index: number): boolean;
+    insertValueAt(values: any, index: number): void;
     clearValues(): void;
     getFieldSample(): any[];
     setLinkSource(source: any[]): void;
