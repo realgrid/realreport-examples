@@ -338,6 +338,7 @@ declare class BandFooterPrintInfo {
 }
 
 declare class BandGroup extends ReportGroupItem {
+    static readonly MIN_BAND_COUNT = 1;
     static readonly PROP_BAND_COUNT = "bandCount";
     static readonly PROP_BAND_GAP = "bandGap";
     static readonly PROP_NO_SPLIT = "noSplit";
@@ -413,7 +414,7 @@ declare class BandGroupMarquee extends EditMarquee<BandGroupElement> {
 
 declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     group: BandGroup;
-    bands: BandPrintInfo<any>[] | TextBandPrintInfo[];
+    groupInfos: (BandGroupTextPrintInfo | BandPrintInfo<BandModel> | TextBandPrintInfo)[];
     left: string;
     gap: number;
     isEnded(): boolean;
@@ -424,6 +425,15 @@ declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     getEmptyDataBandPage(doc: Document, ctx: PrintContext, bandPrintInfo: BandGroupPrintInfo, width: number, parent: HTMLDivElement): HTMLDivElement;
     resetRowIndex(): void;
     private $_createBandGroupPage;
+    private $_attachHorizontalBandGroup;
+    private $_attachVeritcalBandGroup;
+}
+
+declare class BandGroupTextPrintInfo {
+    bandCellWidth: number;
+    bandCellHeight: number;
+    element: TextItemElement;
+    constructor(bandCellWidth: number, bandCellHeight: number, element: TextItemElement);
 }
 
 declare abstract class BandItemElement<T extends ReportBandItem = ReportBandItem> extends ReportGroupItemElement<T> {
@@ -494,6 +504,7 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     setBorderContainerStyle(borderContainer: HTMLDivElement, styles: {
         [x: string]: string;
     }): void;
+    setBoxSidesStyle(bandContainer: HTMLDivElement, styles: Styles): void;
     protected _setX(dom: HTMLElement, x: number): void;
     protected _setY(dom: HTMLElement, y: number): void;
     protected _setPos(dom: HTMLElement, x: number, y: number): void;
@@ -541,6 +552,8 @@ declare enum BandSectionLayout {
     ACROSS_DOWN = "acrossDown",
     DOWN_ACROSS = "downAcross"
 }
+
+declare type BandSectionType = 'header' | 'dataRow' | 'footer' | 'groupHeader' | 'groupFooter';
 
 declare type BarAxisDirection = 'context' | 'leftToRight' | 'rightToLeft';
 
@@ -2562,23 +2575,6 @@ declare enum DropResultType {
     ITEM = "item"
 }
 
-declare interface EditableItem {
-    reportItemElement: ReportItemView;
-    targetElement: HTMLElement;
-    markerElement: HTMLElement;
-    name: string;
-    item: string;
-    originalValue: EditableItemValue;
-    value: EditableItemValue;
-}
-
-declare type EditableItemMeta = {
-    name: string;
-    value: EditableItemValue;
-};
-
-declare type EditableItemValue = string | number | boolean;
-
 /**
  * Report Editable 속성 관련하여 수정가능한 영역 표시를 위해 작성
  */
@@ -3226,12 +3222,6 @@ declare abstract class ExcelColumnHeaderView extends ExcelTableElement {
     private $_prepareCells;
 }
 
-/**
- * 데이터밴드의 영역 중 아이템이 지정되지 않은 셀들에 표시되는 item.
- * 모든 셀을 포함하는 하나의 아이템으로 지정된다.
- * 밴드 단위로 표시된다.
- * 다른 아이템을 추가하거나, 셀을 선택할 수 없다.
- */
 declare class ExcelDataBand extends TableLikeBand {
     static readonly PROP_DESIGN_VISIBLE = "designVisible";
     static readonly PROP_COL_COUNT = "colCount";
@@ -3385,6 +3375,7 @@ declare class ExcelDataBand extends TableLikeBand {
     protected _doItemRemoved(item: ReportItem, index: number): void;
     protected _doItemsRemoved(items: ReportItem[]): void;
     protected _doItemsCleared(): void;
+    protected _doAfterLoad(loader: IReportLoader, src: any): void;
     protected _doPrepareLayout(printing: boolean): void;
     prepareLayout(printing: boolean): void;
     private $_buildDefaultCtx;
@@ -3429,12 +3420,14 @@ declare class ExcelDataBandCollection extends DataBandCollection implements IExc
 
 declare class ExcelDataBandDataRow extends ExcelDataBandSection {
     static readonly $_ctor: string;
+    static readonly SECTION_TYPE: BandSectionType;
     _runRowCount: number;
     get outlineLabel(): string;
     get pathLabel(): string;
     getHiddenText(): string;
     writeAll(ctx: ExcelPrintContext, drows?: number[]): IExcelCell[];
     writeRow(ctx: ExcelPrintContext, drow: number, col: number): IExcelCell[];
+    protected _getSectionType(): BandSectionType;
     private $_writeRow;
 }
 
@@ -3475,25 +3468,29 @@ declare class ExcelDataBandElement extends ExcelReportGroupItemElementBase<Excel
 
 declare class ExcelDataBandFooter extends ExcelDataBandSection {
     static readonly $_ctor: string;
-    protected _getInitCellStyles(): {
-        backgroundColor: string;
-    };
+    static readonly SECTION_TYPE: BandSectionType;
     get outlineLabel(): string;
     get pathLabel(): string;
     getHiddenText(): string;
+    protected _getInitCellStyles(): {
+        backgroundColor: string;
+    };
+    protected _getSectionType(): BandSectionType;
 }
 
 declare class ExcelDataBandHeader extends ExcelDataBandSection {
     static readonly $_ctor: string;
+    static readonly SECTION_TYPE: BandSectionType;
     get outlineLabel(): string;
     get pathLabel(): string;
+    getHiddenText(): string;
     protected _getInitCellStyles(): {
         textAlign: string;
         fontWeight: string;
         backgroundColor: string;
         border: string;
     };
-    getHiddenText(): string;
+    protected _getSectionType(): BandSectionType;
 }
 
 declare class ExcelDataBandRowGroup extends DataBandRowGroup {
@@ -3602,7 +3599,7 @@ declare class ExcelDataBandRowGroupContainer extends ExcelDataBandSection {
 
 declare class ExcelDataBandRowGroupFooter extends ExcelDataBandRowGroupSection {
     static readonly PROPINFOS: IPropInfo[];
-    _row: number;
+    static readonly SECTION_TYPE: BandSectionType;
     static readonly $_ctor: string;
     get outlineLabel(): string;
     get outlineParent(): IOutlineSource;
@@ -3614,11 +3611,12 @@ declare class ExcelDataBandRowGroupFooter extends ExcelDataBandRowGroupSection {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
     prepareLayout(printing: boolean): void;
+    protected _getSectionType(): BandSectionType;
 }
 
 declare class ExcelDataBandRowGroupHeader extends ExcelDataBandRowGroupSection {
     static readonly PROPINFOS: IPropInfo[];
-    _row: number;
+    static readonly SECTION_TYPE: BandSectionType;
     static readonly $_ctor: string;
     get outlineLabel(): string;
     get row(): number;
@@ -3630,14 +3628,15 @@ declare class ExcelDataBandRowGroupHeader extends ExcelDataBandRowGroupSection {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
     prepareLayout(printing: boolean): void;
+    protected _getSectionType(): BandSectionType;
 }
 
 declare abstract class ExcelDataBandRowGroupSection extends ExcelDataBandSection {
     group: ExcelDataBandRowGroup;
     constructor(group: ExcelDataBandRowGroup);
-    get page(): ReportPageBase;
     getCol(): number;
     getRow(): number;
+    write(ctx: ExcelPrintContext, group: IBandRowGroup): IExcelCell[];
 }
 
 declare abstract class ExcelDataBandSection extends ExcelGroupItem {
@@ -3646,18 +3645,23 @@ declare abstract class ExcelDataBandSection extends ExcelGroupItem {
     static readonly PROP_FIXED = "fixed";
     static readonly PROPINFOS: IPropInfo[];
     private static readonly STYLE_PROPS;
+    protected _row: number;
     private _rowCount;
     private _minRowHeight;
     private _fixed;
-    _row: number;
     private _band;
     private _minRowHeightDim;
     _runRow: number;
+    _pr: {
+        r: number;
+        c: number;
+    };
     constructor(band: ExcelDataBand);
     get outlineItems(): IOutlineSource[];
     get row(): number;
     /** band */
     get band(): ExcelDataBand;
+    get page(): ExcelPage;
     /**
      * 행 수.<br/>
      */
@@ -3686,6 +3690,7 @@ declare abstract class ExcelDataBandSection extends ExcelGroupItem {
     getRowPulledItems(row: number): ExcelItems[];
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
+    protected _getSectionType(): BandSectionType;
 }
 
 /**
@@ -3944,7 +3949,7 @@ declare abstract class ExcelItem extends ReportItem {
     };
     static isIntersecting(item: ExcelItems, r1: number, c1: number, r2: number, c2: number, p?: ExcelGroupItem): boolean;
     static isContained(item: ExcelItems, r1: number, c1: number, r2: number, c2: number, p?: ExcelGroupItem): boolean;
-    static createRenderInfo(info: any): IExcelRenderInfo;
+    static createRenderInfo(ctx: ExcelPrintContext, item: ExcelItems | ExcelItem, info: any): IExcelRenderInfo;
     private _row;
     private _col;
     _saveRow: number;
@@ -4202,7 +4207,31 @@ declare class ExcelPageView extends PageViewBase {
  * @private
  */
 declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
+    private _lastStartPrintedRow;
+    private _saveSameStartPrintedRowCount;
+    private _cells;
+    private _heights;
+    reportView: ExcelReportView;
     sheetView: ExcelSheetView;
+    printView: SheetPrintView;
+    printRows: number;
+    printRow: number;
+    /**
+     * 가장 최근에 출력된 시작 행 정보
+     * 이 정보를 통해 같은 행이 100번 이상 출력되는 경우를 방지한다.
+     */
+    get lastStartPrintedRow(): number;
+    set lastStartPrintedRow(row: number);
+    /**
+     * 같은 행이 100번 이상 출력되는 경우를 방지하기 위해
+     * 같은 행이 몇번 출력되었는지 카운트한다.
+     */
+    get saveSameStartPrintedRowCount(): number;
+    set saveSameStartPrintedRowCount(count: number);
+    get cells(): IExcelRenderInfo[][];
+    set cells(cells: IExcelRenderInfo[][]);
+    get heights(): number[][];
+    set heights(heights: number[][]);
     getItemCell(item: ExcelItems | ExcelGroupItems): HTMLTableCellElement;
     getCell(row: number, col: number): HTMLTableCellElement;
     getItemRect(item: ExcelItems | ExcelGroupItem): IRect;
@@ -4210,6 +4239,7 @@ declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
     setCellHeight(cell: HTMLTableCellElement): void;
     setCellFixedHeight(cell: HTMLTableCellElement): void;
     setConditionalFormatting(options: IConditionalFormattingOptions): void;
+    preparePrint(report?: ExcelReport): void;
 }
 
 declare class ExcelReport extends ReportBase<ExcelPage> {
@@ -4503,7 +4533,7 @@ declare abstract class ExcelReportView extends ReportViewBase<ExcelReport> {
     private static ViewCreators;
     private _pageViews;
     private _isPageViewSized;
-    constructor(doc: Document, editable?: boolean, printing?: boolean);
+    constructor(doc: Document, printing: boolean);
     get pageViews(): ExcelPageView[];
     get isPageViewSized(): boolean;
     getPageView(index: number): ExcelPageView;
@@ -4779,8 +4809,9 @@ declare abstract class ExcelTableElementBase extends ReportElement {
     needEnd: number;
     private _colgroup;
     private _thead;
-    private _tbody;
+    protected _tbody: HTMLTableSectionElement;
     constructor(doc: Document, needEnd?: number);
+    createRow(doc: Document, height: number): HTMLTableRowElement;
     protected _createDom(doc: Document): HTMLElement;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     get trows(): HTMLCollectionOf<HTMLTableRowElement>;
@@ -6173,7 +6204,7 @@ declare interface IDesignerContext {
     emailEditor?: EmailEditor;
     excelEditor?: ExcelReportEditor;
     previewScrollContainer: PreviewScrollContainer;
-    previewer?: PrintContainer;
+    previewer?: PrintContainerBase;
     designer: ReportDesigner_2;
     previewed?: boolean;
     hasParams?: boolean;
@@ -6285,6 +6316,7 @@ declare interface IEventAware {
 }
 
 declare interface IExcelBandContext {
+    model: ExcelDataBand;
     name: string;
     dataName: string;
     masterValues: any;
@@ -6299,7 +6331,7 @@ declare interface IExcelBandContext {
     designTimeRowCount: number;
     designTimeColCount: number;
     runRows: number;
-    bandGroups?: IExcelBandGroupContext[];
+    bandGroups: IExcelBandGroupContext[];
 }
 
 declare type IExcelBandExcelMatrix = IExcelCell[];
@@ -6312,6 +6344,10 @@ declare interface IExcelBandGroupContext {
     value: any;
     parent: IExcelBandGroupContext;
     children: IExcelBandGroupContext[];
+}
+
+declare interface IExcelBoxContext {
+    model: string;
 }
 
 declare interface IExcelCell {
@@ -6338,9 +6374,12 @@ declare interface IExcelCell {
     style?: Styles;
     rotation?: number | 'vertical';
     dr?: number;
+    dataRowIndex?: number;
     bar?: IExcelDataBar;
+    groupSection?: ExcelDataBandRowGroupSection;
     cbandGroup?: IExcelBandGroupContext;
     cband?: IExcelBandContext;
+    bandSectionType?: BandSectionType;
 }
 
 declare interface IExcelDataBar {
@@ -6398,6 +6437,7 @@ declare interface IExcellImage {
 }
 
 declare interface IExcelRenderInfo {
+    model: ExcelItems;
     row: number;
     col: number;
     rowCount?: number;
@@ -6407,11 +6447,12 @@ declare interface IExcelRenderInfo {
     runRows: number;
     colCount?: number;
     band?: IExcelBandContext;
-    box?: boolean;
+    box?: IExcelBoxContext;
     sign?: any;
     stamp?: any;
+    pr?: number;
     /**
-     * 아이템이 출력해야 할 정확한 행 위치
+     * 현재 아이템이 출력되어야 할 행 인덱스
      */
     r?: number;
     cells: IExcelCell | IExcelCell[];
@@ -6585,7 +6626,7 @@ declare interface IPreviewOptions {
 }
 
 declare interface IPrintOptions {
-    report: Report_2 | (Report_2 | IPrintReport)[];
+    report: ReportBase | (ReportBase | IPrintReport)[];
     data: IReportDataProvider;
     preview?: boolean;
     id?: string;
@@ -6593,7 +6634,7 @@ declare interface IPrintOptions {
 }
 
 declare interface IPrintReport {
-    report: Report_2;
+    report: ReportBase;
     data: IReportDataProvider;
 }
 
@@ -7046,6 +7087,10 @@ declare interface ISimpleGroupPrintInfo extends IGroupPrintInfo {
 
 declare interface ISimpleTemplate {
     [key: string]: any;
+}
+
+declare interface ISinglePageOptions {
+    border: boolean;
 }
 
 declare interface ISinglePageOptions {
@@ -7970,11 +8015,11 @@ declare class PaperOptions extends Base {
     getContentRect(r: Rectangle): Rectangle;
     getClientRect(page: ReportPage): Rectangle;
     applyExtents(page: ReportPage, css: CSSStyleDeclaration): void;
-    applyPreviewExtents(page: ReportPage, css: CSSStyleDeclaration, paperOrientation: PaperOrientation): {
+    applyPreviewExtents(page: ReportPageBase, css: CSSStyleDeclaration, paperOrientation: PaperOrientation): {
         pageWidth: number;
         pageHeight: number;
     };
-    applyClient(page: ReportPage, css: CSSStyleDeclaration): void;
+    applyClient(page: ReportPageBase, css: CSSStyleDeclaration): void;
     applyPreviewClient(page: ReportPage, css: CSSStyleDeclaration): {
         width: string;
         height: string;
@@ -8100,126 +8145,6 @@ declare class PreviewScrollContainer extends DesignerLayerElement {
     protected _fireScrollEnd(): void;
 }
 
-declare class PrintContainer extends PrintContainerBase {
-    static setMarkerElementsVisible(pages: PrintPage[], visible: boolean): void;
-    private _pageGap;
-    private _zoom;
-    private _styles;
-    onZoomed: (scale: number) => void;
-    private _context;
-    private _indicator;
-    private _reportView;
-    private _reportViews;
-    private _contexts;
-    private _pages;
-    private _preview;
-    private _previewId;
-    private _printMode;
-    private _pageToGo?;
-    private _printEditLayer;
-    private _printEditableItemManager;
-    private _floatingLayoutAction;
-    constructor(containerId: string | HTMLDivElement);
-    get reportView(): ReportView;
-    /** pageCount */
-    get pageCount(): number;
-    /** page */
-    get page(): number;
-    set page(value: number);
-    /** zoom */
-    get zoom(): number;
-    set zoom(value: number);
-    get pages(): PrintPage[];
-    get isPrinted(): boolean;
-    /**
-     * Report 에서 사용
-     */
-    get reportItemRegistry(): ReportItemRegistry | null;
-    /**
-     * Composite Report 에서 사용
-     */
-    get reportItemRegistries(): ReportItemRegistry[];
-    /**
-     * printEditableItemManager
-     */
-    get printEditableItemManager(): PrintEditableItemManager;
-    print(options: IPrintOptions): void;
-    printSingle(options: IPrintOptions): void;
-    printAll(options: IPrintOptions): void;
-    private $_printAll;
-    getPrintHtml(): string;
-    /** page */
-    getCurrentPage(scrollHeight: number, scrollTop: number): number;
-    loadAsyncLoadableElements(): Promise<void>;
-    setStyles(styles: any): void;
-    fitToWidth(): void;
-    fitToHeight(): void;
-    fitToPage(): void;
-    /**
-     * Multi 리포트이면서 가로로 시작하는 양식은 따로 설정이 필요함
-     * @returns 멀티 페이지이면서 첫번째 페이지가 가로양식으로 시작할 경우
-     */
-    needPrintScale(): boolean;
-    /**
-     * containerDiv의 크기에 맞춰 previewer의 위치를 재조정한다.
-     */
-    resetPreviewer(): void;
-    protected _doPrepareContainer(doc: Document, dom: HTMLElement): void;
-    protected _doResized(): void;
-    private $_refreshContextValues;
-    private $_replacePages;
-    private $_refreshHtmlItemValue;
-    private $_printReport;
-    private $_printPageless;
-    private $_getContainer;
-    private $_getPreviewer;
-    private $_getPageHeight;
-    private $_getPrintBack;
-    private $_removeBackContainer;
-    private $_resetPreviewer;
-    private $_buildOutput;
-    private $_buildNoPagingOutput;
-    private $_setFrontBackLayer;
-    /**
-     * 서브 밴드 페이지들은 다른 페이지들에 연결해서 사용되기 때문에 우선적으로 뷰를 준비한다.
-     */
-    private $_prepareSubPageViews;
-    /**
-     * unitpost 한장 요약 HTML 요청으로 singlePage 별도 메서드로 분리
-     */
-    private $_prepareSinglePage;
-    private $_setSinglePage;
-    private $_setSinglePageStyles;
-    private $_isReportFooter;
-    private $_setPrintMode;
-    private $_getScaleSize;
-    /**
-     * 각 인쇄 영역 Container Style 설정
-     */
-    private $_setPageContainerStyle;
-    private $_setLandscapePageStyle;
-    private $_setPrintScaleStyle;
-    private $_setUnvisibleDom;
-    private $_layoutFloatings;
-    private $_setLanguageContext;
-    /**
-     * 출력 옵션 검증
-     * @throws 출력 옵션이 유효하지 않을 경우 에러 발생
-     */
-    private $_validatePrintOptions;
-    private $_validateReportOption;
-    private $_createReportView;
-    private $_instanceofIPrintReport;
-    private $_addMarkerEventListener;
-    private $_addEditableItemToManager;
-    /**
-     * 한 페이지당 수정가능한 아이템 정보를 찾아서 정보를 최신화 시킨다.
-     */
-    private $_addEditableItems;
-    private $_addBorderContainer;
-    protected _scrollEndHandler: () => void;
-}
-
 declare abstract class PrintContainerBase extends VisualContainer {
     static readonly CLASS_NAME = "rr-report-container";
     static readonly PREVIEW_CLASS = "rr-report-preview";
@@ -8231,20 +8156,57 @@ declare abstract class PrintContainerBase extends VisualContainer {
     traceMode: boolean;
     private _align;
     onGetStampImage: () => Promise<string>;
+    protected _pageGap: number;
+    private _zoom;
+    private _styles;
+    onZoomed: (scale: number) => void;
     private _signLayer;
     private _errorView;
     protected _options: IPrintOptions;
     private _signPanel;
     private _signed;
     private _stampPanel;
+    protected _preview: boolean;
+    protected _previewId: string;
+    protected _printMode: PrintMode;
     constructor(containerId: string | HTMLDivElement);
     abstract get reportView(): ReportViewBase;
+    abstract get reportViews(): ReportViewBase[];
+    /** align */
     get align(): Align;
     set align(value: Align);
+    /** zoom */
+    get zoom(): number;
+    set zoom(value: number);
+    abstract page: number;
+    abstract get pageCount(): number;
+    abstract get isPrinted(): boolean;
+    abstract getCurrentPage(scrollHeight: number, scrollTop: number): number;
+    abstract fitToWidth(): void;
+    abstract fitToHeight(): void;
+    abstract fitToPage(): void;
+    abstract loadAsyncLoadableElements(): Promise<void>;
     print(options: IPrintOptions): void;
+    /**
+     * Multi 리포트이면서 가로로 시작하는 양식은 따로 설정이 필요함
+     * @returns 멀티 페이지이면서 첫번째 페이지가 가로양식으로 시작할 경우
+     */
+    needPrintScale(): boolean;
+    setStyles(styles: any): void;
+    getScaleSize(width: number, height: number): number;
+    startPrint(doc: Document, ctx: PrintContextBase, id: string, pageMark: boolean): HTMLElement;
+    getPrintHtml(): string;
+    /**
+     * containerDiv의 크기에 맞춰 previewer의 위치를 재조정한다.
+     */
+    resetPreviewer(): void;
     get printing(): boolean;
     protected _doPrepareContainer(doc: Document, dom: HTMLElement): void;
     protected _render(timestamp: number): void;
+    protected _getContainer(): HTMLElement;
+    protected _getPreviewer(id?: string): HTMLElement;
+    protected _setLanguageContext(ctx: PrintContextBase, report: ReportBase, language?: string): void;
+    protected _setPrintMode(reports: ReportBase | (ReportBase | IPrintReport)[]): void;
     protected _initialize(div: HTMLDivElement): void;
     protected _showError(dom: HTMLElement, error: any): void;
     protected _hideError(): void;
@@ -8256,27 +8218,29 @@ declare abstract class PrintContainerBase extends VisualContainer {
     protected _validatePrintOptions(options: unknown): void;
     private _validateReportOption;
     private _instanceofIPrintReport;
+    protected _resetPreviewer(): void;
     private $_clickHandler;
     $_keydownHandler: (ev: KeyboardEvent) => boolean;
 }
 
 declare class PrintContext extends PrintContextBase<Report_2> {
+    private _reportView;
     get reportView(): ReportView;
     set reportView(value: ReportView);
     getBaseView(view: InheritableSectionElement<any>, viewType: string): InheritableSectionElement<any>;
+    preparePrint(report?: Report_2): void;
 }
 
 /**
  * Printing 관련 상태 정보 모델.
  */
-declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base {
+declare abstract class PrintContextBase<R extends ReportBase = ReportBase> extends Base {
     static readonly VALUES: string[];
     private _printing;
     private _compositePrinting;
     private _dp;
     private _desingDp;
     private _assets;
-    private _reportView;
     private _pageWidth;
     private _pageHeight;
     private _date;
@@ -8338,6 +8302,7 @@ declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base {
      * compositePrinting 복합 출력 여부를 반환
      */
     get compositePrinting(): boolean;
+    abstract reportView: ReportViewBase;
     /**
      * data provider
      */
@@ -8353,11 +8318,6 @@ declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base {
      */
     get assets(): AssetManager;
     set assets(value: AssetManager);
-    /**
-     * reportView
-     */
-    get reportView(): ReportViewBase;
-    set reportView(value: ReportViewBase);
     /**
      * pageWidth
      */
@@ -8458,34 +8418,18 @@ declare class PrintContextBase<R extends ReportBase = ReportBase> extends Base {
     initialize(): void;
 }
 
-/**
- * 리얼리포트 출력후에도 내용 수정이 가능한 아이템들의 정보를 저장하고 관리한다.
- */
-declare class PrintEditableItemManager extends Base {
-    static readonly FOCUSED_ITEMS: string[];
-    private _editableItems;
-    constructor();
-    get canFocusedItems(): EditableItem[];
-    addEditableItem(itemView: ReportItemView, targetElement: HTMLElement, markerElement: HTMLElement): void;
-    updateEditableItem(markerElement: HTMLElement, newValue: string): void;
-    getEditableItems(): EditableItemMeta[];
-    nextItem(currentElement: HTMLElement): EditableItem | undefined;
-    prevItem(currentElement: HTMLElement): EditableItem | undefined;
-    /**
-     * 포커스 가능한 아이템중에서 현재 선택된 아이템 인덱스 정보
-     * @param element 현재 선택된 요소
-     * @returns 포커스 가능한 아이템 목록에서 현재 선택된 아이템 인덱스
-     */
-    private $_getFoucsedElementIndex;
-    private $_convertValue;
-}
-
-declare type PrintEndCallback = (ctx: PrintContext, pages: PrintPage[]) => void;
+declare type PrintEndCallback = (ctx: PrintContextBase, pages: PrintPage[]) => void;
 
 declare type PrintLine = {
     line: HTMLElement | BandPrintInfo<BandModel> | ReportFooterPrintInfo | PageBreaker;
     pageIndex: number;
 };
+
+declare enum PrintMode {
+    PORTRAIT = "portrait",
+    LANDSCAPE = "landscape",
+    MULTI = "multi"
+}
 
 /**
  * print page model.
@@ -8493,15 +8437,17 @@ declare type PrintLine = {
 declare class PrintPage {
     page: HTMLDivElement;
     pageOrientation: PaperOrientation;
-    pageHeader: HTMLDivElement;
-    pageFooter: HTMLDivElement;
+    pageHeader: PrintPageElement;
+    pageFooter: PrintPageElement;
     background: HTMLDivElement;
-    contents: HTMLDivElement[];
+    contents: PrintPageElement[];
     foreground: HTMLDivElement;
     reportIndex: number;
 }
 
-declare type PrintPageCallback = (ctx: PrintContext, page: PrintPage, pageNo: number) => void;
+declare type PrintPageCallback = (ctx: PrintContextBase, page: PrintPage, pageNo: number) => void;
+
+declare type PrintPageElement = HTMLDivElement | HTMLTableElement;
 
 declare enum PrintUnit {
     PIXEL = "px",
@@ -9732,7 +9678,6 @@ declare class Report_2 extends ReportBase<ReportPage> {
      * row + 1 행의 높이를 줄이거나 늘이면서 row 행의 높이를 변경한다.
      */
     adjustRowHeights(table: TableBase, row: number, rowPoints: number[], newSize: number): void;
-    isFirstPageLandscape(): boolean;
     protected _createReportLoader(): IReportLoader;
     protected _createPage(): ReportPage;
     protected _createSubBandPage(): SubBandPage;
@@ -9964,6 +9909,7 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     addItem(parent: ReportGroupItem, item: ReportItem, index?: number): boolean;
     checkPasteTo(target: ReportPageItem): void;
     isUsed(data: IReportData): boolean;
+    isFirstPageLandscape(): boolean;
     abstract prepareLayout(page: number): void;
     protected abstract _createReportLoader(): IReportLoader;
     protected abstract _createPage(): T;
@@ -10122,6 +10068,7 @@ export declare class ReportDesigner {
 declare class ReportDesigner_2 extends VisualContainer {
     static readonly CLASS_NAME = "rrd-report-designer";
     static readonly PROPERTY_SECTION_START_WIDTH: number;
+    static readonly PREVIEW_CONTAINER_ID = "rrd-report-designer-preview";
     static readonly DIALOG_CLOSED = "onDialogClosed";
     static readonly REPORT_COMMAND_STACK_CHANGED = "onReportCommandStackChanged";
     static readonly REPORT_SAVED = "onReportSaved";
@@ -10263,6 +10210,7 @@ declare class ReportDesigner_2 extends VisualContainer {
      */
     get propertyMode(): PropertyMode;
     set propertyMode(value: PropertyMode);
+    get previewMode(): PreviewMode;
     /**
      * panelMode
      */
@@ -12456,7 +12404,6 @@ declare abstract class ReportViewBase<T extends ReportBase = ReportBase> extends
     static readonly PAGE_HEAD = "rr-page-head";
     protected _model: T;
     private _loadError;
-    private _editable;
     protected _pageLayer: PageViewContainer;
     protected _emptyView: VisualElement;
     private _images;
@@ -12464,13 +12411,11 @@ declare abstract class ReportViewBase<T extends ReportBase = ReportBase> extends
         [key: string]: ReportElement;
     };
     protected _modelDirty: boolean;
-    constructor(doc: Document, editable: boolean, printing: boolean);
+    constructor(doc: Document, printing: boolean);
     addImage(url: string): void;
     imageLoaded(url: string): void;
     imagesAllLoaded(): boolean;
     abstract get pageView(): VisualElement;
-    /** editable */
-    get editable(): boolean;
     /** model */
     get model(): T;
     set model(value: T);
@@ -12490,7 +12435,7 @@ declare abstract class ReportViewBase<T extends ReportBase = ReportBase> extends
     protected abstract _resetPages(model: T): void;
     protected _modelReset(): void;
     protected _modelChanged(): void;
-    $_preparePrint(ctx: PrintContext): void;
+    _preparePrint(ctx: PrintContext): void;
     protected onReportReset(report: ReportBase): void;
     protected onReportPaperChanged(report: ReportBase): void;
     protected onReportPageAdded(report: ReportBase, page: ReportPageBase): void;
@@ -13121,6 +13066,7 @@ declare class Sheet extends ReportGroupItem {
     getCellHeight(row: number, span: number): number;
     setConditionalFormatting(options: IConditionalFormattingOptions): void;
     getCD(): IConditionalFormattingOptions[];
+    prepareRowHeightsAndColumnWidths(): void;
     getSaveType(): string;
     get outlineLabel(): string;
     get pathLabel(): string;
@@ -13280,17 +13226,6 @@ declare class SheetEditor extends ReportContainer<ExcelPrintContext> {
     protected _createDefaultTool(): VisualTool;
     protected _createContext(): ExcelPrintContext;
     protected _doLayout(bounds: Rectangle): void;
-    /**
-     * 모든 Formula를 처리하는 메서드
-     *
-     * 밴드안에 있는 텍스트 아이템 중 Formula를 사용하는 객체만 처리한다.
-     * Formula를 실행하고, 그 결과값을 텍스트 아이템의 값으로 사용한다.
-     *
-     * @param renderInfos 시트 리포트의 모든 셀
-     */
-    private $_resolveFormula;
-    private $_setFormulaDependency;
-    private $_calcOrder;
     private $_clickHandler;
     $_keydownHandler: (ev: KeyboardEvent) => boolean;
 }
@@ -13321,7 +13256,7 @@ declare class SheetEditTable extends ExcelTableElementBase {
     render(sheet: Sheet, cells: {
         infos: IExcelRenderInfo[];
         heights: number[];
-    }): void;
+    }, pageWidth?: number): void;
     getConditionalRef(): string[];
     columnWidthsChanged(): void;
     rowHeightsChanged(): void;
@@ -13363,6 +13298,8 @@ declare class SheetEditTable extends ExcelTableElementBase {
  */
 declare class SheetEditView extends DesignerElement implements ISheetSelectionOwner {
     static getCellInfo(dom: HTMLElement): IExcelCell;
+    static prepareImageContent(div: HTMLElement, cell: IExcelCell, rowHeight: number): void;
+    static prepareBarContent(cellContainer: HTMLElement, cell: IExcelCell, rowHeight: number): void;
     private _sheetView;
     private _selectionLayer;
     private _selections;
@@ -13441,6 +13378,13 @@ declare abstract class SheetItemCollection<C extends SheetCollectionItem = Sheet
     abstract getSaveType(): string;
     protected abstract _createItem(source: any): C;
     protected _resetIndices(from: number): void;
+}
+
+/**
+ * Print view for a sheet report.
+ */
+declare class SheetPrintView extends LayerElement {
+    print(doc: Document, ctx: ExcelPrintContext, previewOptions: IPreviewOptions): void;
 }
 
 /**
@@ -13592,6 +13536,7 @@ declare type SignLine = Array<{
 declare class SimpleBand extends DataBand {
     static readonly PROP_SIMPLE_BAND_GROUPS = "groups";
     static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
     static readonly $_ctor: string;
     static readonly ITEM_TYPE = "Simple Band";
     private _groups;
@@ -14104,6 +14049,7 @@ declare class TableBand extends TableLikeBand {
     static readonly PROP_GROUPS = "groups";
     static readonly PROP_END_ROW_MERGED = "endRowMerged";
     static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
     static readonly DEFAULT_COL_COUNT = 5;
     static readonly $_ctor: string;
     static readonly ITEM_TYPE: string;
@@ -15435,6 +15381,9 @@ declare class TextItem extends TextItemBase {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
     protected _isI18nFieldExist(): boolean;
+    canResize(dir: ResizeDirection): boolean;
+    canSized(): boolean;
+    canRotate(): boolean;
 }
 
 /**
@@ -15524,6 +15473,8 @@ declare abstract class TextItemBase extends ReportItem {
     adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
     getDataValue(dp: IReportDataProvider, row: number): any;
 }
+
+/* Excluded from this release type: TextItemElement */
 
 /* Excluded from this release type: TextItemElementBase */
 

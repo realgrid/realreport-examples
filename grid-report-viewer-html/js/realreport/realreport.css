@@ -1,5 +1,5 @@
 /* 
-RealReport v1.10.15
+RealReport v1.11.0
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -1324,6 +1324,10 @@ border-bottom: 1px solid #ccc; */
   border: 1px solid #ddd;
   overflow: hidden;
   white-space: pre;
+}
+
+.rr-sheet-print-table tr td {
+  border-color: transparent;
 }
 
 .rr-sheet-design-table tr {
