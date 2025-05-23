@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.11.0
+RealReport Designer v1.11.1
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -1331,6 +1331,7 @@ border-bottom: 1px solid #ccc; */
 }
 
 .rr-sheet-print-table tr td {
+  border: 0;
   border-color: transparent;
 }
 

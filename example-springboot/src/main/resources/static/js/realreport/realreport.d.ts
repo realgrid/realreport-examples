@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.0
-* commit 8cf9ea2
+* RealReport v1.11.1
+* commit 7529048
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.11.0
+* RealReport Core v1.11.1
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 852a3416129d38fc73ea84292bb6e3a10b650dab
+* commit ac4e853ce18f259eb6409cee66c7a24e7d0a8b59
 */
 
 
@@ -2486,6 +2486,8 @@ declare abstract class TableBase extends CellContainer {
      * 가장 상단의 item만 보존된다.
      */
     mergeCells(r1: number, c1: number, r2: number, c2: number): void;
+    removeCols(index: number, count: number): void;
+    resetCells(): void;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
@@ -2503,8 +2505,6 @@ declare abstract class TableBase extends CellContainer {
     isAncestorOf(item: ReportPageItem): boolean;
     protected _createRows(): TableRowCollection;
     protected _spanChanged(cell: TableCell$1): void;
-    protected _resetCells(): void;
-    protected _removeCols(index: number, count: number): void;
     protected _addCols(col: number, count: number): void;
     protected _moveCols(col: number, count: number, newCol: number): void;
     protected _removeRows(index: number, count: number): void;
@@ -2815,6 +2815,8 @@ declare class TableBandRowGroupCollection extends ReportItemCollection<TableBand
     remove(group: TableBandRowGroup): boolean;
     clear(): boolean;
     getValidGroups(data: IBandData): TableBandRowGroup[];
+    removeCols(index: number, count: number): void;
+    resetCells(): void;
     get page(): ReportPageBase;
     get displayPath(): string;
     get level(): number;
@@ -10400,7 +10402,7 @@ declare class BandGroupElement extends ReportGroupItemElement<BandGroup> {
     protected _setDesignContent(empty: boolean, designView: HTMLDivElement): void;
     private $_calcCellsSize;
 }
-declare class BandGroupTextPrintInfo {
+declare class TextPrintInfo {
     bandCellWidth: number;
     bandCellHeight: number;
     element: TextItemElement;
@@ -10408,7 +10410,7 @@ declare class BandGroupTextPrintInfo {
 }
 declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     group: BandGroup;
-    groupInfos: (BandGroupTextPrintInfo | BandPrintInfo<BandModel> | TextBandPrintInfo)[];
+    groupInfos: (TextPrintInfo | BandPrintInfo<BandModel> | TextBandPrintInfo)[];
     left: string;
     gap: number;
     isEnded(): boolean;

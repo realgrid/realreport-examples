@@ -414,7 +414,7 @@ declare class BandGroupMarquee extends EditMarquee<BandGroupElement> {
 
 declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     group: BandGroup;
-    groupInfos: (BandGroupTextPrintInfo | BandPrintInfo<BandModel> | TextBandPrintInfo)[];
+    groupInfos: (TextPrintInfo | BandPrintInfo<BandModel> | TextBandPrintInfo)[];
     left: string;
     gap: number;
     isEnded(): boolean;
@@ -427,13 +427,6 @@ declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     private $_createBandGroupPage;
     private $_attachHorizontalBandGroup;
     private $_attachVeritcalBandGroup;
-}
-
-declare class BandGroupTextPrintInfo {
-    bandCellWidth: number;
-    bandCellHeight: number;
-    element: TextItemElement;
-    constructor(bandCellWidth: number, bandCellHeight: number, element: TextItemElement);
 }
 
 declare abstract class BandItemElement<T extends ReportBandItem = ReportBandItem> extends ReportGroupItemElement<T> {
@@ -14457,6 +14450,8 @@ declare class TableBandRowGroupCollection extends ReportItemCollection<TableBand
     remove(group: TableBandRowGroup): boolean;
     clear(): boolean;
     getValidGroups(data: IBandData): TableBandRowGroup[];
+    removeCols(index: number, count: number): void;
+    resetCells(): void;
     get page(): ReportPageBase;
     get displayPath(): string;
     get level(): number;
@@ -14641,6 +14636,8 @@ declare abstract class TableBase extends CellContainer {
      * 가장 상단의 item만 보존된다.
      */
     mergeCells(r1: number, c1: number, r2: number, c2: number): void;
+    removeCols(index: number, count: number): void;
+    resetCells(): void;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
@@ -14658,8 +14655,6 @@ declare abstract class TableBase extends CellContainer {
     isAncestorOf(item: ReportPageItem): boolean;
     protected _createRows(): TableRowCollection;
     protected _spanChanged(cell: TableCell): void;
-    protected _resetCells(): void;
-    protected _removeCols(index: number, count: number): void;
     protected _addCols(col: number, count: number): void;
     protected _moveCols(col: number, count: number, newCol: number): void;
     protected _removeRows(index: number, count: number): void;
@@ -15477,6 +15472,13 @@ declare abstract class TextItemBase extends ReportItem {
 /* Excluded from this release type: TextItemElement */
 
 /* Excluded from this release type: TextItemElementBase */
+
+declare class TextPrintInfo {
+    bandCellWidth: number;
+    bandCellHeight: number;
+    element: TextItemElement;
+    constructor(bandCellWidth: number, bandCellHeight: number, element: TextItemElement);
+}
 
 declare type ToolButonVariant = 'default' | 'outline' | 'filled' | 'subtle';
 
