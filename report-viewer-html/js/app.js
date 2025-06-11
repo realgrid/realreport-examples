@@ -472,3 +472,15 @@ function clickEditorToolButton(target) {
 
     resetActiveClass(target, 'tool-button', 'active');
 }
+
+// 사이드바에서 맵차트 보기 메뉴 클릭
+function sampleMapChart(el, type) {
+    const form = window[type];
+    openTab('reportTab', 'gridTab');
+    reportViewer = webDesignerFrame('webDesignerFrame', form);
+    reportForm = form;
+    dataSet = form.data;
+    setEditorModel('reportForm');
+    hiddenFrame('reportFrame');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+}

@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.11.1
+RealReport Designer v1.11.2
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -7272,6 +7272,9 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   font-style: normal;
   border: 1px solid rgba(191, 191, 191, 0.3);
   /* border: none; */
+}
+.rr-map-chart .rr-design-back {
+  z-index: 1;
 }
 .rr-box-container.rr-cbox.rr-group-element > .rr-design-back {
   display: flex;
