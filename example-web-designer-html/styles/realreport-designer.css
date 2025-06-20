@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.11.2
+RealReport Designer v1.11.3
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -14,12 +14,8 @@ All Rights Reserved.
   color: #000000;
   -webkit-appearance: none;
   outline: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   -ms-touch-action: none;
+  -webkit-touch-callout: none;
   -webkit-print-color-adjust: exact;
 }
 

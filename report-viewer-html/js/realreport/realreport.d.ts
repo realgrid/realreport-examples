@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.2
-* commit 0bace32
+* RealReport v1.11.3
+* commit a78cb599
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.11.2
+* RealReport Core v1.11.3
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 2452e52b87d234824f030dc50f4967a3d573573b
+* commit 645ea5b84a0ca9591145ea337113c4aeade413ed
 */
 
 
@@ -8107,6 +8107,7 @@ interface IPreviewOptions {
     paging?: boolean;
     language?: string;
     editable?: boolean;
+    textSelectable?: boolean;
     callback?: PrintPageCallback;
     endCallback?: PrintEndCallback;
     signCallback?: SignCallback;
@@ -14975,6 +14976,10 @@ declare class PrintContainer extends PrintContainerBase {
     private $_replacePages;
     private $_refreshHtmlItemValue;
     private $_printReport;
+    /**
+     * 페이지 구분없이 출력
+     * - 이메일은 무조건 페이지 구분없이 출력한다.
+     */
     private $_printPageless;
     private $_getPageHeight;
     private $_getPrintBack;
@@ -49340,6 +49345,19 @@ type PreviewOptions = {
      */
     paging?: boolean;
     /**
+     * 미리보기가 시작될때 호출되는 콜백함수
+     */
+    callback?: PrintPageCallback;
+    /**
+     * 미리보기 끝날때 호출되는 콜백함수
+     */
+    endCallback?: PrintEndCallback;
+    /**
+     * 미리보기에서 텍스트 선택 가능 여부를 설정합니다.
+     * @defaultValue false
+     */
+    textSelectable?: boolean;
+    /**
      * 리포트를 한장에 여백없이 출력하는 옵션
      * @defaultValue `false`
      */
@@ -49349,14 +49367,6 @@ type PreviewOptions = {
      * @defaultValue `{ border: true }`
      */
     singlePageOptions?: ISinglePageOptions;
-    /**
-     * 미리보기가 시작될때 호출되는 콜백함수
-     */
-    callback?: PrintPageCallback;
-    /**
-     * 미리보기 끝날때 호출되는 콜백함수
-     */
-    endCallback?: PrintEndCallback;
 };
 /**
  * 리포트 출력 옵션
