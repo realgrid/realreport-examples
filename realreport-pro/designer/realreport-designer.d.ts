@@ -6642,6 +6642,7 @@ declare interface IPreviewOptions {
     paging?: boolean;
     language?: string;
     editable?: boolean;
+    textSelectable?: boolean;
     callback?: PrintPageCallback;
     endCallback?: PrintEndCallback;
     signCallback?: SignCallback;
