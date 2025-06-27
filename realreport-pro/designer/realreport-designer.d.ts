@@ -2167,7 +2167,7 @@ declare class DataListContainer extends DataContainer {
     private _dataPanel;
     private _dragImage;
     constructor(doc: Document, dataPanel: DataPanel);
-    get headerView(): HeaderView;
+    get headerView(): DataListHeaderView;
     get bodyView(): BodyView$1;
     /**
      * listMode
@@ -2196,6 +2196,18 @@ declare class DataListContainer extends DataContainer {
     private _dblClickHandler;
     private _dragStartHandler;
     private $_addDataToReport;
+}
+
+declare class DataListHeaderView extends DesignerLayerElement {
+    static readonly ACTION_BUTTON_CLASS_NAME = "rrd-data-list-header-action-button";
+    private _dataListContainer;
+    get dataListContainer(): DataListContainer;
+    set dataListContainer(container: DataListContainer);
+    refresh(): void;
+    protected _doInitDom(doc: Document, dom: HTMLElement): void;
+    protected _doInitStyles(dom: HTMLElement): void;
+    private $_resetButtons;
+    private $_setButtonVisibleByTag;
 }
 
 /**
@@ -5232,17 +5244,6 @@ declare abstract class HeaderSelection {
     resize(to: number): boolean;
     canSelectedWith(other: ISelectionSource): boolean;
     canMakeSnippet(): boolean;
-}
-
-declare class HeaderView extends DesignerLayerElement {
-    private _dataListContainer;
-    get dataListContainer(): DataListContainer;
-    set dataListContainer(container: DataListContainer);
-    refresh(): void;
-    protected _doInitDom(doc: Document, dom: HTMLElement): void;
-    protected _doInitStyles(dom: HTMLElement): void;
-    private $_resetButtons;
-    private $_setButtonVisibleByTag;
 }
 
 declare abstract class HichartAxis extends ChartObject<HichartItem> {

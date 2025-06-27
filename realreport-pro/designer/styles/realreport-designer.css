@@ -1,11 +1,25 @@
 /* 
-RealReport Designer v1.11.3
+RealReport Designer v1.11.4
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
 @charset "UTF-8";
 
 /* Report Style */
+
+sup {
+  vertical-align: super;
+}
+
+sub {
+  vertical-align: sub;
+}
+
+sub, sup {
+  font-size: smaller;
+  top: 0;
+  line-height: normal;
+}
 
 .rr-report-root {
   font-family: "Malgun Gothic", "맑은 고딕", AppleSDGothicNeo-Light, sans-serif;
@@ -1710,12 +1724,12 @@ border-bottom: 1px solid #ccc; */
   display: flex;
   align-items: center;
   stroke-width: 1.5px;
-  stroke: var(--light-theme-icon-color);
+  stroke: #f3f3f3;
   cursor: pointer;
 }
 
-.rr-border-direction-icons-container:hover {
-  background: var(--rrd-light-theme-primary-color-4);
+.rr-border-direction-icons-container:hover>svg {
+  opacity: 0.8;
 }
 
 @keyframes fade-out {
@@ -3301,6 +3315,14 @@ input[data-rrproperty]::-webkit-inner-spin-button {
     font-size: 12px;
 }
 
+/* Sheet Border 관련 덮어쓰기 용 */
+.rr-border-direction-icons-container {
+  stroke: #f3f3f3;
+}
+.rr-border-direction-icons-container:hover {
+  background: none;
+}
+
 .rp-expander {
     flex: 0 0 13px;
     display: inline-flex;
@@ -3320,6 +3342,7 @@ input[data-rrproperty]::-webkit-inner-spin-button {
     background: white;
     padding: 2px;
     border-radius: 1px;
+    cursor: pointer;
 }
 
 .rp-color-style-box {
@@ -4970,16 +4993,18 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 .rrd-data-container {
   background-color: var(--rrd-light-theme-primary-color-1);
 }
-.rrd-data-list-header button:not([title="Grid"]):not([title="List"]) {
+.rrd-data-list-header-action-button {
   min-width: 70px;
   font-size: 12px;
+  border: none;
   background-color: var(--rrd-light-theme-primary-color-8);
   color: var(--light-theme-light-text-color);
   border-radius: 3px;
 }
-.rrd-data-list-header button:not([title="Grid"]):not([title="List"]) span {
+.rrd-data-list-header-action-button span {
   color: var(--light-theme-light-text-color);
 }
+
 .rrd-data-container .rrd-data-list-body {
   display: flex;
   align-items: flex-start;
@@ -6761,6 +6786,14 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   background-color: transparent;
 }
 
+.rr-border-direction-icons-container {
+  stroke: var(--light-theme-icon-color);
+}
+
+.rr-border-direction-icons-container:hover {
+  background: var(--rrd-light-theme-primary-color-4);
+}
+
 /* outline */
 .rrd-outline-header {
   padding: 0 12px;
@@ -7194,7 +7227,6 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 
 /** color-style-box */
 .rp-color-style {
-  height: 25px !important;
   cursor: pointer;
 }
 .rp-color-style-box {
@@ -7204,14 +7236,6 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   border: 1px solid #b4b1b1;
   border-radius: 5px;
 }
-/* 스타일을 통일하기로 함 */
-/* .rp-color-style-box[data-empty="true"] {
-  border: none;
-  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMjciIHZpZXdCb3g9IjAgMCAzMCAyNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzE4NTZfMjM0MikiPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEzLjgyODYgMjUuMjMwMkMxMi4zNzE0IDI2LjM0MDIgMTAuNTU3MSAyNi45ODUyIDguNTg1NzEgMjYuOTg1MkMzLjg0Mjg2IDI2Ljk4NTIgMCAyMy4yMjAyIDAgMTguNTU1MkMwIDE1LjMzMDIgMS44NTcxNCAxMi41MjUyIDQuNTcxNDMgMTEuMTE1MkM1LjA0Mjg2IDEyLjc4MDIgNS45NTcxNCAxNC4yNjUyIDcuMTcxNDMgMTUuNDY1MkM4LjMgMTYuNTc1MiA5LjcgMTcuNDMwMiAxMS4yNzE0IDE3LjkyNTJDMTEuMjcxNCAxOC4xNTAyIDExLjI0MjkgMTguMzYwMiAxMS4yNDI5IDE4LjU3MDJDMTEuMjQyOSAyMS4xMjAyIDEyLjIxNDMgMjMuNDYwMiAxMy44Mjg2IDI1LjIxNTJWMjUuMjMwMloiIGZpbGw9IiM4Q0JFODgiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yOS45OTk2IDE4LjU3MDVDMjkuOTk5NiAyMy4yMjA1IDI2LjE1NjcgMjcuMDAwNSAyMS40MTM4IDI3LjAwMDVDMTYuNjcxIDI3LjAwMDUgMTIuODI4MSAyMy4yMzU1IDEyLjgyODEgMTguNTcwNVYxOC4yNzA1QzEzLjMyODEgMTguMzQ1NSAxMy44MjgxIDE4LjM3NTUgMTQuMzQyNCAxOC4zNzU1QzE3LjE0MjQgMTguMzc1NSAxOS42ODUzIDE3LjI2NTUgMjEuNTQyNCAxNS40NTA1QzIyLjg3MSAxNC4xNDU1IDIzLjgyODEgMTIuNDgwNSAyNC4yNzEgMTAuNjA1NUMyNy41OTk2IDExLjc2MDUgMjkuOTk5NiAxNC44ODA1IDI5Ljk5OTYgMTguNTU1NVYxOC41NzA1WiIgZmlsbD0iI0ZGOEM4QyIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTIyLjk1NzYgOC40M0MyMi45NTc2IDEzLjA4IDE5LjExNDcgMTYuODYgMTQuMzcxOCAxNi44NkM5LjYyODk5IDE2Ljg2IDUuNzg2MTMgMTMuMDk1IDUuNzg2MTMgOC40M0M1Ljc4NjEzIDMuNzY1IDkuNjE0NyAwIDE0LjM1NzYgMEMxOS4xMDA0IDAgMjIuOTQzMyAzLjc2NSAyMi45NDMzIDguNDNIMjIuOTU3NloiIGZpbGw9IiM1RkMwRjEiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF8xODU2XzIzNDIiPgo8cmVjdCB3aWR0aD0iMzAiIGhlaWdodD0iMjciIGZpbGw9IndoaXRlIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==")
-    no-repeat center;
-  background-size: 18px;
-  background-color: transparent !important;
-} */
 
 /** colorPicker */
 .rr-color-picker {
