@@ -1,9 +1,24 @@
 /* 
-RealReport v1.11.3
+RealReport v1.11.4
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
-@charset "UTF-8"; .rr-report-root {
+@charset "UTF-8"; 
+sup {
+  vertical-align: super;
+}
+
+sub {
+  vertical-align: sub;
+}
+
+sub, sup {
+  font-size: smaller;
+  top: 0;
+  line-height: normal;
+}
+
+.rr-report-root {
   font-family: "Malgun Gothic", "맑은 고딕", AppleSDGothicNeo-Light, sans-serif;
   font-size: 13px;
   line-height: normal;
@@ -1706,12 +1721,12 @@ border-bottom: 1px solid #ccc; */
   display: flex;
   align-items: center;
   stroke-width: 1.5px;
-  stroke: var(--light-theme-icon-color);
+  stroke: #f3f3f3;
   cursor: pointer;
 }
 
-.rr-border-direction-icons-container:hover {
-  background: var(--rrd-light-theme-primary-color-4);
+.rr-border-direction-icons-container:hover>svg {
+  opacity: 0.8;
 }
 
 @keyframes fade-out {

@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.3
-* commit a78cb599
+* RealReport v1.11.4
+* commit d74e2fa3
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.11.3
+* RealReport Core v1.11.4
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 645ea5b84a0ca9591145ea337113c4aeade413ed
+* commit 189f6588c79cc8beed517aec55c35bc1dc21851b
 */
 
 
@@ -15159,6 +15159,41 @@ declare class Email extends Report {
     protected _createReportInfo(report: Report): ReportInfo;
     protected _createReportLoader(): IReportLoader;
     protected _createPage(): ReportPage;
+}
+
+declare class ExcelPrintContainer extends PrintContainerBase {
+    private _context;
+    private _indicator;
+    private _printView;
+    private _reportView;
+    private _reportViews;
+    private _contexts;
+    private _pages;
+    private _pageToGo?;
+    private _cells;
+    private _heights;
+    get reportView(): ExcelReportView;
+    get reportViews(): ExcelReportView[];
+    get printView(): SheetPrintView;
+    get context(): ExcelPrintContext;
+    print(options: IPrintOptions): void;
+    printSingle(options: IPrintOptions): void;
+    printAll(options: IPrintOptions): void;
+    get isPrinted(): boolean;
+    /** pageCount */
+    get pageCount(): number;
+    /** page */
+    get page(): number;
+    set page(value: number);
+    get pages(): PrintPage[];
+    fitToWidth(): void;
+    fitToHeight(): void;
+    fitToPage(): void;
+    getCurrentPage(scrollHeight: number, scrollTop: number): number;
+    loadAsyncLoadableElements(): Promise<void>;
+    protected _doPrepareContainer(doc: Document, dom: HTMLElement): void;
+    private $_printReport;
+    private $_getPageHeight;
 }
 
 /**
@@ -49049,7 +49084,7 @@ type ErrorParams = {
 declare abstract class ReportViewBase {
     protected _options: ReportOptions;
     protected _cm: boolean;
-    protected _container: PrintContainer | undefined;
+    protected _container: PrintContainer | ExcelPrintContainer | undefined;
     protected _currentPage: number;
     protected _containerId: string;
     constructor(container: string | HTMLDivElement, options?: ReportOptions);
@@ -49069,6 +49104,7 @@ declare abstract class ReportViewBase {
         errorParams: ErrorParams;
     }[]): void;
     protected _checkPrintContainerZoom(): void;
+    protected _createContainer(container: string | HTMLDivElement): PrintContainer | ExcelPrintContainer;
     get containerId(): string;
     set containerId(container: string | HTMLDivElement);
     get version(): string;
@@ -49102,16 +49138,17 @@ declare abstract class ReportViewBase {
 declare class ReportViewer extends ReportViewBase {
     private _reportForm?;
     private _dataSet?;
-    protected _report: Report | Email;
+    protected _report: ExcelReport | Email | Report;
     private _reportDataProvider;
     private _isPaging;
     private _reportViewPrinter;
     private _reportViewExporter;
     constructor(container: string | HTMLDivElement, reportForm?: ReportForm, dataSet?: ReportDataSet, options?: ReportOptions);
     protected _setReportForm(data: ReportForm | ReportForm[]): void;
+    protected _createContainer(container: string | HTMLDivElement): PrintContainer | ExcelPrintContainer;
     get reportForm(): ReportForm;
     set reportForm(form: ReportForm);
-    get report(): Report | Email;
+    get report(): ExcelReport | Email | Report;
     get dataSet(): ReportDataSet;
     set dataSet(v: ReportDataSet);
     get isPaging(): boolean;
@@ -49165,6 +49202,15 @@ declare class ReportViewer extends ReportViewBase {
      * API 링크가 있는 데이터는 받아온 후에 사용자가 넘겨준 데이터에서 교체한다.
      */
     private $_prepareLinkData;
+    /**
+     * Report(일반 리포트, 이메일 리포트) 타입인지 시트리포트 타입인지를 확인합니다.
+     */
+    private $_isReport;
+    /**
+     * 현재 리포트가 문서(pptx, hwp, docs)를 지원하는지 여부를 결정합니다.
+     */
+    private $_hasSupportDocument;
+    private $_changeContainer;
 }
 
 /** REPORT CORE */
