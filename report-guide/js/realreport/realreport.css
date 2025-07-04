@@ -1,5 +1,5 @@
 /* 
-RealReport v1.11.4
+RealReport v1.11.5
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -522,6 +522,7 @@ border: 1px dotted #00000020; */
 }
 
 .rr-text > span {
+  width: 100%;
   pointer-events: none;
 }
 
@@ -561,6 +562,10 @@ border: 1px dotted #00000020; */
   text-align: center;
   content: "[SUMMARY]";
   display: table;
+  width: 100%;
+}
+
+.rr-summary > span {
   width: 100%;
 }
 

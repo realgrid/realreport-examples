@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.4
-* commit d74e2fa3
+* RealReport v1.11.5
+* commit f2362f5
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.11.4
+* RealReport Core v1.11.5
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 189f6588c79cc8beed517aec55c35bc1dc21851b
+* commit 64e86b91b35738ca3d161877acf177c58c67ffda
 */
 
 
@@ -5821,23 +5821,37 @@ declare abstract class TextItemBase extends ReportItem {
 declare class TextItem extends TextItemBase {
     static readonly PROP_MULTI_LINE = "multiLine";
     static readonly PROP_TEXT = "text";
+    static readonly PROP_WORD_BREAK = "wordBreak";
     static readonly PROP_ON_GET_CONTEXT_VALUE = "onGetContextValue";
     static readonly PROP_I18N = "internationalization";
     static readonly PROP_MERGE_RULE = "mergeRule";
     static readonly PROP_RICH = "rich";
+    static readonly PROP_ON_GET_COL_SPAN = "onGetColSpan";
+    static readonly PROP_AUTO_SHRINK = "autoShrink";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     static readonly ITEM_TYPE = "Text";
+    private _autoShrink;
     private _text;
+    private _wordBreak;
     private _rich;
     private _editing;
     private _i18nObject;
     private _mergeRule;
     private _contextValueCallback;
     private _onGetContextValue;
+    private _colSpanCallback;
+    private _onGetColSpan;
     private _contextValueCallbackFunc;
     private _contextValueCallbackDelegate;
+    private _colSpanCallbackFunc;
+    private _colSpanCallbackDelegate;
     constructor(name: string, text?: string);
+    /**
+     * wordBreak
+     */
+    get wordBreak(): WordBreak;
+    set wordBreak(value: WordBreak);
     /**
      * text
      */
@@ -5869,7 +5883,29 @@ declare class TextItem extends TextItemBase {
      */
     get contextValueCallback(): ContextValueCallback;
     set contextValueCallback(value: ContextValueCallback);
+    /**
+     * onGetColSpan
+     */
+    get onGetColSpan(): string;
+    set onGetColSpan(value: string);
+    /**
+     * colSpanCallback
+     */
+    get colSpanCallback(): ReportItemColSpanCallback;
+    set conSpanCallback(value: ReportItemColSpanCallback);
+    /**
+     * 자동 폰트 사이즈 조정.
+     * 설정 시 텍스트가 설정된 사이즈를 초과하는 경우
+     * 자동적으로 사이즈를 조정하여 모든 텍스트가 보여지도록 하는 설정입니다.
+     */
+    get autoShrink(): boolean;
+    set autoShrink(value: boolean);
     getDesignText2(system: boolean): string;
+    /**
+     * value 값은 onGetValueCallback에서 계산된 값이다.
+     * @returns {number | null}
+     */
+    runColSpanCallback(ctx: PrintContext, value: any): number | undefined;
     get printEditable(): boolean;
     getSaveType(): string;
     get outlineLabel(): string;
@@ -7717,6 +7753,9 @@ declare class ExcelDataBandDataRow extends ExcelDataBandSection {
     get pathLabel(): string;
     getHiddenText(): string;
     writeAll(ctx: ExcelPrintContext, drows?: number[]): IExcelCell[];
+    /**
+     * Group용 데이터 행 작성
+     */
     writeRow(ctx: ExcelPrintContext, drow: number, col: number): IExcelCell[];
     protected _getSectionType(): BandSectionType;
     private $_writeRow;
@@ -10240,6 +10279,7 @@ declare class TableBodyLine {
     get rows(): HTMLTableRowElement[];
     get(index: number): HTMLTableRowElement;
     getCell(r: number, c: number): HTMLTableCellElement;
+    getRowByPrintRow(printRow: number): HTMLTableRowElement;
     appendTo(target: HTMLElement, minRowHeight?: number): void;
     insertTo(body: HTMLTableSectionElement, to?: number): void;
     detach(): void;
@@ -10350,6 +10390,11 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
     private $_addHeader;
     private $_addFooter;
     private $_addEndRow;
+    /**
+     * - TODO: TableDataRow의 rowcount가 2 이상이라면 제한두고 처리 필요
+     */
+    private $_applyMergeCells;
+    private $_findDataRowElement;
     /**
      * 왼쪽에서 오른쪽으로 먼저 끝에서 첫번째 컬럼으로 다시.
      * 최대한 모든 컬럼에 골고루 배치.
@@ -10918,6 +10963,7 @@ declare abstract class TextItemElementBase<T extends TextItemBase> extends Repor
     static readonly CLASS_NAME = "rr-text";
     static readonly CLASS_LIST: string;
     static readonly SPAN = "_rr_span_";
+    static readonly MIN_FONT_SIZE = 5;
     get span(): HTMLSpanElement;
     private _span;
     protected _text: string;
@@ -10926,6 +10972,7 @@ declare abstract class TextItemElementBase<T extends TextItemBase> extends Repor
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
     protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, size: Size$1): void;
     _doLayoutContent(ctx: PrintContext): void;
     refreshPrintValues(ctx: PrintContext): void;
     isDom(dom: HTMLElement): boolean;
@@ -10946,6 +10993,7 @@ declare class TextItemElement extends TextItemElementBase<TextItem> {
     setEditText(report: ReportBase, text: string): void;
     protected _getPrintText(ctx: PrintContext, model: TextItem): string;
     protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, size: Size$1): void;
     isDom(dom: HTMLElement): boolean;
 }
 
@@ -13145,6 +13193,10 @@ type ReportItemStyleCallback = (ctx: PrintContextBase, item: ReportItem, row: nu
 };
 type ReportItemVisibleCallback = (ctx: PrintContextBase, item: ReportItem, row: number, value: any) => boolean;
 /**
+ * - Table Band 아이템에서 셀 안에 TextItem일 경우 사용가능한 ColSpanCallback
+ */
+type ReportItemColSpanCallback = (ctx: PrintContextBase, item: ReportItem, row: number, value: any) => number;
+/**
  * Report 구성 요소 기반 클래스.
  *
  * [data]
@@ -14643,6 +14695,10 @@ declare enum PrintUnit {
     CENTI = "cm",
     MILLI = "mm"
 }
+declare enum WordBreak {
+    BREAK_ALL = "break-all",
+    BREAK_WORD = "break-word"
+}
 type ValueString = string | number;
 type Styles = {
     [key: string]: string | undefined;
@@ -14973,6 +15029,7 @@ declare class PrintContainer extends PrintContainerBase {
     protected _doPrepareContainer(doc: Document, dom: HTMLElement): void;
     protected _doResized(): void;
     private $_refreshContextValues;
+    private $_adjustContainerToPage;
     private $_replacePages;
     private $_refreshHtmlItemValue;
     private $_printReport;
