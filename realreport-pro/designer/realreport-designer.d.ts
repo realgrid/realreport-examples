@@ -3456,6 +3456,9 @@ declare class ExcelDataBandDataRow extends ExcelDataBandSection {
     get pathLabel(): string;
     getHiddenText(): string;
     writeAll(ctx: ExcelPrintContext, drows?: number[]): IExcelCell[];
+    /**
+     * Group용 데이터 행 작성
+     */
     writeRow(ctx: ExcelPrintContext, drow: number, col: number): IExcelCell[];
     protected _getSectionType(): BandSectionType;
     private $_writeRow;
@@ -12304,6 +12307,11 @@ declare abstract class ReportItemCollectionItem extends ReportPageItem {
     protected _changed(prop: string, newValue: any, oldValue: any): void;
 }
 
+/**
+ * - Table Band 아이템에서 셀 안에 TextItem일 경우 사용가능한 ColSpanCallback
+ */
+declare type ReportItemColSpanCallback = (ctx: PrintContextBase, item: ReportItem, row: number, value: any) => number;
+
 /* Excluded from this release type: ReportItemElement */
 
 /**
@@ -14902,6 +14910,11 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
     private $_addFooter;
     private $_addEndRow;
     /**
+     * - TODO: TableDataRow의 rowcount가 2 이상이라면 제한두고 처리 필요
+     */
+    private $_applyMergeCells;
+    private $_findDataRowElement;
+    /**
      * 왼쪽에서 오른쪽으로 먼저 끝에서 첫번째 컬럼으로 다시.
      * 최대한 모든 컬럼에 골고루 배치.
      * header는 밴드가 포함된 모든 페이지의 모든 컬럼 시작 위치에 표시.
@@ -15852,23 +15865,37 @@ declare class TextBandSectionElement extends StackContainerElement<TextBandSecti
 declare class TextItem extends TextItemBase {
     static readonly PROP_MULTI_LINE = "multiLine";
     static readonly PROP_TEXT = "text";
+    static readonly PROP_WORD_BREAK = "wordBreak";
     static readonly PROP_ON_GET_CONTEXT_VALUE = "onGetContextValue";
     static readonly PROP_I18N = "internationalization";
     static readonly PROP_MERGE_RULE = "mergeRule";
     static readonly PROP_RICH = "rich";
+    static readonly PROP_ON_GET_COL_SPAN = "onGetColSpan";
+    static readonly PROP_AUTO_SHRINK = "autoShrink";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     static readonly ITEM_TYPE = "Text";
+    private _autoShrink;
     private _text;
+    private _wordBreak;
     private _rich;
     private _editing;
     private _i18nObject;
     private _mergeRule;
     private _contextValueCallback;
     private _onGetContextValue;
+    private _colSpanCallback;
+    private _onGetColSpan;
     private _contextValueCallbackFunc;
     private _contextValueCallbackDelegate;
+    private _colSpanCallbackFunc;
+    private _colSpanCallbackDelegate;
     constructor(name: string, text?: string);
+    /**
+     * wordBreak
+     */
+    get wordBreak(): WordBreak;
+    set wordBreak(value: WordBreak);
     /**
      * text
      */
@@ -15900,7 +15927,29 @@ declare class TextItem extends TextItemBase {
      */
     get contextValueCallback(): ContextValueCallback;
     set contextValueCallback(value: ContextValueCallback);
+    /**
+     * onGetColSpan
+     */
+    get onGetColSpan(): string;
+    set onGetColSpan(value: string);
+    /**
+     * colSpanCallback
+     */
+    get colSpanCallback(): ReportItemColSpanCallback;
+    set conSpanCallback(value: ReportItemColSpanCallback);
+    /**
+     * 자동 폰트 사이즈 조정.
+     * 설정 시 텍스트가 설정된 사이즈를 초과하는 경우
+     * 자동적으로 사이즈를 조정하여 모든 텍스트가 보여지도록 하는 설정입니다.
+     */
+    get autoShrink(): boolean;
+    set autoShrink(value: boolean);
     getDesignText2(system: boolean): string;
+    /**
+     * value 값은 onGetValueCallback에서 계산된 값이다.
+     * @returns {number | null}
+     */
+    runColSpanCallback(ctx: PrintContext, value: any): number | undefined;
     get printEditable(): boolean;
     getSaveType(): string;
     get outlineLabel(): string;
@@ -16489,6 +16538,11 @@ declare type VisualElementCallback = (element: VisualElement, dom: HTMLElement) 
 /* Excluded from this release type: VisualTool */
 
 /* Excluded from this release type: VisualToolOwner */
+
+declare enum WordBreak {
+    BREAK_ALL = "break-all",
+    BREAK_WORD = "break-word"
+}
 
 export { }
 
