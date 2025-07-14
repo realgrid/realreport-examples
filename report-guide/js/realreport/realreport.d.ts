@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.5
-* commit f2362f5
+* RealReport v1.11.6
+* commit a8877f97
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.11.5
+* RealReport Core v1.11.6
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 64e86b91b35738ca3d161877acf177c58c67ffda
+* commit 159f9d790b0cbdf13f762f0abe6014798b391299
 */
 
 
@@ -10972,7 +10972,6 @@ declare abstract class TextItemElementBase<T extends TextItemBase> extends Repor
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
     protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, size: Size$1): void;
     _doLayoutContent(ctx: PrintContext): void;
     refreshPrintValues(ctx: PrintContext): void;
     isDom(dom: HTMLElement): boolean;
@@ -14944,6 +14943,29 @@ interface IDropResult {
     value?: any;
     hintWidth?: number;
     hintHeight?: number;
+}
+
+/**
+ * 출력 시 데이터를 제공한다.
+ */
+declare class ReportDataProvider extends Base$1 implements IReportDataProvider {
+    private _dataMap;
+    private _contextData;
+    protected _doDispose(): void;
+    preparePrint(ctx: PrintContext): void;
+    getAll(): IReportData[];
+    get(name: string): IReportData;
+    getContextValue(path: string): any;
+    /**
+     * @param path data name + "." + data path
+     */
+    getValue(path: string, row: number): any;
+    getValueAt(data: string, path: string, row: number): any;
+    getFieldValues(data: string, field: string, rows?: number[]): any[];
+    clear(): ReportDataProvider;
+    register(name: string, data: IReportData): ReportDataProvider;
+    load(source: any, clear?: boolean): ReportDataProvider;
+    remove(name: string): void;
 }
 
 type EditableItemValue = string | number | boolean;
@@ -49162,6 +49184,7 @@ declare abstract class ReportViewBase {
     }[]): void;
     protected _checkPrintContainerZoom(): void;
     protected _createContainer(container: string | HTMLDivElement): PrintContainer | ExcelPrintContainer;
+    protected _dispose(): void;
     get containerId(): string;
     set containerId(container: string | HTMLDivElement);
     get version(): string;
@@ -49208,8 +49231,10 @@ declare class ReportViewer extends ReportViewBase {
     get report(): ExcelReport | Email | Report;
     get dataSet(): ReportDataSet;
     set dataSet(v: ReportDataSet);
+    get reportDataProvider(): ReportDataProvider;
     get isPaging(): boolean;
     get languages(): string[];
+    dispose(): void;
     /**
      * container에 리포트를 preview로 렌더링 합니다.
      */
@@ -49272,20 +49297,20 @@ declare class ReportViewer extends ReportViewBase {
 
 /** REPORT CORE */
 
-interface GridReportHeader {
+interface GridReportHeader$1 {
     items: TextItem[];
 }
-interface GridReportTitle extends TextItem {
+interface GridReportTitle$1 extends TextItem {
     sample?: string;
 }
-interface GridReportOptions extends ReportOptions {
+interface GridReportOptions$1 extends ReportOptions {
     paper?: PaperOptions;
-    title?: GridReportTitle;
-    subTitle?: GridReportTitle;
-    gridHeader?: GridReportHeader;
+    title?: GridReportTitle$1;
+    subTitle?: GridReportTitle$1;
+    gridHeader?: GridReportHeader$1;
     pageHeader?: PageHeader;
     pageFooter?: PageFooter;
-    layout: GridReportLayout;
+    layout?: GridReportLayout;
 }
 /**
  * GridreportViewer
@@ -49294,8 +49319,12 @@ declare class GridReportViewer extends ReportViewer {
     private _grid;
     private _gridValues;
     private _gridTable;
-    protected _options: GridReportOptions;
-    constructor(container: string | HTMLDivElement, grid: GridView, options?: GridReportOptions);
+    protected _options: GridReportOptions$1;
+    constructor(container: string | HTMLDivElement, grid: GridView, options?: GridReportOptions$1);
+    /**
+     * Row Indicator가 있는 경우 시작 컬럼 인덱스는 1
+     */
+    get startColIdx(): number;
     /**
      * 컨테이너에 미리보기 랜더링
      */
@@ -49304,6 +49333,8 @@ declare class GridReportViewer extends ReportViewer {
      * 출력 준비전 그리드 정보로 리포트 정보를 생성한다.
      */
     print(options: PrintOptions): Promise<void>;
+    saveReport(options?: GridReportSaveOptions): void;
+    exportImage(imageOptions?: ImageExportOptions$1): Promise<void>;
     /**
      * 타이틀 또는 서브 타이틀 추가
      * @param title GridReportTitle 객체
@@ -49336,7 +49367,16 @@ declare class GridReportViewer extends ReportViewer {
      */
     private _addGridTable;
     private _prepare;
-    exportImage(imageOptions?: ImageExportOptions$1): Promise<void>;
+    /**
+     * 강제로 그리드 뷰 렌더링
+     * @param grid GridView
+     */
+    private $_forceGridViewRender;
+    private $_applyItemStyles;
+    /**
+     * 컬럼 이름을 기준으로 스타일을 적용한다.
+     */
+    private $_applyColumnOptions;
 }
 
 /**
@@ -49369,6 +49409,7 @@ declare class ReportCompositeViewer extends ReportViewBase {
     exportPdfBlob(options: PDFExportBlobOptions): Promise<Blob>;
     exportImage(imageOptions: ImageExportOptions$1): void;
     exportDocument(options: DocumentExportOptions): void;
+    dispose(): void;
     private _checkReportFormSet;
 }
 
@@ -49384,17 +49425,90 @@ type ReportFormSet = {
 };
 type ReportFormSets = ReportFormSet[];
 
+type CommonStyleName = 'color' | 'backgroundColor' | 'fontSize' | 'fontWeight';
+/**
+ * 그리드 리포트 그리드 헤더 영역 전체 스타일
+ */
+type HeaderStyleName = CommonStyleName;
+type HeaderStyles = {
+    [key in HeaderStyleName]?: string | undefined;
+};
 /**
  * 컬럼 이름
  */
 type ColumnName = string;
 /**
+ * 컬럼 스타일 이름
+ */
+type ColumnStyleName = CommonStyleName;
+type ColumnStyles = {
+    [key in ColumnStyleName]?: string | undefined;
+};
+/**
  * 그리드 리포트 레이아웃 정보
  */
 type GridReportLayout = {
+    /**
+     * 보고서 생성시 제외할 그리드의 컬럼이름
+     */
     exclude?: ColumnName[];
-    autoWidth: boolean;
+    /**
+     * 그리드의 너비에 맞게 리포트의 컬럼 너비를 자동 조정
+     */
+    autoWidth?: boolean;
+    /**
+     * 데이터 행의 최소 높이
+     */
+    minRowHeight?: number;
+    /**
+     * 그리드 리포트 헤더 영역 전체 설정
+     */
+    header?: GridReportLayoutHeader;
+    /**
+     * 로우 인디케이터 영역 설정
+     */
+    rowIndicator?: {
+        visible: boolean;
+        header?: {
+            styles?: HeaderStyles;
+        };
+        styles?: ColumnStyles;
+    };
+    /**
+     * 각 컬럼 레이아웃에 대한 설정
+     */
+    columns?: {
+        name: string;
+        header?: {
+            styles?: HeaderStyles;
+        };
+        styles: ColumnStyles;
+    }[];
 };
+/**
+ * 그리드 리포트 헤더 레이아웃 정보
+ */
+interface GridReportLayoutHeader {
+    styles: HeaderStyles;
+}
+interface GridReportOptions extends ReportOptions {
+    paper?: PaperOptions;
+    title?: GridReportTitle;
+    subTitle?: GridReportTitle;
+    gridHeader?: GridReportHeader;
+    pageHeader?: PageHeader;
+    pageFooter?: PageFooter;
+    layout?: GridReportLayout;
+}
+interface GridReportHeader {
+    items: TextItem[];
+}
+interface GridReportTitle extends TextItem {
+    sample?: string;
+}
+interface GridReportSaveOptions {
+    fileName?: string;
+}
 type GridReportItemSource = {
     type: string;
     value: string;
@@ -49557,4 +49671,4 @@ declare const IMG_EXPORT_DEFAULT_OPTIONS: ImageExportOptions;
  */
 declare const ZOOM_ERROR_MESSAGE = "\uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778 \uACBD\uC6B0\uB9CC \uB0B4\uBCF4\uB0B4\uAE30\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4. \uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.";
 
-export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, GridReportItemSource, GridReportLayout, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE };
+export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE };

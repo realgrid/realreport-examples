@@ -73,7 +73,10 @@ var gridItem100 = {
             ],
         },
         layout: {
-            autoWidth: false,
+            autoWidth: true,
+            rowIndicator: {
+                visible: true,
+            },
         },
     },
     data: [
