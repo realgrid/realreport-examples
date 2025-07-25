@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.6
-* commit a8877f97
+* RealReport v1.11.7
+* commit c815b458
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -11,10 +11,10 @@
 import { Cvfo, Style } from 'exceljs';
 
 /** 
-* RealReport Core v1.11.6
+* RealReport Core v1.11.7
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 159f9d790b0cbdf13f762f0abe6014798b391299
+* commit 09b3e3bcd056d1b2aac8a92bbe6160bb0a3a025a
 */
 
 
@@ -2055,7 +2055,7 @@ declare abstract class DataBand extends ReportBandItem {
     protected _canChildData(): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
-    protected _doPreparePrint(ctx: PrintContext): void;
+    protected _doPreparePrint(ctx: PrintContext$1): void;
     protected _prepareData(ctx: PrintContextBase): void;
     clearSummary(): void;
     /**
@@ -2215,13 +2215,13 @@ declare class TableRowCollection extends TableRowCollectionBase {
     /** table */
     get table(): TableBase;
 }
-type TableCellStyleCallback = (ctx: PrintContext, cell: TableCell$1, row: number) => {
+type TableCellStyleCallback = (ctx: PrintContext$1, cell: TableCell$2, row: number, value: any) => {
     [key: string]: string | undefined;
 };
 /**
  * Table cell model. {@link TableCellCollection} 구성 요소로 포함된다.
  */
-declare class TableCell$1 extends ReportItemCollectionItem {
+declare class TableCell$2 extends ReportItemCollectionItem {
     static readonly PROP_COL = "col";
     static readonly PROP_ROW = "row";
     static readonly PROP_COLSPAN = "colspan";
@@ -2296,14 +2296,14 @@ declare class TableCell$1 extends ReportItemCollectionItem {
     canDelete(): boolean;
 }
 declare class TableSelection implements ISelectionSource {
-    selectedItem: TableCell$1;
+    selectedItem: TableCell$2;
     cols: number;
     rows: number;
     private _cell;
     private _lastCell;
-    constructor(cell: TableCell$1, cols: number, rows: number);
+    constructor(cell: TableCell$2, cols: number, rows: number);
     get table(): TableBase;
-    get cell(): TableCell$1;
+    get cell(): TableCell$2;
     get col(): number;
     get row(): number;
     get right(): number;
@@ -2311,21 +2311,21 @@ declare class TableSelection implements ISelectionSource {
     canSelectedWith(other: ISelectionSource): boolean;
     canMakeSnippet(): boolean;
     contains(row: number, col: number): boolean;
-    containsCell(cell: TableCell$1): boolean;
+    containsCell(cell: TableCell$2): boolean;
     isSingle(ignoreHiddens: boolean): boolean;
-    getCells(ignoreHiddens: boolean): TableCell$1[];
-    resizeTo(cell: TableCell$1): boolean;
+    getCells(ignoreHiddens: boolean): TableCell$2[];
+    resizeTo(cell: TableCell$2): boolean;
     resizeBy(dx: number, dy: number): boolean;
     resize(): boolean;
-    getSize(foc: TableCell$1): number[];
-    softEquals(cell: TableCell$1): boolean;
-    equals(cell: TableCell$1): boolean;
+    getSize(foc: TableCell$2): number[];
+    softEquals(cell: TableCell$2): boolean;
+    equals(cell: TableCell$2): boolean;
 }
 /**
  * @internal
  * 테이블 셀 모델인 TabelCell들의 집합.
  */
-declare class TableCellCollection extends ReportItemCollection<TableCell$1> {
+declare class TableCellCollection extends ReportItemCollection<TableCell$2> {
     private _table;
     private _cells;
     private _vcells;
@@ -2348,11 +2348,11 @@ declare class TableCellCollection extends ReportItemCollection<TableCell$1> {
     /** colCount */
     get colCount(): number;
     getColCount(row: number): number;
-    get(index: number): TableCell$1;
-    getAt(row: number, col: number): TableCell$1;
-    indexOf(item: TableCell$1): number;
-    getRectangle(from: TableCell$1, to: TableCell$1): IRect;
-    getRectangleCells(from: TableCell$1, to: TableCell$1): TableCell$1[];
+    get(index: number): TableCell$2;
+    getAt(row: number, col: number): TableCell$2;
+    indexOf(item: TableCell$2): number;
+    getRectangle(from: TableCell$2, to: TableCell$2): IRect;
+    getRectangleCells(from: TableCell$2, to: TableCell$2): TableCell$2[];
     /**
      * table rowCount, colCount 변경 시 table에서도 호출한다.
      * rowCount, colCount가 줄어들어도 기존 cell들은 제거하지 않는다.
@@ -2408,7 +2408,7 @@ declare class TableCellCollection extends ReportItemCollection<TableCell$1> {
     mergeBoundsOf(sel: TableSelection): TableBounds;
     merge(r1: number, c1: number, r2: number, c2: number): any[][];
     mergeSelection(sel: TableSelection): any[][];
-    unmerge(cell: TableCell$1): any[][];
+    unmerge(cell: TableCell$2): any[][];
     get page(): ReportPageBase;
     get displayPath(): string;
     get level(): number;
@@ -2416,7 +2416,7 @@ declare class TableCellCollection extends ReportItemCollection<TableCell$1> {
     canDelete(): boolean;
     isAncestor(group: ReportGroupItem): boolean;
     protected _doMoveItem(from: number, to: number): boolean;
-    protected _createCell(row: number, col: number): TableCell$1;
+    protected _createCell(row: number, col: number): TableCell$2;
 }
 type TableBounds = {
     r1: number;
@@ -2427,7 +2427,7 @@ type TableBounds = {
 type TableCellSpan = {
     r: number;
     c: number;
-    v: TableCell$1;
+    v: TableCell$2;
     m: TableCellItem;
 };
 /**
@@ -2496,14 +2496,14 @@ declare abstract class TableBase extends CellContainer {
     abstract getColumn(col: number): TableColumnBase;
     getRow(index: number): TableRow;
     getRowHeights(): DimensionCollection;
-    getCell(row: number, col: number): TableCell$1;
+    getCell(row: number, col: number): TableCell$2;
     getCellItemAt(row: number, col: number): TableCellItem;
-    getCellItem(cell: TableCell$1): TableCellItem;
+    getCellItem(cell: TableCell$2): TableCellItem;
     isHiddenAt(row: number, col: number): boolean;
-    isHiddenCell(cell: TableCell$1): boolean;
-    getHeadCell(cell: TableCell$1): TableCell$1;
-    getLeftCol(cell: TableCell$1): number;
-    getTopRow(cell: TableCell$1): number;
+    isHiddenCell(cell: TableCell$2): boolean;
+    getHeadCell(cell: TableCell$2): TableCell$2;
+    getLeftCol(cell: TableCell$2): number;
+    getTopRow(cell: TableCell$2): number;
     getMinRowHeight(): number;
     getColItems(col: number, same?: boolean): ReportItem[];
     getRowItems(row: number, same?: boolean): ReportItem[];
@@ -2546,7 +2546,7 @@ declare abstract class TableBase extends CellContainer {
      * For debugging.
      */
     checkCounts(): void;
-    getSelection(cell: TableCell$1): TableSelection;
+    getSelection(cell: TableCell$2): TableSelection;
     /**
      * 가장 상단의 item만 보존된다.
      */
@@ -2569,7 +2569,7 @@ declare abstract class TableBase extends CellContainer {
     protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
     isAncestorOf(item: ReportPageItem): boolean;
     protected _createRows(): TableRowCollection;
-    protected _spanChanged(cell: TableCell$1): void;
+    protected _spanChanged(cell: TableCell$2): void;
     protected _addCols(col: number, count: number): void;
     protected _moveCols(col: number, count: number, newCol: number): void;
     protected _removeRows(index: number, count: number): void;
@@ -2707,7 +2707,7 @@ declare abstract class TableBandSection extends TableBase {
     static readonly DEFAULT_ROWS = 1;
     private _band;
     /** @internal */
-    removedCells: TableCell$1[];
+    removedCells: TableCell$2[];
     constructor(band: TableBand);
     /** band */
     get band(): TableBand;
@@ -2767,7 +2767,7 @@ declare class TableBandDataRow extends TableBandSection {
     get blankItems(): ReportItem[];
     canBlank(item: ReportItem, row: number): boolean;
     getMergedColumns(): number[];
-    getMergedCells(): TableCell$1[];
+    getMergedCells(): TableCell$2[];
     get outlineLabel(): string;
     get pathLabel(): string;
     get dataDominant(): boolean;
@@ -2775,7 +2775,7 @@ declare class TableBandDataRow extends TableBandSection {
     protected _createCells(): TableCellCollection;
     protected _getChildPropInfos(item: ReportItem): IPropInfo[];
     protected _doLoadChild(child: ReportItem, src: any): void;
-    protected _doPreparePrint(ctx: PrintContext): void;
+    protected _doPreparePrint(ctx: PrintContext$1): void;
     private $_collectBlankItems;
 }
 declare class TableBandRowGroupSection extends TableBase {
@@ -2783,7 +2783,7 @@ declare class TableBandRowGroupSection extends TableBase {
     static readonly DEFAULT_ROWS = 1;
     private _group;
     /** @internal */
-    removedCells: TableCell$1[];
+    removedCells: TableCell$2[];
     constructor(group: TableBandRowGroup, name: string);
     /** group */
     get group(): TableBandRowGroup;
@@ -2964,7 +2964,7 @@ declare class TableBand extends TableLikeBand {
     getNearestMovableColumn(col: number, count: number, delta: number): number;
     moveColumns(col: number, count: number, delta: number, force?: boolean): boolean;
     getCellWidths(): DimensionCollection;
-    setPrinting(ctx: PrintContext, pr: number, trows?: number): void;
+    setPrinting(ctx: PrintContext$1, pr: number, trows?: number): void;
     getSaveType(): string;
     get outlineLabel(): string;
     canFold(): boolean;
@@ -2978,8 +2978,8 @@ declare class TableBand extends TableLikeBand {
     protected _doSave(target: object): void;
     private $_columnChanged;
     private $_groupChanged;
-    protected _doPreparePrint(ctx: PrintContext): void;
-    protected _doPrepareIndices(ctx: PrintContext): void;
+    protected _doPreparePrint(ctx: PrintContext$1): void;
+    protected _doPrepareIndices(ctx: PrintContext$1): void;
     remove(item: ReportPageItem): void;
     getNextDetailRows(dataView: BandDataSortView, from?: number): number[];
     containsInSection(item: ReportItem): boolean;
@@ -3133,7 +3133,7 @@ declare class SimpleBandRow extends SimpleBandSection {
     get isDataRowContainer(): boolean;
     protected _getChildPropInfos(item: ReportItem): IPropInfo[];
     protected _doLoadChild(child: ReportItem, src: any): void;
-    protected _doPreparePrint(ctx: PrintContext): void;
+    protected _doPreparePrint(ctx: PrintContext$1): void;
 }
 declare abstract class SimpleBandRowGroupSection extends StackContainer {
     static readonly STYLE_PROPS: string[];
@@ -3251,7 +3251,7 @@ declare class SimpleBand extends DataBand {
      * Current printing data row
      */
     get pr(): number;
-    setPrinting(ctx: PrintContext, row: number): void;
+    setPrinting(ctx: PrintContext$1, row: number): void;
     getSaveType(): string;
     get outlineLabel(): string;
     get isBand(): boolean;
@@ -3263,8 +3263,8 @@ declare class SimpleBand extends DataBand {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
     private $_groupChanged;
-    protected _doPreparePrint(ctx: PrintContext): void;
-    protected _doPrepareIndices(ctx: PrintContext): void;
+    protected _doPreparePrint(ctx: PrintContext$1): void;
+    protected _doPrepareIndices(ctx: PrintContext$1): void;
     canRemove(item: ReportItem): boolean;
     getNextDetailRows(dataView: BandDataSortView, from?: number): number[];
     containsInSection(item: ReportItem): boolean;
@@ -3365,9 +3365,9 @@ declare class BandCollectionElement extends ReportGroupItemElement<DataBandColle
     protected _getCssSelector(): string;
     protected _needDesignBox(): boolean;
     protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
-    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
 }
 
 interface IImageContainer {
@@ -3482,7 +3482,7 @@ declare abstract class ReportItemElement<T extends ReportItem = ReportItem> exte
     getEditParent(): VisualElement$1;
     getEditText(): string;
     setEditText(report: ReportBase, text: string): void;
-    refreshPrintValues(ctx: PrintContext): void;
+    refreshPrintValues(ctx: PrintContext$1): void;
     /**
      * - ReportItem에 visibileCallback 핸들러가 정의되어 있다면 핸들러의 반환값에 의해 아이템 표시여부 결정
      * - 핸들러가 정의되어 있지 않거나 반환값이 boolean 값이 아닐경우 기존 아이템 속성의 Visible 값으로 표시여부 결정
@@ -3499,9 +3499,9 @@ declare abstract class ReportItemElement<T extends ReportItem = ReportItem> exte
     protected _doMeasureFolded(hintWidth: number, hintHeight: number): Size$1;
     protected _doLayoutFolded(): void;
     protected _getStyleTarget(dom: HTMLElement): HTMLElement;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _doPrepareMeasure(ctx: PrintContext$1, dom: HTMLElement): void;
     private $_setRotation;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
     findElement(modelName: string): ReportItemElement<ReportItem>;
     findElementOf(dom: HTMLElement): ReportItemElement<ReportItem>;
     private $_getContextDataIndexValue;
@@ -3555,7 +3555,7 @@ declare abstract class ReportGroupItemElement<T extends ReportGroupItem = Report
     isDom(dom: Element): boolean;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     replaceDom(dom: HTMLElement): void;
-    refreshPrintValues(ctx: PrintContext): void;
+    refreshPrintValues(ctx: PrintContext$1): void;
     protected _getItemViews(): ReportItemElement[];
     protected _getParentDom(): HTMLElement;
     protected _getItemsParent(): ReportElement;
@@ -3571,19 +3571,19 @@ declare abstract class ReportGroupItemElement<T extends ReportGroupItem = Report
     protected _getFocusedItem(): ReportPageItem;
     protected _doMeasureFolded(hintWidth: number, hintHeight: number): Size$1;
     protected _doMeasure(ctx: PrintContextBase, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _doPrepareMeasure(ctx: PrintContext$1, dom: HTMLElement): void;
     protected _setDesignContent(empty: boolean, designView: HTMLDivElement): void;
     protected _doMeasureItem(ctx: PrintContextBase, index: number, elt: ReportElement, hintWidth: number, hintHeight: number): void;
     protected _createElement(report: ReportViewBase$1, parent: ReportElement, item: ReportItem): ReportElement;
     protected _buildItems(ctx: PrintContextBase, report: ReportViewBase$1, items: ReportItem[]): void;
     protected _prepareChild(child: ReportElement): void;
     protected _doLayoutContent(ctx: PrintContextBase): void;
-    layoutFloating(ctx: PrintContext): void;
+    layoutFloating(ctx: PrintContext$1): void;
     protected _layoutItem(ctx: PrintContextBase, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
     protected _layoutChild(ctx: PrintContextBase, child: ReportElement, x: number, y: number, width: number, height: number): void;
     protected _layoutFloating(ctx: PrintContextBase, child: ReportElement, model: FloatingContainer): void;
     protected _doAfterLayout(ctx: PrintContextBase): void;
-    protected _doPrint(doc: Document, ctx: PrintContext): void;
+    protected _doPrint(doc: Document, ctx: PrintContext$1): void;
 }
 type ReportGroupItemView = ReportGroupItemElement<ReportGroupItem>;
 declare abstract class BandItemElement<T extends ReportBandItem = ReportBandItem> extends ReportGroupItemElement<T> {
@@ -3600,13 +3600,13 @@ declare abstract class BandElement<T extends DataBand = DataBand> extends BandIt
     private _needFooterView;
     get needFooterView(): boolean;
     set needFooterView(value: boolean);
-    abstract printRow(ctx: PrintContext, row: number): any;
+    abstract printRow(ctx: PrintContext$1, row: number): any;
     findMasterBand(band: DataBand): DataBand;
     getBandLevel(masterBand: DataBand, band: DataBand): string;
     abstract addMasterRow(page: HTMLDivElement, headerView: any, rowView: any, x: number, y: number): number;
-    abstract prepareAsync(doc: Document, ctx: PrintContext, width: number, subRows: number[], masterRow: number): BandPrintInfo<any>;
-    abstract prepareSubBand(doc: Document, ctx: PrintContext, width: number, dataRows: number[]): BandPrintInfo<any>;
-    protected _prepareDetail(doc: Document, ctx: PrintContext, band: DataBand, details: DataBandCollection, detailViews: BandCollectionElement, masterBandRow: number, rows: BandPrintRow[], width: number): void;
+    abstract prepareAsync(doc: Document, ctx: PrintContext$1, width: number, subRows: number[], masterRow: number): BandPrintInfo<any>;
+    abstract prepareSubBand(doc: Document, ctx: PrintContext$1, width: number, dataRows: number[]): BandPrintInfo<any>;
+    protected _prepareDetail(doc: Document, ctx: PrintContext$1, band: DataBand, details: DataBandCollection, detailViews: BandCollectionElement, masterBandRow: number, rows: BandPrintRow[], width: number): void;
     private $_prepareDetailDataBand;
     private $_prepareDetailBandGroup;
     private $_setBandLevel;
@@ -3633,7 +3633,7 @@ declare class TableCellElementBase extends ReportGroupItemElement<TableCellItem>
     protected _needContentBox(): boolean;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _prepareChild(child: ReportItemView): void;
-    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
 }
 interface ITable {
     colCount: number;
@@ -3644,6 +3644,7 @@ interface ITable {
 /** @internal */
 declare abstract class TableElement<T extends TableBase> extends ReportGroupItemElement<T> {
     static readonly CLASS_NAME = "rr-table";
+    static readonly INHERITED_CELL_ITEM_STYLES: string[];
     static setTableStyle(table: HTMLTableElement, fill?: boolean): void;
     static getTable(elt: VisualElement$1): TableElement<any>;
     private _masterView;
@@ -3661,6 +3662,9 @@ declare abstract class TableElement<T extends TableBase> extends ReportGroupItem
     get cellCount(): number;
     get cellViews(): TableCellElementBase[];
     get hasCells(): boolean;
+    get colPts(): number[];
+    get rowHeights(): string[];
+    get tbody(): HTMLTableSectionElement;
     /**
      * designer에서 호출한다.
      */
@@ -3672,7 +3676,7 @@ declare abstract class TableElement<T extends TableBase> extends ReportGroupItem
     get blockable(): boolean;
     get debugLabel(): string;
     protected _needContentBox(): boolean;
-    getCellOf(target: Element, deep: boolean): TableCell$1;
+    getCellOf(target: Element, deep: boolean): TableCell$2;
     findChildAt(x: number, y: number, hitTesting: boolean): VisualElement$1;
     findChildOf(dom: HTMLElement): VisualElement$1;
     findElement(modelName: string): ReportItemElement<ReportItem>;
@@ -3684,14 +3688,22 @@ declare abstract class TableElement<T extends TableBase> extends ReportGroupItem
     protected _setTableStyles(table: HTMLTableElement): void;
     protected _createDom(doc: Document): HTMLElement;
     protected _doModelChanged(oldModel: TableBase): void;
-    $_refreshRowCells(ctx: PrintContext, hintWidth: number, hintHeight: number, force?: boolean): void;
+    /**
+     * 셀 높이를 계산하여 반환한다. (모델 값만으로 계산)
+     *
+     * @param cell
+     * @param rowHeightPixels 모든 행의 px 높이가 담긴 배열 (행 높이가 설정되어 있지 않은 경우 NaN)
+     * @returns 셀 높이 (row 높이가 고정되어 있지 않고, 컨텐츠에 따라 늘어나는 경우는 undefined를 반환한다.)
+     */
+    $_calcCellHeight(cell: TableCell$2, rowHeightPixels: number[]): number | undefined;
+    $_refreshRowCells(ctx: PrintContext$1, hintWidth: number, hintHeight: number, force?: boolean): void;
     protected _isEmpty(): boolean;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
     protected abstract _createCellElement(doc: Document, cell: TableCellItem): TableCellElementBase;
     clear(): boolean;
-    protected _buildItems(ctx: PrintContext, report: ReportView): void;
-    protected _prepareCellStyles(ctx: PrintContext, table: TableBase, row: number, col: number, td: HTMLTableCellElement): void;
+    protected _buildItems(ctx: PrintContext$1, report: ReportView): void;
+    protected _prepareCellStyles(ctx: PrintContext$1, table: TableBase, row: number, col: number, td: HTMLTableCellElement): void;
     protected _prepareChild(child: ReportElement): void;
     /**
      * 테이블 내에서 첫번째 item.
@@ -3726,14 +3738,6 @@ declare abstract class TableElement<T extends TableBase> extends ReportGroupItem
     private $_layoutViewInCell;
     protected _findCell(model: TableCellItem): TableCellElementBase;
     createColGroup(doc: Document, width: number): HTMLTableColElement;
-    /**
-     * 셀 높이를 계산하여 반환한다. (모델 값만으로 계산)
-     *
-     * @param cell
-     * @param rowHeightPixels 모든 행의 px 높이가 담긴 배열 (행 높이가 설정되어 있지 않은 경우 NaN)
-     * @returns 셀 높이 (row 높이가 고정되어 있지 않고, 컨텐츠에 따라 늘어나는 경우는 undefined를 반환한다.)
-     */
-    private $_calcCellHeight;
     private $_getBorderValue;
     private $_getTableBandBorder;
 }
@@ -4197,10 +4201,10 @@ declare class CrosstabValueFieldCollection extends CrosstabFieldCollection<Cross
 }
 
 interface ChartWrappable<ChartConfig> {
-    getChartConfig(context: PrintContext): ChartConfig;
+    getChartConfig(context: PrintContext$1): ChartConfig;
 }
 declare abstract class ChartItem<C = unknown> extends ReportGroupItem implements ChartWrappable<C> {
-    abstract getChartConfig(context: PrintContext): C;
+    abstract getChartConfig(context: PrintContext$1): C;
     getParentBand(): DataBand;
 }
 declare abstract class ChartObject$1<T extends ChartItem, C = unknown> extends ReportPageItem implements ReportObject, ChartWrappable<C> {
@@ -4247,7 +4251,7 @@ declare abstract class ChartObject$1<T extends ChartItem, C = unknown> extends R
     defaultInit(): void;
     load(loader: IReportLoader, source: ReportSource): void;
     save(target: ReportTarget): boolean;
-    abstract getChartConfig(context: PrintContext): C;
+    abstract getChartConfig(context: PrintContext$1): C;
     get dataParent(): ReportGroupItem;
     get marqueeParent(): ReportItem;
     isCollection(): boolean;
@@ -4270,7 +4274,7 @@ declare abstract class ChartDataObject<T extends ChartItem, C = unknown> extends
     set data(value: string);
     protected getData(): IReportData | undefined;
     protected getDataFieldNames(): string[];
-    protected getDataFieldValue(context: PrintContext, field: string): unknown;
+    protected getDataFieldValue(context: PrintContext$1, field: string): unknown;
     protected _getEditProps(): IPropInfo[];
     getPropDomain(prop: IPropInfo): any[];
     getPlaceHolder(prop: IPropInfo): string;
@@ -4640,7 +4644,7 @@ declare abstract class ChartAxisCollection<T extends ChartItem, C = unknown> ext
     get count(): number;
     get items(): ChartAxis<T, C>[];
     get visibleCount(): number;
-    abstract getChartConfig(context: PrintContext): C[];
+    abstract getChartConfig(context: PrintContext$1): C[];
     abstract getSaveLabel(): string;
     defaultInit(): void;
     load(loader: IReportLoader, source: ReportSource): void;
@@ -4692,7 +4696,7 @@ declare class RCAxisTick extends RCAxisObject<RCAxisTickConfig> {
     set gap(value: number);
     get length(): number;
     set length(value: number);
-    getChartConfig(context: PrintContext): RCAxisTickConfig;
+    getChartConfig(context: PrintContext$1): RCAxisTickConfig;
     getSaveLabel(): string;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
@@ -4704,7 +4708,7 @@ declare class RCAxisTitle extends RCAxisTextObject<RCAxisTitleConfig> {
     private static readonly STYLES;
     constructor(axis: RCAxis<unknown>);
     getCollapsedPropCategories(): string[];
-    getChartConfig(context: PrintContext): RCAxisTitleConfig;
+    getChartConfig(context: PrintContext$1): RCAxisTitleConfig;
     getSaveLabel(): string;
     protected _getStyleProps(): string[];
 }
@@ -4712,7 +4716,7 @@ declare class RCAxisTitle extends RCAxisTextObject<RCAxisTitleConfig> {
 declare class RCAxisLine extends RCAxisObject<RCAxisLineConfig> {
     private static readonly STYLES;
     constructor(axis: RCAxis<unknown>);
-    getChartConfig(context: PrintContext): RCAxisLineConfig;
+    getChartConfig(context: PrintContext$1): RCAxisLineConfig;
     getSaveLabel(): string;
     protected _getStyleProps(): string[];
 }
@@ -4730,7 +4734,7 @@ declare class RCAxisGrid extends RCAxisObject<RCAxisGridConfig> {
     set startVisible(value: boolean);
     get endVisible(): boolean;
     set endVisible(value: boolean);
-    getChartConfig(context: PrintContext): RCAxisGridConfig;
+    getChartConfig(context: PrintContext$1): RCAxisGridConfig;
     getSaveLabel(): string;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
@@ -4751,7 +4755,7 @@ declare class RCAxisLabel extends RCAxisTextObject<RCAxisLabelConfig> {
     set autoArrange(value: RCAxisLabelAutoArrange);
     get rotation(): number;
     set rotation(value: number);
-    getChartConfig(context: PrintContext): RCAxisLabelConfig;
+    getChartConfig(context: PrintContext$1): RCAxisLabelConfig;
     getSaveLabel(): string;
     getCollapsedPropCategories(): string[];
     protected _getEditProps(): IPropInfo[];
@@ -4809,7 +4813,7 @@ declare abstract class RCAxis<C = RCAxisConfig> extends ChartAxis<RealChartItem,
     get grid(): RCAxisGrid;
     get line(): RCAxisLine;
     get tick(): RCAxisTick;
-    abstract getChartConfig(context: PrintContext): C;
+    abstract getChartConfig(context: PrintContext$1): C;
     getCollapsedPropCategories(): string[];
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, src: any): void;
@@ -4817,7 +4821,7 @@ declare abstract class RCAxis<C = RCAxisConfig> extends ChartAxis<RealChartItem,
 }
 declare abstract class RCAxisCollection extends ChartAxisCollection<RealChartItem, RCAxisConfig> {
     abstract get direction(): RCAxisDirection;
-    getChartConfig(context: PrintContext): RCAxisConfig[];
+    getChartConfig(context: PrintContext$1): RCAxisConfig[];
 }
 declare class RCXAxisCollection extends RCAxisCollection {
     get outlineLabel(): string;
@@ -4850,7 +4854,7 @@ declare abstract class ChartSeriesCollection$1<T extends ChartItem, C = unknown>
     get count(): number;
     get items(): ChartSeries$1<T, C>[];
     get visibleCount(): number;
-    abstract getChartConfig(context: PrintContext): C[];
+    abstract getChartConfig(context: PrintContext$1): C[];
     getSaveLabel(): string;
     defaultInit(): void;
     load(loader: IReportLoader, source: ReportSource): void;
@@ -4900,9 +4904,9 @@ declare abstract class ChartSeries$1<T extends ChartItem, C = unknown> extends C
     set index(value: number);
     get designVisible(): boolean;
     set designVisible(value: boolean);
-    hasSeriesData(context: PrintContext): boolean;
-    protected getVisible(context: PrintContext): boolean;
-    protected getSeriesData(context: PrintContext): number[];
+    hasSeriesData(context: PrintContext$1): boolean;
+    protected getVisible(context: PrintContext$1): boolean;
+    protected getSeriesData(context: PrintContext$1): number[];
     get displayPath(): string;
     getSaveLabel(): string;
     protected _getEditProps(): IPropInfo[];
@@ -4930,15 +4934,15 @@ declare abstract class RCSeries<C = RCSeriesConfig> extends ChartSeries$1<RealCh
     set xAxis(value: string);
     get yAxis(): string;
     set yAxis(value: string);
-    abstract getChartConfig(context: PrintContext): C;
-    protected getSeriesName(context: PrintContext): string;
+    abstract getChartConfig(context: PrintContext$1): C;
+    protected getSeriesName(context: PrintContext$1): string;
     getPropDomain(prop: IPropInfo): any[];
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: ReportTarget): void;
 }
 declare class RCSeriesCollection extends ChartSeriesCollection$1<RealChartItem, RCSeriesConfig> {
-    getChartConfig(context: PrintContext): RCSeriesConfig[];
+    getChartConfig(context: PrintContext$1): RCSeriesConfig[];
     protected _createSeries(loader: IReportLoader, src: ReportSource): RCSeries;
     protected _seriesChanged(): void;
 }
@@ -4946,7 +4950,7 @@ declare class RCSeriesCollection extends ChartSeriesCollection$1<RealChartItem, 
 declare class RCSubtitle extends ChartTextObject$1<RealChartItem, RCSubtitleConfig> {
     private static readonly STYLES;
     constructor(chart: RealChartItem);
-    getChartConfig(context: PrintContext): RCSubtitleConfig;
+    getChartConfig(context: PrintContext$1): RCSubtitleConfig;
     getSaveLabel(): string;
     getCollapsedPropCategories(): string[];
     protected _doDefaultInit(): void;
@@ -4956,7 +4960,7 @@ declare class RCSubtitle extends ChartTextObject$1<RealChartItem, RCSubtitleConf
 declare class RCTitle extends ChartTextObject$1<RealChartItem, RCTitleConfig> {
     private static readonly STYLES;
     constructor(chart: RealChartItem);
-    getChartConfig(context: PrintContext): RCTitleConfig;
+    getChartConfig(context: PrintContext$1): RCTitleConfig;
     getSaveLabel(): string;
     getCollapsedPropCategories(): string[];
     protected _doDefaultInit(): void;
@@ -5026,7 +5030,7 @@ declare class RCLegend extends ChartObject$1<RealChartItem, RCLegendConfig> {
     set maxHeight(value: number);
     get maxWidth(): number;
     set maxWidth(value: number);
-    getChartConfig(context: PrintContext): RCLegendConfig;
+    getChartConfig(context: PrintContext$1): RCLegendConfig;
     getSaveLabel(): string;
     getCollapsedPropCategories(): string[];
     protected _doDefaultInit(): void;
@@ -5048,7 +5052,7 @@ declare class RCOptions extends ChartObject$1<RealChartItem, RCOptionsConfig> {
     constructor(chart: RealChartItem);
     get animatable(): boolean;
     set animatable(value: boolean);
-    getChartConfig(context: PrintContext): RCOptionsConfig;
+    getChartConfig(context: PrintContext$1): RCOptionsConfig;
     getSaveLabel(): string;
     protected _doDefaultInit(): void;
     protected _getEditProps(): IPropInfo[];
@@ -5063,7 +5067,7 @@ declare class RCBody extends ChartObject$1<RealChartItem, RCBodyConfig> {
     constructor(chart: RealChartItem);
     get circular(): boolean;
     set circular(value: boolean);
-    getChartConfig(context: PrintContext): RCBodyConfig;
+    getChartConfig(context: PrintContext$1): RCBodyConfig;
     getSaveLabel(): string;
     protected _doDefaultInit(): void;
     protected _getEditProps(): IPropInfo[];
@@ -5127,7 +5131,7 @@ declare class RealChartItem extends ChartItem<RCConfig> {
     emitXAxesChanged(): void;
     emitYAxesChanged(): void;
     emitSeriesChanged(): void;
-    getChartConfig(context: PrintContext): RCConfig;
+    getChartConfig(context: PrintContext$1): RCConfig;
     getCollapsedPropCategories(): string[];
     needDesignWidth(): boolean;
     needDesignHeight(): boolean;
@@ -5293,7 +5297,7 @@ declare class RealMapChartAxisGrid extends ChartObject$1<RealMapItem, RealMapCha
     set fitTo(value: AxisFitTo);
     get lineStep(): number;
     set lineStep(value: number);
-    getChartConfig(context: PrintContext): RealMapChartAxisGridConfig;
+    getChartConfig(context: PrintContext$1): RealMapChartAxisGridConfig;
     getSaveLabel(): string;
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, source: ReportSource): void;
@@ -5327,7 +5331,7 @@ declare class RealMapChartBody extends ChartObject$1<RealMapItem, RealMapChartBo
     set rotationX(value: number);
     get rotationY(): number;
     set rotationY(value: number);
-    getChartConfig(context: PrintContext): RealMapChartBodyConfig;
+    getChartConfig(context: PrintContext$1): RealMapChartBodyConfig;
     getSaveLabel(): string;
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, source: ReportSource): void;
@@ -5373,7 +5377,7 @@ declare class RealMapChartColorScale extends ChartObject$1<RealMapItem, RealMapC
     set maxColor(value: string);
     get minColor(): string;
     set minColor(value: string);
-    getChartConfig(context: PrintContext): RealMapChartColorScaleConfig;
+    getChartConfig(context: PrintContext$1): RealMapChartColorScaleConfig;
     getSaveLabel(): string;
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, source: ReportSource): void;
@@ -5407,7 +5411,7 @@ declare class RealMapChartCredits extends ChartObject$1<RealMapItem, RealMapChar
     set align(value: RealMapChartCreditsConfig['align']);
     get verticalAlign(): RealMapChartCreditsConfig['verticalAlign'];
     set verticalAlign(value: RealMapChartCreditsConfig['verticalAlign']);
-    getChartConfig(context: PrintContext): RealMapChartCreditsConfig;
+    getChartConfig(context: PrintContext$1): RealMapChartCreditsConfig;
     getSaveLabel(): string;
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, source: ReportSource): void;
@@ -5437,7 +5441,7 @@ declare class RealMapChartMap extends ChartObject$1<RealMapItem, RealMapChartMap
     set exclude(value: string);
     private $_getMapUrl;
     private $_parseArrayLikeString;
-    getChartConfig(context: PrintContext): RealMapChartMapConfig;
+    getChartConfig(context: PrintContext$1): RealMapChartMapConfig;
     getSaveLabel(): string;
     protected _doDefaultInit(): void;
     protected _getEditProps(): {
@@ -5489,7 +5493,7 @@ declare class RealMapChartMapSeries extends RealMapSeries<RealMapChartMapSeriesC
     constructor(collection: RealMapChartSeriesCollection);
     get pointColors(): string;
     set pointColors(value: string);
-    getChartConfig(context: PrintContext): RealMapChartMapSeriesConfig;
+    getChartConfig(context: PrintContext$1): RealMapChartMapSeriesConfig;
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, source: ReportSource): void;
     protected _doSave(target: ReportTarget): void;
@@ -5504,7 +5508,7 @@ declare class RealMapChartSubTitle extends ChartTextObject$1<RealMapItem, RealMa
     get align(): Align;
     set align(value: Align);
     getSaveLabel(): string;
-    getChartConfig(context: PrintContext): RealMapChartTitleConfig;
+    getChartConfig(context: PrintContext$1): RealMapChartTitleConfig;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): typeof REALMAP_TEXT_STYLE_NAMES;
     getCollapsedPropCategories(): string[];
@@ -5520,7 +5524,7 @@ declare class RealMapChartTitle extends ChartTextObject$1<RealMapItem, RealMapCh
     get align(): Align;
     set align(value: Align);
     getSaveLabel(): string;
-    getChartConfig(context: PrintContext): RealMapChartTitleConfig;
+    getChartConfig(context: PrintContext$1): RealMapChartTitleConfig;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): typeof REALMAP_TEXT_STYLE_NAMES;
     getCollapsedPropCategories(): string[];
@@ -5571,7 +5575,7 @@ declare class RealMapItem extends ChartItem<RealMapConfig> {
     get colorScale(): RealMapChartColorScale;
     get seriesCollection(): RealMapChartSeriesCollection;
     get grid(): RealMapChartAxisGrid;
-    getChartConfig(context: PrintContext): RealMapConfig;
+    getChartConfig(context: PrintContext$1): RealMapConfig;
     emitSeriesChanged(): void;
     addNewSeries(type: RealMapChartSeriesType): RealMapChartMapSeries;
     addSeries(series: RealMapChartMapSeries): void;
@@ -5589,7 +5593,7 @@ declare class RealMapItem extends ChartItem<RealMapConfig> {
 }
 
 declare class RealMapChartSeriesCollection extends ChartSeriesCollection$1<RealMapItem, RealMapChartSeriesConfig> {
-    getChartConfig(context: PrintContext): RealMapChartSeriesConfig[];
+    getChartConfig(context: PrintContext$1): RealMapChartSeriesConfig[];
     protected _createSeries(loader: IReportLoader, src: ReportSource): RealMapSeries;
     protected _seriesChanged(): void;
 }
@@ -5905,7 +5909,7 @@ declare class TextItem extends TextItemBase {
      * value 값은 onGetValueCallback에서 계산된 값이다.
      * @returns {number | null}
      */
-    runColSpanCallback(ctx: PrintContext, value: any): number | undefined;
+    runColSpanCallback(ctx: PrintContext$1, value: any): number | undefined;
     get printEditable(): boolean;
     getSaveType(): string;
     get outlineLabel(): string;
@@ -6072,9 +6076,9 @@ declare class ColumnBoxContainer extends BoxContainer {
 declare abstract class BoundedContainerElement<T extends BoundedContainer> extends ReportGroupItemElement<T> {
     constructor(doc: Document, model: T);
     protected _prepareChild(child: ReportElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _layoutItem(ctx: PrintContext, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
-    protected _layoutChild(ctx: PrintContext, child: ReportElement, x: number, y: number, width: number, height: number): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _layoutItem(ctx: PrintContext$1, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
+    protected _layoutChild(ctx: PrintContext$1, child: ReportElement, x: number, y: number, width: number, height: number): void;
 }
 
 /** @internal */
@@ -6123,9 +6127,9 @@ declare abstract class SectionElement<T extends PageSection> extends StackContai
     get dom(): HTMLDivElement;
     protected _needDesignBox(): boolean;
     protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
+    protected _doPrepareMeasure(ctx: PrintContext$1, dom: HTMLElement): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    measureContent(ctx: PrintContext$1, hintWidth: number, hintHeight: number): Size$1;
 }
 /** @internal */
 declare class ReportHeaderElement extends SectionElement<ReportHeader> {
@@ -6154,8 +6158,8 @@ declare class PageHeaderElement extends InheritableSectionElement<PageHeader> {
     get debugLabel(): string;
     protected _getCssSelector(): string;
     protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    measureContent(ctx: PrintContext, hintWidth: number, hintHeight: number): Size$1;
+    protected _doPrepareMeasure(ctx: PrintContext$1, dom: HTMLElement): void;
+    measureContent(ctx: PrintContext$1, hintWidth: number, hintHeight: number): Size$1;
 }
 /** @internal */
 declare class PageFooterElement extends InheritableSectionElement<PageFooter> {
@@ -6163,7 +6167,7 @@ declare class PageFooterElement extends InheritableSectionElement<PageFooter> {
     get debugLabel(): string;
     protected _getCssSelector(): string;
     protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _doPrepareMeasure(ctx: PrintContext$1, dom: HTMLElement): void;
 }
 /** @internal */
 declare class BodyItemAddSectionElement extends SectionElement<ItemAddSection<PageSection>> {
@@ -6171,7 +6175,7 @@ declare class BodyItemAddSectionElement extends SectionElement<ItemAddSection<Pa
     get debugLabel(): string;
     protected _getCssSelector(): string;
     protected _isContexable(): boolean;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
+    protected _doPrepareMeasure(ctx: PrintContext$1, dom: HTMLElement): void;
     protected _doSizeChanged(): void;
 }
 
@@ -8531,7 +8535,7 @@ declare class SummaryItem extends TextItemBase {
      */
     get expression(): string;
     set expression(value: string);
-    getSummary(runtime: DataBandSummaryRuntime, ctx: PrintContext | ExcelPrintContext): any;
+    getSummary(runtime: DataBandSummaryRuntime, ctx: PrintContext$1 | ExcelPrintContext): any;
     getSaveType(): string;
     canAddToFrontContainer(): boolean;
     canAddToBackContainer(): boolean;
@@ -8562,7 +8566,7 @@ declare class HtmlItem extends ReportItem {
     constructor(name: string);
     get html(): string;
     set html(value: string);
-    getHtml(ctx: PrintContext): string;
+    getHtml(ctx: PrintContext$1): string;
     getSaveType(): string;
     get outlineLabel(): string;
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
@@ -8575,7 +8579,7 @@ declare class HtmlItem extends ReportItem {
     adoptDragSource(source: any): IDropResult;
     canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
     adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    getRowContextValue(value: string, ctx: PrintContext): string | number;
+    getRowContextValue(value: string, ctx: PrintContext$1): string | number;
     private $_getTokenValue;
     private $_parse;
     private $_parseValues;
@@ -9296,7 +9300,7 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     addAsset(group: AssetGroup | string, item: AssetItem): void;
     removeAsset(item: AssetItem): void;
     defaultInit(item: ReportItem, group: ReportGroupItem, hintWidth: number, hintHeight: number): void;
-    applyDropResult(item: ReportItem | TableCell$1, r: IDropResult): void;
+    applyDropResult(item: ReportItem | TableCell$2, r: IDropResult): void;
     addItem(parent: ReportGroupItem, item: ReportItem, index?: number): boolean;
     checkPasteTo(target: ReportPageItem): void;
     isUsed(data: IReportData): boolean;
@@ -9317,7 +9321,7 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     protected _fireItemAdd(group: ReportGroupItem, item: ReportItem, index: number): boolean;
     protected _fireItemMoved(item: ReportItem, index: number): void;
     protected _fireCollectionChanged(collection: ReportItemCollection<any>): void;
-    protected _fireCellMerged(cell: TableCell$1): void;
+    protected _fireCellMerged(cell: TableCell$2): void;
     protected _fireAlert(item: ReportItem, message: string): void;
 }
 /**
@@ -9422,7 +9426,7 @@ declare class Report extends ReportBase<ReportPage> {
     internalMovePage(index: number, newIndex: number): void;
     prepareLayout(page?: number): void;
     afterLayout(): void;
-    preparePrint(ctx: PrintContext): void;
+    preparePrint(ctx: PrintContext$1): void;
     itemByName(name: string): ReportItem;
     itemOf(hash: string): ReportItem;
     addItem(parent: ReportGroupItem, item: ReportItem, index?: number): boolean;
@@ -9486,10 +9490,10 @@ declare class Report extends ReportBase<ReportPage> {
     addSimpleBandGroup(band: SimpleBand, config: any, index?: number): void;
     canMergeSelection(selection: ISelectionSource): boolean;
     mergeSelection(selection: TableSelection): void;
-    canUnmergeCell(cell: TableCell$1): boolean;
-    unmergeCell(cell: TableCell$1): void;
+    canUnmergeCell(cell: TableCell$2): boolean;
+    unmergeCell(cell: TableCell$2): void;
     search(key: string, options?: FindOptions): FindResult[];
-    applyDropResult(item: ReportItem | TableCell$1, r: IDropResult): void;
+    applyDropResult(item: ReportItem | TableCell$2, r: IDropResult): void;
     pasteItems(sources: string, target: ReportPageItem): ReportItem[];
     /**
      * 아이템의 위치를 변경한다. Undo 가능하다.
@@ -9974,8 +9978,8 @@ declare abstract class BoxContainerElement<T extends BoxContainer> extends Repor
     get debugLabel(): string;
     protected _needDesignBox(): boolean;
     protected _doSetStyles(model: ReportItem, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
 }
 /**
  * View for RowBoxContainer
@@ -9987,9 +9991,9 @@ declare class RowBoxContainerElement extends BoxContainerElement<RowBoxContainer
     get debugLabel(): string;
     protected _getCssSelector(): string;
     protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
-    protected _layoutItem(ctx: PrintContext, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
+    protected _layoutItem(ctx: PrintContext$1, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
     getUpper(view: ReportItemView): ReportItemView;
     getLower(view: ReportItemView): ReportItemView;
 }
@@ -10002,14 +10006,14 @@ declare class ColumnBoxContainerElement extends BoxContainerElement<ColumnBoxCon
     getRowPoints(): number[];
     get debugLabel(): string;
     protected _getCssSelector(): string;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
     /**
      *
      * @param x paddingLeft + borderLeftWidth 를 더한 것
      * @param width columnBox Width - (paddingLeft + borderLeftWidth + paddingRight + borderRightWidth)
      */
-    protected _layoutItem(ctx: PrintContext, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
+    protected _layoutItem(ctx: PrintContext$1, child: ReportElement, model: ReportItem, x: number, y: number, width: number, height: number): void;
     getLeft(view: ReportItemView): ReportItemView;
     getRight(view: ReportItemView): ReportItemView;
 }
@@ -10046,7 +10050,7 @@ declare class PageBodyElement extends ReportElement {
      */
     getLine(index: number): ReportItemView;
     getLines(): ReportItemView[];
-    prepareAsync(doc: Document, ctx: PrintContext): PrintLine[];
+    prepareAsync(doc: Document, ctx: PrintContext$1): PrintLine[];
     itemOfDom(dom: Element): ReportItem;
     protected _getCssSelector(): string;
     get debugLabel(): string;
@@ -10054,9 +10058,9 @@ declare class PageBodyElement extends ReportElement {
     set findable(value: boolean);
     protected _debugBorder(): string;
     protected _debugColor(): string;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
-    layoutFloating(ctx: PrintContext): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
+    layoutFloating(ctx: PrintContext$1): void;
     private $_prepareAsync;
     /**
      * Normal Band일 경우 사용
@@ -10108,7 +10112,7 @@ declare class PageItemContainerElement extends BoundedContainerElement<PageItemC
     protected _isEmptySize(): boolean;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _prepareChild(child: ReportElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
 }
 
 declare class PageSectionGuard extends ReportItemElement<ReportPage> {
@@ -10182,20 +10186,20 @@ declare class PageView extends PageViewBase {
     get sections(): ReportElement[];
     isPageDom(dom: HTMLElement): boolean;
     getBaseView<T extends InheritableSectionElement<any>>(view: T, pageViews: PageView[], viewType: string): T;
-    preparePrint(ctx: PrintContext): void;
-    measure(ctx: PrintContext, bounds: Rectangle$1, pageViews: PageView[]): ISize;
-    layout(ctx: PrintContext, bounds: Rectangle$1): void;
-    layoutFloating(ctx: PrintContext): void;
-    afterRender(ctx: PrintContext): void;
+    preparePrint(ctx: PrintContext$1): void;
+    measure(ctx: PrintContext$1, bounds: Rectangle$1, pageViews: PageView[]): ISize;
+    layout(ctx: PrintContext$1, bounds: Rectangle$1): void;
+    layoutFloating(ctx: PrintContext$1): void;
+    afterRender(ctx: PrintContext$1): void;
     findElement(modelName: string): ReportElement;
     findElementOf(dom: HTMLElement): ReportElement;
     getElementOf(model: ReportPageItem): ReportElement;
     _getSections(): ReportElement[];
-    prepareAsync(doc: Document, ctx: PrintContext): PrintLine[];
-    printPageHeader(doc: Document, ctx: PrintContext): SectionElement<PageSection>;
-    printPageFooter(doc: Document, ctx: PrintContext): SectionElement<PageSection>;
-    printReportHeader(doc: Document, ctx: PrintContext): SectionElement<PageSection>;
-    printReportFooter(doc: Document, ctx: PrintContext): SectionElement<PageSection>;
+    prepareAsync(doc: Document, ctx: PrintContext$1): PrintLine[];
+    printPageHeader(doc: Document, ctx: PrintContext$1): SectionElement<PageSection>;
+    printPageFooter(doc: Document, ctx: PrintContext$1): SectionElement<PageSection>;
+    printReportHeader(doc: Document, ctx: PrintContext$1): SectionElement<PageSection>;
+    printReportFooter(doc: Document, ctx: PrintContext$1): SectionElement<PageSection>;
     getGuardSections(): ReportItemElement[];
     /**
      * 페이지의 한 행을 전부 차지하는가?
@@ -10259,7 +10263,7 @@ declare class TableContainerElement extends TableElement<TableContainer> impleme
     getColumn(index: number): TableColumnBase;
     protected _getCssSelector(): string;
     protected _createCellElement(doc: Document, cell: TableContainerCellItem): TableCellElement;
-    protected _prepareCellStyles(ctx: PrintContext, table: TableBase, row: number, col: number, td: HTMLTableCellElement): void;
+    protected _prepareCellStyles(ctx: PrintContext$1, table: TableBase, row: number, col: number, td: HTMLTableCellElement): void;
 }
 
 /** @internal */
@@ -10299,8 +10303,8 @@ declare abstract class TableBandSectionElement<T extends TableBandSection> exten
     protected _getCssSelector(): string;
     protected _needDesignBox(): boolean;
     protected _createCellElement(doc: Document, cell: TableBandCellItem): TableBandCellElement;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
 }
 declare class TableBandHeaderElement extends TableBandSectionElement<TableBandHeader> {
     protected _setTableStyles(table: HTMLTableElement): void;
@@ -10313,17 +10317,19 @@ declare class TableBandFooterElement extends TableBandSectionElement<TableBandFo
 declare class TableBandDataRowElement extends TableBandSectionElement<TableBandDataRow> {
     private _styles;
     private _cellStyles;
-    applyCellStyles(ctx: PrintContext, band: TableBand, tr: HTMLTableRowElement, trow: number, dynRowStyles: any): void;
+    applyCellStyles(ctx: PrintContext$1, band: TableBand, tr: HTMLTableRowElement, trow: number, dynRowStyles: any): void;
+    $_refreshRowCells(ctx: PrintContext$1, hintWidth: number, hintHeight: number, force?: boolean, tableRows?: HTMLTableRowElement[]): void;
     protected _setTableStyles(table: HTMLTableElement): void;
     protected _setRowStyles(tr: HTMLTableRowElement, row: number): void;
+    private $_getCellStyleCallback;
 }
 declare class TableBandGroupSectionElement<T extends TableBandRowGroupSection> extends TableElement<T> {
     constructor(doc: Document, model: T);
     applyGroupStyles(tr: HTMLTableRowElement): void;
     protected _needDesignBox(): boolean;
     protected _createCellElement(doc: Document, cell: TableCellItem): TableCellElementBase;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
 }
 declare class TableBandGroupHeaderElement extends TableBandGroupSectionElement<TableBandRowGroupHeader> {
     constructor(doc: Document, model: TableBandRowGroupHeader);
@@ -10348,8 +10354,8 @@ declare class TableBandGroupElement extends ReportGroupItemElement<TableBandRowG
     get footer(): TableBandGroupFooterElement;
     protected _getCssSelector(): string;
     protected _needDesignBox(): boolean;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
     $_setMasterView(view: TableElement<any>): void;
 }
 interface ITableGroupPrintInfo extends IGroupPrintInfo {
@@ -10380,9 +10386,9 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
     getRows(): any[];
     resetRowIndex(): void;
     rollback(page: HTMLDivElement): void;
-    getNextPage(doc: Document, ctx: PrintContext, pageWidth: number, parent: HTMLDivElement): HTMLDivElement | null;
-    getNoPagingPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
-    getEmptyDataBandPage(doc: Document, ctx: PrintContext, bandPrintInfo: TableBandPrintInfo, pageWidth: number, parent: HTMLDivElement): HTMLDivElement | null;
+    getNextPage(doc: Document, ctx: PrintContext$1, pageWidth: number, parent: HTMLDivElement): HTMLDivElement | null;
+    getNoPagingPage(doc: Document, ctx: PrintContext$1, width: number, parent: HTMLDivElement): HTMLDivElement | null;
+    getEmptyDataBandPage(doc: Document, ctx: PrintContext$1, bandPrintInfo: TableBandPrintInfo, pageWidth: number, parent: HTMLDivElement): HTMLDivElement | null;
     private $_createContainer;
     private $_createTable;
     private $_createHeaderSection;
@@ -10450,10 +10456,10 @@ declare class TableBandElement extends BandElement<TableBand> implements ITable 
     get columns(): TableColumnCollectionBase<ReportGroupItem, TableColumnBase>;
     get colCount(): number;
     getColumn(index: number): TableColumnBase;
-    prepareAsync(doc: Document, ctx: PrintContext, parentWidth: number, subRows: number[], masterRow: number): TableBandPrintInfo;
-    prepareSubBand(doc: Document, ctx: PrintContext, width: number, dataRows: number[]): TableBandPrintInfo;
+    prepareAsync(doc: Document, ctx: PrintContext$1, parentWidth: number, subRows: number[], masterRow: number): TableBandPrintInfo;
+    prepareSubBand(doc: Document, ctx: PrintContext$1, width: number, dataRows: number[]): TableBandPrintInfo;
     addMasterRow(page: HTMLDivElement, headerView: HTMLTableElement, rowView: TableBodyLine, x: number, y: number): number;
-    printRow(ctx: PrintContext, row: number): TableBodyLine;
+    printRow(ctx: PrintContext$1, row: number): TableBodyLine;
     /** headerView */
     get headerView(): TableBandHeaderElement;
     /** footerView */
@@ -10473,8 +10479,8 @@ declare class TableBandElement extends BandElement<TableBand> implements ITable 
     protected _needDesignBox(): boolean;
     get rowView(): ReportGroupItemView;
     private $_prepareHeads;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
     private $_getHeadHeight;
     protected _setDesignContent(empty: boolean, designView: HTMLDivElement): void;
     getLines(): ReportItemView[];
@@ -10677,8 +10683,8 @@ declare class RealChartItemElement extends ReportItemElement<RealChartItem> impl
     protected _getCssSelector(): string;
     get debugLabel(): string;
     protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
     isDom(dom: HTMLElement): boolean;
     loadAsync(): Promise<void>;
     private $_prepareWrapper;
@@ -10719,8 +10725,8 @@ declare class RealMapItemElement extends ReportItemElement<RealMapItem> implemen
     protected _getCssSelector(): string;
     get debugLabel(): string;
     protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
     isDom(dom: HTMLElement): boolean;
     loadAsync(): Promise<void>;
     private $_prepareWrapper;
@@ -10761,8 +10767,8 @@ declare class HichartItemElement extends ReportItemElement<HichartItem> {
     protected _getCssSelector(): string;
     get debugLabel(): string;
     protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
     isDom(dom: HTMLElement): boolean;
     private $_createWrapper;
     private $_prepareWrapper;
@@ -10909,7 +10915,7 @@ declare class TextBandSectionElement extends StackContainerElement<TextBandSecti
     protected _getCssSelector(): string;
     protected _needDesignBox(): boolean;
     protected _needContentBox(): boolean;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
 }
 /** @internal */
 declare class TextBandElement extends BandItemElement<TextBand> {
@@ -10930,7 +10936,7 @@ declare class TextBandElement extends BandItemElement<TextBand> {
     get headerView(): TextBandSectionElement;
     /** footerView */
     get footerView(): TextBandSectionElement;
-    prepareAsync(doc: Document, ctx: PrintContext, width: number): TextBandPrintInfo;
+    prepareAsync(doc: Document, ctx: PrintContext$1, width: number): TextBandPrintInfo;
     addEditableMarker(): EditableMarker;
     get debugLabel(): string;
     isDom(dom: Element): boolean;
@@ -10954,7 +10960,7 @@ declare class TextBandPrintInfo {
     bandCellWidth: number;
     bandCellHeight: number;
     isEnded(): boolean;
-    getNextPage(doc: Document, ctx: PrintContext, pageWidth: number, parent: HTMLDivElement): HTMLDivElement;
+    getNextPage(doc: Document, ctx: PrintContext$1, pageWidth: number, parent: HTMLDivElement): HTMLDivElement;
     protected _createPage(doc: Document, parent: HTMLDivElement): HTMLDivElement;
 }
 
@@ -10970,12 +10976,12 @@ declare abstract class TextItemElementBase<T extends TextItemBase> extends Repor
     constructor(doc: Document, model: T);
     get debugLabel(): string;
     protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    _doLayoutContent(ctx: PrintContext): void;
-    refreshPrintValues(ctx: PrintContext): void;
+    protected _doPrepareMeasure(ctx: PrintContext$1, dom: HTMLElement): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    _doLayoutContent(ctx: PrintContext$1): void;
+    refreshPrintValues(ctx: PrintContext$1): void;
     isDom(dom: HTMLElement): boolean;
-    protected abstract _getPrintText(ctx: PrintContext, m: T): string;
+    protected abstract _getPrintText(ctx: PrintContext$1, m: T): string;
 }
 /** @internal */
 declare class TextItemElement extends TextItemElementBase<TextItem> {
@@ -10990,9 +10996,9 @@ declare class TextItemElement extends TextItemElementBase<TextItem> {
     get editable(): boolean;
     getEditText(): string;
     setEditText(report: ReportBase, text: string): void;
-    protected _getPrintText(ctx: PrintContext, model: TextItem): string;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, size: Size$1): void;
+    protected _getPrintText(ctx: PrintContext$1, model: TextItem): string;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, size: Size$1): void;
     isDom(dom: HTMLElement): boolean;
 }
 
@@ -11006,13 +11012,13 @@ declare class BandGroupElement extends ReportGroupItemElement<BandGroup> {
     private _paddings;
     private _cellPts;
     getCellPoints(): number[];
-    prepareAsync(doc: Document, ctx: PrintContext, width: number, masterBandRow?: number): BandGroupPrintInfo;
+    prepareAsync(doc: Document, ctx: PrintContext$1, width: number, masterBandRow?: number): BandGroupPrintInfo;
     get debugLabel(): string;
     protected _needDesignBox(): boolean;
     protected _getCssSelector(): string;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
-    protected _doLayoutContent(ctx: PrintContext): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
     protected _setDesignContent(empty: boolean, designView: HTMLDivElement): void;
     private $_calcCellsSize;
 }
@@ -11030,9 +11036,9 @@ declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     isEnded(): boolean;
     getRows(): any[];
     rollback(page: HTMLDivElement): void;
-    getNextPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
-    getNoPagingPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement;
-    getEmptyDataBandPage(doc: Document, ctx: PrintContext, bandPrintInfo: BandGroupPrintInfo, width: number, parent: HTMLDivElement): HTMLDivElement;
+    getNextPage(doc: Document, ctx: PrintContext$1, width: number, parent: HTMLDivElement): HTMLDivElement | null;
+    getNoPagingPage(doc: Document, ctx: PrintContext$1, width: number, parent: HTMLDivElement): HTMLDivElement;
+    getEmptyDataBandPage(doc: Document, ctx: PrintContext$1, bandPrintInfo: BandGroupPrintInfo, width: number, parent: HTMLDivElement): HTMLDivElement;
     resetRowIndex(): void;
     private $_createBandGroupPage;
     private $_attachHorizontalBandGroup;
@@ -11421,7 +11427,7 @@ declare class TableBandDesigner extends BandDesigner {
     protected _getTitle(): string;
     protected _doClose(): void;
     protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
     protected _refreshBandFields(): void;
     buttonClick(button: HTMLButtonElement): void;
     protected _createFields(band: DataBand, fields: HTMLElement[]): void;
@@ -11551,7 +11557,7 @@ declare class SimpleBandDesigner extends BandDesigner {
     protected _getCssSelector(): string;
     protected _getTitle(): string;
     protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
     buttonClick(button: HTMLButtonElement): void;
     private $_prepareData;
     private $_prepareButtons;
@@ -11561,7 +11567,7 @@ declare class SimpleBandDesigner extends BandDesigner {
 declare class EmailTableCellCollection extends TableCellCollection {
     static readonly $_ctor: string;
     discriminator: "I_EMAIL_ITEM_COLLECTION";
-    protected _createCell(row: number, col: number): TableCell$1;
+    protected _createCell(row: number, col: number): TableCell$2;
 }
 
 declare class EmailTableContainer extends TableContainer implements IEmailItem {
@@ -11637,7 +11643,7 @@ declare class TableDesigner extends PopupElement {
     protected _getCssSelector(): string;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _getTitle(): string;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
     buttonClick(button: HTMLButtonElement): void;
     protected _doClose(): void;
     private $_prepareCells;
@@ -11991,7 +11997,7 @@ declare class Selections extends EventAware$1 {
      * items 들만 남기고 나머지는 제거한다.
      */
     replace(items: ISelectionSource[]): boolean;
-    resize(sel: TableSelection, to: TableCell$1): void;
+    resize(sel: TableSelection, to: TableCell$2): void;
     resizeBy(sel: TableSelection, dx: number, dy: number): void;
     getLinkedTableColumns(column: TableColumnBase): TableColumnBase[];
     isSingleTableColumns(): boolean;
@@ -12082,7 +12088,7 @@ declare class ReportEditView extends ReportView {
     protected _createPageView(doc: Document): PageView;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _resetPages(model: Report): void;
-    protected _afterLayout(ctx: PrintContext, bounds: Rectangle$1): void;
+    protected _afterLayout(ctx: PrintContext$1, bounds: Rectangle$1): void;
     protected _getPageHeadTitlePrefix(type?: ReportPageType): string;
     private $_layoutMask;
     protected _layoutPageBorders(rReport: Rectangle$1, rPage: Rectangle$1): void;
@@ -12095,13 +12101,13 @@ declare class ReportEditView extends ReportView {
     protected onReportItemRemoved(report: Report, item: ReportItem, oldParent: ReportGroupItem): void;
     protected onReportItemsRemoved(report: Report, items: ReportPageItem[]): void;
     protected onReportItemFolded(item: ReportItem): void;
-    protected onReportCellMerged(report: Report, cell: TableCell$1): void;
+    protected onReportCellMerged(report: Report, cell: TableCell$2): void;
     protected onReportAlert(report: Report, item: ReportItem, message: string): void;
 }
 /**
  * 리포트 편집기에 사용되는 report view.
  */
-declare class ReportEditor extends ReportEditorBase<PrintContext> implements IReportEditor, IPropertySource {
+declare class ReportEditor extends ReportEditorBase<PrintContext$1> implements IReportEditor, IPropertySource {
     static readonly PROP_DEFAULT_UNIT = "defaultUnit";
     static readonly PROP_GUARD_WIDTH = "guardWidth";
     static readonly PROPINFOS: IPropInfo[];
@@ -12118,7 +12124,7 @@ declare class ReportEditor extends ReportEditorBase<PrintContext> implements IRe
     private _reportItemClipboardManager;
     private _edit_menu;
     constructor(containerId: string | HTMLDivElement);
-    protected _createContext(): PrintContext;
+    protected _createContext(): PrintContext$1;
     showEditFocus(): void;
     hideEditFocus(): void;
     getContextMenu(menuKey: string): MenuItem$1[];
@@ -12161,7 +12167,7 @@ declare class ReportEditor extends ReportEditorBase<PrintContext> implements IRe
     findDropTarget(source: any, target: HTMLElement): {
         target: HTMLElement;
         view: VisualElement$1;
-        item: ReportItem | TableCell$1;
+        item: ReportItem | TableCell$2;
     };
     private $_startDesigner;
     startTableDesigner(type: TableDesignerAddType | TableBandDesignerAddType, data: BandArrayData, callback: (item: TableContainer | TableLikeBand) => void): void;
@@ -12243,7 +12249,7 @@ declare abstract class ReportViewBase$1<T extends ReportBase = ReportBase> exten
     protected abstract _resetPages(model: T): void;
     protected _modelReset(): void;
     protected _modelChanged(): void;
-    _preparePrint(ctx: PrintContext): void;
+    _preparePrint(ctx: PrintContext$1): void;
     protected onReportReset(report: ReportBase): void;
     protected onReportPaperChanged(report: ReportBase): void;
     protected onReportPageAdded(report: ReportBase, page: ReportPageBase): void;
@@ -12284,26 +12290,26 @@ declare class ReportView extends ReportViewBase$1<Report> implements IImageConta
      * @param fromIndex 검색을 시작해야할 페이지 인덱스 정보
      * @returns
      */
-    getVisiblePageIndex(ctx: PrintContext, fromIndex?: number): number;
+    getVisiblePageIndex(ctx: PrintContext$1, fromIndex?: number): number;
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _resetPages(model: Report): void;
     protected _createEmptyView(doc: Document): VisualElement$1;
     protected _createPageView(doc: Document): PageView;
     protected _layoutPageBorders(rReport: Rectangle$1, rPage: Rectangle$1): void;
     private $_layout;
-    protected _afterLayout(ctx: PrintContext, bounds: Rectangle$1): void;
-    $_setRectPageViews(ctx: PrintContext, pageViews: PageView[], bounds: Rectangle$1, size: Size$1): void;
+    protected _afterLayout(ctx: PrintContext$1, bounds: Rectangle$1): void;
+    $_setRectPageViews(ctx: PrintContext$1, pageViews: PageView[], bounds: Rectangle$1, size: Size$1): void;
     $_getOverflowHeight(): number;
-    $_afterRender(ctx: PrintContext): void;
+    $_afterRender(ctx: PrintContext$1): void;
     _createElement(item: ReportItem): ReportElement;
     /**
      * PrintContainer.$_print(...)에서 호출한다.
      */
-    _preparePrint(ctx: PrintContext): void;
+    _preparePrint(ctx: PrintContext$1): void;
     /**
      * PrintContainer.$_print(...)에서 호출한다.
      */
-    $_endPrint(ctx: PrintContext): void;
+    $_endPrint(ctx: PrintContext$1): void;
 }
 
 /** @internal */
@@ -12312,11 +12318,11 @@ declare class HtmlItemElement extends ReportItemElement<HtmlItem> {
     get debugLabel(): string;
     protected _getCssSelector(): string;
     protected _initDom(doc: Document, dom: HTMLElement): void;
-    protected _doPrepareMeasure(ctx: PrintContext, dom: HTMLElement): void;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    saveContextValue(ctx: PrintContext): string;
+    protected _doPrepareMeasure(ctx: PrintContext$1, dom: HTMLElement): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    saveContextValue(ctx: PrintContext$1): string;
     replaceContextValue(ctx: PrintContextBase, value?: string): string;
-    refreshPrintValues(ctx: PrintContext, save?: boolean): void;
+    refreshPrintValues(ctx: PrintContext$1, save?: boolean): void;
     /**
      * 허용하지 않은 태그가 포함되어있을 경우 console.error 표시
      * @param html 표시할 html 형식 문자열
@@ -12340,8 +12346,8 @@ declare class SimpleBandGroupSectionElement<T extends SimpleBandRowGroupSection>
     constructor(doc: Document, model: T);
     applyGroupStyles(elt: HTMLElement): void;
     protected _needDesignBox(): boolean;
-    protected _doMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
 }
 interface ISimpleGroupPrintInfo extends IGroupPrintInfo {
     view: SimpleBandGroupSectionElement<SimpleBandRowGroupHeader | SimpleBandRowGroupFooter>;
@@ -12654,9 +12660,9 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     /**
      * 밴드 디테일 영역에서 SummaryItem 계산을 위한 데이터 준비
      */
-    protected _prepareBandDetailSummary(ctx: PrintContext, band: DataBand): void;
+    protected _prepareBandDetailSummary(ctx: PrintContext$1, band: DataBand): void;
 }
-declare class PrintContext extends PrintContextBase<Report> {
+declare class PrintContext$1 extends PrintContextBase<Report> {
     private _reportView;
     get reportView(): ReportView;
     set reportView(value: ReportView);
@@ -12745,7 +12751,7 @@ declare abstract class BandData extends LinkableReportData {
     isDirty(): boolean;
     clean(): void;
     save(target: any): any;
-    preparePrint(ctx: PrintContext, design: boolean): void;
+    preparePrint(ctx: PrintContext$1, design: boolean): void;
     editCommandStackChanged(stack: EditCommandStack$1, cmd: EditCommand$1, undoable: boolean, redoable: boolean): void;
     onFieldChanged: (stack: EditCommandStack$1, cmd: EditCommand$1) => void;
     protected _getSampleValues(): any[];
@@ -13573,7 +13579,7 @@ declare abstract class ReportItem extends ReportPageItem {
     canAddToFrontContainer(): boolean;
     canAddToBackContainer(): boolean;
     prepareLayout(printing: boolean): void;
-    preparePrint(ctx: PrintContext): void;
+    preparePrint(ctx: PrintContext$1): void;
     getLeft(domain: number): number;
     setLeft(dim: Dimension): void;
     getRight(domain: number): number;
@@ -13687,7 +13693,7 @@ declare abstract class ReportItem extends ReportPageItem {
     protected _doAfterLoad(loader: IReportLoader, src: any): void;
     protected _doAfterSave(target: object): void;
     protected _doPrepareLayout(printing: boolean): void;
-    protected _doPreparePrint(ctx: PrintContext): void;
+    protected _doPreparePrint(ctx: PrintContext$1): void;
     protected _isI18nFieldExist(): boolean;
 }
 /**
@@ -13769,7 +13775,7 @@ declare abstract class ReportGroupItem extends ReportItem {
     protected _canChildData(): boolean;
     replaceData(oldName: string, name: string): void;
     prepareLayout(printing: boolean): void;
-    preparePrint(ctx: PrintContext): void;
+    preparePrint(ctx: PrintContext$1): void;
     protected _getNameOfItems(): string;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _ignoreItems(): boolean;
@@ -13879,7 +13885,7 @@ declare abstract class ReportItemCollection<T extends ReportPageItem = ReportPag
     abstract get items(): ReportPageItem[];
     abstract get(index: number): T;
     abstract indexOf(item: T): number;
-    preparePrint(ctx: PrintContext): void;
+    preparePrint(ctx: PrintContext$1): void;
     forEach(callback: (item: T, index: number) => void): void;
     protected abstract _doMoveItem(from: number, to: number): boolean;
     moveItem(from: number, to: number): boolean;
@@ -13892,7 +13898,7 @@ declare abstract class ReportItemCollection<T extends ReportPageItem = ReportPag
     protected _itemRemoved(item: T, oldParent: ReportGroupItem | ReportItemCollection): void;
     protected _itemsRemoved(items: T[]): void;
     protected _indexChanged(): void;
-    protected _doPreparePrint(ctx: PrintContext): void;
+    protected _doPreparePrint(ctx: PrintContext$1): void;
 }
 /**
  * 동일 그룹 내의 다른 아이템을 기준점으로 표시되는 아이템.
@@ -14041,7 +14047,7 @@ declare abstract class ChartSeries<T extends ReportGroupItem> extends ChartObjec
     get values(): number[];
     set values(value: number[]);
     hasValuesProp(): boolean;
-    getValues(ctx: PrintContext, dp: IReportDataProvider): any[];
+    getValues(ctx: PrintContext$1, dp: IReportDataProvider): any[];
     getSaveType(): string;
     get displayPath(): string;
     get outlineLabel(): string;
@@ -14487,7 +14493,7 @@ declare abstract class HichartAxis extends ChartObject<HichartItem> {
     set maxPadding(value: number);
     get plotLines(): HichartAxisPlotLineCollection;
     get plotBands(): HichartAxisPlotBandCollection;
-    getCategories(ctx: PrintContext, dp: IReportDataProvider): any[];
+    getCategories(ctx: PrintContext$1, dp: IReportDataProvider): any[];
     abstract getPlotLineConfig(): object;
     abstract getPlotBandConfig(): object;
     get outlineParent(): IOutlineSource;
@@ -14575,9 +14581,9 @@ declare abstract class HichartSeries extends ChartSeries<HichartItem> {
     protected _doSave(target: object): void;
     getCollectionLabel(): string;
     canRemoveFrom(): boolean;
-    getValues(ctx: PrintContext, dp: IReportDataProvider): any[];
+    getValues(ctx: PrintContext$1, dp: IReportDataProvider): any[];
     protected _getFieldProps(): string[];
-    protected _getValues(ctx: PrintContext, prop: string, dp: IReportDataProvider): number[];
+    protected _getValues(ctx: PrintContext$1, prop: string, dp: IReportDataProvider): number[];
 }
 declare class HichartSeriesCollection extends ChartSeriesCollection<HichartItem> {
     constructor(chart?: HichartItem);
@@ -14952,7 +14958,7 @@ declare class ReportDataProvider extends Base$1 implements IReportDataProvider {
     private _dataMap;
     private _contextData;
     protected _doDispose(): void;
-    preparePrint(ctx: PrintContext): void;
+    preparePrint(ctx: PrintContext$1): void;
     getAll(): IReportData[];
     get(name: string): IReportData;
     getContextValue(path: string): any;
@@ -23907,7 +23913,7 @@ declare class GridHeader$1 extends VisualObject implements GridHeader {
 }
 
 /** @internal */
-declare class HeaderTableCell extends TableCell {
+declare class HeaderTableCell extends TableCell$1 {
     check: HTMLInputElement;
     sort: HTMLElement;
     filter: HTMLElement;
@@ -24001,7 +24007,7 @@ declare class HeaderElement extends SimpleTableElement {
 /**
  * @internal
  */
-declare class TableCell {
+declare class TableCell$1 {
     static addEdgeMark(edgeMark: EdgeMark, cell: HeaderTableCell | BodyTableCell, doc: Document): void;
     cell: HTMLTableCellElement;
     layout: CellLayoutItem;
@@ -24015,17 +24021,17 @@ declare class TableCell {
     text: any;
     constructor(td: HTMLTableCellElement);
     dispose(): void;
-    setColSpan(value: number): TableCell;
-    setRowSpan(value: number): TableCell;
-    setVisible(value: boolean): TableCell;
-    set(colSpan: number, rowSpan: number, visible: boolean): TableCell;
-    clear(visible: boolean): TableCell;
+    setColSpan(value: number): TableCell$1;
+    setRowSpan(value: number): TableCell$1;
+    setVisible(value: boolean): TableCell$1;
+    set(colSpan: number, rowSpan: number, visible: boolean): TableCell$1;
+    clear(visible: boolean): TableCell$1;
     isClickableElt(elt: HTMLElement): boolean;
 }
 /**
  * @internal
  */
-declare class BodyTableCell extends TableCell {
+declare class BodyTableCell extends TableCell$1 {
     cellButton: HTMLElement;
     editButtons: HTMLElement[];
     errorIcon: HTMLElement;
@@ -36159,7 +36165,7 @@ declare class HeaderSummaryCollection extends SummaryCollection implements Heade
 }
 
 /** @internal */
-declare class SummaryTableCell extends TableCell {
+declare class SummaryTableCell extends TableCell$1 {
     summaryIndex: number;
     rendererClass: string;
     style: ColumnSummaryStyle;
@@ -49316,6 +49322,9 @@ interface GridReportOptions$1 extends ReportOptions {
  * GridreportViewer
  */
 declare class GridReportViewer extends ReportViewer {
+    static readonly HEADER_ITEM_STYLES: string[];
+    static readonly HEADER_STYLES: string[];
+    static readonly CELL_STYLES: string[];
     private _grid;
     private _gridValues;
     private _gridTable;
@@ -49325,6 +49334,7 @@ declare class GridReportViewer extends ReportViewer {
      * Row Indicator가 있는 경우 시작 컬럼 인덱스는 1
      */
     get startColIdx(): number;
+    set options(options: GridReportOptions$1);
     /**
      * 컨테이너에 미리보기 랜더링
      */
@@ -49335,6 +49345,10 @@ declare class GridReportViewer extends ReportViewer {
     print(options: PrintOptions): Promise<void>;
     saveReport(options?: GridReportSaveOptions): void;
     exportImage(imageOptions?: ImageExportOptions$1): Promise<void>;
+    /**
+     * Report 객체 초기화 및 생성
+     */
+    private $_initReport;
     /**
      * 타이틀 또는 서브 타이틀 추가
      * @param title GridReportTitle 객체
@@ -49372,9 +49386,33 @@ declare class GridReportViewer extends ReportViewer {
      * @param grid GridView
      */
     private $_forceGridViewRender;
+    /**
+     * 리얼리포트 테이블밴드 헤더 영역 스타일을 지정한다.
+     * 리얼그리드 특성상 로우 인디케이터 영역이 따로 존재하기 때문에 해당 영역은 추가로 따로 설정할 수 있다.
+     */
+    private $_applyHeaderSectionStyles;
+    /**
+     * 헤더 섹션 아이템들에 대한 스타일 적용 처리
+     */
+    private $_applyHeaderItemStyles;
+    /**
+     * 테이블 셀 영역에 스타일 지정
+     * @param table
+     * @param cell
+     * @param styles
+     * @returns
+     */
+    private $_applyCellItemStyles;
     private $_applyItemStyles;
     /**
-     * 컬럼 이름을 기준으로 스타일을 적용한다.
+     * 옵션으로 지정한 CellStyleCallback을 지정한다.
+     * @param cell 데이터 로우 셀 영역
+     */
+    private $_applyCellStyleCallback;
+    private $_getMathcedColumn;
+    private $_applyColumnHeaderOptions;
+    /**
+     * 컬럼 옵션 스타일을 적용한다.
      */
     private $_applyColumnOptions;
 }
@@ -49425,7 +49463,10 @@ type ReportFormSet = {
 };
 type ReportFormSets = ReportFormSet[];
 
-type CommonStyleName = 'color' | 'backgroundColor' | 'fontSize' | 'fontWeight';
+type CommonStyleName = 'color' | 'backgroundColor' | 'fontSize' | 'fontWeight' | 'textAlign' | 'padding' | 'paddingLeft' | 'paddingRightt' | 'paddingTop' | 'paddingBottom';
+type CommonStyles = {
+    [key in CommonStyleName]?: string | undefined;
+};
 /**
  * 그리드 리포트 그리드 헤더 영역 전체 스타일
  */
@@ -49443,6 +49484,22 @@ type ColumnName = string;
 type ColumnStyleName = CommonStyleName;
 type ColumnStyles = {
     [key in ColumnStyleName]?: string | undefined;
+};
+type PrintContext = {
+    dp: IReportDataProvider;
+    getValue: (data: string, row: number, field: string) => any;
+};
+type TableCell = {
+    row: number;
+    col: number;
+    fieldName: string;
+};
+type LayoutColumn = {
+    name: string;
+    header?: {
+        styles?: HeaderStyles;
+    };
+    styles: ColumnStyles;
 };
 /**
  * 그리드 리포트 레이아웃 정보
@@ -49477,13 +49534,11 @@ type GridReportLayout = {
     /**
      * 각 컬럼 레이아웃에 대한 설정
      */
-    columns?: {
-        name: string;
-        header?: {
-            styles?: HeaderStyles;
-        };
-        styles: ColumnStyles;
-    }[];
+    columns?: LayoutColumn[];
+    /**
+     * 데이터 행 영역에 대한 셀 스타일 Callback 설정
+     */
+    cellStyleCallback?: (ctx: PrintContext, cell: TableCell, row: number, value: any) => CommonStyles;
 };
 /**
  * 그리드 리포트 헤더 레이아웃 정보
@@ -49671,4 +49726,4 @@ declare const IMG_EXPORT_DEFAULT_OPTIONS: ImageExportOptions;
  */
 declare const ZOOM_ERROR_MESSAGE = "\uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778 \uACBD\uC6B0\uB9CC \uB0B4\uBCF4\uB0B4\uAE30\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4. \uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.";
 
-export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE };
+export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE };

@@ -14728,8 +14728,10 @@ declare class TableBandDataRowElement extends TableBandSectionElement<TableBandD
     private _styles;
     private _cellStyles;
     applyCellStyles(ctx: PrintContext, band: TableBand, tr: HTMLTableRowElement, trow: number, dynRowStyles: any): void;
+    $_refreshRowCells(ctx: PrintContext, hintWidth: number, hintHeight: number, force?: boolean, tableRows?: HTMLTableRowElement[]): void;
     protected _setTableStyles(table: HTMLTableElement): void;
     protected _setRowStyles(tr: HTMLTableRowElement, row: number): void;
+    private $_getCellStyleCallback;
 }
 
 /**
@@ -15336,7 +15338,7 @@ declare type TableCellSpan = {
     m: TableCellItem;
 };
 
-declare type TableCellStyleCallback = (ctx: PrintContext, cell: TableCell, row: number) => {
+declare type TableCellStyleCallback = (ctx: PrintContext, cell: TableCell, row: number, value: any) => {
     [key: string]: string | undefined;
 };
 
