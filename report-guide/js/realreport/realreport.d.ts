@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.7
-* commit c815b458
+* RealReport v1.11.8
+* commit f144d5a7
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -9,12 +9,13 @@
 */
 
 import { Cvfo, Style } from 'exceljs';
+import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.7
+* RealReport Core v1.11.8
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 09b3e3bcd056d1b2aac8a92bbe6160bb0a3a025a
+* commit b1502179e9b5c9eeedc1b7d2acd4c0262e2808ae
 */
 
 
@@ -3442,6 +3443,7 @@ declare abstract class PopupElement extends ReportElement implements Closable {
 /** @internal */
 declare abstract class ReportItemElement<T extends ReportItem = ReportItem> extends ReportElement {
     static readonly FOLDED_HEIGHT = 22;
+    static readonly BASE_CLASS_NAME = "rr-item-element";
     /**
      * 리포트 아이템 표시 여부 확인하기
      *
@@ -10678,6 +10680,7 @@ declare class RowBoxMarquee extends EditMarquee<RowBoxContainerElement> {
 }
 
 declare class RealChartItemElement extends ReportItemElement<RealChartItem> implements AsyncLoadable {
+    static readonly ITEM_CLASS = "rr-chart";
     private _chartDiv;
     private _wrapper;
     protected _getCssSelector(): string;
@@ -15245,6 +15248,15 @@ declare class Email extends Report {
     protected _createReportLoader(): IReportLoader;
     protected _createPage(): ReportPage;
 }
+
+interface RealChartImageExportOptions extends ExportOptions$1 {
+    type?: 'png';
+    fontFamily?: string;
+}
+
+type EmailHtmlExportOptions = {
+    chartOptions?: RealChartImageExportOptions;
+};
 
 declare class ExcelPrintContainer extends PrintContainerBase {
     private _context;
@@ -49279,7 +49291,7 @@ declare class ReportViewer extends ReportViewBase {
     /**
      * 이메일 HTML 내보내기 함수
      */
-    exportEmailHtml(): Promise<string>;
+    exportEmailHtml({ chartOptions, }: EmailHtmlExportOptions): Promise<string>;
     /**
      * 배열로 넘긴 데이터를 기반으로 여러 파일로 분리해서 문서파일을 다운로드한다.
      * @param options
@@ -49309,8 +49321,16 @@ interface GridReportHeader$1 {
 interface GridReportTitle$1 extends TextItem {
     sample?: string;
 }
+interface GridReportPaperOptions {
+    orientation?: PaperOrientation;
+    paperSize?: 'A0' | 'A1' | 'A2' | 'A3' | 'A4' | 'A5' | 'A6' | 'A7' | 'A8';
+    marginLeft?: number;
+    marginRight?: number;
+    marginTop?: number;
+    marginBottom?: number;
+}
 interface GridReportOptions$1 extends ReportOptions {
-    paper?: PaperOptions;
+    paper?: GridReportPaperOptions;
     title?: GridReportTitle$1;
     subTitle?: GridReportTitle$1;
     gridHeader?: GridReportHeader$1;
@@ -49325,6 +49345,7 @@ declare class GridReportViewer extends ReportViewer {
     static readonly HEADER_ITEM_STYLES: string[];
     static readonly HEADER_STYLES: string[];
     static readonly CELL_STYLES: string[];
+    static readonly PAPER_SIZES: string[];
     private _grid;
     private _gridValues;
     private _gridTable;
@@ -49415,6 +49436,10 @@ declare class GridReportViewer extends ReportViewer {
      * 컬럼 옵션 스타일을 적용한다.
      */
     private $_applyColumnOptions;
+    /**
+     *
+     */
+    private $_getPaperSize;
 }
 
 /**
@@ -49445,10 +49470,32 @@ declare class ReportCompositeViewer extends ReportViewBase {
      * @param options PDFExportBlobOptions
      */
     exportPdfBlob(options: PDFExportBlobOptions): Promise<Blob>;
-    exportImage(imageOptions: ImageExportOptions$1): void;
-    exportDocument(options: DocumentExportOptions): void;
+    /**
+     * 문서 내보내기 함수
+     * @param options
+     */
+    exportDocument(options?: DocumentExportOptions): Promise<void>;
+    /**
+     * 리포트를 문서 파일 형식의 Blob 데이터로 반환
+     * @param options
+     */
+    exportDocumentBlob(options?: DocumentExportBlobOptions): Promise<Blob>;
+    /**
+     * 이미지 내보내기 함수
+     * @param imageOptions
+     */
+    exportImage(imageOptions: ImageExportOptions): Promise<void>;
+    /**
+     * 리포트를 이미지로 변환 후 Blob 배열 형식으로 반환
+     * @param imageOptions
+     */
+    exportImageBlob(imageOptions?: ImageExportBlobOptions): Promise<Blob[]>;
     dispose(): void;
     private _checkReportFormSet;
+    /**
+     * 현재 리포트가 문서(pptx, hwp, docs)를 지원하는지 여부를 결정합니다.
+     */
+    private $_hasSupportDocument;
 }
 
 interface ReportOptions {
