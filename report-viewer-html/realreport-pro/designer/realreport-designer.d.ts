@@ -591,6 +591,7 @@ declare class BarcodeItem extends ReportItem {
     static readonly PROP_TEXT_ALIGN = "textAlign";
     static readonly PROP_FLAT = "flat";
     static readonly PROP_LAST_CHAR = "lastChar";
+    static readonly PROP_AUTO_SCALE = "autoScale";
     /** Barcode를 표현할 수 있는 영역의 최소 크기 (한 변 기준, px단위) */
     static readonly BARCODE_WIDTH_MIN_SIZE = 50;
     static readonly BARCODE_HEIGHT_MIN_SIZE = 15;
@@ -607,6 +608,7 @@ declare class BarcodeItem extends ReportItem {
     private _textMargin;
     private _flat;
     private _lastChar;
+    private _autoScale;
     constructor(name: string);
     /** format */
     get format(): BarcodeFormat;
@@ -645,6 +647,11 @@ declare class BarcodeItem extends ReportItem {
     set flat(value: boolean);
     get lastChar(): string;
     set lastChar(value: string);
+    /**
+     * autoSize
+     */
+    get autoScale(): boolean;
+    set autoScale(value: boolean);
     convertText(s: string): string;
     getSaveType(): string;
     get outlineLabel(): string;
@@ -3059,6 +3066,7 @@ declare class ExcelBarcodeItem extends BarcodeItem {
         cols: number;
     };
     write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    getText(ctx: ExcelPrintContext): string;
     get marqueeParent(): ReportItem;
     protected _getEditProps(): IPropInfo[];
     canFold(): boolean;
@@ -4244,6 +4252,7 @@ declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
     private _saveSameStartPrintedRowCount;
     private _cells;
     private _heights;
+    private _sheetContextValueManager;
     reportView: ExcelReportView;
     sheetView: ExcelSheetView;
     printView: SheetPrintView;
@@ -4265,6 +4274,8 @@ declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
     set cells(cells: IExcelRenderInfo[][]);
     get heights(): number[][];
     set heights(heights: number[][]);
+    get sheetContextValueManager(): SheetContextValueManager;
+    constructor(printing?: boolean);
     getItemCell(item: ExcelItems | ExcelGroupItems): HTMLTableCellElement;
     getCell(row: number, col: number): HTMLTableCellElement;
     getItemRect(item: ExcelItems | ExcelGroupItem): IRect;
@@ -5196,6 +5207,13 @@ declare enum FormulaConverterErrorCode {
     FORBIDDEN_BAND_REF = "FORBIDDEN_BAND_REF",
     FORBIDDEN_DETAIL_BAND_REF = "FORBIDDEN_DETAIL_BAND_REF",
     BAND_NOT_FOUND = "BAND_NOT_FOUND"
+}
+
+export declare const getVersion: typeof Globals.getVersion;
+
+declare class Globals {
+    static getVersion(): string;
+    static setLicenseKey(license: string): void;
 }
 
 /**
@@ -6373,6 +6391,16 @@ declare interface IExcelBandGroupContext {
     children: IExcelBandGroupContext[];
 }
 
+declare interface IExcelBarcode {
+    value: string;
+    format: string;
+    barWidth: number;
+    showText: boolean;
+    textAlign: 'left' | 'center' | 'right';
+    textPosition: 'bottom' | 'top';
+    textMargin: number;
+}
+
 declare interface IExcelBoxContext {
     model: string;
 }
@@ -6397,6 +6425,7 @@ declare interface IExcelCell {
     annotation?: string;
     link?: string;
     image?: IExcellImage;
+    barcode?: IExcelBarcode;
     spark?: any;
     style?: Styles;
     rotation?: number | 'vertical';
@@ -6407,6 +6436,9 @@ declare interface IExcelCell {
     cbandGroup?: IExcelBandGroupContext;
     cband?: IExcelBandContext;
     bandSectionType?: BandSectionType;
+    contextValue?: {
+        value: '${pages}' | '%{pages}' | '${page}' | '%{page}';
+    };
 }
 
 declare interface IExcelDataBar {
@@ -9591,6 +9623,7 @@ declare class RealChartItem extends ChartItem<RCConfig> {
 }
 
 declare class RealChartItemElement extends ReportItemElement<RealChartItem> implements AsyncLoadable {
+    static readonly ITEM_CLASS = "rr-chart";
     private _chartDiv;
     private _wrapper;
     protected _getCssSelector(): string;
@@ -13520,6 +13553,8 @@ declare type ServerReportSource = {
 
 declare type ServerReportSources = (ServerReportGroupSource | ServerReportSource)[];
 
+export declare const setLicenseKey: typeof Globals.setLicenseKey;
+
 /**
  * A sheet design model.
  */
@@ -13693,6 +13728,22 @@ declare class SheetColumnHeaderLayer extends HeaderLayer<SheetColumnHeaderView> 
 declare class SheetColumnHeaderView extends ExcelColumnHeaderView {
     refresh(doc: Document, colPts: number[]): void;
     protected _getCssSelector(): string;
+}
+
+/**
+ * 시트 Context 값 관련 관리 클래스
+ */
+declare class SheetContextValueManager {
+    private _refreshContextValueElements;
+    constructor();
+    registerRefreshContextValueElement(element: HTMLElement): void;
+    /**
+     * ContextValue 관련 요소들의 값을 갱신
+     * TODO: 이후에는 ContextValue 값에 따라 갱신할 요소를 구분할 수 있도록 개선 필요
+     * - ${pages}, %{pages}
+     * @param value 갱신해야 할 값
+     */
+    refreshContextValueElements(value: any): void;
 }
 
 /**

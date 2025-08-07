@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.8
-* commit f144d5a7
+* RealReport v1.11.9
+* commit 1025a1cf
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.8
+* RealReport Core v1.11.9
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit b1502179e9b5c9eeedc1b7d2acd4c0262e2808ae
+* commit ae70ee50fe99ee75356750e89b71d8448f60fff0
 */
 
 
@@ -6194,6 +6194,7 @@ declare class BarcodeItem extends ReportItem {
     static readonly PROP_TEXT_ALIGN = "textAlign";
     static readonly PROP_FLAT = "flat";
     static readonly PROP_LAST_CHAR = "lastChar";
+    static readonly PROP_AUTO_SCALE = "autoScale";
     /** Barcode를 표현할 수 있는 영역의 최소 크기 (한 변 기준, px단위) */
     static readonly BARCODE_WIDTH_MIN_SIZE = 50;
     static readonly BARCODE_HEIGHT_MIN_SIZE = 15;
@@ -6210,6 +6211,7 @@ declare class BarcodeItem extends ReportItem {
     private _textMargin;
     private _flat;
     private _lastChar;
+    private _autoScale;
     constructor(name: string);
     /** format */
     get format(): BarcodeFormat;
@@ -6248,6 +6250,11 @@ declare class BarcodeItem extends ReportItem {
     set flat(value: boolean);
     get lastChar(): string;
     set lastChar(value: string);
+    /**
+     * autoSize
+     */
+    get autoScale(): boolean;
+    set autoScale(value: boolean);
     convertText(s: string): string;
     getSaveType(): string;
     get outlineLabel(): string;
@@ -6956,6 +6963,15 @@ interface IExcellImage {
     width: number;
     height?: number;
 }
+interface IExcelBarcode {
+    value: string;
+    format: string;
+    barWidth: number;
+    showText: boolean;
+    textAlign: 'left' | 'center' | 'right';
+    textPosition: 'bottom' | 'top';
+    textMargin: number;
+}
 interface IExcelCell {
     info?: IExcelRenderInfo;
     r: number;
@@ -6976,6 +6992,7 @@ interface IExcelCell {
     annotation?: string;
     link?: string;
     image?: IExcellImage;
+    barcode?: IExcelBarcode;
     spark?: any;
     style?: Styles;
     rotation?: number | 'vertical';
@@ -6986,6 +7003,9 @@ interface IExcelCell {
     cbandGroup?: IExcelBandGroupContext;
     cband?: IExcelBandContext;
     bandSectionType?: BandSectionType;
+    contextValue?: {
+        value: '${pages}' | '%{pages}' | '${page}' | '%{page}';
+    };
 }
 type IExcelBandExcelMatrix = IExcelCell[];
 interface IExcelBandGroupContext {
@@ -7120,6 +7140,7 @@ declare class ExcelBarcodeItem extends BarcodeItem {
         cols: number;
     };
     write(ctx: ExcelPrintContext): IExcelRenderInfo;
+    getText(ctx: ExcelPrintContext): string;
     get marqueeParent(): ReportItem;
     protected _getEditProps(): IPropInfo[];
     canFold(): boolean;
@@ -8095,6 +8116,22 @@ declare class ExcelDataBandRowGroup extends DataBandRowGroup {
     protected _doPrepareLayout(printing: boolean): void;
 }
 
+/**
+ * 시트 Context 값 관련 관리 클래스
+ */
+declare class SheetContextValueManager {
+    private _refreshContextValueElements;
+    constructor();
+    registerRefreshContextValueElement(element: HTMLElement): void;
+    /**
+     * ContextValue 관련 요소들의 값을 갱신
+     * TODO: 이후에는 ContextValue 값에 따라 갱신할 요소를 구분할 수 있도록 개선 필요
+     * - ${pages}, %{pages}
+     * @param value 갱신해야 할 값
+     */
+    refreshContextValueElements(value: any): void;
+}
+
 type SignLine = Array<{
     x: number;
     y: number;
@@ -8453,6 +8490,7 @@ declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
     private _saveSameStartPrintedRowCount;
     private _cells;
     private _heights;
+    private _sheetContextValueManager;
     reportView: ExcelReportView;
     sheetView: ExcelSheetView;
     printView: SheetPrintView;
@@ -8474,6 +8512,8 @@ declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
     set cells(cells: IExcelRenderInfo[][]);
     get heights(): number[][];
     set heights(heights: number[][]);
+    get sheetContextValueManager(): SheetContextValueManager;
+    constructor(printing?: boolean);
     getItemCell(item: ExcelItems | ExcelGroupItems): HTMLTableCellElement;
     getCell(row: number, col: number): HTMLTableCellElement;
     getItemRect(item: ExcelItems | ExcelGroupItem): IRect;
@@ -15289,6 +15329,7 @@ declare class ExcelPrintContainer extends PrintContainerBase {
     getCurrentPage(scrollHeight: number, scrollTop: number): number;
     loadAsyncLoadableElements(): Promise<void>;
     protected _doPrepareContainer(doc: Document, dom: HTMLElement): void;
+    protected _setPrintMode(reports: ReportBase | (ReportBase | IPrintReport)[]): void;
     private $_printReport;
     private $_getPageHeight;
 }
@@ -49498,6 +49539,14 @@ declare class ReportCompositeViewer extends ReportViewBase {
     private $_hasSupportDocument;
 }
 
+declare class Globals {
+    static getVersion(): string;
+    static setLicenseKey(license: string): void;
+}
+
+declare const getVersion: typeof Globals.getVersion;
+declare const setLicenseKey: typeof Globals.setLicenseKey;
+
 interface ReportOptions {
     zoom: number;
 }
@@ -49773,4 +49822,4 @@ declare const IMG_EXPORT_DEFAULT_OPTIONS: ImageExportOptions;
  */
 declare const ZOOM_ERROR_MESSAGE = "\uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778 \uACBD\uC6B0\uB9CC \uB0B4\uBCF4\uB0B4\uAE30\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4. \uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.";
 
-export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE };
+export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE, getVersion, setLicenseKey };
