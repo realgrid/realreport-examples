@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.9
-* commit 1025a1cf
+* RealReport v1.11.10
+* commit bde16a0e
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.9
+* RealReport Core v1.11.10
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit ae70ee50fe99ee75356750e89b71d8448f60fff0
+* commit 61f82c9d33872f4e2b664f750676b54cb683bc3f
 */
 
 
@@ -11069,6 +11069,7 @@ declare class TextPrintInfo {
     bandCellWidth: number;
     bandCellHeight: number;
     element: TextItemElement;
+    isPrinted: boolean;
     constructor(bandCellWidth: number, bandCellHeight: number, element: TextItemElement);
 }
 declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
@@ -11076,6 +11077,7 @@ declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     groupInfos: (TextPrintInfo | BandPrintInfo<BandModel> | TextBandPrintInfo)[];
     left: string;
     gap: number;
+    bandWidth: number;
     isEnded(): boolean;
     getRows(): any[];
     rollback(page: HTMLDivElement): void;
