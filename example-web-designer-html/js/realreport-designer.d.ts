@@ -421,6 +421,7 @@ declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     groupInfos: (TextPrintInfo | BandPrintInfo<BandModel> | TextBandPrintInfo)[];
     left: string;
     gap: number;
+    bandWidth: number;
     isEnded(): boolean;
     getRows(): any[];
     rollback(page: HTMLDivElement): void;
@@ -10596,6 +10597,13 @@ export declare class ReportDesigner {
     setReportTemplates(templates: UserReportCategoryTemplate[]): Promise<void>;
     setDataTemplates(templates: UserDataTemplateGroup[]): Promise<void>;
     setAssetTemplates(templates: UserAssetTemplateGroup[]): Promise<void>;
+    /**
+     * 웹 디자이너에서 사용할 폰트를 동기적으로 등록
+     * {@link https://realreport.co.kr/docs/api/ReportDesigner#registerfonts}
+     * @param fonts - 사용자 정의 폰트 소스 배열
+     * @param defaultFont - 기본 폰트
+     * @returns 폰트가 로드되는 시간을 동기적으로 처리가능하도록 Promise<void> 반환
+     */
     registerFonts(fonts: UserFontSource[], defaultFont?: string): Promise<void>;
     setDesignMode(previewMode: any): void;
     newReportTemplate(): void;
@@ -16115,6 +16123,7 @@ declare class TextPrintInfo {
     bandCellWidth: number;
     bandCellHeight: number;
     element: TextItemElement;
+    isPrinted: boolean;
     constructor(bandCellWidth: number, bandCellHeight: number, element: TextItemElement);
 }
 
