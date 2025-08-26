@@ -374,6 +374,7 @@ function sampleReport(el) {
     setEditorModel('reportForm');
     hiddenFrame('reportFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+    history.pushState({}, '', `?reportId=${el.id}`);
 }
 
 function mapReport(el) {
@@ -385,6 +386,18 @@ function mapReport(el) {
     setEditorModel('reportForm');
     hiddenFrame('webDesignerFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+}
+
+function sampleEmail(el) {
+    const emailForm = window[el.id];
+    openTab('reportTab', 'gridTab');
+    reportViewer = webDesignerFrame('webDesignerFrame', emailForm);
+    reportForm = emailForm;
+    dataSet = emailForm.dataSet;
+    setEditorModel('reportForm');
+    hiddenFrame('reportFrame');
+    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+    history.pushState({}, '', `?reportId=${el.id}`);
 }
 
 function multiReportSample1(el) {

@@ -55,16 +55,6 @@
             type="text/javascript"
             src="./realreport-pro/designer/realreport-designer.js"
         ></script>
-        <script type="text/javascript" src="./forms/certificate.js"></script>
-
-        <script
-            type="text/javascript"
-            src="js/highcharts/highcharts.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="js/highcharts/highcharts-more.js"
-        ></script>
         <style>
             body {
                 height: 100vh;
@@ -144,9 +134,9 @@
                 return designer;
             };
 
-            window.addEventListener('DOMContentLoaded', function () {
-                reportViewer = initWebDesigner(certificateReport);
-            });
+            // window.addEventListener('DOMContentLoaded', function () {
+            //     reportViewer = initWebDesigner(certificateReport);
+            // });
 
             var clearReport = function () {
                 const container = document.getElementById('designer');
