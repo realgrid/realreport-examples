@@ -14,7 +14,7 @@
   <script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
   <script type="text/javascript" src="/js/highcharts/highcharts-more.js"></script>
   <script type="text/javascript" src="/js/pdfkit.js"></script>
-  <script type="text/javascript" src="/js/realreport/realreport.js?v=4"></script>
+  <script type="text/javascript" src="/js/realreport/realreport.js"></script>
   <script type="text/javascript" src="./forms/certificate.js"></script>
   <script type="text/javascript" src="./forms/business.js"></script>
   <script type="text/javascript" src="./forms/employmentContract.js"></script>
@@ -187,6 +187,17 @@
                 </ul>
               </li>
               <li class="menu-list-item">
+                <span class="menu-head">이메일 리포트 데모</span>
+                <ul class="menu-list menu-list-block">
+                  <li class="menu-list-item">
+                    <a class="menu-link" onclick="javascript:sampleEmail(this);" id="billEmail">
+                      <span>결제 내역</span>
+                      <span class="toolbar-icon icon preview-popup-png"></span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-list-item">
                 <span class="menu-head">멀티 뷰어 샘플</span>
                 <ul class="menu-list menu-list-block">
                   <li class="menu-list-item">
@@ -338,11 +349,23 @@
     document.addEventListener("DOMContentLoaded", function () {
       const reportFrame = document.getElementById('webDesignerFrame');
       
+      const params = new URLSearchParams(location.search);
+
+      // 특정 값 가져오기
+      const reportId = params.get("reportId"); 
+
       reportFrame.addEventListener('load', function () {
         const iframeWindow = reportFrame.contentWindow;
         reportViewer = iframeWindow.reportViewer;
-        reportForm = certificateReport;
-        dataSet = certificateReport.data;
+
+        if (reportId && window[reportId]) {
+          const report = window[reportId];
+          
+          iframeWindow.initWebDesigner(report);
+          resetActiveClass(document.getElementById(reportId), 'menu-link-active', 'menu-link-active');
+        } else {
+          iframeWindow.initWebDesigner(certificateReport);
+        }
       });
     });
 
@@ -354,6 +377,7 @@
   <script defer src="/js/report-samples.js"></script>
   <script defer src="/js/report-samples-map.js"></script>
   <script defer src="/js/report-samples-multi.js"></script>
+  <script defer src="/js/report-samples-email.js"></script>
   <script defer src="/js/grid-report-samples.js"></script>
   <script defer src="/js/preview.js"></script>
   <script defer src="/js/templates.js"></script>
