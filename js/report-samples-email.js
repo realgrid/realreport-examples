@@ -207,7 +207,7 @@ var billEmail = {
                                 name: '',
                                 col: 0,
                                 row: 4,
-                                text: '상품정보\t',
+                                text: '상품정보',
                                 styles: {
                                     color: '#696969',
                                 },
@@ -616,7 +616,7 @@ var billEmail = {
                                     name: '',
                                     col: 0,
                                     row: 4,
-                                    text: '\b최종결제금액',
+                                    text: '최종결제금액',
                                     styles: {
                                         fontSize: '16px',
                                         fontWeight: 'bold',
@@ -742,7 +742,7 @@ var billEmail = {
                         fieldName: 'name',
                         dataType: 'text',
                         description: '',
-                        sample: '우리테크 무소음 무접점 키보드 WT-108배열\u001d / 색상: 버터밀크',
+                        sample: '우리테크 무소음 무접점 키보드 WT-108배열 / 색상: 버터밀크',
                         format: '',
                         dateReader: null,
                     },
@@ -768,7 +768,7 @@ var billEmail = {
                         source: '',
                         format: '',
                         sample: '',
-                        expression: '\bcnt * price',
+                        expression: 'cnt * price',
                         description: '',
                     },
                 ],
@@ -803,7 +803,7 @@ var billEmail = {
             type: 'band',
             values: [
                 {
-                    name: '우리테크 무소음 무접점 키보드 WT-108배열\u001d / 색상: 버터밀크',
+                    name: '우리테크 무소음 무접점 키보드 WT-108배열 / 색상: 버터밀크',
                     cnt: 1,
                     price: 50000,
                     totalPrice: 50000,
