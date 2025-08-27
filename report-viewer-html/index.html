@@ -362,7 +362,11 @@
           const report = window[reportId];
           
           iframeWindow.initWebDesigner(report);
-          resetActiveClass(document.getElementById(reportId), 'menu-link-active', 'menu-link-active');
+          const reportMenuEl = document.getElementById(reportId)
+          if (reportMenuEl) {
+            resetActiveClass(reportMenuEl, 'menu-link-active', 'menu-link-active');
+            reportMenuEl.focus();
+          }
         } else {
           iframeWindow.initWebDesigner(certificateReport);
         }
