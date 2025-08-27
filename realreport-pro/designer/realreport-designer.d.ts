@@ -6564,7 +6564,8 @@ declare interface ImageExportOptions {
 
 declare enum ImageFit {
     CONTAIN = "contain",
-    COVER = "cover"
+    COVER = "cover",
+    FILL = "fill"
 }
 
 /**
@@ -13874,11 +13875,13 @@ declare class SheetEditTable extends ExcelTableElementBase {
     private $_prepareColumns;
     private $_prepareRows;
     private $_recalcHeights;
+    private $_getTotalRowHeight;
     /**
      * [주의] cells가 위에서 아래로, 왼쪽에 오른쪽으로 정렬되어 있다고 가정한다.
      */
     private $_renderCells;
     private $_writeCell;
+    private $_prepareBarcodeContent;
     private $_prepareImageContent;
     private $_prepareBarContent;
     private $_prepareConditionalFormattingRef;
