@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.10
-* commit bde16a0e
+* RealReport v1.11.11
+* commit 2ef0497d
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.10
+* RealReport Core v1.11.11
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 61f82c9d33872f4e2b664f750676b54cb683bc3f
+* commit 2e40ad62e3db3e3ea2c26027967f2fdda19f4610
 */
 
 
@@ -6959,7 +6959,7 @@ interface IExcelDataBar {
     value: any;
 }
 interface IExcellImage {
-    image: string;
+    image: any;
     width: number;
     height?: number;
 }
@@ -8491,6 +8491,7 @@ declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
     private _cells;
     private _heights;
     private _sheetContextValueManager;
+    private _pendingCells;
     reportView: ExcelReportView;
     sheetView: ExcelSheetView;
     printView: SheetPrintView;
@@ -8521,6 +8522,11 @@ declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
     setCellHeight(cell: HTMLTableCellElement): void;
     setCellFixedHeight(cell: HTMLTableCellElement): void;
     setConditionalFormatting(options: IConditionalFormattingOptions): void;
+    addPendingCell(pendingContext: IExcelRenderInfo): void;
+    /**
+     * Pending 상태의 셀들을 모두 처리한다.
+     */
+    resolvePendingCells(): Promise<void>;
     preparePrint(report?: ExcelReport): void;
 }
 /**
@@ -14904,7 +14910,8 @@ declare enum BoxItemsAlign {
 }
 declare enum ImageFit {
     CONTAIN = "contain",
-    COVER = "cover"
+    COVER = "cover",
+    FILL = "fill"
 }
 declare enum ImagePosition {
     TOP = "top",
