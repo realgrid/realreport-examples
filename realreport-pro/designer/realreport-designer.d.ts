@@ -4254,6 +4254,7 @@ declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
     private _cells;
     private _heights;
     private _sheetContextValueManager;
+    private _pendingCells;
     reportView: ExcelReportView;
     sheetView: ExcelSheetView;
     printView: SheetPrintView;
@@ -4284,6 +4285,11 @@ declare class ExcelPrintContext extends PrintContextBase<ExcelReport> {
     setCellHeight(cell: HTMLTableCellElement): void;
     setCellFixedHeight(cell: HTMLTableCellElement): void;
     setConditionalFormatting(options: IConditionalFormattingOptions): void;
+    addPendingCell(pendingContext: IExcelRenderInfo): void;
+    /**
+     * Pending 상태의 셀들을 모두 처리한다.
+     */
+    resolvePendingCells(): Promise<void>;
     preparePrint(report?: ExcelReport): void;
 }
 
@@ -6491,7 +6497,7 @@ declare interface IExcelGroupItem {
 }
 
 declare interface IExcellImage {
-    image: string;
+    image: any;
     width: number;
     height?: number;
 }
@@ -13798,7 +13804,7 @@ declare class SheetEditor extends ReportContainer<ExcelPrintContext> {
     get sx(): number;
     get sy(): number;
     onGetStampImage: () => Promise<string>;
-    preview(report: ExcelReport, data: ReportDataProvider, options: IPreviewOptions, allPages?: boolean): void;
+    preview(report: ExcelReport, data: ReportDataProvider, options: IPreviewOptions, allPages?: boolean): Promise<void>;
     load(file: File): Promise<void>;
     invalidateExtents(): void;
     invalidateColumnWidths(): void;
