@@ -13989,7 +13989,7 @@ declare abstract class SheetItemCollection<C extends SheetCollectionItem = Sheet
  * Print view for a sheet report.
  */
 declare class SheetPrintView extends LayerElement {
-    print(doc: Document, ctx: ExcelPrintContext, previewOptions: IPreviewOptions): void;
+    print(doc: Document, ctx: ExcelPrintContext, previewOptions: IPreviewOptions): Promise<void>;
 }
 
 /**

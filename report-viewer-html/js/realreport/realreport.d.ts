@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.11
-* commit 2ef0497d
+* RealReport v1.11.12
+* commit 9f59ff47
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.11
+* RealReport Core v1.11.12
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 2e40ad62e3db3e3ea2c26027967f2fdda19f4610
+* commit 29c6c287be5bf5c0922d46756307edb02de55c37
 */
 
 
@@ -8284,7 +8284,7 @@ declare abstract class PrintContainerBase extends VisualContainer$1 {
  * Print view for a sheet report.
  */
 declare class SheetPrintView extends LayerElement$1 {
-    print(doc: Document, ctx: ExcelPrintContext, previewOptions: IPreviewOptions): void;
+    print(doc: Document, ctx: ExcelPrintContext, previewOptions: IPreviewOptions): Promise<void>;
 }
 
 declare abstract class ExcelTableElementBase extends ReportElement {
@@ -12349,8 +12349,8 @@ declare class ReportView extends ReportViewBase$1<Report> implements IImageConta
     protected _layoutPageBorders(rReport: Rectangle$1, rPage: Rectangle$1): void;
     private $_layout;
     protected _afterLayout(ctx: PrintContext$1, bounds: Rectangle$1): void;
+    protected getOverflowHeight(): number;
     $_setRectPageViews(ctx: PrintContext$1, pageViews: PageView[], bounds: Rectangle$1, size: Size$1): void;
-    $_getOverflowHeight(): number;
     $_afterRender(ctx: PrintContext$1): void;
     _createElement(item: ReportItem): ReportElement;
     /**
