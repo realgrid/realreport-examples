@@ -1,5 +1,5 @@
 /* 
-RealReport v1.11.12
+RealReport v1.11.13
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -16,6 +16,47 @@ sub, sup {
   font-size: smaller;
   top: 0;
   line-height: normal;
+}
+
+.rr-asset-dialog-snipper,
+.rr-report-snipper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.rr-report-snipper.active,
+.rr-asset-dialog-snipper.active {
+  display: flex;
+}
+
+.rr-asset-dialog-snipper-backdrop,
+.rr-report-snipper-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(1,1,1,0.5);
+}
+
+.rr-asset-dialog-snipper-image,
+.rr-report-snipper-image {
+  width: 64px; 
+  height: 64px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { 
+  to { 
+    transform: rotate(360deg); 
+  } 
 }
 
 .rr-report-root {
@@ -540,6 +581,14 @@ border: 1px dotted #00000020; */
 
 .rr-text[data-editable] span {
   min-width: 20px;
+}
+
+.rr-text span[data-ellipsis] {
+  overflow: hidden;
+
+  line-clamp: var(--lines, 2);
+  -webkit-line-clamp: var(--lines, 2);
+  -webkit-box-orient: vertical;
 }
 
 .rr-summary {
