@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.11.12
+RealReport Designer v1.11.13
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -19,6 +19,47 @@ sub, sup {
   font-size: smaller;
   top: 0;
   line-height: normal;
+}
+
+.rr-asset-dialog-snipper,
+.rr-report-snipper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.rr-report-snipper.active,
+.rr-asset-dialog-snipper.active {
+  display: flex;
+}
+
+.rr-asset-dialog-snipper-backdrop,
+.rr-report-snipper-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(1,1,1,0.5);
+}
+
+.rr-asset-dialog-snipper-image,
+.rr-report-snipper-image {
+  width: 64px; 
+  height: 64px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { 
+  to { 
+    transform: rotate(360deg); 
+  } 
 }
 
 .rr-report-root {
@@ -543,6 +584,14 @@ border: 1px dotted #00000020; */
 
 .rr-text[data-editable] span {
   min-width: 20px;
+}
+
+.rr-text span[data-ellipsis] {
+  overflow: hidden;
+
+  line-clamp: var(--lines, 2);
+  -webkit-line-clamp: var(--lines, 2);
+  -webkit-box-orient: vertical;
 }
 
 .rr-summary {
@@ -5878,7 +5927,8 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   gap: 8px;
   font-size: var(--rrd-dialog-font-size);
 }
-.rrd-data-dialog-body button {
+.rrd-data-dialog-body button,
+.rrd-asset-dialog-body button {
   height: 24px;
   background: none;
   border: 1px solid var(--rrd-light-theme-primary-color-9);
@@ -5889,9 +5939,13 @@ input[data-rrproperty]::-webkit-inner-spin-button {
   cursor: pointer;
   padding: 1px 6px;
 }
-.rrd-data-dialog-body button:hover {
+.rrd-data-dialog-body button:hover,
+.rrd-asset-dialog-body button:hover {
   background: var(--rrd-light-theme-primary-color-9);
   color: white;
+}
+.rrd-asset-dialog-body button {
+  margin-left: 0;
 }
 .rrd-data-dialog-body input {
   border: 1px solid var(--rrd-light-theme-primary-color-8);
@@ -7027,6 +7081,10 @@ input[data-rrproperty]::-webkit-inner-spin-button {
 .rr-table-designer .rr-table-designer-footer button:hover,
 .rrd-dialog-bottom button:hover {
   background-color: var(--rrd-secondary-btn-bg-hover);
+}
+
+.rrd-dialog-bottom.rrd-dialog-image-update {
+  padding: 0 !important;
 }
 
 /* 다이얼로그 & 밴드 디자이너 Submit 버튼 (Create) */

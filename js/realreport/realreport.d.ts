@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.12
-* commit 9f59ff47
+* RealReport v1.11.13
+* commit 84d8a72e
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.12
+* RealReport Core v1.11.13
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 29c6c287be5bf5c0922d46756307edb02de55c37
+* commit 32b2be7843d8af28a440099d423e85b0eac3661c
 */
 
 
@@ -3444,6 +3444,7 @@ declare abstract class PopupElement extends ReportElement implements Closable {
 declare abstract class ReportItemElement<T extends ReportItem = ReportItem> extends ReportElement {
     static readonly FOLDED_HEIGHT = 22;
     static readonly BASE_CLASS_NAME = "rr-item-element";
+    static readonly DESIGN_BACK = "rr-design-back";
     /**
      * 리포트 아이템 표시 여부 확인하기
      *
@@ -11019,6 +11020,7 @@ declare abstract class TextItemElementBase<T extends TextItemBase> extends Repor
     static readonly CLASS_LIST: string;
     static readonly SPAN = "_rr_span_";
     static readonly MIN_FONT_SIZE = 5;
+    static readonly DEFAULT_FONT_SIZE = "13";
     get span(): HTMLSpanElement;
     private _span;
     protected _text: string;
@@ -11027,6 +11029,7 @@ declare abstract class TextItemElementBase<T extends TextItemBase> extends Repor
     protected _initDom(doc: Document, dom: HTMLElement): void;
     protected _doPrepareMeasure(ctx: PrintContext$1, dom: HTMLElement): void;
     protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
     _doLayoutContent(ctx: PrintContext$1): void;
     refreshPrintValues(ctx: PrintContext$1): void;
     isDom(dom: HTMLElement): boolean;
@@ -11387,6 +11390,7 @@ declare class EmailTableBand extends TableBand implements IEmailItem {
 }
 
 declare class EmailTextItem extends TextItem implements IEmailItem {
+    static readonly PROP_ELLIPSIS = "ellipsis";
     static readonly PROPINFOS: IPropInfo[];
     static readonly INHERITED_PROPINFO_NAMES: string[];
     static readonly STYLE_PROPS: string[];
@@ -11396,10 +11400,15 @@ declare class EmailTextItem extends TextItem implements IEmailItem {
     static readonly PROP_WIDTH_DEFAULT_VALUE = "100%";
     static readonly STYLE_TEXT_ALIGN_DEFAULT_VALUE = Align.LEFT;
     private _align;
+    private _ellipsis;
+    private _lineCount;
     discriminator: "I_EMAIL_ITEM";
     constructor(name: string, text?: string);
     get align(): Align;
     set align(value: Align);
+    get ellipsis(): boolean;
+    set ellipsis(value: boolean);
+    get lineCount(): number;
     canRotate(): false;
     canResize(dir: ResizeDirection): boolean;
     protected _getEditProps(): any[];

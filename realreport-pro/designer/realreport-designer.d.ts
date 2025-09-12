@@ -2945,6 +2945,7 @@ declare class EmailTableContainer extends TableContainer implements IEmailItem {
 }
 
 declare class EmailTextItem extends TextItem implements IEmailItem {
+    static readonly PROP_ELLIPSIS = "ellipsis";
     static readonly PROPINFOS: IPropInfo[];
     static readonly INHERITED_PROPINFO_NAMES: string[];
     static readonly STYLE_PROPS: string[];
@@ -2954,10 +2955,15 @@ declare class EmailTextItem extends TextItem implements IEmailItem {
     static readonly PROP_WIDTH_DEFAULT_VALUE = "100%";
     static readonly STYLE_TEXT_ALIGN_DEFAULT_VALUE = Align.LEFT;
     private _align;
+    private _ellipsis;
+    private _lineCount;
     discriminator: "I_EMAIL_ITEM";
     constructor(name: string, text?: string);
     get align(): Align;
     set align(value: Align);
+    get ellipsis(): boolean;
+    set ellipsis(value: boolean);
+    get lineCount(): number;
     canRotate(): false;
     canResize(dir: ResizeDirection): boolean;
     protected _getEditProps(): any[];
@@ -6265,6 +6271,7 @@ declare interface IDesignerContext {
     getReportTemplateManager(server: boolean): IReportTemplateManager;
     dataTemplateManager?: IDataTemplateManager;
     assetTemplateManager?: IAssetTemplateManager;
+    reportLoadingManager?: LoadingManager;
     loadReport(source: any, reportOptions?: ReportOptions): void;
     loadSampleData(sampleData: any): void;
     saveReport(): void;
@@ -7595,6 +7602,11 @@ declare enum LinkTarget {
  */
 declare class ListableProperty extends StringProperty {
     static readonly $_ctor: string;
+}
+
+declare interface LoadingManager {
+    start(): void;
+    end(): void;
 }
 
 declare const LocalFileTypes: readonly ["json", "csv", "excel"];
@@ -10662,6 +10674,7 @@ declare class ReportDesigner_2 extends VisualContainer {
     private _reportTemplateManager;
     private _dataTemplateManager;
     private _assetTemplateManager;
+    private _reportLoadingManager;
     private _appContainer;
     private _headerSection;
     private _toolSection;
@@ -10799,6 +10812,7 @@ declare class ReportDesigner_2 extends VisualContainer {
     get reportTemplateManager(): IReportTemplateManager;
     get dataTemplateManager(): StockDataTemplateManager;
     get assetTemplateManager(): StockAssetTemplateNanager;
+    get reportLoadingManager(): ReportLoadingManager;
     get inspector(): PropertyInspector;
     get dataPanel(): DataPanel;
     get dialog(): DialogView;
@@ -12490,6 +12504,15 @@ declare type ReportItemValueCallback = (ctx: PrintContextBase, item: ReportItem,
 declare type ReportItemView = ReportItemElement<ReportItem>;
 
 declare type ReportItemVisibleCallback = (ctx: PrintContextBase, item: ReportItem, row: number, value: any) => boolean;
+
+declare class ReportLoadingManager implements LoadingManager {
+    private _dom;
+    private _loadingElement;
+    private _loading;
+    constructor(dom: HTMLElement);
+    start(): void;
+    end(): void;
+}
 
 declare interface ReportObject {
     /**
