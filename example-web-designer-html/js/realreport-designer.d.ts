@@ -5237,6 +5237,8 @@ declare class HeaderBarModel extends SectionBar {
     constructor();
     getAppMode(ctx: IDesignerContext): SectionBarButtonItem;
     protected _doRefresh(ctx: IDesignerContext): void;
+    private $_isSheetPrintMode;
+    private $_getDesignMode;
 }
 
 declare abstract class HeaderLayer$1 extends ReportElement {
@@ -8331,6 +8333,7 @@ declare abstract class PrintContainerBase extends VisualContainer {
     private _instanceofIPrintReport;
     protected _resetPreviewer(): void;
     private $_clickHandler;
+    protected _itemOf(hash: string): ReportItem;
     $_keydownHandler: (ev: KeyboardEvent) => boolean;
 }
 

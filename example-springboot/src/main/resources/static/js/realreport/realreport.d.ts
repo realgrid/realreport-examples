@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.13
-* commit 84d8a72e
+* RealReport v1.11.14
+* commit 5efff8c0
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.13
+* RealReport Core v1.11.14
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 32b2be7843d8af28a440099d423e85b0eac3661c
+* commit b78dbb6927f210015244245b6016bff2c9f517af
 */
 
 
@@ -8278,6 +8278,7 @@ declare abstract class PrintContainerBase extends VisualContainer$1 {
     private _instanceofIPrintReport;
     protected _resetPreviewer(): void;
     private $_clickHandler;
+    protected _itemOf(hash: string): ReportItem;
     $_keydownHandler: (ev: KeyboardEvent) => boolean;
 }
 
@@ -15169,7 +15170,6 @@ declare class PrintContainer extends PrintContainerBase {
     private $_addBorderContainer;
     protected _scrollEndHandler: () => void;
 }
-
 interface PdfFont {
     name: string;
     content: string;
@@ -15348,6 +15348,7 @@ declare class ExcelPrintContainer extends PrintContainerBase {
     loadAsyncLoadableElements(): Promise<void>;
     protected _doPrepareContainer(doc: Document, dom: HTMLElement): void;
     protected _setPrintMode(reports: ReportBase | (ReportBase | IPrintReport)[]): void;
+    protected _itemOf(hash: string): ReportItem;
     private $_printReport;
     private $_getPageHeight;
 }
@@ -49262,6 +49263,7 @@ declare abstract class ReportViewBase {
     protected _checkPrintContainerZoom(): void;
     protected _createContainer(container: string | HTMLDivElement): PrintContainer | ExcelPrintContainer;
     protected _dispose(): void;
+    protected _getReportType(report: Report | Email | ExcelReport): ReportType;
     get containerId(): string;
     set containerId(container: string | HTMLDivElement);
     get version(): string;
