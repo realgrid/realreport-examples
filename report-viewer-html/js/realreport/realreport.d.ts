@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.14
-* commit 5efff8c0
+* RealReport v1.11.15
+* commit 848ba47e
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.14
+* RealReport Core v1.11.15
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit b78dbb6927f210015244245b6016bff2c9f517af
+* commit 26f7ad6c5df943a9051d646348b6b7490c616d91
 */
 
 
@@ -11019,9 +11019,10 @@ declare class TextBandPrintInfo {
 declare abstract class TextItemElementBase<T extends TextItemBase> extends ReportItemElement<T> {
     static readonly CLASS_NAME = "rr-text";
     static readonly CLASS_LIST: string;
+    static readonly SPAN_CLASS_NAME = "rr-text-span";
     static readonly SPAN = "_rr_span_";
-    static readonly MIN_FONT_SIZE = 5;
-    static readonly DEFAULT_FONT_SIZE = "13";
+    static readonly MIN_FONT_SIZE = 3;
+    static readonly DEFAULT_FONT_SIZE = 13;
     get span(): HTMLSpanElement;
     private _span;
     protected _text: string;
