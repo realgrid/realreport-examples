@@ -818,7 +818,7 @@
                                     },
                                     {
                                         "type": "text",
-                                        "value": "Pregident",
+                                        "value": "President",
                                         "name": "",
                                         "col": 3,
                                         "row": 1,
@@ -892,7 +892,7 @@
                     "dateReader": null
                 },
                 {
-                    "fieldName": "Pregident",
+                    "fieldName": "President",
                     "dataType": "text",
                     "sample": "이응혈",
                     "description": "",
@@ -968,7 +968,7 @@
                     "dateReader": null
                 },
                 {
-                    "fieldName": "Pregident",
+                    "fieldName": "President",
                     "dataType": "text",
                     "sample": "이응혈",
                     "description": "",

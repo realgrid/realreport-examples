@@ -5,7 +5,7 @@
             {
                 "Customer": "(주)파워엑셀연구소",
                 "Company": "(주)기업연구원",
-                "Pregident": "이응혈",
+                "President": "이응혈",
                 "DevelopmentCorporation": "엑셀개발공사",
                 "Address": "서울시 성동구 성수동 373-15 테크원 1201호",
                 "Tel": "02-468-1234",
@@ -20,7 +20,7 @@
             {
                 "Customer": "(주)파워엑셀연구소",
                 "Company": "(주)기업연구원",
-                "Pregident": "이응혈",
+                "President": "이응혈",
                 "Item": "파워엑셀",
                 "Standard": "GX*10",
                 "Unit": "EA",
@@ -32,7 +32,7 @@
             {
                 "Customer": "(주)파워엑셀연구소",
                 "Company": "(주)기업연구원",
-                "Pregident": "이응혈",
+                "President": "이응혈",
                 "Item": "오픈산전",
                 "Standard": "TX3",
                 "Unit": "권",
@@ -44,7 +44,7 @@
             {
                 "Customer": "(주)파워엑셀연구소",
                 "Company": "(주)기업연구원",
-                "Pregident": "이응혈",
+                "President": "이응혈",
                 "Item": "클립아트",
                 "Standard": "LK23",
                 "Unit": "kg",
