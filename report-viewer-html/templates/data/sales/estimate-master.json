@@ -2,7 +2,7 @@
     "fields": [
         { "fieldName": "Customer", "dataType": "text", "sample": "(주)파워엑셀연구소" },
         { "fieldName": "Company", "dataType": "text", "sample": "(주)기업연구원" },
-        { "fieldName": "Pregident", "dataType": "text", "sample": "이응혈" },
+        { "fieldName": "President", "dataType": "text", "sample": "이응혈" },
         { "fieldName": "DevelopmentCorporation", "dataType": "text", "sample": "액셀개발공사" },
         { "fieldName": "Address", "dataType": "text", "sample": "서울시 성동구 성수동 373-15 테크원 1201호" },
         { "fieldName": "Tel", "dataType": "text", "sample": "02-468-1234" },
@@ -14,7 +14,7 @@
         {
             "Customer": "(주)파워엑셀연구소",
             "Company": "(주)기업연구원",
-            "Pregident": "이응혈",
+            "President": "이응혈",
             "DevelopmentCorporation": "엑셀개발공사",
             "Address": "서울시 성동구 성수동 373-15 테크원 1201호",
             "Tel": "02-468-1234",

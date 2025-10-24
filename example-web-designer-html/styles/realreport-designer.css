@@ -1,5 +1,5 @@
 /* 
-RealReport Designer v1.11.15
+RealReport Designer v1.11.16
 Copyright (C) 2013-2025 WooriTech Inc.
 All Rights Reserved.
 */
@@ -3185,9 +3185,8 @@ border-bottom: 1px solid #ccc; */
     padding: 1px 4px;
     display: flex;
     align-items: center;
-    background: #383838;
-    border-top: 1px solid #242424;
-    border-bottom: 1px solid #242424;
+    background: var(--rrd-light-theme-primary-color-2);
+    border-block: 1px solid #b6b6b6;
 }
 
 .rr-property-collection-add {
@@ -3202,6 +3201,7 @@ border-bottom: 1px solid #ccc; */
 .rr-property-collection-add:hover {
     border-color: #777;
     background-color: #333;
+    cursor: pointer;
 }
 
 .rr-property-collection-delete {
@@ -3224,6 +3224,7 @@ border-bottom: 1px solid #ccc; */
     border: 1px solid transparent;
     border-radius: 2px;
     color: white;
+    cursor: pointer;
 }
 
 .rr-property-collection-up:hover {

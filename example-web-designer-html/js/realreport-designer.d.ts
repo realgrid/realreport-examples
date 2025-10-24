@@ -772,6 +772,8 @@ declare enum BoxItemsAlign {
     END = "end"
 }
 
+declare type CategorizedSeries = RealMapChartBarSeries | RealMapChartPieSeries;
+
 declare enum CCITTScheme {
     GROUP_3 = "g3",
     GROUP_3_2D = "g3-2d",
@@ -1109,8 +1111,8 @@ declare abstract class ChartSeriesCollection<T extends ReportGroupItem> extends 
     save(target: any): void;
     get(index: number): ChartSeries<T>;
     indexOf(series: ChartSeries<T>): number;
-    add(loader: IReportLoader, series: ChartSeries<T> | ConfigObject, index?: number): ChartSeries<T>;
-    addAll(loader: IReportLoader, series: (ChartSeries<T> | ConfigObject)[], index?: number): boolean;
+    add(loader: IReportLoader, series: ChartSeries<T> | ConfigObject$2, index?: number): ChartSeries<T>;
+    addAll(loader: IReportLoader, series: (ChartSeries<T> | ConfigObject$2)[], index?: number): boolean;
     removeAt(index: number): boolean;
     remove(series: ChartSeries<T>): boolean;
     clear(): boolean;
@@ -1177,20 +1179,6 @@ declare class ColHeaderSelection2 extends HeaderSelection implements ISelectionS
 declare class ColorPaletteAsset extends AssetItem {
     protected _parsetData(data: string): void;
     protected _doSave(target: any): void;
-}
-
-declare enum ColorScaleLayout {
-    AUTO = "auto",
-    VERTICAL = "vertical",
-    HORIZONTAL = "horizontal"
-}
-
-declare enum ColorScaleLocation {
-    BODY = "body",
-    BOTTOM = "bottom",
-    LEFT = "left",
-    RIGHT = "right",
-    TOP = "top"
 }
 
 /**
@@ -1274,8 +1262,24 @@ declare class ColumnHeaderLayer extends HeaderLayer$1 {
 
 declare type ConditionalFormattingRule = IDataBarRuleType;
 
-declare type ConfigObject = {
+declare type ConfigObject$1 = {
+    location?: string;
+    group?: string;
+    name?: string;
+    align?: string;
+    verticalAlign?: string;
+    layout?: string;
+    offsetX?: number;
+    itemGap?: number;
+};
+
+declare type ConfigObject$2 = {
     [key: string]: any;
+};
+
+declare type ConfigObject = {
+    name?: string;
+    color?: string;
 };
 
 declare type ContextValueCallback = (ctx: PrintContextBase) => any;
@@ -3602,8 +3606,8 @@ declare class ExcelDataBandRowGroupCollection extends ReportItemCollection<Excel
     get band(): ExcelDataBand;
     load(loader: IReportLoader, src: any): void;
     save(target: any): void;
-    add(group: ExcelDataBandRowGroup | ConfigObject, index?: number): ExcelDataBandRowGroup;
-    addAll(groups: (ExcelDataBandRowGroup | ConfigObject)[], index?: number): boolean;
+    add(group: ExcelDataBandRowGroup | ConfigObject$2, index?: number): ExcelDataBandRowGroup;
+    addAll(groups: (ExcelDataBandRowGroup | ConfigObject$2)[], index?: number): boolean;
     removeAt(index: number): boolean;
     remove(group: ExcelDataBandRowGroup): boolean;
     clear(): boolean;
@@ -5417,7 +5421,7 @@ declare class HichartAxisPlotBandCollection extends ReportItemCollection<Hichart
     load(src: any): void;
     save(target: any): void;
     indexOf(item: HichartAxisPlotBand): number;
-    add(band: HichartAxisPlotBand | ConfigObject, index?: number): HichartAxisPlotBand;
+    add(band: HichartAxisPlotBand | ConfigObject$2, index?: number): HichartAxisPlotBand;
     remove(line: HichartAxisPlotBand): void;
     getWrapper(): any;
     get count(): number;
@@ -5536,7 +5540,7 @@ declare class HichartAxisPlotLineCollection extends ReportItemCollection<Hichart
     load(src: any): void;
     save(target: any): void;
     indexOf(item: HichartAxisPlotLine): number;
-    add(line: HichartAxisPlotLine | ConfigObject, index?: number): HichartAxisPlotLine;
+    add(line: HichartAxisPlotLine | ConfigObject$2, index?: number): HichartAxisPlotLine;
     remove(line: HichartAxisPlotLine): void;
     getWrapper(): any;
     get count(): number;
@@ -7533,8 +7537,6 @@ declare interface IUserDataTemplateItem {
     template?: ISimpleDataTemplate | IBandDataTemplate;
 }
 
-declare type LabelPosition = 'auto' | 'bottom' | 'center' | 'left' | 'right' | 'top';
-
 declare type LanguageCode = keyof typeof ISO_639_LANGUAGES;
 
 declare type LanguageItem = {
@@ -7543,6 +7545,129 @@ declare type LanguageItem = {
 };
 
 /* Excluded from this release type: LayerElement */
+
+declare enum Layout {
+    AUTO = "auto",
+    VERTICAL = "vertical",
+    HORIZONTAL = "horizontal"
+}
+
+declare interface Legend {
+    location: Location_2;
+    group: string;
+    name: string;
+    align: Align$1;
+    verticalAlign: VerticalAlign$1;
+    layout: Layout;
+    offsetX: number;
+    itemGap: number;
+    background: {
+        style: RealMapChartSvgStyles;
+    };
+}
+
+/**
+ * RealMap Chart의 개별 Legend 항목
+ */
+declare class LegendItem extends ReportItemCollectionItem {
+    static readonly PROP_LOCATION = "location";
+    static readonly PROP_GROUP = "group";
+    static readonly PROP_NAME = "name";
+    static readonly PROP_ALIGN = "align";
+    static readonly PROP_VERTICAL_ALIGN = "verticalAlign";
+    static readonly PROP_LAYOUT = "layout";
+    static readonly PROP_OFFSET_X = "offsetX";
+    static readonly PROP_ITEM_GAP = "itemGap";
+    static readonly PROPINFOS: IPropInfo[];
+    private _location;
+    private _group;
+    private _name;
+    private _align;
+    private _verticalAlign;
+    private _layout;
+    private _offsetX;
+    private _itemGap;
+    private _index;
+    constructor(collection: LegendItemCollection, src?: any);
+    get location(): Location_2;
+    set location(value: Location_2);
+    get group(): string;
+    set group(value: string);
+    get name(): string;
+    set name(value: string);
+    get align(): Align;
+    set align(value: Align);
+    get verticalAlign(): VerticalAlign;
+    set verticalAlign(value: VerticalAlign);
+    get layout(): Layout;
+    set layout(value: Layout);
+    get offsetX(): number;
+    set offsetX(value: number);
+    get itemGap(): number;
+    set itemGap(value: number);
+    get index(): number;
+    get collection(): LegendItemCollection;
+    get page(): ReportPageBase;
+    getConfig(): {
+        location: Location_2;
+        group: string;
+        name: string;
+        align: Align;
+        verticalAlign: VerticalAlign;
+        layout: Layout;
+        offsetX: number;
+        itemGap: number;
+        background: {
+            style: {
+                fill: string;
+                stroke: string;
+                strokeWidth: string;
+                padding: string;
+            };
+        };
+    };
+    get itemType(): string;
+    get displayPath(): string;
+    get marqueeParent(): any;
+    protected _getStyleProps(): string[];
+    getEditProps(): IPropInfo[];
+    getPropDomain(prop: IPropInfo): any[];
+    protected _doLoad(src: any): void;
+    protected _doSave(target: any): void;
+    getCollectionLabel(): string;
+}
+
+/**
+ * RealMap Chart의 Legend 컬렉션
+ */
+declare class LegendItemCollection extends ReportItemCollection<LegendItem> {
+    private _owner;
+    private _items;
+    constructor(owner: RealMapItem);
+    get owner(): RealMapItem;
+    get count(): number;
+    get items(): LegendItem[];
+    get outlineParent(): IOutlineSource;
+    get outlineExpandable(): boolean;
+    get outlineLabel(): string;
+    get outlineItems(): IOutlineSource[];
+    isEditableCollection(): boolean;
+    getCollectionLabel(): string;
+    get page(): ReportPageBase;
+    get displayPath(): string;
+    get level(): number;
+    get(index: number): LegendItem;
+    indexOf(item: LegendItem): number;
+    load(src: any): void;
+    save(target: any): void;
+    add(item: LegendItem | ConfigObject$1, index?: number): LegendItem;
+    remove(item: LegendItem): void;
+    clear(): void;
+    getSaveType(): string;
+    getConfig(): any[];
+    protected _doMoveItem(from: number, to: number): boolean;
+    private $_resetItems;
+}
 
 declare abstract class LinkableReportData extends ReportData implements IEditCommandStackOwner {
     private static readonly LOCAL_PROPS;
@@ -7613,8 +7738,83 @@ declare interface LoadingManager {
 
 declare const LocalFileTypes: readonly ["json", "csv", "excel"];
 
+declare enum Location_2 {
+    BODY = "body",
+    BOTTOM = "bottom",
+    LEFT = "left",
+    RIGHT = "right",
+    TOP = "top"
+}
+
+declare interface MapChartCategory$1 {
+    name: string;
+    color: string;
+}
+
+/**
+ * Bar Series의 개별 Category 항목
+ */
+declare class MapChartCategory extends ReportItemCollectionItem {
+    static readonly PROP_NAME = "name";
+    static readonly PROP_COLOR = "color";
+    static readonly PROPINFOS: IPropInfo[];
+    private _name;
+    private _color;
+    private _index;
+    constructor(collection: MapChartCategoryCollection, src?: any);
+    get name(): string;
+    set name(value: string);
+    get color(): string;
+    set color(value: string);
+    get index(): number;
+    get collection(): MapChartCategoryCollection;
+    get page(): ReportPageBase;
+    get itemType(): string;
+    get displayPath(): string;
+    get marqueeParent(): any;
+    protected _getStyleProps(): string[];
+    getEditProps(): IPropInfo[];
+    protected _doLoad(src: any): void;
+    protected _doSave(target: any): void;
+    getCollectionLabel(): string;
+}
+
+/**
+ * Bar Series의 Category 컬렉션
+ */
+declare class MapChartCategoryCollection extends ReportItemCollection<MapChartCategory> {
+    private _owner;
+    private _categories;
+    constructor(owner: CategorizedSeries);
+    get owner(): CategorizedSeries;
+    get count(): number;
+    get items(): MapChartCategory[];
+    get outlineParent(): IOutlineSource;
+    get outlineExpandable(): boolean;
+    get outlineLabel(): string;
+    get outlineItems(): IOutlineSource[];
+    isEditableCollection(): boolean;
+    getCollectionLabel(): string;
+    get page(): ReportPageBase;
+    get displayPath(): string;
+    get level(): number;
+    get(index: number): MapChartCategory;
+    indexOf(item: MapChartCategory): number;
+    load(src: any): void;
+    save(target: any): void;
+    add(category: MapChartCategory | ConfigObject, index?: number): MapChartCategory;
+    remove(category: MapChartCategory): void;
+    clear(): void;
+    getSaveType(): string;
+    protected _doMoveItem(from: number, to: number): boolean;
+    private $_resetCategories;
+}
+
 declare interface MapSource {
     url: string;
+    dokdo?: number;
+    showDummies?: boolean;
+    insets?: string[];
     padding?: number;
     exclude?: string[];
 }
@@ -7669,6 +7869,25 @@ declare interface ModelPropertyTypeProps {
      * 포함해야할 모델 내부 속성을 정의
      */
     include?: string[];
+}
+
+/**
+ * Number property.
+ */
+declare class NumberProperty extends ValueProperty {
+    static readonly $_ctor: string;
+    private _minimum;
+    private _maximum;
+    /**
+     * 최소값.
+     */
+    get minimum(): number;
+    set minimum(value: number);
+    /**
+     * 최대값.
+     */
+    get maximum(): number;
+    set maximum(value: number);
 }
 
 /* Excluded from this release type: OutlineBodyView */
@@ -8171,18 +8390,16 @@ declare interface PdfPermissions {
 
 declare type PdfVersion = '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 
-declare interface PieCategory {
-    name: string;
-    color: string;
-}
-
 /* Excluded from this release type: Point */
 
 declare interface PointLabel extends BaseConfig {
+    visible?: boolean;
     text?: string;
-    position?: LabelPosition;
+    position?: string;
     numberFormat?: string;
 }
+
+declare type PointShape = 'square' | 'triangle' | 'circle' | 'diamond' | 'star' | 'itriangle' | 'rectangle';
 
 declare abstract class PopupElement extends ReportElement implements Closable {
     close(): void;
@@ -9688,6 +9905,8 @@ declare class RealChartMarquee extends EditMarquee<RealChartItemElement> {
     private $_layoutAxisItem;
 }
 
+declare const REALMAP_SERIES_STYLE_NAMES: (keyof RealMapChartSvgStyles)[];
+
 declare const REALMAP_TEXT_STYLE_NAMES: (keyof RealMapChartSvgStyles)[];
 
 declare class RealMapChartAxisGrid extends ChartObject$1<RealMapItem, RealMapChartAxisGridConfig> {
@@ -9715,6 +9934,48 @@ declare interface RealMapChartAxisGridConfig {
     line: {
         step: number;
     };
+}
+
+declare class RealMapChartBarSeries extends RealMapSeries<RealMapChartBarSeriesConfig> {
+    static readonly PROP_WIDTH = "width";
+    static readonly PROP_HEIGHT = "height";
+    static readonly PROP_LEGEND_BY_CATEGORY = "legendByCategory";
+    static readonly PROP_CATEGORIES = "categories";
+    static readonly PROP_TOOLTIP_TEXT = "tooltipText";
+    static readonly PROPINFOS: IPropInfo[];
+    private _width;
+    private _height;
+    private _legendByCategory;
+    private _tooltipText;
+    private _categories;
+    constructor(collection: RealMapChartSeriesCollection);
+    get width(): number;
+    set width(value: number);
+    get height(): number;
+    set height(value: number);
+    get legendByCategory(): boolean;
+    set legendByCategory(value: boolean);
+    get categories(): MapChartCategoryCollection;
+    get tooltipText(): string;
+    set tooltipText(value: string);
+    getChartConfig(context: PrintContext): RealMapChartBarSeriesConfig;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, source: any): void;
+    protected _doSave(target: ReportTarget): void;
+    get outlineItems(): IOutlineSource[];
+    get outlineExpandable(): boolean;
+    getPopupPropLabel(prop: string): string;
+    protected getDataValues(): unknown[];
+    private $_getCategoriesForChart;
+}
+
+declare interface RealMapChartBarSeriesConfig extends SeriesConfig {
+    type: 'bar';
+    width?: number;
+    height?: number;
+    legendByCategory?: boolean;
+    categories?: MapChartCategory$1[];
+    tooltipText?: string;
 }
 
 declare class RealMapChartBody extends ChartObject$1<RealMapItem, RealMapChartBodyConfig> {
@@ -9790,10 +10051,10 @@ declare class RealMapChartColorScale extends ChartObject$1<RealMapItem, RealMapC
     set barWidth(value: number);
     get gap(): number;
     set gap(value: number);
-    get layout(): ColorScaleLayout;
-    set layout(value: ColorScaleLayout);
-    get location(): ColorScaleLocation;
-    set location(value: ColorScaleLocation);
+    get layout(): Layout;
+    set layout(value: Layout);
+    get location(): Location_2;
+    set location(value: Location_2);
     get logBase(): number;
     set logBase(value: number);
     get maxColor(): string;
@@ -9813,8 +10074,8 @@ declare interface RealMapChartColorScaleConfig extends BaseConfig {
     barLength: string | number;
     barWidth: number;
     gap: number;
-    layout: ColorScaleLayout;
-    location?: ColorScaleLocation;
+    layout: Layout;
+    location?: Location_2;
     logBase: number;
     maxColor: string;
     minColor: string;
@@ -9863,22 +10124,74 @@ declare interface RealMapChartCreditsConfig extends BaseConfig {
     verticalAlign?: VerticalAlign$1;
 }
 
+declare class RealMapChartLegend extends ChartObject$1<RealMapItem, RealMapChartLegendConfig> {
+    static readonly PROP_LEGEND = "legend";
+    static readonly PROPINFOS: IPropInfo[];
+    private _legend;
+    constructor(chart: RealMapItem);
+    get legend(): LegendItemCollection;
+    getChartConfig(context: PrintContext): RealMapChartLegendConfig;
+    getSaveLabel(): string;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+    get outlineItems(): IOutlineSource[];
+    get outlineExpandable(): boolean;
+    getPopupPropLabel(prop: string): string;
+}
+
+declare type RealMapChartLegendConfig = Legend[];
+
 declare class RealMapChartMap extends ChartObject$1<RealMapItem, RealMapChartMapConfig> {
     static readonly PROP_URL = "url";
+    static readonly PROP_DOKDO = "dokdo";
+    static readonly PROP_SHOW_DUMMIES = "showDummies";
+    static readonly PROP_INSETS = "insets";
     static readonly PROP_PADDING = "padding";
     static readonly PROP_EXCLUDE = "exclude";
-    static readonly PROPINFOS: {
+    static readonly PROPINFOS: ({
         name: string;
         category: PropCategory;
         type: typeof ListableProperty;
         indented: boolean;
         default: any;
-    }[];
+        domain?: undefined;
+    } | {
+        name: string;
+        category: PropCategory;
+        type: typeof NumberProperty;
+        indented?: undefined;
+        default?: undefined;
+        domain?: undefined;
+    } | {
+        name: string;
+        category: PropCategory;
+        type: typeof StringProperty;
+        domain: boolean[];
+        default: boolean;
+        indented?: undefined;
+    } | {
+        name: string;
+        category: PropCategory;
+        type: typeof StringProperty;
+        default: string;
+        indented?: undefined;
+        domain?: undefined;
+    })[];
     private _url;
+    private _dokdo;
+    private _showDummies;
+    private _insets;
     private _padding;
     private _exclude;
     get url(): string;
     set url(value: string);
+    get dokdo(): number;
+    set dokdo(value: number);
+    get showDummies(): boolean;
+    set showDummies(value: boolean);
+    get insets(): string;
+    set insets(value: string);
     get padding(): number;
     set padding(value: number);
     get exclude(): string;
@@ -9888,29 +10201,65 @@ declare class RealMapChartMap extends ChartObject$1<RealMapItem, RealMapChartMap
     getChartConfig(context: PrintContext): RealMapChartMapConfig;
     getSaveLabel(): string;
     protected _doDefaultInit(): void;
-    protected _getEditProps(): {
+    protected _getEditProps(): ({
         name: string;
         category: PropCategory;
         type: typeof ListableProperty;
         indented: boolean;
         default: any;
-    }[];
+        domain?: undefined;
+    } | {
+        name: string;
+        category: PropCategory;
+        type: typeof NumberProperty;
+        indented?: undefined;
+        default?: undefined;
+        domain?: undefined;
+    } | {
+        name: string;
+        category: PropCategory;
+        type: typeof StringProperty;
+        domain: boolean[];
+        default: boolean;
+        indented?: undefined;
+    } | {
+        name: string;
+        category: PropCategory;
+        type: typeof StringProperty;
+        default: string;
+        indented?: undefined;
+        domain?: undefined;
+    })[];
     protected _doLoad(loader: IReportLoader, source: ReportSource): void;
     protected _doSave(target: ReportTarget): void;
     getPropDomain(prop: IPropInfo): any[];
     private $_getExclude;
+    private $_getInsets;
 }
 
 declare type RealMapChartMapConfig = MapSource;
 
 declare class RealMapChartMapSeries extends RealMapSeries<RealMapChartMapSeriesConfig> {
-    static readonly PROP_POINT_COLOR = "pointColors";
+    static readonly PROP_USE_MAP_DATA = "useMapData";
+    static readonly PROP_TOOLTIP_TEXT = "tooltipText";
+    static readonly PROP_COLOR = "color";
+    static readonly PROP_DUMMY_STYLE_FILL = "dummyFill";
+    static readonly PROP_DUMMY_STYLE_STROKE = "dummyStroke";
+    static readonly PROP_DUMMY_STYLE_STROKE_WIDTH = "dummyStrokeWidth";
     static readonly PROPINFOS: IPropInfo[];
-    private _pointColors;
-    private _pointColorsCallback;
+    private _useMapData;
+    private _color;
+    private _tooltipText;
+    private _dummyStrokeWidth;
     constructor(collection: RealMapChartSeriesCollection);
-    get pointColors(): string;
-    set pointColors(value: string);
+    get useMapData(): boolean;
+    set useMapData(value: boolean);
+    get color(): string;
+    set color(value: string);
+    get tooltipText(): string;
+    set tooltipText(value: string);
+    get dummyStrokeWidth(): number;
+    set dummyStrokeWidth(value: number);
     getChartConfig(context: PrintContext): RealMapChartMapSeriesConfig;
     protected _getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, source: ReportSource): void;
@@ -9919,7 +10268,9 @@ declare class RealMapChartMapSeries extends RealMapSeries<RealMapChartMapSeriesC
 
 declare interface RealMapChartMapSeriesConfig extends SeriesConfig {
     type: 'map';
-    pointColors: Function | null;
+    useMapData?: boolean;
+    tooltipText?: string;
+    dummyStyle?: SeriesConfig['style'];
 }
 
 declare class RealMapChartMarquee extends EditMarquee<RealMapItemElement> {
@@ -9949,13 +10300,70 @@ declare class RealMapChartMarquee extends EditMarquee<RealMapItemElement> {
     private $_removeSeries;
 }
 
+declare class RealMapChartPieSeries extends RealMapSeries<RealMapChartPieSeriesConfig> {
+    static readonly PROP_RADIUS = "radius";
+    static readonly PROP_START_ANGLE = "startAngle";
+    static readonly PROP_TOTAL_ANGLE = "totalAngle";
+    static readonly PROP_CLOCKWISE = "clockwise";
+    static readonly PROP_COLORS = "colors";
+    static readonly PROP_LEGEND_BY_CATEGORY = "legendByCategory";
+    static readonly PROP_CATEGORIES = "categories";
+    static readonly PROP_TOOLTIP_TEXT = "tooltipText";
+    static readonly PROPINFOS: IPropInfo[];
+    private _radius;
+    private _startAngle;
+    private _totalAngle;
+    private _clockwise;
+    private _colors;
+    private _legendByCategory;
+    private _tooltipText;
+    private _categories;
+    constructor(collection: RealMapChartSeriesCollection);
+    get radius(): string;
+    set radius(value: string);
+    get startAngle(): number;
+    set startAngle(value: number);
+    get totalAngle(): number;
+    set totalAngle(value: number);
+    get clockwise(): boolean;
+    set clockwise(value: boolean);
+    get colors(): string;
+    set colors(value: string);
+    get legendByCategory(): boolean;
+    set legendByCategory(value: boolean);
+    get categories(): MapChartCategoryCollection;
+    get tooltipText(): string;
+    set tooltipText(value: string);
+    getChartConfig(context: PrintContext): RealMapChartPieSeriesConfig;
+    protected _getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, source: {
+        categories: object;
+    }): void;
+    protected _doSave(target: ReportTarget): void;
+    get outlineItems(): IOutlineSource[];
+    get outlineExpandable(): boolean;
+    getPopupPropLabel(prop: string): string;
+    protected getDataValues(): unknown[];
+    private $_getCategoriesForChart;
+    private $_getColors;
+}
+
 declare interface RealMapChartPieSeriesConfig extends SeriesConfig {
     type: 'pie';
     radius?: string;
     startAngle?: number;
     totalAngle?: number;
     clockwise?: boolean;
-    categories?: PieCategory[];
+    legendByCategory?: boolean;
+    categories?: MapChartCategory$1[];
+    tooltipText?: string;
+}
+
+declare interface RealMapChartPointSeriesConfig extends SeriesConfig {
+    type: 'point';
+    radius?: number;
+    shape?: PointShape;
+    tooltipText?: string;
 }
 
 declare class RealMapChartSeriesCollection extends ChartSeriesCollection$1<RealMapItem, RealMapChartSeriesConfig> {
@@ -9964,9 +10372,9 @@ declare class RealMapChartSeriesCollection extends ChartSeriesCollection$1<RealM
     protected _seriesChanged(): void;
 }
 
-declare type RealMapChartSeriesConfig = RealMapChartMapSeriesConfig | RealMapChartPieSeriesConfig;
+declare type RealMapChartSeriesConfig = RealMapChartMapSeriesConfig | RealMapChartPieSeriesConfig | RealMapChartPointSeriesConfig | RealMapChartBarSeriesConfig;
 
-declare type RealMapChartSeriesType = 'map' | 'pie';
+declare type RealMapChartSeriesType = 'map' | 'pie' | 'point' | 'bar';
 
 declare class RealMapChartSubTitle extends ChartTextObject$1<RealMapItem, RealMapChartTitleConfig> {
     static readonly PROP_ALIGN = "align";
@@ -10037,6 +10445,7 @@ declare interface RealMapConfig {
     zoomPanel: {
         visible: false;
     };
+    legend: RealMapChartLegendConfig;
 }
 
 declare class RealMapItem extends ChartItem<RealMapConfig> {
@@ -10046,6 +10455,7 @@ declare class RealMapItem extends ChartItem<RealMapConfig> {
     static readonly PROP_BODY = "body";
     static readonly PROP_CREDITS = "credits";
     static readonly PROP_COLOR_SCALE = "colorScale";
+    static readonly PROP_LEGEND = "legend";
     static readonly PROP_SERIES_COLLECTION = "serieCollection";
     static readonly PROP_GRID = "grid";
     static readonly PROPINFOS: ({
@@ -10071,16 +10481,20 @@ declare class RealMapItem extends ChartItem<RealMapConfig> {
     private _body;
     private _credits;
     private _colorScale;
+    private _legend;
     private _map;
     private _seriesCollection;
     private _grid;
     constructor(name: string);
+    get outlineLabel(): string;
+    get outlineItems(): IOutlineSource[];
     get title(): RealMapChartTitle;
     get subtitle(): RealMapChartSubTitle;
     get body(): RealMapChartBody;
     get credits(): RealMapChartCredits;
     get map(): RealMapChartMap;
     get colorScale(): RealMapChartColorScale;
+    get legend(): RealMapChartLegend;
     get seriesCollection(): RealMapChartSeriesCollection;
     get grid(): RealMapChartAxisGrid;
     getChartConfig(context: PrintContext): RealMapConfig;
@@ -10119,11 +10533,20 @@ declare abstract class RealMapSeries<C = RealMapChartSeriesConfig> extends Chart
     static readonly PROP_NAME = "name";
     static readonly PROP_USE_DATA_URL = "dataUrl";
     static readonly PROP_USE_MAP_KEYS = "mapKeys";
+    static readonly PROP_LEGEND = "legend";
+    static readonly PROP_POINT_COLOR = "pointColors";
+    static readonly PROP_STYLE_CALLBACK = "styleCallback";
+    static readonly STYLES: (keyof RealMapChartSvgStyles)[];
     static readonly PROPINFOS: IPropInfo[];
     private _name;
     private _type;
     private _dataUrl;
     private _mapKeys;
+    private _legend;
+    private _pointColors;
+    private _pointColorsCallback;
+    private _styleCallback;
+    private _styleCallbackFn;
     get name(): string;
     set name(value: string);
     get type(): string;
@@ -10132,6 +10555,12 @@ declare abstract class RealMapSeries<C = RealMapChartSeriesConfig> extends Chart
     set dataUrl(value: string);
     get mapKeys(): string;
     set mapKeys(value: string);
+    get legend(): string;
+    set legend(value: string);
+    get pointColors(): string;
+    set pointColors(value: string);
+    get styleCallback(): string;
+    set styleCallback(value: string);
     isUsed(data: IReportData): boolean;
     protected getDataValues(): unknown[];
     protected _getEditProps(): IPropInfo[];
@@ -10140,6 +10569,8 @@ declare abstract class RealMapSeries<C = RealMapChartSeriesConfig> extends Chart
     protected _getMapKeys(): string[];
     protected _parseArrayLikeString(value: string): string[];
     protected _parseData(data: unknown[]): object[];
+    getChartConfig(context: PrintContext): C;
+    protected _getStyleProps(): typeof REALMAP_SERIES_STYLE_NAMES;
 }
 
 /* Excluded from this release type: Rectangle */
@@ -10173,6 +10604,9 @@ declare class Report_2 extends ReportBase<ReportPage> {
     addHichartSeries(chart: HichartItem, seriesType: string): HichartSeries;
     addHichartPlotLine(axis: HichartAxis, config?: object): HichartAxisPlotLine;
     addHichartPlotBand(axis: HichartAxis, config?: object): HichartAxisPlotBand;
+    addMapchartCategory(series: CategorizedSeries, config?: object): MapChartCategory;
+    addMapchartLegend(item: RealMapItem, config?: object): LegendItem;
+    removeMapchartLegend(legend: LegendItem): LegendItem;
     addRealMapSeries(collection: RealMapChartSeriesCollection, type: RealMapChartSeriesType): void;
     removeRealMapSeries(collection: RealMapChartSeriesCollection, index: number): void;
     /**
@@ -10454,8 +10888,8 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     }[];
     forceDirty(): void;
     setItemProperty(item: ReportPageItem, prop: string, value: any): void;
-    setItemProperties(item: ReportPageItem, props: ConfigObject): void;
-    setItemsProperties(items: ReportItem[], props: ConfigObject): void;
+    setItemProperties(item: ReportPageItem, props: ConfigObject$2): void;
+    setItemsProperties(items: ReportItem[], props: ConfigObject$2): void;
     resetItemProperty(item: ReportPageItem, prop: IPropInfo): boolean;
     setItemsProperty(items: ReportPageItem[], prop: string, value: any): void;
     setItemStyle(item: ReportPageItem, style: string, value: any): void;
@@ -11865,8 +12299,8 @@ declare abstract class ReportItem extends ReportPageItem {
     getProperty(prop: string): any;
     setProperty(prop: string, value: any): void;
     setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getProperties(props: string[] | ConfigObject): ConfigObject;
-    setProperties(props: ConfigObject): void;
+    getProperties(props: string[] | ConfigObject$2): ConfigObject$2;
+    setProperties(props: ConfigObject$2): void;
     getStyleProperty(prop: string): any;
     setStyleProperty(prop: string, value: any): void;
     getSubStyleProperty(prop: string, style: string): any;
@@ -13574,6 +14008,9 @@ declare interface SeriesConfig extends BaseConfig {
     mapKeys?: string | string[];
     dataUrl?: string;
     valueField?: string;
+    pointColors?: Function | null;
+    styleCallback?: Function | null;
+    legend?: string;
 }
 
 declare type ServerReportGroupSource = {
@@ -14332,8 +14769,8 @@ declare class SimpleBandRowGroupCollection extends ReportItemCollection<SimpleBa
     save(target: any): void;
     get(index: number): SimpleBandRowGroup;
     indexOf(field: SimpleBandRowGroup): number;
-    add(group: SimpleBandRowGroup | ConfigObject, index?: number): SimpleBandRowGroup;
-    addAll(groups: (SimpleBandRowGroup | ConfigObject)[], index?: number): boolean;
+    add(group: SimpleBandRowGroup | ConfigObject$2, index?: number): SimpleBandRowGroup;
+    addAll(groups: (SimpleBandRowGroup | ConfigObject$2)[], index?: number): boolean;
     removeAt(index: number): boolean;
     remove(group: SimpleBandRowGroup): boolean;
     clear(): boolean;
@@ -15089,8 +15526,8 @@ declare class TableBandRowGroupCollection extends ReportItemCollection<TableBand
     save(target: any): void;
     get(index: number): TableBandRowGroup;
     indexOf(group: TableBandRowGroup): number;
-    add(group: TableBandRowGroup | ConfigObject, index?: number): TableBandRowGroup;
-    addAll(groups: (TableBandRowGroup | ConfigObject)[], index?: number): boolean;
+    add(group: TableBandRowGroup | ConfigObject$2, index?: number): TableBandRowGroup;
+    addAll(groups: (TableBandRowGroup | ConfigObject$2)[], index?: number): boolean;
     removeAt(index: number): boolean;
     remove(group: TableBandRowGroup): boolean;
     clear(): boolean;
@@ -15519,7 +15956,7 @@ declare abstract class TableColumnCollectionBase<T extends ReportGroupItem, C ex
      * 너비 합계가 부모 너비보다 클 수 있다.
      */
     getWidths(): DimensionCollection;
-    add(column: C | ConfigObject, index?: number): C;
+    add(column: C | ConfigObject$2, index?: number): C;
     /* Excluded from this release type: remove */
     /* Excluded from this release type: clear */
     /* Excluded from this release type: move */
@@ -15967,11 +16404,9 @@ declare class TextItem extends TextItemBase {
     static readonly PROP_MERGE_RULE = "mergeRule";
     static readonly PROP_RICH = "rich";
     static readonly PROP_ON_GET_COL_SPAN = "onGetColSpan";
-    static readonly PROP_AUTO_SHRINK = "autoShrink";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
     static readonly ITEM_TYPE = "Text";
-    private _autoShrink;
     private _text;
     private _wordBreak;
     private _rich;
@@ -16033,13 +16468,6 @@ declare class TextItem extends TextItemBase {
      */
     get colSpanCallback(): ReportItemColSpanCallback;
     set conSpanCallback(value: ReportItemColSpanCallback);
-    /**
-     * 자동 폰트 사이즈 조정.
-     * 설정 시 텍스트가 설정된 사이즈를 초과하는 경우
-     * 자동적으로 사이즈를 조정하여 모든 텍스트가 보여지도록 하는 설정입니다.
-     */
-    get autoShrink(): boolean;
-    set autoShrink(value: boolean);
     getDesignText2(system: boolean): string;
     /**
      * value 값은 onGetValueCallback에서 계산된 값이다.
@@ -16069,6 +16497,7 @@ declare class TextItem extends TextItemBase {
 declare abstract class TextItemBase extends ReportItem {
     static readonly PROP_WRAP = "wrap";
     static readonly PROP_MULTI_LINE = "multiLine";
+    static readonly PROP_AUTO_SHRINK = "autoShrink";
     static readonly PROP_BOOLEAN_FORMAT = "booleanFormat";
     static readonly PROP_NUMBER_FORMAT = "numberFormat";
     static readonly PROP_DATE_FORMAT = "dateFormat";
@@ -16085,6 +16514,7 @@ declare abstract class TextItemBase extends ReportItem {
     private _textFormat;
     private _prefix;
     private _suffix;
+    private _autoShrink;
     /**
      * wrap
      */
@@ -16133,6 +16563,13 @@ declare abstract class TextItemBase extends ReportItem {
      */
     get suffix(): string;
     set suffix(value: string);
+    /**
+     * 자동 폰트 사이즈 조정.
+     * 설정 시 텍스트가 설정된 사이즈를 초과하는 경우
+     * 자동적으로 사이즈를 조정하여 모든 텍스트가 보여지도록 하는 설정입니다.
+     */
+    get autoShrink(): boolean;
+    set autoShrink(value: boolean);
     getText(v: any): string;
     getDesignText2(system: boolean): string;
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
