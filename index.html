@@ -1,388 +1,771 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>RealReport Examples</title>
+        <link rel="shortcut icon" href="/img/icons/favicon.ico" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="/img/icons/favicon.ico" />
+        <!-- 폰트 미리 로드 설정 -->
+        <link
+            rel="preload"
+            href="./js/pdffonts/NanumGothic.otf"
+            as="font"
+            type="font/otf"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="preload"
+            href="./js/pdffonts/NanumGothicBold.otf"
+            as="font"
+            type="font/otf"
+            crossorigin="anonymous"
+        />
 
-  <link href="/js/realreport/realreport.css" rel="stylesheet" />
-  <link data-name="vs/editor/editor.main" rel="stylesheet" href="/js/monaco-editor/min/vs/editor/editor.main.css" />
-  <link href="css/index.css" rel="stylesheet" />
+        <!-- HTML 문서에 폰트 설정 -->
+        <style>
+            @font-face {
+                font-family: 'Nanum Gothic';
+                src: url('./js/pdffonts/NanumGothic.otf') format('opentype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'Nanum Gothic';
+                src: url('./js/pdffonts/NanumGothicBold.otf') format('opentype');
+                font-weight: bold;
+                font-style: normal;
+            }
+        </style>
 
-  <script type="text/javascript" src="/js/pdfkit.js"></script>
-  <script type="text/javascript" src="/js/realreport/realreport.js"></script>
-  <script type="text/javascript" src="./forms/certificate.js"></script>
-  <script type="text/javascript" src="./forms/business.js"></script>
-  <script type="text/javascript" src="./forms/employmentContract.js"></script>
-  <script type="text/javascript" src="./forms/crosstabSample.js"></script>
-  <script type="text/javascript" src="./forms/realmap.js"></script>
-</head>
+        <link href="/js/realreport/realreport.css" rel="stylesheet" />
+        <link
+            data-name="vs/editor/editor.main"
+            rel="stylesheet"
+            href="/js/monaco-editor/min/vs/editor/editor.main.css"
+        />
+        <link href="css/index.css" rel="stylesheet" />
 
-<body>
-  <div id="overlay"></div>
-  <div id="root" class="root">
-    <div class="header">
-      <div class="toolbar">
-        <div class="toolbar-left">
-          <div class="toolbar-items">
-            <button id="menu-btn" class="close-btn" onclick="toggleNav()">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
-                <path
-                  d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z" />
-              </svg>
-            </button>
-            <a class="toolbar-brand" href="https://real-report.com">
-              <img src="/img/logo.svg" alt="RealReport Logo" class="toolbar-logo" />
-              <b class="toolbar-title">Real Report</b>
-            </a>
-            <a class="toolbar-item toolbar-link" href="https://real-report.com/pricing">가격</a>
-            <a class="toolbar-item toolbar-link" href="https://real-report.com/docs/introduction">문서</a>
-          </div>
-        </div>
-        <div class="toolbar-center"></div>
-        <div class="toolbar-right">
-          <div class="toolbar-items">
-            <a href="https://github.com/realgrid/realreport-examples" target="_blank" rel="noopener noreferrer"
-              class="toolbar-item toolbar-link">
-              <span>소스보기
-                <svg width="19" height="20" viewBox="0 -2 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M10 6.5H5.5C5.10218 6.5 4.72064 6.65804 4.43934 6.93934C4.15804 7.22064 4 7.60218 4 8V15.5C4 15.8978 4.15804 16.2794 4.43934 16.5607C4.72064 16.842 5.10218 17 5.5 17H13C13.3978 17 13.7794 16.842 14.0607 16.5607C14.342 16.2794 14.5 15.8978 14.5 15.5V11M9.25 11.75L16 5M16 5H12.25M16 5V8.75"
-                    stroke="#1C1E21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-            </a>
-            <a href="https://service.realgrid.com" target="_blank" rel="noopener noreferrer"
-              class="toolbar-item toolbar-link">
-              <span>다운로드
-                <svg width="19" height="20" viewBox="0 -2 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M10 6.5H5.5C5.10218 6.5 4.72064 6.65804 4.43934 6.93934C4.15804 7.22064 4 7.60218 4 8V15.5C4 15.8978 4.15804 16.2794 4.43934 16.5607C4.72064 16.842 5.10218 17 5.5 17H13C13.3978 17 13.7794 16.842 14.0607 16.5607C14.342 16.2794 14.5 15.8978 14.5 15.5V11M9.25 11.75L16 5M16 5H12.25M16 5V8.75"
-                    stroke="#1C1E21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-            </a>
-            <a href="https://support.realgrid.com/tickets/categories/z6SA78vS9G6cgiYht" target="_blank"
-              rel="noopener noreferrer" class="toolbar-item toolbar-link">
-              <span>기술지원
-                <svg width="19" height="20" viewBox="0 -2 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M10 6.5H5.5C5.10218 6.5 4.72064 6.65804 4.43934 6.93934C4.15804 7.22064 4 7.60218 4 8V15.5C4 15.8978 4.15804 16.2794 4.43934 16.5607C4.72064 16.842 5.10218 17 5.5 17H13C13.3978 17 13.7794 16.842 14.0607 16.5607C14.342 16.2794 14.5 15.8978 14.5 15.5V11M9.25 11.75L16 5M16 5H12.25M16 5V8.75"
-                    stroke="#1C1E21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-            </a>
-            <a href="https://realgrid.com" target="_blank" rel="noopener noreferrer" class="toolbar-item toolbar-link">
-              <span>RealGrid
-                <svg width="19" height="20" viewBox="0 -2 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M10 6.5H5.5C5.10218 6.5 4.72064 6.65804 4.43934 6.93934C4.15804 7.22064 4 7.60218 4 8V15.5C4 15.8978 4.15804 16.2794 4.43934 16.5607C4.72064 16.842 5.10218 17 5.5 17H13C13.3978 17 13.7794 16.842 14.0607 16.5607C14.342 16.2794 14.5 15.8978 14.5 15.5V11M9.25 11.75L16 5M16 5H12.25M16 5V8.75"
-                    stroke="#1C1E21" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="sidenav-container">
-        <div id="sidenav" class="sidenav">
-          <div class="menu">
-            <div id="spinner" class="spinner">
-              <div class="spinner-container">
-                <div></div>
-              </div>
+        <script type="text/javascript" src="/js/pdfkit.js"></script>
+        <script
+            type="text/javascript"
+            src="/js/realreport/realreport.js"
+        ></script>
+        <script type="text/javascript" src="./forms/certificate.js"></script>
+        <script type="text/javascript" src="./forms/business.js"></script>
+        <script
+            type="text/javascript"
+            src="./forms/employmentContract.js"
+        ></script>
+        <script type="text/javascript" src="./forms/crosstabSample.js"></script>
+        <script type="text/javascript" src="./forms/realmap.js"></script>
+        <script type="text/javascript" src="./forms/markanySample.js"></script>
+    </head>
+
+    <body>
+        <div id="overlay"></div>
+        <div id="root" class="root">
+            <div class="header">
+                <div class="toolbar">
+                    <div class="toolbar-left">
+                        <div class="toolbar-items">
+                            <button
+                                id="menu-btn"
+                                class="close-btn"
+                                onclick="toggleNav()"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    width="24px"
+                                    height="24px"
+                                >
+                                    <path
+                                        d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z"
+                                    />
+                                </svg>
+                            </button>
+                            <a
+                                class="toolbar-brand"
+                                href="https://real-report.com"
+                            >
+                                <img
+                                    src="/img/logo.svg"
+                                    alt="RealReport Logo"
+                                    class="toolbar-logo"
+                                />
+                                <b class="toolbar-title">Real Report</b>
+                            </a>
+                            <a
+                                class="toolbar-item toolbar-link"
+                                href="https://real-report.com/pricing"
+                                >가격</a
+                            >
+                            <a
+                                class="toolbar-item toolbar-link"
+                                href="https://real-report.com/docs/introduction"
+                                >문서</a
+                            >
+                        </div>
+                    </div>
+                    <div class="toolbar-center"></div>
+                    <div class="toolbar-right">
+                        <div class="toolbar-items">
+                            <a
+                                href="https://github.com/realgrid/realreport-examples"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="toolbar-item toolbar-link"
+                            >
+                                <span
+                                    >소스보기
+                                    <svg
+                                        width="19"
+                                        height="20"
+                                        viewBox="0 -2 19 19"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M10 6.5H5.5C5.10218 6.5 4.72064 6.65804 4.43934 6.93934C4.15804 7.22064 4 7.60218 4 8V15.5C4 15.8978 4.15804 16.2794 4.43934 16.5607C4.72064 16.842 5.10218 17 5.5 17H13C13.3978 17 13.7794 16.842 14.0607 16.5607C14.342 16.2794 14.5 15.8978 14.5 15.5V11M9.25 11.75L16 5M16 5H12.25M16 5V8.75"
+                                            stroke="#1C1E21"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </span>
+                            </a>
+                            <a
+                                href="https://service.realgrid.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="toolbar-item toolbar-link"
+                            >
+                                <span
+                                    >다운로드
+                                    <svg
+                                        width="19"
+                                        height="20"
+                                        viewBox="0 -2 19 19"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M10 6.5H5.5C5.10218 6.5 4.72064 6.65804 4.43934 6.93934C4.15804 7.22064 4 7.60218 4 8V15.5C4 15.8978 4.15804 16.2794 4.43934 16.5607C4.72064 16.842 5.10218 17 5.5 17H13C13.3978 17 13.7794 16.842 14.0607 16.5607C14.342 16.2794 14.5 15.8978 14.5 15.5V11M9.25 11.75L16 5M16 5H12.25M16 5V8.75"
+                                            stroke="#1C1E21"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </span>
+                            </a>
+                            <a
+                                href="https://support.realgrid.com/tickets/categories/z6SA78vS9G6cgiYht"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="toolbar-item toolbar-link"
+                            >
+                                <span
+                                    >기술지원
+                                    <svg
+                                        width="19"
+                                        height="20"
+                                        viewBox="0 -2 19 19"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M10 6.5H5.5C5.10218 6.5 4.72064 6.65804 4.43934 6.93934C4.15804 7.22064 4 7.60218 4 8V15.5C4 15.8978 4.15804 16.2794 4.43934 16.5607C4.72064 16.842 5.10218 17 5.5 17H13C13.3978 17 13.7794 16.842 14.0607 16.5607C14.342 16.2794 14.5 15.8978 14.5 15.5V11M9.25 11.75L16 5M16 5H12.25M16 5V8.75"
+                                            stroke="#1C1E21"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </span>
+                            </a>
+                            <a
+                                href="https://realgrid.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="toolbar-item toolbar-link"
+                            >
+                                <span
+                                    >RealGrid
+                                    <svg
+                                        width="19"
+                                        height="20"
+                                        viewBox="0 -2 19 19"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M10 6.5H5.5C5.10218 6.5 4.72064 6.65804 4.43934 6.93934C4.15804 7.22064 4 7.60218 4 8V15.5C4 15.8978 4.15804 16.2794 4.43934 16.5607C4.72064 16.842 5.10218 17 5.5 17H13C13.3978 17 13.7794 16.842 14.0607 16.5607C14.342 16.2794 14.5 15.8978 14.5 15.5V11M9.25 11.75L16 5M16 5H12.25M16 5V8.75"
+                                            stroke="#1C1E21"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <ul id="menu-list-report" class="menu-list">
-              <li class="menu-list-item">
-                <span class="menu-head">리포트 양식 데모</span>
-                <ul class="menu-list menu-list-block" id="sidebarUl">
-                  <!-- 이곳에 리포트 사이드바 생성 -->
-                  <li class="menu-list-item">
-                    <a class="menu-link menu-link-active" onclick="javascript:sampleReport(this);" id="certificateReport">
-                      <span>재직증명서</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                    <a class="menu-link" onclick="javascript:sampleReport(this);" id="signReport">
-                      <span>견적서 (서명)</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                    <a class="menu-link" onclick="javascript:sampleReport(this);" id="crossTabSmaple">
-                      <span>상반기 국내 차량 판매 (크로스 탭)</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                    <a class="menu-link" onclick="javascript:sampleReport(this);" id="editableReport">
-                      <span>주소 라벨 (수정 가능)</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                    <a class="menu-link" onclick="javascript:sampleReport(this);" id="multiLanguageReport">
-                      <span>다국어 개인정보 동의서</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                    <a class="menu-link" onclick="javascript:sampleReport(this);" id="businessReport">
-                      <span>출장계획 보고서</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                    <a class="menu-link" onclick="javascript:sampleReport(this);" id="employmentContract">
-                      <span>근로계약서</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="menu-list-item">
-                <span class="menu-head">지도 연동 데모</span>
-                <ul class="menu-list menu-list-block" id="sidebarUl">
-                  <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:mapReport(this);" id="naverMap">
-                      <span>NAVER 지도 연동</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="menu-list-item">
-                <span class="menu-head">멀티 페이지 양식 데모</span>
-                <ul class="menu-list menu-list-block" id="sidebarUl">
-                  <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:multiReportSample1(this);">
-                      <span>출퇴근 관리대장, 점검표</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                  <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:multiReportSample2(this);">
-                      <span>견적서, 발주서</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="menu-list-item">
-                <span class="menu-head">복합출력 데모</span>
-                <ul class="menu-list menu-list-block">
-                  <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:reportSample1(this);">
-                      <span>인보이스</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                  <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:reportSample2(this);">
-                      <span>주소 라벨</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                  <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:reportSampleComposit(this);">
-                      <span>인보이스, 주소라벨</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="menu-list-item">
-                <span class="menu-head">이메일 리포트 데모</span>
-                <ul class="menu-list menu-list-block">
-                  <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:sampleEmail(this);" id="billEmail">
-                      <span>결제 내역</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="menu-list-item">
-                <span class="menu-head">멀티 뷰어 샘플</span>
-                <ul class="menu-list menu-list-block">
-                  <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:dualReportView(this);">
-                      <span>두 개의 ReportViewer</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                  <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:tripleReportView(this);">
-                      <span>세 개의 ReportViewer</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <ul id="menu-list-map" class="menu-list">
-              <li class="menu-list-item" id="mapReportMenu">
-                <span class="menu-head">리얼맵 리포트</span>
-                <ul class="menu-list menu-list-block" id="mapReportUl">
-                  <li class="menu-list-item">
-                    <a class="menu-link" onclick="javascript:sampleMapChart(this, 'realMapSeries');">
-                      <span>맵 시리즈</span>
-                      <span class="toolbar-icon icon preview-popup-png"></span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <ul id="menu-list-grid" class="menu-list">
-              <li class="menu-list-item" id="gridReportMenu">
-                <span class="menu-head">그리드 리포트</span>
-                <ul class="menu-list menu-list-block" id="gridReportUl">
-                  <li class="menu-list-item">
-                    <a class="menu-link" data-id="100" onclick="javascript:onClickGridViewMenu(this);">
-                      <span>직원 목록 그리드</span>
-                    </a>
-                  </li>
-                  <li class="menu-list-item">
-                    <a class="menu-link" data-id="101" onclick="javascript:onClickGridViewMenu(this);">
-                      <span>그리드 기본 샘플</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="main">
-        <div class="main-content">
-          <div class="main-tabs">
-            <div class="spinner">
-              <div class="spinner-container">
-                <div></div>
-              </div>
-            </div>
-            <div class="tab-buttons">
-              <div class="tab-button active" id="reportTabBtn">
-                <span class="tab-header tab-title" onclick="openTab('reportTab')">Report 미리보기</span>
-                <span class="tab-header tab-tool-button" onclick="openEditor('reportFrame', this)">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="tool-icon" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                  </svg>
-                </span>
-              </div>
-              <!-- <div class="report-tab mobile-show" id="reportMenu" onclick="toggleNav()">
+            <div class="container">
+                <div class="sidenav-container">
+                    <div id="sidenav" class="sidenav">
+                        <div class="menu">
+                            <div id="spinner" class="spinner">
+                                <div class="spinner-container">
+                                    <div></div>
+                                </div>
+                            </div>
+                            <ul id="menu-list-report" class="menu-list">
+                                <li class="menu-list-item">
+                                    <span class="menu-head"
+                                        >리포트 양식 데모</span
+                                    >
+                                    <ul
+                                        class="menu-list menu-list-block"
+                                        id="sidebarUl"
+                                    >
+                                        <!-- 이곳에 리포트 사이드바 생성 -->
+                                        <li class="menu-list-item">
+                                            <a
+                                                class="menu-link menu-link-active"
+                                                onclick="javascript:showWebDesignerReport(this);"
+                                                id="certificateReport"
+                                            >
+                                                <span>재직증명서</span>
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:showWebDesignerReport(this);"
+                                                id="signReport"
+                                            >
+                                                <span>견적서 (서명)</span>
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:showWebDesignerReport(this);"
+                                                id="crossTabSmaple"
+                                            >
+                                                <span
+                                                    >상반기 국내 차량 판매
+                                                    (크로스 탭)</span
+                                                >
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:showWebDesignerReport(this);"
+                                                id="editableReport"
+                                            >
+                                                <span
+                                                    >주소 라벨 (수정 가능)</span
+                                                >
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:showWebDesignerReport(this);"
+                                                id="multiLanguageReport"
+                                            >
+                                                <span
+                                                    >다국어 개인정보
+                                                    동의서</span
+                                                >
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:showWebDesignerReport(this);"
+                                                id="businessReport"
+                                            >
+                                                <span>출장계획 보고서</span>
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:showWebDesignerReport(this);"
+                                                id="employmentContract"
+                                            >
+                                                <span>근로계약서</span>
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-list-item">
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:showWebDesignerReport(this);"
+                                                id="realMapSeries"
+                                            >
+                                                <span>리얼맵 시리즈</span>
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-list-item">
+                                    <span class="menu-head"
+                                        >멀티 페이지 양식 데모</span
+                                    >
+                                    <ul
+                                        class="menu-list menu-list-block"
+                                        id="sidebarUl"
+                                    >
+                                        <li class="menu-list-item">
+                                            <a
+                                                id="multiSample317"
+                                                class="menu-link"
+                                                onclick="javascript:showWebDesignerReport(this)"
+                                            >
+                                                <span
+                                                    >출퇴근 관리대장,
+                                                    점검표</span
+                                                >
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-list-item">
+                                            <a
+                                                id="multiSample318"
+                                                class="menu-link"
+                                                onclick="javascript:showWebDesignerReport(this)"
+                                            >
+                                                <span>견적서, 발주서</span>
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-list-item">
+                                    <span class="menu-head">복합출력 데모</span>
+                                    <ul class="menu-list menu-list-block">
+                                        <li class="menu-list-item">
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:compositeReport({ el: this, reports: [sampleReport200, sampleReport205]})"
+                                            >
+                                                <span>인보이스, 주소라벨</span>
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-list-item">
+                                    <span class="menu-head"
+                                        >지도 연동 데모</span
+                                    >
+                                    <ul
+                                        class="menu-list menu-list-block"
+                                        id="sidebarUl"
+                                    >
+                                        <li class="menu-list-item">
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:viewerReport({ el: this, isMapUsed: true });"
+                                                id="naverMap"
+                                            >
+                                                <span>NAVER 지도 연동</span>
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-list-item" id="mapReportMenu">
+                                    <span class="menu-head"
+                                        >MarkAny 연동 데모</span
+                                    >
+                                    <ul
+                                        class="menu-list menu-list-block"
+                                        id="mapReportUl"
+                                    >
+                                        <li class="menu-list-item">
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:markanyReport(this);"
+                                                id="markanyDemo"
+                                            >
+                                                <span
+                                                    >증여계약서(위변조방지
+                                                    샘플)</span
+                                                >
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-list-item">
+                                    <span class="menu-head"
+                                        >이메일 리포트 데모</span
+                                    >
+                                    <ul class="menu-list menu-list-block">
+                                        <li class="menu-list-item">
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:showWebDesignerReport(this);"
+                                                id="billEmail"
+                                            >
+                                                <span>결제 내역</span>
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-list-item">
+                                    <span class="menu-head"
+                                        >멀티 뷰어 샘플</span
+                                    >
+                                    <ul class="menu-list menu-list-block">
+                                        <li class="menu-list-item">
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:dualReportView(this);"
+                                            >
+                                                <span
+                                                    >두 개의 ReportViewer</span
+                                                >
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-list-item">
+                                            <a
+                                                class="menu-link"
+                                                onclick="javascript:tripleReportView(this);"
+                                            >
+                                                <span
+                                                    >세 개의 ReportViewer</span
+                                                >
+                                                <span
+                                                    class="toolbar-icon icon preview-popup-png"
+                                                ></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul id="menu-list-grid" class="menu-list">
+                                <li class="menu-list-item" id="gridReportMenu">
+                                    <span class="menu-head">그리드 리포트</span>
+                                    <ul
+                                        class="menu-list menu-list-block"
+                                        id="gridReportUl"
+                                    >
+                                        <li class="menu-list-item">
+                                            <a
+                                                class="menu-link"
+                                                data-id="100"
+                                                onclick="javascript:onClickGridViewMenu(this);"
+                                            >
+                                                <span>직원 목록 그리드</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-list-item">
+                                            <a
+                                                class="menu-link"
+                                                data-id="101"
+                                                onclick="javascript:onClickGridViewMenu(this);"
+                                            >
+                                                <span>그리드 기본 샘플</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="main">
+                    <div class="main-content">
+                        <div class="main-tabs">
+                            <div class="spinner">
+                                <div class="spinner-container">
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div class="tab-buttons">
+                                <div
+                                    class="tab-button active"
+                                    id="reportTabBtn"
+                                >
+                                    <span
+                                        class="tab-header tab-title"
+                                        onclick="openTab('reportTab')"
+                                        >Report 미리보기</span
+                                    >
+                                    <span
+                                        class="tab-header tab-tool-button"
+                                        onclick="openEditor('reportFrame', this)"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="tool-icon"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                                            />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <!-- <div class="report-tab mobile-show" id="reportMenu" onclick="toggleNav()">
                   <span class="report-tab-title">양식 메뉴</span>
                   <span class="report-tab-icon">
                     <img src="./img/text-document.png" width="20" height="20" />
                   </span>
                 </div> -->
-              <div class="tab-button hidden" id="gridTabBtn">
-                <span class="tab-header tab-title" onclick="openTab('gridTab')">Grid 보기</span>
-              </div>
-            </div>
-            <div class="tab frame-tab hidden" id="multiReportTab">
-              <iframe id="multiReportFrame" title="Multi Report Preview Frame" src="multi-report.html"
-                class="content-frame h-450 hidden"></iframe>
-            </div>
+                                <div class="tab-button hidden" id="gridTabBtn">
+                                    <span
+                                        class="tab-header tab-title"
+                                        onclick="openTab('gridTab')"
+                                        >Grid 보기</span
+                                    >
+                                </div>
+                            </div>
+                            <div
+                                class="tab frame-tab hidden"
+                                id="multiReportTab"
+                            >
+                                <iframe
+                                    id="multiReportFrame"
+                                    title="Multi Report Preview Frame"
+                                    src="multi-report.html"
+                                    class="content-frame h-450 hidden"
+                                ></iframe>
+                            </div>
 
-            <div class="tab frame-tab" id="reportTab">
-              <iframe id="webDesignerFrame" title="webDesigner Frame" src="web-designer.html"
-                class="content-frame h-450 "></iframe>
-              <iframe id="reportFrame" title="Report Preview Frame" src="preview.html"
-                class="content-frame h-450 hidden"></iframe>
-              <div class="editor-frame hidden" id="editorFrame">
-                <div class="main-editor">
-                  <div class="editor-toolbar">
-                    <span class="tool-button active" data-btn-type="set-editor-model" data-source-type="reportForm"
-                      onclick="clickEditorToolButton(this)">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="tool-icon" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                      </svg>
-                      양식소스
-                    </span>
-                    <span class="tool-button" data-btn-type="set-editor-model" data-source-type="reportData"
-                      onclick="clickEditorToolButton(this)">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="tool-icon" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                      </svg>
-                      샘플 데이터
-                    </span>
-                  </div>
-                  <div id="editor-container"></div>
+                            <div class="tab frame-tab" id="reportTab">
+                                <iframe
+                                    id="webDesignerFrame"
+                                    title="webDesigner Frame"
+                                    src="web-designer.html"
+                                    class="content-frame h-450"
+                                ></iframe>
+                                <iframe
+                                    id="reportFrame"
+                                    title="Report Preview Frame"
+                                    src="preview.html"
+                                    class="content-frame h-450 hidden"
+                                ></iframe>
+                                <iframe
+                                    id="compositeReportFrame"
+                                    title="Report Composite Preview"
+                                    src="composite-viewer.html"
+                                    class="content-frame h-450 hidden"
+                                ></iframe>
+                                <iframe
+                                    id="markanyFrame"
+                                    title="Report Preview & Markany Frame"
+                                    src="markany.html"
+                                    class="content-frame h-450 hidden"
+                                ></iframe>
+                                <div
+                                    class="editor-frame hidden"
+                                    id="editorFrame"
+                                >
+                                    <div class="main-editor">
+                                        <div class="editor-toolbar">
+                                            <span
+                                                class="tool-button active"
+                                                data-btn-type="set-editor-model"
+                                                data-source-type="reportForm"
+                                                onclick="clickEditorToolButton(this)"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    class="tool-icon"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                                                    />
+                                                </svg>
+                                                양식소스
+                                            </span>
+                                            <span
+                                                class="tool-button"
+                                                data-btn-type="set-editor-model"
+                                                data-source-type="reportData"
+                                                onclick="clickEditorToolButton(this)"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    class="tool-icon"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
+                                                    />
+                                                </svg>
+                                                샘플 데이터
+                                            </span>
+                                        </div>
+                                        <div id="editor-container"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab frame-tab hidden" id="gridTab">
+                                <iframe
+                                    id="gridFrame"
+                                    title="Grid View Frame"
+                                    src="grid.html"
+                                    class="content-frame"
+                                ></iframe>
+                                <iframe
+                                    id="gridReportFrame"
+                                    title="Grid Report Preview Frame"
+                                    src="preview.html"
+                                    class="content-frame"
+                                ></iframe>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="tab frame-tab hidden" id="gridTab">
-              <iframe id="gridFrame" title="Grid View Frame" src="grid.html" class="content-frame"></iframe>
-              <iframe id="gridReportFrame" title="Grid Report Preview Frame" src="preview.html"
-                class="content-frame"></iframe>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <script>
-    var require = { paths: { vs: '/js/monaco-editor/min/vs' } };
+        <script>
+            var require = { paths: { vs: '/js/monaco-editor/min/vs' } };
 
-    var menuReport = document.getElementById('menu-list-report');
-    var menuGrid = document.getElementById('menu-list-grid');
-    var spinnerEl = document.getElementsByClassName('spinner');
-    var previewFrame = document.getElementById('gridReportFrame');
+            var menuReport = document.getElementById('menu-list-report');
+            var menuGrid = document.getElementById('menu-list-grid');
+            var spinnerEl = document.getElementsByClassName('spinner');
 
-    previewFrame.addEventListener('load', function () {
-      for (var i = 0; i < spinnerEl.length; i++) {
-        spinnerEl.item(i).style.display = 'none';
-      }
+            // 사이드 메뉴 보이고 감추기
+            function toggleNav() {
+                var sideEl = document.getElementById('sidenav');
+                sideEl.classList.toggle('sidenav-show');
+            }
 
-      menuReport.style.visibility = 'visible';
-      menuGrid.style.visibility = 'visible';
-    });
+            document.addEventListener('DOMContentLoaded', async function () {
+                const frameIds = [
+                    'reportFrame',
+                    'compositeReportFrame',
+                    'webDesignerFrame',
+                    'markanyFrame',
+                ];
 
-    // 사이드 메뉴 보이고 감추기
-    function toggleNav() {
-      var sideEl = document.getElementById("sidenav");
-      sideEl.classList.toggle('sidenav-show');
-    }
+                // URL 파라미터에서 reportId 가져오기
+                const params = new URLSearchParams(location.search);
+                const reportId = params.get('reportId');
+                const report = window[reportId] ?? certificateReport;
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const reportFrame = document.getElementById('webDesignerFrame');
-      
-      const params = new URLSearchParams(location.search);
+                const isNaver = reportId === 'naverMap';
+                const isMarkany = reportId && reportId.startsWith('markany');
 
-      // 특정 값 가져오기
-      const reportId = params.get("reportId"); 
+                if (isNaver) {
+                    showFrame('reportFrame');
+                } else if (isMarkany) {
+                    showFrame('markanyFrame');
+                } else {
+                    showFrame('webDesignerFrame');
+                }
 
-      reportFrame.addEventListener('load', function () {
-        const iframeWindow = reportFrame.contentWindow;
-        reportViewer = iframeWindow.reportViewer;
+                resetActiveClass(
+                    document.getElementById(reportId ?? 'certificateReport'),
+                    'menu-link-active',
+                    'menu-link-active',
+                );
 
-        if (reportId && window[reportId]) {
-          const report = window[reportId];
-          
-          iframeWindow.initWebDesigner(report);
-          const reportMenuEl = document.getElementById(reportId)
-          if (reportMenuEl) {
-            resetActiveClass(reportMenuEl, 'menu-link-active', 'menu-link-active');
-            reportMenuEl.focus();
-          }
-        } else {
-          iframeWindow.initWebDesigner(certificateReport);
-        }
-      });
-    });
+                const waitFrames = frameIds.map((id) => {
+                    return new Promise((resolve) => {
+                        const frame = document.getElementById(id);
+                        frame.addEventListener('load', function () {
+                            const iframeWindow = frame.contentWindow;
 
-  </script>
-  <script src="/js/monaco-editor/min/vs/loader.js"></script>
-  <script src="/js/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
-  <script src="/js/monaco-editor/min/vs/editor/editor.main.js"></script>
+                            iframeWindow.init(report);
+                            resolve();
+                        });
+                    });
+                });
 
-  <script defer src="/js/report-samples.js"></script>
-  <script defer src="/js/report-samples-map.js"></script>
-  <script defer src="/js/report-samples-multi.js"></script>
-  <script defer src="/js/report-samples-email.js"></script>
-  <script defer src="/js/grid-report-samples.js"></script>
-  <script defer src="/js/preview.js"></script>
-  <script defer src="/js/templates.js"></script>
-  <script defer src="/js/app.js"></script>
-</body>
+                // 모든 프레임이 로드될때까지 대기
+                await Promise.all(waitFrames);
 
+                if (isNaver) {
+                    const reportFrame = document.getElementById('reportFrame');
+                    reportFrame.contentWindow.previewReport(report, true);
+                } else if (isMarkany) {
+                    const markanyFrame =
+                        document.getElementById('markanyFrame');
+                    markanyFrame.contentWindow.previewReport(report);
+                } else {
+                    const webDesignerFrame =
+                        document.getElementById('webDesignerFrame');
+                    webDesignerFrame.contentWindow.previewReport(report);
+                }
+
+                for (var i = 0; i < spinnerEl.length; i++) {
+                    spinnerEl.item(i).style.display = 'none';
+                }
+
+                menuReport.style.visibility = 'visible';
+                menuGrid.style.visibility = 'visible';
+            });
+        </script>
+        <script src="/js/monaco-editor/min/vs/loader.js"></script>
+        <script src="/js/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+        <script src="/js/monaco-editor/min/vs/editor/editor.main.js"></script>
+
+        <script defer src="/js/report-samples.js"></script>
+        <script defer src="/js/report-samples-map.js"></script>
+        <script defer src="/js/report-samples-multi.js"></script>
+        <script defer src="/js/report-samples-email.js"></script>
+        <script defer src="/js/grid-report-samples.js"></script>
+        <script defer src="/js/preview.js"></script>
+        <script defer src="/js/templates.js"></script>
+        <script defer src="/js/app.js"></script>
+    </body>
 </html>

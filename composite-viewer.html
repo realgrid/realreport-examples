@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>RealReport Print Preview</title>
+        <title>RealReport Composite Print Preview</title>
         <link rel="shortcut icon" href="#" />
 
         <!-- 폰트 미리 로드 설정 -->
@@ -22,6 +22,22 @@
             type="font/otf"
             crossorigin="anonymous"
         />
+
+        <!-- HTML 문서에 폰트 설정 -->
+        <style>
+            @font-face {
+                font-family: "Nanum Gothic";
+                src: url("./js/pdffonts/NanumGothic.otf") format("opentype");
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: "Nanum Gothic";
+                src: url("./js/pdffonts/NanumGothicBold.otf") format("opentype");
+                font-weight: bold;
+                font-style: normal;
+            }
+        </style>
 
         <link href="css/preview.css" rel="stylesheet" />
         <link href="js/realreport/realreport.css" rel="stylesheet" />
@@ -208,7 +224,8 @@
 
         <script type="text/javascript">
             // 아래 라이선스는 유효기간 2025년 12월 31일 까지 demo.realreport.co.kr, demo.real-report.com, 127.0.0.1, localhost 도메인에서 사용할 수 있는 라이선스 입니다.
-            var realReportLic = "upVcPE+wPOn1V3OcjC3PuAUt7xtLcP5XVzS0GnpZwpnbdxrzWi3SH8gD17wvi7BNc3vsxq2SxIg2rsOxQPdOVcH1h2aog657J5pkitVHVM3QPF6bsDlKl8NgIi+ScmQJ1bTAmKPP6lA5wBxY4TtZU7AcvKUogurDIt4EOB5WH41Xh9a38ypSmQ==";
+            var realReportLic =
+                'upVcPE+wPOn1V3OcjC3PuAUt7xtLcP5XVzS0GnpZwpnbdxrzWi3SH8gD17wvi7BNc3vsxq2SxIg2rsOxQPdOVcH1h2aog657J5pkitVHVM3QPF6bsDlKl8NgIi+ScmQJ1bTAmKPP6lA5wBxY4TtZU7AcvKUogurDIt4EOB5WH41Xh9a38ypSmQ==';
             // RealReport가 위치할 컨테이너 요소의 id
             var containerId = 'realreport';
             // RealReport Viewer 객체 변수
@@ -244,33 +261,24 @@
                 }
             };
 
-            var init = function (reports) {
+            var init = function () {
                 clearReport();
 
-                // 여러 양식을 하나의 미리보기로 출력 하기 위해 report 객체를 변수로 넘겨준다.
-                if (Array.isArray(reports) && reports.length > 1) {
-                    // 여러 양식 리포트는 ReportCompositeViewer 객체를 이용한다.
-                    // 생성 인자는 컨테이너Id와 report객체
-                    // 도움말 참조 💡 https://real-report.com/docs/api/ReportCompositeViewer
-                    viewer = new RealReport.ReportCompositeViewer(
-                        containerId,
-                        reports,
-                    );
-                } else {
-                    // 단일 양식 리포트는 ReportViewer 객체를 이용한다.
-                    // 생성인자는 컨테이너Id, 리포트 양식, 데이터
-                    // 도움말 참조 💡 https://real-report.com/docs/api/ReportViewer
-                    viewer = new RealReport.ReportViewer(
-                        containerId
-                    );
-                }
-            }
+                // 여러 양식 리포트는 ReportCompositeViewer 객체를 이용한다.
+                // 생성 인자는 컨테이너Id와 report객체
+                // 도움말 참조 💡 https://real-report.com/docs/api/ReportCompositeViewer
+                viewer = new RealReport.ReportCompositeViewer(containerId);
+            };
+
             /**
              * 리포트 미리보기 실행
              * */
-            var previewReport = function (reports, isMap) {
-                viewer.reportForm = reports?.form;
-                viewer.dataSet = reports?.dataSet;
+            var previewReport = function (reports) {
+                if (!Array.isArray(reports)) {
+                    throw new Error('복합 리포트 타입이 아닙니다.');
+                }
+
+                viewer.formSets = reports;
 
                 // async: true인 경우 매 페이지가 미리보기될때 마다 호출되는 콜백 함수
                 const pageCallback = (ctx, page, pageNo) => {
@@ -287,24 +295,6 @@
                         viewer.fitToWidth();
                         viewer.zoom = viewer.zoom - 0.01;
                     }
-
-                    if (isMap) {
-                        var mapOptions = {
-                            center: new naver.maps.LatLng(37.39202, 127.078172),
-                            zoom: 18,
-                        };
-
-                        var map = new naver.maps.Map('map', mapOptions);
-
-                        const marker = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(
-                                37.39202,
-                                127.078172,
-                            ),
-                            map: map,
-                            title: '(주)우리테크인터내셔날',
-                        });
-                    }
                 };
 
                 // 미리보기 함수 preview() 호출
@@ -317,44 +307,6 @@
                         noScroll: true,
                         callback: pageCallback,
                         endCallback: endCallback,
-                    });
-
-                return viewer;
-            };
-
-            /**
-             * RealGrid 리포트 미리보기 실행
-             * 도움말 참조 💡 https://real-report.com/docs/api/GridReportViewer#preview
-             * */
-            var previewGridReport = function (grid, options) {
-                clearReport();
-
-                if (grid) {
-                    viewer = new RealReport.GridReportViewer(
-                        containerId,
-                        grid,
-                        options,
-                    );
-                }
-
-                const pageCallback = (ctx, page, pageNo) => {
-                    console.log(`${pageNo} 페이지 미리보기 완료`);
-                };
-
-                const endCallback = (ctx, pages) => {
-                    console.log('모든 페이지 미리보기 완료');
-                    setTotalPage('totalpage');
-                    setPageInputValue('inputPageNumber');
-                    setZoomScaleInputValue('inputZoomScale');
-                };
-
-                if (viewer)
-                    viewer.preview({
-                        async: true,
-                        pageMark: false,
-                        noScroll: true,
-                        callback: pageCallback,
-                        endCallback,
                     });
 
                 return viewer;
