@@ -34,18 +34,6 @@ function previewPopup(reports) {
     }
 }
 
-function webDesignerFrame(iFrameId, reports) {
-    const reportFrame = document.getElementById(iFrameId);
-    reportFrame.classList.remove('hidden');
-    return reportFrame.contentWindow.initWebDesigner(reports);
-}
-
-function reportFrame(iFrameId, reports) {
-    const reportFrame = document.getElementById(iFrameId);
-    reportFrame.classList.remove('hidden');
-    return reportFrame.contentWindow.previewReport(reports);
-}
-
 /**
  *
  * ReportSource = {
@@ -97,6 +85,36 @@ function initPreviewFrame(iFrameId, reports) {
     const reportFrame = document.getElementById(iFrameId);
     reportFrame.classList.remove('hidden');
     return reportFrame.contentWindow.initPreviewReport(reports);
+}
+
+/**
+ * 여러 iFrame 중에서 하나의 iFrame만 보이도록 설정
+ * @param {*} iFrameId 보여줄 iFrame 아이디
+ */
+function showFrame(iFrameId) {
+    const frameIds = [
+        'reportFrame',
+        'compositeReportFrame',
+        'webDesignerFrame',
+        'markanyFrame',
+    ];
+
+    const selectedFrame = document.getElementById(iFrameId);
+
+    frameIds.forEach((id) => {
+        const frame = document.getElementById(id);
+        if (id === iFrameId) {
+            frame.classList.remove('hidden');
+        } else {
+            frame.classList.add('hidden');
+        }
+    });
+
+    if (!selectedFrame) {
+        throw new Error('존재하지 않는 iFrame 아이디입니다. ' + iFrameId);
+    }
+
+    return selectedFrame;
 }
 
 function hidePreviewReportFrame(iFrameId) {

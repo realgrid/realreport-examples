@@ -73,14 +73,60 @@
             let designer;
 
             // 디자이너 실행 코드
-            var initWebDesigner = function (reports, data) {
+            var init = async function () {
                 // 디자이너 실행 옵션
                 clearReport();
                 // 디자이너 객체 생성
                 designer = new RealReport.ReportDesigner('designer');
 
-                // 리포트 불러오기
+                designer.setReportTemplates(reportTemplates);
+                designer.setDataTemplates(dataTemplates);
+                designer.setAssetTemplates(assetTemplates);
+
+                // 디자이너에 폰트 및 디자인모드 설정
+                await designer
+                    .registerFonts(
+                        [
+                            {
+                                name: 'NanumGothic',
+                                source: 'js/pdffonts/NanumGothic.otf',
+                                fontWeight: 'normal',
+                            },
+                            {
+                                name: 'NanumGothic',
+                                source: 'js/pdffonts/NanumGothicBold.otf',
+                                fontWeight: 'bold',
+                            },
+                        ],
+                        'NanumGothic',
+                    )
+                    .then(() => {
+                        designer.designMode = false;
+                    });
+
+                return designer;
+            };
+
+            var previewReport = (reports) => {
+                if (designer) {
+                    // 리포트 불러오기
+                    const report = getReport(reports);
+
+                    designer.loadReport(report);
+                } else {
+                    init(reports);
+                }
+            };
+
+            var clearReport = function () {
+                const container = document.getElementById('designer');
+                container.innerHTML = '';
+                delete designer;
+            };
+
+            function getReport(reports) {
                 let report;
+
                 if (Array.isArray(reports)) {
                     report = reports[0].form;
 
@@ -105,43 +151,8 @@
                     });
                 }
 
-                designer.setReportTemplates(reportTemplates);
-                designer.setDataTemplates(dataTemplates);
-                designer.setAssetTemplates(assetTemplates);
-
-                designer
-                    .registerFonts(
-                        [
-                            {
-                                name: 'NanumGothic',
-                                source: 'js/pdffonts/NanumGothic.otf',
-                                fontWeight: 'normal',
-                            },
-                            {
-                                name: 'NanumGothic',
-                                source: 'js/pdffonts/NanumGothicBold.otf',
-                                fontWeight: 'bold',
-                            },
-                        ],
-                        'NanumGothic',
-                    )
-                    .then(() => {
-                        designer.loadReport(report);
-                        designer.designMode = false;
-                    });
-
-                return designer;
-            };
-
-            // window.addEventListener('DOMContentLoaded', function () {
-            //     reportViewer = initWebDesigner(certificateReport);
-            // });
-
-            var clearReport = function () {
-                const container = document.getElementById('designer');
-                container.innerHTML = '';
-                delete designer;
-            };
+                return report;
+            }
         </script>
     </head>
     <body>

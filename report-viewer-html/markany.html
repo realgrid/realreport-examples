@@ -1,0 +1,488 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RealReport</title>
+
+    <!-- 폰트 미리 로드 설정 -->
+    <link rel="preload" href="./js/pdffonts/NanumGothic.otf" as="font" type="font/otf" crossorigin="anonymous" />
+    <link rel="preload" href="./js/pdffonts/NanumGothicBold.otf" as="font" type="font/otf" crossorigin="anonymous" />
+
+    <!-- 리얼리포트, 리얼맵 라이브러리 css 설정 -->
+    <link href="./js/realreport/realreport.css" rel="stylesheet" />
+    <link href="./js/realmap/realmap-style.css" rel="stylesheet" />
+
+    <!-- 리얼맵 라이센스 및 라이브러리 설정 -->
+    <script type="text/javascript" src="./js/realmap/realmap.lic.js"></script>
+    <script type="text/javascript" src="./js/realmap/realmap.1.0.13.min.js"></script>
+
+    <!-- 외부 라이브러리 pdfkit.js 설정 -->
+    <script type="text/javascript" src="./js/pdfkit.js"></script>
+    <script type="text/javascript" src="./js/realreport/realreport.js"></script>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .viewer-container {
+            position: relative;
+            display: flex;
+            gap: 1.275rem;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .viewer-item {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 50%;
+            overflow: hidden;
+        }
+
+        .viewer-title {
+            display: block;
+            font-weight: bold;
+        }
+
+        .viewer-title-bar {
+            flex: 1;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 8px;
+            border: 1px solid #d5d5d5;
+            background-color: #f5f5f5;
+        }
+
+        .scroller {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            border: 1px dashed #3a3a3a;
+            padding-top: 20px;
+            overflow: auto;
+        }
+
+        #markany-viewer {
+            width: 100%;
+            height: 100%;
+        }
+
+        #pdf-render-viewer {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            border: 1px dashed #3a3a3a;
+            padding-top: 20px;
+            overflow: auto;
+        }
+
+        #pdf-markany-canvas {
+            left: var(--pdf-left, 0);
+            width: auto;
+            height: calc(100% - 20px);
+            box-sizing: border-box;
+            border: 1px solid gray;
+            box-shadow: rgba(50, 54, 57, 0.15) 0px 1px 3px 1px;
+        }
+
+        #loadingOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+    <!-- pdf.js 라이브러리 적용 -->
+    <script type="module">
+        import * as pdfjsLib from './js/pdfjs/pdf.mjs';
+        window.pdfjsLib = pdfjsLib;
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = "./js/pdfjs/pdf.worker.mjs";
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div style="border-bottom: 1px solid #d5d5d5; margin-bottom: 10px;">
+            <h3 style="margin-top: 4px; margin-bottom: 4px;">리얼리포트 HTML5 리포트 뷰어 - MarkAny 위변조방지 적용 예제</h2>
+                <p>
+                    좌측은 리얼리포트 HTML5 리포트 뷰어로 미리보기한 보고서이며, 우측은
+                    좌측 보고서를 pdf로 변환 후, MarkAny 위변조방지 솔루션을 연동하여 적용한 보고서입니다.
+                </p>
+        </div>
+        <div class="viewer-container">
+            <div class="viewer-item">
+                <div class="viewer-title-bar">
+                    <span class="viewer-title">리얼리포트 뷰어 미리보기</span>
+                    <button onclick="viewerPrint()">🖨️ 출력</button>
+                    <button onclick="viewerExportPdf()">📄 PDF</button>
+                </div>
+                <div class="scroller">
+                    <div id="markany-viewer"></div>
+                </div>
+            </div>
+            <div class="viewer-item">
+                <div class="viewer-title-bar">
+                    <span class="viewer-title">MarkAny 위변조방지 적용 보고서</span>
+                    <button onclick="printPdf()">🖨️ 출력</button>
+                    <button onclick="downloadPdf()">📄 PDF</button>
+                </div>
+                <div id="pdf-render-viewer"></div>
+            </div>
+            <div id="loadingOverlay" style="display: flex;">
+                <div class="spinner"></div>
+                <p id="loadingText">로딩 중...</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // 아래 라이선스는 유효기간 2025년 12월 31일 까지 demo.realreport.co.kr, demo.real-report.com, 127.0.0.1, localhost 도메인에서 사용할 수 있는 라이선스 입니다.
+    var realReportLic =
+        'upVcPE+wPOn1V3OcjC3PuAUt7xtLcP5XVzS0GnpZwpnbdxrzWi3SH8gD17wvi7BNc3vsxq2SxIg2rsOxQPdOVcH1h2aog657J5pkitVHVM3QPF6bsDlKl8NgIi+ScmQJ1bTAmKPP6lA5wBxY4TtZU7AcvKUogurDIt4EOB5WH41Xh9a38ypSmQ==';
+    const reportViewerContainerId = 'markany-viewer';
+    const markanyPdfViewerContainerId = 'pdf-render-viewer';
+    const markanyPdfCanvasId = 'pdf-markany-canvas';
+    var pdfBlob = null;
+
+    var viewer;
+
+    var init = function (reports) {
+        // 단일 양식 리포트는 ReportViewer 객체를 이용한다.
+        // 생성인자는 컨테이너Id, 리포트 양식, 데이터
+        // 도움말 참조 💡 https://real-report.com/docs/api/ReportViewer
+        viewer = new RealReport.ReportViewer(
+            reportViewerContainerId,
+            reports?.form,
+            reports?.dataSet,
+        );
+    };
+
+    function viewerPrint() {
+        if (viewer) {
+            viewer.print();
+        }
+    }
+
+    async function viewerExportPdf() {
+        const [regularFont, boldFont] = await Promise.all([
+            base64convert('/js/pdffonts/NanumGothic.otf', true),
+            base64convert('/js/pdffonts/NanumGothicBold.otf', true),
+        ])
+
+        const fonts = [
+            {
+                name: 'regular',
+                content: regularFont,
+                style: 'normal',
+                weight: 'normal',
+            },
+            {
+                name: 'bold',
+                content: boldFont,
+                style: 'normal',
+                weight: 'bold',
+            },
+        ];
+
+        if (viewer) {
+            const options = {
+                fonts,
+                filename: 'sample-report',
+                preview: false,
+                // ownerPassword: '!QAZXSW2', // 소유자 암호
+                // userPassword: '1qazxsw2', // 사용자 암호
+                permissions: {
+                    printing: 'highResolution', // 'lowResolution' | 'highResolution' 인쇄 허용 여부
+                    modifying: true, // 파일 수정 허용 여부
+                    copying: true, // 텍스트 또는 그래픽 복사 허용 여부
+                    annotating: true, // 주석 및 양식 작성 허용 여부
+                    fillingForms: true, // 양식 작성 및 서명 허용 여부
+                    contentAccessibility: true, // 접근성을 위한 텍스트 복사 허용 여부
+                    documentAssembly: true,
+                },
+                pdfVersion: '1.7ext3', // '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3'
+            };
+            const oldZoom = viewer.zoom;
+            viewer.zoom = 1;
+            await viewer.exportPdf(options);
+            viewer.zoom = oldZoom;
+        }
+    }
+
+    async function viewerExportPdfBlob() {
+        const [regularFont, boldFont] = await Promise.all([
+            base64convert('/js/pdffonts/NanumGothic.otf', true),
+            base64convert('/js/pdffonts/NanumGothicBold.otf', true),
+        ])
+
+        const fonts = [
+            {
+                name: 'regular',
+                content: regularFont,
+                style: 'normal',
+                weight: 'normal',
+            },
+            {
+                name: 'bold',
+                content: boldFont,
+                style: 'normal',
+                weight: 'bold',
+            },
+        ];
+
+        if (viewer) {
+            const options = {
+                fonts,
+                filename: 'sample-report',
+                preview: false,
+                // ownerPassword: '!QAZXSW2', // 소유자 암호
+                // userPassword: '1qazxsw2', // 사용자 암호
+                permissions: {
+                    printing: 'highResolution', // 'lowResolution' | 'highResolution' 인쇄 허용 여부
+                    modifying: true, // 파일 수정 허용 여부
+                    copying: true, // 텍스트 또는 그래픽 복사 허용 여부
+                    annotating: true, // 주석 및 양식 작성 허용 여부
+                    fillingForms: true, // 양식 작성 및 서명 허용 여부
+                    contentAccessibility: true, // 접근성을 위한 텍스트 복사 허용 여부
+                    documentAssembly: true,
+                },
+                pdfVersion: '1.7ext3', // '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3'
+            };
+            const oldZoom = viewer.zoom;
+            viewer.zoom = 1;
+            const pdfBlob = await viewer.exportPdfBlob(options);
+            viewer.zoom = oldZoom;
+
+            return pdfBlob;
+        }
+    }
+
+    /**
+     * 리포트 미리보기 실행
+     * */
+    var previewReport = async function (reports) {
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+        loadingOverlay.style.display = 'flex';
+        loadingText.textContent = '리얼리포트 PDF 변환 중...';
+
+        viewer.reportForm = reports?.form;
+        viewer.dataSet = reports?.dataSet;
+
+        // async: true인 경우 매 페이지가 미리보기될때 마다 호출되는 콜백 함수
+        const pageCallback = (ctx, page, pageNo) => {
+            console.log(`${pageNo} 페이지 미리보기 완료`);
+        };
+
+        // async: true인 경우 모든 페이지의 미리보기가 완료될때 호출되는 콜백 함수
+        const endCallback = async (ctx, pages) => {
+            viewer.fitToHeight();
+
+            await new Promise((resolve) => setTimeout(resolve, 300));
+
+            loadingText.textContent = 'PDF 문서에 MarkAny 위변조방지 적용 중...';
+
+            // Report Viewer에서 PDF Blob 추출
+            const pdfBlob = await viewerExportPdfBlob();
+
+            // MarkAny 위변조방지 솔루션 서버로 PDF Blob 전송 및 처리 후 결과 PDF 버퍼 수신
+            const markanyPdfBuffer = await fetchMarkanyPdf(pdfBlob);
+
+            // 수신한 MarkAny 처리 PDF 버퍼를 pdf.js를 이용하여 렌더링
+            await renderPdf({ data: markanyPdfBuffer });
+
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 300);
+        };
+
+        // 미리보기 함수 preview() 호출
+        // 호출 인자는 PreviewOptions로 자세한 속성은 도움말 참조
+        // 💡 https://real-report.com/docs/api/ReportViewer#preview
+        if (viewer) {
+            viewer.preview({
+                async: true,
+                pageMark: false,
+                noScroll: true,
+                callback: pageCallback,
+                endCallback: endCallback,
+            });
+        }
+
+        return viewer;
+    };
+
+    async function base64convert(url, split) {
+        const data = await fetch(url);
+        const blob = await data.blob();
+
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+                const base64data = reader.result;
+                resolve(split ? base64data.split(',')[1] : base64data);
+            };
+        });
+    }
+
+    async function fetchMarkanyPdf(pdfFileBlob) {
+        const formData = new FormData();
+        formData.append('file', pdfFileBlob);
+        /**
+         * d2CellCount: 바코드 가로 셀 길이 19.66 -> 1cm 늘어남 (각 바코드 3개 기준으로 19.66 -> 0.33cm)
+         * d2CellRow: 바코드 세로 길이 59 -> 1cm
+         * 바코드 영역외에 세로로 0.1cm 여유 공간 필요 5.9 -> 0.1cm
+         * d2PosX: 바코드 x 시작 좌표 28.35 -> 1cm
+         * d2PosY: 바코드 y 시작 좌표 28.35 -> 1cm
+         * 바코드 테두리 및 간격으로 여유공간 가로 0.6cm, 세로 0.1cm 필요
+         * A4 기준 (210mm x 297mm)
+         * 여백 가로 4cm, 하단 1cm 양식 기준
+         * 실제 바코드가 차지할 수 있는 공간:
+         * 17cm - 0.6cm = 16.4cm
+         * 바코드 1개당 할당 공간: 16.4cm ÷ 3개 = 5.466666...cm
+         * d2CellCount 정확한 값: 19.66 × 5.466666... × 3 = 322.42
+         */
+        formData.append(
+            'param',
+            '{"d2CellCount": 321, "d2CellRow": 118, "d2PosX": 58, "d2PosY": 28, "piCDUse": 0}',
+        );
+
+        try {
+            const response = await fetch('http://52.78.152.94:10101/upload', {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer 101da1matians01`, // 예시 토큰, 실제로는 환경변수나 안전한 방법으로 관리해야 함
+                },
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('업로드 실패: ' + response.statusText);
+            }
+
+            const result = await response.arrayBuffer();
+
+            // blob 생성
+            pdfBlob = new Blob([result], { type: 'application/pdf' });
+
+            // 결과 return
+            return result;
+        } catch (err) {
+            console.error('에러:', err);
+        }
+    }
+
+    async function renderPdf({ data }) {
+        const pdfContainer = document.getElementById(markanyPdfViewerContainerId);
+        if (!pdfContainer) {
+            throw new Error('PDF container not found');
+        }
+
+        const pdf = await pdfjsLib.getDocument({ data }).promise;
+
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            const page = await pdf.getPage(pageNum);
+
+            const viewport = page.getViewport({ scale: 2 });
+            const canvas = document.createElement('canvas');
+            canvas.id = markanyPdfCanvasId;
+
+            const context = canvas.getContext('2d');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            pdfContainer.appendChild(canvas);
+
+            const renderContext = {
+                canvasContext: context,
+                canvas: canvas,
+                viewport: viewport,
+            };
+
+            await page.render(renderContext).promise;
+        }
+    }
+
+    function downloadPdf({ filename = "markany-protected-report.pdf" } = {}) {
+        const blobUrl = URL.createObjectURL(pdfBlob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = filename;
+        
+        // 클릭 트리거
+        document.body.appendChild(link);
+        link.click();
+        
+        // 정리
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+    }
+
+    function printPdf() {
+        const blobUrl = URL.createObjectURL(pdfBlob);
+        const pdfFrame = document.getElementById('rr-pdf-print-iframe');
+        const isPdfFrameExist = pdfFrame;
+
+        if (isPdfFrameExist) {
+            URL.revokeObjectURL(pdfFrame.src);
+            pdfFrame.remove();
+        }
+
+        const iframe = document.createElement('iframe');
+        iframe.id = 'rr-pdf-print-iframe';
+        iframe.style.display = 'none';
+        iframe.src = blobUrl;
+
+        iframe.onload = () => {
+            const contentWindow = iframe.contentWindow;
+
+            contentWindow.focus();
+            contentWindow.print();
+        }
+
+        document.body.appendChild(iframe);
+    }
+</script>
+
+</html>

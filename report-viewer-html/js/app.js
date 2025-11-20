@@ -306,8 +306,8 @@ const onClickReportPreviewMenu = async function (event) {
         const reports = [serviceItem];
         // console.log(reports);
 
-        // import from preview.js
-        reportViewer = webDesignerFrame('webDesignerFrame', reports);
+        // preview.js 소스위치 참고
+        selectedFrame = showFrame('webDesignerFrame', reports);
         reportForm = reports[0].form;
         dataSet = reports[0].dataSet;
         setEditorModel('reportForm');
@@ -363,93 +363,72 @@ function hiddenFrame(frameId) {
     reportFrame.classList.add('hidden');
 }
 
-function sampleReport(el) {
-    const form = window[el.id];
+/**
+ * 리얼리포트 웹 디자이너 미리보기 실행 web-designer.html
+ * @param {*} el 클릭한 요소 정보
+ */
+function showWebDesignerReport(el) {
+    const form = window[el.id]; // window.sampleReport 전역으로 리포트 양식 정보 참조
     openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', form);
+    webDesignerFrame = showFrame('webDesignerFrame');
     reportForm = form;
     dataSet = form.data;
     setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+
+    // web-designer.html 파일의 previewReport() 호출
+    webDesignerFrame.contentWindow.previewReport(form);
+
     history.pushState({}, '', `?reportId=${el.id}`);
 }
 
-function mapReport(el) {
+/**
+ * 마크애니 리포트 미리보기 실행 markany.html
+ * @param {*} el 클릭한 요소 정보
+ */
+function markanyReport(el) {
     const form = window[el.id];
     openTab('reportTab', 'gridTab');
-    reportViewer = reportFrame('reportFrame', form);
+    markanyFrame = showFrame('markanyFrame');
     reportForm = form;
     dataSet = form.data;
     setEditorModel('reportForm');
-    hiddenFrame('webDesignerFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
-}
 
-function sampleEmail(el) {
-    const emailForm = window[el.id];
-    openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', emailForm);
-    reportForm = emailForm;
-    dataSet = emailForm.dataSet;
-    setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
-    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+    // markany.html 파일의 previewReport() 호출
+    markanyFrame.contentWindow.previewReport(form);
+
     history.pushState({}, '', `?reportId=${el.id}`);
 }
 
-function multiReportSample1(el) {
+function viewerReport({ el, isMapUsed = false }) {
+    const form = window[el.id];
     openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', multiSample317);
-    reportForm = multiSample317;
-    dataSet = multiSample317.dataSet;
+    reportFrame = showFrame('reportFrame');
+    reportForm = form;
+    dataSet = form.data;
     setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+
+    // preview.html 파일의 previewReport() 호출
+    reportFrame.contentWindow.previewReport(form, isMapUsed);
+
+    history.pushState({}, '', `?reportId=${el.id}`);
 }
 
-function multiReportSample2(el) {
+function compositeReport({ el, reports = [] }) {
+    const form = window[el.id];
     openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', multiSample318);
-    reportForm = multiSample318;
-    dataSet = multiSample318.dataSet;
+    compositeReportFrame = showFrame('compositeReportFrame');
+    reportForm = reports.map((report) => report.form);
+    dataSet = reports.map((report) => report.dataSet);
     setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
     resetActiveClass(el, 'menu-link-active', 'menu-link-active');
-}
 
-// 복합 출력 샘플 1
-function reportSample1(el) {
-    openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', sampleReport205);
-    reportForm = sampleReport205;
-    dataSet = sampleReport205.dataSet;
-    setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
-    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
-}
+    // preview.html 파일의 previewReport() 호출
+    compositeReportFrame.contentWindow.previewReport(reports);
 
-// 복합 출력 샘플 2
-function reportSample2(el) {
-    openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', sampleReport200);
-    reportForm = sampleReport200;
-    dataSet = sampleReport200.dataSet;
-    setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
-    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
-}
-
-// 복합 출력 샘플 1 + 2
-function reportSampleComposit(el) {
-    openTab('reportTab', 'gridTab');
-    reportViewer = previewFrame('reportFrame', [
-        sampleReport200,
-        sampleReport203,
-    ]);
-    setEditorModel('reportForm');
-    hiddenFrame('webDesignerFrame');
-    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
+    history.pushState({}, '', `?reportId=${el.id}`);
 }
 
 // 듀얼 뷰어 리포트 샘플
@@ -482,16 +461,4 @@ function clickEditorToolButton(target) {
     }
 
     resetActiveClass(target, 'tool-button', 'active');
-}
-
-// 사이드바에서 맵차트 보기 메뉴 클릭
-function sampleMapChart(el, type) {
-    const form = window[type];
-    openTab('reportTab', 'gridTab');
-    reportViewer = webDesignerFrame('webDesignerFrame', form);
-    reportForm = form;
-    dataSet = form.data;
-    setEditorModel('reportForm');
-    hiddenFrame('reportFrame');
-    resetActiveClass(el, 'menu-link-active', 'menu-link-active');
 }

@@ -209,6 +209,9 @@ var sampleReport200 = {
                     },
                 ],
             },
+            styles: {
+                fontFamily: 'Nanum Gothic',
+            },
         },
         assets: {
             '/': [],
@@ -3144,6 +3147,7 @@ var sampleReport205 = {
                                                     items: [
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             height: '40px',
                                                             name: '',
                                                             col: 0,
@@ -3157,6 +3161,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             height: '40px',
                                                             name: '',
                                                             col: 0,
@@ -3170,6 +3175,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             height: '40px',
                                                             name: '',
                                                             col: 0,
@@ -3186,6 +3192,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             height: '40px',
                                                             name: '',
                                                             col: 0,
@@ -3202,6 +3209,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             height: '40px',
                                                             name: '',
                                                             col: 0,
@@ -3264,6 +3272,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             name: '',
                                                             col: 2,
                                                             row: 0,
@@ -3279,6 +3288,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             name: '',
                                                             col: 2,
                                                             row: 1,
@@ -3294,6 +3304,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             name: '',
                                                             col: 2,
                                                             row: 3,
@@ -3309,6 +3320,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             height: '40px',
                                                             name: '',
                                                             col: 4,
@@ -3325,6 +3337,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             name: '',
                                                             col: 4,
                                                             row: 1,
@@ -3338,6 +3351,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             name: '',
                                                             col: 4,
                                                             row: 3,
@@ -3350,6 +3364,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             name: '',
                                                             col: 4,
                                                             row: 2,
@@ -3365,6 +3380,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             data: '',
                                                             value: 'OrderDate',
                                                             name: '',
@@ -3374,6 +3390,7 @@ var sampleReport205 = {
                                                         },
                                                         {
                                                             type: 'text',
+                                                            width: '100%',
                                                             data: '',
                                                             value: 'RequiredDate',
                                                             name: '',
@@ -3440,7 +3457,7 @@ var sampleReport205 = {
                 ],
             },
             styles: {
-                fontFamily: 'Tahoma',
+                fontFamily: 'Nanum Gothic',
                 __tag_: {},
             },
         },
