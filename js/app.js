@@ -304,19 +304,21 @@ const onClickReportPreviewMenu = async function (event) {
         // 템플릿에서는 form, dataSet으로 직접 저장되어 있다.
         // 작업 여력이 부족해 일단 배열형식은 유지 한다. (onlydel)
         const reports = [serviceItem];
-        // console.log(reports);
 
         // preview.js 소스위치 참고
         selectedFrame = showFrame('webDesignerFrame', reports);
         reportForm = reports[0].form;
         dataSet = reports[0].dataSet;
         setEditorModel('reportForm');
-        hiddenFrame('reportFrame');
         resetActiveClass(
             event.target.parentElement,
             'menu-link-active',
             'menu-link-active',
         );
+
+        webDesignerFrame.contentWindow.previewReport(reports);
+
+        history.pushState({}, '', ``);
     });
 };
 
