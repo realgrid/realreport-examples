@@ -5181,15 +5181,17 @@ declare class FocusView extends VisualElement {
     protected _initDom(doc: Document, dom: HTMLElement): void;
 }
 
-declare type FontFormat = 'truetype' | 'opentype' | 'woff';
+declare type FontFormat = 'truetype' | 'opentype' | 'woff' | 'woff2';
 
 /**
- * FontManager 폰트 관련 리소스 관리
+ * FontResource 폰트 관련 리소스 관리
  * 폰트 관련 리소스를 base64로 보관하고 가져다 사용할 수 있도록 작성
  */
-declare class FontManager extends EventAware {
-    static readonly FONT_ADDED = "onFontManagerFontAdded";
-    static readonly FONT_REMOVED = "onFontManagerFontRemoved";
+declare class FontResource extends EventAware {
+    static readonly FONT_ADDED = "onFontResourceFontAdded";
+    static readonly FONT_REMOVED = "onFontResourceFontRemoved";
+    private static readonly FONT_TYPES;
+    private static readonly FONT_SIGNATURES;
     private _fontSources;
     constructor();
     protected _doDispose(): void;
@@ -5199,19 +5201,32 @@ declare class FontManager extends EventAware {
     getFonts(name: string, weight?: FontWeight): FontSource[];
     getFontsByWeight(weight: FontWeight): FontSource[];
     private $_convertFontWeight;
+    /**
+     * Font MIME Types 변환
+     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face#font_mime_types
+     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/src#font_formats
+     * @param fontType
+     * @returns font face에서 정의할 font format 문자열
+     */
     private $_convertFontType;
+    private $_detectFontType;
+    private $_matchSignature;
     private $_fireFontAdded;
     private $_fireFontRemoved;
 }
 
+/**
+ * blob 형태로 관리하면 폰트를 가져올 때 사용하기 용이하다.
+ * url 생성 및 해제도 간편하고, font-face에서 요구하는 형식이 blob url이기 때문
+ */
 declare type FontSource = {
     name: string;
-    source: string;
-    fontWeight: FontWeight;
+    source: Blob;
+    weight: FontWeight;
     format: FontFormat;
 };
 
-declare type FontWeight = 'normal' | 'bold';
+declare type FontWeight = '100' | '200' | '300' | '400' | '500' | '600' | 'normal' | 'bold';
 
 declare abstract class FormulaConverterError extends Error {
     code: FormulaConverterErrorCode;
@@ -10750,7 +10765,7 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     private _unit;
     private _assetRoot;
     protected _assets: AssetManager;
-    private _fontManager;
+    private _fontResource;
     private _data;
     protected _designData: DesignDataManager;
     protected _i18n: I18nManager;
@@ -10838,13 +10853,13 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     get reportItemRegistry(): ReportItemRegistry;
     /** assets */
     get assets(): AssetManager;
-    /** fontManager */
-    get fontManager(): FontManager;
+    /** fontResource */
+    get fontResource(): FontResource;
     /**
      * Setter Injection인 이유는 리소스는 외부에서 한번만 생성후에 관리한다.
      * 새로운 리포트 모델을 생성할 때 폰트관련 리소스는 외부 정보이므로 주입받아서 사용하자.
      */
-    set fontManager(fontManager: FontManager);
+    set fontResource(fontResource: FontResource);
     /** editing */
     get editing(): ReportEditableObject<ReportRootItem>;
     get root(): ReportRootItem;
@@ -11101,7 +11116,7 @@ declare class ReportDesigner_2 extends VisualContainer {
     private _itembarMode;
     private _panelMode;
     private _report;
-    private _fontManager;
+    private _fontResource;
     private _defaultFont;
     private _server;
     private _isRemote;
@@ -11253,7 +11268,7 @@ declare class ReportDesigner_2 extends VisualContainer {
     get inspector(): PropertyInspector;
     get dataPanel(): DataPanel;
     get dialog(): DialogView;
-    get fontManager(): FontManager;
+    get fontResource(): FontResource;
     get defaultFont(): string;
     set defaultFont(fontName: string);
     get tableContainerDesigner(): TableDesigner;
@@ -11397,8 +11412,6 @@ declare class ReportDesigner_2 extends VisualContainer {
     private $_disposeViewer;
     private $_loadPreviewData;
     private $_refreshPanel;
-    private $_addFontManagerListener;
-    private $_appendFontFaceStyle;
     /**
      * 에디터 관련 doLayout을 수행함.
      * 리포트 타입에 따라, 리포트에디터, 엑셀에디터 전용 doLayout함수를 호출함.
@@ -17007,10 +17020,20 @@ export declare interface UserDataTemplateGroup {
     items: IUserDataTemplateItem[];
 }
 
+/**
+ * 사용자가 등록할 폰트 소스 정보
+ */
 declare type UserFontSource = {
+    /** 폰트 이름 */
     name: string;
-    source: string;
+    /** 폰트 데이터 (URL, Blob 등) */
+    source: string | Blob;
+    /**
+     * @deprecated Use `weight` instead. This property will be removed in a future version.
+     */
     fontWeight: FontWeight;
+    /** 폰트 굵기 */
+    weight: FontWeight;
 };
 
 export declare interface UserReportCategoryTemplate {
