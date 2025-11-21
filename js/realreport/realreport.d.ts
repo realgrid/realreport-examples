@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.17
-* commit 4ae88bdc
+* RealReport v1.11.18
+* commit 4a77247d
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.17
+* RealReport Core v1.11.18
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 3ab9a001f91a3edfca4fac7f734a48998bd81cd3
+* commit 01bbf113dbeab59bf35fe7d007a33c29cee214f4
 */
 
 
@@ -11372,26 +11372,42 @@ declare class I18nManager extends EventAware$1 {
     private $_fireDefaultLanguageChanged;
 }
 
+/**
+ * blob 형태로 관리하면 폰트를 가져올 때 사용하기 용이하다.
+ * url 생성 및 해제도 간편하고, font-face에서 요구하는 형식이 blob url이기 때문
+ */
 type FontSource = {
     name: string;
-    source: string;
-    fontWeight: FontWeight;
+    source: Blob;
+    weight: FontWeight;
     format: FontFormat;
 };
-type UserFontSource = {
-    name: string;
-    source: string;
-    fontWeight: FontWeight;
-};
-type FontWeight = 'normal' | 'bold';
-type FontFormat = 'truetype' | 'opentype' | 'woff';
 /**
- * FontManager 폰트 관련 리소스 관리
+ * 사용자가 등록할 폰트 소스 정보
+ */
+type UserFontSource = {
+    /** 폰트 이름 */
+    name: string;
+    /** 폰트 데이터 (URL, Blob 등) */
+    source: string | Blob;
+    /**
+     * @deprecated Use `weight` instead. This property will be removed in a future version.
+     */
+    fontWeight: FontWeight;
+    /** 폰트 굵기 */
+    weight: FontWeight;
+};
+type FontWeight = '100' | '200' | '300' | '400' | '500' | '600' | 'normal' | 'bold';
+type FontFormat = 'truetype' | 'opentype' | 'woff' | 'woff2';
+/**
+ * FontResource 폰트 관련 리소스 관리
  * 폰트 관련 리소스를 base64로 보관하고 가져다 사용할 수 있도록 작성
  */
-declare class FontManager extends EventAware$1 {
-    static readonly FONT_ADDED = "onFontManagerFontAdded";
-    static readonly FONT_REMOVED = "onFontManagerFontRemoved";
+declare class FontResource extends EventAware$1 {
+    static readonly FONT_ADDED = "onFontResourceFontAdded";
+    static readonly FONT_REMOVED = "onFontResourceFontRemoved";
+    private static readonly FONT_TYPES;
+    private static readonly FONT_SIGNATURES;
     private _fontSources;
     constructor();
     protected _doDispose(): void;
@@ -11401,7 +11417,16 @@ declare class FontManager extends EventAware$1 {
     getFonts(name: string, weight?: FontWeight): FontSource[];
     getFontsByWeight(weight: FontWeight): FontSource[];
     private $_convertFontWeight;
+    /**
+     * Font MIME Types 변환
+     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face#font_mime_types
+     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/src#font_formats
+     * @param fontType
+     * @returns font face에서 정의할 font format 문자열
+     */
     private $_convertFontType;
+    private $_detectFontType;
+    private $_matchSignature;
     private $_fireFontAdded;
     private $_fireFontRemoved;
 }
@@ -11426,10 +11451,9 @@ interface ImageExportOptions$1 {
 }
 interface PdfFont {
     name: string;
-    content: string;
-    file?: string;
+    content: string | ArrayBuffer | Blob;
     style?: 'normal' | 'italic';
-    weight?: 'normal' | 'bold';
+    weight?: FontWeight;
 }
 interface PdfPermissions {
     printing?: 'lowResolution' | 'highResolution';
@@ -12134,7 +12158,7 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     private _unit;
     private _assetRoot;
     protected _assets: AssetManager;
-    private _fontManager;
+    private _fontResource;
     private _data;
     protected _designData: DesignDataManager;
     protected _i18n: I18nManager;
@@ -12223,13 +12247,13 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     get reportItemRegistry(): ReportItemRegistry;
     /** assets */
     get assets(): AssetManager;
-    /** fontManager */
-    get fontManager(): FontManager;
+    /** fontResource */
+    get fontResource(): FontResource;
     /**
      * Setter Injection인 이유는 리소스는 외부에서 한번만 생성후에 관리한다.
      * 새로운 리포트 모델을 생성할 때 폰트관련 리소스는 외부 정보이므로 주입받아서 사용하자.
      */
-    set fontManager(fontManager: FontManager);
+    set fontResource(fontResource: FontResource);
     /** editing */
     get editing(): ReportEditableObject<ReportRootItem>;
     get root(): ReportRootItem;
@@ -49670,13 +49694,16 @@ type ErrorParams = {
  * ReportViewer base class
  */
 declare abstract class ReportViewBase {
+    static readonly REPORT_ROOT_CLASS = "rr-report-root";
+    static readonly STYLE_ELEMENT_ID = "rr-font-style";
     protected _options: ReportOptions;
     protected _cm: boolean;
     protected _container: PrintContainer | ExcelPrintContainer | undefined;
     protected _currentPage: number;
     protected _containerId: string;
+    protected _fontStyleElement: HTMLStyleElement;
     constructor(container: string | HTMLDivElement, options?: ReportOptions);
-    abstract preview(options: PreviewOptions): void;
+    abstract preview(options: PreviewOptions): Promise<void>;
     abstract exportPdf(options: PDFExportOptions): Promise<void>;
     abstract exportImage(imageOptions: ImageExportOptions$1): void;
     abstract exportDocument(options: DocumentExportOptions): void;
@@ -49717,6 +49744,7 @@ declare abstract class ReportViewBase {
     open(source: string | ReportForm | ReportFormSet | (string | ReportFormSet)[], options?: PreviewOptions & {
         preview?: boolean;
     }): Promise<void>;
+    isPagePrinted(): boolean;
     private $_checkL;
     private $_isReportSource;
     private $_isReportFormSet;
@@ -49748,18 +49776,18 @@ declare class ReportViewer extends ReportViewBase {
     /**
      * container에 리포트를 preview로 렌더링 합니다.
      */
-    preview(options?: PreviewOptions): void;
+    preview(options?: PreviewOptions): Promise<void>;
     print(options: PrintOptions): Promise<void>;
     /**
      * 리포트를 PDF파일로 다운로드 합니다.
      * @param options PDFExportOptions
      */
-    exportPdf(options: PDFExportOptions): Promise<void>;
+    exportPdf(options?: PDFExportOptions): Promise<void>;
     /**
      * 리포트를 Pdf 파일 변환 후 Blob 데이터로 반환
      * @param options PDFExportOptions
      */
-    exportPdfBlob(options: PDFExportBlobOptions): Promise<Blob>;
+    exportPdfBlob(options?: PDFExportBlobOptions): Promise<Blob>;
     /**
      * 이미지 내보내기 함수
      * @param imageOptions
@@ -49789,15 +49817,12 @@ declare class ReportViewer extends ReportViewBase {
      * @param options
      */
     exportDocumentsFromData({ fileName, reportForm, dataSets, type, }: DocumentsExportFromDataOptions): Promise<void>;
+    private $_printPdf;
     private _checkReport;
     /**
      * API 링크가 있는 데이터는 받아온 후에 사용자가 넘겨준 데이터에서 교체한다.
      */
     private $_prepareLinkData;
-    /**
-     * Report(일반 리포트, 이메일 리포트) 타입인지 시트리포트 타입인지를 확인합니다.
-     */
-    private $_isReport;
     /**
      * 현재 리포트가 문서(pptx, hwp, docs)를 지원하는지 여부를 결정합니다.
      */
@@ -49851,7 +49876,7 @@ declare class GridReportViewer extends ReportViewer {
     /**
      * 컨테이너에 미리보기 랜더링
      */
-    preview(options?: PreviewOptions): void;
+    preview(options?: PreviewOptions): Promise<void>;
     /**
      * 출력 준비전 그리드 정보로 리포트 정보를 생성한다.
      */
@@ -49950,7 +49975,7 @@ declare class ReportCompositeViewer extends ReportViewBase {
      * 매핑 정보
      *   - form -> report
      */
-    preview(options?: PreviewOptions): void;
+    preview(options?: PreviewOptions): Promise<void>;
     print(options: PrintOptions): Promise<void>;
     /**
      * 리포트를 PDF파일로 다운로드 합니다.
@@ -49990,6 +50015,19 @@ declare class ReportCompositeViewer extends ReportViewBase {
     private $_hasSupportDocument;
 }
 
+declare class FontManager {
+    private _fontResource;
+    /**
+     * 기본 폰트명을 지정하면 해당 폰트로 렌더링 하도록 설정
+     */
+    private _defaultFont;
+    constructor(fontResource: FontResource);
+    get fonts(): FontSource[];
+    get defaultFont(): string;
+    set defaultFont(fontFamily: string);
+    registerFonts(fonts: UserFontSource[]): Promise<void>;
+}
+
 declare class Globals {
     static getVersion(): string;
     static setLicenseKey(license: string): void;
@@ -49997,6 +50035,7 @@ declare class Globals {
 
 declare const getVersion: typeof Globals.getVersion;
 declare const setLicenseKey: typeof Globals.setLicenseKey;
+declare const FontStore: FontManager;
 
 interface ReportOptions {
     zoom: number;
@@ -50195,7 +50234,11 @@ type PrintOptions = {
      * 최대 출력 대기 시간 ms 단위
      * @defaultValue 2000
      */
-    timeout: number;
+    timeout?: number;
+    /**
+     * PDF 파일을 기반으로 출력을 진행합니다.
+     */
+    usePdf?: boolean;
 };
 /**
  * PDF내보내기시 인자로 사용되는 옵션
@@ -50204,7 +50247,7 @@ type PDFExportOptions = {
     /**
      * pdf 문서에서 사용할 폰트의 목록 입니다.
      */
-    fonts: PdfFont[];
+    fonts?: PdfFont[];
     /**
      * download할 때 사용할 filename
      * filename이 없으면 다운로드 되지 않습니다.
@@ -50232,7 +50275,7 @@ type PDFExportOptions = {
     permissions?: PdfPermissions;
     pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 };
-type PDFExportBlobOptions = Omit<PDFExportOptions, 'filename' | 'preview'>;
+type PDFExportBlobOptions = Omit<PDFExportOptions, 'preview'>;
 declare enum CCITTScheme {
     GROUP_3 = "g3",
     GROUP_3_2D = "g3-2d",
@@ -50273,4 +50316,4 @@ declare const IMG_EXPORT_DEFAULT_OPTIONS: ImageExportOptions;
  */
 declare const ZOOM_ERROR_MESSAGE = "\uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778 \uACBD\uC6B0\uB9CC \uB0B4\uBCF4\uB0B4\uAE30\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4. \uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.";
 
-export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE, getVersion, setLicenseKey };
+export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, FontStore, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE, getVersion, setLicenseKey };
