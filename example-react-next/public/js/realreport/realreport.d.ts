@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.18
-* commit 4a77247d
+* RealReport v1.11.19
+* commit cdaf4376
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.18
+* RealReport Core v1.11.19
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 01bbf113dbeab59bf35fe7d007a33c29cee214f4
+* commit 08bc096c5c8c72a0247b80423083e30e55817b2c
 */
 
 
@@ -8977,6 +8977,36 @@ declare class TextBand extends ReportBandItem {
     protected _doSave(target: object): void;
 }
 
+declare class MarkdownBand extends ReportItem {
+    static readonly DEFAULT_WIDTH = "100%";
+    static readonly DEFAULT_HEIGHT = 100;
+    static readonly ALLOWED_TAGS: string[];
+    static readonly PROP_HTML = "html";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Markdown Band";
+    private _html;
+    rowIndex: number;
+    constructor(name: string);
+    get html(): string;
+    set html(value: string);
+    getHtml(ctx: PrintContext$1): string;
+    getPrintText(ctx: PrintContext$1): string;
+    getSaveType(): string;
+    get outlineLabel(): string;
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canRotate(): boolean;
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+}
+
 /**
  * 출력 시 데이터를 제공한다.
  */
@@ -11393,7 +11423,7 @@ type UserFontSource = {
     /**
      * @deprecated Use `weight` instead. This property will be removed in a future version.
      */
-    fontWeight: FontWeight;
+    fontWeight?: FontWeight;
     /** 폰트 굵기 */
     weight: FontWeight;
 };
@@ -11807,6 +11837,7 @@ declare enum ReportItemType {
     SPACE = "space",
     SIMPLEBAND = "simpleband",
     TABLEBAND = "tableband",
+    MARKDOWNBAND = "markdownband",
     BANDGROUP = "bandgroup",
     BANDCELL = "bandcell",
     CROSSTAB = "crosstab",
@@ -13376,7 +13407,7 @@ declare abstract class PrintContextBase<R extends ReportBase = ReportBase> exten
     private _tags;
     private _bandSave;
     async: boolean;
-    band: DataBand | CrosstabBand | TextBand;
+    band: DataBand | CrosstabBand | TextBand | MarkdownBand;
     pages: PrintPage[];
     floatings: HTMLDivElement[];
     reportCount: number;
