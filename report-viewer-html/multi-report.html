@@ -31,7 +31,7 @@
                             <div id="realreport2"></div>
                         </div>
                         <div class="scroller hidden" id="triple-reporter">
-                            <div class="realreport3"></div>
+                            <div id="realreport3"></div>
                         </div>
                     </div>
                 </div>
@@ -43,6 +43,7 @@
             var realReportLic = "upVcPE+wPOn1V3OcjC3PuAUt7xtLcP5XVzS0GnpZwpnbdxrzWi3SH8gD17wvi7BNc3vsxq2SxIg2rsOxQPdOVcH1h2aog657J5pkitVHVM3QPF6bsDlKl8NgIi+ScmQJ1bTAmKPP6lA5wBxY4TtZU7AcvKUogurDIt4EOB5WH41Xh9a38ypSmQ==";
             var containerId1 = 'realreport1';
             var containerId2 = 'realreport2';
+            var containerId3 = 'realreport3';
             var viewer1, viewer2, viewer3;
 
             //--------------------------------------------------------------------------------------------------
@@ -92,13 +93,14 @@
             var previewTripleReport = function (reports) {
                 clearReport();
 
+                console.log(reports, reportForm);
                 if (Array.isArray(reports) && reports.length === 2) {
                     const previewInfo1 = reports[0];
                     const previewInfo2 = reports[1];
                     const container2 = document.getElementById(containerId2);
-                    const container3 =
-                        document.getElementsByClassName('realreport3')[0];
+                    const container3 = document.getElementById(containerId3);
 
+                        console.log(container3)
                     // 세번째 리포트 컨테이너 보이기
                     document
                         .getElementById('triple-reporter')
