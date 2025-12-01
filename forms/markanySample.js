@@ -10,6 +10,9 @@ var markanyDemo = {
             marginRight: '2cm',
             marginTop: '1cm',
             marginBottom: '1cm',
+            editing: {
+                editable: true,
+            },
         },
         page: {
             name: 'reportPage',
@@ -51,9 +54,10 @@ var markanyDemo = {
                         top: '0px',
                         text: '17cm x 2cm (markany 위변조방지)',
                         styles: {
-                            borderBottom: '1px solid #3a3a3a',
-                            fontWeight: 'bold',
                             fontSize: '14px',
+                            fontWeight: 'bold',
+                            borderBottom: '1px solid #3a3a3a',
+                            _tag_: {},
                         },
                     },
                 ],
@@ -484,7 +488,8 @@ var markanyDemo = {
                                 name: '',
                                 col: 3,
                                 row: 1,
-                                text: '571001-1000000',
+                                suffix: '',
+                                text: '530101-1*****',
                                 styles: {
                                     textAlign: 'left',
                                     _tag_: {},
@@ -612,7 +617,11 @@ var markanyDemo = {
                                 name: '',
                                 col: 3,
                                 row: 5,
-                                text: '이춘향',
+                                text: '성명 입력',
+                                editing: {
+                                    editable: true,
+                                    maxLength: 10,
+                                },
                                 styles: {
                                     textAlign: 'left',
                                     _tag_: {},
@@ -624,7 +633,7 @@ var markanyDemo = {
                                 name: '',
                                 col: 3,
                                 row: 6,
-                                text: '600201-2000000',
+                                text: '600201-2*****',
                                 styles: {
                                     textAlign: 'left',
                                     _tag_: {},
@@ -656,8 +665,8 @@ var markanyDemo = {
                             },
                             {
                                 type: 'image',
-                                width: '40px',
-                                height: '40px',
+                                width: '50px',
+                                height: '50px',
                                 name: '',
                                 col: 4,
                                 row: 0,
@@ -665,14 +674,12 @@ var markanyDemo = {
                                 imageFit: 'fill',
                             },
                             {
-                                type: 'image',
-                                width: '40px',
-                                height: '40px',
+                                type: 'sign',
+                                width: '50px',
+                                height: '50px',
                                 name: '',
                                 col: 4,
                                 row: 5,
-                                image: 'lee',
-                                imageFit: 'fill',
                             },
                         ],
                     },

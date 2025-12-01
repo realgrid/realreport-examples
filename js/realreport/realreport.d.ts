@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.19
-* commit cdaf4376
+* RealReport v1.11.20
+* commit fa9e2c84
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2025 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.19
+* RealReport Core v1.11.20
 * Copyright (C) 2013-2025 WooriTech Inc.
 * All Rights Reserved.
-* commit 08bc096c5c8c72a0247b80423083e30e55817b2c
+* commit 249bf850a2c46ed3921d033a84a06067430033b8
 */
 
 

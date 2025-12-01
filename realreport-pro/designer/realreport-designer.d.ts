@@ -7834,6 +7834,36 @@ declare interface MapSource {
     exclude?: string[];
 }
 
+declare class MarkdownBand extends ReportItem {
+    static readonly DEFAULT_WIDTH = "100%";
+    static readonly DEFAULT_HEIGHT = 100;
+    static readonly ALLOWED_TAGS: string[];
+    static readonly PROP_HTML = "html";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    static readonly $_ctor: string;
+    static readonly ITEM_TYPE = "Markdown Band";
+    private _html;
+    rowIndex: number;
+    constructor(name: string);
+    get html(): string;
+    set html(value: string);
+    getHtml(ctx: PrintContext): string;
+    getPrintText(ctx: PrintContext): string;
+    getSaveType(): string;
+    get outlineLabel(): string;
+    protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    canRotate(): boolean;
+    canAdoptDragSource(source: any): boolean;
+    adoptDragSource(source: any): IDropResult;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+}
+
 declare type MenuItem = {
     type: 'text';
     label?: ((clickedElement: HTMLElement, menu: MenuItem) => string) | string;
@@ -8626,7 +8656,7 @@ declare abstract class PrintContextBase<R extends ReportBase = ReportBase> exten
     private _tags;
     private _bandSave;
     async: boolean;
-    band: DataBand | CrosstabBand | TextBand;
+    band: DataBand | CrosstabBand | TextBand | MarkdownBand;
     pages: PrintPage[];
     floatings: HTMLDivElement[];
     reportCount: number;
@@ -12927,6 +12957,7 @@ declare enum ReportItemType {
     SPACE = "space",
     SIMPLEBAND = "simpleband",
     TABLEBAND = "tableband",
+    MARKDOWNBAND = "markdownband",
     BANDGROUP = "bandgroup",
     BANDCELL = "bandcell",
     CROSSTAB = "crosstab",
@@ -17031,7 +17062,7 @@ declare type UserFontSource = {
     /**
      * @deprecated Use `weight` instead. This property will be removed in a future version.
      */
-    fontWeight: FontWeight;
+    fontWeight?: FontWeight;
     /** 폰트 굵기 */
     weight: FontWeight;
 };
