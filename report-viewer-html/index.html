@@ -722,10 +722,10 @@
                 const waitFrames = frameIds.map((id) => {
                     return new Promise((resolve) => {
                         const frame = document.getElementById(id);
-                        frame.addEventListener('load', function () {
+                        frame.addEventListener('load', async function () {
                             const iframeWindow = frame.contentWindow;
 
-                            iframeWindow.init(report);
+                            await iframeWindow.init(report);
                             resolve();
                         });
                     });
