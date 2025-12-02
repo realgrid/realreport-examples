@@ -42,16 +42,21 @@
         <div style="padding-bottom: 4px; margin-bottom: 4px;">
             <h3 style="margin-top: 4px; margin-bottom: 4px;">리얼리포트 HTML5 리포트 뷰어 - MarkAny 위변조방지 적용 예제</h2>
                 <p>
-                    아래 버튼을 클릭하여 리포트 뷰어를 통해 변환된 PDF 파일에 마크애니 위변조방지 기능을 적용해보세요.
+                    1. 오른쪽 리얼리포트 뷰어 미리보기에서 <span style="margin:2px;background-color:skyblue;font-weight:bold;">성명 입력</span>부분을 클릭하여 입력을 해주세요.
                 </p>
-                <button id="markany-btn" disabled class="toolbar-btn" onclick="applyMarkany()">
+                <p>
+                    2. <span style="font-weight:bold;">[서 명]</span>부분을 클릭하여 서명을 진행해주세요.
+                </p>
+                <p>
+                    3. <button id="markany-btn" style="margin:4px 0;" class="toolbar-btn" disabled onclick="applyMarkany()">
                     MarkAny 적용
-                </button>
+                    </button> 왼쪽 버튼을 클릭하여 MarkAny를 적용해주세요. 
+                </p>
         </div>
         <div class="viewer-container">
             <div id="viewer-container" class="viewer-item">
                 <div class="viewer-title-bar">
-                    <span class="viewer-title">리얼리포트 뷰어 미리보기 - 성명과 서명을 입력 후 MarkAny 적용 버튼을 눌러주세요.</span>
+                    <span class="viewer-title">리얼리포트 뷰어 미리보기</span>
                     <!-- <button onclick="viewerPrint()">🖨️ 출력</button>
                     <button onclick="viewerExportPdf()">📄 PDF</button> -->
                 </div>
@@ -95,7 +100,7 @@
                 weight: 'normal',
             },
             {
-                name: 'NanumGothicBold',
+                name: 'NanumGothic',
                 source: './js/pdffonts/NanumGothicBold.otf',
                 style: 'normal',
                 weight: 'bold',
@@ -182,7 +187,7 @@
 
         // async: true인 경우 모든 페이지의 미리보기가 완료될때 호출되는 콜백 함수
         const endCallback = async (ctx, pages) => {
-            viewer.fitToHeight();
+            viewer.zoom = 0.8
 
             loadingOverlay.style.display = 'none';
             markanyBtn.disabled = false;

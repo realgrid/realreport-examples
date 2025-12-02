@@ -95,13 +95,13 @@ var markanyDemo = {
                                 width: '20px',
                             },
                             {
-                                width: '20%',
+                                width: '40%',
                             },
                             {
-                                width: '20%',
+                                width: '10%',
                             },
                             {
-                                width: '20%',
+                                width: '10%',
                             },
                         ],
                         styles: {
@@ -212,7 +212,7 @@ var markanyDemo = {
                                 name: '',
                                 col: 0,
                                 row: 1,
-                                text: '아 파 트',
+                                text: '빌 딩',
                                 styles: {
                                     textAlign: 'left',
                                     _tag_: {},
@@ -232,7 +232,7 @@ var markanyDemo = {
                                 name: '',
                                 col: 2,
                                 row: 1,
-                                text: '롯데캐슬 천국과지옥',
+                                text: '(주)우리테크인터내셔날 더원스퀘어',
                                 styles: {
                                     textAlign: 'left',
                                     _tag_: {},
@@ -276,7 +276,7 @@ var markanyDemo = {
                                 name: '',
                                 col: 2,
                                 row: 2,
-                                text: '서울특별시 천국구 가브리엘동 1004번지 일대',
+                                text: '경기도 성남시 분당구 운중로 135',
                                 styles: {
                                     textAlign: 'left',
                                     _tag_: {},
@@ -291,7 +291,7 @@ var markanyDemo = {
                         name: '',
                         wrap: true,
                         multiLine: true,
-                        text: '위 부동산은 증여인 홍길동의 소유인 바, 이를 수증인 이춘향 에게 \n증여할 것을 약정하고 수증인은 이를 수락하였으므로, 이를 증명하기 위하여 각자 서명날인 한다.',
+                        text: '위 부동산은 증여인 홍길동의 소유인 바, 이를 수증인 이춘향 에게\n증여할 것을 약정하고 수증인은 이를 수락하였으므로, 이를 증명하기 위하여 각자 서명날인 한다.',
                         styles: {
                             fontSize: '14px',
                             textAlign: 'center',
@@ -396,7 +396,7 @@ var markanyDemo = {
                                 name: '',
                                 col: 1,
                                 row: 0,
-                                text: '성  명',
+                                text: '성  명',
                                 styles: {
                                     textAlign: 'left',
                                     _tag_: {},
@@ -420,7 +420,7 @@ var markanyDemo = {
                                 name: '',
                                 col: 1,
                                 row: 2,
-                                text: '주  소',
+                                text: '주  소',
                                 styles: {
                                     textAlign: 'left',
                                     _tag_: {},
@@ -537,7 +537,7 @@ var markanyDemo = {
                                 name: '',
                                 col: 1,
                                 row: 5,
-                                text: '성  명',
+                                text: '성  명',
                                 styles: {
                                     textAlign: 'left',
                                     _tag_: {},
@@ -561,7 +561,7 @@ var markanyDemo = {
                                 name: '',
                                 col: 1,
                                 row: 7,
-                                text: '주  소',
+                                text: '주  소',
                                 styles: {
                                     textAlign: 'left',
                                     _tag_: {},
