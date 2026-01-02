@@ -1,10 +1,10 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.20
-* commit fa9e2c84
+* RealReport v1.11.21
+* commit 52a9051b
 
 * {@link https://real-report.com}
-* Copyright (C) 2013-2025 WooriTech Inc.
+* Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
 */
 
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.20
-* Copyright (C) 2013-2025 WooriTech Inc.
+* RealReport Core v1.11.21
+* Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 249bf850a2c46ed3921d033a84a06067430033b8
+* commit 4bffe548e8787ebc316be46295c5571dde972305
 */
 
 
@@ -2116,6 +2116,7 @@ declare class DataBandCollection extends ReportGroupItem {
     canAdd(item: ReportItem): boolean;
     canContainsBand(): boolean;
     canContainsBandGroup(): boolean;
+    canSized(): boolean;
     protected _doItemAdded(item: ReportItem, index: number): void;
 }
 
@@ -2824,6 +2825,7 @@ declare class TableBandRowGroupHeader extends TableBandRowGroupSection {
     constructor(group: TableBandRowGroup);
     get outlineLabel(): string;
     get pathLabel(): string;
+    canDelete(): boolean;
 }
 declare class TableBandRowGroupFooter extends TableBandRowGroupSection {
     static readonly PROP_MERGED = "merged";
@@ -2838,6 +2840,7 @@ declare class TableBandRowGroupFooter extends TableBandRowGroupSection {
     set merged(value: boolean);
     get outlineLabel(): string;
     get pathLabel(): string;
+    canDelete(): boolean;
     getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
@@ -2868,6 +2871,7 @@ declare class TableBandRowGroup extends DataBandRowGroup {
     protected _ignoreItems(): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
+    protected _getStyleProps(): string[];
     protected _changed(prop: string, newValue: any, oldValue: any): void;
 }
 declare class TableBandRowGroupCollection extends ReportItemCollection<TableBandRowGroup> {
@@ -3168,12 +3172,14 @@ declare class SimpleBandRowGroupHeader extends SimpleBandRowGroupSection {
     constructor(group: SimpleBandRowGroup);
     get outlineLabel(): string;
     get pathLabel(): string;
+    canDelete(): boolean;
 }
 declare class SimpleBandRowGroupFooter extends SimpleBandRowGroupSection {
     static readonly $_ctor: string;
     constructor(group: SimpleBandRowGroup);
     get outlineLabel(): string;
     get pathLabel(): string;
+    canDelete(): boolean;
 }
 declare class SimpleBandRowGroup extends DataBandRowGroup {
     static readonly PROPINFOS: IPropInfo[];
@@ -3199,6 +3205,7 @@ declare class SimpleBandRowGroup extends DataBandRowGroup {
     protected _ignoreItems(): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
+    protected _getStyleProps(): string[];
     protected _changed(prop: string, newValue: any, oldValue: any): void;
 }
 declare class SimpleBandRowGroupCollection extends ReportItemCollection<SimpleBandRowGroup> {
@@ -9508,6 +9515,7 @@ declare class TableBandElement extends BandElement<TableBand> implements ITable 
     prepareSubBand(doc: Document, ctx: PrintContext$1, width: number, dataRows: number[]): TableBandPrintInfo;
     addMasterRow(page: HTMLDivElement, headerView: HTMLTableElement, rowView: TableBodyLine, x: number, y: number): number;
     printRow(ctx: PrintContext$1, row: number): TableBodyLine;
+    runStyleCallback(itemStyle: Styles, ctx: PrintContext$1, model: ReportItem): Styles;
     /** headerView */
     get headerView(): TableBandHeaderElement;
     /** footerView */
@@ -9875,6 +9883,7 @@ declare class TextBandElement extends BandItemElement<TextBand> {
     get footerView(): TextBandSectionElement;
     prepareAsync(doc: Document, ctx: PrintContext$1, width: number): TextBandPrintInfo;
     addEditableMarker(): EditableMarker;
+    runStyleCallback(itemStyle: Styles, ctx: PrintContext$1, model: ReportItem): Styles;
     get debugLabel(): string;
     isDom(dom: Element): boolean;
     protected _getCssSelector(): string;
@@ -50012,12 +50021,12 @@ declare class ReportCompositeViewer extends ReportViewBase {
      * 리포트를 PDF파일로 다운로드 합니다.
      * @param options PDFExportOptions
      */
-    exportPdf(options: PDFExportOptions): Promise<void>;
+    exportPdf(options?: PDFExportOptions): Promise<void>;
     /**
      * 리포트를 Blob 형식으로 내보내기 합니다.
      * @param options PDFExportBlobOptions
      */
-    exportPdfBlob(options: PDFExportBlobOptions): Promise<Blob>;
+    exportPdfBlob(options?: PDFExportBlobOptions): Promise<Blob>;
     /**
      * 문서 내보내기 함수
      * @param options
