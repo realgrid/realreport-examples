@@ -2119,6 +2119,7 @@ declare class DataBandCollection extends ReportGroupItem {
     canAdd(item: ReportItem): boolean;
     canContainsBand(): boolean;
     canContainsBandGroup(): boolean;
+    canSized(): boolean;
     protected _doItemAdded(item: ReportItem, index: number): void;
 }
 
@@ -14785,6 +14786,7 @@ declare class SimpleBandRowGroup extends DataBandRowGroup {
     protected _ignoreItems(): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
+    protected _getStyleProps(): string[];
     protected _changed(prop: string, newValue: any, oldValue: any): void;
 }
 
@@ -14834,6 +14836,7 @@ declare class SimpleBandRowGroupFooter extends SimpleBandRowGroupSection {
     constructor(group: SimpleBandRowGroup);
     get outlineLabel(): string;
     get pathLabel(): string;
+    canDelete(): boolean;
 }
 
 declare class SimpleBandRowGroupHeader extends SimpleBandRowGroupSection {
@@ -14841,6 +14844,7 @@ declare class SimpleBandRowGroupHeader extends SimpleBandRowGroupSection {
     constructor(group: SimpleBandRowGroup);
     get outlineLabel(): string;
     get pathLabel(): string;
+    canDelete(): boolean;
 }
 
 declare abstract class SimpleBandRowGroupSection extends StackContainer {
@@ -15544,6 +15548,7 @@ declare class TableBandRowGroup extends DataBandRowGroup {
     protected _ignoreItems(): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
+    protected _getStyleProps(): string[];
     protected _changed(prop: string, newValue: any, oldValue: any): void;
 }
 
@@ -15601,6 +15606,7 @@ declare class TableBandRowGroupFooter extends TableBandRowGroupSection {
     set merged(value: boolean);
     get outlineLabel(): string;
     get pathLabel(): string;
+    canDelete(): boolean;
     getEditProps(): IPropInfo[];
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
@@ -15611,6 +15617,7 @@ declare class TableBandRowGroupHeader extends TableBandRowGroupSection {
     constructor(group: TableBandRowGroup);
     get outlineLabel(): string;
     get pathLabel(): string;
+    canDelete(): boolean;
 }
 
 declare class TableBandRowGroupSection extends TableBase {
