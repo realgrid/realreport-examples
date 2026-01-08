@@ -7835,7 +7835,7 @@ declare interface MapSource {
     exclude?: string[];
 }
 
-declare class MarkdownBand extends ReportItem {
+declare class MarkdownBand extends ReportBandItem {
     static readonly DEFAULT_WIDTH = "100%";
     static readonly DEFAULT_HEIGHT = 100;
     static readonly ALLOWED_TAGS: string[];
@@ -15618,6 +15618,7 @@ declare class TableBandRowGroupHeader extends TableBandRowGroupSection {
     get outlineLabel(): string;
     get pathLabel(): string;
     canDelete(): boolean;
+    protected _getEditProps(): IPropInfo[];
 }
 
 declare class TableBandRowGroupSection extends TableBase {

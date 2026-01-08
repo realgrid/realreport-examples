@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.21
-* commit 52a9051b
+* RealReport v1.11.22
+* commit 9104b54e
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.21
+* RealReport Core v1.11.22
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 4bffe548e8787ebc316be46295c5571dde972305
+* commit 45e85bba87b7fd41e24c091f4922277a921cad7b
 */
 
 
@@ -2826,6 +2826,7 @@ declare class TableBandRowGroupHeader extends TableBandRowGroupSection {
     get outlineLabel(): string;
     get pathLabel(): string;
     canDelete(): boolean;
+    protected _getEditProps(): IPropInfo[];
 }
 declare class TableBandRowGroupFooter extends TableBandRowGroupSection {
     static readonly PROP_MERGED = "merged";
@@ -8984,7 +8985,7 @@ declare class TextBand extends ReportBandItem {
     protected _doSave(target: object): void;
 }
 
-declare class MarkdownBand extends ReportItem {
+declare class MarkdownBand extends ReportBandItem {
     static readonly DEFAULT_WIDTH = "100%";
     static readonly DEFAULT_HEIGHT = 100;
     static readonly ALLOWED_TAGS: string[];
