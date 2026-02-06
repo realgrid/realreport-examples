@@ -1,5 +1,5 @@
 /* 
-RealReport v1.11.22
+RealReport v1.11.23
 Copyright (C) 2013-2026 WooriTech Inc.
 All Rights Reserved.
 */
@@ -1088,7 +1088,6 @@ border-bottom: 1px solid #ccc; */
 
 .rr-crosstab-head {
   padding: 2px 1px !important;
-  font-size: 10px;
   text-align: center;
   background-color: "#f0f0f0";
 }
