@@ -422,6 +422,7 @@ declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     left: string;
     gap: number;
     bandWidth: number;
+    bandView: BandGroupElement;
     isEnded(): boolean;
     getRows(): any[];
     rollback(page: HTMLDivElement): void;
@@ -1292,7 +1293,6 @@ declare type ContextValueCallback = (ctx: PrintContextBase) => any;
 declare class CrosstabBand extends ReportGroupItem {
     static readonly PROP_TITLE = "title";
     static readonly PROP_NULL_VALUE = "nullValue";
-    static readonly PROP_MAX_ROW_COUNT = "maxRowCount";
     static readonly PROP_NO_SPLIT = "noSplit";
     static readonly PROP_VALUES_ON_ROWS = "valuesOnRows";
     static readonly PROPINFOS: IPropInfo[];
@@ -1300,7 +1300,6 @@ declare class CrosstabBand extends ReportGroupItem {
     static isFieldCell(item: ReportPageItem): boolean;
     static getFieldOf(cell: CrosstabFieldCell): CrosstabField;
     static getBandOf(cell: CrosstabFieldCell): CrosstabBand;
-    private _maxRowCount;
     private _noSplit;
     private _valuesOnRows;
     private _title;
@@ -1314,11 +1313,6 @@ declare class CrosstabBand extends ReportGroupItem {
     pageNo: number;
     rowIndex: number;
     constructor(name: string);
-    /**
-     * Cross table 생성시 사용될 원본 데이터 최대 행 수.
-     */
-    get maxRowCount(): number;
-    set maxRowCount(value: number);
     /**
      * true면 밴드 아이템 전체 높이가 출력 페이지의 남은 높이 보다 클 경우 다음 페이지에 출력한다. #612
      */
@@ -1365,6 +1359,8 @@ declare class CrosstabBand extends ReportGroupItem {
     isAncestorOf(item: ReportPageItem): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: any): void;
+    canAdd(item: ReportItem): boolean;
+    canResize(dir: ResizeDirection): boolean;
     _fieldsChanged(field: CrosstabField): void;
 }
 
@@ -1503,6 +1499,9 @@ declare abstract class CrosstabField extends ReportItemCollectionItem {
     protected _changed(prop: string, newValue: any, oldValue: any): void;
     protected _doLoad(src: any): void;
     protected _doSave(target: any): any;
+    getPropDomain(prop: IPropInfo): any[];
+    private getDataFieldNames;
+    private getData;
 }
 
 declare type CrosstabFieldCell = CrosstabField | CrosstabFieldHeader | CrosstabFieldSummary | CrosstabFieldSummaryHeader;
@@ -9256,9 +9255,10 @@ declare interface RCAxisCorssHairConfig {
 declare type RCAxisDirection = 'x' | 'y';
 
 declare class RCAxisGrid extends RCAxisObject<RCAxisGridConfig> {
+    static readonly PROP_GRID_VISIBLE_DEFAULT_VALUE: any;
     static readonly PROP_START_VISIBLE = "startVisible";
-    static readonly PROP_START_VISIBLE_DEFUALT_VALUE = false;
     static readonly PROP_END_VISIBLE = "endVisible";
+    static readonly PROP_END_VISIBLE_DEFAULT_VALUE = false;
     static readonly PROPINFOS: IPropInfo[];
     private static readonly STYLES;
     private _startVisible;
@@ -15284,11 +15284,16 @@ declare class TableBandDataRow extends TableBandSection {
     static readonly PROP_EQUAL_BLANK = "equalBlank";
     static readonly PROP_BLANK_FIELDS = "blankFields";
     static readonly PROP_MERGED_IN_GROUP = "mergedInGroup";
+    static readonly PROP_PARAGRAPH_FLOW = "paragraphFlow";
+    static readonly PROPINFOS: IPropInfo[];
     static readonly CHILD_PROPS: IPropInfo[];
     static readonly $_ctor: string;
     private _blankItems;
+    private _paragraphFlow;
     masterRow: number;
     get blankItems(): ReportItem[];
+    get paragraphFlow(): boolean;
+    set paragraphFlow(value: boolean);
     canBlank(item: ReportItem, row: number): boolean;
     getMergedColumns(): number[];
     getMergedCells(): TableCell[];
@@ -15300,6 +15305,9 @@ declare class TableBandDataRow extends TableBandSection {
     protected _getChildPropInfos(item: ReportItem): IPropInfo[];
     protected _doLoadChild(child: ReportItem, src: any): void;
     protected _doPreparePrint(ctx: PrintContext): void;
+    getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
     private $_collectBlankItems;
 }
 
@@ -15476,11 +15484,47 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
         detailRows: number[];
     };
     prevGroupPageBreak: PageBreakMode;
+    /** paragraphFlow 모드 상태 */
+    paragraphFlowState: {
+        /** 현재 처리 중인 행의 각 컬럼별 라인들 [컬럼인덱스][라인인덱스] */
+        columnLines: {
+            r: IRect;
+            line: string;
+        }[][];
+        /** 현재 처리 중인 DataRow 내 행 인덱스 (Row Count가 2이상인 경우) */
+        rowIndex: number;
+        /** 모든 행의 각 컬럼별 라인들 [행인덱스][컬럼인덱스][라인인덱스] */
+        allColumnLines: {
+            r: IRect;
+            line: string;
+        }[][][];
+        /** 각 행의 각 컬럼별 원본 텍스트 (repeat 속성용) [행인덱스][컬럼인덱스] */
+        originalTexts: string[][];
+        /** 각 행의 각 컬럼별 한 페이지 출력 가능 여부 (repeat 적용 조건) [행인덱스][컬럼인덱스] */
+        canRepeat: boolean[][];
+    } | null;
     isEnded(): boolean;
     getRows(): any[];
     resetRowIndex(): void;
     rollback(page: HTMLDivElement): void;
     getNextPage(doc: Document, ctx: PrintContext, pageWidth: number, parent: HTMLDivElement): HTMLDivElement | null;
+    /**
+     * paragraphFlowLines에서 현재 페이지에 맞는 라인들을 추출하여 trs에 적용
+     * @returns 출력된 경우 { itemHeight, linesRemaining }, 출력할 라인이 없으면 null
+     */
+    private $_printParagraphFlowLines;
+    /**
+     * paragraphFlow 상태 초기화 (리셋)
+     */
+    private $_resetParagraphFlowState;
+    /**
+     * paragraphFlow 상태 생성 및 초기화
+     */
+    private $_createParagraphFlowState;
+    /**
+     * 콘텐츠가 한 페이지에 출력 가능한지 계산
+     */
+    private $_calculateFitsInOnePage;
     getNoPagingPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     getEmptyDataBandPage(doc: Document, ctx: PrintContext, bandPrintInfo: TableBandPrintInfo, pageWidth: number, parent: HTMLDivElement): HTMLDivElement | null;
     private $_createContainer;
@@ -16033,7 +16077,6 @@ declare abstract class TableColumnCollectionBase<T extends ReportGroupItem, C ex
  * 페이지를 넘어갈 수 없다.
  */
 declare class TableContainer extends TableBase {
-    static readonly PROP_BASE_TABLE = "baseTable";
     static readonly PROP_COL_COUNT = "colCount";
     static readonly PROP_COLUMNS = "columns";
     static readonly PROPINFOS: IPropInfo[];
@@ -16041,20 +16084,12 @@ declare class TableContainer extends TableBase {
     static readonly DEFAULT_COL_COUNT = 4;
     static readonly $_ctor: string;
     static readonly ITEM_TYPE = "Table";
-    private _baseTable;
     private _colCount;
-    private _baseContainer;
     private _columns;
     constructor(name: string);
     changeColumnWidth(col: number, delta: number): void;
     getColumnWidth(col: number): ValueString;
     get outlineItems(): IOutlineSource[];
-    /**
-     * 기준 table의 name.
-     * 기준 table의 cell 너비 설정을 따라간다.
-     */
-    get baseTable(): string;
-    set baseTable(value: string);
     /** cols */
     get colCount(): number;
     set colCount(value: number);
@@ -16065,6 +16100,7 @@ declare class TableContainer extends TableBase {
     addColumn(index: number, column: TableColumn): TableColumn;
     canMoveColumns(col: number, count: number, newCol: number, alert?: boolean): boolean;
     moveColumns(col: number, count: number, newCol: number, force?: boolean): boolean;
+    getWidth(domain: number): number;
     getSaveType(): string;
     get outlineLabel(): string;
     get pathLabel(): string;
@@ -16078,7 +16114,6 @@ declare class TableContainer extends TableBase {
     protected _doSave(target: object): void;
     protected _createCell(item: ReportItem): TableContainerCellItem;
     getCellWidths(): DimensionCollection;
-    prepareLayout(): TableCellSpan[][];
     isAncestorOf(item: ReportPageItem): boolean;
     private $_columnChanged;
 }
@@ -16388,6 +16423,8 @@ declare class TextBandHeader extends TextBandSection {
     get outlineLabel(): string;
     get pathLabel(): string;
     canDelete(): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
 }
 
 declare type TextBandLine = {

@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.22
-* commit 9104b54e
+* RealReport v1.11.23
+* commit b9019e93
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.22
+* RealReport Core v1.11.23
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 45e85bba87b7fd41e24c091f4922277a921cad7b
+* commit 2e80c0e2834efff45313765dbfe3331476fcfbcd
 */
 
 
@@ -2780,11 +2780,16 @@ declare class TableBandDataRow extends TableBandSection {
     static readonly PROP_EQUAL_BLANK = "equalBlank";
     static readonly PROP_BLANK_FIELDS = "blankFields";
     static readonly PROP_MERGED_IN_GROUP = "mergedInGroup";
+    static readonly PROP_PARAGRAPH_FLOW = "paragraphFlow";
+    static readonly PROPINFOS: IPropInfo[];
     static readonly CHILD_PROPS: IPropInfo[];
     static readonly $_ctor: string;
     private _blankItems;
+    private _paragraphFlow;
     masterRow: number;
     get blankItems(): ReportItem[];
+    get paragraphFlow(): boolean;
+    set paragraphFlow(value: boolean);
     canBlank(item: ReportItem, row: number): boolean;
     getMergedColumns(): number[];
     getMergedCells(): TableCell$2[];
@@ -2796,6 +2801,9 @@ declare class TableBandDataRow extends TableBandSection {
     protected _getChildPropInfos(item: ReportItem): IPropInfo[];
     protected _doLoadChild(child: ReportItem, src: any): void;
     protected _doPreparePrint(ctx: PrintContext$1): void;
+    getEditProps(): IPropInfo[];
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
     private $_collectBlankItems;
 }
 declare class TableBandRowGroupSection extends TableBase {
@@ -3045,7 +3053,6 @@ declare class TableContainerCellItem extends TableCellItem {
  * 페이지를 넘어갈 수 없다.
  */
 declare class TableContainer extends TableBase {
-    static readonly PROP_BASE_TABLE = "baseTable";
     static readonly PROP_COL_COUNT = "colCount";
     static readonly PROP_COLUMNS = "columns";
     static readonly PROPINFOS: IPropInfo[];
@@ -3053,20 +3060,12 @@ declare class TableContainer extends TableBase {
     static readonly DEFAULT_COL_COUNT = 4;
     static readonly $_ctor: string;
     static readonly ITEM_TYPE = "Table";
-    private _baseTable;
     private _colCount;
-    private _baseContainer;
     private _columns;
     constructor(name: string);
     changeColumnWidth(col: number, delta: number): void;
     getColumnWidth(col: number): ValueString;
     get outlineItems(): IOutlineSource[];
-    /**
-     * 기준 table의 name.
-     * 기준 table의 cell 너비 설정을 따라간다.
-     */
-    get baseTable(): string;
-    set baseTable(value: string);
     /** cols */
     get colCount(): number;
     set colCount(value: number);
@@ -3077,6 +3076,7 @@ declare class TableContainer extends TableBase {
     addColumn(index: number, column: TableColumn): TableColumn;
     canMoveColumns(col: number, count: number, newCol: number, alert?: boolean): boolean;
     moveColumns(col: number, count: number, newCol: number, force?: boolean): boolean;
+    getWidth(domain: number): number;
     getSaveType(): string;
     get outlineLabel(): string;
     get pathLabel(): string;
@@ -3090,7 +3090,6 @@ declare class TableContainer extends TableBase {
     protected _doSave(target: object): void;
     protected _createCell(item: ReportItem): TableContainerCellItem;
     getCellWidths(): DimensionCollection;
-    prepareLayout(): TableCellSpan[][];
     isAncestorOf(item: ReportPageItem): boolean;
     private $_columnChanged;
 }
@@ -3830,6 +3829,31 @@ declare class CrosstabCellCollection {
     private $_buildCells;
 }
 
+declare class CrosstabFieldHeader extends ReportItem {
+    static readonly PROP_TEXT = "text";
+    static readonly PROP_SUFFIX = "suffix";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly $_ctor: string;
+    private _text;
+    private _suffix;
+    private _field;
+    constructor(field: CrosstabField, source: any);
+    get field(): CrosstabField;
+    /** text */
+    get text(): string;
+    set text(value: string);
+    /** suffix */
+    get suffix(): string;
+    set suffix(value: string);
+    get page(): ReportPageBase;
+    get outlineSource(): IOutlineSource;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    getSaveLabel(): string;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
 /**
  * 필드 summary 영역 (column 혹은 row)헤더 셀에 대한 설정.
  */
@@ -3882,31 +3906,6 @@ declare class CrosstabFieldSummary extends ReportItem {
     protected _doSave(target: object): void;
 }
 
-declare class CrosstabFieldHeader extends ReportItem {
-    static readonly PROP_TEXT = "text";
-    static readonly PROP_SUFFIX = "suffix";
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly $_ctor: string;
-    private _text;
-    private _suffix;
-    private _field;
-    constructor(field: CrosstabField, source: any);
-    get field(): CrosstabField;
-    /** text */
-    get text(): string;
-    set text(value: string);
-    /** suffix */
-    get suffix(): string;
-    set suffix(value: string);
-    get page(): ReportPageBase;
-    get outlineSource(): IOutlineSource;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    getSaveLabel(): string;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-}
-
 declare abstract class CrosstabField extends ReportItemCollectionItem {
     static readonly PROP_FIELD = "field";
     static readonly PROPINFOS: IPropInfo[];
@@ -3940,6 +3939,9 @@ declare abstract class CrosstabField extends ReportItemCollectionItem {
     protected _changed(prop: string, newValue: any, oldValue: any): void;
     protected _doLoad(src: any): void;
     protected _doSave(target: any): any;
+    getPropDomain(prop: IPropInfo): any[];
+    private getDataFieldNames;
+    private getData;
 }
 declare class CrosstabRowField extends CrosstabField {
     static readonly $_ctor: string;
@@ -4038,23 +4040,6 @@ declare class CrosstabSummaryColumn extends CrosstabColumn {
     getHeader(): string;
 }
 
-declare abstract class CrosstabRowBase {
-    abstract slice(count: number): any[];
-    abstract getValue(index: number): any;
-    abstract getColumnCell(column: CrosstabColumn): CrosstabCell;
-}
-
-declare class CrosstabRowCollection {
-    private _band;
-    private _rows;
-    constructor(band: CrosstabBand);
-    get rowCount(): number;
-    getRow(index: number): CrosstabRowBase;
-    build(data: BandArrayData, cells: CrosstabCellCollection): void;
-    private $_collectRows;
-    private $_collectSummaryRows;
-}
-
 /**
  * @internal
  *
@@ -4095,6 +4080,23 @@ declare class CrosstabNullValue extends ReportItem {
     protected _doSave(target: object): void;
 }
 
+declare abstract class CrosstabRowBase {
+    abstract slice(count: number): any[];
+    abstract getValue(index: number): any;
+    abstract getColumnCell(column: CrosstabColumn): CrosstabCell;
+}
+
+declare class CrosstabRowCollection {
+    private _band;
+    private _rows;
+    constructor(band: CrosstabBand);
+    get rowCount(): number;
+    getRow(index: number): CrosstabRowBase;
+    build(data: BandArrayData, cells: CrosstabCellCollection): void;
+    private $_collectRows;
+    private $_collectSummaryRows;
+}
+
 type CrosstabFieldCell = CrosstabField | CrosstabFieldHeader | CrosstabFieldSummary | CrosstabFieldSummaryHeader;
 /**
  * Crosstab band.
@@ -4104,7 +4106,6 @@ type CrosstabFieldCell = CrosstabField | CrosstabFieldHeader | CrosstabFieldSumm
 declare class CrosstabBand extends ReportGroupItem {
     static readonly PROP_TITLE = "title";
     static readonly PROP_NULL_VALUE = "nullValue";
-    static readonly PROP_MAX_ROW_COUNT = "maxRowCount";
     static readonly PROP_NO_SPLIT = "noSplit";
     static readonly PROP_VALUES_ON_ROWS = "valuesOnRows";
     static readonly PROPINFOS: IPropInfo[];
@@ -4112,7 +4113,6 @@ declare class CrosstabBand extends ReportGroupItem {
     static isFieldCell(item: ReportPageItem): boolean;
     static getFieldOf(cell: CrosstabFieldCell): CrosstabField;
     static getBandOf(cell: CrosstabFieldCell): CrosstabBand;
-    private _maxRowCount;
     private _noSplit;
     private _valuesOnRows;
     private _title;
@@ -4126,11 +4126,6 @@ declare class CrosstabBand extends ReportGroupItem {
     pageNo: number;
     rowIndex: number;
     constructor(name: string);
-    /**
-     * Cross table 생성시 사용될 원본 데이터 최대 행 수.
-     */
-    get maxRowCount(): number;
-    set maxRowCount(value: number);
     /**
      * true면 밴드 아이템 전체 높이가 출력 페이지의 남은 높이 보다 클 경우 다음 페이지에 출력한다. #612
      */
@@ -4177,6 +4172,8 @@ declare class CrosstabBand extends ReportGroupItem {
     isAncestorOf(item: ReportPageItem): boolean;
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: any): void;
+    canAdd(item: ReportItem): boolean;
+    canResize(dir: ResizeDirection): boolean;
     _fieldsChanged(field: CrosstabField): void;
 }
 
@@ -4751,9 +4748,10 @@ declare class RCAxisLine extends RCAxisObject<RCAxisLineConfig> {
 }
 
 declare class RCAxisGrid extends RCAxisObject<RCAxisGridConfig> {
+    static readonly PROP_GRID_VISIBLE_DEFAULT_VALUE: any;
     static readonly PROP_START_VISIBLE = "startVisible";
-    static readonly PROP_START_VISIBLE_DEFUALT_VALUE = false;
     static readonly PROP_END_VISIBLE = "endVisible";
+    static readonly PROP_END_VISIBLE_DEFAULT_VALUE = false;
     static readonly PROPINFOS: IPropInfo[];
     private static readonly STYLES;
     private _startVisible;
@@ -8915,6 +8913,8 @@ declare class TextBandHeader extends TextBandSection {
     get outlineLabel(): string;
     get pathLabel(): string;
     canDelete(): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
 }
 declare class TextBandFooter extends TextBandSection {
     static readonly PROPINFOS: IPropInfo[];
@@ -9438,11 +9438,47 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
         detailRows: number[];
     };
     prevGroupPageBreak: PageBreakMode;
+    /** paragraphFlow 모드 상태 */
+    paragraphFlowState: {
+        /** 현재 처리 중인 행의 각 컬럼별 라인들 [컬럼인덱스][라인인덱스] */
+        columnLines: {
+            r: IRect;
+            line: string;
+        }[][];
+        /** 현재 처리 중인 DataRow 내 행 인덱스 (Row Count가 2이상인 경우) */
+        rowIndex: number;
+        /** 모든 행의 각 컬럼별 라인들 [행인덱스][컬럼인덱스][라인인덱스] */
+        allColumnLines: {
+            r: IRect;
+            line: string;
+        }[][][];
+        /** 각 행의 각 컬럼별 원본 텍스트 (repeat 속성용) [행인덱스][컬럼인덱스] */
+        originalTexts: string[][];
+        /** 각 행의 각 컬럼별 한 페이지 출력 가능 여부 (repeat 적용 조건) [행인덱스][컬럼인덱스] */
+        canRepeat: boolean[][];
+    } | null;
     isEnded(): boolean;
     getRows(): any[];
     resetRowIndex(): void;
     rollback(page: HTMLDivElement): void;
     getNextPage(doc: Document, ctx: PrintContext$1, pageWidth: number, parent: HTMLDivElement): HTMLDivElement | null;
+    /**
+     * paragraphFlowLines에서 현재 페이지에 맞는 라인들을 추출하여 trs에 적용
+     * @returns 출력된 경우 { itemHeight, linesRemaining }, 출력할 라인이 없으면 null
+     */
+    private $_printParagraphFlowLines;
+    /**
+     * paragraphFlow 상태 초기화 (리셋)
+     */
+    private $_resetParagraphFlowState;
+    /**
+     * paragraphFlow 상태 생성 및 초기화
+     */
+    private $_createParagraphFlowState;
+    /**
+     * 콘텐츠가 한 페이지에 출력 가능한지 계산
+     */
+    private $_calculateFitsInOnePage;
     getNoPagingPage(doc: Document, ctx: PrintContext$1, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     getEmptyDataBandPage(doc: Document, ctx: PrintContext$1, bandPrintInfo: TableBandPrintInfo, pageWidth: number, parent: HTMLDivElement): HTMLDivElement | null;
     private $_createContainer;
@@ -9531,6 +9567,7 @@ declare class TableBandElement extends BandElement<TableBand> implements ITable 
     getColRect(col: number, count?: number): IRect;
     getTableView(table: TableBase): TableView;
     getTableViews(): TableView[];
+    isTextLineOverflowEligible(band: TableBand): boolean;
     get debugLabel(): string;
     protected _getCssSelector(): string;
     protected _needDesignBox(): boolean;
@@ -9962,6 +9999,7 @@ declare class BandGroupElement extends ReportGroupItemElement<BandGroup> {
     private _cellPts;
     getCellPoints(): number[];
     prepareAsync(doc: Document, ctx: PrintContext$1, width: number, masterBandRow?: number): BandGroupPrintInfo;
+    runStyleCallback(itemStyle: Styles, ctx: PrintContext$1, model: ReportItem): Styles;
     get debugLabel(): string;
     protected _needDesignBox(): boolean;
     protected _getCssSelector(): string;
@@ -9984,6 +10022,7 @@ declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     left: string;
     gap: number;
     bandWidth: number;
+    bandView: BandGroupElement;
     isEnded(): boolean;
     getRows(): any[];
     rollback(page: HTMLDivElement): void;

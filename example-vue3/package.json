@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "realreport": "1.11.22",
+    "realreport": "1.11.23",
     "vue": "^3.2.13"
   },
   "devDependencies": {
