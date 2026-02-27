@@ -1,7 +1,7 @@
 /// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.23
-* commit b9019e93
+* RealReport v1.11.24
+* commit 262db875
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -12,10 +12,10 @@ import { Cvfo, Style } from 'exceljs';
 import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
 
 /** 
-* RealReport Core v1.11.23
+* RealReport Core v1.11.24
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 2e80c0e2834efff45313765dbfe3331476fcfbcd
+* commit 8124c6f1e35c8b8c5637d817b26c6f6be0e90a10
 */
 
 
@@ -9456,6 +9456,16 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
         originalTexts: string[][];
         /** 각 행의 각 컬럼별 한 페이지 출력 가능 여부 (repeat 적용 조건) [행인덱스][컬럼인덱스] */
         canRepeat: boolean[][];
+        /** 각 행의 각 컬럼별 상하 패딩 합 [행인덱스][컬럼인덱스] */
+        columnPaddings: number[][];
+        /** 각 행의 각 컬럼별 rich 텍스트 여부 [행인덱스][컬럼인덱스] */
+        isRichCell: boolean[][];
+        /** 각 행의 각 컬럼별 image 아이템 여부 [행인덱스][컬럼인덱스] */
+        isImageCell: boolean[][];
+        /** 각 행의 image 셀 중 최대 높이 [행인덱스] */
+        maxImageHeights: number[];
+        /** 각 행의 image 출력 여부 [행인덱스] */
+        imageRendered: boolean[];
     } | null;
     isEnded(): boolean;
     getRows(): any[];
@@ -9472,9 +9482,18 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
      */
     private $_resetParagraphFlowState;
     /**
+     * 셀의 텍스트 아이템에서 실제 렌더링 스타일 정보를 캡처
+     */
+    private $_captureCellTextInfo;
+    /**
      * paragraphFlow 상태 생성 및 초기화
      */
     private $_createParagraphFlowState;
+    /**
+     * 이미지 셀의 실제 출력 높이를 계산한다.
+     * table row의 균등 높이(td.offsetHeight) 대신 이미지 컨텐츠 높이를 우선 사용한다.
+     */
+    private $_getImageCellHeight;
     /**
      * 콘텐츠가 한 페이지에 출력 가능한지 계산
      */
@@ -9567,7 +9586,7 @@ declare class TableBandElement extends BandElement<TableBand> implements ITable 
     getColRect(col: number, count?: number): IRect;
     getTableView(table: TableBase): TableView;
     getTableViews(): TableView[];
-    isTextLineOverflowEligible(band: TableBand): boolean;
+    isParagraphFlowEligible(band: TableBand): boolean;
     get debugLabel(): string;
     protected _getCssSelector(): string;
     protected _needDesignBox(): boolean;
