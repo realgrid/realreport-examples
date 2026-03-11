@@ -1,24 +1,18 @@
-/// <reference types="pdfkit" />
 /** 
-* RealReport v1.11.24
-* commit 262db875
+* RealReport v1.11.25
+* commit 96248d10
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
 */
 
-import { Cvfo, Style } from 'exceljs';
-import { ExportOptions as ExportOptions$1 } from '@realgrid/realchart';
-
 /** 
-* RealReport Core v1.11.24
+* RealReport Core v1.11.25
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 8124c6f1e35c8b8c5637d817b26c6f6be0e90a10
+* commit c6497ab217c04505cfef37d21dcbd1e52be6f088
 */
-
-
 type ConfigObject$2 = {
     [key: string]: any;
 };
@@ -4242,7 +4236,7 @@ declare abstract class ChartObject$1<T extends ChartItem, C = unknown> extends R
     private _chart;
     private _styles;
     constructor(chart: T);
-    get outlineParent(): IOutlineSource | undefined;
+    get outlineParent(): IOutlineSource;
     get outlineExpandable(): boolean;
     get outlineLabel(): string;
     getSaveType(): string;
@@ -5737,7 +5731,7 @@ declare abstract class ReportItemObject<T extends ReportItem> extends ReportPage
     private _item;
     private _styles;
     constructor(item: T);
-    get outlineParent(): IOutlineSource | undefined;
+    get outlineParent(): IOutlineSource;
     get outlineExpandable(): boolean;
     get outlineLabel(): string;
     getSaveType(): string;
@@ -6898,6 +6892,114 @@ declare abstract class ExcelDataBandRowGroupSection extends ExcelDataBandSection
     getRow(): number;
     write(ctx: ExcelPrintContext, group: IBandRowGroup): IExcelCell[];
 }
+
+/**
+ * exceljs 타입을 따로 선언해서 사용
+ * 사용자 환경의 skipLipCheck 설정 때문
+ */
+type CfvoTypes = 'percentile' | 'percent' | 'num' | 'min' | 'max' | 'formula' | 'autoMin' | 'autoMax';
+interface Cvfo {
+    type: CfvoTypes;
+    value?: number;
+}
+interface Style {
+    numFmt: string;
+    font: Partial<Font>;
+    alignment: Partial<Alignment>;
+    protection: Partial<Protection>;
+    border: Partial<Borders>;
+    fill: Fill;
+}
+type Fill = FillPattern | FillGradientAngle | FillGradientPath;
+type FillPatterns = 'none' | 'solid' | 'darkVertical' | 'darkHorizontal' | 'darkGrid' | 'darkTrellis' | 'darkDown' | 'darkUp' | 'lightVertical' | 'lightHorizontal' | 'lightGrid' | 'lightTrellis' | 'lightDown' | 'lightUp' | 'darkGray' | 'mediumGray' | 'lightGray' | 'gray125' | 'gray0625';
+interface FillPattern {
+    type: 'pattern';
+    pattern: FillPatterns;
+    fgColor?: Partial<Color>;
+    bgColor?: Partial<Color>;
+}
+interface GradientStop {
+    position: number;
+    color: Partial<Color>;
+}
+interface FillGradientAngle {
+    type: 'gradient';
+    gradient: 'angle';
+    /**
+     * For 'angle' gradient, specifies the direction of the gradient. 0 is from the left to the right.
+     * Values from 1 - 359 rotates the direction clockwise
+     */
+    degree: number;
+    /**
+     * Specifies the gradient colour sequence. Is an array of objects containing position and
+     * color starting with position 0 and ending with position 1.
+     * Intermediary positions may be used to specify other colours on the path.
+     */
+    stops: GradientStop[];
+}
+interface FillGradientPath {
+    type: 'gradient';
+    gradient: 'path';
+    path: string;
+    center: {
+        left: number;
+        top: number;
+    };
+    stops: GradientStop[];
+}
+interface Font {
+    name: string;
+    size: number;
+    family: number;
+    scheme: 'minor' | 'major' | 'none';
+    charset: number;
+    color: Partial<Color>;
+    bold: boolean;
+    italic: boolean;
+    underline: boolean | 'none' | 'single' | 'double' | 'singleAccounting' | 'doubleAccounting';
+    vertAlign: 'superscript' | 'subscript';
+    strike: boolean;
+    outline: boolean;
+}
+interface Color {
+    /**
+     * Hex string for alpha-red-green-blue e.g. FF00FF00
+     */
+    argb: string;
+    /**
+     * Choose a theme by index
+     */
+    theme: number;
+}
+interface Alignment {
+    horizontal: 'left' | 'center' | 'right' | 'fill' | 'justify' | 'centerContinuous' | 'distributed';
+    vertical: 'top' | 'middle' | 'bottom' | 'distributed' | 'justify';
+    wrapText: boolean;
+    shrinkToFit: boolean;
+    indent: number;
+    readingOrder: 'rtl' | 'ltr';
+    textRotation: number | 'vertical';
+}
+interface Protection {
+    locked: boolean;
+    hidden: boolean;
+}
+interface BorderDiagonal extends Border {
+    up: boolean;
+    down: boolean;
+}
+interface Borders {
+    top: Partial<Border>;
+    left: Partial<Border>;
+    bottom: Partial<Border>;
+    right: Partial<Border>;
+    diagonal: Partial<BorderDiagonal>;
+}
+interface Border {
+    style: BorderStyle;
+    color: Partial<Color>;
+}
+type BorderStyle = 'thin' | 'dotted' | 'hair' | 'medium' | 'double' | 'thick' | 'dashed' | 'dashDot' | 'dashDotDot' | 'slantDashDot' | 'mediumDashed' | 'mediumDashDotDot' | 'mediumDashDot';
 
 interface IExcelDataBar {
     color: string;
@@ -9440,15 +9542,15 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
     prevGroupPageBreak: PageBreakMode;
     /** paragraphFlow 모드 상태 */
     paragraphFlowState: {
-        /** 현재 처리 중인 행의 각 컬럼별 라인들 [컬럼인덱스][라인인덱스] */
-        columnLines: {
+        /** 현재 처리 중인 row의 텍스트 라인들 [컬럼인덱스][라인인덱스] */
+        currentRowColumnTextLines: {
             r: IRect;
             line: string;
         }[][];
         /** 현재 처리 중인 DataRow 내 행 인덱스 (Row Count가 2이상인 경우) */
         rowIndex: number;
-        /** 모든 행의 각 컬럼별 라인들 [행인덱스][컬럼인덱스][라인인덱스] */
-        allColumnLines: {
+        /** 모든 row의 텍스트 라인들 [행인덱스][컬럼인덱스][라인인덱스] */
+        allRowColumnTextLines: {
             r: IRect;
             line: string;
         }[][][];
@@ -9481,6 +9583,10 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
      * paragraphFlow 상태 초기화 (리셋)
      */
     private $_resetParagraphFlowState;
+    /**
+     * 현재 row 이후로 paragraphFlow에서 아직 출력해야 할 text/image가 남아있는지 확인한다.
+     */
+    private $_hasPendingParagraphFlowWork;
     /**
      * 셀의 텍스트 아이템에서 실제 렌더링 스타일 정보를 캡처
      */
@@ -10046,7 +10152,7 @@ declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     getRows(): any[];
     rollback(page: HTMLDivElement): void;
     getNextPage(doc: Document, ctx: PrintContext$1, width: number, parent: HTMLDivElement): HTMLDivElement | null;
-    getNoPagingPage(doc: Document, ctx: PrintContext$1, width: number, parent: HTMLDivElement): HTMLDivElement;
+    getNoPagingPage(doc: Document, ctx: PrintContext$1, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     getEmptyDataBandPage(doc: Document, ctx: PrintContext$1, bandPrintInfo: BandGroupPrintInfo, width: number, parent: HTMLDivElement): HTMLDivElement;
     resetRowIndex(): void;
     private $_createBandGroupPage;
@@ -11529,23 +11635,23 @@ declare class FontResource extends EventAware$1 {
     private $_fireFontRemoved;
 }
 
-declare enum CCITTScheme$1 {
+declare enum CCITTScheme {
     GROUP_3 = "g3",
     GROUP_3_2D = "g3-2d",
     GROUP_4 = "g4"
 }
 
-interface ITiffOptions$1 {
+interface ITiffOptions {
     dpi?: number;
     grayscale?: boolean;
-    encoding?: CCITTScheme$1;
+    encoding?: CCITTScheme;
 }
 
-interface ImageExportOptions$1 {
+interface ImageExportOptions {
     type?: 'png' | 'jpeg' | 'jpg' | 'gif' | 'tif' | 'tiff';
     fileName?: string;
     zipName?: string;
-    tiff?: ITiffOptions$1;
+    tiff?: ITiffOptions;
 }
 interface PdfFont {
     name: string;
@@ -11735,7 +11841,7 @@ declare class ExcelPrintContainer extends PrintContainerBase {
     private $_getPageHeight;
 }
 
-interface RealChartImageExportOptions extends ExportOptions$1 {
+interface RealChartImageExportOptions {
     type?: 'png';
     fontFamily?: string;
 }
@@ -13664,7 +13770,7 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     abstract isEnded(): boolean;
     abstract getRows(): any[];
     abstract getNextPage(doc: Document, ctx: PrintContextBase, width: number, parent: HTMLDivElement): HTMLDivElement | null;
-    abstract getNoPagingPage(doc: Document, ctx: PrintContextBase, width: number, parent: HTMLDivElement): HTMLDivElement;
+    abstract getNoPagingPage(doc: Document, ctx: PrintContextBase, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     abstract getEmptyDataBandPage(doc: Document, ctx: PrintContextBase, bandPrintInfo: BandPrintInfo<T>, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     abstract resetRowIndex(): void;
     rollback(page: HTMLDivElement): void;
@@ -49804,7 +49910,7 @@ declare abstract class ReportViewBase {
     constructor(container: string | HTMLDivElement, options?: ReportOptions);
     abstract preview(options: PreviewOptions): Promise<void>;
     abstract exportPdf(options: PDFExportOptions): Promise<void>;
-    abstract exportImage(imageOptions: ImageExportOptions$1): void;
+    abstract exportImage(imageOptions: ImageExportOptions): void;
     abstract exportDocument(options: DocumentExportOptions): void;
     protected abstract _setReportForm(data: ReportForm | ReportForm | ReportFormSets): void;
     /**
@@ -49891,7 +49997,7 @@ declare class ReportViewer extends ReportViewBase {
      * 이미지 내보내기 함수
      * @param imageOptions
      */
-    exportImage(imageOptions: ImageExportOptions): Promise<void>;
+    exportImage(imageOptions: ExportImageOptions): Promise<void>;
     /**
      * 리포트를 이미지로 변환 후 Blob 배열 형식으로 반환
      * @param imageOptions
@@ -49981,7 +50087,7 @@ declare class GridReportViewer extends ReportViewer {
      */
     print(options: PrintOptions): Promise<void>;
     saveReport(options?: GridReportSaveOptions): void;
-    exportImage(imageOptions?: ImageExportOptions$1): Promise<void>;
+    exportImage(imageOptions?: ImageExportOptions): Promise<void>;
     /**
      * Report 객체 초기화 및 생성
      */
@@ -50100,7 +50206,7 @@ declare class ReportCompositeViewer extends ReportViewBase {
      * 이미지 내보내기 함수
      * @param imageOptions
      */
-    exportImage(imageOptions: ImageExportOptions): Promise<void>;
+    exportImage(imageOptions: ExportImageOptions): Promise<void>;
     /**
      * 리포트를 이미지로 변환 후 Blob 배열 형식으로 반환
      * @param imageOptions
@@ -50375,22 +50481,8 @@ type PDFExportOptions = {
     pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 };
 type PDFExportBlobOptions = Omit<PDFExportOptions, 'preview'>;
-declare enum CCITTScheme {
-    GROUP_3 = "g3",
-    GROUP_3_2D = "g3-2d",
-    GROUP_4 = "g4"
-}
-interface ITiffOptions {
-    dpi?: number;
-    grayscale?: boolean;
-    encoding?: CCITTScheme;
-}
-interface ImageExportOptions {
-    type?: 'png' | 'jpeg' | 'jpg' | 'gif' | 'tif' | 'tiff';
-    fileName?: string;
+interface ExportImageOptions extends ImageExportOptions {
     filename?: string;
-    zipName?: string;
-    tiff?: ITiffOptions;
 }
 interface DocumentExportOptions {
     type: string;
@@ -50415,4 +50507,4 @@ declare const IMG_EXPORT_DEFAULT_OPTIONS: ImageExportOptions;
  */
 declare const ZOOM_ERROR_MESSAGE = "\uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778 \uACBD\uC6B0\uB9CC \uB0B4\uBCF4\uB0B4\uAE30\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4. \uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.";
 
-export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, FontStore, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE, getVersion, setLicenseKey };
+export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, ExportImageOptions, FontStore, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE, getVersion, setLicenseKey };

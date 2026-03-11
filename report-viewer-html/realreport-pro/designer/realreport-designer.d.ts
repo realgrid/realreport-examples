@@ -1,6 +1,4 @@
-import { Cvfo } from 'exceljs';
 import { default as default_2 } from 'csstype';
-import { Style } from 'exceljs';
 
 declare type Align$1 = 'left' | 'center' | 'right';
 
@@ -8,6 +6,16 @@ declare enum Align {
     LEFT = "left",
     CENTER = "center",
     RIGHT = "right"
+}
+
+declare interface Alignment {
+    horizontal: 'left' | 'center' | 'right' | 'fill' | 'justify' | 'centerContinuous' | 'distributed';
+    vertical: 'top' | 'middle' | 'bottom' | 'distributed' | 'justify';
+    wrapText: boolean;
+    shrinkToFit: boolean;
+    indent: number;
+    readingOrder: 'rtl' | 'ltr';
+    textRotation: number | 'vertical';
 }
 
 declare enum AnchorPosition {
@@ -427,7 +435,7 @@ declare class BandGroupPrintInfo extends BandPrintInfo<BandGroup> {
     getRows(): any[];
     rollback(page: HTMLDivElement): void;
     getNextPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
-    getNoPagingPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement;
+    getNoPagingPage(doc: Document, ctx: PrintContext, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     getEmptyDataBandPage(doc: Document, ctx: PrintContext, bandPrintInfo: BandGroupPrintInfo, width: number, parent: HTMLDivElement): HTMLDivElement;
     resetRowIndex(): void;
     private $_createBandGroupPage;
@@ -477,7 +485,7 @@ declare abstract class BandPrintInfo<T extends ReportItem> {
     abstract isEnded(): boolean;
     abstract getRows(): any[];
     abstract getNextPage(doc: Document, ctx: PrintContextBase, width: number, parent: HTMLDivElement): HTMLDivElement | null;
-    abstract getNoPagingPage(doc: Document, ctx: PrintContextBase, width: number, parent: HTMLDivElement): HTMLDivElement;
+    abstract getNoPagingPage(doc: Document, ctx: PrintContextBase, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     abstract getEmptyDataBandPage(doc: Document, ctx: PrintContextBase, bandPrintInfo: BandPrintInfo<T>, width: number, parent: HTMLDivElement): HTMLDivElement | null;
     abstract resetRowIndex(): void;
     rollback(page: HTMLDivElement): void;
@@ -712,6 +720,26 @@ declare class BodyView extends DialogBodyView {
     createSelect(doc: Document, selectOptions?: SelectOption[]): HTMLSelectElement;
 }
 
+declare interface Border {
+    style: BorderStyle;
+    color: Partial<Color>;
+}
+
+declare interface BorderDiagonal extends Border {
+    up: boolean;
+    down: boolean;
+}
+
+declare interface Borders {
+    top: Partial<Border>;
+    left: Partial<Border>;
+    bottom: Partial<Border>;
+    right: Partial<Border>;
+    diagonal: Partial<BorderDiagonal>;
+}
+
+declare type BorderStyle = 'thin' | 'dotted' | 'hair' | 'medium' | 'double' | 'thick' | 'dashed' | 'dashDot' | 'dashDotDot' | 'slantDashDot' | 'mediumDashed' | 'mediumDashDotDot' | 'mediumDashDot';
+
 declare class BottomView extends DialogBottomView<UploadArchiveDlg> {
     static readonly BOTTOM_UPLOAD_BTN_ID = "upload-archive-dialog-bottom-preview";
     static readonly BOTTOM_CANCEL_BTN_ID = "upload-archive-dialog-bottom-cancel";
@@ -816,6 +844,12 @@ declare abstract class CellGroup extends ReportGroupItem {
     protected _doItemChanged(item: ReportItem, prop: string, value: any, oldValue: any): void;
 }
 
+/**
+ * exceljs 타입을 따로 선언해서 사용
+ * 사용자 환경의 skipLipCheck 설정 때문
+ */
+declare type CfvoTypes = 'percentile' | 'percent' | 'num' | 'min' | 'max' | 'formula' | 'autoMin' | 'autoMax';
+
 declare abstract class ChartAxis<T extends ChartItem, C = unknown> extends ChartDataObject<T, C> {
     static readonly PROPINFOS: IPropInfo[];
     private _collection;
@@ -905,7 +939,7 @@ declare abstract class ChartObject$1<T extends ChartItem, C = unknown> extends R
     private _chart;
     private _styles;
     constructor(chart: T);
-    get outlineParent(): IOutlineSource | undefined;
+    get outlineParent(): IOutlineSource;
     get outlineExpandable(): boolean;
     get outlineLabel(): string;
     getSaveType(): string;
@@ -1172,6 +1206,17 @@ declare class ColHeaderSelection2 extends HeaderSelection implements ISelectionS
     column: SheetColumn;
     constructor(column: SheetColumn, count?: number);
     get selectedItem(): SheetColumn;
+}
+
+declare interface Color {
+    /**
+     * Hex string for alpha-red-green-blue e.g. FF00FF00
+     */
+    argb: string;
+    /**
+     * Choose a theme by index
+     */
+    theme: number;
 }
 
 /**
@@ -1748,6 +1793,11 @@ declare const enum Cursor {
     NWSE_RESIZE = "nwse-resize",
     NO_DROP = "no-drop",
     NOT_ALLOWED = "not-allowed"
+}
+
+declare interface Cvfo {
+    type: CfvoTypes;
+    value?: number;
 }
 
 declare type Data = any;
@@ -5092,6 +5142,44 @@ declare type FieldSummaryPosition = 'start' | 'last';
 
 /* Excluded from this release type: FieldValueRuntime */
 
+declare type Fill = FillPattern | FillGradientAngle | FillGradientPath;
+
+declare interface FillGradientAngle {
+    type: 'gradient';
+    gradient: 'angle';
+    /**
+     * For 'angle' gradient, specifies the direction of the gradient. 0 is from the left to the right.
+     * Values from 1 - 359 rotates the direction clockwise
+     */
+    degree: number;
+    /**
+     * Specifies the gradient colour sequence. Is an array of objects containing position and
+     * color starting with position 0 and ending with position 1.
+     * Intermediary positions may be used to specify other colours on the path.
+     */
+    stops: GradientStop[];
+}
+
+declare interface FillGradientPath {
+    type: 'gradient';
+    gradient: 'path';
+    path: string;
+    center: {
+        left: number;
+        top: number;
+    };
+    stops: GradientStop[];
+}
+
+declare interface FillPattern {
+    type: 'pattern';
+    pattern: FillPatterns;
+    fgColor?: Partial<Color>;
+    bgColor?: Partial<Color>;
+}
+
+declare type FillPatterns = 'none' | 'solid' | 'darkVertical' | 'darkHorizontal' | 'darkGrid' | 'darkTrellis' | 'darkDown' | 'darkUp' | 'lightVertical' | 'lightHorizontal' | 'lightGrid' | 'lightTrellis' | 'lightDown' | 'lightUp' | 'darkGray' | 'mediumGray' | 'lightGray' | 'gray125' | 'gray0625';
+
 /**
  * Find options
  */
@@ -5181,6 +5269,21 @@ declare class FocusView extends VisualElement {
     protected _initDom(doc: Document, dom: HTMLElement): void;
 }
 
+declare interface Font {
+    name: string;
+    size: number;
+    family: number;
+    scheme: 'minor' | 'major' | 'none';
+    charset: number;
+    color: Partial<Color>;
+    bold: boolean;
+    italic: boolean;
+    underline: boolean | 'none' | 'single' | 'double' | 'singleAccounting' | 'doubleAccounting';
+    vertAlign: 'superscript' | 'subscript';
+    strike: boolean;
+    outline: boolean;
+}
+
 declare type FontFormat = 'truetype' | 'opentype' | 'woff' | 'woff2';
 
 /**
@@ -5246,6 +5349,11 @@ export declare const getVersion: typeof Globals.getVersion;
 declare class Globals {
     static getVersion(): string;
     static setLicenseKey(license: string): void;
+}
+
+declare interface GradientStop {
+    position: number;
+    color: Partial<Color>;
 }
 
 /**
@@ -9073,6 +9181,11 @@ declare class PropertyModel extends EventAware {
 
 /* Excluded from this release type: PropertyRowElement */
 
+declare interface Protection {
+    locked: boolean;
+    hidden: boolean;
+}
+
 /**
  * R2Server 서버 연결용 구현체
  * - base url 만 설정해서 웹 디자이너 서버 연결 구현체로 사용
@@ -12878,7 +12991,7 @@ declare abstract class ReportItemObject<T extends ReportItem> extends ReportPage
     private _item;
     private _styles;
     constructor(item: T);
-    get outlineParent(): IOutlineSource | undefined;
+    get outlineParent(): IOutlineSource;
     get outlineExpandable(): boolean;
     get outlineLabel(): string;
     getSaveType(): string;
@@ -15100,6 +15213,15 @@ declare class StringProperty extends ValueProperty {
     static readonly $_ctor: string;
 }
 
+declare interface Style {
+    numFmt: string;
+    font: Partial<Font>;
+    alignment: Partial<Alignment>;
+    protection: Partial<Protection>;
+    border: Partial<Borders>;
+    fill: Fill;
+}
+
 declare type Styles = {
     [key: string]: string | undefined;
 };
@@ -15486,15 +15608,15 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
     prevGroupPageBreak: PageBreakMode;
     /** paragraphFlow 모드 상태 */
     paragraphFlowState: {
-        /** 현재 처리 중인 행의 각 컬럼별 라인들 [컬럼인덱스][라인인덱스] */
-        columnLines: {
+        /** 현재 처리 중인 row의 텍스트 라인들 [컬럼인덱스][라인인덱스] */
+        currentRowColumnTextLines: {
             r: IRect;
             line: string;
         }[][];
         /** 현재 처리 중인 DataRow 내 행 인덱스 (Row Count가 2이상인 경우) */
         rowIndex: number;
-        /** 모든 행의 각 컬럼별 라인들 [행인덱스][컬럼인덱스][라인인덱스] */
-        allColumnLines: {
+        /** 모든 row의 텍스트 라인들 [행인덱스][컬럼인덱스][라인인덱스] */
+        allRowColumnTextLines: {
             r: IRect;
             line: string;
         }[][][];
@@ -15527,6 +15649,10 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
      * paragraphFlow 상태 초기화 (리셋)
      */
     private $_resetParagraphFlowState;
+    /**
+     * 현재 row 이후로 paragraphFlow에서 아직 출력해야 할 text/image가 남아있는지 확인한다.
+     */
+    private $_hasPendingParagraphFlowWork;
     /**
      * 셀의 텍스트 아이템에서 실제 렌더링 스타일 정보를 캡처
      */
