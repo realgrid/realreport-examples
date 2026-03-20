@@ -1,6 +1,6 @@
 /** 
-* RealReport v1.11.25
-* commit 96248d10
+* RealReport v1.11.26
+* commit 1e6aba50
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -8,10 +8,10 @@
 */
 
 /** 
-* RealReport Core v1.11.25
+* RealReport Core v1.11.26
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit c6497ab217c04505cfef37d21dcbd1e52be6f088
+* commit 938d41985d8f9627ef7aaa32af4451cae881d333
 */
 type ConfigObject$2 = {
     [key: string]: any;
