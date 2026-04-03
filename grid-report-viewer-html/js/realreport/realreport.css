@@ -1,5 +1,5 @@
 /* 
-RealReport v1.11.26
+RealReport v1.11.27
 Copyright (C) 2013-2026 WooriTech Inc.
 All Rights Reserved.
 */
@@ -542,7 +542,10 @@ border: 1px dotted #00000020; */
 }
 
 .rr-box-container {
-  overflow: hidden;
+  /* https://github.com/realgrid/realreport/issues/2855
+    - 아래의 overflow로 인해 바디영역의 아이템은 컨테이너에서 overflow를 켜도 표시되지 않는다.
+  */
+  /* overflow: hidden; */
 }
 
 .rr-floating-container {
