@@ -1,6 +1,6 @@
 /** 
-* RealReport v1.11.27
-* commit 41e7f074
+* RealReport v1.11.28
+* commit e97ca2e7
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -8,10 +8,10 @@
 */
 
 /** 
-* RealReport Core v1.11.27
+* RealReport Core v1.11.28
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 9dd44112b0bd75ca0c50e06eaeeb49a354015905
+* commit 2114a67120e80520c9fc49538a54060cc7c15f79
 */
 type ConfigObject$2 = {
     [key: string]: any;
@@ -10058,6 +10058,17 @@ declare class TextBandElement extends BandItemElement<TextBand> {
     protected _doLayoutContent(ctx: PrintContextBase): void;
     private $_getPrintText;
     private $_prepareHeads;
+    /**
+     * 데이터 바인딩된 경우: 데이터 소스의 모든 행에서 텍스트를 수집한다.
+     *
+     * - PrintContext의 row 상태를 갱신하여, 밴드 데이터 각 행의 텍스트를 수집한다.
+     * - $_getPrintText는 데이터가 바인딩 된 경우 각 행(ctx.row)의 데이터를 반환함.
+     *
+     * @param ctx PrintContext
+     * @param band 바인딩된 밴드 데이터
+     * @returns 수집된 모든 텍스트(개행문자로 join됨)
+     */
+    private $_collectTexts;
 }
 declare class TextBandPrintInfo {
     band: TextBand;
