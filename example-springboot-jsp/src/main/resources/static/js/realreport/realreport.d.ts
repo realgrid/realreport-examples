@@ -1,6 +1,6 @@
 /** 
-* RealReport v1.11.28
-* commit e97ca2e7
+* RealReport v1.11.29
+* commit 8071f5de
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -8,10 +8,10 @@
 */
 
 /** 
-* RealReport Core v1.11.28
+* RealReport Core v1.11.29
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 2114a67120e80520c9fc49538a54060cc7c15f79
+* commit 1b840042a94a4543a42dcb6197c59bda1cdc5959
 */
 type ConfigObject$2 = {
     [key: string]: any;
@@ -382,7 +382,7 @@ declare class DragTracker$1 extends Base$1 {
     activate(): void;
     deactivate(): void;
     start(eventTarget: HTMLElement, x: number, y: number, shift: boolean, alt: boolean): boolean;
-    drag(eventTarget: HTMLElement, x: number, y: number, meta: boolean): boolean;
+    drag(eventTarget: HTMLElement, x: number, y: number, meta: boolean, shift?: boolean): boolean;
     cancel(): void;
     drop(eventTarget: HTMLElement, x: number, y: number): void;
     end(): void;
@@ -398,7 +398,7 @@ declare class DragTracker$1 extends Base$1 {
     protected _doActivate(): void;
     protected _doDeactivate(): void;
     protected _doStart(eventTarget: HTMLElement, x: number, y: number, shfit: boolean, alt: boolean): boolean;
-    protected _doDrag(eventTarget: HTMLElement, x: number, y: number, meta: boolean): boolean;
+    protected _doDrag(eventTarget: HTMLElement, x: number, y: number, meta: boolean, shift?: boolean): boolean;
     protected _doCanceled(x: number, y: number): void;
     protected _canAccept(eventTarget: HTMLElement, x: number, y: number): boolean;
     protected _doCompleted(eventTarget: HTMLElement, x: number, y: number): void;
@@ -2111,6 +2111,7 @@ declare class DataBandCollection extends ReportGroupItem {
     canContainsBand(): boolean;
     canContainsBandGroup(): boolean;
     canSized(): boolean;
+    canResize(_dir: ResizeDirection): boolean;
     protected _doItemAdded(item: ReportItem, index: number): void;
 }
 
@@ -2744,22 +2745,13 @@ declare class TableBandHeader extends TableBandSection {
     constructor(band: TableBand, pageSection?: boolean);
     get outlineLabel(): string;
     get pathLabel(): string;
+    protected _getEditProps(): IPropInfo[];
 }
 declare class TableBandFooter extends TableBandSection {
-    static readonly PROP_ATTACH_TO_BODY = "attachToBody";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
-    private _attachToBody;
     private _pageSection;
     constructor(band: TableBand, pageSection?: boolean);
-    /**
-     * true면 multi column 모드일 때 마지막 컬럼의 마지막 행에 붙여서 출력하고,
-     * false면 모든 컬럼의 가장 아래쪽에 붙여서 출력한다.
-     *
-     * @default false
-     */
-    get attachToBody(): boolean;
-    set attachToBody(value: boolean);
     get outlineLabel(): string;
     get pathLabel(): string;
     protected _getEditProps(): IPropInfo[];
@@ -2773,6 +2765,7 @@ declare class TableBandFooter extends TableBandSection {
 declare class TableBandDataRow extends TableBandSection {
     static readonly PROP_EQUAL_BLANK = "equalBlank";
     static readonly PROP_BLANK_FIELDS = "blankFields";
+    static readonly PROP_EQUAL_BLANK_ACROSS_PAGE = "equalBlankAcrossPage";
     static readonly PROP_MERGED_IN_GROUP = "mergedInGroup";
     static readonly PROP_PARAGRAPH_FLOW = "paragraphFlow";
     static readonly PROPINFOS: IPropInfo[];
@@ -2925,6 +2918,8 @@ declare class TableBandRowGroupCollection extends ReportItemCollection<TableBand
  * design-time에는 section마다 별도의 table로 표시되지만 printing 시에는 하나의 table element로 구현한다.
  */
 declare class TableBand extends TableLikeBand {
+    static readonly PARAGRAPH_FLOW_ROW = "paragraphFlowRow";
+    static readonly PARAGRAPH_FLOW_REPEAT_CELL = "paragraphFlowRepeatCell";
     static readonly PROP_COL_COUNT = "colCount";
     static readonly PROP_COLUMNS = "columns";
     static readonly PROP_GROUPS = "groups";
@@ -2956,6 +2951,12 @@ declare class TableBand extends TableLikeBand {
      */
     get endRowMerged(): boolean;
     set endRowMerged(value: boolean);
+    /**
+     * true이면 모든 섹션(header, dataRow, footer)의 내부 table element 너비를
+     * '100%'가 아닌 컬럼 너비들의 합으로 고정한다.
+     */
+    get fixed(): boolean;
+    set fixed(value: boolean);
     /** columns */
     get columns(): TableBandColumnCollection;
     /** groups */
@@ -3138,6 +3139,7 @@ declare class SimpleBandFooter extends SimpleBandSection {
 declare class SimpleBandRow extends SimpleBandSection {
     static readonly PROP_EQUAL_BLANK = "equalBlank";
     static readonly PROP_BLANK_FIELDS = "blankFields";
+    static readonly PROP_EQUAL_BLANK_ACROSS_PAGE = "equalBlankAcrossPage";
     static readonly CHILD_PROPS: IPropInfo[];
     static readonly $_ctor: string;
     private _blankItems;
@@ -3377,6 +3379,7 @@ declare class BandGroup extends ReportGroupItem {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
     canAdd(item: ReportItem): boolean;
+    canResize(dir: ResizeDirection): boolean;
     private $_resetCells;
 }
 
@@ -3668,6 +3671,11 @@ declare abstract class TableElement<T extends TableBase> extends ReportGroupItem
     static readonly CLASS_NAME = "rr-table";
     static readonly INHERITED_CELL_ITEM_STYLES: string[];
     static setTableStyle(table: HTMLTableElement, fill?: boolean): void;
+    /**
+     * model.fixed가 true일 때 print table의 너비를 컬럼 너비 합계로 고정한다.
+     * setTableStyle 호출 후에 사용한다.
+     */
+    static applyFixedWidth(table: HTMLTableElement, colGroup: HTMLTableColElement): void;
     static getTable(elt: VisualElement$1): TableElement<any>;
     private _masterView;
     private _table;
@@ -6611,6 +6619,12 @@ declare class DesignSheet extends Sheet {
     private _maxRow;
     private _minRow;
     get minRow(): number;
+    /**
+     * 아이템이 배치된 마지막 열의 exclusive upper bound.
+     * 내부 _maxCol은 c + colSpan + 1로 계산되므로 -1 보정해서 반환한다.
+     * 합산 시 0 ~ itemMaxCol-1 범위를 사용한다.
+     */
+    get itemMaxCol(): number;
     getColumn(col: number, create?: boolean): SheetColumn;
     getRow(row: number, create?: boolean): SheetRow;
     /**
@@ -9568,6 +9582,12 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
         maxImageHeights: number[];
         /** 각 행의 image 출력 여부 [행인덱스] */
         imageRendered: boolean[];
+        /** 각 행의 각 컬럼별 rowspan에 의해 hidden된 셀 여부 [행인덱스][컬럼인덱스] */
+        rowspanHidden: boolean[][];
+        /** rowspan hidden 셀의 원본 셀 스타일 (td.style.cssText) [행인덱스][컬럼인덱스] */
+        rowspanOriginStyles: string[][];
+        /** rowspan hidden 셀의 원본 셀 innerHTML [행인덱스][컬럼인덱스] */
+        rowspanOriginInnerHTML: string[][];
     } | null;
     isEnded(): boolean;
     getRows(): any[];
@@ -9654,7 +9674,11 @@ declare class TableBandElement extends BandElement<TableBand> implements ITable 
     static readonly ROW_CLASS = "-rrp-tableband-row";
     static readonly DUMMY_CLASS = "-rrp-tableband-dummy";
     static readonly DUMMY_GROUP_FOOTER = "_dummy_group_footer_";
-    static checkBlanks(band: TableBand, r: number, rows: TableBodyLine): void;
+    static checkBlanks(band: TableBand, r: number, rows: TableBodyLine, isFirstRow?: boolean): void;
+    /**
+     * ParagraphFlow 상태일 경우에 처리
+     */
+    static paragraphFlowMakeBlank(band: TableBand, printRow: number, rows: TableBodyLine, isFirstRow?: boolean): void;
     private _headerView;
     private _footerView;
     private _rowView;
@@ -14731,6 +14755,13 @@ declare abstract class ReportItem extends ReportPageItem {
      * 이 속성을 지정하지 않으면 value에 지정된 필드의 값으로 비교한다.
      */
     get blankFields(): string;
+    /**
+     * TableBandRow / SimpleBandRow.
+     * equalBlank가 true일 때, 페이지가 넘어가도 이전 페이지 마지막 행과 값을 비교하여
+     * 동일하면 blank 처리를 계속 적용한다.
+     * false(기본값)이면 페이지 내부에서만 equalBlank를 처리한다.
+     */
+    get equalBlankAcrossPage(): boolean;
     /**
      * true로 지정되면 값과 상관 없이 leaf group 내의 모든 셀을 merge한다.
      * 또, 둘 이상의 table row로 출력되는 경우에도 이 아이템이 속한 컬럼 셀들을 모두 병합한다.
@@ -49947,6 +49978,7 @@ declare abstract class ReportViewBase {
     get page(): number;
     set page(v: number);
     get reportHtml(): string;
+    get editableItems(): ReportEditableItem[];
     getHtml(): string;
     first(): void;
     prev(): void;
@@ -50264,6 +50296,10 @@ type ReportFormSet = {
     dataSet?: ReportDataSet;
 };
 type ReportFormSets = ReportFormSet[];
+type ReportEditableItem = {
+    name: string;
+    value: unknown;
+};
 
 type CommonStyleName = 'color' | 'backgroundColor' | 'fontSize' | 'fontWeight' | 'textAlign' | 'padding' | 'paddingLeft' | 'paddingRightt' | 'paddingTop' | 'paddingBottom';
 type CommonStyles = {
@@ -50518,4 +50554,4 @@ declare const IMG_EXPORT_DEFAULT_OPTIONS: ImageExportOptions;
  */
 declare const ZOOM_ERROR_MESSAGE = "\uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778 \uACBD\uC6B0\uB9CC \uB0B4\uBCF4\uB0B4\uAE30\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4. \uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.";
 
-export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, ExportImageOptions, FontStore, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE, getVersion, setLicenseKey };
+export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, ExportImageOptions, FontStore, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportEditableItem, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE, getVersion, setLicenseKey };

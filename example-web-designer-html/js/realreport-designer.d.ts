@@ -398,6 +398,7 @@ declare class BandGroup extends ReportGroupItem {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
     canAdd(item: ReportItem): boolean;
+    canResize(dir: ResizeDirection): boolean;
     private $_resetCells;
 }
 
@@ -2169,6 +2170,7 @@ declare class DataBandCollection extends ReportGroupItem {
     canContainsBand(): boolean;
     canContainsBandGroup(): boolean;
     canSized(): boolean;
+    canResize(_dir: ResizeDirection): boolean;
     protected _doItemAdded(item: ReportItem, index: number): void;
 }
 
@@ -2443,6 +2445,12 @@ declare class DesignSheet extends Sheet {
     private _maxRow;
     private _minRow;
     get minRow(): number;
+    /**
+     * 아이템이 배치된 마지막 열의 exclusive upper bound.
+     * 내부 _maxCol은 c + colSpan + 1로 계산되므로 -1 보정해서 반환한다.
+     * 합산 시 0 ~ itemMaxCol-1 범위를 사용한다.
+     */
+    get itemMaxCol(): number;
     getColumn(col: number, create?: boolean): SheetColumn;
     getRow(row: number, create?: boolean): SheetRow;
     /**
@@ -4393,6 +4401,7 @@ declare class ExcelReportEditor extends ReportEditorBase<ExcelPrintContext> impl
     static isColSizeHandle(dom: Element): number;
     static isRowSizeHandle(dom: Element): number;
     private _edit_menu;
+    private _page_marquee_menu;
     private _band_section_menu;
     private _band_headers_menu;
     private _band_footers_menu;
@@ -4505,6 +4514,15 @@ declare class ExcelReportEditor extends ReportEditorBase<ExcelPrintContext> impl
     protected _setScrollContainerRect(rect: Rectangle): void;
     protected _setEditorContainerRect(rect: Rectangle): void;
     getEditMenu(): MenuItem[];
+    /**
+     * 현재 배치된 아이템의 마지막 행·열을 기준으로 paperWidth, paperHeight를 설정한다.
+     * 아이템이 하나도 없으면 아무것도 하지 않는다.
+     */
+    fitPageToLastItem(): void;
+    /**
+     * 디자인 시트의 전체 행·열(rowCount, colCount)을 기준으로 paperWidth, paperHeight를 설정한다.
+     */
+    fitPageToSheetRange(): void;
     protected _zoomLabelPos(): {
         x: number;
         y: number;
@@ -4517,6 +4535,10 @@ declare class ExcelReportEditor extends ReportEditorBase<ExcelPrintContext> impl
      * Row, Col, Corner Header Layer의 위치를 배치한다.
      */
     private $_layoutHeaders;
+    /**
+     * 페이지 크기를 maxCol에 맞춰 수정하는 메서드
+     */
+    private _applyPageSize;
 }
 
 /**
@@ -12657,6 +12679,13 @@ declare abstract class ReportItem extends ReportPageItem {
      */
     get blankFields(): string;
     /**
+     * TableBandRow / SimpleBandRow.
+     * equalBlank가 true일 때, 페이지가 넘어가도 이전 페이지 마지막 행과 값을 비교하여
+     * 동일하면 blank 처리를 계속 적용한다.
+     * false(기본값)이면 페이지 내부에서만 equalBlank를 처리한다.
+     */
+    get equalBlankAcrossPage(): boolean;
+    /**
      * true로 지정되면 값과 상관 없이 leaf group 내의 모든 셀을 merge한다.
      * 또, 둘 이상의 table row로 출력되는 경우에도 이 아이템이 속한 컬럼 셀들을 모두 병합한다.
      * 한 행으로 구성된 group field에 bind된 아이템에만 적용해야 의미가 있다.
@@ -14860,6 +14889,7 @@ declare type SimpleBandPrintRow = BandPrintRow | ISimpleGroupPrintInfo;
 declare class SimpleBandRow extends SimpleBandSection {
     static readonly PROP_EQUAL_BLANK = "equalBlank";
     static readonly PROP_BLANK_FIELDS = "blankFields";
+    static readonly PROP_EQUAL_BLANK_ACROSS_PAGE = "equalBlankAcrossPage";
     static readonly CHILD_PROPS: IPropInfo[];
     static readonly $_ctor: string;
     private _blankItems;
@@ -15282,6 +15312,8 @@ declare class SvgAsset extends AssetItem {
  * design-time에는 section마다 별도의 table로 표시되지만 printing 시에는 하나의 table element로 구현한다.
  */
 declare class TableBand extends TableLikeBand {
+    static readonly PARAGRAPH_FLOW_ROW = "paragraphFlowRow";
+    static readonly PARAGRAPH_FLOW_REPEAT_CELL = "paragraphFlowRepeatCell";
     static readonly PROP_COL_COUNT = "colCount";
     static readonly PROP_COLUMNS = "columns";
     static readonly PROP_GROUPS = "groups";
@@ -15313,6 +15345,12 @@ declare class TableBand extends TableLikeBand {
      */
     get endRowMerged(): boolean;
     set endRowMerged(value: boolean);
+    /**
+     * true이면 모든 섹션(header, dataRow, footer)의 내부 table element 너비를
+     * '100%'가 아닌 컬럼 너비들의 합으로 고정한다.
+     */
+    get fixed(): boolean;
+    set fixed(value: boolean);
     /** columns */
     get columns(): TableBandColumnCollection;
     /** groups */
@@ -15405,6 +15443,7 @@ declare class TableBandColumnCollection extends TableColumnCollectionBase<TableB
 declare class TableBandDataRow extends TableBandSection {
     static readonly PROP_EQUAL_BLANK = "equalBlank";
     static readonly PROP_BLANK_FIELDS = "blankFields";
+    static readonly PROP_EQUAL_BLANK_ACROSS_PAGE = "equalBlankAcrossPage";
     static readonly PROP_MERGED_IN_GROUP = "mergedInGroup";
     static readonly PROP_PARAGRAPH_FLOW = "paragraphFlow";
     static readonly PROPINFOS: IPropInfo[];
@@ -15490,20 +15529,10 @@ declare type TableBandDesignerAddType = typeof TableBand | typeof EmailTableBand
 /* Excluded from this release type: TableBandElement */
 
 declare class TableBandFooter extends TableBandSection {
-    static readonly PROP_ATTACH_TO_BODY = "attachToBody";
     static readonly PROPINFOS: IPropInfo[];
     static readonly $_ctor: string;
-    private _attachToBody;
     private _pageSection;
     constructor(band: TableBand, pageSection?: boolean);
-    /**
-     * true면 multi column 모드일 때 마지막 컬럼의 마지막 행에 붙여서 출력하고,
-     * false면 모든 컬럼의 가장 아래쪽에 붙여서 출력한다.
-     *
-     * @default false
-     */
-    get attachToBody(): boolean;
-    set attachToBody(value: boolean);
     get outlineLabel(): string;
     get pathLabel(): string;
     protected _getEditProps(): IPropInfo[];
@@ -15545,6 +15574,7 @@ declare class TableBandHeader extends TableBandSection {
     constructor(band: TableBand, pageSection?: boolean);
     get outlineLabel(): string;
     get pathLabel(): string;
+    protected _getEditProps(): IPropInfo[];
 }
 
 declare class TableBandHeaderElement extends TableBandSectionElement<TableBandHeader> {
@@ -15634,6 +15664,12 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
         maxImageHeights: number[];
         /** 각 행의 image 출력 여부 [행인덱스] */
         imageRendered: boolean[];
+        /** 각 행의 각 컬럼별 rowspan에 의해 hidden된 셀 여부 [행인덱스][컬럼인덱스] */
+        rowspanHidden: boolean[][];
+        /** rowspan hidden 셀의 원본 셀 스타일 (td.style.cssText) [행인덱스][컬럼인덱스] */
+        rowspanOriginStyles: string[][];
+        /** rowspan hidden 셀의 원본 셀 innerHTML [행인덱스][컬럼인덱스] */
+        rowspanOriginInnerHTML: string[][];
     } | null;
     isEnded(): boolean;
     getRows(): any[];
