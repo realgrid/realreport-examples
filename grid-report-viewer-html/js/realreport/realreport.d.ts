@@ -1,6 +1,6 @@
 /** 
-* RealReport v1.11.29
-* commit 8071f5de
+* RealReport v1.11.30
+* commit 1801f3a8
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -8,10 +8,10 @@
 */
 
 /** 
-* RealReport Core v1.11.29
+* RealReport Core v1.11.30
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 1b840042a94a4543a42dcb6197c59bda1cdc5959
+* commit 88edcd3d8d4b3d9b29e2a6d346b0efc3e445566d
 */
 type ConfigObject$2 = {
     [key: string]: any;
@@ -1283,6 +1283,7 @@ interface IPropertySource {
     canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
     adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
     getCollapsedPropCategories?: () => string[];
+    getPropertyCategoryLabel?: (category: string) => string;
     isCollectionProp(): boolean;
     isEditableCollection(): boolean;
     isCollectionItem(): boolean;
@@ -1334,6 +1335,7 @@ declare enum PropCategory {
     MARKER = "marker",
     LEGEND = "legend",
     SHEET = "sheet",
+    COLUMN_HEADER = "columnHeader",
     GRID = "grid",
     LINE = "line",
     TICK = "tick",
@@ -2686,6 +2688,177 @@ declare abstract class TableColumnCollectionBase<T extends ReportGroupItem, C ex
     private $_columnChanged;
 }
 
+declare class TableBandRowGroupCollection extends ReportItemCollection<TableBandRowGroup> {
+    static readonly $_ctor: string;
+    private _band;
+    private _groups;
+    constructor(band?: TableBand);
+    get outlineParent(): IOutlineSource;
+    get outlineLabel(): string;
+    get outlineExpandable(): boolean;
+    get outlineItems(): IOutlineSource[];
+    getSaveType(): string;
+    get owner(): ReportItem;
+    /** band */
+    get band(): TableBand;
+    /** count */
+    get count(): number;
+    get items(): ReportPageItem[];
+    get visibleCount(): number;
+    /** groups */
+    get groups(): TableBandRowGroup[];
+    load(loader: IReportLoader, src: any): void;
+    save(target: any): void;
+    get(index: number): TableBandRowGroup;
+    indexOf(group: TableBandRowGroup): number;
+    add(group: TableBandRowGroup | ConfigObject$2, index?: number): TableBandRowGroup;
+    addAll(groups: (TableBandRowGroup | ConfigObject$2)[], index?: number): boolean;
+    removeAt(index: number): boolean;
+    remove(group: TableBandRowGroup): boolean;
+    clear(): boolean;
+    getValidGroups(data: IBandData): TableBandRowGroup[];
+    removeCols(index: number, count: number): void;
+    resetCells(): void;
+    get page(): ReportPageBase;
+    get displayPath(): string;
+    get level(): number;
+    isAncestorOf(item: ReportPageItem): boolean;
+    protected _doMoveItem(from: number, to: number): boolean;
+    private $_add;
+    private $_invalidateGroups;
+    private $_groupChanged;
+}
+
+/**
+ * 특정 속성 카테고리에서 자식 스타일 정보를 하위로 생성해야할 때 사용
+ */
+declare abstract class ReportItemObject<T extends ReportItem> extends ReportPageItem implements ReportObject {
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: any[];
+    private _item;
+    private _styles;
+    constructor(item: T);
+    get outlineParent(): IOutlineSource;
+    get outlineExpandable(): boolean;
+    get outlineLabel(): string;
+    getSaveType(): string;
+    canRemoveFrom(): boolean;
+    abstract getSaveLabel(): string;
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    getPlaceHolder(prop: IPropInfo): string;
+    getPropDomain(prop: IPropInfo): any[];
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getStyle(style: string): string;
+    setStyle(style: string, value: string): void;
+    getStyleProperty(prop: string): any;
+    setStyleProperty(prop: string, value: any): void;
+    isChildProp(prop: string): boolean;
+    getSubStyleProperty(prop: string, style: string): any;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    get item(): T;
+    get page(): ReportPageBase;
+    get report(): ReportBase;
+    get styles(): Styles;
+    set styles(value: Styles);
+    defaultInit(): void;
+    load(loader: IReportLoader, source: ReportSource): void;
+    save(target: ReportTarget): boolean;
+    isCollection(): boolean;
+    protected _doDefaultInit(): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _getSubStyle(prop: string, style: string): any;
+    protected _setSubStyle(prop: string, style: string, value: any): void;
+    protected _changed(prop: string, newValue: unknown, oldValue: unknown): void;
+}
+
+declare class GroupRowColumnHeaderObject<T extends ReportGroupItem> extends ReportItemObject<T> {
+    static readonly PROP_WIDTH = "width";
+    static readonly PROP_TEXT = "text";
+    static readonly PROPINFOS: IPropInfo[];
+    private static readonly STYLES;
+    private _text;
+    constructor(groupRow: T);
+    get pathLabel(): string;
+    get displayPath(): string;
+    get text(): string | undefined;
+    set text(value: string | undefined);
+    get level(): number;
+    getSaveLabel(): string;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+    _getEditProps(): IPropInfo[];
+    _getStyleProps(): string[];
+    getPropDomain(prop: IPropInfo): any[];
+}
+
+declare class TableBandRowGroupRow extends ReportGroupItem {
+    static readonly $_ctor: string;
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly STYLE_PROPS: string[];
+    private _group;
+    private _columnHeader;
+    constructor(group: TableBandRowGroup);
+    /** columnHeader */
+    get columnHeader(): GroupRowColumnHeaderObject<TableBandRowGroupRow>;
+    isEmpty(): boolean;
+    get outlineLabel(): string;
+    get pathLabel(): string;
+    canDelete(): boolean;
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    canResize(dir: ResizeDirection): boolean;
+    getDesignText(): string;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+}
+
+declare class TableBandRowGroup extends DataBandRowGroup {
+    static readonly PROPINFOS: IPropInfo[];
+    private _merged;
+    private _collection;
+    private _header;
+    private _row;
+    private _footer;
+    constructor(collection: TableBandRowGroupCollection);
+    get outlineParent(): IOutlineSource;
+    get marqueeParent(): ReportItem;
+    getEditProps(): IPropInfo[];
+    getCollectionLabel(): string;
+    /** header */
+    get header(): TableBandRowGroupHeader;
+    /** rowGroup – 그룹 데이터 행 영역 (rowGroupMerged 활성화 시 렌더링) */
+    get rowGroup(): TableBandRowGroupRow;
+    /** footer */
+    get footer(): TableBandRowGroupFooter;
+    /** band */
+    get band(): TableBand;
+    getWidth(domain: number): number;
+    get page(): ReportPageBase;
+    get report(): ReportBase;
+    get collection(): TableBandRowGroupCollection;
+    get dataParent(): ReportGroupItem;
+    get outlineLabel(): string;
+    get displayPath(): string;
+    protected _ignoreItems(): boolean;
+    protected _doLoad(loader: IReportLoader, src: any): void;
+    protected _doSave(target: object): void;
+    /**
+     * 그룹 섹션(header / rowGroup / footer)을 로드한다.
+     * 키가 없는 구 JSON과의 역호환: load가 호출되지 않더라도
+     * cells 그리드는 반드시 초기화해야 렌더러 접근 시 오류가 발생하지 않는다.
+     */
+    private $_loadGroupSection;
+    protected _changed(prop: string, newValue: any, oldValue: any): void;
+}
+
 declare class TableBandColumn extends TableColumnBase {
     constructor(collection: TableBandColumnCollection, src?: any);
     getCollectionLabel(): string;
@@ -2841,75 +3014,6 @@ declare class TableBandRowGroupFooter extends TableBandRowGroupSection {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
 }
-declare class TableBandRowGroup extends DataBandRowGroup {
-    static readonly PROPINFOS: IPropInfo[];
-    private _merged;
-    private _collection;
-    private _header;
-    private _footer;
-    constructor(collection: TableBandRowGroupCollection);
-    get outlineParent(): IOutlineSource;
-    get marqueeParent(): ReportItem;
-    getEditProps(): IPropInfo[];
-    getCollectionLabel(): string;
-    /** header */
-    get header(): TableBandRowGroupHeader;
-    /** footer */
-    get footer(): TableBandRowGroupFooter;
-    /** band */
-    get band(): TableBand;
-    get page(): ReportPageBase;
-    get report(): ReportBase;
-    get collection(): TableBandRowGroupCollection;
-    get dataParent(): ReportGroupItem;
-    get outlineLabel(): string;
-    get displayPath(): string;
-    protected _ignoreItems(): boolean;
-    protected _doLoad(loader: IReportLoader, src: any): void;
-    protected _doSave(target: object): void;
-    protected _getStyleProps(): string[];
-    protected _changed(prop: string, newValue: any, oldValue: any): void;
-}
-declare class TableBandRowGroupCollection extends ReportItemCollection<TableBandRowGroup> {
-    static readonly $_ctor: string;
-    private _band;
-    private _groups;
-    constructor(band?: TableBand);
-    get outlineParent(): IOutlineSource;
-    get outlineLabel(): string;
-    get outlineExpandable(): boolean;
-    get outlineItems(): IOutlineSource[];
-    getSaveType(): string;
-    get owner(): ReportItem;
-    /** band */
-    get band(): TableBand;
-    /** count */
-    get count(): number;
-    get items(): ReportPageItem[];
-    get visibleCount(): number;
-    /** groups */
-    get groups(): TableBandRowGroup[];
-    load(loader: IReportLoader, src: any): void;
-    save(target: any): void;
-    get(index: number): TableBandRowGroup;
-    indexOf(group: TableBandRowGroup): number;
-    add(group: TableBandRowGroup | ConfigObject$2, index?: number): TableBandRowGroup;
-    addAll(groups: (TableBandRowGroup | ConfigObject$2)[], index?: number): boolean;
-    removeAt(index: number): boolean;
-    remove(group: TableBandRowGroup): boolean;
-    clear(): boolean;
-    getValidGroups(data: IBandData): TableBandRowGroup[];
-    removeCols(index: number, count: number): void;
-    resetCells(): void;
-    get page(): ReportPageBase;
-    get displayPath(): string;
-    get level(): number;
-    isAncestorOf(item: ReportPageItem): boolean;
-    protected _doMoveItem(from: number, to: number): boolean;
-    private $_add;
-    private $_invalidateGroups;
-    private $_groupChanged;
-}
 /**
  * 페이지를 넘어갈 수 있다.
  * 한 row는 페이지를 넘어갈 수 없다.
@@ -2924,6 +3028,7 @@ declare class TableBand extends TableLikeBand {
     static readonly PROP_COLUMNS = "columns";
     static readonly PROP_GROUPS = "groups";
     static readonly PROP_END_ROW_MERGED = "endRowMerged";
+    static readonly PROP_ROW_GROUP_MERGED = "rowGroupMerged";
     static readonly PROPINFOS: IPropInfo[];
     static readonly STYLE_PROPS: string[];
     static readonly DEFAULT_COL_COUNT = 5;
@@ -2931,6 +3036,7 @@ declare class TableBand extends TableLikeBand {
     static readonly ITEM_TYPE: string;
     private _colCount;
     private _endRowMerged;
+    private _rowGroupMerged;
     private _columns;
     private _groups;
     private _header;
@@ -2957,6 +3063,8 @@ declare class TableBand extends TableLikeBand {
      */
     get fixed(): boolean;
     set fixed(value: boolean);
+    get rowGroupMerged(): boolean;
+    set rowGroupMerged(value: boolean);
     /** columns */
     get columns(): TableBandColumnCollection;
     /** groups */
@@ -5728,56 +5836,6 @@ declare class PageItemContainer extends BoundedContainer {
     protected _doLoad(loader: IReportLoader, src: any): void;
     protected _doSave(target: object): void;
     protected _getEditProps(): IPropInfo[];
-}
-
-/**
- * 특정 속성 카테고리에서 자식 스타일 정보를 하위로 생성해야할 때 사용
- */
-declare abstract class ReportItemObject<T extends ReportItem> extends ReportPageItem implements ReportObject {
-    static readonly PROPINFOS: IPropInfo[];
-    static readonly STYLE_PROPS: any[];
-    private _item;
-    private _styles;
-    constructor(item: T);
-    get outlineParent(): IOutlineSource;
-    get outlineExpandable(): boolean;
-    get outlineLabel(): string;
-    getSaveType(): string;
-    canRemoveFrom(): boolean;
-    abstract getSaveLabel(): string;
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    getSubStyleProps(prop: string): IPropInfo[];
-    getPlaceHolder(prop: IPropInfo): string;
-    getPropDomain(prop: IPropInfo): any[];
-    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getStyle(style: string): string;
-    setStyle(style: string, value: string): void;
-    getStyleProperty(prop: string): any;
-    setStyleProperty(prop: string, value: any): void;
-    isChildProp(prop: string): boolean;
-    getSubStyleProperty(prop: string, style: string): any;
-    setSubStyleProperty(prop: string, style: string, value: any): void;
-    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    get item(): T;
-    get page(): ReportPageBase;
-    get report(): ReportBase;
-    get styles(): Styles;
-    set styles(value: Styles);
-    defaultInit(): void;
-    load(loader: IReportLoader, source: ReportSource): void;
-    save(target: ReportTarget): boolean;
-    isCollection(): boolean;
-    protected _doDefaultInit(): void;
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
-    protected _doSave(target: ReportTarget): void;
-    protected _getEditProps(): IPropInfo[];
-    protected _getStyleProps(): string[];
-    protected _getSubStyle(prop: string, style: string): any;
-    protected _setSubStyle(prop: string, style: string, value: any): void;
-    protected _changed(prop: string, newValue: unknown, oldValue: unknown): void;
 }
 
 /**
@@ -9439,9 +9497,103 @@ interface ITableMarquee {
 }
 
 /** @internal */
+declare class TableBandCellElement extends TableCellElementBase {
+    constructor(doc: Document, table: TableElement<TableBase>, model: TableCellItem);
+}
+
+declare class TableBandGroupSectionElement<T extends TableBandRowGroupSection> extends TableElement<T> {
+    constructor(doc: Document, model: T);
+    applyGroupStyles(tr: HTMLTableRowElement): void;
+    protected _needDesignBox(): boolean;
+    protected _createCellElement(doc: Document, cell: TableCellItem): TableCellElementBase;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+}
+
+/** @internal */
+declare class TableBandGroupElement extends ReportGroupItemElement<TableBandRowGroup> {
+    private _masterView;
+    private _header;
+    private _row;
+    private _footer;
+    private _headerHead;
+    private _rowHead;
+    private _footerHead;
+    headIndent: number;
+    constructor(doc: Document, model: TableBandRowGroup);
+    get header(): TableBandGroupHeaderElement;
+    get row(): TableBandGroupRowElement;
+    get footer(): TableBandGroupFooterElement;
+    protected _getCssSelector(): string;
+    protected _needDesignBox(): boolean;
+    protected _doSetStyles(model: ReportItem, dom: HTMLElement): void;
+    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
+    protected _doLayoutContent(ctx: PrintContext$1): void;
+    $_setMasterView(view: TableElement<any>): void;
+}
+declare class TableBandGroupHeaderElement extends TableBandGroupSectionElement<TableBandRowGroupHeader> {
+    constructor(doc: Document, model: TableBandRowGroupHeader);
+    protected _getCssSelector(): string;
+    protected _setTableStyles(table: HTMLTableElement): void;
+}
+declare class TableBandGroupFooterElement extends TableBandGroupSectionElement<TableBandRowGroupFooter> {
+    constructor(doc: Document, model: TableBandRowGroupFooter);
+    protected _getCssSelector(): string;
+    protected _setTableStyles(table: HTMLTableElement): void;
+}
+/**
+ * rowGroupMerged 행 병합 그룹핑이 적용될 시 행병합된 셀의 스타일을 설정하고 표현하기 위해 따로 작성
+ */
+declare class TableBandGroupRowElement<T extends TableBandRowGroupRow = TableBandRowGroupRow> extends ReportGroupItemElement<T> {
+    static readonly GROUP_ROW_CLASS = "rr-tableband-group-row";
+    private _view;
+    constructor(doc: Document, model: T);
+    protected _getCssSelector(): string;
+    /**
+     * _view는 addDom()으로 추가된 raw DOM이라 VisualElement children에 등록되지 않는다.
+     * containsDom()으로 _view 영역 클릭도 자기 자신으로 인식하도록 override한다.
+     */
+    findElementOf(dom: HTMLElement): ReportGroupItemElement<T>;
+    protected _doMeasure(ctx: PrintContextBase, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
+    protected _doLayoutContent(ctx: PrintContextBase): void;
+}
+
+/** 행 타입 구분 ('data' | 'groupHeader' | 'groupFooter') */
+type GroupRowType = 'data' | 'groupHeader' | 'groupFooter';
+/**
+ * RowGroupMerger의 핵심 행위들을 추상화한 인터페이스.
+ * rowGroupMerged 모드가 활성 상태(RowGroupMerger)이거나 비활성 상태(NullRowGroupMerger)일 때
+ * 동일한 방식으로 호출할 수 있도록 정의합니다.
+ */
+interface IRowGroupMerger {
+    /** 그룹 뷰 개수 */
+    readonly groupCount: number;
+    /** 그룹 열들의 총 너비 (px) */
+    readonly totalWidth: number;
+    /** 새 테이블 시작 시 병합 상태를 초기화한다. */
+    resetState(): void;
+    /** 데이터/그룹헤더/푸터 행에 그룹 레벨별 td를 삽입하고 병합(rowspan)을 처리한다. */
+    applyGroupTds(doc: Document, trs: HTMLTableRowElement[], rowType: GroupRowType, group: IBandRowGroup | null): void;
+    /** 그룹 헤더/푸터의 콘텐츠 측정 너비를 계산하여 반환한다. */
+    getContentWidth(pageWidth: number, group: IBandRowGroup | null): number;
+    /** 밴드 헤더 행 앞에 그룹 열 헤더 td를 삽입한다. */
+    applyBandHeaderTds(doc: Document, tbody: HTMLTableSectionElement, rowsBefore: number): void;
+    /** 밴드 푸터 행 앞에 그룹 열 td를 삽입한다. */
+    applyBandFooterTds(doc: Document, tbody: HTMLTableSectionElement, rowsBefore: number): void;
+    /** 그룹 열을 포함한 colGroup 요소를 생성한다. */
+    createColGroup(doc: Document, width: number, dataColGroupCreator: (doc: Document, width: number) => HTMLTableColElement): HTMLTableColElement;
+    /** 그룹 헤더 처리 후 그룹 정보를 보관한다. (페이지 복원에 사용) */
+    savePrevGroupHeader(group: IBandRowGroup): void;
+    /** 새 페이지 시작 시 이전 페이지의 그룹 헤더 상태를 복원한다. */
+    restorePrevGroupHeader(doc: Document, trs: HTMLTableRowElement[]): void;
+}
+
+/** @internal */
 declare class TableBodyLine {
     protected _rows: HTMLTableRowElement[];
     private _height;
+    static readonly GLC_FIXED_HEIGHT_KEY = "$_glcFixedHeight";
     constructor(trows: HTMLTableRowElement[], row: number, nRow: number);
     get count(): number;
     get height(): number;
@@ -9465,10 +9617,6 @@ declare class TableBodyLine {
     fitHeight(src: TableBodyLine): void;
 }
 /** @internal */
-declare class TableBandCellElement extends TableCellElementBase {
-    constructor(doc: Document, table: TableElement<TableBase>, model: TableCellItem);
-}
-/** @internal */
 declare abstract class TableBandSectionElement<T extends TableBandSection> extends TableElement<T> {
     constructor(doc: Document, model: T, styleName: string);
     get debugLabel(): string;
@@ -9489,52 +9637,76 @@ declare class TableBandFooterElement extends TableBandSectionElement<TableBandFo
 declare class TableBandDataRowElement extends TableBandSectionElement<TableBandDataRow> {
     private _styles;
     private _cellStyles;
+    /**
+     * border-collapse 테이블의 셀 콘텐츠 주정 너비를 계산한다.
+     *
+     * [border-collapse 에서의 getBoundingClientRect() 특성]
+     * td.getBoundingClientRect().width = content + padding + (borderLeft + borderRight) / 2
+     * 단, 첫번째/마지막 셀 위치에 관계없이 항상 border/2 이다.
+     *
+     * rr-table-cell div는 td content area 안에 위치하므로 padding을 항상 제거해야 한다.
+     * Math.floor는 중간 계산이 아닌 최종 결과에만 적용하여 소수점 정밀도 손실를 방지한다.
+     *
+     * @param tdWidth  td의 실제 렌더링 너비 (px, 호입자가 별도로 결정)
+     * @param td       border/padding 스타일 읽기용 td 요소. 없으면 1px 보정만 적용
+     * @returns 측정에 사용할 너비 (px, 소수점 버림)
+     */
+    private static _calcCellContentWidth;
     applyCellStyles(ctx: PrintContext$1, band: TableBand, tr: HTMLTableRowElement, trow: number, dynRowStyles: any): void;
     $_refreshRowCells(ctx: PrintContext$1, hintWidth: number, hintHeight: number, force?: boolean, tableRows?: HTMLTableRowElement[]): void;
     protected _setTableStyles(table: HTMLTableElement): void;
     protected _setRowStyles(tr: HTMLTableRowElement, row: number): void;
     private $_getCellStyleCallback;
 }
-declare class TableBandGroupSectionElement<T extends TableBandRowGroupSection> extends TableElement<T> {
-    constructor(doc: Document, model: T);
-    applyGroupStyles(tr: HTMLTableRowElement): void;
-    protected _needDesignBox(): boolean;
-    protected _createCellElement(doc: Document, cell: TableCellItem): TableCellElementBase;
-    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doAfterMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number, sz: Size$1): void;
-}
-declare class TableBandGroupHeaderElement extends TableBandGroupSectionElement<TableBandRowGroupHeader> {
-    constructor(doc: Document, model: TableBandRowGroupHeader);
-    protected _getCssSelector(): string;
-    protected _setTableStyles(table: HTMLTableElement): void;
-}
-declare class TableBandGroupFooterElement extends TableBandGroupSectionElement<TableBandRowGroupFooter> {
-    constructor(doc: Document, model: TableBandRowGroupFooter);
-    protected _getCssSelector(): string;
-    protected _setTableStyles(table: HTMLTableElement): void;
-}
-/** @internal */
-declare class TableBandGroupElement extends ReportGroupItemElement<TableBandRowGroup> {
-    private _masterView;
-    private _header;
-    private _footer;
-    private _headerHead;
-    private _footerHead;
-    headIndent: number;
-    constructor(doc: Document, model: TableBandRowGroup);
-    get header(): TableBandGroupHeaderElement;
-    get footer(): TableBandGroupFooterElement;
-    protected _getCssSelector(): string;
-    protected _needDesignBox(): boolean;
-    protected _doMeasure(ctx: PrintContext$1, dom: HTMLElement, hintWidth: number, hintHeight: number): Size$1;
-    protected _doLayoutContent(ctx: PrintContext$1): void;
-    $_setMasterView(view: TableElement<any>): void;
-}
 interface ITableGroupPrintInfo extends IGroupPrintInfo {
-    view: TableBandGroupSectionElement<TableBandRowGroupHeader | TableBandRowGroupFooter>;
+    view: TableBandGroupSectionElement<TableBandRowGroupHeader | TableBandRowGroupFooter> | null;
     needNextPage: boolean;
 }
 type TableBandPrintRow = BandPrintRow | ITableGroupPrintInfo;
+/**
+ * ParagraphFlow 모드의 상태 정보.
+ * 페이지 분할 시 텍스트 라인, 병합 상태, 이미지 정보 등을 추적한다.
+ */
+interface ParagraphFlowState {
+    /** 현재 처리 중인 row의 텍스트 라인들 [컬럼인덱스][라인인덱스] */
+    currentRowColumnTextLines: {
+        r: IRect;
+        line: string;
+    }[][];
+    /** 현재 처리 중인 DataRow 내 행 인덱스 (Row Count가 2이상인 경우) */
+    rowIndex: number;
+    /** 모든 row의 텍스트 라인들 [행인덱스][컬럼인덱스][라인인덱스] */
+    allRowColumnTextLines: {
+        r: IRect;
+        line: string;
+    }[][][];
+    /** 각 행의 각 컬럼별 원본 텍스트 (repeat 속성용) [행인덱스][컬럼인덱스] */
+    originalTexts: string[][];
+    /** 각 행의 각 컬럼별 한 페이지 출력 가능 여부 (repeat 적용 조건) [행인덱스][컬럼인덱스] */
+    canRepeat: boolean[][];
+    /** 각 행의 각 컬럼별 상하 패딩 합 [행인덱스][컬럼인덱스] */
+    columnPaddings: number[][];
+    /** 각 행의 각 컬럼별 rich 텍스트 여부 [행인덱스][컬럼인덱스] */
+    isRichCell: boolean[][];
+    /** 각 행의 각 컬럼별 image 아이템 여부 [행인덱스][컬럼인덱스] */
+    isImageCell: boolean[][];
+    /** 각 행의 image 셀 중 최대 높이 [행인덱스] */
+    maxImageHeights: number[];
+    /** 각 행의 image 출력 여부 [행인덱스] */
+    imageRendered: boolean[];
+    /** 각 행의 각 컬럼별 rowspan에 의해 hidden된 셀 여부 [행인덱스][컬럼인덱스] */
+    rowspanHidden: boolean[][];
+    /** rowspan hidden 셀의 원본 셀 스타일 (td.style.cssText) [행인덱스][컬럼인덱스] */
+    rowspanOriginStyles: string[][];
+    /** rowspan hidden 셀의 원본 셀 innerHTML [행인덱스][컬럼인덱스] */
+    rowspanOriginInnerHTML: string[][];
+    /**
+     * 현재 페이지(tbody)에서 rowspan 복원된 셀 추적.
+     * 같은 rowspan 그룹 내 후속 행은 이 셀의 rowSpan을 연장하고 hidden을 유지한다.
+     * 키: 컬럼 인덱스, 값: 복원된 td 요소
+     */
+    rowspanRestoredCells: Map<number, HTMLTableCellElement>;
+}
 declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
     bandView: TableBandElement;
     headerView: TableBandHeaderElement;
@@ -9554,46 +9726,42 @@ declare class TableBandPrintInfo extends BandPrintInfo<TableBand> {
         detailRows: number[];
     };
     prevGroupPageBreak: PageBreakMode;
+    /** rowGroupMerged 모드에서 그룹 열 병합을 전담하는 헬퍼 (비활성 시 NullRowGroupMerger) */
+    groupMerger: IRowGroupMerger;
     /** paragraphFlow 모드 상태 */
-    paragraphFlowState: {
-        /** 현재 처리 중인 row의 텍스트 라인들 [컬럼인덱스][라인인덱스] */
-        currentRowColumnTextLines: {
-            r: IRect;
-            line: string;
-        }[][];
-        /** 현재 처리 중인 DataRow 내 행 인덱스 (Row Count가 2이상인 경우) */
-        rowIndex: number;
-        /** 모든 row의 텍스트 라인들 [행인덱스][컬럼인덱스][라인인덱스] */
-        allRowColumnTextLines: {
-            r: IRect;
-            line: string;
-        }[][][];
-        /** 각 행의 각 컬럼별 원본 텍스트 (repeat 속성용) [행인덱스][컬럼인덱스] */
-        originalTexts: string[][];
-        /** 각 행의 각 컬럼별 한 페이지 출력 가능 여부 (repeat 적용 조건) [행인덱스][컬럼인덱스] */
-        canRepeat: boolean[][];
-        /** 각 행의 각 컬럼별 상하 패딩 합 [행인덱스][컬럼인덱스] */
-        columnPaddings: number[][];
-        /** 각 행의 각 컬럼별 rich 텍스트 여부 [행인덱스][컬럼인덱스] */
-        isRichCell: boolean[][];
-        /** 각 행의 각 컬럼별 image 아이템 여부 [행인덱스][컬럼인덱스] */
-        isImageCell: boolean[][];
-        /** 각 행의 image 셀 중 최대 높이 [행인덱스] */
-        maxImageHeights: number[];
-        /** 각 행의 image 출력 여부 [행인덱스] */
-        imageRendered: boolean[];
-        /** 각 행의 각 컬럼별 rowspan에 의해 hidden된 셀 여부 [행인덱스][컬럼인덱스] */
-        rowspanHidden: boolean[][];
-        /** rowspan hidden 셀의 원본 셀 스타일 (td.style.cssText) [행인덱스][컬럼인덱스] */
-        rowspanOriginStyles: string[][];
-        /** rowspan hidden 셀의 원본 셀 innerHTML [행인덱스][컬럼인덱스] */
-        rowspanOriginInnerHTML: string[][];
-    } | null;
+    paragraphFlowState: ParagraphFlowState | null;
     isEnded(): boolean;
     getRows(): any[];
     resetRowIndex(): void;
     rollback(page: HTMLDivElement): void;
     getNextPage(doc: Document, ctx: PrintContext$1, pageWidth: number, parent: HTMLDivElement): HTMLDivElement | null;
+    /**
+     * ParagraphFlow에서 rowspan 병합 상태를 복원한다.
+     *
+     * ParagraphFlow는 한 행(tr)씩 출력하므로, 원본 테이블의 rowspan 구조가
+     * 페이지 분할 시 깨질 수 있다. 이 메서드는 세 가지 케이스를 처리한다:
+     *
+     * 1) 같은 페이지에서 이미 복원된 셀이 있는 경우 → rowSpan만 연장
+     * 2) hidden 셀을 새로 복원해야 하는 경우 → visible로 전환 후 추적 등록
+     * 3) 원본 rowspan 시작 셀(hidden이 아닌 셀) → rowSpan=1로 리셋 후 추적 등록
+     *
+     * @param trs 현재 출력할 행 배열
+     * @param tbody 현재 페이지의 tbody 요소
+     * @param state ParagraphFlow 상태
+     * @param rowIndex 현재 행 인덱스
+     */
+    private $_restoreParagraphFlowRowspan;
+    /**
+     * rowspan에 의해 hidden된 셀을 복원하거나, 기존 복원 셀의 rowSpan을 연장한다.
+     *
+     * 우선순위:
+     * 1) rowspanRestoredCells에 이미 복원된 셀이 있으면 → rowSpan만 연장
+     *    (주의: originInTbody보다 먼저 체크해야 한다.
+     *     복원 셀의 rowSpan이 2 이상이면 originInTbody에서 원본 시작 셀로 오인하기 때문)
+     * 2) 원본 rowspan 시작 행이 현재 tbody에 있으면 → 복원 불필요 (스킵)
+     * 3) 위 조건에 해당하지 않으면 → hidden 셀을 visible로 전환하고 추적 등록
+     */
+    private $_restoreHiddenRowspanCell;
     /**
      * paragraphFlowLines에서 현재 페이지에 맞는 라인들을 추출하여 trs에 적용
      * @returns 출력된 경우 { itemHeight, linesRemaining }, 출력할 라인이 없으면 null
@@ -10199,6 +10367,7 @@ declare class BandGroupMarquee extends EditMarquee<BandGroupElement> {
     private static readonly STYLE_NAME;
     private static readonly W_ITEM;
     private static readonly H_ITEM;
+    private static readonly H_GROUP_LABEL;
     static $_isContainer(dom: HTMLElement): boolean;
     static getTarget(target: ReportItem, dom: HTMLElement): IEditMarqueeTarget;
     private _tableItem;
@@ -13051,6 +13220,7 @@ declare class PageBodyItems extends ColumnBoxContainer {
     protected _getStyleProps(): string[];
     canAdoptDragSource(source: any): boolean;
     adoptDragSource(source: any): IDropResult;
+    protected _getEditProps(): IPropInfo[];
 }
 /**
  * Report header/footer, Page header/footer를 제외한 리포트 페이지 영역.
@@ -13220,6 +13390,7 @@ declare class PageBodyElement extends ReportElement {
      */
     getLine(index: number): ReportItemView;
     getLines(): ReportItemView[];
+    isPrintable(ctx: PrintContext$1): boolean;
     prepareAsync(doc: Document, ctx: PrintContext$1): PrintLine[];
     itemOfDom(dom: Element): ReportItem;
     protected _getCssSelector(): string;
@@ -50104,16 +50275,21 @@ interface GridReportOptions$1 extends ReportOptions {
     layout?: GridReportLayout;
 }
 /**
- * GridreportViewer
+ * GridReportViewer
+ *
+ * RealGrid 그리드 뷰의 데이터를 리포트로 변환하여
+ * 미리보기, 인쇄, 내보내기를 제공한다.
+ *
+ * 내부 구성 (Composition):
+ * - {@link GridReportTableBuilder}: TableBand 구성
+ * - {@link GridReportGroupBuilder}: mergeMode 행 그룹 병합
+ * - {@link GridReportStyleApplier}: 스타일 적용
  */
 declare class GridReportViewer extends ReportViewer {
-    static readonly HEADER_ITEM_STYLES: string[];
-    static readonly HEADER_STYLES: string[];
-    static readonly CELL_STYLES: string[];
     static readonly PAPER_SIZES: string[];
     private _grid;
+    private _gridCore;
     private _gridValues;
-    private _gridTable;
     protected _options: GridReportOptions$1;
     constructor(container: string | HTMLDivElement, grid: GridView, options?: GridReportOptions$1);
     /**
@@ -50122,7 +50298,7 @@ declare class GridReportViewer extends ReportViewer {
     get startColIdx(): number;
     set options(options: GridReportOptions$1);
     /**
-     * 컨테이너에 미리보기 랜더링
+     * 컨테이너에 미리보기 렌더링
      */
     preview(options?: PreviewOptions): Promise<void>;
     /**
@@ -50137,72 +50313,95 @@ declare class GridReportViewer extends ReportViewer {
     private $_initReport;
     /**
      * 타이틀 또는 서브 타이틀 추가
-     * @param title GridReportTitle 객체
-     * @returns
      */
-    private _addTitle;
+    private $_addTitle;
     /**
      * 그리드 윗쪽 헤더 추가
-     * @param header GridReportHeader 객체
-     * @returns
      */
-    private _addGridHeader;
+    private $_addGridHeader;
     /**
-     * 페이지 헤더 추가.
-     * @param header PageHeader 객체
-     * @returns
+     * 페이지 헤더 추가
      */
-    private _addPageHeader;
+    private $_addPageHeader;
     /**
      * 페이지 푸터 추가
-     * @param footer PageFooter 객체
-     * @returns
      */
-    private _addPageFooter;
+    private $_addPageFooter;
     /**
-     * Layout 정보
-     *   - visibleCount: number
-     *   - getDataColumns(): DataColumn[]
-     *   - headerRows: number
+     * 그리드 테이블 밴드를 구성하여 리포트에 추가한다.
+     *
+     * {@link GridReportTableBuilder}에게 테이블 구성을 위임하고,
+     * mergeMode 그룹핑이 활성화된 경우 {@link GridReportGroupBuilder}에게 그룹 구성을 위임한다.
      */
-    private _addGridTable;
-    private _prepare;
+    private $_addGridTable;
+    /**
+     * 미리보기/인쇄 전 리포트 항목들을 구성한다.
+     */
+    private $_prepare;
     /**
      * 강제로 그리드 뷰 렌더링
-     * @param grid GridView
      */
     private $_forceGridViewRender;
     /**
-     * 리얼리포트 테이블밴드 헤더 영역 스타일을 지정한다.
-     * 리얼그리드 특성상 로우 인디케이터 영역이 따로 존재하기 때문에 해당 영역은 추가로 따로 설정할 수 있다.
-     */
-    private $_applyHeaderSectionStyles;
-    /**
-     * 헤더 섹션 아이템들에 대한 스타일 적용 처리
-     */
-    private $_applyHeaderItemStyles;
-    /**
-     * 테이블 셀 영역에 스타일 지정
-     * @param table
-     * @param cell
-     * @param styles
-     * @returns
-     */
-    private $_applyCellItemStyles;
-    private $_applyItemStyles;
-    /**
-     * 옵션으로 지정한 CellStyleCallback을 지정한다.
-     * @param cell 데이터 로우 셀 영역
-     */
-    private $_applyCellStyleCallback;
-    private $_getMathcedColumn;
-    private $_applyColumnHeaderOptions;
-    /**
-     * 컬럼 옵션 스타일을 적용한다.
-     */
-    private $_applyColumnOptions;
-    /**
+     * 그리드 헤더 DOM에서 기본 셀 스타일(padding, color, fontSize, fontWeight, textAlign, verticalAlign)을 추출한다.
+     * 그룹 헤더/푸터/rowGroup columnHeader 및 병합된 rowGroup 행에 그리드와 일관된 스타일을 반영하기 위해 사용된다.
      *
+     * 패딩 값이 없거나 0px인 경우 좌우 4px를 기본값으로 적용한다.
+     */
+    private $_extractGridCellStyles;
+    /**
+     * 각 컬럼의 groupFooter 스타일을 숨겨진 더미 DOM 방식으로 추출한다.
+     *
+     * 리얼그리드는 내부적으로 `.rg-rowgroup-footer-cell` 클래스에
+     * 컬럼의 `styleName`을 합성하여 렌더링한다.
+     * 우리도 동일한 방식으로 더미 div를 만들어
+     * computedStyle로 스타일을 추출한 다 즉시 제거한다.
+     *
+     * 우선순위: groupFooter.styleName → column.styleName
+     *
+     * @param dataColumns visible한 DataColumn 목록
+     * @returns fieldName → GridExtractedCellStyle 맵
+     */
+    private $_extractGroupFooterCellStyles;
+    /**
+     * 숨겨진 더미 DOM에서 그리드 셀 스타일을 추출한다.
+     *
+     * 리얼그리드의 실제 렌더링 구조(`<td class="baseClass styleName"><div>텍스트</div></td>`)를
+     * 재현하기 위해 부모(baseClass + styleName) + 자식(div) 2단 구조의 더미 DOM을 생성한다.
+     * 이를 통해 `.styleName > div { text-align: right }` 같은 자식 셀렉터 기반 CSS도
+     * 정확히 매칭되어 computedStyle로 추출할 수 있다.
+     *
+     * 추출 후 DOM에서 즉시 제거하여 부작용을 방지한다.
+     *
+     * 사용 예시:
+     *   - 그룹 푸터 셀: baseClass='rg-rowgroup-footer-cell'
+     *   - 데이터 셀:    baseClass='rg-data-cell'
+     *
+     * @param mountTarget 더미 DOM을 붙일 부모 요소 (그리드 body DOM 권장)
+     * @param baseClass 리얼그리드 기본 셀 CSS 클래스명
+     * @param styleName 적용할 추가 CSS 클래스명 (column.styleName). 비어있으면 baseClass만 적용.
+     * @returns 추출된 스타일 객체. 모두 기본값이면 undefined 반환.
+     */
+    private $_extractStyleFromDummyDom;
+    /**
+     * 각 컬럼의 데이터 셀 스타일을 숨겨진 더미 DOM 방식으로 추출한다.
+     *
+     * 리얼그리드는 데이터 셀에 `.rg-data-cell` 클래스를 기본으로 적용하고,
+     * 컬럼의 `styleName`을 합성하여 렌더링한다.
+     * styleName이 없는 컬럼도 `.rg-data-cell` 기본 클래스로
+     * textAlign / verticalAlign 정렬값을 추출하여 데이터 행 정렬을 정확히 반영한다.
+     *
+     * @returns fieldName → GridExtractedCellStyle 맵 (모두 기본값인 컬럼은 제외)
+     */
+    private $_extractDataCellStyles;
+    /**
+     * CSS 텍스트 정렬값을 리얼리포트가 지원하는 물리값으로 정규화한다.
+     * 브라우저는 getComputedStyle().textAlign에서 start/end를 반환할 수 있다.
+     * start → left, end → right로 변환하며, 그 외 지원하지 않는 값은 undefined를 반환한다.
+     */
+    private $_normalizeTextAlign;
+    /**
+     * 종이 크기 문자열을 PaperSize 타입으로 변환한다.
      */
     private $_getPaperSize;
 }
