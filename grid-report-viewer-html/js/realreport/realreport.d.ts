@@ -1,6 +1,6 @@
 /** 
-* RealReport v1.11.30
-* commit 1801f3a8
+* RealReport v1.11.31
+* commit 0f8d6472
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -8,10 +8,10 @@
 */
 
 /** 
-* RealReport Core v1.11.30
+* RealReport Core v1.11.31
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 88edcd3d8d4b3d9b29e2a6d346b0efc3e445566d
+* commit 9d67279c3ce9201518225a8b10aa65f55cac4231
 */
 type ConfigObject$2 = {
     [key: string]: any;
@@ -6264,6 +6264,7 @@ declare class BarcodeItem extends ReportItem {
     convertText(s: string): string;
     getSaveType(): string;
     get outlineLabel(): string;
+    canRotate(): boolean;
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
@@ -9587,6 +9588,12 @@ interface IRowGroupMerger {
     savePrevGroupHeader(group: IBandRowGroup): void;
     /** 새 페이지 시작 시 이전 페이지의 그룹 헤더 상태를 복원한다. */
     restorePrevGroupHeader(doc: Document, trs: HTMLTableRowElement[]): void;
+    /**
+     * 그룹 헤더 섹션이 hidden 상태일 때 호출한다.
+     * DOM 삽입 없이 해당 그룹 레벨의 병합 상태만 초기화하여,
+     * 이후 데이터 행에서 그룹 열 TD가 자동으로 생성될 수 있도록 한다.
+     */
+    beginHiddenGroup(group: IBandRowGroup): void;
 }
 
 /** @internal */
@@ -9611,7 +9618,7 @@ declare class TableBodyLine {
     appendTo(target: HTMLElement, minRowHeight?: number): void;
     insertTo(body: HTMLTableSectionElement, to?: number): void;
     detach(): void;
-    makeBlank(row: number, col: number): void;
+    makeBlank(row: number, col: number, groupColOffset?: number): void;
     hide(row: number, col: number): void;
     clone(): TableBodyLine;
     fitHeight(src: TableBodyLine): void;
@@ -9661,6 +9668,11 @@ declare class TableBandDataRowElement extends TableBandSectionElement<TableBandD
 interface ITableGroupPrintInfo extends IGroupPrintInfo {
     view: TableBandGroupSectionElement<TableBandRowGroupHeader | TableBandRowGroupFooter> | null;
     needNextPage: boolean;
+    /**
+     * rowGroupMerged 모드에서 그룹 헤더 섹션이 hidden 상태일 때 true.
+     * DOM 렌더링 없이 groupMerger.beginHiddenGroup()만 호출하여 병합 상태를 초기화한다.
+     */
+    hiddenByRowGroupMerged?: boolean;
 }
 type TableBandPrintRow = BandPrintRow | ITableGroupPrintInfo;
 /**
@@ -9842,11 +9854,11 @@ declare class TableBandElement extends BandElement<TableBand> implements ITable 
     static readonly ROW_CLASS = "-rrp-tableband-row";
     static readonly DUMMY_CLASS = "-rrp-tableband-dummy";
     static readonly DUMMY_GROUP_FOOTER = "_dummy_group_footer_";
-    static checkBlanks(band: TableBand, r: number, rows: TableBodyLine, isFirstRow?: boolean): void;
+    static checkBlanks(band: TableBand, r: number, rows: TableBodyLine, isFirstRow?: boolean, groupColOffset?: number): void;
     /**
      * ParagraphFlow 상태일 경우에 처리
      */
-    static paragraphFlowMakeBlank(band: TableBand, printRow: number, rows: TableBodyLine, isFirstRow?: boolean): void;
+    static paragraphFlowMakeBlank(band: TableBand, printRow: number, rows: TableBodyLine, isFirstRow?: boolean, groupColOffset?: number): void;
     private _headerView;
     private _footerView;
     private _rowView;

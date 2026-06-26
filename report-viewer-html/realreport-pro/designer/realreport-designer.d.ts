@@ -667,6 +667,7 @@ declare class BarcodeItem extends ReportItem {
     convertText(s: string): string;
     getSaveType(): string;
     get outlineLabel(): string;
+    canRotate(): boolean;
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
@@ -7222,6 +7223,12 @@ declare interface IRowGroupMerger {
     savePrevGroupHeader(group: IBandRowGroup): void;
     /** 새 페이지 시작 시 이전 페이지의 그룹 헤더 상태를 복원한다. */
     restorePrevGroupHeader(doc: Document, trs: HTMLTableRowElement[]): void;
+    /**
+     * 그룹 헤더 섹션이 hidden 상태일 때 호출한다.
+     * DOM 삽입 없이 해당 그룹 레벨의 병합 상태만 초기화하여,
+     * 이후 데이터 행에서 그룹 열 TD가 자동으로 생성될 수 있도록 한다.
+     */
+    beginHiddenGroup(group: IBandRowGroup): void;
 }
 
 declare interface ISelectionSource {
@@ -7683,6 +7690,11 @@ declare interface ITable {
 declare interface ITableGroupPrintInfo extends IGroupPrintInfo {
     view: TableBandGroupSectionElement<TableBandRowGroupHeader | TableBandRowGroupFooter> | null;
     needNextPage: boolean;
+    /**
+     * rowGroupMerged 모드에서 그룹 헤더 섹션이 hidden 상태일 때 true.
+     * DOM 렌더링 없이 groupMerger.beginHiddenGroup()만 호출하여 병합 상태를 초기화한다.
+     */
+    hiddenByRowGroupMerged?: boolean;
 }
 
 declare interface ITableMarquee {
