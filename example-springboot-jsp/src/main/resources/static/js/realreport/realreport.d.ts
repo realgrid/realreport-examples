@@ -1,6 +1,6 @@
 /** 
-* RealReport v1.11.31
-* commit 0f8d6472
+* RealReport v1.11.32
+* commit 037210cf
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -8,10 +8,10 @@
 */
 
 /** 
-* RealReport Core v1.11.31
+* RealReport Core v1.11.32
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 9d67279c3ce9201518225a8b10aa65f55cac4231
+* commit 45fc7d0c5308735f944d4d69b3fc971facead362
 */
 type ConfigObject$2 = {
     [key: string]: any;
@@ -10236,7 +10236,18 @@ declare class TextBandElement extends BandItemElement<TextBand> {
     static readonly FOOTER_CLASS = "rr-band-footer";
     static readonly BODY_CLASS = "rr-textband-body";
     static readonly FIXED_LINE_HEIGHT = 1.2;
-    static parseLines(span: HTMLSpanElement, text: string): TextBandLine[];
+    static parseLines(container: HTMLElement, text: string, isRich?: boolean): TextBandLine[];
+    /**
+     * 평문 텍스트를 시각적 라인 단위로 분리한다.
+     * 단일 텍스트 노드에 대해 Range.getClientRects()로 줄 바꿈 위치를 탐지한다.
+     */
+    private static _parsePlainLines;
+    /**
+     * Rich(HTML) 텍스트를 블록 요소 단위로 시각적 라인 분리한다.
+     * 각 블록 요소(p, div 등)의 getBoundingClientRect()를 사용하여 위치를 수집하고,
+     * line 필드에는 outerHTML을 저장하여 서식을 보존한다.
+     */
+    private static _parseRichLines;
     private _bodyView;
     private _headerView;
     private _footerView;
