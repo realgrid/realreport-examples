@@ -1,6 +1,6 @@
 // 아래 라이선스는 유효기간 2026년 12월 31일 까지 demo.realreport.co.kr, demo.real-report.com, 127.0.0.1, localhost 도메인에서 사용할 수 있는 라이선스 입니다.
 var realReportLic =
-    'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYm9cY8amGDkiMnVeQKUHJDjW2y71jtk+wu+9Ot/AUWfApbNKlJ0uYxk/3wVHuaGIbAt0DAcc5jCKM8l5Wgc/BEtli0OMTdNeFST8qSAiiQs2gwgGR1i0rj0b9CNaP1STmYSPJE652sYadN5C7djaxCD/6okUj7ElrY=';
+    'upVcPE+wPOn1V3OcjC3PuAUt7xtLcP5XVzS0GnpZwpnbdxrzWi3SH9lnNreNwRub/31bQcGrnP/Nq/NkIKx9AkkSD8KWTVlm9aI3507Qm2POAklYqFD9ZGXyjOMqbrgvr3+iyFPC2UvKqt1f0nYq0EaGCWBC/YAJv3k1twCopH5/crt8hEk5v9ikYtG9ujSHVP6uYtN4gVSTbZOWr3Nvgg==';
 var viewer;
 var editor;
 var reportViewer;
