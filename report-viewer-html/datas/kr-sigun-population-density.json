@@ -1,0 +1,1515 @@
+[
+    {
+        "id": "11060",
+        "sido": "서울특별시",
+        "originalName": "동대문구",
+        "value": 23727.14
+    },
+    {
+        "id": "11070",
+        "sido": "서울특별시",
+        "originalName": "중랑구",
+        "value": 20937.84
+    },
+    {
+        "id": "11080",
+        "sido": "서울특별시",
+        "originalName": "성북구",
+        "value": 17515.38
+    },
+    {
+        "id": "11090",
+        "sido": "서울특별시",
+        "originalName": "강북구",
+        "value": 12677.2
+    },
+    {
+        "id": "11100",
+        "sido": "서울특별시",
+        "originalName": "도봉구",
+        "value": 15368.81
+    },
+    {
+        "id": "11110",
+        "sido": "서울특별시",
+        "originalName": "노원구",
+        "value": 14417.49
+    },
+    {
+        "id": "11120",
+        "sido": "서울특별시",
+        "originalName": "은평구",
+        "value": 15930.9
+    },
+    {
+        "id": "11130",
+        "sido": "서울특별시",
+        "originalName": "서대문구",
+        "value": 17289.79
+    },
+    {
+        "id": "11140",
+        "sido": "서울특별시",
+        "originalName": "마포구",
+        "value": 15467.71
+    },
+    {
+        "id": "11150",
+        "sido": "서울특별시",
+        "originalName": "양천구",
+        "value": 25692.25
+    },
+    {
+        "id": "11160",
+        "sido": "서울특별시",
+        "originalName": "강서구",
+        "value": 13855.61
+    },
+    {
+        "id": "11170",
+        "sido": "서울특별시",
+        "originalName": "구로구",
+        "value": 19719.38
+    },
+    {
+        "id": "11180",
+        "sido": "서울특별시",
+        "originalName": "금천구",
+        "value": 17727.42
+    },
+    {
+        "id": "11190",
+        "sido": "서울특별시",
+        "originalName": "영등포구",
+        "value": 15349.78
+    },
+    {
+        "id": "11200",
+        "sido": "서울특별시",
+        "originalName": "동작구",
+        "value": 23562.53
+    },
+    {
+        "id": "11210",
+        "sido": "서울특별시",
+        "originalName": "관악구",
+        "value": 16425.4
+    },
+    {
+        "id": "11220",
+        "sido": "서울특별시",
+        "originalName": "서초구",
+        "value": 8775.63
+    },
+    {
+        "id": "11230",
+        "sido": "서울특별시",
+        "originalName": "강남구",
+        "value": 13494.73
+    },
+    {
+        "id": "11240",
+        "sido": "서울특별시",
+        "originalName": "송파구",
+        "value": 19431.46
+    },
+    {
+        "id": "11250",
+        "sido": "서울특별시",
+        "originalName": "강동구",
+        "value": 18815.13
+    },
+    {
+        "id": "21010",
+        "sido": "부산광역시",
+        "originalName": "중구",
+        "value": 14319.43
+    },
+    {
+        "id": "21020",
+        "sido": "부산광역시",
+        "originalName": "서구",
+        "value": 7538.64
+    },
+    {
+        "id": "21030",
+        "sido": "부산광역시",
+        "originalName": "동구",
+        "value": 8883.38
+    },
+    {
+        "id": "21040",
+        "sido": "부산광역시",
+        "originalName": "영도구",
+        "value": 7791.41
+    },
+    {
+        "id": "21050",
+        "sido": "부산광역시",
+        "originalName": "부산진구",
+        "value": 11902.9
+    },
+    {
+        "id": "21060",
+        "sido": "부산광역시",
+        "originalName": "동래구",
+        "value": 16047.26
+    },
+    {
+        "id": "21070",
+        "sido": "부산광역시",
+        "originalName": "남구",
+        "value": 9771.4
+    },
+    {
+        "id": "21080",
+        "sido": "부산광역시",
+        "originalName": "북구",
+        "value": 7193.57
+    },
+    {
+        "id": "21090",
+        "sido": "부산광역시",
+        "originalName": "해운대구",
+        "value": 7691.85
+    },
+    {
+        "id": "21100",
+        "sido": "부산광역시",
+        "originalName": "사하구",
+        "value": 7325.9
+    },
+    {
+        "id": "21110",
+        "sido": "부산광역시",
+        "originalName": "금정구",
+        "value": 3493.4
+    },
+    {
+        "id": "21120",
+        "sido": "부산광역시",
+        "originalName": "강서구",
+        "value": 787.43
+    },
+    {
+        "id": "21130",
+        "sido": "부산광역시",
+        "originalName": "연제구",
+        "value": 17119.34
+    },
+    {
+        "id": "21140",
+        "sido": "부산광역시",
+        "originalName": "수영구",
+        "value": 17132.58
+    },
+    {
+        "id": "21150",
+        "sido": "부산광역시",
+        "originalName": "사상구",
+        "value": 5770.03
+    },
+    {
+        "id": "21510",
+        "sido": "부산광역시",
+        "originalName": "기장군",
+        "value": 811.31
+    },
+    {
+        "id": "22010",
+        "sido": "대구광역시",
+        "originalName": "중구",
+        "value": 10593.63
+    },
+    {
+        "id": "22020",
+        "sido": "대구광역시",
+        "originalName": "동구",
+        "value": 1874.48
+    },
+    {
+        "id": "22030",
+        "sido": "대구광역시",
+        "originalName": "서구",
+        "value": 9499.31
+    },
+    {
+        "id": "22040",
+        "sido": "대구광역시",
+        "originalName": "남구",
+        "value": 8214.29
+    },
+    {
+        "id": "22050",
+        "sido": "대구광역시",
+        "originalName": "북구",
+        "value": 4649.52
+    },
+    {
+        "id": "22060",
+        "sido": "대구광역시",
+        "originalName": "수성구",
+        "value": 5449.4
+    },
+    {
+        "id": "22070",
+        "sido": "대구광역시",
+        "originalName": "달서구",
+        "value": 8739.79
+    },
+    {
+        "id": "22510",
+        "sido": "대구광역시",
+        "originalName": "달성군",
+        "value": 614.84
+    },
+    {
+        "id": "22520",
+        "sido": "대구광역시",
+        "originalName": "군위군",
+        "value": 37.35
+    },
+    {
+        "id": "23010",
+        "sido": "인천광역시",
+        "originalName": "중구",
+        "value": 169.4
+    },
+    {
+        "id": "23020",
+        "sido": "인천광역시",
+        "originalName": "동구",
+        "value": 117.62
+    },
+    {
+        "id": "23040",
+        "sido": "인천광역시",
+        "originalName": "연수구",
+        "value": 8539.72
+    },
+    {
+        "id": "23050",
+        "sido": "인천광역시",
+        "originalName": "남동구",
+        "value": 16403.54
+    },
+    {
+        "id": "23060",
+        "sido": "인천광역시",
+        "originalName": "부평구",
+        "value": 6934.4
+    },
+    {
+        "id": "23070",
+        "sido": "인천광역시",
+        "originalName": "계양구",
+        "value": 9021.27
+    },
+    {
+        "id": "23080",
+        "sido": "인천광역시",
+        "originalName": "서구",
+        "value": 15211.41
+    },
+    {
+        "id": "23090",
+        "sido": "인천광역시",
+        "originalName": "미추홀구",
+        "value": 1023.32
+    },
+    {
+        "id": "23510",
+        "sido": "인천광역시",
+        "originalName": "강화군",
+        "value": 6488.83
+    },
+    {
+        "id": "23520",
+        "sido": "인천광역시",
+        "originalName": "옹진군",
+        "value": 4687.15
+    },
+    {
+        "id": "24010",
+        "sido": "광주광역시",
+        "originalName": "동구",
+        "value": 2098.36
+    },
+    {
+        "id": "24020",
+        "sido": "광주광역시",
+        "originalName": "서구",
+        "value": 6097.8
+    },
+    {
+        "id": "24030",
+        "sido": "광주광역시",
+        "originalName": "남구",
+        "value": 3534.6
+    },
+    {
+        "id": "24040",
+        "sido": "광주광역시",
+        "originalName": "북구",
+        "value": 3551.29
+    },
+    {
+        "id": "24050",
+        "sido": "광주광역시",
+        "originalName": "광산구",
+        "value": 1814.36
+    },
+    {
+        "id": "25010",
+        "sido": "대전광역시",
+        "originalName": "동구",
+        "value": 1625.86
+    },
+    {
+        "id": "25020",
+        "sido": "대전광역시",
+        "originalName": "중구",
+        "value": 3704.42
+    },
+    {
+        "id": "25030",
+        "sido": "대전광역시",
+        "originalName": "서구",
+        "value": 4955.14
+    },
+    {
+        "id": "25040",
+        "sido": "대전광역시",
+        "originalName": "유성구",
+        "value": 1989.67
+    },
+    {
+        "id": "25050",
+        "sido": "대전광역시",
+        "originalName": "대덕구",
+        "value": 2547.24
+    },
+    {
+        "id": "26010",
+        "sido": "울산광역시",
+        "originalName": "중구",
+        "value": 5753.59
+    },
+    {
+        "id": "26020",
+        "sido": "울산광역시",
+        "originalName": "남구",
+        "value": 4269.65
+    },
+    {
+        "id": "26030",
+        "sido": "울산광역시",
+        "originalName": "동구",
+        "value": 4268.59
+    },
+    {
+        "id": "26040",
+        "sido": "울산광역시",
+        "originalName": "북구",
+        "value": 1390.56
+    },
+    {
+        "id": "26510",
+        "sido": "울산광역시",
+        "originalName": "울주군",
+        "value": 292.8
+    },
+    {
+        "id": "29010",
+        "sido": "세종특별자치시",
+        "originalName": "세종시",
+        "value": 799.93
+    },
+    {
+        "id": "31011",
+        "sido": "경기도",
+        "originalName": "수원시 장안구",
+        "value": 9775.49
+    },
+    {
+        "id": "31012",
+        "sido": "경기도",
+        "originalName": "수원시 권선구",
+        "value": 9775.49
+    },
+    {
+        "id": "31013",
+        "sido": "경기도",
+        "originalName": "수원시 팔달구",
+        "value": 9775.49
+    },
+    {
+        "id": "31014",
+        "sido": "경기도",
+        "originalName": "수원시 영통구",
+        "value": 9775.49
+    },
+    {
+        "id": "31021",
+        "sido": "경기도",
+        "originalName": "성남시 수정구",
+        "value": 6573.1
+    },
+    {
+        "id": "31022",
+        "sido": "경기도",
+        "originalName": "성남시 중원구",
+        "value": 6573.1
+    },
+    {
+        "id": "31023",
+        "sido": "경기도",
+        "originalName": "성남시 분당구",
+        "value": 6573.1
+    },
+    {
+        "id": "31030",
+        "sido": "경기도",
+        "originalName": "의정부시",
+        "value": 5685.6
+    },
+    {
+        "id": "31041",
+        "sido": "경기도",
+        "originalName": "안양시 만안구",
+        "value": 9358.27
+    },
+    {
+        "id": "31042",
+        "sido": "경기도",
+        "originalName": "안양시 동안구",
+        "value": 9358.27
+    },
+    {
+        "id": "31051",
+        "sido": "경기도",
+        "originalName": "부천시 원미구",
+        "value": 15080.77
+    },
+    {
+        "id": "31052",
+        "sido": "경기도",
+        "originalName": "부천시 소사구",
+        "value": 15080.77
+    },
+    {
+        "id": "31053",
+        "sido": "경기도",
+        "originalName": "부천시 오정구",
+        "value": 15080.77
+    },
+    {
+        "id": "31060",
+        "sido": "경기도",
+        "originalName": "광명시",
+        "value": 7601.69
+    },
+    {
+        "id": "31070",
+        "sido": "경기도",
+        "originalName": "평택시",
+        "value": 1178.05
+    },
+    {
+        "id": "31080",
+        "sido": "경기도",
+        "originalName": "동두천시",
+        "value": 978.28
+    },
+    {
+        "id": "31091",
+        "sido": "경기도",
+        "originalName": "안산시 상록구",
+        "value": 4173.44
+    },
+    {
+        "id": "31092",
+        "sido": "경기도",
+        "originalName": "안산시 단원구",
+        "value": 4173.44
+    },
+    {
+        "id": "31101",
+        "sido": "경기도",
+        "originalName": "고양시 덕양구",
+        "value": 4026.23
+    },
+    {
+        "id": "31103",
+        "sido": "경기도",
+        "originalName": "고양시 일산동구",
+        "value": 4026.23
+    },
+    {
+        "id": "31104",
+        "sido": "경기도",
+        "originalName": "고양시 일산서구",
+        "value": 4026.23
+    },
+    {
+        "id": "31110",
+        "sido": "경기도",
+        "originalName": "과천시",
+        "value": 2044.74
+    },
+    {
+        "id": "31120",
+        "sido": "경기도",
+        "originalName": "구리시",
+        "value": 5759.02
+    },
+    {
+        "id": "31130",
+        "sido": "경기도",
+        "originalName": "남양주시",
+        "value": 1601.69
+    },
+    {
+        "id": "31140",
+        "sido": "경기도",
+        "originalName": "오산시",
+        "value": 5384.76
+    },
+    {
+        "id": "31150",
+        "sido": "경기도",
+        "originalName": "시흥시",
+        "value": 3665.74
+    },
+    {
+        "id": "31160",
+        "sido": "경기도",
+        "originalName": "군포시",
+        "value": 7373.28
+    },
+    {
+        "id": "31170",
+        "sido": "경기도",
+        "originalName": "의왕시",
+        "value": 3023.43
+    },
+    {
+        "id": "31180",
+        "sido": "경기도",
+        "originalName": "하남시",
+        "value": 3442.17
+    },
+    {
+        "id": "31191",
+        "sido": "경기도",
+        "originalName": "용인시 처인구",
+        "value": 1822.45
+    },
+    {
+        "id": "31192",
+        "sido": "경기도",
+        "originalName": "용인시 기흥구",
+        "value": 1822.45
+    },
+    {
+        "id": "31193",
+        "sido": "경기도",
+        "originalName": "용인시 수지구",
+        "value": 1822.45
+    },
+    {
+        "id": "31200",
+        "sido": "경기도",
+        "originalName": "파주시",
+        "value": 717.13
+    },
+    {
+        "id": "31210",
+        "sido": "경기도",
+        "originalName": "이천시",
+        "value": 483.62
+    },
+    {
+        "id": "31220",
+        "sido": "경기도",
+        "originalName": "안성시",
+        "value": 342.45
+    },
+    {
+        "id": "31230",
+        "sido": "경기도",
+        "originalName": "김포시",
+        "value": 1758.89
+    },
+    {
+        "id": "31240",
+        "sido": "경기도",
+        "originalName": "화성시",
+        "value": 1268.23
+    },
+    {
+        "id": "31250",
+        "sido": "경기도",
+        "originalName": "광주시",
+        "value": 898.6
+    },
+    {
+        "id": "31260",
+        "sido": "경기도",
+        "originalName": "양주시",
+        "value": 761.42
+    },
+    {
+        "id": "31270",
+        "sido": "경기도",
+        "originalName": "포천시",
+        "value": 180.1
+    },
+    {
+        "id": "31280",
+        "sido": "경기도",
+        "originalName": "여주시",
+        "value": 184.36
+    },
+    {
+        "id": "31550",
+        "sido": "경기도",
+        "originalName": "연천군",
+        "value": 63.18
+    },
+    {
+        "id": "31570",
+        "sido": "경기도",
+        "originalName": "가평군",
+        "value": 73.81
+    },
+    {
+        "id": "31580",
+        "sido": "경기도",
+        "originalName": "양평군",
+        "value": 138.11
+    },
+    {
+        "id": "32010",
+        "sido": "강원특별자치도",
+        "originalName": "춘천시",
+        "value": 254.92
+    },
+    {
+        "id": "32020",
+        "sido": "강원특별자치도",
+        "originalName": "원주시",
+        "value": 412.04
+    },
+    {
+        "id": "32030",
+        "sido": "강원특별자치도",
+        "originalName": "강릉시",
+        "value": 204.63
+    },
+    {
+        "id": "32040",
+        "sido": "강원특별자치도",
+        "originalName": "동해시",
+        "value": 499.6
+    },
+    {
+        "id": "32050",
+        "sido": "강원특별자치도",
+        "originalName": "태백시",
+        "value": 134.6
+    },
+    {
+        "id": "32060",
+        "sido": "강원특별자치도",
+        "originalName": "속초시",
+        "value": 782.82
+    },
+    {
+        "id": "32070",
+        "sido": "강원특별자치도",
+        "originalName": "삼척시",
+        "value": 53.4
+    },
+    {
+        "id": "32510",
+        "sido": "강원특별자치도",
+        "originalName": "홍천군",
+        "value": 37.55
+    },
+    {
+        "id": "32520",
+        "sido": "강원특별자치도",
+        "originalName": "횡성군",
+        "value": 46.57
+    },
+    {
+        "id": "32530",
+        "sido": "강원특별자치도",
+        "originalName": "영월군",
+        "value": 33.62
+    },
+    {
+        "id": "32540",
+        "sido": "강원특별자치도",
+        "originalName": "평창군",
+        "value": 28
+    },
+    {
+        "id": "32550",
+        "sido": "강원특별자치도",
+        "originalName": "정선군",
+        "value": 29.25
+    },
+    {
+        "id": "32560",
+        "sido": "강원특별자치도",
+        "originalName": "철원군",
+        "value": 48.71
+    },
+    {
+        "id": "32570",
+        "sido": "강원특별자치도",
+        "originalName": "화천군",
+        "value": 26.61
+    },
+    {
+        "id": "32580",
+        "sido": "강원특별자치도",
+        "originalName": "양구군",
+        "value": 30.88
+    },
+    {
+        "id": "32590",
+        "sido": "강원특별자치도",
+        "originalName": "인제군",
+        "value": 19.54
+    },
+    {
+        "id": "32600",
+        "sido": "강원특별자치도",
+        "originalName": "고성군",
+        "value": 41.03
+    },
+    {
+        "id": "32610",
+        "sido": "강원특별자치도",
+        "originalName": "양양군",
+        "value": 44.33
+    },
+    {
+        "id": "33020",
+        "sido": "충청북도",
+        "originalName": "충주시",
+        "value": 212.84
+    },
+    {
+        "id": "11010",
+        "sido": "서울특별시",
+        "originalName": "종로구",
+        "value": 6051.15
+    },
+    {
+        "id": "11020",
+        "sido": "서울특별시",
+        "originalName": "중구",
+        "value": 12299.1
+    },
+    {
+        "id": "11030",
+        "sido": "서울특별시",
+        "originalName": "용산구",
+        "value": 10194.47
+    },
+    {
+        "id": "11040",
+        "sido": "서울특별시",
+        "originalName": "성동구",
+        "value": 16962.63
+    },
+    {
+        "id": "11050",
+        "sido": "서울특별시",
+        "originalName": "광진구",
+        "value": 19929.43
+    },
+    {
+        "id": "33030",
+        "sido": "충청북도",
+        "originalName": "제천시",
+        "value": 149.07
+    },
+    {
+        "id": "33041",
+        "sido": "충청북도",
+        "originalName": "청주시 상당구",
+        "value": 901.69
+    },
+    {
+        "id": "33042",
+        "sido": "충청북도",
+        "originalName": "청주시 서원구",
+        "value": 901.69
+    },
+    {
+        "id": "33043",
+        "sido": "충청북도",
+        "originalName": "청주시 흥덕구",
+        "value": 901.69
+    },
+    {
+        "id": "33044",
+        "sido": "충청북도",
+        "originalName": "청주시 청원구",
+        "value": 901.69
+    },
+    {
+        "id": "33520",
+        "sido": "충청북도",
+        "originalName": "보은군",
+        "value": 54.57
+    },
+    {
+        "id": "33530",
+        "sido": "충청북도",
+        "originalName": "옥천군",
+        "value": 93.23
+    },
+    {
+        "id": "33540",
+        "sido": "충청북도",
+        "originalName": "영동군",
+        "value": 54.06
+    },
+    {
+        "id": "33550",
+        "sido": "충청북도",
+        "originalName": "진천군",
+        "value": 209.11
+    },
+    {
+        "id": "33560",
+        "sido": "충청북도",
+        "originalName": "괴산군",
+        "value": 45.27
+    },
+    {
+        "id": "33570",
+        "sido": "충청북도",
+        "originalName": "음성군",
+        "value": 177.24
+    },
+    {
+        "id": "33580",
+        "sido": "충청북도",
+        "originalName": "단양군",
+        "value": 36.31
+    },
+    {
+        "id": "33590",
+        "sido": "충청북도",
+        "originalName": "증평군",
+        "value": 445.25
+    },
+    {
+        "id": "34011",
+        "sido": "충청남도",
+        "originalName": "천안시 동남구",
+        "value": 1035.21
+    },
+    {
+        "id": "34012",
+        "sido": "충청남도",
+        "originalName": "천안시 서북구",
+        "value": 1035.21
+    },
+    {
+        "id": "34020",
+        "sido": "충청남도",
+        "originalName": "공주시",
+        "value": 119.36
+    },
+    {
+        "id": "34030",
+        "sido": "충청남도",
+        "originalName": "보령시",
+        "value": 167.72
+    },
+    {
+        "id": "34040",
+        "sido": "충청남도",
+        "originalName": "아산시",
+        "value": 597.97
+    },
+    {
+        "id": "34050",
+        "sido": "충청남도",
+        "originalName": "서산시",
+        "value": 238.02
+    },
+    {
+        "id": "34060",
+        "sido": "충청남도",
+        "originalName": "논산시",
+        "value": 205.83
+    },
+    {
+        "id": "34070",
+        "sido": "충청남도",
+        "originalName": "계룡시",
+        "value": 713.86
+    },
+    {
+        "id": "34080",
+        "sido": "충청남도",
+        "originalName": "당진시",
+        "value": 236.85
+    },
+    {
+        "id": "34510",
+        "sido": "충청남도",
+        "originalName": "금산군",
+        "value": 87.46
+    },
+    {
+        "id": "34530",
+        "sido": "충청남도",
+        "originalName": "부여군",
+        "value": 102.1
+    },
+    {
+        "id": "34540",
+        "sido": "충청남도",
+        "originalName": "서천군",
+        "value": 138.6
+    },
+    {
+        "id": "34550",
+        "sido": "충청남도",
+        "originalName": "청양군",
+        "value": 63.53
+    },
+    {
+        "id": "34560",
+        "sido": "충청남도",
+        "originalName": "홍성군",
+        "value": 222.36
+    },
+    {
+        "id": "34570",
+        "sido": "충청남도",
+        "originalName": "예산군",
+        "value": 141.53
+    },
+    {
+        "id": "34580",
+        "sido": "충청남도",
+        "originalName": "태안군",
+        "value": 119.25
+    },
+    {
+        "id": "35011",
+        "sido": "전북특별자치도",
+        "originalName": "전주시 완산구",
+        "value": 221.42
+    },
+    {
+        "id": "35012",
+        "sido": "전북특별자치도",
+        "originalName": "전주시 덕진구",
+        "value": 221.42
+    },
+    {
+        "id": "35020",
+        "sido": "전북특별자치도",
+        "originalName": "군산시",
+        "value2": 221.42,
+        "value": null
+    },
+    {
+        "id": "35030",
+        "sido": "전북특별자치도",
+        "originalName": "익산시",
+        "value": 221.42
+    },
+    {
+        "id": "35040",
+        "sido": "전북특별자치도",
+        "originalName": "정읍시",
+        "value": 221.42
+    },
+    {
+        "id": "35050",
+        "sido": "전북특별자치도",
+        "originalName": "남원시",
+        "value": 221.42
+    },
+    {
+        "id": "35060",
+        "sido": "전북특별자치도",
+        "originalName": "김제시",
+        "value": 221.42
+    },
+    {
+        "id": "35510",
+        "sido": "전북특별자치도",
+        "originalName": "완주군",
+        "value": 221.42
+    },
+    {
+        "id": "35520",
+        "sido": "전북특별자치도",
+        "originalName": "진안군",
+        "value": 221.42
+    },
+    {
+        "id": "35530",
+        "sido": "전북특별자치도",
+        "originalName": "무주군",
+        "value": 221.42
+    },
+    {
+        "id": "35540",
+        "sido": "전북특별자치도",
+        "originalName": "장수군",
+        "value": 221.42
+    },
+    {
+        "id": "35550",
+        "sido": "전북특별자치도",
+        "originalName": "임실군",
+        "value": 221.42
+    },
+    {
+        "id": "35560",
+        "sido": "전북특별자치도",
+        "originalName": "순창군",
+        "value": 221.42
+    },
+    {
+        "id": "35570",
+        "sido": "전북특별자치도",
+        "originalName": "고창군",
+        "value": 221.42
+    },
+    {
+        "id": "35580",
+        "sido": "전북특별자치도",
+        "originalName": "부안군",
+        "value": 221.42
+    },
+    {
+        "id": "36010",
+        "sido": "전라남도",
+        "originalName": "목포시",
+        "value": 4231.55
+    },
+    {
+        "id": "36020",
+        "sido": "전라남도",
+        "originalName": "여수시",
+        "value": 540.28
+    },
+    {
+        "id": "36030",
+        "sido": "전라남도",
+        "originalName": "순천시",
+        "value": 308.95
+    },
+    {
+        "id": "36040",
+        "sido": "전라남도",
+        "originalName": "나주시",
+        "value": 191.84
+    },
+    {
+        "id": "36060",
+        "sido": "전라남도",
+        "originalName": "광양시",
+        "value": 324.33
+    },
+    {
+        "id": "36510",
+        "sido": "전라남도",
+        "originalName": "담양군",
+        "value": 101.47
+    },
+    {
+        "id": "36520",
+        "sido": "전라남도",
+        "originalName": "곡성군",
+        "value": 50.29
+    },
+    {
+        "id": "36530",
+        "sido": "전라남도",
+        "originalName": "구례군",
+        "value": 56.97
+    },
+    {
+        "id": "36550",
+        "sido": "전라남도",
+        "originalName": "고흥군",
+        "value": 77.74
+    },
+    {
+        "id": "36560",
+        "sido": "전라남도",
+        "originalName": "보성군",
+        "value": 59.29
+    },
+    {
+        "id": "36570",
+        "sido": "전라남도",
+        "originalName": "화순군",
+        "value": 79.57
+    },
+    {
+        "id": "36580",
+        "sido": "전라남도",
+        "originalName": "장흥군",
+        "value": 58.72
+    },
+    {
+        "id": "36590",
+        "sido": "전라남도",
+        "originalName": "강진군",
+        "value": 67.38
+    },
+    {
+        "id": "36600",
+        "sido": "전라남도",
+        "originalName": "해남군",
+        "value": 64.35
+    },
+    {
+        "id": "36610",
+        "sido": "전라남도",
+        "originalName": "영암군",
+        "value": 86.43
+    },
+    {
+        "id": "36620",
+        "sido": "전라남도",
+        "originalName": "무안군",
+        "value": 202.27
+    },
+    {
+        "id": "36630",
+        "sido": "전라남도",
+        "originalName": "함평군",
+        "value": 79.77
+    },
+    {
+        "id": "36640",
+        "sido": "전라남도",
+        "originalName": "영광군",
+        "value": 109.51
+    },
+    {
+        "id": "36650",
+        "sido": "전라남도",
+        "originalName": "장성군",
+        "value": 83.66
+    },
+    {
+        "id": "36660",
+        "sido": "전라남도",
+        "originalName": "완도군",
+        "value": 122.57
+    },
+    {
+        "id": "36670",
+        "sido": "전라남도",
+        "originalName": "진도군",
+        "value": 68.31
+    },
+    {
+        "id": "36680",
+        "sido": "전라남도",
+        "originalName": "신안군",
+        "value": 58.29
+    },
+    {
+        "id": "37011",
+        "sido": "경상북도",
+        "originalName": "포항시 남구",
+        "value": 445.65
+    },
+    {
+        "id": "37012",
+        "sido": "경상북도",
+        "originalName": "포항시 북구",
+        "value": 445.65
+    },
+    {
+        "id": "37020",
+        "sido": "경상북도",
+        "originalName": "경주시",
+        "value": 190.12
+    },
+    {
+        "id": "37030",
+        "sido": "경상북도",
+        "originalName": "김천시",
+        "value": 138.86
+    },
+    {
+        "id": "37040",
+        "sido": "경상북도",
+        "originalName": "안동시",
+        "value": 103.13
+    },
+    {
+        "id": "37050",
+        "sido": "경상북도",
+        "originalName": "구미시",
+        "value": 670.48
+    },
+    {
+        "id": "37060",
+        "sido": "경상북도",
+        "originalName": "영주시",
+        "value": 152.12
+    },
+    {
+        "id": "37070",
+        "sido": "경상북도",
+        "originalName": "영천시",
+        "value": 110.85
+    },
+    {
+        "id": "37080",
+        "sido": "경상북도",
+        "originalName": "상주시",
+        "value": 76.17
+    },
+    {
+        "id": "37090",
+        "sido": "경상북도",
+        "originalName": "문경시",
+        "value": 78.02
+    },
+    {
+        "id": "37100",
+        "sido": "경상북도",
+        "originalName": "경산시",
+        "value": 651.63
+    },
+    {
+        "id": "37520",
+        "sido": "경상북도",
+        "originalName": "의성군",
+        "value": 43.1
+    },
+    {
+        "id": "37530",
+        "sido": "경상북도",
+        "originalName": "청송군",
+        "value": 29
+    },
+    {
+        "id": "37540",
+        "sido": "경상북도",
+        "originalName": "영양군",
+        "value": 20.01
+    },
+    {
+        "id": "37550",
+        "sido": "경상북도",
+        "originalName": "영덕군",
+        "value": 47.64
+    },
+    {
+        "id": "37560",
+        "sido": "경상북도",
+        "originalName": "청도군",
+        "value": 60.37
+    },
+    {
+        "id": "37570",
+        "sido": "경상북도",
+        "originalName": "고령군",
+        "value": 79.74
+    },
+    {
+        "id": "37580",
+        "sido": "경상북도",
+        "originalName": "성주군",
+        "value": 69.54
+    },
+    {
+        "id": "37590",
+        "sido": "경상북도",
+        "originalName": "칠곡군",
+        "value": 252.41
+    },
+    {
+        "id": "37600",
+        "sido": "경상북도",
+        "originalName": "예천군",
+        "value": 84.26
+    },
+    {
+        "id": "37610",
+        "sido": "경상북도",
+        "originalName": "봉화군",
+        "value": 25.59
+    },
+    {
+        "id": "37620",
+        "sido": "경상북도",
+        "originalName": "울진군",
+        "value": 48.33
+    },
+    {
+        "id": "37630",
+        "sido": "경상북도",
+        "originalName": "울릉군",
+        "value": 121.42
+    },
+    {
+        "id": "38030",
+        "sido": "경상남도",
+        "originalName": "진주시",
+        "value": 486.88
+    },
+    {
+        "id": "38050",
+        "sido": "경상남도",
+        "originalName": "통영시",
+        "value": 521.96
+    },
+    {
+        "id": "38060",
+        "sido": "경상남도",
+        "originalName": "사천시",
+        "value": 275.77
+    },
+    {
+        "id": "38070",
+        "sido": "경상남도",
+        "originalName": "김해시",
+        "value": 1159.97
+    },
+    {
+        "id": "38080",
+        "sido": "경상남도",
+        "originalName": "밀양시",
+        "value": 129.63
+    },
+    {
+        "id": "38090",
+        "sido": "경상남도",
+        "originalName": "거제시",
+        "value": 597.31
+    },
+    {
+        "id": "38100",
+        "sido": "경상남도",
+        "originalName": "양산시",
+        "value": 730.46
+    },
+    {
+        "id": "38111",
+        "sido": "경상남도",
+        "originalName": "창원시 의창구",
+        "value": 1378.77
+    },
+    {
+        "id": "38112",
+        "sido": "경상남도",
+        "originalName": "창원시 성산구",
+        "value": 1378.77
+    },
+    {
+        "id": "38113",
+        "sido": "경상남도",
+        "originalName": "창원시 마산합포구",
+        "value": 1378.77
+    },
+    {
+        "id": "38114",
+        "sido": "경상남도",
+        "originalName": "창원시 마산회원구",
+        "value": 1378.77
+    },
+    {
+        "id": "38115",
+        "sido": "경상남도",
+        "originalName": "창원시 진해구",
+        "value": 1378.77
+    },
+    {
+        "id": "38510",
+        "sido": "경상남도",
+        "originalName": "의령군",
+        "value": 54.51
+    },
+    {
+        "id": "38520",
+        "sido": "경상남도",
+        "originalName": "함안군",
+        "value": 150.13
+    },
+    {
+        "id": "38530",
+        "sido": "경상남도",
+        "originalName": "창녕군",
+        "value": 112.89
+    },
+    {
+        "id": "38540",
+        "sido": "경상남도",
+        "originalName": "고성군",
+        "value": 97.45
+    },
+    {
+        "id": "38550",
+        "sido": "경상남도",
+        "originalName": "남해군",
+        "value": 118.21
+    },
+    {
+        "id": "38560",
+        "sido": "경상남도",
+        "originalName": "하동군",
+        "value": 64.38
+    },
+    {
+        "id": "38570",
+        "sido": "경상남도",
+        "originalName": "산청군",
+        "value": 43.24
+    },
+    {
+        "id": "38580",
+        "sido": "경상남도",
+        "originalName": "함양군",
+        "value": 52.8
+    },
+    {
+        "id": "38590",
+        "sido": "경상남도",
+        "originalName": "거창군",
+        "value": 76.02
+    },
+    {
+        "id": "38600",
+        "sido": "경상남도",
+        "originalName": "합천군",
+        "value": 43.67
+    },
+    {
+        "id": "39010",
+        "sido": "제주특별자치도",
+        "originalName": "제주시",
+        "value": 503.83
+    },
+    {
+        "id": "39020",
+        "sido": "제주특별자치도",
+        "originalName": "서귀포시",
+        "value": 210.72
+    }
+]
