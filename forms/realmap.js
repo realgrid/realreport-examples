@@ -59,7 +59,7 @@ var realMapSeries = {
                             values: [],
                             name: 'map',
                             dataUrl:
-                                'https://cdn.realmap.co.kr/v1/assets/data/kr-sigun-population-density.json',
+                                'https://demo.realreport.co.kr/datas/kr-sigun-population-density.json',
                             mapKeys: 'id',
                             pointColors:
                                 "const { source } = args;\n\t\n  if (source.value > 5000) {\n    return '#395886';\n  } else if (source.value > 1000) {\n    return '#395886';\n  } else if (source.value > 500) {\n    return '#628ecb';\n  } else if (source.value > 250) {\n    return '#8aaee0';\n  } else if (source.value > 50) {\n    return '#b1c9ef';\n  }\n  return '#d5deef';",
