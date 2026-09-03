@@ -9060,6 +9060,7 @@ declare class PrintPage {
     contents: PrintPageElement[];
     foreground: HTMLDivElement;
     reportIndex: number;
+    pageless?: boolean;
 }
 
 declare type PrintPageCallback = (ctx: PrintContextBase, page: PrintPage, pageNo: number) => void;
@@ -15149,6 +15150,15 @@ declare class SimpleData extends LinkableReportData implements ISimpleData {
     getValues(): any;
     setValue(path: string, value: any): void;
     changeName(path: string, newName: string): void;
+    /**
+     * 중첩 경로를 안전하게 탐색한다. 중간 값이 null/undefined이면 undefined를 반환.
+     */
+    private _resolvePath;
+    /**
+     * 중첩 경로의 마지막 직전 객체(부모)를 안전하게 탐색한다.
+     * setValue, changeName 등에서 부모 객체가 필요할 때 사용.
+     */
+    private _resolveParent;
     private get _values();
     private set _values(value);
     get sample(): SimpleDataValueType;
