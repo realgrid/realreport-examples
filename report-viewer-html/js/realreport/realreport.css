@@ -1,5 +1,5 @@
 /* 
-RealReport v1.11.32
+RealReport v1.11.33
 Copyright (C) 2013-2026 WooriTech Inc.
 All Rights Reserved.
 */
@@ -101,7 +101,7 @@ sup {
 
 .rr-report-view {
   background-color: #fff;
-  box-shadow: rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  box-shadow: rgba(60, 64, 67, 0.08) 0px 1px 3px 1px;
 }
 
 .rr-messagebar {
@@ -478,7 +478,7 @@ border: 1px dotted #00000020; */
   margin-bottom: 20px;
   border: 1px solid gray;
   box-sizing: border-box;
-  box-shadow: rgba(50, 54, 57, 0.15) 0px 1px 3px 1px;
+  box-shadow: rgba(50, 54, 57, 0.08) 0px 1px 3px 1px;
 }
 
 @page {
@@ -1783,14 +1783,14 @@ td[data-elock="4"]:hover {
   position: absolute;
   left: 0;
   top: 0;
-  border: 1px solid var(--rrd-light-theme-primary-color-7);
+  border: 1px solid var(--rrd-primary-color-7);
   color: #3a3a3a;
   border-radius: 2px;
   z-index: 5;
 }
 
 .rr-sheet-borders-popup [data-active] {
-  background: var(--rrd-light-theme-primary-color-3);
+  background: var(--rrd-primary-color-3);
 }
 
 .rr-border-svg-container {
@@ -1804,7 +1804,7 @@ td[data-elock="4"]:hover {
 }
 
 .rr-border-svg-container:hover {
-  background: var(--rrd-light-theme-primary-color-3);
+  background: var(--rrd-primary-color-3);
 }
 
 .rr-border-direction-icons-container {

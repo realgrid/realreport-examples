@@ -1,6 +1,6 @@
 /** 
-* RealReport v1.11.32
-* commit 037210cf
+* RealReport v1.11.33
+* commit 74503bc3
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -8,10 +8,10 @@
 */
 
 /** 
-* RealReport Core v1.11.32
+* RealReport Core v1.11.33
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 45fc7d0c5308735f944d4d69b3fc971facead362
+* commit 5a349b6480058838416a3088861183b46351ff2e
 */
 type ConfigObject$2 = {
     [key: string]: any;
@@ -10238,6 +10238,12 @@ declare class TextBandElement extends BandItemElement<TextBand> {
     static readonly FIXED_LINE_HEIGHT = 1.2;
     static parseLines(container: HTMLElement, text: string, isRich?: boolean): TextBandLine[];
     /**
+     * 텍스트 노드를 시각적 라인 단위로 분리한다.
+     * Range.getClientRects()로 줄 바꿈 위치를 탐지하며, 결과는 읽는 순서(위→아래)로 반환한다.
+     * 평문(_parsePlainLines)과 rich 텍스트의 블록 사이 텍스트 노드(_parseRichLines)에서 공용으로 사용한다.
+     */
+    private static _splitTextNodeLines;
+    /**
      * 평문 텍스트를 시각적 라인 단위로 분리한다.
      * 단일 텍스트 노드에 대해 Range.getClientRects()로 줄 바꿈 위치를 탐지한다.
      */
@@ -11897,6 +11903,10 @@ interface PdfPermissions {
 }
 
 type EditableItemValue = string | number | boolean;
+interface EditableItemSourceInfo {
+    reportIndex?: number;
+    reportName?: string;
+}
 interface EditableItem {
     reportItemElement: ReportItemView;
     targetElement: HTMLElement;
@@ -11905,10 +11915,20 @@ interface EditableItem {
     item: string;
     originalValue: EditableItemValue;
     value: EditableItemValue;
+    reportIndex: number;
+    reportName?: string;
+    dataSet?: string;
+    field?: string;
 }
 type EditableItemMeta = {
     name: string;
     value: EditableItemValue;
+    originalValue: EditableItemValue;
+    changed: boolean;
+    reportIndex: number;
+    reportName?: string;
+    dataSet?: string;
+    field?: string;
 };
 /**
  * 리얼리포트 출력후에도 내용 수정이 가능한 아이템들의 정보를 저장하고 관리한다.
@@ -11918,7 +11938,8 @@ declare class PrintEditableItemManager extends Base$1 {
     private _editableItems;
     constructor();
     get canFocusedItems(): EditableItem[];
-    addEditableItem(itemView: ReportItemView, targetElement: HTMLElement, markerElement: HTMLElement): void;
+    addEditableItem(itemView: ReportItemView, targetElement: HTMLElement, markerElement: HTMLElement, sourceInfo?: EditableItemSourceInfo): void;
+    clear(): void;
     updateEditableItem(markerElement: HTMLElement, newValue: string): void;
     getEditableItems(): EditableItemMeta[];
     nextItem(currentElement: HTMLElement): EditableItem | undefined;
@@ -11930,6 +11951,13 @@ declare class PrintEditableItemManager extends Base$1 {
      */
     private $_getFoucsedElementIndex;
     private $_convertValue;
+    /**
+     * 아이템에 바인딩된 데이터셋/필드 정보를 구한다.
+     * - value가 'dsName::field' 경로면 데이터셋과 필드로 분해한다.
+     * - 그 외에는 아이템의 data, 비어있으면 dataParent 체인에서 상속되는 데이터셋을 찾는다.
+     * - '${...}' 표현식이나 i18n 필드는 field에 원문 그대로 담긴다.
+     */
+    private $_resolveDataBinding;
 }
 
 declare class PrintContainer extends PrintContainerBase {
@@ -12025,6 +12053,7 @@ declare class PrintContainer extends PrintContainerBase {
     private $_addEditableItemToManager;
     /**
      * 한 페이지당 수정가능한 아이템 정보를 찾아서 정보를 최신화 시킨다.
+     * 페이지는 정확히 하나의 출력 컨텍스트에 속하므로 해당 컨텍스트의 요소 맵에서만 찾는다.
      */
     private $_addEditableItems;
     private $_addBorderContainer;
@@ -13613,6 +13642,7 @@ declare class PrintPage {
     contents: PrintPageElement[];
     foreground: HTMLDivElement;
     reportIndex: number;
+    pageless?: boolean;
 }
 
 declare class PageViewContainer extends LayerElement$1 {
@@ -14430,6 +14460,15 @@ declare class SimpleData extends LinkableReportData implements ISimpleData {
     getValues(): any;
     setValue(path: string, value: any): void;
     changeName(path: string, newName: string): void;
+    /**
+     * 중첩 경로를 안전하게 탐색한다. 중간 값이 null/undefined이면 undefined를 반환.
+     */
+    private _resolvePath;
+    /**
+     * 중첩 경로의 마지막 직전 객체(부모)를 안전하게 탐색한다.
+     * setValue, changeName 등에서 부모 객체가 필요할 때 사용.
+     */
+    private _resolveParent;
     private get _values();
     private set _values(value);
     get sample(): SimpleDataValueType;
@@ -50173,6 +50212,7 @@ declare abstract class ReportViewBase {
     set page(v: number);
     get reportHtml(): string;
     get editableItems(): ReportEditableItem[];
+    protected _getEditableItems(): ReportEditableItem[];
     getHtml(): string;
     first(): void;
     prev(): void;
@@ -50441,6 +50481,12 @@ declare class ReportCompositeViewer extends ReportViewBase {
     protected _setReportForm(data: ReportFormSet | ReportFormSets): void;
     set formSets(formSets: ReportFormSets);
     /**
+     * 출력된 리포트들의 편집 가능한 아이템 정보.
+     * reportIndex는 formSets 배열 인덱스와 1:1로 대응하고,
+     * reportId는 formSet에 지정한 reportId 값이 그대로 반환된다.
+     */
+    get editableItems(): CompositeReportEditableItem[];
+    /**
      * container에 formsset을 preview로 렌더링 합니다.
      * 매핑 정보
      *   - form -> report
@@ -50516,11 +50562,22 @@ type ReportDataSet = Record<string, ReportData>;
 type ReportFormSet = {
     form: ReportForm;
     dataSet?: ReportDataSet;
+    reportId?: string;
 };
 type ReportFormSets = ReportFormSet[];
 type ReportEditableItem = {
     name: string;
     value: unknown;
+    originalValue: unknown;
+    changed: boolean;
+    dataSet?: string;
+    field?: string;
+    reportIndex?: number;
+    reportId?: string;
+    reportName?: string;
+};
+type CompositeReportEditableItem = ReportEditableItem & {
+    reportIndex: number;
 };
 
 type CommonStyleName = 'color' | 'backgroundColor' | 'fontSize' | 'fontWeight' | 'textAlign' | 'padding' | 'paddingLeft' | 'paddingRightt' | 'paddingTop' | 'paddingBottom';
@@ -50776,4 +50833,4 @@ declare const IMG_EXPORT_DEFAULT_OPTIONS: ImageExportOptions;
  */
 declare const ZOOM_ERROR_MESSAGE = "\uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778 \uACBD\uC6B0\uB9CC \uB0B4\uBCF4\uB0B4\uAE30\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4. \uD398\uC774\uC9C0 \uBC30\uC728 \uAC12\uC774 100%\uC778\uC9C0 \uD655\uC778\uD574 \uC8FC\uC138\uC694.";
 
-export { DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, ExportImageOptions, FontStore, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportEditableItem, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE, getVersion, setLicenseKey };
+export { CompositeReportEditableItem, DOC_EXPORT_DEFAULT_OPTIONS, DocumentExportBlobOptions, DocumentExportOptions, DocumentsExportFromDataOptions, ExportImageOptions, FontStore, GridReportHeader, GridReportItemSource, GridReportLayout, GridReportLayoutHeader, GridReportOptions, GridReportSaveOptions, GridReportTitle, GridReportViewer, IMG_EXPORT_DEFAULT_OPTIONS, ImageExportBlobOptions, ImageExportOptions, LayoutColumn, PDFExportBlobOptions, PDFExportOptions, PreviewOptions, PrintOptions, ReportCompositeViewer, ReportData, ReportDataSet, ReportEditableItem, ReportForm, ReportFormSet, ReportFormSets, ReportOptions, ReportViewer, ZOOM_ERROR_MESSAGE, getVersion, setLicenseKey };
