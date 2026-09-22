@@ -1,6 +1,6 @@
 /** 
-* RealReport v1.11.33
-* commit 74503bc3
+* RealReport v1.11.34
+* commit 6140a18c
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -8,10 +8,10 @@
 */
 
 /** 
-* RealReport Core v1.11.33
+* RealReport Core v1.11.34
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 5a349b6480058838416a3088861183b46351ff2e
+* commit 78906c7a197407f96b2cb910d2963e844a1c2514
 */
 type ConfigObject$2 = {
     [key: string]: any;
@@ -2598,14 +2598,22 @@ declare abstract class TableBase extends CellContainer {
     protected _addColumn(index: number): void;
     protected _removeColumn(col: number): void;
 }
+type TableColumnStyleCallback = (ctx: PrintContext$1, column: TableColumnBase, row: number, value: any) => {
+    [key: string]: string | undefined;
+};
 declare abstract class TableColumnBase extends ReportItemCollectionItem {
     static readonly PROP_WIDTH = "width";
+    static readonly PROP_STYLE_CALLBACK = "styleCallback";
     static readonly PROPINFOS: IPropInfo[];
     private static readonly styleProps;
     static readonly $_ctor: string;
     private _width;
+    private _styleCallback;
+    private _onGetStyles;
     private _index;
     private _widthDim;
+    private _styleCallbackFunc;
+    private _styleCallbackDelegate;
     constructor(collection: ReportItemCollection, src?: any);
     getEditProps(): IPropInfo[];
     getCollectionLabel(): string;
@@ -2616,6 +2624,12 @@ declare abstract class TableColumnBase extends ReportItemCollectionItem {
      */
     get width(): ValueString;
     set width(value: ValueString);
+    /** styleCallback */
+    get styleCallback(): TableColumnStyleCallback;
+    set styleCallback(value: TableColumnStyleCallback);
+    /** onGetStyles */
+    get onGetStyles(): string;
+    set onGetStyles(value: string);
     getWidth(bounds: number): number;
     get itemType(): string;
     get page(): ReportPageBase;
@@ -2624,6 +2638,7 @@ declare abstract class TableColumnBase extends ReportItemCollectionItem {
     protected _doLoad(src: any): void;
     protected _doSave(target: any): any;
     protected abstract _changed(prop: string, newValue: any, oldValue: any): void;
+    private _getStyleCallbackDelegate;
 }
 declare abstract class TableColumnCollectionBase<T extends ReportGroupItem, C extends TableColumnBase> extends ReportItemCollection<C> {
     private _owner;
@@ -3123,6 +3138,10 @@ declare class TableBand extends TableLikeBand {
     protected _createFooter(): TableBandFooter;
 }
 
+/**
+ * NOTE: 컬럼의 onGetStyles/styleCallback 구현은 TableBandColumn과 공유하기 위해
+ * TableColumnBase(TableBase.ts)로 옮겨졌다. 여기서는 그대로 상속만 받는다.
+ */
 declare class TableColumn extends TableColumnBase {
     static readonly $_ctor: string;
     constructor(collection: TableColumnCollection, src?: any);
@@ -9175,9 +9194,54 @@ declare class MarkdownBand extends ReportBandItem {
     get html(): string;
     set html(value: string);
     getHtml(ctx: PrintContext$1): string;
+    /**
+     * 출력할 html 문자열을 반환한다.
+     * MarkdownBandElement의 prepareAsync()와 _doMeasure() 양쪽에서 호출되므로,
+     * 두 시점이 같은 문자열을 보도록 여기 한 곳에서만 결정한다.
+     *
+     * - 밴드에 band data가 명시적으로 지정된 경우: 모든 행의 값을 이어붙여 하나의 연속된
+     *   흐름으로 만든다. 행 단위로 페이지를 나누지 않고 기존 페이지네이션이 그대로 자른다.
+     * - value만 있는 경우: 현재 행(ctx.row)의 값 하나만 사용한다.
+     * - value가 없으면 정적 html을 사용한다.
+     */
     getPrintText(ctx: PrintContext$1): string;
+    /**
+     * 여러 행을 이어붙일지 판단할 때 사용할 data 이름.
+     *
+     * 해석 순서를 ReportItem.$_getValue()와 반드시 일치시킨다 — "데이터명::필드" 접두어가
+     * data 속성보다 우선이다. 순서가 어긋나면 행 수는 A에서, 값은 B에서 가져오게 된다.
+     * (접두어가 비어있는 "::field"는 $_getValue와 동일하게 인정하지 않는다.)
+     *
+     * dataParent에서 상속받은 data(_getParentData())는 일부러 쓰지 않는다. 상속된 data는
+     * "자식들이 행 단위 문맥으로 쓰라"는 의미이므로, 데이터셋 전체를 이어붙이는 동작은
+     * 밴드 자신에 명시된 경우로 제한한다. (TextBandElement의 `band.value && band.data` 조건과 동일한 판단)
+     */
+    private $_getBoundDataName;
+    /**
+     * 바인딩된 band data의 모든 행 값을 이어붙인다.
+     *
+     * ctx.row는 건드리지 않는다 — getDataValue()가 row를 인자로 받으므로 바꿀 이유가 없고,
+     * PageBodyElement.print()가 body의 모든 아이템을 한 번에 measure하기 때문에 여기서
+     * ctx.row를 남겨두면 뒤따르는 형제 아이템의 measure/isPrintable까지 오염된다.
+     *
+     * 행 사이에 구분자를 넣지 않는다. 줄바꿈을 넣으면 getHtml()이 줄바꿈을 제거하는 규칙과
+     * 모순되고, 래퍼 엘리먼트로 감싸면 Paginator가 최상위 자식 단위로 자르므로 행 전체가
+     * 분할 불가 단위가 되어 연속 흐름이 깨진다.
+     */
+    private $_collectRowValues;
+    /**
+     * 행 값을 html 문자열로 정규화한다.
+     * undefined/null을 그대로 흘리면 MarkdownBandPrintInfo가 this.html.replace()를 호출할 때
+     * TypeError가 난다. 문자열이 아닌 값(숫자, Date 등)도 마찬가지다.
+     */
+    private $_toHtml;
     getSaveType(): string;
     get outlineLabel(): string;
+    /**
+     * ReportGroupItem은 기본적으로 data/value 바인딩을 쓰지 않지만,
+     * MarkdownBand는 TextBand와 마찬가지로 값에 연결해서 사용한다.
+     */
+    protected _valueable(): boolean;
     protected _doDefaultInit(loader: IReportLoader, parent: ReportGroupItem, hintWidth: number, hintHeight: number): void;
     protected _getEditProps(): IPropInfo[];
     protected _getStyleProps(): string[];
@@ -9663,7 +9727,6 @@ declare class TableBandDataRowElement extends TableBandSectionElement<TableBandD
     $_refreshRowCells(ctx: PrintContext$1, hintWidth: number, hintHeight: number, force?: boolean, tableRows?: HTMLTableRowElement[]): void;
     protected _setTableStyles(table: HTMLTableElement): void;
     protected _setRowStyles(tr: HTMLTableRowElement, row: number): void;
-    private $_getCellStyleCallback;
 }
 interface ITableGroupPrintInfo extends IGroupPrintInfo {
     view: TableBandGroupSectionElement<TableBandRowGroupHeader | TableBandRowGroupFooter> | null;
