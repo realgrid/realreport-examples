@@ -692,6 +692,7 @@ declare class BodyItemAddSection extends ItemAddSection<PageBody> {
     constructor(target: PageBody);
     get pathLabel(): string;
     get outlineLabel(): string;
+    get addTarget(): ReportGroupItem;
     protected _doItemAdded(item: ReportItem, index: number): void;
 }
 
@@ -7712,6 +7713,8 @@ declare class ItemAddSection<S extends PageSection> extends PageSection {
     private _targetSection;
     constructor(target: S);
     get targetSection(): S;
+    /** 이 섹션에 추가된 아이템이 실제로 들어갈 컨테이너 */
+    get addTarget(): ReportGroupItem;
     get pathLabel(): string;
     canResize(dir: ResizeDirection): boolean;
     canFold(): boolean;
@@ -12371,6 +12374,12 @@ declare abstract class ReportGroupItem extends ReportItem {
      * child props를 제공하는가?
      */
     get isChildPropContainer(): boolean;
+    /**
+     * 이 그룹에 아이템을 추가할 때 실제로 들어갈 컨테이너.
+     * 받은 아이템을 다른 컨테이너로 넘기는 그룹(ItemAddSection 등)이 재정의한다.
+     * 아이템 추가·부모 변경 커맨드는 이 값을 parent로 기록해야 undo/redo가 맞게 동작한다.
+     */
+    get addTarget(): ReportGroupItem;
     /** count */
     get count(): number;
     /** items */
