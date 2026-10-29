@@ -2701,16 +2701,23 @@ declare class EditableObject<T extends ReportItem> extends ReportItemObject<T> {
     static readonly PROP_EDITABLE = "editable";
     static readonly PROP_TYPE = "type";
     static readonly PROP_MAX_LENGTH = "maxLength";
+    static readonly PROP_SYNC_KEY = "syncKey";
     static readonly PROPINFOS: IPropInfo[];
     private _editable;
     private _type;
     private _maxLength;
+    private _syncKey;
     get editable(): boolean;
     set editable(value: boolean);
     get type(): EditType;
     set type(value: EditType);
     get maxLength(): number;
     set maxLength(value: number);
+    /**
+     * 같은 출력 컨테이너 안에서 syncKey와 아이템 타입이 같은 편집 항목끼리 편집 값을 함께 반영한다.
+     */
+    get syncKey(): string;
+    set syncKey(value: string);
     get pathLabel(): string;
     get displayPath(): string;
     get level(): number;

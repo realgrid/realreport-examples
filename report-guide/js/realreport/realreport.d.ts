@@ -1,6 +1,6 @@
 /** 
-* RealReport v1.11.35
-* commit 76d0a13d
+* RealReport v1.11.36
+* commit 7a6f0c8a
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -8,10 +8,10 @@
 */
 
 /** 
-* RealReport Core v1.11.35
+* RealReport Core v1.11.36
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit d552d557a052d0bcc27a812659dc10e5bc5810ee
+* commit 99a7ab0a729146d0aaef59db604954a1fc6059b6
 */
 type ConfigObject$2 = {
     [key: string]: any;
@@ -5884,16 +5884,23 @@ declare class EditableObject<T extends ReportItem> extends ReportItemObject<T> {
     static readonly PROP_EDITABLE = "editable";
     static readonly PROP_TYPE = "type";
     static readonly PROP_MAX_LENGTH = "maxLength";
+    static readonly PROP_SYNC_KEY = "syncKey";
     static readonly PROPINFOS: IPropInfo[];
     private _editable;
     private _type;
     private _maxLength;
+    private _syncKey;
     get editable(): boolean;
     set editable(value: boolean);
     get type(): EditType;
     set type(value: EditType);
     get maxLength(): number;
     set maxLength(value: number);
+    /**
+     * 같은 출력 컨테이너 안에서 syncKey와 아이템 타입이 같은 편집 항목끼리 편집 값을 함께 반영한다.
+     */
+    get syncKey(): string;
+    set syncKey(value: string);
     get pathLabel(): string;
     get displayPath(): string;
     get level(): number;
@@ -11985,6 +11992,7 @@ interface EditableItem {
     reportName?: string;
     dataSet?: string;
     field?: string;
+    syncKey?: string;
 }
 type EditableItemMeta = {
     name: string;
@@ -11995,6 +12003,7 @@ type EditableItemMeta = {
     reportName?: string;
     dataSet?: string;
     field?: string;
+    syncKey?: string;
 };
 /**
  * 리얼리포트 출력후에도 내용 수정이 가능한 아이템들의 정보를 저장하고 관리한다.
@@ -12006,6 +12015,11 @@ declare class PrintEditableItemManager extends Base$1 {
     get canFocusedItems(): EditableItem[];
     addEditableItem(itemView: ReportItemView, targetElement: HTMLElement, markerElement: HTMLElement, sourceInfo?: EditableItemSourceInfo): void;
     clear(): void;
+    /**
+     * 마커에 해당하는 항목의 값을 갱신한다.
+     * 대상에 syncKey가 있으면 syncKey와 아이템 타입이 같은 다른 항목에도 값을 반영한다.
+     * 대상 항목의 DOM은 호출한 쪽(편집기, 체크 토글)이 이미 반영했으므로 다시 쓰지 않는다.
+     */
     updateEditableItem(markerElement: HTMLElement, newValue: string): void;
     getEditableItems(): EditableItemMeta[];
     nextItem(currentElement: HTMLElement): EditableItem | undefined;
@@ -12016,6 +12030,10 @@ declare class PrintEditableItemManager extends Base$1 {
      * @returns 포커스 가능한 아이템 목록에서 현재 선택된 아이템 인덱스
      */
     private $_getFoucsedElementIndex;
+    /**
+     * 편집 값을 항목의 DOM에 반영한다.
+     */
+    private $_applyValue;
     private $_convertValue;
     /**
      * 아이템에 바인딩된 데이터셋/필드 정보를 구한다.
@@ -12116,6 +12134,11 @@ declare class PrintContainer extends PrintContainerBase {
     private $_createReportView;
     private $_instanceofIPrintReport;
     private $_addMarkerEventListener;
+    /**
+     * 편집 가능한 체크 아이템의 체크 상태를 뒤집는다.
+     * 관리자를 거쳐야 syncKey로 묶인 다른 항목에도 반영된다.
+     */
+    private $_toggleCheckItem;
     private $_addEditableItemToManager;
     /**
      * 한 페이지당 수정가능한 아이템 정보를 찾아서 정보를 최신화 시킨다.
