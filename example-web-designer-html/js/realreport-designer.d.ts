@@ -724,6 +724,22 @@ declare class BodyView extends DialogBodyView {
     createSelect(doc: Document, selectOptions?: SelectOption[]): HTMLSelectElement;
 }
 
+/**
+ * 참, 거짓 편집 가능한 속성 객체
+ */
+declare class BooleanEditableObject<T extends ReportItem> extends EditableObjectBase<T> {
+    static readonly PROP_SYNC_KEY = "syncKey";
+    static readonly PROPINFOS: IPropInfo[];
+    private _syncKey;
+    /**
+     * 같은 출력 컨테이너 안에서 syncKey와 아이템 타입이 같은 편집 항목끼리 편집 값을 함께 반영한다.
+     */
+    get syncKey(): string;
+    set syncKey(value: string);
+    constructor(item: T);
+    protected _doGetEditProps(): IPropInfo[];
+}
+
 declare interface Border {
     style: BorderStyle;
     color: Partial<Color>;
@@ -2679,54 +2695,58 @@ declare enum DropResultType {
 }
 
 /**
- * Report Editable 속성 관련하여 수정가능한 영역 표시를 위해 작성
- */
-declare class EditableMarker extends VisualElement {
-    static readonly CLASS_NAME = "rr-editable-marker";
-    static readonly DEFAULT_BACKGROUND_COLOR = "#0ea5e9";
-    private $_originalValue;
-    get originalValue(): string;
-    set originalValue(value: string);
-    constructor(doc: Document);
-    get isLayer(): boolean;
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    setOriginalValue(value: string): void;
-    setMarkerSize(width: number, height: number): void;
-}
-
-/**
  * 텍스트 관련 편집가능 객체 속성 구현
  */
-declare class EditableObject<T extends ReportItem> extends ReportItemObject<T> {
-    static readonly PROP_EDITABLE = "editable";
+declare class EditableObject<T extends ReportItem> extends BooleanEditableObject<T> {
     static readonly PROP_TYPE = "type";
     static readonly PROP_MAX_LENGTH = "maxLength";
-    static readonly PROP_SYNC_KEY = "syncKey";
     static readonly PROPINFOS: IPropInfo[];
-    private _editable;
     private _type;
     private _maxLength;
-    private _syncKey;
-    get editable(): boolean;
-    set editable(value: boolean);
     get type(): EditType;
     set type(value: EditType);
     get maxLength(): number;
     set maxLength(value: number);
+    constructor(item: T);
+    protected _doGetEditProps(): IPropInfo[];
+}
+
+/**
+ * 편집 속성(`editing`) 객체의 공통 기반.
+ * editable 여부와 editable marker 스타일(`styles`)을 가진다.
+ * 하위 클래스는 `_doGetEditProps()`로 고유 속성만 추가한다.
+ */
+declare abstract class EditableObjectBase<T extends ReportItem> extends ReportItemObject<T> {
+    static readonly PROP_EDITABLE = "editable";
+    static readonly PROP_STYLES = "styles";
+    static readonly PROPINFOS: IPropInfo[];
+    static readonly VISIBLE_IF_EDITABLE: (source: EditableObjectBase<any>) => boolean;
+    static readonly STYLES_PROPINFO: IPropInfo;
+    static readonly MARKER_STYLE_PROPS: string[];
+    private static _markerStyleInfos;
     /**
-     * 같은 출력 컨테이너 안에서 syncKey와 아이템 타입이 같은 편집 항목끼리 편집 값을 함께 반영한다.
+     * PropertyGroup.borrow가 info 객체 동일성으로 재사용하므로 한 번만 만든다.
+     * STYLE_PROPS가 모듈 로드 순서상 비어 있을 수 있어 처음 쓸 때 만든다.
      */
-    get syncKey(): string;
-    set syncKey(value: string);
+    static get MARKER_STYLE_INFOS(): IPropInfo[];
+    private _editable;
+    constructor(item: T);
+    get editable(): boolean;
+    set editable(value: boolean);
     get pathLabel(): string;
     get displayPath(): string;
     get level(): number;
-    constructor(item: T);
     getSaveLabel(): string;
+    getPropDomain(prop: IPropInfo): any[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    protected _doGetEditProps(): IPropInfo[];
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _getSubStyle(prop: string, style: string): any;
+    protected _setSubStyle(prop: string, style: string, value: any): void;
     protected _doLoad(loader: IReportLoader, source: ReportSource): void;
     protected _doSave(target: ReportTarget): void;
-    getEditProps(): IPropInfo[];
-    getPropDomain(prop: IPropInfo): any[];
 }
 
 /**
@@ -8066,18 +8086,6 @@ declare class MarkdownBand extends ReportBandItem {
      */
     getPrintText(ctx: PrintContext): string;
     /**
-     * 여러 행을 이어붙일지 판단할 때 사용할 data 이름.
-     *
-     * 해석 순서를 ReportItem.$_getValue()와 반드시 일치시킨다 — "데이터명::필드" 접두어가
-     * data 속성보다 우선이다. 순서가 어긋나면 행 수는 A에서, 값은 B에서 가져오게 된다.
-     * (접두어가 비어있는 "::field"는 $_getValue와 동일하게 인정하지 않는다.)
-     *
-     * dataParent에서 상속받은 data(_getParentData())는 일부러 쓰지 않는다. 상속된 data는
-     * "자식들이 행 단위 문맥으로 쓰라"는 의미이므로, 데이터셋 전체를 이어붙이는 동작은
-     * 밴드 자신에 명시된 경우로 제한한다. (TextBandElement의 `band.value && band.data` 조건과 동일한 판단)
-     */
-    private $_getBoundDataName;
-    /**
      * 바인딩된 band data의 모든 행 값을 이어붙인다.
      *
      * ctx.row는 건드리지 않는다 — getDataValue()가 row를 인자로 받으므로 바꿀 이유가 없고,
@@ -11055,6 +11063,10 @@ declare enum ReportArchiveType {
 }
 
 declare abstract class ReportBandItem extends ReportGroupItem {
+    /**
+     * value가 명시적으로 연결된 band data. 없거나 band data가 아니면 null.
+     */
+    getBoundBandData(dp: IReportDataProvider): IBandData;
     canAddTo(group: ReportGroupItem): boolean;
     canResize(dir: ResizeDirection): boolean;
     canPageBreak(): boolean;
@@ -11856,23 +11868,10 @@ declare interface ReportDesignerOptions {
 
 /**
  * 리포트 최상단에서 편집가능 객체 속성 구현
+ * - styles는 모든 editable marker에 공통으로 적용된다.
  */
-declare class ReportEditableObject<T extends ReportItem> extends ReportItemObject<T> {
-    static readonly PROP_EDITABLE = "editable";
-    static readonly PROP_TYPE = "type";
-    static readonly PROPINFOS: IPropInfo[];
-    private _editable;
-    get editable(): boolean;
-    set editable(value: boolean);
-    get pathLabel(): string;
-    get displayPath(): string;
-    get level(): number;
+declare class ReportEditableObject<T extends ReportItem> extends EditableObjectBase<T> {
     constructor(item: T);
-    getSaveLabel(): string;
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
-    protected _doSave(target: ReportTarget): void;
-    getEditProps(): IPropInfo[];
-    getPropDomain(prop: IPropInfo): any[];
 }
 
 /**
@@ -12646,6 +12645,12 @@ declare abstract class ReportItem extends ReportPageItem {
     getSubStyleProps(prop: string): IPropInfo[];
     getPlaceHolder(prop: IPropInfo): string;
     /* Excluded from this release type: getData */
+    /**
+     * value가 값을 읽는 data 이름.
+     * $_getValue()와 같은 순서: "데이터명::필드" 접두어 → data 속성 → (inherit면) dataParent에서 상속된 data.
+     * 접두어가 비어있는 "::field"는 $_getValue()와 같게 접두어로 보지 않는다.
+     */
+    getValueDataName(inherit?: boolean): string;
     /* Excluded from this release type: getDataFieldNames */
     getLanguageFields(): string[];
     getPropDomain(prop: IPropInfo): any[];

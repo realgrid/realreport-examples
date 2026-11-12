@@ -1,6 +1,6 @@
 /** 
-* RealReport v1.11.36
-* commit 7a6f0c8a
+* RealReport v1.11.37
+* commit 7d70784f
 
 * {@link https://real-report.com}
 * Copyright (C) 2013-2026 WooriTech Inc.
@@ -8,10 +8,10 @@
 */
 
 /** 
-* RealReport Core v1.11.36
+* RealReport Core v1.11.37
 * Copyright (C) 2013-2026 WooriTech Inc.
 * All Rights Reserved.
-* commit 99a7ab0a729146d0aaef59db604954a1fc6059b6
+* commit f753f711ad3483b6544a459131a642e7d20852c2
 */
 type ConfigObject$2 = {
     [key: string]: any;
@@ -186,6 +186,24 @@ declare abstract class ExpressionNode$1 {
     isIdentifier(value: any): boolean;
     abstract evaluate(runtime: ExpressionRuntime$1): any;
     toString(): string;
+}
+
+interface ICsvDataInfo {
+    /**
+     * 컬럼들의 이름이 표시되는 행 번호. 행은 1부터 시작.
+     */
+    headerRow?: number;
+    /**
+     * 데이터가 시작되는 행 번호. 지정하지 않으면 headerRow + 1.
+     */
+    startRow?: number;
+    /**
+     * 최대 행 수. 지정하지 않으면 마지막 데이터 행까지.
+     */
+    rowCount?: number;
+}
+interface ICsvDataReader {
+    readDataRows(data: BandData, source: string, info: ICsvDataInfo): Promise<any[]>;
 }
 
 interface IExcelDataInfo {
@@ -1651,6 +1669,238 @@ declare class AssetManager extends EventAware$1 {
     private $_addPalette;
 }
 
+type IBandDataFieldDataType = "text" | "number" | "bool" | "array" | "datetime";
+
+interface IReportDataProvider {
+    designTime?: boolean;
+    dirty?: boolean;
+    preparePrint(ctx: PrintContextBase): void;
+    getAll(): IReportData[];
+    get(name: string): IReportData;
+    getContextValue(path: string): any;
+    getValue(path: string, row: number): any;
+    getValueAt(data: string, path: string, row: number): any;
+    getFieldValues(data: string, field: string, rows?: number[]): any[];
+    addData?(data: IReportData, silent: boolean): boolean;
+    removeData?(data: string | IReportData): IReportData;
+    dataChanged?(data: IReportData): void;
+    dataNameChanged?(data: IReportData, oldName: string): void;
+    fieldNameChanged?(data: IReportData, newName: string, oldName: string): void;
+    setProperty?(data: IReportData, prop: string, value: any): void;
+}
+interface IReportDataFieldInfo {
+    label?: string;
+    fieldName: string;
+    dataType: IBandDataFieldDataType;
+}
+interface IReportData extends IPropertySource {
+    index: number;
+    name: string;
+    isBand: boolean;
+    isLocalLink: boolean;
+    getFieldNames(): string[];
+    getSaveType(): string;
+    getValue(path: string): any;
+    hasParams(): boolean;
+}
+declare abstract class ReportData$1 extends Base$1 implements IPropertySource {
+    static readonly PROP_NAME = "name";
+    static readonly PROP_INFOS: {
+        name: string;
+        category: PropCategory;
+        type: typeof StringProperty;
+        multiple: boolean;
+        default: any;
+    }[];
+    private _name;
+    private _dp;
+    index: number;
+    _deleted: boolean;
+    constructor(name: string, dp: IReportDataProvider);
+    getEditProps(): IPropInfo[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    isDominantProp(prop: IPropInfo): boolean;
+    getPlaceHolder(prop: IPropInfo): string;
+    getPropDomain(prop: IPropInfo): any[];
+    getProperty(prop: string): any;
+    setProperty(prop: string, value: any): void;
+    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getStyleProperty(prop: string): void;
+    setStyleProperty(prop: string, value: any): void;
+    setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
+    getSubStyleProperty(prop: string, style: string): void;
+    setSubStyleProperty(prop: string, style: string, value: any): void;
+    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
+    isReadOnlyProperty(prop: IPropInfo): boolean;
+    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
+    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
+    isCollectionProp(): boolean;
+    isEditableCollection(): boolean;
+    isCollectionItem(): boolean;
+    getCollectionLabel(): string;
+    getPropertySources(): IPropertySource[];
+    getPopupPropLabel(prop: string): string;
+    get provider(): IReportDataProvider;
+    get designTime(): boolean;
+    get isBand(): boolean;
+    /** name */
+    get name(): string;
+    set name(value: string);
+    get displayPath(): string;
+    preparePrint(ctx: PrintContextBase, design: boolean): void;
+}
+declare enum ReportDataLinkFormat {
+    JSON = "JSON",
+    CSV = "CSV",
+    SHEET = "SHEET"
+}
+declare const LocalFileTypes: readonly ["json", "csv", "excel"];
+interface IReportDataLink {
+    source: 'local' | 'remote';
+    /** remote */
+    url?: string;
+    method?: 'GET' | 'POST' | 'PUT';
+    pathParams?: RegExpExecArray[];
+    params?: {
+        [name: string]: string;
+    };
+    headers?: {
+        [name: string]: string;
+    };
+    format?: ReportDataLinkFormat;
+    /** local */
+    fileType?: typeof LocalFileTypes[number];
+    exts?: string;
+    /** json */
+    dataPath?: string;
+    /** csv & xlsx */
+    headerRow?: number;
+    startRow?: number;
+    rowCount?: number;
+    /** csv */
+    delimiter?: string;
+    quoted?: boolean;
+    /** xlsx */
+    startCol?: string;
+    endRowCol?: string;
+    endCheckValue?: string;
+    useHeaderNames?: boolean;
+}
+declare abstract class LinkableReportData extends ReportData$1 implements IEditCommandStackOwner {
+    private static readonly LOCAL_PROPS;
+    protected _mode: 'link' | 'embed';
+    _link?: IReportDataLink;
+    orgLink?: IReportDataLink;
+    private _linkCommands;
+    constructor(name: string, link?: IReportDataLink, dp?: IReportDataProvider);
+    editCommandStackChanged(stack: EditCommandStack$1, cmd: EditCommand$1, undoable: boolean, redoable: boolean): void;
+    editCommandStackDirtyChanged(stack: EditCommandStack$1): void;
+    editCommandError(command: EditCommand$1): void;
+    onLinkChanged: (stack: EditCommandStack$1, cmd: EditCommand$1) => void;
+    hasParams(): boolean;
+    get isLocalLink(): boolean;
+    updateLink(changes: IReportDataLink): void;
+    resetLink(): void;
+    undoLink(): void;
+    redoLink(): void;
+    embedPreview: boolean;
+    get linkCommands(): EditCommandStack$1;
+    get mode(): "embed" | "link";
+    get dirty(): boolean;
+    set dirty(value: boolean);
+    isDirty(): boolean;
+    clean(): void;
+    get isLinkMode(): boolean;
+    /**
+     * link
+     */
+    get link(): IReportDataLink;
+    set link(value: IReportDataLink);
+    get linkUrl(): string;
+    private $_getLinkUrl;
+    abstract loadJson(source: string, link: IReportDataLink): Promise<void>;
+    abstract loadCsv(source: string, reader: ICsvDataReader, info: ICsvDataInfo): Promise<void>;
+    abstract loadExcel(source: ArrayBuffer, reader: IExcelDataReader, info: IExcelDataInfo): Promise<void>;
+    fetchData(runParams: {
+        [param: string]: any;
+    }): Promise<void>;
+    private $_loadLink;
+    saveLink(target: any): IReportDataLink;
+    save(target?: any): any;
+    protected abstract _doDataFetched(fetchedData: unknown): void;
+    /**
+     * ../{param1}/{param2} 형태의 url에서 param을 뽑아낸다.
+     */
+    private $_parseUrl;
+}
+type SimpleDataValueType = {
+    [key: string]: any;
+};
+interface ISimpleDataField {
+    fieldName: string;
+    dataType?: 'string' | 'number' | 'boolean' | 'array' | 'object';
+    source?: string;
+    expression?: string;
+    format?: string;
+    description?: string;
+    sample?: any;
+    dateReader?: DatetimeReader;
+    width?: number;
+    children?: any;
+}
+interface ISimpleData extends IReportData {
+    getValues(): any;
+    getSaveValues(): any;
+}
+/**
+ * 단순형 값이나, json 객체를 값으로 지정한다.
+ */
+declare class SimpleData extends LinkableReportData implements ISimpleData {
+    private _isObj;
+    private _linkedValues;
+    private _embeddedValues;
+    private _dirty;
+    onClean: () => void;
+    constructor(name: string, values: SimpleDataValueType, link?: IReportDataLink, fields?: ISimpleDataField[], dp?: IReportDataProvider);
+    getValue(path?: string): any;
+    getValues(): any;
+    setValue(path: string, value: any): void;
+    changeName(path: string, newName: string): void;
+    /**
+     * 중첩 경로를 안전하게 탐색한다. 중간 값이 null/undefined이면 undefined를 반환.
+     */
+    private _resolvePath;
+    /**
+     * 중첩 경로의 마지막 직전 객체(부모)를 안전하게 탐색한다.
+     * setValue, changeName 등에서 부모 객체가 필요할 때 사용.
+     */
+    private _resolveParent;
+    private get _values();
+    private set _values(value);
+    get sample(): SimpleDataValueType;
+    get rowCount(): number;
+    getSaveType(): string;
+    getSaveValues(): any;
+    setSample(values: any): void;
+    getFieldNames(): string[];
+    /**
+     * 특정 모드의 데이터를 일회성으로 조작하기 위한 편의성 메서드 (callback 실행 후 모드는 원복됨)
+     */
+    runInMode(mode: LinkableReportData['_mode'], callback: (() => void) | Promise<void>): void;
+    readValue(field: ISimpleDataField, value: any): any;
+    setSource(source: SimpleDataValueType): void;
+    save(target: any): any;
+    loadJson(source: string): Promise<void>;
+    loadCsv(source: string): Promise<void>;
+    loadExcel(source: ArrayBuffer, reader: IExcelDataReader, info: IExcelDataInfo): Promise<void>;
+    setDirty(): void;
+    isDirty(): boolean;
+    clean(): void;
+    protected _doDataFetched(fetchedData: unknown): void;
+    private $_isSimpleValueType;
+}
+
 /**
  * Design-time data provider
  */
@@ -1701,6 +1951,31 @@ declare class DesignDataManager extends EventAware$1 implements IReportDataProvi
     private $_fireDataAdded;
     private $_fireDataRemoved;
     private $_fireDataUpdated;
+}
+
+/**
+ * @filename BandDataSortView.ts
+ * @author sykim <KIMSANGYEOB>
+ * @date 2023.07.13
+ * @description <밴드 데이터에서 추가적인 설정을 적용 후 표현하기 위해 작성>
+ */
+
+interface IBandDataSortView {
+    rowCount: number;
+    sort: (field: string, direction: DataDirection) => void;
+    getRowValue: (row: number, field: string) => any;
+    getFieldValues: (field: string, rows?: number[]) => any[];
+}
+declare class BandDataSortView extends Base$1 implements IBandDataSortView {
+    static readonly SOURCE_INDEX = "_source_index_";
+    private _source;
+    private _fieldMap;
+    private _view;
+    constructor(data: IReportData);
+    get rowCount(): number;
+    sort(field: string, direction: DataDirection): this;
+    getRowValue(row: number, field: string): any;
+    getFieldValues(field: string, rows?: number[]): any[];
 }
 
 /** @internal */
@@ -5878,38 +6153,74 @@ declare class I18nObject<T extends ReportItem> extends ReportItemObject<T> {
 }
 
 /**
- * 텍스트 관련 편집가능 객체 속성 구현
+ * 편집 속성(`editing`) 객체의 공통 기반.
+ * editable 여부와 editable marker 스타일(`styles`)을 가진다.
+ * 하위 클래스는 `_doGetEditProps()`로 고유 속성만 추가한다.
  */
-declare class EditableObject<T extends ReportItem> extends ReportItemObject<T> {
+declare abstract class EditableObjectBase<T extends ReportItem> extends ReportItemObject<T> {
     static readonly PROP_EDITABLE = "editable";
-    static readonly PROP_TYPE = "type";
-    static readonly PROP_MAX_LENGTH = "maxLength";
-    static readonly PROP_SYNC_KEY = "syncKey";
+    static readonly PROP_STYLES = "styles";
     static readonly PROPINFOS: IPropInfo[];
+    static readonly VISIBLE_IF_EDITABLE: (source: EditableObjectBase<any>) => boolean;
+    static readonly STYLES_PROPINFO: IPropInfo;
+    static readonly MARKER_STYLE_PROPS: string[];
+    private static _markerStyleInfos;
+    /**
+     * PropertyGroup.borrow가 info 객체 동일성으로 재사용하므로 한 번만 만든다.
+     * STYLE_PROPS가 모듈 로드 순서상 비어 있을 수 있어 처음 쓸 때 만든다.
+     */
+    static get MARKER_STYLE_INFOS(): IPropInfo[];
     private _editable;
-    private _type;
-    private _maxLength;
-    private _syncKey;
+    constructor(item: T);
     get editable(): boolean;
     set editable(value: boolean);
-    get type(): EditType;
-    set type(value: EditType);
-    get maxLength(): number;
-    set maxLength(value: number);
+    get pathLabel(): string;
+    get displayPath(): string;
+    get level(): number;
+    getSaveLabel(): string;
+    getPropDomain(prop: IPropInfo): any[];
+    getStyleProps(): IPropInfo[];
+    getSubStyleProps(prop: string): IPropInfo[];
+    protected _doGetEditProps(): IPropInfo[];
+    protected _getEditProps(): IPropInfo[];
+    protected _getStyleProps(): string[];
+    protected _getSubStyle(prop: string, style: string): any;
+    protected _setSubStyle(prop: string, style: string, value: any): void;
+    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
+    protected _doSave(target: ReportTarget): void;
+}
+
+/**
+ * 참, 거짓 편집 가능한 속성 객체
+ */
+declare class BooleanEditableObject<T extends ReportItem> extends EditableObjectBase<T> {
+    static readonly PROP_SYNC_KEY = "syncKey";
+    static readonly PROPINFOS: IPropInfo[];
+    private _syncKey;
     /**
      * 같은 출력 컨테이너 안에서 syncKey와 아이템 타입이 같은 편집 항목끼리 편집 값을 함께 반영한다.
      */
     get syncKey(): string;
     set syncKey(value: string);
-    get pathLabel(): string;
-    get displayPath(): string;
-    get level(): number;
     constructor(item: T);
-    getSaveLabel(): string;
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
-    protected _doSave(target: ReportTarget): void;
-    getEditProps(): IPropInfo[];
-    getPropDomain(prop: IPropInfo): any[];
+    protected _doGetEditProps(): IPropInfo[];
+}
+
+/**
+ * 텍스트 관련 편집가능 객체 속성 구현
+ */
+declare class EditableObject<T extends ReportItem> extends BooleanEditableObject<T> {
+    static readonly PROP_TYPE = "type";
+    static readonly PROP_MAX_LENGTH = "maxLength";
+    static readonly PROPINFOS: IPropInfo[];
+    private _type;
+    private _maxLength;
+    get type(): EditType;
+    set type(value: EditType);
+    get maxLength(): number;
+    set maxLength(value: number);
+    constructor(item: T);
+    protected _doGetEditProps(): IPropInfo[];
 }
 
 /**
@@ -9216,18 +9527,6 @@ declare class MarkdownBand extends ReportBandItem {
      */
     getPrintText(ctx: PrintContext$1): string;
     /**
-     * 여러 행을 이어붙일지 판단할 때 사용할 data 이름.
-     *
-     * 해석 순서를 ReportItem.$_getValue()와 반드시 일치시킨다 — "데이터명::필드" 접두어가
-     * data 속성보다 우선이다. 순서가 어긋나면 행 수는 A에서, 값은 B에서 가져오게 된다.
-     * (접두어가 비어있는 "::field"는 $_getValue와 동일하게 인정하지 않는다.)
-     *
-     * dataParent에서 상속받은 data(_getParentData())는 일부러 쓰지 않는다. 상속된 data는
-     * "자식들이 행 단위 문맥으로 쓰라"는 의미이므로, 데이터셋 전체를 이어붙이는 동작은
-     * 밴드 자신에 명시된 경우로 제한한다. (TextBandElement의 `band.value && band.data` 조건과 동일한 판단)
-     */
-    private $_getBoundDataName;
-    /**
      * 바인딩된 band data의 모든 행 값을 이어붙인다.
      *
      * ctx.row는 건드리지 않는다 — getDataValue()가 row를 인자로 받으므로 바꿀 이유가 없고,
@@ -10278,22 +10577,6 @@ declare class HichartMarquee extends EditMarquee<HichartItemElement> {
     private $_prepareSeries;
 }
 
-/**
- * Report Editable 속성 관련하여 수정가능한 영역 표시를 위해 작성
- */
-declare class EditableMarker extends VisualElement$1 {
-    static readonly CLASS_NAME = "rr-editable-marker";
-    static readonly DEFAULT_BACKGROUND_COLOR = "#0ea5e9";
-    private $_originalValue;
-    get originalValue(): string;
-    set originalValue(value: string);
-    constructor(doc: Document);
-    get isLayer(): boolean;
-    protected _initDom(doc: Document, dom: HTMLElement): void;
-    setOriginalValue(value: string): void;
-    setMarkerSize(width: number, height: number): void;
-}
-
 declare class TextBandSectionElement extends StackContainerElement<TextBandSection> {
     constructor(doc: Document, model: TextBandSection, styleName: string);
     get debugLabel(): string;
@@ -10333,13 +10616,11 @@ declare class TextBandElement extends BandItemElement<TextBand> {
     private _headViews;
     private _hBody;
     private _lines;
-    private _editableMarkers;
     constructor(doc: Document, model: TextBand);
     get headerView(): TextBandSectionElement;
     /** footerView */
     get footerView(): TextBandSectionElement;
     prepareAsync(doc: Document, ctx: PrintContext$1, width: number): TextBandPrintInfo;
-    addEditableMarker(): EditableMarker;
     runStyleCallback(itemStyle: Styles, ctx: PrintContext$1, model: ReportItem): Styles;
     get debugLabel(): string;
     isDom(dom: Element): boolean;
@@ -10359,7 +10640,8 @@ declare class TextBandElement extends BandItemElement<TextBand> {
      * - $_getPrintText는 데이터가 바인딩 된 경우 각 행(ctx.row)의 데이터를 반환함.
      *
      * @param ctx PrintContext
-     * @param band 바인딩된 밴드 데이터
+     * @param band 텍스트 밴드
+     * @param data 바인딩된 밴드 데이터
      * @returns 수집된 모든 텍스트(개행문자로 join됨)
      */
     private $_collectTexts;
@@ -12413,23 +12695,10 @@ declare class SubBandPage extends ReportPage {
 
 /**
  * 리포트 최상단에서 편집가능 객체 속성 구현
+ * - styles는 모든 editable marker에 공통으로 적용된다.
  */
-declare class ReportEditableObject<T extends ReportItem> extends ReportItemObject<T> {
-    static readonly PROP_EDITABLE = "editable";
-    static readonly PROP_TYPE = "type";
-    static readonly PROPINFOS: IPropInfo[];
-    private _editable;
-    get editable(): boolean;
-    set editable(value: boolean);
-    get pathLabel(): string;
-    get displayPath(): string;
-    get level(): number;
+declare class ReportEditableObject<T extends ReportItem> extends EditableObjectBase<T> {
     constructor(item: T);
-    getSaveLabel(): string;
-    protected _doLoad(loader: IReportLoader, source: ReportSource): void;
-    protected _doSave(target: ReportTarget): void;
-    getEditProps(): IPropInfo[];
-    getPropDomain(prop: IPropInfo): any[];
 }
 
 declare class RealMapChartBarSeries extends RealMapSeries<RealMapChartBarSeriesConfig> {
@@ -14197,8 +14466,6 @@ type PrintLine = {
     pageIndex: number;
 };
 
-type IBandDataFieldDataType = "text" | "number" | "bool" | "array" | "datetime";
-
 interface IBandDataField {
     fieldName: string;
     label?: string;
@@ -14333,279 +14600,6 @@ declare class BandArrayData extends BandData implements IBandData {
     protected _getSampleValues(): any[];
     protected _readRows(): void;
     protected _prepareCalcField(fields: IBandDataField[], fieldMap: any, calcField: IBandDataField, index: number, node: ExpressionNode$1): void;
-}
-
-interface ICsvDataInfo {
-    /**
-     * 컬럼들의 이름이 표시되는 행 번호. 행은 1부터 시작.
-     */
-    headerRow?: number;
-    /**
-     * 데이터가 시작되는 행 번호. 지정하지 않으면 headerRow + 1.
-     */
-    startRow?: number;
-    /**
-     * 최대 행 수. 지정하지 않으면 마지막 데이터 행까지.
-     */
-    rowCount?: number;
-}
-interface ICsvDataReader {
-    readDataRows(data: BandData, source: string, info: ICsvDataInfo): Promise<any[]>;
-}
-
-interface IReportDataProvider {
-    designTime?: boolean;
-    dirty?: boolean;
-    preparePrint(ctx: PrintContextBase): void;
-    getAll(): IReportData[];
-    get(name: string): IReportData;
-    getContextValue(path: string): any;
-    getValue(path: string, row: number): any;
-    getValueAt(data: string, path: string, row: number): any;
-    getFieldValues(data: string, field: string, rows?: number[]): any[];
-    addData?(data: IReportData, silent: boolean): boolean;
-    removeData?(data: string | IReportData): IReportData;
-    dataChanged?(data: IReportData): void;
-    dataNameChanged?(data: IReportData, oldName: string): void;
-    fieldNameChanged?(data: IReportData, newName: string, oldName: string): void;
-    setProperty?(data: IReportData, prop: string, value: any): void;
-}
-interface IReportDataFieldInfo {
-    label?: string;
-    fieldName: string;
-    dataType: IBandDataFieldDataType;
-}
-interface IReportData extends IPropertySource {
-    index: number;
-    name: string;
-    isBand: boolean;
-    isLocalLink: boolean;
-    getFieldNames(): string[];
-    getSaveType(): string;
-    getValue(path: string): any;
-    hasParams(): boolean;
-}
-declare abstract class ReportData$1 extends Base$1 implements IPropertySource {
-    static readonly PROP_NAME = "name";
-    static readonly PROP_INFOS: {
-        name: string;
-        category: PropCategory;
-        type: typeof StringProperty;
-        multiple: boolean;
-        default: any;
-    }[];
-    private _name;
-    private _dp;
-    index: number;
-    _deleted: boolean;
-    constructor(name: string, dp: IReportDataProvider);
-    getEditProps(): IPropInfo[];
-    getStyleProps(): IPropInfo[];
-    getSubStyleProps(prop: string): IPropInfo[];
-    isDominantProp(prop: IPropInfo): boolean;
-    getPlaceHolder(prop: IPropInfo): string;
-    getPropDomain(prop: IPropInfo): any[];
-    getProperty(prop: string): any;
-    setProperty(prop: string, value: any): void;
-    setItemsProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getStyleProperty(prop: string): void;
-    setStyleProperty(prop: string, value: any): void;
-    setItemsStyleProperty(sources: IPropertySource[], prop: string, value: any): void;
-    getSubStyleProperty(prop: string, style: string): void;
-    setSubStyleProperty(prop: string, style: string, value: any): void;
-    setItemsSubStyleProperty(sources: IPropertySource[], prop: string, style: string, value: any): void;
-    isReadOnlyProperty(prop: IPropInfo): boolean;
-    canPropAdoptDragSource(prop: IPropInfo, source: any): boolean;
-    adoptPropDragSource(prop: IPropInfo, source: any): IDropResult;
-    isCollectionProp(): boolean;
-    isEditableCollection(): boolean;
-    isCollectionItem(): boolean;
-    getCollectionLabel(): string;
-    getPropertySources(): IPropertySource[];
-    getPopupPropLabel(prop: string): string;
-    get provider(): IReportDataProvider;
-    get designTime(): boolean;
-    get isBand(): boolean;
-    /** name */
-    get name(): string;
-    set name(value: string);
-    get displayPath(): string;
-    preparePrint(ctx: PrintContextBase, design: boolean): void;
-}
-declare enum ReportDataLinkFormat {
-    JSON = "JSON",
-    CSV = "CSV",
-    SHEET = "SHEET"
-}
-declare const LocalFileTypes: readonly ["json", "csv", "excel"];
-interface IReportDataLink {
-    source: 'local' | 'remote';
-    /** remote */
-    url?: string;
-    method?: 'GET' | 'POST' | 'PUT';
-    pathParams?: RegExpExecArray[];
-    params?: {
-        [name: string]: string;
-    };
-    headers?: {
-        [name: string]: string;
-    };
-    format?: ReportDataLinkFormat;
-    /** local */
-    fileType?: typeof LocalFileTypes[number];
-    exts?: string;
-    /** json */
-    dataPath?: string;
-    /** csv & xlsx */
-    headerRow?: number;
-    startRow?: number;
-    rowCount?: number;
-    /** csv */
-    delimiter?: string;
-    quoted?: boolean;
-    /** xlsx */
-    startCol?: string;
-    endRowCol?: string;
-    endCheckValue?: string;
-    useHeaderNames?: boolean;
-}
-declare abstract class LinkableReportData extends ReportData$1 implements IEditCommandStackOwner {
-    private static readonly LOCAL_PROPS;
-    protected _mode: 'link' | 'embed';
-    _link?: IReportDataLink;
-    orgLink?: IReportDataLink;
-    private _linkCommands;
-    constructor(name: string, link?: IReportDataLink, dp?: IReportDataProvider);
-    editCommandStackChanged(stack: EditCommandStack$1, cmd: EditCommand$1, undoable: boolean, redoable: boolean): void;
-    editCommandStackDirtyChanged(stack: EditCommandStack$1): void;
-    editCommandError(command: EditCommand$1): void;
-    onLinkChanged: (stack: EditCommandStack$1, cmd: EditCommand$1) => void;
-    hasParams(): boolean;
-    get isLocalLink(): boolean;
-    updateLink(changes: IReportDataLink): void;
-    resetLink(): void;
-    undoLink(): void;
-    redoLink(): void;
-    embedPreview: boolean;
-    get linkCommands(): EditCommandStack$1;
-    get mode(): "embed" | "link";
-    get dirty(): boolean;
-    set dirty(value: boolean);
-    isDirty(): boolean;
-    clean(): void;
-    get isLinkMode(): boolean;
-    /**
-     * link
-     */
-    get link(): IReportDataLink;
-    set link(value: IReportDataLink);
-    get linkUrl(): string;
-    private $_getLinkUrl;
-    abstract loadJson(source: string, link: IReportDataLink): Promise<void>;
-    abstract loadCsv(source: string, reader: ICsvDataReader, info: ICsvDataInfo): Promise<void>;
-    abstract loadExcel(source: ArrayBuffer, reader: IExcelDataReader, info: IExcelDataInfo): Promise<void>;
-    fetchData(runParams: {
-        [param: string]: any;
-    }): Promise<void>;
-    private $_loadLink;
-    saveLink(target: any): IReportDataLink;
-    save(target?: any): any;
-    protected abstract _doDataFetched(fetchedData: unknown): void;
-    /**
-     * ../{param1}/{param2} 형태의 url에서 param을 뽑아낸다.
-     */
-    private $_parseUrl;
-}
-type SimpleDataValueType = {
-    [key: string]: any;
-};
-interface ISimpleDataField {
-    fieldName: string;
-    dataType?: 'string' | 'number' | 'boolean' | 'array' | 'object';
-    source?: string;
-    expression?: string;
-    format?: string;
-    description?: string;
-    sample?: any;
-    dateReader?: DatetimeReader;
-    width?: number;
-    children?: any;
-}
-interface ISimpleData extends IReportData {
-    getValues(): any;
-    getSaveValues(): any;
-}
-/**
- * 단순형 값이나, json 객체를 값으로 지정한다.
- */
-declare class SimpleData extends LinkableReportData implements ISimpleData {
-    private _isObj;
-    private _linkedValues;
-    private _embeddedValues;
-    private _dirty;
-    onClean: () => void;
-    constructor(name: string, values: SimpleDataValueType, link?: IReportDataLink, fields?: ISimpleDataField[], dp?: IReportDataProvider);
-    getValue(path?: string): any;
-    getValues(): any;
-    setValue(path: string, value: any): void;
-    changeName(path: string, newName: string): void;
-    /**
-     * 중첩 경로를 안전하게 탐색한다. 중간 값이 null/undefined이면 undefined를 반환.
-     */
-    private _resolvePath;
-    /**
-     * 중첩 경로의 마지막 직전 객체(부모)를 안전하게 탐색한다.
-     * setValue, changeName 등에서 부모 객체가 필요할 때 사용.
-     */
-    private _resolveParent;
-    private get _values();
-    private set _values(value);
-    get sample(): SimpleDataValueType;
-    get rowCount(): number;
-    getSaveType(): string;
-    getSaveValues(): any;
-    setSample(values: any): void;
-    getFieldNames(): string[];
-    /**
-     * 특정 모드의 데이터를 일회성으로 조작하기 위한 편의성 메서드 (callback 실행 후 모드는 원복됨)
-     */
-    runInMode(mode: LinkableReportData['_mode'], callback: (() => void) | Promise<void>): void;
-    readValue(field: ISimpleDataField, value: any): any;
-    setSource(source: SimpleDataValueType): void;
-    save(target: any): any;
-    loadJson(source: string): Promise<void>;
-    loadCsv(source: string): Promise<void>;
-    loadExcel(source: ArrayBuffer, reader: IExcelDataReader, info: IExcelDataInfo): Promise<void>;
-    setDirty(): void;
-    isDirty(): boolean;
-    clean(): void;
-    protected _doDataFetched(fetchedData: unknown): void;
-    private $_isSimpleValueType;
-}
-
-/**
- * @filename BandDataSortView.ts
- * @author sykim <KIMSANGYEOB>
- * @date 2023.07.13
- * @description <밴드 데이터에서 추가적인 설정을 적용 후 표현하기 위해 작성>
- */
-
-interface IBandDataSortView {
-    rowCount: number;
-    sort: (field: string, direction: DataDirection) => void;
-    getRowValue: (row: number, field: string) => any;
-    getFieldValues: (field: string, rows?: number[]) => any[];
-}
-declare class BandDataSortView extends Base$1 implements IBandDataSortView {
-    static readonly SOURCE_INDEX = "_source_index_";
-    private _source;
-    private _fieldMap;
-    private _view;
-    constructor(data: IReportData);
-    get rowCount(): number;
-    sort(field: string, direction: DataDirection): this;
-    getRowValue(row: number, field: string): any;
-    getFieldValues(field: string, rows?: number[]): any[];
 }
 
 interface ISelectionSource {
@@ -14868,6 +14862,12 @@ declare abstract class ReportItem extends ReportPageItem {
      * @internal
      */
     getData(): IReportData;
+    /**
+     * value가 값을 읽는 data 이름.
+     * $_getValue()와 같은 순서: "데이터명::필드" 접두어 → data 속성 → (inherit면) dataParent에서 상속된 data.
+     * 접두어가 비어있는 "::field"는 $_getValue()와 같게 접두어로 보지 않는다.
+     */
+    getValueDataName(inherit?: boolean): string;
     /**
      * @internal
      */
@@ -15355,6 +15355,10 @@ declare abstract class ReportGroupItem extends ReportItem {
     protected _setOutlineOrders(start: number, ...items: ReportPageItem[]): void;
 }
 declare abstract class ReportBandItem extends ReportGroupItem {
+    /**
+     * value가 명시적으로 연결된 band data. 없거나 band data가 아니면 null.
+     */
+    getBoundBandData(dp: IReportDataProvider): IBandData;
     canAddTo(group: ReportGroupItem): boolean;
     canResize(dir: ResizeDirection): boolean;
     canPageBreak(): boolean;
