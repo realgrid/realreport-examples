@@ -4621,6 +4621,7 @@ declare class ExcelReportEditView extends ExcelReportView {
     _fireFocusedChanged(focused: ReportPageItem, old: ReportPageItem): void;
     _fireSelectionChanged(selection: ReportPageItem[]): void;
     protected onReportPageAdded(report: ExcelReport, page: ExcelPage): void;
+    protected onReportPageMoved(report: ExcelReport, page: ExcelPage, newIndex: number, oldIndex: number): void;
     protected onReportPageRemoved(report: ExcelReport, page: ExcelPage, index: number): void;
     protected onReportItemAdded(report: ExcelReport, item: ReportItem, index: number, silent: boolean): void;
     protected onReportItemRemoved(report: ExcelReport, item: ReportItem, oldParent: ReportGroupItem): void;
@@ -10944,9 +10945,16 @@ declare class Report_2 extends ReportBase<ReportPage> {
     addCollectionItem(collection: IPropertySource): void;
     setSaveTagging(tag: string): Report_2;
     addSubBandPage(): SubBandPage;
-    movePage(index: number, newIndex: number): void;
+    /**
+     * sub band 페이지는 report header/footer 섹션이 꺼져 있으므로 첫/마지막 위치를 새로 차지하지 못하게 한다.
+     */
+    canMovePage(index: number, newIndex: number): boolean;
     internalAddSubBandPage(page?: SubBandPage): SubBandPage;
-    internalMovePage(index: number, newIndex: number): void;
+    /**
+     * report header/footer는 첫/마지막 위치에 고정한다.
+     * 이동 전후 첫(마지막) 페이지 사이에서 섹션을 맞바꾸므로 반대 방향 이동(undo)에서 그대로 원복된다.
+     */
+    protected _doPageMoved(oldFirst: ReportPage, oldLast: ReportPage): void;
     prepareLayout(page?: number): void;
     afterLayout(): void;
     preparePrint(ctx: PrintContext): void;
@@ -11077,6 +11085,7 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     static readonly PAPER_CHANGED = "onReportPaperChanged";
     static readonly PAGE_ADDED = "onReportPageAdded";
     static readonly PAGE_REMOVED = "onReportPageRemoved";
+    static readonly PAGE_MOVED = "onReportPageMoved";
     static readonly CHANGED = "onReportChanged";
     static readonly ITEM_ADD = "onReportItemAdd";
     static readonly ITEM_ADDED = "onReportItemAdded";
@@ -11243,6 +11252,9 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     _getNextPageIndex(): number;
     addPage(): ReportPage;
     removePage(index: number): boolean;
+    canMovePage(index: number, newIndex: number): boolean;
+    movePage(index: number, newIndex: number): boolean;
+    internalMovePage(index: number, newIndex: number): void;
     getInvalids(): {
         item: ReportItem;
         reason: string;
@@ -11289,6 +11301,12 @@ declare abstract class ReportBase<T extends ReportPageBase = ReportPageBase> ext
     private $_addPage;
     protected _insertPage(page: T, index: number): void;
     protected _resetPageIndices(): void;
+    /**
+     * 페이지 이동 후 호출된다.
+     * @param oldFirst 이동 전 첫 페이지
+     * @param oldLast 이동 전 마지막 페이지
+     */
+    protected _doPageMoved(oldFirst: T, oldLast: T): void;
     private $_updateReportItemsLanguageField;
     private $_refreshInvalids;
     protected _fireReset(): void;
@@ -12325,6 +12343,7 @@ declare class ReportEditView extends ReportView {
     _fireFocusedChanged(focused: ReportPageItem, old: ReportPageItem): void;
     _fireSelectionChanged(selection: ReportPageItem[]): void;
     protected onReportPageAdded(report: Report_2, page: ReportPage): void;
+    protected onReportPageMoved(report: Report_2, page: ReportPage, newIndex: number, oldIndex: number): void;
     protected onReportPageRemoved(report: Report_2, page: ReportPage, index: number): void;
     protected onReportItemAdded(report: Report_2, item: ReportItem, index: number, silent: boolean): void;
     protected onReportItemRemoved(report: Report_2, item: ReportItem, oldParent: ReportGroupItem): void;
@@ -13418,6 +13437,12 @@ declare class ReportPage extends ReportPageBase {
      * frontItems
      */
     get frontItems(): ReportItem[];
+    /**
+     * 다른 페이지와 report header 또는 footer 섹션을 맞바꾼다.
+     * Report.internalMovePage에서 첫/마지막 위치에 섹션을 고정하기 위해 호출한다.
+     * 아이템 객체를 그대로 옮겨야 undo 스택의 다른 커맨드 참조가 유지되므로 add/remove를 거치지 않는다.
+     */
+    swapReportSection(other: ReportPage, kind: 'header' | 'footer'): void;
     getPageLabel(): string;
     outlineVisible(child: IOutlineSource): boolean;
     getEditProps(): IPropInfo[];
@@ -13432,6 +13457,7 @@ declare class ReportPage extends ReportPageBase {
      */
     isPrintable(context: PrintContextBase): boolean;
     protected _initSections(): ReportGroupItem[];
+    private $_replaceSection;
     protected _createPageBody(): PageBody;
     protected _createReportFooter(): ReportFooter;
     /**
@@ -13841,6 +13867,7 @@ declare abstract class ReportViewBase<T extends ReportBase = ReportBase> extends
     protected onReportPaperChanged(report: ReportBase): void;
     protected onReportPageAdded(report: ReportBase, page: ReportPageBase): void;
     protected onReportPageRemoved(report: ReportBase, page: ReportPageBase, index: number): void;
+    protected onReportPageMoved(report: ReportBase, page: ReportPageBase, newIndex: number, oldIndex: number): void;
     protected onReportChanged(report: ReportBase): void;
     protected onReportItemAdded(report: ReportBase, item: ReportItem, index: number, silent: boolean): void;
     protected onReportItemRemoved(report: ReportBase, item: ReportItem, oldParent: ReportGroupItem): void;
