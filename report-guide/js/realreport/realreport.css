@@ -1,5 +1,5 @@
 /* 
-RealReport v1.11.37
+RealReport v1.11.38
 Copyright (C) 2013-2026 WooriTech Inc.
 All Rights Reserved.
 */
@@ -75,6 +75,14 @@ sup {
 
 .rr-report-root.rr-email {
   font-family: "Arial", "Courier New", "Times New Roman", sans-serif;
+}
+
+/* 편집용 표시는 리포트·페이지 폰트를 물려받지 않는다. */
+.rr-design-back,
+.rr-section-head,
+.rr-section-guard,
+.rr-empty {
+  font-family: "Malgun Gothic", "맑은 고딕", AppleSDGothicNeo-Light, sans-serif;
 }
 
 .rr-report-container {
